@@ -1,0 +1,5 @@
+@model Barebone.ViewModels.Shared.Scripts.ScriptsViewModel
+@foreach (var script in this.Model.Scripts)
+{
+  @Html.Partial("_Script", script)
+}

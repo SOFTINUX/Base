@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>@Html.Raw(this.ViewBag.Title as string)</title>
+  @await Component.InvokeAsync("StyleSheets")
+  @await Component.InvokeAsync("Scripts")
+</head>
+<body>
+  <div>
+    <div>
+      <h1>
+        Demo
+      </h1>
+      @await Component.InvokeAsync("Menu")
+    </div>
+    <div>
+      @RenderBody()
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,7 @@
+@model Barebone.ViewModels.Shared.Menu.MenuViewModel
+<div>
+  @foreach (var menuItem in this.Model.MenuItems)
+  {
+    @Html.Partial("_MenuItem", menuItem)
+  }
+</div>

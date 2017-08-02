@@ -1,0 +1,5 @@
+@model Barebone.ViewModels.Shared.StyleSheets.StyleSheetsViewModel
+@foreach (var styleSheet in this.Model.StyleSheets)
+{
+  @Html.Partial("_StyleSheet", styleSheet)
+}
