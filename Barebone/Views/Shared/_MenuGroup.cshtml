@@ -1,0 +1,12 @@
+@model Barebone.ViewModels.Shared.MenuGroupViewModel
+<div data-code="main-@(this.Model.Position)">
+  <div>
+    @Model.Name
+  </div>
+  <div>
+    @foreach (var MenuItem in this.Model.MenuItems)
+    {
+      @Html.Partial("_MenuItem", MenuItem)
+    }
+  </div>
+</div>

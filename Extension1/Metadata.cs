@@ -7,13 +7,20 @@ namespace Extension1
     {
         public IEnumerable<StyleSheet> StyleSheets => new StyleSheet[] {};
         public IEnumerable<Script> Scripts => new Script[] {};
-        public IEnumerable<MenuItem> MenuItems
+        public IEnumerable<MenuGroup> MenuGroups
         {
             get
             {
-                return new MenuItem[]
+                return new MenuGroup[]
                 {
-                    new MenuItem("/extension1", "Exstension 1", 100)
+                    new MenuGroup(
+                        "Content",
+                        1000,
+                        new MenuItem[]
+                        {
+                            new MenuItem("/extension1", "Exstension 1", 100)
+                        }
+                    )
                 };
             }
         }
