@@ -8,10 +8,6 @@ namespace Barebone.ViewComponents
     public class MenuViewComponent : ViewComponentBase
     {
 
-        public MenuViewComponent(IStorage storage)
-            : base(storage)
-        {
-        }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {

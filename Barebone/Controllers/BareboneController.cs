@@ -6,10 +6,6 @@ namespace Barebone.Controllers
 {
     public class BareboneController : ControllerBase
     {
-        public BareboneController(IStorage storage)
-            : base(storage)
-        {
-        }
 
         public ActionResult Index()
         {

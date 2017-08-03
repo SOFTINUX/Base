@@ -5,11 +5,10 @@ namespace Barebone.Controllers
 {
     public abstract class ControllerBase : Controller, IRequestHandler
     {
-        public IStorage Storage { get; private set; }
 
-        public ControllerBase(IStorage storage)
+        public ControllerBase()
         {
-            this.Storage = storage;
+
         }
 
         protected RedirectResult CreateRedirectToSelfResult()

@@ -3,13 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Barebone.ViewComponents
 {
-    public abstract class ViewComponentBase : ViewComponent, IRequestHandler
+    public abstract class ViewComponentBase : ViewComponent, Barebone.IRequestHandler
     {
-        public IStorage Storage { get; private set; }
+        //public IStorage Storage { get; private set; }
 
-        public ViewComponentBase(IStorage storage)
+        //public ViewComponentBase(IStorage storage)
+        public ViewComponentBase()
         {
-            this.Storage = storage;
+            //this.Storage = storage;
         }
     }
 }
