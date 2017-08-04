@@ -4,6 +4,10 @@
     <TargetFramework>netstandard1.6</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>6</LangVersion>
+  </PropertyGroup>
+
   <ItemGroup>
     <EmbeddedResource Include="Styles\**;Scripts\**;Views\**" />
   </ItemGroup>

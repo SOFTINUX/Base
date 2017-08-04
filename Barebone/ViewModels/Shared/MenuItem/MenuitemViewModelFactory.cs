@@ -1,4 +1,3 @@
-using Infrastructure;
 
 namespace Barebone.ViewModels.Shared.MenuItem
 {
