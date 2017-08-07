@@ -37,14 +37,16 @@ namespace Barebone.ViewModels.Shared.Menu
                 {
                    foreach (Infrastructure.MenuGroup menuGroup in extensionMetadata.MenuGroups)
                    {
-                       List<MenuItemViewModel> menuItemViewModels = new List<MenuItemViewModel>();
+                        List<MenuItemViewModel> menuItemViewModels = new List<MenuItemViewModel>();
 
-                       // TODO: here add claims verification for menu items
+                        foreach (Infrastructure.MenuItem menuItem in menuGroup.MenuItems)
+                            // TODO: here add claims verification for menu items
+                            menuItemViewModels.Add(new MenuItemViewModelFactory(this.RequestHandler).Create(menuItem));
 
-                       MenuGroupViewModel menuGroupViewModel = this.GetMenuGroup(menuGroupViewModels, menuGroup);
+                        MenuGroupViewModel menuGroupViewModel = this.GetMenuGroup(menuGroupViewModels, menuGroup);
 
-                       if (menuGroupViewModel.MenuItems != null)
-                        menuItemViewModels.AddRange(menuGroupViewModel.MenuItems);
+                        if (menuGroupViewModel.MenuItems != null)
+                            menuItemViewModels.AddRange(menuGroupViewModel.MenuItems);
 
                         menuGroupViewModel.MenuItems = menuItemViewModels.OrderBy(mi => mi.Position);
                    }
@@ -66,13 +68,6 @@ namespace Barebone.ViewModels.Shared.Menu
             {
                 menuGroupViewModel = new MenuGroupViewModelFactory(this.RequestHandler).Create(menuGroup_);
                 menuGroupViewModels_.Add(menuGroupViewModel);
-            }
-            else
-            {
-                // TODO ajouter les items issus de menuGroup_ à menuGroupViewModel
-
-                MenuGroupViewModel tempViewModel = new MenuGroupViewModelFactory(this.RequestHandler).Create(menuGroup_);
-                //menuGroupViewModel.AddMenuItems(tempViewModel.MenuItems);
             }
 
             return menuGroupViewModel;

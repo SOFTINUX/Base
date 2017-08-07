@@ -13,21 +13,11 @@ namespace Barebone.ViewModels.Shared.MenuGroup
 
         public MenuGroupViewModel Create(Infrastructure.MenuGroup menuGroup_)
         {
-            MenuGroupViewModel viewModel = new MenuGroupViewModel()
+            return new MenuGroupViewModel()
             {
                 Name = menuGroup_.Name,
                 Position = menuGroup_.Position
             };
-
-            // Factories the menu items to menu item view models
-            List<MenuItemViewModel> listMenuItemViewModel = new List<MenuItemViewModel>();
-            MenuitemViewModelFactory menuItemFactory = new MenuitemViewModelFactory();
-            foreach (Infrastructure.MenuItem menuItem in menuGroup_.MenuItems)
-            {
-                listMenuItemViewModel.Add(menuItemFactory.Create(menuItem));
-            }
-            viewModel.MenuItems = listMenuItemViewModel;
-            return viewModel;
         }
     }
 }
