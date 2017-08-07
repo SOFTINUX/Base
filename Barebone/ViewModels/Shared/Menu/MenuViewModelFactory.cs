@@ -67,6 +67,13 @@ namespace Barebone.ViewModels.Shared.Menu
                 menuGroupViewModel = new MenuGroupViewModelFactory(this.RequestHandler).Create(menuGroup_);
                 menuGroupViewModels_.Add(menuGroupViewModel);
             }
+            else
+            {
+                // TODO ajouter les items issus de menuGroup_ à menuGroupViewModel
+
+                MenuGroupViewModel tempViewModel = new MenuGroupViewModelFactory(this.RequestHandler).Create(menuGroup_);
+                //menuGroupViewModel.AddMenuItems(tempViewModel.MenuItems);
+            }
 
             return menuGroupViewModel;
         }
