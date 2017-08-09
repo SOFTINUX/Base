@@ -6,7 +6,6 @@ namespace Infrastructure
     {
         IEnumerable<StyleSheet> StyleSheets {get;}
         IEnumerable<Script> Scripts {get;}
-        //IEnumerable<MenuItem> MenuItems {get;}  //TODO make it groupe menu items
         IEnumerable<MenuGroup> MenuGroups {get;}
     }
 }

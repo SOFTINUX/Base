@@ -4,9 +4,9 @@
     @Model.Name
   </div>
   <div>
-    @foreach (var MenuItem in this.Model.MenuItems)
+    @foreach (var menuItem in this.Model.MenuItems)
     {
-      @Html.Partial("_MenuItem", MenuItem)
+      @Html.Partial("_MenuItem", menuItem)
     }
   </div>
 </div>
