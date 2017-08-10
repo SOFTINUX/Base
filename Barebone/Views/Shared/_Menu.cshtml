@@ -1,7 +1,6 @@
+@using Microsoft.AspNetCore.Mvc.Rendering
 @model Barebone.ViewModels.Shared.Menu.MenuViewModel
-<div>
-  @foreach (var menuGroup in this.Model.MenuGroups)
-  {
+@foreach (var menuGroup in this.Model.MenuGroups)
+{
     @Html.Partial("_MenuGroup", menuGroup)
-  }
-</div>
+}

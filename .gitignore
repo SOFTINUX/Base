@@ -303,3 +303,4 @@ __pycache__/
 .idea
 
 WebApplication/Extensions
+bower_components
