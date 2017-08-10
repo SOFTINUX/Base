@@ -1,3 +1,5 @@
+@using System.Linq
+@using Microsoft.AspNetCore.Mvc.Rendering
 @model Barebone.ViewModels.Shared.MenuGroup.MenuGroupViewModel
 <div data-code="main-@(this.Model.Position)">
     <div>
@@ -6,32 +8,12 @@
 
     @if (Model.MenuItems.Count() == 1)
     {
-        //SAMPLE DATA
-        //<li><a href="#">Link</a></li>
-
         @Html.Partial("_MenuItem", Model.MenuItems.First())
-
     }
     else
     {
-        //SAMPLE DATA
-        @*<li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">One more separated link</a></li>
-            </ul>
-        </li>*@
-
-        //TODO menu group name
-
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@(Model.Name)<span class="caret"></span></a>
             <ul class="dropdown-menu">
                 @foreach (var menuItem in this.Model.MenuItems)
                 {
