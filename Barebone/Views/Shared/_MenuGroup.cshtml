@@ -13,7 +13,7 @@ else
         <ul class="dropdown-menu">
             @foreach (var menuItem in this.Model.MenuItems)
                 {
-                    Html.Partial("_MenuItem", menuItem);
+                    @Html.Partial("_MenuItem", menuItem);
                 }
         </ul>
     </li>
