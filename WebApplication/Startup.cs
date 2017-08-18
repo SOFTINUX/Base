@@ -1,48 +1,46 @@
 ﻿using ExtCore.WebApplication.Extensions;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace WebApplication
 {
-  public class Startup
-  {
-    private IConfigurationRoot configurationRoot;
-    private string extensionsPath;
-
-    public Startup(IHostingEnvironment hostingEnvironment, ILoggerFactory loggerFactory)
+    public class Startup
     {
-      IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
-        .SetBasePath(hostingEnvironment.ContentRootPath)
-        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+        public IConfiguration Configuration { get; }
+        private string _extensionsPath;
 
-      IConfigurationRoot configurationRoot = configurationBuilder.Build();
+        public static IWebHost BuildWebHost(string[] args_) =>
+            WebHost.CreateDefaultBuilder(args_)
+                .UseStartup<Startup>()
+                .Build();
 
-      this.extensionsPath = hostingEnvironment.ContentRootPath + configurationRoot["Extensions:Path"];
+        public Startup(IConfiguration configuration_, IHostingEnvironment hostingEnvironment_)
+        {
+            Configuration = configuration_;
+            _extensionsPath = hostingEnvironment_.ContentRootPath + Configuration["Extensions:Path"];
+        }
 
-      loggerFactory.AddConsole();
-      loggerFactory.AddDebug();
+        public void ConfigureServices(IServiceCollection services_)
+        {
+            
+            services_.AddExtCore(_extensionsPath);
+        }
+
+        public void Configure(IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_)
+        {
+            
+            if (hostingEnvironment_.IsDevelopment())
+            {
+                applicationBuilder_.UseDeveloperExceptionPage();
+                //applicationBuilder.UseDatabaseErrorPage();
+                //applicationBuilder.UseBrowserLink();
+            }
+            applicationBuilder_.UseExtCore();
+
+            System.Console.WriteLine("PID= " + System.Diagnostics.Process.GetCurrentProcess().Id);
+        }
     }
-
-    public void ConfigureServices(IServiceCollection services)
-    {
-      services.AddExtCore(this.extensionsPath);
-    }
-
-    public void Configure(IApplicationBuilder applicationBuilder, IHostingEnvironment hostingEnvironment)
-    {
-      if (hostingEnvironment.IsDevelopment())
-      {
-          applicationBuilder.UseDeveloperExceptionPage();
-          //applicationBuilder.UseDatabaseErrorPage();
-          //applicationBuilder.UseBrowserLink();
-      }
-      applicationBuilder.UseExtCore();
-
-      System.Console.WriteLine("PID= " + System.Diagnostics.Process.GetCurrentProcess().Id);
-    }
-  }
 }
