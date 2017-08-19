@@ -1,20 +1,18 @@
-using System.IO;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
 namespace WebApplication
 {
-  public class Program
-  {
-    public static void Main(string[] args)
+    public class Program
     {
-      IWebHost host = new WebHostBuilder()
-        .UseContentRoot(Directory.GetCurrentDirectory())
-        .UseKestrel()
-        .UseIISIntegration()
-        .UseStartup<Startup>()
-        .Build();
-
-      host.Run();
+        public static void Main(string[] args)
+        {
+            BuildWebHost(args).Run();
+        }
+        public static IWebHost BuildWebHost(string[] args_) =>
+            WebHost.CreateDefaultBuilder(args_)
+                .UseStartup<Startup>()
+                .CaptureStartupErrors(true)
+                .Build();
     }
-  }
 }

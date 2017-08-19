@@ -1,5 +1,4 @@
 ﻿using ExtCore.WebApplication.Extensions;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -11,11 +10,6 @@ namespace WebApplication
     {
         public IConfiguration Configuration { get; }
         private string _extensionsPath;
-
-        public static IWebHost BuildWebHost(string[] args_) =>
-            WebHost.CreateDefaultBuilder(args_)
-                .UseStartup<Startup>()
-                .Build();
 
         public Startup(IConfiguration configuration_, IHostingEnvironment hostingEnvironment_)
         {
