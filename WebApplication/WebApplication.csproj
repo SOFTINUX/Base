@@ -17,8 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Barebone\Barebone.csproj" />
-    <ProjectReference Include="..\Extension1\Extension1.csproj" />
-    <ProjectReference Include="..\Extension2\Extension2.csproj" />
   </ItemGroup>
 
   <ItemGroup>
