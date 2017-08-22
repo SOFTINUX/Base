@@ -1,0 +1,25 @@
+﻿// Licensed under the Apache License, Version 2.0.
+using System;
+using System.Collections.Generic;
+using ExtCore.Data.Entities.Abstractions;
+
+namespace Security.Data.Entities
+{
+    /// <summary>
+    /// Represents an user base information and linked credentials.
+    /// </summary>
+    public class User : IEntity
+    {
+        public int Id { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateTime LastConnection { get; set; }
+
+        /// <summary>
+        /// Referenced entities.
+        /// </summary>
+        public virtual ICollection<Credential> Credentials { get; set; }
+    }
+}
