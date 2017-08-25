@@ -11,10 +11,10 @@ namespace Security.Data.Entities
     public class User : IEntity
     {
         public int Id { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string DisplayName { get; set; }
+        public DateTime FirstConnection { get; set; }
         public DateTime LastConnection { get; set; }
 
         /// <summary>
