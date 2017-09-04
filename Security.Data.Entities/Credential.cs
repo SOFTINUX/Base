@@ -1,5 +1,4 @@
-﻿// Licensed under the Apache License, Version 2.0.
-using ExtCore.Data.Entities.Abstractions;
+﻿using ExtCore.Data.Entities.Abstractions;
 
 namespace Security.Data.Entities
 {
