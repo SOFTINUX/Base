@@ -3,23 +3,22 @@
 namespace Security.Data.Entities
 {
     /// <summary>
-    /// Links between roles and permissions. Also stores the permission level.
+    /// Links between users and permissions. Also stores the permission level.
     /// </summary>
-    public class RolePermission : IEntity
+    public class UserPermission : IEntity
     {
         public int Id { get; set; }
 
-        public int RoleId { get; set; }
+        public int UserId { get; set; }
 
         public int PermissionId { get; set; }
 
         public int PermissionLevelId { get; set; }
 
-        
         /// <summary>
         /// Referenced entities.
         /// </summary>
-        public virtual Role Role { get; set; }
+        public virtual User User { get; set; }
         public virtual Permission Permission { get; set; }
         public virtual PermissionLevel PermissionLevel { get; set; }
 

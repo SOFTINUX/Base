@@ -20,5 +20,7 @@ namespace Security.Data.Entities
         /// Referenced entities.
         /// </summary>
         public virtual ICollection<Credential> Credentials { get; set; }
+        public virtual ICollection<UserRole> UserRoles { get; set; }
+
     }
 }
