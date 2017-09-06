@@ -3,7 +3,7 @@
 namespace Security.Data.Entities
 {
     /// <summary>
-    /// Links between groups and permissions. Also stores the permission level.
+    /// Links between groups and permissions: permissions assigned to the group. Also stores the permission level.
     /// </summary>
     public class GroupPermission : IEntity
     {

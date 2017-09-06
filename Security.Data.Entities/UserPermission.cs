@@ -3,7 +3,7 @@
 namespace Security.Data.Entities
 {
     /// <summary>
-    /// Links between users and permissions. Also stores the permission level.
+    /// Links between users and permissions: permissions assigned to the user. Also stores the permission level.
     /// </summary>
     public class UserPermission : IEntity
     {
