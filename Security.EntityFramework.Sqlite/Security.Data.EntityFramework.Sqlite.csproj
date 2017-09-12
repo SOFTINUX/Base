@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Security.Data.Abstractions\Security.Data.Abstractions.csproj" />
+    <ProjectReference Include="..\Security.Data.EntityFramework\Security.Data.EntityFramework.csproj" />
   </ItemGroup>
 
 </Project>

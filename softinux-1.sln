@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.8
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{C2AE1CC4-1171-4C29-AA5B-88A540A109B6}"
 EndProject
@@ -15,11 +15,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extension2", "Extension2\Ex
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Security", "Security\Security.csproj", "{53F9E0E6-F63A-4086-8F5D-C600D36E31B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security.Data.Abstractions", "Security.Data.Abstractions\Security.Data.Abstractions.csproj", "{6FDAFAFF-5C10-41E6-B13E-3434FE4F9D59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Security.Data.Abstractions", "Security.Data.Abstractions\Security.Data.Abstractions.csproj", "{6FDAFAFF-5C10-41E6-B13E-3434FE4F9D59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security.Data.Entities", "Security.Data.Entities\Security.Data.Entities.csproj", "{B2E725AA-C134-40F0-8DF6-6928DA5C2F66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Security.Data.Entities", "Security.Data.Entities\Security.Data.Entities.csproj", "{B2E725AA-C134-40F0-8DF6-6928DA5C2F66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security.EntityFramework.Sqlite", "Security.EntityFramework.Sqlite\Security.EntityFramework.Sqlite.csproj", "{7805C09C-277C-4A5F-AC7A-AF34FE898939}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Security.Data.EntityFramework.Sqlite", "Security.EntityFramework.Sqlite\Security.Data.EntityFramework.Sqlite.csproj", "{7805C09C-277C-4A5F-AC7A-AF34FE898939}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security.Data.EntityFramework", "Security.Data.EntityFramework\Security.Data.EntityFramework.csproj", "{820BEABD-13B9-427B-AF57-611DFD595969}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -139,6 +141,18 @@ Global
 		{7805C09C-277C-4A5F-AC7A-AF34FE898939}.Release|x64.Build.0 = Release|Any CPU
 		{7805C09C-277C-4A5F-AC7A-AF34FE898939}.Release|x86.ActiveCfg = Release|Any CPU
 		{7805C09C-277C-4A5F-AC7A-AF34FE898939}.Release|x86.Build.0 = Release|Any CPU
+		{820BEABD-13B9-427B-AF57-611DFD595969}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{820BEABD-13B9-427B-AF57-611DFD595969}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{820BEABD-13B9-427B-AF57-611DFD595969}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{820BEABD-13B9-427B-AF57-611DFD595969}.Debug|x64.Build.0 = Debug|Any CPU
+		{820BEABD-13B9-427B-AF57-611DFD595969}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{820BEABD-13B9-427B-AF57-611DFD595969}.Debug|x86.Build.0 = Debug|Any CPU
+		{820BEABD-13B9-427B-AF57-611DFD595969}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{820BEABD-13B9-427B-AF57-611DFD595969}.Release|Any CPU.Build.0 = Release|Any CPU
+		{820BEABD-13B9-427B-AF57-611DFD595969}.Release|x64.ActiveCfg = Release|Any CPU
+		{820BEABD-13B9-427B-AF57-611DFD595969}.Release|x64.Build.0 = Release|Any CPU
+		{820BEABD-13B9-427B-AF57-611DFD595969}.Release|x86.ActiveCfg = Release|Any CPU
+		{820BEABD-13B9-427B-AF57-611DFD595969}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
