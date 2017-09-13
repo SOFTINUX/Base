@@ -1,20 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ExtCore.Data.EntityFramework;
-using Microsoft.EntityFrameworkCore;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
 
 namespace Security.Data.EntityFramework
 {
-    public class CredentialTypeRepository : RepositoryBase<CredentialType>, ICredentialTypeRepository
+    public class PermissionLevelRepository : RepositoryBase<PermissionLevel>, IPermissionLevelRepository
     {
-       public virtual CredentialType WithKey(int entityId_)
+       public virtual PermissionLevel WithKey(int entityId_)
        {
            return dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
        }
 
-        public virtual IEnumerable<CredentialType> All()
+        public virtual IEnumerable<PermissionLevel> All()
         {
             return dbSet.ToList();
         }
