@@ -32,5 +32,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\Security\Security.csproj" />
   </ItemGroup>
 </Project>

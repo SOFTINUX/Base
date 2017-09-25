@@ -1,14 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
 using ExtCore.Data.Abstractions;
+using Infrastructure;
 
 namespace Barebone.Controllers
 {
     public abstract class ControllerBase : Controller, IRequestHandler
     {
 
-        public ControllerBase()
-        {
+        public IStorage Storage { get; set; }
 
+        protected ControllerBase(IStorage storage_)
+        {
+            Storage = storage_;
         }
 
         protected RedirectResult CreateRedirectToSelfResult()

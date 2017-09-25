@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ExtCore.Data.EntityFramework" Version="3.0.0-beta1" />
     <PackageReference Include="ExtCore.Mvc.Infrastructure" Version="3.0.0-beta1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.0" />
   </ItemGroup>

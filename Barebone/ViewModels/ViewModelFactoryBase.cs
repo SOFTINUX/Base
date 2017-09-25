@@ -1,3 +1,5 @@
+using Infrastructure;
+
 namespace Barebone.ViewModels
 {
     public class ViewModelFactoryBase
