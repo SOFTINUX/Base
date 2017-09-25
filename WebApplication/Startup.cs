@@ -1,4 +1,5 @@
-﻿using ExtCore.WebApplication.Extensions;
+﻿using ExtCore.Data.EntityFramework;
+using ExtCore.WebApplication.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +22,11 @@ namespace WebApplication
         {
             
             services_.AddExtCore(_extensionsPath);
+            services_.Configure<StorageContextOptions>(options_ =>
+                {
+                    options_.ConnectionString = Configuration["ConnectionStrings:Default"];
+                }
+            );
         }
 
         public void Configure(IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_)
