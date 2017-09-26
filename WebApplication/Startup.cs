@@ -1,9 +1,12 @@
-﻿using ExtCore.Data.EntityFramework;
+﻿using ExtCore.Data.Abstractions;
+using ExtCore.Data.EntityFramework;
 using ExtCore.WebApplication.Extensions;
+using Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Security;
 
 namespace WebApplication
 {
@@ -20,13 +23,18 @@ namespace WebApplication
 
         public void ConfigureServices(IServiceCollection services_)
         {
-            
-            services_.AddExtCore(_extensionsPath);
+            // Note: AddScoped : for services based on EF (once per request), 
+            // other values : AddTransient (stateless), AddSingleton (avoids to implement singleton pattern ourselves)
+
+            //services_.AddScoped<IStorage, Storage>();
             services_.Configure<StorageContextOptions>(options_ =>
                 {
                     options_.ConnectionString = Configuration["ConnectionStrings:Default"];
                 }
             );
+
+            services_.AddScoped<IDatabaseInitializer, DatabaseInitializer>();
+            services_.AddExtCore(_extensionsPath);
         }
 
         public void Configure(IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_)

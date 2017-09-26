@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Security.Data.Abstractions"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Security.Data.Entities", "Security.Data.Entities\Security.Data.Entities.csproj", "{B2E725AA-C134-40F0-8DF6-6928DA5C2F66}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Security.Data.EntityFramework.Sqlite", "Security.EntityFramework.Sqlite\Security.Data.EntityFramework.Sqlite.csproj", "{7805C09C-277C-4A5F-AC7A-AF34FE898939}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Security.Data.EntityFramework.Sqlite", "Security.Data.EntityFramework.Sqlite\Security.Data.EntityFramework.Sqlite.csproj", "{7805C09C-277C-4A5F-AC7A-AF34FE898939}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security.Data.EntityFramework", "Security.Data.EntityFramework\Security.Data.EntityFramework.csproj", "{820BEABD-13B9-427B-AF57-611DFD595969}"
 EndProject

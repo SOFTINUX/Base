@@ -6,9 +6,9 @@ using Security.Data.Entities;
 
 namespace Security
 {
-    public static class DatabaseInitializer
+    public class DatabaseInitializer : IDatabaseInitializer
     {
-        public static void CheckAndInitialize(IRequestHandler context_)
+        public void CheckAndInitialize(IRequestHandler context_)
         {
             IPermissionLevelRepository repo = context_.Storage.GetRepository<IPermissionLevelRepository>();
             IEnumerable<PermissionLevel> permissionLevels = repo.All();
