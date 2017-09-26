@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ExtCore.Data.EntityFramework" Version="3.0.0-alpha1" />
+    <PackageReference Include="ExtCore.Data.EntityFramework" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>
