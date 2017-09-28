@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using ExtCore.Data.EntityFramework;
 using Infrastructure;
-using Security.Data.Abstractions;
-using Security.Data.Entities;
 
 namespace Security
 {
@@ -10,13 +8,8 @@ namespace Security
     {
         public void CheckAndInitialize(IRequestHandler context_)
         {
-            IPermissionLevelRepository repo = context_.Storage.GetRepository<IPermissionLevelRepository>();
-            IEnumerable<PermissionLevel> permissionLevels = repo.All();
-
-            if (permissionLevels.Count() > 0)
-                return;
-
-
+            bool didCreate = (context_.Storage.StorageContext as StorageContextBase).Database.EnsureCreated();
+            Console.WriteLine("Needed to create DB? " + didCreate);
         }
     }
 }

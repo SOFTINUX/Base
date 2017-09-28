@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ExtCore.Data.EntityFramework;
-using Microsoft.EntityFrameworkCore;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
 
