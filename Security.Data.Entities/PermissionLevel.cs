@@ -21,8 +21,8 @@ namespace Security.Data.Entities
 
         public byte Value { get; set; }
 
-        public int Label { get; set; }
+        public string Label { get; set; }
 
-        public int Tip { get; set; }
+        public string Tip { get; set; }
     }
 }
