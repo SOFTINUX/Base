@@ -8,7 +8,12 @@ namespace Security.Data.EntityFramework
 {
     public class PermissionLevelRepository : RepositoryBase<PermissionLevel>, IPermissionLevelRepository
     {
-       public virtual PermissionLevel WithKey(int entityId_)
+        public void Create(PermissionLevel entity_)
+        {
+            dbSet.Add(entity_);
+        }
+
+        public virtual PermissionLevel WithKey(int entityId_)
        {
            return dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
        }

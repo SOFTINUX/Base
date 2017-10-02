@@ -6,6 +6,7 @@ namespace Security.Data.Abstractions
 {
     public interface IPermissionLevelRepository : IRepository
     {
+        void Create(PermissionLevel entity_);
         PermissionLevel WithKey(int entityId_);
         IEnumerable<PermissionLevel> All();
     }
