@@ -8,7 +8,12 @@ namespace Security.Data.EntityFramework
 {
     public class CredentialTypeRepository : RepositoryBase<CredentialType>, ICredentialTypeRepository
     {
-       public virtual CredentialType WithKey(int entityId_)
+        public void Create(CredentialType entity_)
+        {
+            dbSet.Add(entity_);
+        }
+
+        public virtual CredentialType WithKey(int entityId_)
        {
            return dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
        }

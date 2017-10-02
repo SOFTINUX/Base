@@ -13,7 +13,7 @@ namespace Security.Data.EntityFramework
             modelBuilder_.Entity<CredentialType>(etb_ =>
                 {
                     etb_.HasKey(e_ => e_.Id);
-                   // etb_.Property(e_ => e_.Id).ValueGeneratedOnAdd();
+                    etb_.Property(e_ => e_.Id).ValueGeneratedOnAdd();
                 }
             );
 
