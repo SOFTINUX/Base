@@ -26,28 +26,28 @@ namespace Security
             InsertUser(context_);
 
             // 3. credential
-            InsertCredential(context_);
+         //   InsertCredential(context_);
 
             // 4. permission level
-            InsertPermissionLevel(context_);
+           // InsertPermissionLevel(context_);
 
             // 5. role
-            InsertRole(context_);
+          //  InsertRole(context_);
 
             // 6. group (none)
 
             // 7. user-role
-            InsertUserRole(context_);
+          //  InsertUserRole(context_);
 
             // 8. group-user (none)
 
             // 9. permission
-            InsertPermission(context_);
+         //   InsertPermission(context_);
 
             // 10. user-permission (none)
 
             // 11. role-permission
-            InsertRolePermission(context_);
+         //   InsertRolePermission(context_);
 
             // 12. group-permission (none)
 
