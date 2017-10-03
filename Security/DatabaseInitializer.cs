@@ -1,7 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
-using ExtCore.Data.EntityFramework;
 using Infrastructure;
 using Security.Data.Entities;
 using Security.Data.EntityFramework;
@@ -44,35 +42,81 @@ namespace Security
             // 8. group-user (none)
 
             // 9. permission
+            InsertPermission(context_);
 
             // 10. user-permission (none)
 
             // 11. role-permission
+            InsertRolePermission(context_);
 
             // 12. group-permission (none)
 
             context_.Storage.Save();
-            
+
+        }
+
+        private void InsertRolePermission(IRequestHandler context_)
+        {
+            RolePermissionRepository repo = context_.Storage.GetRepository<RolePermissionRepository>();
+
+            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.AdministratorOwner, PermissionId = (int)Enums.Permission.PermissionId.EditGroup, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.ReadWrite });
+            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.AdministratorOwner, PermissionId = (int)Enums.Permission.PermissionId.EditUser, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.ReadWrite });
+            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.AdministratorOwner, PermissionId = (int)Enums.Permission.PermissionId.EditRole, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.ReadWrite });
+            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.AdministratorOwner, PermissionId = (int)Enums.Permission.PermissionId.EditPermission, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.ReadWrite });
+
+            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.Administrator, PermissionId = (int)Enums.Permission.PermissionId.EditGroup, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.ReadWrite });
+            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.Administrator, PermissionId = (int)Enums.Permission.PermissionId.EditUser, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.ReadWrite });
+            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.Administrator, PermissionId = (int)Enums.Permission.PermissionId.EditRole, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.ReadWrite });
+            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.Administrator, PermissionId = (int)Enums.Permission.PermissionId.EditPermission, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.ReadWrite });
+
+            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.User, PermissionId = (int)Enums.Permission.PermissionId.EditUser, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.ReadOnly });
         }
 
         private void InsertPermission(IRequestHandler context_)
         {
             PermissionRepository repo = context_.Storage.GetRepository<PermissionRepository>();
-            // TODO use enum repo.Create(new Permission { }
+            repo.Create(new Permission
+            {
+                Id = (int)Enums.Permission.PermissionId.EditUser,
+                AdministratorOwner = true,
+                Code = Enums.Permission.EditUser,
+                Label = "Edit users"
+            });
 
-            //  permissions d'administration défini dans Base permettent l'administration des users ("edit-user"), roles ("edit-role"), 
-            // groupes ("edit-group"), permissions ("edit-permission"). Ils sont associés aux rôles administrator-owner et administrator avec le droit d'accès lecture-écriture.
+            repo.Create(new Permission
+            {
+                Id = (int)Enums.Permission.PermissionId.EditRole,
+                AdministratorOwner = true,
+                Code = Enums.Permission.EditRole,
+                Label = "Edit roles"
+            });
+
+            repo.Create(new Permission
+            {
+                Id = (int)Enums.Permission.PermissionId.EditGroup,
+                AdministratorOwner = true,
+                Code = Enums.Permission.EditGroup,
+                Label = "Edit groups"
+            });
+
+            repo.Create(new Permission
+            {
+                Id = (int)Enums.Permission.PermissionId.EditPermission,
+                AdministratorOwner = true,
+                Code = Enums.Permission.EditPermission,
+                Label = "Edit permissions"
+            });
         }
 
         private void InsertUserRole(IRequestHandler context_)
         {
             UserRoleRepository repo = context_.Storage.GetRepository<UserRoleRepository>();
             // super-admin
-            repo.Create(new UserRole {RoleId = (int) Enums.SecurityRoleId.AdministratorOwner, UserId = 1});
+            repo.Create(new UserRole { RoleId = (int)Enums.RoleId.AdministratorOwner, UserId = 1 });
             // admin
-            repo.Create(new UserRole { RoleId = (int)Enums.SecurityRoleId.Administrator, UserId = 2 });
+            repo.Create(new UserRole { RoleId = (int)Enums.RoleId.Administrator, UserId = 2 });
             // user
-            repo.Create(new UserRole { RoleId = (int)Enums.SecurityRoleId.User, UserId = 3 });
+            repo.Create(new UserRole { RoleId = (int)Enums.RoleId.User, UserId = 3 });
 
         }
 
@@ -89,16 +133,16 @@ namespace Security
         {
             PermissionLevelRepository repo = context_.Storage.GetRepository<PermissionLevelRepository>();
 
-            repo.Create(new PermissionLevel{Id = (int) Enums.PermissionLevelId.Never, Value = 1, Label = "Never", Tip = "No right, unmodifiable through right inheritance"});
-            repo.Create(new PermissionLevel{Id = (int)Enums.PermissionLevelId.No, Value = 2, Label = "No", Tip = "No right, but could be allowed through right inheritance"});
-            repo.Create(new PermissionLevel{Id = (int)Enums.PermissionLevelId.ReadOnly, Value = 4, Label = "Read-only", Tip = "Read-only access"});
-            repo.Create(new PermissionLevel{Id = (int)Enums.PermissionLevelId.ReadWrite, Value = 8, Label = "Read-write", Tip = "Read-write access"});
+            repo.Create(new PermissionLevel { Id = (int)Enums.Permission.PermissionLevelId.Never, Value = 1, Label = "Never", Tip = "No right, unmodifiable through right inheritance" });
+            repo.Create(new PermissionLevel { Id = (int)Enums.Permission.PermissionLevelId.No, Value = 2, Label = "No", Tip = "No right, but could be allowed through right inheritance" });
+            repo.Create(new PermissionLevel { Id = (int)Enums.Permission.PermissionLevelId.ReadOnly, Value = 4, Label = "Read-only", Tip = "Read-only access" });
+            repo.Create(new PermissionLevel { Id = (int)Enums.Permission.PermissionLevelId.ReadWrite, Value = 8, Label = "Read-write", Tip = "Read-write access" });
         }
 
         private void InsertCredential(IRequestHandler context_)
         {
             CredentialRepository repo = context_.Storage.GetRepository<CredentialRepository>();
-            
+
             repo.Create(new Credential
             {
                 CredentialTypeId = 1,
@@ -143,10 +187,9 @@ namespace Security
             if (repo.All().Any())
                 return false;
 
-            CredentialType entity = new CredentialType {Code = "email", Label = "E-mail and password"};
+            CredentialType entity = new CredentialType { Code = "email", Label = "E-mail and password" };
             repo.Create(entity);
             return true;
         }
     }
 }
- 

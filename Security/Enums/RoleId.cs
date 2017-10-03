@@ -1,7 +1,7 @@
 ﻿
 namespace Security.Enums
 {
-    public enum SecurityRoleId
+    public enum RoleId
     {
         AdministratorOwner = 1,
         Administrator = 2,
