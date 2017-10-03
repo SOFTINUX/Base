@@ -25,29 +25,33 @@ namespace Security
             // 2. user
             InsertUser(context_);
 
+            context_.Storage.Save();
+
             // 3. credential
-         //   InsertCredential(context_);
+            InsertCredential(context_);
 
             // 4. permission level
-           // InsertPermissionLevel(context_);
+            InsertPermissionLevel(context_);
 
             // 5. role
-          //  InsertRole(context_);
+            InsertRole(context_);
 
             // 6. group (none)
 
-            // 7. user-role
-          //  InsertUserRole(context_);
+            // 7. permission
+            InsertPermission(context_);
 
-            // 8. group-user (none)
+            context_.Storage.Save();
 
-            // 9. permission
-         //   InsertPermission(context_);
+            // 8. user-role
+            InsertUserRole(context_);
+
+            // 9. group-user (none)
 
             // 10. user-permission (none)
 
             // 11. role-permission
-         //   InsertRolePermission(context_);
+            InsertRolePermission(context_);
 
             // 12. group-permission (none)
 
@@ -80,7 +84,8 @@ namespace Security
                 Id = (int)Enums.Permission.PermissionId.EditUser,
                 AdministratorOwner = true,
                 Code = Enums.Permission.EditUser,
-                Label = "Edit users"
+                Label = "Edit users",
+                OriginExtension = _securityAssemblyName
             });
 
             repo.Create(new Permission
@@ -88,7 +93,8 @@ namespace Security
                 Id = (int)Enums.Permission.PermissionId.EditRole,
                 AdministratorOwner = true,
                 Code = Enums.Permission.EditRole,
-                Label = "Edit roles"
+                Label = "Edit roles",
+                OriginExtension = _securityAssemblyName
             });
 
             repo.Create(new Permission
@@ -96,7 +102,8 @@ namespace Security
                 Id = (int)Enums.Permission.PermissionId.EditGroup,
                 AdministratorOwner = true,
                 Code = Enums.Permission.EditGroup,
-                Label = "Edit groups"
+                Label = "Edit groups",
+                OriginExtension = _securityAssemblyName
             });
 
             repo.Create(new Permission
@@ -104,7 +111,8 @@ namespace Security
                 Id = (int)Enums.Permission.PermissionId.EditPermission,
                 AdministratorOwner = true,
                 Code = Enums.Permission.EditPermission,
-                Label = "Edit permissions"
+                Label = "Edit permissions",
+                OriginExtension = _securityAssemblyName
             });
         }
 
@@ -172,6 +180,7 @@ namespace Security
         {
             UserRepository repo = context_.Storage.GetRepository<UserRepository>();
             repo.Create(new User { DisplayName = "Super Administrator", FirstName = "Super", LastName = "Admin" });
+            repo.Create(new User { DisplayName = "Administrator", FirstName = "Test", LastName = "Admin" });
             repo.Create(new User { DisplayName = "User", FirstName = "Test", LastName = "User" });
         }
 
