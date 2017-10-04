@@ -1,10 +1,12 @@
 ﻿using Security;
-using Security.Data.Entities;
 using SecurityTest.Util;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using ExtCore.Data.EntityFramework;
+using Security.Enums;
 using Xunit;
+using Permission = Security.Data.Entities.Permission;
 
 namespace SecurityTest
 {
@@ -12,6 +14,7 @@ namespace SecurityTest
     public class PermissionManagerTest : BaseTest
     {
         private const string CST_PERM_CODE = "test_perm";
+        private const string CST_TEST_PERM_RW_CLAIM_TYPE = "test_perm RW";
         private static string _assembly = typeof(PermissionManagerTest).Assembly.FullName;
 
         [Fact]
@@ -23,8 +26,60 @@ namespace SecurityTest
             Permission rwPerm = new Permission { Code = CST_PERM_CODE, OriginExtension = _assembly };
             IEnumerable<Claim> claims = new PermissionManager().GetFinalPermissions(new List<Permission> { roPerm, rwPerm });
             Assert.Equal(1, claims.Count());
+            Assert.Equal(ClaimType.Permission, claims.First().Type);
+            Assert.Equal(CST_TEST_PERM_RW_CLAIM_TYPE, claims.First().Value);
+        }
 
-            // TODO the test code
+        [Fact]
+        public void TestGetFinalPermissionsFromRolesAndGroups(DatabaseFixture fixture_)
+        {
+            _fixture = fixture_;
+
+            try
+            {
+                _fixture.OpenTransaction();
+                // Permission 1, Role 1, Permission 2, Permission 3, Group 1, Group 2
+
+                // Link Permission 1 to Role 1, RW
+
+                // Link Permission 2 to Group 1, RW
+
+                // Link Permission 3 to Group 2, RW
+
+                // Link Role 1 and Group 1 to user 1
+
+                // TODO write the test code, have a deeper look at finding repositories and getting them initialized with an EF Core DbContext reference
+            }
+            finally
+            {
+                _fixture.RollbackTransaction();
+            }
+        }
+
+        [Fact]
+        public void TestGetFinalPermissionsWithLevel(DatabaseFixture fixture_)
+        {
+            _fixture = fixture_;
+
+            try
+            {
+                _fixture.OpenTransaction();
+                // Permission 1, Role 1, User 1, Group 1
+
+                // Link Permission 1 to Role 1, RO
+
+                // Link Permission 1 to User 1, Never
+
+                // Link Permission 1 to Group 1, RW
+
+                // Link Role 1 and Group 1 to user 1
+
+                // TODO write the test code, have a deeper look at finding repositories and getting them initialized with an EF Core DbContext reference
+            }
+            finally
+            {
+                _fixture.RollbackTransaction();
+            }
         }
 
     }
