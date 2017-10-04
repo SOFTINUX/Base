@@ -4,10 +4,6 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
-  <PropertyGroup Label="assemblyInfo">
-    <InternalsVisibleTo>SecurityTest</InternalsVisibleTo>
-  </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\Security.Data.EntityFramework\Security.Data.EntityFramework.csproj" />
