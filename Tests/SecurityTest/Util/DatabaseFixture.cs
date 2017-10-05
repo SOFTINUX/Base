@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
 using ExtCore.Infrastructure;
 using Infrastructure;
@@ -44,6 +45,11 @@ namespace SecurityTest.Util
         public void SaveChanges()
         {
             DatabaseContext.Storage.Save();
+        }
+
+        public TRepository GetRepository<TRepository>() where TRepository : IRepository
+        {
+            return DatabaseContext.Storage.GetRepository<TRepository>();
         }
 
         public void RollbackTransaction()
