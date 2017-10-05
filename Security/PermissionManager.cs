@@ -39,6 +39,14 @@ namespace Security
         public IEnumerable<Permission> LoadPermissions(User user_)
         {
             List<Permission> permissions = new List<Permission>();
+            // 1. from user's roles
+
+            // 2. linked to user
+
+            // 3. from user's groups
+
+            
+
             // TODO
             return permissions;
         }
