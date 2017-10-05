@@ -1,5 +1,4 @@
 using System.IO;
-using Infrastructure;
 using Security;
 using SecurityTest.Util;
 using Xunit;
@@ -20,11 +19,7 @@ namespace SecurityTest
         [Fact]
         public void Test()
         {
-
-            // Initialize the context
-            IRequestHandler context = new TestContext();
-            DatabaseInitializer initializer = new DatabaseInitializer();
-            initializer.CheckAndInitialize(context);
+            new DatabaseInitializer().CheckAndInitialize(_fixture.DatabaseContext);
         }
     }
 }
