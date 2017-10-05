@@ -3,7 +3,6 @@ using SecurityTest.Util;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using ExtCore.Data.EntityFramework;
 using Security.Enums;
 using Xunit;
 using Permission = Security.Data.Entities.Permission;
@@ -17,11 +16,14 @@ namespace SecurityTest
         private const string CST_TEST_PERM_RW_CLAIM_TYPE = "test_perm RW";
         private static string _assembly = typeof(PermissionManagerTest).Assembly.FullName;
 
-        [Fact]
-        public void TestGetFinalPermissionsRw(DatabaseFixture fixture_)
+        public PermissionManagerTest(DatabaseFixture fixture_)
         {
             _fixture = fixture_;
+        }
 
+        [Fact]
+        public void TestGetFinalPermissionsRw()
+        {
             Permission roPerm = new Permission { Code = CST_PERM_CODE, OriginExtension = _assembly };
             Permission rwPerm = new Permission { Code = CST_PERM_CODE, OriginExtension = _assembly };
             IEnumerable<Claim> claims = new PermissionManager().GetFinalPermissions(new List<Permission> { roPerm, rwPerm });
@@ -31,10 +33,8 @@ namespace SecurityTest
         }
 
         [Fact]
-        public void TestGetFinalPermissionsFromRolesAndGroups(DatabaseFixture fixture_)
+        public void TestGetFinalPermissionsFromRolesAndGroups()
         {
-            _fixture = fixture_;
-
             try
             {
                 _fixture.OpenTransaction();
@@ -57,10 +57,8 @@ namespace SecurityTest
         }
 
         [Fact]
-        public void TestGetFinalPermissionsWithLevel(DatabaseFixture fixture_)
+        public void TestGetFinalPermissionsWithLevel()
         {
-            _fixture = fixture_;
-
             try
             {
                 _fixture.OpenTransaction();
