@@ -1,14 +1,14 @@
 ﻿using System.Linq;
 using System.Reflection;
 using Infrastructure;
+using Security.Data.Abstractions;
 using Security.Data.Entities;
-using Security.Data.EntityFramework;
 
 namespace Security
 {
     public class DatabaseInitializer : IDatabaseInitializer
     {
-        private string _securityAssemblyName = Assembly.GetExecutingAssembly().FullName;
+        private readonly string _securityAssemblyName = Assembly.GetExecutingAssembly().FullName;
 
         /// <summary>
         /// Performs database base data inserts if no data
@@ -61,7 +61,7 @@ namespace Security
 
         private void InsertRolePermission(IRequestHandler context_)
         {
-            RolePermissionRepository repo = context_.Storage.GetRepository<RolePermissionRepository>();
+            IRolePermissionRepository repo = context_.Storage.GetRepository<IRolePermissionRepository>();
 
             repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.AdministratorOwner, PermissionId = (int)Enums.Permission.PermissionId.EditGroup, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.ReadWrite });
             repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.AdministratorOwner, PermissionId = (int)Enums.Permission.PermissionId.EditUser, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.ReadWrite });
@@ -78,7 +78,7 @@ namespace Security
 
         private void InsertPermission(IRequestHandler context_)
         {
-            PermissionRepository repo = context_.Storage.GetRepository<PermissionRepository>();
+            IPermissionRepository repo = context_.Storage.GetRepository<IPermissionRepository>();
             repo.Create(new Permission
             {
                 Id = (int)Enums.Permission.PermissionId.EditUser,
@@ -118,7 +118,7 @@ namespace Security
 
         private void InsertUserRole(IRequestHandler context_)
         {
-            UserRoleRepository repo = context_.Storage.GetRepository<UserRoleRepository>();
+            IUserRoleRepository repo = context_.Storage.GetRepository<IUserRoleRepository>();
             // super-admin
             repo.Create(new UserRole { RoleId = (int)Enums.RoleId.AdministratorOwner, UserId = 1 });
             // admin
@@ -130,7 +130,7 @@ namespace Security
 
         private void InsertRole(IRequestHandler context_)
         {
-            RoleRepository repo = context_.Storage.GetRepository<RoleRepository>();
+            IRoleRepository repo = context_.Storage.GetRepository<IRoleRepository>();
 
             repo.Create(new Role { Code = "administrator-owner", Label = "Administrator Owner", OriginExtension = _securityAssemblyName });
             repo.Create(new Role { Code = "administrator", Label = "Administrator", OriginExtension = _securityAssemblyName });
@@ -139,7 +139,7 @@ namespace Security
 
         private void InsertPermissionLevel(IRequestHandler context_)
         {
-            PermissionLevelRepository repo = context_.Storage.GetRepository<PermissionLevelRepository>();
+            IPermissionLevelRepository repo = context_.Storage.GetRepository<IPermissionLevelRepository>();
 
             repo.Create(new PermissionLevel { Id = (int)Enums.Permission.PermissionLevelId.Never, Value = 1, Label = "Never", Tip = "No right, unmodifiable through right inheritance" });
             repo.Create(new PermissionLevel { Id = (int)Enums.Permission.PermissionLevelId.No, Value = 2, Label = "No", Tip = "No right, but could be allowed through right inheritance" });
@@ -149,7 +149,7 @@ namespace Security
 
         private void InsertCredential(IRequestHandler context_)
         {
-            CredentialRepository repo = context_.Storage.GetRepository<CredentialRepository>();
+            ICredentialRepository repo = context_.Storage.GetRepository<ICredentialRepository>();
 
             repo.Create(new Credential
             {
@@ -178,7 +178,7 @@ namespace Security
 
         private void InsertUser(IRequestHandler context_)
         {
-            UserRepository repo = context_.Storage.GetRepository<UserRepository>();
+            IUserRepository repo = context_.Storage.GetRepository<IUserRepository>();
             repo.Create(new User { DisplayName = "Super Administrator", FirstName = "Super", LastName = "Admin" });
             repo.Create(new User { DisplayName = "Administrator", FirstName = "Test", LastName = "Admin" });
             repo.Create(new User { DisplayName = "User", FirstName = "Test", LastName = "User" });
@@ -191,7 +191,7 @@ namespace Security
         /// <returns>False if database is already populated</returns>
         private bool CheckInsertCredentialType(IRequestHandler context_)
         {
-            CredentialTypeRepository repo = context_.Storage.GetRepository<CredentialTypeRepository>();
+            ICredentialTypeRepository repo = context_.Storage.GetRepository<ICredentialTypeRepository>();
 
             if (repo.All().Any())
                 return false;
