@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections;
 using Security;
 using SecurityTest.Util;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
 using Security.Enums;
@@ -24,12 +22,16 @@ namespace SecurityTest
         private const string CST_GROUP_CODE_1 = "test_group_1";
         private const string CST_GROUP_CODE_2 = "test_group_2";
 
-        private const string CST_TEST_PERM_RW_CLAIM_TYPE = "test_perm RW";
-        private static string _assembly = typeof(PermissionManagerTest).Assembly.FullName;
+        private static string _assembly = typeof(PermissionManagerTest).Assembly.FullName;   
 
         public PermissionManagerTest(DatabaseFixture fixture_)
         {
             _fixture = fixture_;
+        }
+
+        private string FormatExpectedClaimValue(string permissionCode_, bool readWrite_)
+        {
+            return $"{permissionCode_}|{_assembly}|{(readWrite_ ? "RW" : "RO")}";
         }
 
         [Fact]
@@ -38,13 +40,13 @@ namespace SecurityTest
             Permission roPerm = new Permission { Code = CST_PERM_CODE_1, OriginExtension = _assembly };
             Permission rwPerm = new Permission { Code = CST_PERM_CODE_1, OriginExtension = _assembly };
             Tuple<string, int> roTuple = new Tuple<string, int>(roPerm.UniqueIdentifier, (int) Security.Enums.Permission.PermissionLevelId.ReadOnly);
-            Tuple<string, int> rwTuple = new Tuple<string, int>(roPerm.UniqueIdentifier, (int)Security.Enums.Permission.PermissionLevelId.ReadWrite);
+            Tuple<string, int> rwTuple = new Tuple<string, int>(rwPerm.UniqueIdentifier, (int)Security.Enums.Permission.PermissionLevelId.ReadWrite);
 
             IEnumerable<Claim> claims =
                 new PermissionManager().GetFinalPermissions(new List<Tuple<string, int>> {roTuple, rwTuple});
             Assert.Equal(1, claims.Count());
             Assert.Equal(ClaimType.Permission, claims.First().Type);
-            Assert.Equal(CST_TEST_PERM_RW_CLAIM_TYPE, claims.First().Value);
+            Assert.Equal(FormatExpectedClaimValue(rwPerm.Code, true), claims.First().Value);
         }
 
         /// <summary>
@@ -109,12 +111,12 @@ namespace SecurityTest
 
                 _fixture.SaveChanges();
 
-                IEnumerable<Tuple<string, int>> perms = new PermissionManager().LoadPermissionLevels()(_fixture.DatabaseContext, user1);
+                IEnumerable<Tuple<string, int>> perms = new PermissionManager().LoadPermissionLevels(_fixture.DatabaseContext, user1);
                 Assert.Equal(2, perms.Count());
                 List<string> permCodes = new List<string>();
-                foreach (Permission perm in perms)
+                foreach (Tuple<string, int> perm in perms)
                 {
-                    permCodes.Add(perm.Code);
+                    permCodes.Add(perm.Item1);
                 }
 
                 Assert.Contains(CST_PERM_CODE_1, permCodes);
