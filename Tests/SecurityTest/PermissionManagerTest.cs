@@ -4,6 +4,7 @@ using SecurityTest.Util;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using ExtCore.Infrastructure;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
 using Security.Enums;

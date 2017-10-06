@@ -19,6 +19,7 @@ namespace SecurityTest
             IConfigurationRoot configuration = builder.Build();
             var optionsBuilder = new DbContextOptionsBuilder<TestDbContext>();
             optionsBuilder.UseSqlite(configuration["ConnectionStrings:Default"]);
+            // TODO FIXME have a deeper look at how Extcore works
             Storage = new Storage(new TestDbContext(optionsBuilder.Options));
 
         }

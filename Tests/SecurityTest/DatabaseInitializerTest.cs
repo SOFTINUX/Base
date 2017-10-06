@@ -1,5 +1,7 @@
 using System.IO;
+using ExtCore.Infrastructure;
 using Security;
+using Security.Data.Abstractions;
 using SecurityTest.Util;
 using Xunit;
 
@@ -19,6 +21,7 @@ namespace SecurityTest
         [Fact]
         public void Test()
         {
+            var test = ExtensionManager.GetInstance<ICredentialTypeRepository>();
             new DatabaseInitializer().CheckAndInitialize(_fixture.DatabaseContext);
         }
     }
