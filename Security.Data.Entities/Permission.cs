@@ -19,6 +19,11 @@ namespace Security.Data.Entities
         public string OriginExtension { get; set; }
 
         /// <summary>
+        /// Unique identifier : code + origin extension name.
+        /// </summary>
+        public string UniqueIdentifier => $"{Code}|{OriginExtension}";
+
+        /// <summary>
         /// Referenced entities, here the link table because it has other data to store than just FKs.
         /// </summary>
         public virtual ICollection<RolePermission> RolePermissions { get; set; }

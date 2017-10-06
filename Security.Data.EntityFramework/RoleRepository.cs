@@ -34,10 +34,5 @@ namespace Security.Data.EntityFramework
             dbSet.Remove(WithKey(entityId_));
         }
 
-        public virtual IEnumerable<Role> FilterByUserId(int userId_)
-        {
-            // TODO ((DbContext) this.storageContext)
-            return null;
-        }
     }
 }

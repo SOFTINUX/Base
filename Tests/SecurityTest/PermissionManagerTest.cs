@@ -37,7 +37,11 @@ namespace SecurityTest
         {
             Permission roPerm = new Permission { Code = CST_PERM_CODE_1, OriginExtension = _assembly };
             Permission rwPerm = new Permission { Code = CST_PERM_CODE_1, OriginExtension = _assembly };
-            IEnumerable<Claim> claims = new PermissionManager().GetFinalPermissions(new List<Permission> { roPerm, rwPerm });
+            Tuple<string, int> roTuple = new Tuple<string, int>(roPerm.UniqueIdentifier, (int) Security.Enums.Permission.PermissionLevelId.ReadOnly);
+            Tuple<string, int> rwTuple = new Tuple<string, int>(roPerm.UniqueIdentifier, (int)Security.Enums.Permission.PermissionLevelId.ReadWrite);
+
+            IEnumerable<Claim> claims =
+                new PermissionManager().GetFinalPermissions(new List<Tuple<string, int>> {roTuple, rwTuple});
             Assert.Equal(1, claims.Count());
             Assert.Equal(ClaimType.Permission, claims.First().Type);
             Assert.Equal(CST_TEST_PERM_RW_CLAIM_TYPE, claims.First().Value);
@@ -105,7 +109,7 @@ namespace SecurityTest
 
                 _fixture.SaveChanges();
 
-                IEnumerable<Permission> perms = new PermissionManager().LoadPermissions(user1);
+                IEnumerable<Tuple<string, int>> perms = new PermissionManager().LoadPermissionLevels()(_fixture.DatabaseContext, user1);
                 Assert.Equal(2, perms.Count());
                 List<string> permCodes = new List<string>();
                 foreach (Permission perm in perms)
@@ -180,7 +184,7 @@ namespace SecurityTest
 
                 _fixture.SaveChanges();
 
-                IEnumerable<Claim> claims = new PermissionManager().GetFinalPermissions(user1);
+                IEnumerable<Claim> claims = new PermissionManager().GetFinalPermissions(_fixture.DatabaseContext, user1);
                 // Expected no permission because permission is denied
                 Assert.Equal(0, claims.Count());
             }

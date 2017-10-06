@@ -11,7 +11,5 @@ namespace Security.Data.Abstractions
         void Create(Role entity_);
         void Edit(Role entity_);
         void Delete(int entityId_);
-
-        IEnumerable<Role> FilterByUserId(int userId_);
     }
 }
