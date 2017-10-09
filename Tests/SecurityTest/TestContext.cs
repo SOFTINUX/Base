@@ -5,6 +5,7 @@ using Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace SecurityTest
@@ -62,7 +63,8 @@ namespace SecurityTest
 
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder_)
             {
-                base.OnConfiguring(optionsBuilder_.EnableSensitiveDataLogging(true));
+                ILoggerFactory loggerFactory = new LoggerFactory().AddConsole().AddDebug();
+                base.OnConfiguring(optionsBuilder_.EnableSensitiveDataLogging().UseLoggerFactory(loggerFactory));
             }
         }
     }
