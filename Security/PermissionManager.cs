@@ -42,12 +42,13 @@ namespace Security
             }
 
             List<Claim> claims = new List<Claim>();
+
             foreach (string uniqueId in dictUniqueIdAndLevel.Keys)
             {
-                if (dictUniqueIdAndLevel[uniqueId] % 8 == 0)
+                if ((dictUniqueIdAndLevel[uniqueId] & (int) Enums.Permission.PermissionLevelValue.ReadWrite) != 0)
                 {
                     claims.Add(new Claim(Enums.ClaimType.Permission, uniqueId + "|RW"));
-                } else if (dictUniqueIdAndLevel[uniqueId] % 4 == 0)
+                } else if ((dictUniqueIdAndLevel[uniqueId] & (int)Enums.Permission.PermissionLevelValue.ReadOnly) != 0)
                 {
                     claims.Add(new Claim(Enums.ClaimType.Permission, uniqueId + "|RO"));
                 }

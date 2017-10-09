@@ -63,17 +63,17 @@ namespace Security
         {
             IRolePermissionRepository repo = context_.Storage.GetRepository<IRolePermissionRepository>();
 
-            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.AdministratorOwner, PermissionId = (int)Enums.Permission.PermissionId.EditGroup, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.ReadWrite });
-            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.AdministratorOwner, PermissionId = (int)Enums.Permission.PermissionId.EditUser, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.ReadWrite });
-            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.AdministratorOwner, PermissionId = (int)Enums.Permission.PermissionId.EditRole, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.ReadWrite });
-            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.AdministratorOwner, PermissionId = (int)Enums.Permission.PermissionId.EditPermission, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.ReadWrite });
+            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.AdministratorOwner, PermissionId = (int)Enums.Permission.PermissionId.EditGroup, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.IdReadWrite });
+            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.AdministratorOwner, PermissionId = (int)Enums.Permission.PermissionId.EditUser, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.IdReadWrite });
+            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.AdministratorOwner, PermissionId = (int)Enums.Permission.PermissionId.EditRole, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.IdReadWrite });
+            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.AdministratorOwner, PermissionId = (int)Enums.Permission.PermissionId.EditPermission, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.IdReadWrite });
 
-            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.Administrator, PermissionId = (int)Enums.Permission.PermissionId.EditGroup, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.ReadWrite });
-            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.Administrator, PermissionId = (int)Enums.Permission.PermissionId.EditUser, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.ReadWrite });
-            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.Administrator, PermissionId = (int)Enums.Permission.PermissionId.EditRole, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.ReadWrite });
-            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.Administrator, PermissionId = (int)Enums.Permission.PermissionId.EditPermission, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.ReadWrite });
+            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.Administrator, PermissionId = (int)Enums.Permission.PermissionId.EditGroup, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.IdReadWrite });
+            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.Administrator, PermissionId = (int)Enums.Permission.PermissionId.EditUser, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.IdReadWrite });
+            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.Administrator, PermissionId = (int)Enums.Permission.PermissionId.EditRole, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.IdReadWrite });
+            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.Administrator, PermissionId = (int)Enums.Permission.PermissionId.EditPermission, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.IdReadWrite });
 
-            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.User, PermissionId = (int)Enums.Permission.PermissionId.EditUser, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.ReadOnly });
+            repo.Create(new RolePermission { RoleId = (int)Enums.RoleId.User, PermissionId = (int)Enums.Permission.PermissionId.EditUser, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.IdReadOnly });
         }
 
         private void InsertPermission(IRequestHandler context_)
@@ -141,10 +141,10 @@ namespace Security
         {
             IPermissionLevelRepository repo = context_.Storage.GetRepository<IPermissionLevelRepository>();
 
-            repo.Create(new PermissionLevel { Id = (int)Enums.Permission.PermissionLevelId.Never, Value = 1, Label = "Never", Tip = "No right, unmodifiable through right inheritance" });
-            repo.Create(new PermissionLevel { Id = (int)Enums.Permission.PermissionLevelId.No, Value = 2, Label = "No", Tip = "No right, but could be allowed through right inheritance" });
-            repo.Create(new PermissionLevel { Id = (int)Enums.Permission.PermissionLevelId.ReadOnly, Value = 4, Label = "Read-only", Tip = "Read-only access" });
-            repo.Create(new PermissionLevel { Id = (int)Enums.Permission.PermissionLevelId.ReadWrite, Value = 8, Label = "Read-write", Tip = "Read-write access" });
+            repo.Create(new PermissionLevel { Id = (int)Enums.Permission.PermissionLevelId.IdNever, Value = (int)Enums.Permission.PermissionLevelValue.Never, Label = "Never", Tip = "No right, unmodifiable through right inheritance" });
+            repo.Create(new PermissionLevel { Id = (int)Enums.Permission.PermissionLevelId.IdNo, Value = (int)Enums.Permission.PermissionLevelValue.No, Label = "No", Tip = "No right, but could be allowed through right inheritance" });
+            repo.Create(new PermissionLevel { Id = (int)Enums.Permission.PermissionLevelId.IdReadOnly, Value = (int)Enums.Permission.PermissionLevelValue.ReadOnly, Label = "Read-only", Tip = "Read-only access" });
+            repo.Create(new PermissionLevel { Id = (int)Enums.Permission.PermissionLevelId.IdReadWrite, Value = (int)Enums.Permission.PermissionLevelValue.ReadWrite, Label = "Read-write", Tip = "Read-write access" });
         }
 
         private void InsertCredential(IRequestHandler context_)
