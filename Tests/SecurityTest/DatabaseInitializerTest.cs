@@ -1,6 +1,5 @@
 using System.IO;
 using System.Linq;
-using ExtCore.Infrastructure;
 using Security;
 using Security.Data.Abstractions;
 using SecurityTest.Util;

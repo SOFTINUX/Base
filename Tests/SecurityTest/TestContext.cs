@@ -8,6 +8,9 @@ using Microsoft.Extensions.Options;
 
 namespace SecurityTest
 {
+    /// <summary>
+    /// Context for unit tests that gives access to storage layer and later to fake http context.
+    /// </summary>
     public class TestContext : IRequestHandler
     {
         public TestContext()
@@ -21,11 +24,21 @@ namespace SecurityTest
             StorageContextOptions storageOptions =
                 new StorageContextOptions {ConnectionString = configuration["ConnectionStrings:Default"].Replace("{binDir}", Directory.GetCurrentDirectory()) };
 
-            Storage = new Storage(new TestDbContext(new TestOptions(storageOptions)));
+            Storage = new Storage(GetProviderStorageContext(new TestOptions(storageOptions)));
 
         }
         public HttpContext HttpContext { get; }
         public IStorage Storage { get; }
+
+        /// <summary>
+        /// Returns the provider-specific StorageContextBase to use.
+        /// </summary>
+        /// <param name="options_"></param>
+        /// <returns></returns>
+        public StorageContextBase GetProviderStorageContext(IOptions<StorageContextOptions> options_)
+            {
+                return new ExtCore.Data.EntityFramework.Sqlite.StorageContext(options_);
+            } 
 
         public class TestOptions : IOptions<StorageContextOptions>
         {
