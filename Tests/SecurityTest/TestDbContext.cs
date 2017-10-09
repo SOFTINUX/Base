@@ -7,7 +7,7 @@ namespace SecurityTest
 {
     internal class TestDbContext : StorageContextBase
     {
-        // looking at RepositoryBase in ExtCore.Data.EntiotyFramework, should be a StorageContextBase and have a Set<TEntity>
+        // looking at RepositoryBase in ExtCore.Data.EntityFramework, should be a StorageContextBase and have a Set<TEntity>
 
         public TestDbContext(IOptions<StorageContextOptions> options_) : base(options_)
         {
@@ -17,10 +17,14 @@ namespace SecurityTest
 
         protected override void OnModelCreating(ModelBuilder modelBuilder_)
         {
-            // TODO explicitely call Security's Entity registrar 
             base.OnModelCreating(modelBuilder_);
             this.RegisterEntities(modelBuilder_);
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder_)
+        {
+            optionsBuilder_.UseSqlite(ConnectionString);
+            base.OnConfiguring(optionsBuilder_);
+        }
     }
 }

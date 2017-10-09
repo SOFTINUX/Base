@@ -3,8 +3,8 @@ using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
 using Infrastructure;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace SecurityTest
 {
@@ -17,13 +17,23 @@ namespace SecurityTest
                 .AddJsonFile("appsettings.json");
 
             IConfigurationRoot configuration = builder.Build();
-            var optionsBuilder = new DbContextOptionsBuilder<TestDbContext>();
-            optionsBuilder.UseSqlite(configuration["ConnectionStrings:Default"]);
-            // TODO FIXME have a deeper look at how Extcore works
-            Storage = new Storage(new TestDbContext(optionsBuilder.Options));
+            StorageContextOptions storageOptions =
+                new StorageContextOptions {ConnectionString = configuration["ConnectionStrings:Default"].Replace("{binDir}", Directory.GetCurrentDirectory()) };
+            IOptions<StorageContextOptions> options = new TestOptions(storageOptions);
+            Storage = new Storage(new TestDbContext(options));
 
         }
         public HttpContext HttpContext { get; }
         public IStorage Storage { get; }
+
+        public class TestOptions : IOptions<StorageContextOptions>
+        {
+            public TestOptions(StorageContextOptions value_)
+            {
+                Value = value_;
+            }
+
+            public StorageContextOptions Value { get; }
+        }
     }
 }
