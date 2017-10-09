@@ -3,6 +3,7 @@ using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
 using Infrastructure;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
@@ -37,7 +38,7 @@ namespace SecurityTest
         /// <returns></returns>
         public StorageContextBase GetProviderStorageContext(IOptions<StorageContextOptions> options_)
             {
-                return new ExtCore.Data.EntityFramework.Sqlite.StorageContext(options_);
+                return new TestStorageContextBase(options_);
             } 
 
         public class TestOptions : IOptions<StorageContextOptions>
@@ -48,6 +49,21 @@ namespace SecurityTest
             }
 
             public StorageContextOptions Value { get; }
+        }
+
+        /// <summary>
+        /// Provider-specific storage context to use, with sensitive data logging enabled for unit tests debugging.
+        /// </summary>
+        public class TestStorageContextBase : ExtCore.Data.EntityFramework.Sqlite.StorageContext
+        {
+            public TestStorageContextBase(IOptions<StorageContextOptions> options_) : base(options_)
+            {
+            }
+
+            protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder_)
+            {
+                base.OnConfiguring(optionsBuilder_.EnableSensitiveDataLogging(true));
+            }
         }
     }
 }
