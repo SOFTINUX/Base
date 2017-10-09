@@ -1,4 +1,5 @@
 using System.IO;
+using System.Linq;
 using ExtCore.Infrastructure;
 using Security;
 using Security.Data.Abstractions;
@@ -21,8 +22,10 @@ namespace SecurityTest
         [Fact]
         public void Test()
         {
-            var test = ExtensionManager.GetInstance<ICredentialTypeRepository>();
+            Assert.Equal(0, _fixture.GetRepository<ICredentialTypeRepository>().All().Count());
             new DatabaseInitializer().CheckAndInitialize(_fixture.DatabaseContext);
+            Assert.Equal(1, _fixture.GetRepository<ICredentialTypeRepository>().All().Count());
+
         }
     }
 }

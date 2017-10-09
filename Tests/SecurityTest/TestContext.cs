@@ -17,10 +17,11 @@ namespace SecurityTest
                 .AddJsonFile("appsettings.json");
 
             IConfigurationRoot configuration = builder.Build();
+
             StorageContextOptions storageOptions =
                 new StorageContextOptions {ConnectionString = configuration["ConnectionStrings:Default"].Replace("{binDir}", Directory.GetCurrentDirectory()) };
-            IOptions<StorageContextOptions> options = new TestOptions(storageOptions);
-            Storage = new Storage(new TestDbContext(options));
+
+            Storage = new Storage(new TestDbContext(new TestOptions(storageOptions)));
 
         }
         public HttpContext HttpContext { get; }
