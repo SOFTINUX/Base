@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>6</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+<<<<<<< HEAD
+    <PackageReference Include="ExtCore.Mvc.Infrastructure" Version="3.0.0-beta1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.0" />
+=======
+    <PackageReference Include="ExtCore.Mvc.Infrastructure" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.3" />
+>>>>>>> 9b998c1cb748232c28e70ac6ca9636920f1529d9
+  </ItemGroup>
+
+</Project>
