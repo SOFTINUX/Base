@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Security.Claims;
 using Infrastructure;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
+using Security.Data.EntityFramework;
 
 namespace Security
 {
@@ -25,19 +25,19 @@ namespace Security
         /// </summary>
         /// <param name="permissions_"></param>
         /// <returns></returns>
-        internal IEnumerable<Claim> GetFinalPermissions(IEnumerable<Tuple<string, int>> permissions_)
+        internal IEnumerable<Claim> GetFinalPermissions(IEnumerable<PermissionValue> permissions_)
         {
             Dictionary<string, int> dictUniqueIdAndLevel = new Dictionary<string, int>();
 
-            foreach (Tuple<string, int> permission in permissions_)
+            foreach (PermissionValue permission in permissions_)
             {
-                if (dictUniqueIdAndLevel.ContainsKey(permission.Item1))
+                if (dictUniqueIdAndLevel.ContainsKey(permission.UniqueId))
                 {
-                    dictUniqueIdAndLevel[permission.Item1] += permission.Item2;
+                    dictUniqueIdAndLevel[permission.UniqueId] += permission.Level;
                 }
                 else
                 {
-                    dictUniqueIdAndLevel.Add(permission.Item1, permission.Item2);
+                    dictUniqueIdAndLevel.Add(permission.UniqueId, permission.Level);
                 }
             }
 
@@ -69,9 +69,9 @@ namespace Security
         /// <param name="context_"></param>
         /// <param name="user_"></param>
         /// <returns></returns>
-        public IEnumerable<Tuple<string, int>> LoadPermissionLevels(IRequestHandler context_, User user_)
+        public IEnumerable<PermissionValue> LoadPermissionLevels(IRequestHandler context_, User user_)
         {
-            List<Tuple<string, int>> permissions = new List<Tuple<string, int>>();
+            List<PermissionValue> permissions = new List<PermissionValue>();
             IPermissionRepository repo = context_.Storage.GetRepository<IPermissionRepository>();
             // 1. from user's roles
             permissions.AddRange(repo.GetPermissionCodeAndLevelByRoleForUserId(user_.Id));

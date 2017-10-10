@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
 using ExtCore.Infrastructure;
 using Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace SecurityTest.Util
@@ -58,11 +60,26 @@ namespace SecurityTest.Util
         public void RollbackTransaction()
         {
             ((StorageContextBase)DatabaseContext.Storage.StorageContext).Database.RollbackTransaction();
+            DetachAllEntities();
         }
 
         public void Dispose()
         {
             // nothing yet
+        }
+
+        public void DetachAllEntities()
+        {
+            // Since the transaction was rolled back, the entries' state is Unmodified (I guess)
+            var changedEntriesCopy = ((DbContext) DatabaseContext.Storage.StorageContext).ChangeTracker.Entries()
+                //.Where(e => e.State == EntityState.Added ||
+                //            e.State == EntityState.Modified ||
+                //            e.State == EntityState.Deleted)
+                .ToList();
+            foreach (var entity in changedEntriesCopy)
+            {
+                ((DbContext)DatabaseContext.Storage.StorageContext).Entry(entity.Entity).State = EntityState.Detached;
+            }
         }
     }
 }

@@ -1,12 +1,11 @@
-﻿using System;
-using Security;
+﻿using Security;
 using SecurityTest.Util;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using ExtCore.Infrastructure;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
+using Security.Data.EntityFramework;
 using Security.Enums;
 using Xunit;
 using Permission = Security.Data.Entities.Permission;
@@ -44,12 +43,12 @@ namespace SecurityTest
             #region test data setup
             Permission roPerm = new Permission { Code = CST_PERM_CODE_1, OriginExtension = _assembly };
             Permission rwPerm = new Permission { Code = CST_PERM_CODE_1, OriginExtension = _assembly };
-            Tuple<string, int> roTuple = new Tuple<string, int>(roPerm.UniqueIdentifier, (int)Security.Enums.Permission.PermissionLevelValue.ReadOnly);
-            Tuple<string, int> rwTuple = new Tuple<string, int>(rwPerm.UniqueIdentifier, (int)Security.Enums.Permission.PermissionLevelValue.ReadWrite);
-
+            PermissionValue roPv = new PermissionValue{ UniqueId = roPerm.UniqueIdentifier, Level = (int)Security.Enums.Permission.PermissionLevelValue.ReadOnly};
+            PermissionValue rwPv = new PermissionValue{ UniqueId = rwPerm.UniqueIdentifier, Level = (int)Security.Enums.Permission.PermissionLevelValue.ReadWrite};
+ 
             #endregion
             IEnumerable<Claim> claims =
-                new PermissionManager().GetFinalPermissions(new List<Tuple<string, int>> { roTuple, rwTuple });
+                new PermissionManager().GetFinalPermissions(new List<PermissionValue> { roPv, rwPv });
             Assert.Equal(1, claims.Count());
             Assert.Equal(ClaimType.Permission, claims.First().Type);
             Assert.Equal(FormatExpectedClaimValue(rwPerm.Code, true), claims.First().Value);
@@ -134,12 +133,12 @@ namespace SecurityTest
 
                 #endregion
 
-                IEnumerable<Tuple<string, int>> perms = new PermissionManager().LoadPermissionLevels(_fixture.DatabaseContext, user1);
+                IEnumerable<PermissionValue> perms = new PermissionManager().LoadPermissionLevels(_fixture.DatabaseContext, user1);
                 Assert.Equal(2, perms.Count());
                 List<string> permCodes = new List<string>();
-                foreach (Tuple<string, int> perm in perms)
+                foreach (PermissionValue perm in perms)
                 {
-                    permCodes.Add(perm.Item1);
+                    permCodes.Add(perm.UniqueId);
                 }
 
                 Assert.Contains(perm1.UniqueIdentifier, permCodes);

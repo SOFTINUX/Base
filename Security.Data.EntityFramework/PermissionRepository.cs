@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using ExtCore.Data.EntityFramework;
 using Microsoft.EntityFrameworkCore;
@@ -10,10 +9,10 @@ namespace Security.Data.EntityFramework
 {
     public class PermissionRepository : RepositoryBase<Permission>, IPermissionRepository
     {
-       public virtual Permission WithKey(int entityId_)
-       {
-           return dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
-       }
+        public virtual Permission WithKey(int entityId_)
+        {
+            return dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
+        }
 
         public virtual IEnumerable<Permission> All()
         {
@@ -35,55 +34,35 @@ namespace Security.Data.EntityFramework
             dbSet.Remove(WithKey(entityId_));
         }
 
-        public IEnumerable<Tuple<string, int>> GetPermissionCodeAndLevelByRoleForUserId(int userId_)
+        public IEnumerable<PermissionValue> GetPermissionCodeAndLevelByRoleForUserId(int userId_)
         {
-            IEnumerable<RolePermission> perms = from p in storageContext.Set<Permission>()
-                join rp in storageContext.Set<RolePermission>() on p.Id equals rp.PermissionId
-                join r in storageContext.Set<Role>() on rp.RoleId equals r.Id
-                join ur in storageContext.Set<UserRole>() on r.Id equals ur.RoleId
-                join pl in storageContext.Set<PermissionLevel>() on rp.PermissionLevelId equals pl.Id
-                where ur.UserId == userId_
-                select rp;
-            List<Tuple<string, int>> values = new List<Tuple<string, int>>();
-            foreach (RolePermission rp in perms)
-            {
-                values.Add(new Tuple<string, int>(rp.Permission.UniqueIdentifier, rp.PermissionLevel.Value));
-            }
-            return values;
+            return from p in storageContext.Set<Permission>()
+                   join rp in storageContext.Set<RolePermission>() on p.Id equals rp.PermissionId
+                   join r in storageContext.Set<Role>() on rp.RoleId equals r.Id
+                   join ur in storageContext.Set<UserRole>() on r.Id equals ur.RoleId
+                   join pl in storageContext.Set<PermissionLevel>() on rp.PermissionLevelId equals pl.Id
+                   where ur.UserId == userId_
+                   select new PermissionValue { UniqueId = rp.Permission.UniqueIdentifier, Level = pl.Value };
         }
 
-        public IEnumerable<Tuple<string, int>> GetPermissionCodeAndLevelByGroupForUserId(int userId_)
+        public IEnumerable<PermissionValue> GetPermissionCodeAndLevelByGroupForUserId(int userId_)
         {
-            IEnumerable<GroupPermission> perms = from p in storageContext.Set<Permission>()
-                join gp in storageContext.Set<GroupPermission>() on p.Id equals gp.PermissionId
-                join g in storageContext.Set<Group>() on gp.GroupId equals g.Id
-                join gu in storageContext.Set<GroupUser>() on g.Id equals gu.GroupId
-                join pl in storageContext.Set<PermissionLevel>() on gp.PermissionLevelId equals pl.Id
-                where gu.UserId == userId_
-                select gp;
-
-            List<Tuple<string, int>> values = new List<Tuple<string, int>>();
-            foreach (GroupPermission rp in perms)
-            {
-                values.Add(new Tuple<string, int>(rp.Permission.UniqueIdentifier, rp.PermissionLevel.Value));
-            }
-            return values;
+            return from p in storageContext.Set<Permission>()
+                   join gp in storageContext.Set<GroupPermission>() on p.Id equals gp.PermissionId
+                   join g in storageContext.Set<Group>() on gp.GroupId equals g.Id
+                   join gu in storageContext.Set<GroupUser>() on g.Id equals gu.GroupId
+                   join pl in storageContext.Set<PermissionLevel>() on gp.PermissionLevelId equals pl.Id
+                   where gu.UserId == userId_
+                   select new PermissionValue { UniqueId = gp.Permission.UniqueIdentifier, Level = pl.Value };
         }
 
-        public IEnumerable<Tuple<string, int>> GetPermissionCodeAndLevelByUserId(int userId_)
+        public IEnumerable<PermissionValue> GetPermissionCodeAndLevelByUserId(int userId_)
         {
-            IEnumerable<UserPermission> perms = from p in storageContext.Set<Permission>()
-                join up in storageContext.Set<UserPermission>() on p.Id equals up.PermissionId
-                join pl in storageContext.Set<PermissionLevel>() on up.PermissionLevelId equals pl.Id
-                where up.UserId == userId_
-                select up;
-
-            List<Tuple<string, int>> values = new List<Tuple<string, int>>();
-            foreach (UserPermission rp in perms)
-            {
-                values.Add(new Tuple<string, int>(rp.Permission.UniqueIdentifier, rp.PermissionLevel.Value));
-            }
-            return values;
+            return from p in storageContext.Set<Permission>()
+                   join up in storageContext.Set<UserPermission>() on p.Id equals up.PermissionId
+                   join pl in storageContext.Set<PermissionLevel>() on up.PermissionLevelId equals pl.Id
+                   where up.UserId == userId_
+                   select new PermissionValue { UniqueId = up.Permission.UniqueIdentifier, Level = pl.Value };
         }
     }
 }
