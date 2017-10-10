@@ -16,6 +16,9 @@ namespace SecurityTest.Util
 
         public DatabaseFixture()
         {
+            // Cleanup EF detailed log file
+            File.Delete(EfLoggerProvider.LogFilePath);
+
             // initialize test file from copy. Root dir is bin/debug/netcoreapp2.0
             File.Copy("..\\..\\..\\..\\Artefacts\\basedb.sqlite", "..\\..\\..\\..\\WorkDir\\basedb_tests.sqlite", true);
 

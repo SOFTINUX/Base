@@ -7,6 +7,9 @@ namespace SecurityTest.Util
 {
     public class EfLoggerProvider : ILoggerProvider
     {
+        public static string LogFilePath =>
+            Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "entityframework.log");
+
         public ILogger CreateLogger(string categoryName_)
         {
             return new EfLogger();
@@ -24,7 +27,7 @@ namespace SecurityTest.Util
 
             public void Log<TState>(LogLevel logLevel_, EventId eventId_, TState state_, Exception exception_, Func<TState, Exception, string> formatter_)
             {
-                File.AppendAllText(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "entityframework.log"), formatter_(state_, exception_));
+                File.AppendAllText(LogFilePath, formatter_(state_, exception_));
                 Console.WriteLine(formatter_(state_, exception_));
             }
 
