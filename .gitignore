@@ -304,3 +304,6 @@ __pycache__/
 
 WebApplication/Extensions
 bower_components
+
+Tests/WorkDir/*
+!Tests/WorkDir/.workdir

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Barebone.ViewModels.Shared.MenuItem;
+using Infrastructure;
 
 namespace Barebone.ViewModels.Shared.MenuGroup
 {

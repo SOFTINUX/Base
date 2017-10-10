@@ -1,48 +1,54 @@
-﻿using ExtCore.WebApplication.Extensions;
+﻿using ExtCore.Data.Abstractions;
+using ExtCore.Data.EntityFramework;
+using ExtCore.WebApplication.Extensions;
+using Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Security;
 
 namespace WebApplication
 {
-  public class Startup
-  {
-    private IConfigurationRoot configurationRoot;
-    private string extensionsPath;
-
-    public Startup(IHostingEnvironment hostingEnvironment, ILoggerFactory loggerFactory)
+    public class Startup
     {
-      IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
-        .SetBasePath(hostingEnvironment.ContentRootPath)
-        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+        public IConfiguration Configuration { get; }
+        private string _extensionsPath;
 
-      IConfigurationRoot configurationRoot = configurationBuilder.Build();
+        public Startup(IConfiguration configuration_, IHostingEnvironment hostingEnvironment_)
+        {
+            Configuration = configuration_;
+            _extensionsPath = hostingEnvironment_.ContentRootPath + Configuration["Extensions:Path"];
+        }
 
-      this.extensionsPath = hostingEnvironment.ContentRootPath + configurationRoot["Extensions:Path"];
+        public void ConfigureServices(IServiceCollection services_)
+        {
+            // Note: AddScoped : for services based on EF (once per request), 
+            // other values : AddTransient (stateless), AddSingleton (avoids to implement singleton pattern ourselves)
 
-      loggerFactory.AddConsole();
-      loggerFactory.AddDebug();
+            services_.AddScoped<IStorage, Storage>();
+            services_.Configure<StorageContextOptions>(options_ =>
+                {
+                    options_.ConnectionString = Configuration["ConnectionStrings:Default"];
+                }
+            );
+
+            services_.AddScoped<IDatabaseInitializer, DatabaseInitializer>();
+            services_.AddExtCore(_extensionsPath);
+        }
+
+        public void Configure(IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_)
+        {
+            
+            if (hostingEnvironment_.IsDevelopment())
+            {
+                applicationBuilder_.UseDeveloperExceptionPage();
+                //applicationBuilder.UseDatabaseErrorPage();
+                //applicationBuilder.UseBrowserLink();
+            }
+            applicationBuilder_.UseExtCore();
+
+            System.Console.WriteLine("PID= " + System.Diagnostics.Process.GetCurrentProcess().Id);
+        }
     }
-
-    public void ConfigureServices(IServiceCollection services)
-    {
-      services.AddExtCore(this.extensionsPath);
-    }
-
-    public void Configure(IApplicationBuilder applicationBuilder, IHostingEnvironment hostingEnvironment)
-    {
-      if (hostingEnvironment.IsDevelopment())
-      {
-          applicationBuilder.UseDeveloperExceptionPage();
-          //applicationBuilder.UseDatabaseErrorPage();
-          //applicationBuilder.UseBrowserLink();
-      }
-      applicationBuilder.UseExtCore();
-
-      System.Console.WriteLine("PID= " + System.Diagnostics.Process.GetCurrentProcess().Id);
-    }
-  }
 }
