@@ -29,7 +29,7 @@ namespace SecurityTest.Util
                 {
                     loadedAssemblies.Add(Assembly.Load(AssemblyName.GetAssemblyName(file.FullName)));
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     Console.WriteLine("Error loading assembly from file: " + file.FullName);
                 }

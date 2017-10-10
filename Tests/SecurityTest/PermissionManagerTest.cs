@@ -98,7 +98,7 @@ namespace SecurityTest
                 {
                     PermissionId = perm1.Id,
                     RoleId = role1.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelValue.ReadWrite
+                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadWrite
                 });
 
                 // Link Permission 2 to Group 1, RW
@@ -106,7 +106,7 @@ namespace SecurityTest
                 {
                     PermissionId = perm2.Id,
                     GroupId = group1.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelValue.ReadWrite
+                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadWrite
                 });
 
                 // Link Permission 3 to Group 2, RW
@@ -114,7 +114,7 @@ namespace SecurityTest
                 {
                     PermissionId = perm3.Id,
                     GroupId = group2.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelValue.ReadWrite
+                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadWrite
                 });
 
                 // Link Role 1 and Group 1 to user 1
@@ -142,8 +142,8 @@ namespace SecurityTest
                     permCodes.Add(perm.Item1);
                 }
 
-                Assert.Contains(CST_PERM_CODE_1, permCodes);
-                Assert.Contains(CST_PERM_CODE_2, permCodes);
+                Assert.Contains(perm1.UniqueIdentifier, permCodes);
+                Assert.Contains(perm2.UniqueIdentifier, permCodes);
             }
             finally
             {
@@ -178,23 +178,21 @@ namespace SecurityTest
                 _fixture.GetRepository<IUserRepository>().Create(user1);
 
                 _fixture.SaveChanges();
-
-
+                
                 // Link Permission 1 to Role 1, RO
                 _fixture.GetRepository<IRolePermissionRepository>().Create(new RolePermission
                 {
                     PermissionId = perm1.Id,
                     RoleId = role1.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelValue.ReadOnly
+                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadOnly
                 });
-
-
+                
                 // Link Permission 1 to User 1, Never
                 _fixture.GetRepository<IUserPermissionRepository>().Create(new UserPermission
                 {
                     PermissionId = perm1.Id,
                     UserId = user1.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelValue.Never
+                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdNever
                 });
 
                 // Link Permission 1 to Group 1, RW
@@ -202,7 +200,7 @@ namespace SecurityTest
                 {
                     PermissionId = perm1.Id,
                     GroupId = group1.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelValue.ReadWrite
+                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadWrite
                 });
 
                 // Link Role 1 and Group 1 to user 1

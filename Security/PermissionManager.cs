@@ -45,6 +45,12 @@ namespace Security
 
             foreach (string uniqueId in dictUniqueIdAndLevel.Keys)
             {
+                if (dictUniqueIdAndLevel[uniqueId] % 2 == 1)
+                {
+                    // odd number: "never" flag : no permission
+                    continue;
+                }
+
                 if ((dictUniqueIdAndLevel[uniqueId] & (int) Enums.Permission.PermissionLevelValue.ReadWrite) != 0)
                 {
                     claims.Add(new Claim(Enums.ClaimType.Permission, uniqueId + "|RW"));

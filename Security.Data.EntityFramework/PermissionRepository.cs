@@ -41,12 +41,13 @@ namespace Security.Data.EntityFramework
                 join rp in storageContext.Set<RolePermission>() on p.Id equals rp.PermissionId
                 join r in storageContext.Set<Role>() on rp.RoleId equals r.Id
                 join ur in storageContext.Set<UserRole>() on r.Id equals ur.RoleId
+                join pl in storageContext.Set<PermissionLevel>() on rp.PermissionLevelId equals pl.Id
                 where ur.UserId == userId_
                 select rp;
-            IEnumerable<Tuple<string, int>> values = new List<Tuple<string, int>>();
+            List<Tuple<string, int>> values = new List<Tuple<string, int>>();
             foreach (RolePermission rp in perms)
             {
-                values.Append(new Tuple<string, int>(rp.Permission.UniqueIdentifier, rp.PermissionLevelId));
+                values.Add(new Tuple<string, int>(rp.Permission.UniqueIdentifier, rp.PermissionLevel.Value));
             }
             return values;
         }
@@ -57,13 +58,14 @@ namespace Security.Data.EntityFramework
                 join gp in storageContext.Set<GroupPermission>() on p.Id equals gp.PermissionId
                 join g in storageContext.Set<Group>() on gp.GroupId equals g.Id
                 join gu in storageContext.Set<GroupUser>() on g.Id equals gu.GroupId
+                join pl in storageContext.Set<PermissionLevel>() on gp.PermissionLevelId equals pl.Id
                 where gu.UserId == userId_
                 select gp;
 
-            IEnumerable<Tuple<string, int>> values = new List<Tuple<string, int>>();
+            List<Tuple<string, int>> values = new List<Tuple<string, int>>();
             foreach (GroupPermission rp in perms)
             {
-                values.Append(new Tuple<string, int>(rp.Permission.UniqueIdentifier, rp.PermissionLevelId));
+                values.Add(new Tuple<string, int>(rp.Permission.UniqueIdentifier, rp.PermissionLevel.Value));
             }
             return values;
         }
@@ -72,13 +74,14 @@ namespace Security.Data.EntityFramework
         {
             IEnumerable<UserPermission> perms = from p in storageContext.Set<Permission>()
                 join up in storageContext.Set<UserPermission>() on p.Id equals up.PermissionId
+                join pl in storageContext.Set<PermissionLevel>() on up.PermissionLevelId equals pl.Id
                 where up.UserId == userId_
                 select up;
 
-            IEnumerable<Tuple<string, int>> values = new List<Tuple<string, int>>();
+            List<Tuple<string, int>> values = new List<Tuple<string, int>>();
             foreach (UserPermission rp in perms)
             {
-                values.Append(new Tuple<string, int>(rp.Permission.UniqueIdentifier, rp.PermissionLevelId));
+                values.Add(new Tuple<string, int>(rp.Permission.UniqueIdentifier, rp.PermissionLevel.Value));
             }
             return values;
         }

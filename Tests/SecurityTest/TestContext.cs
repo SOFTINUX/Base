@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
 using Infrastructure;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using SecurityTest.Util;
 
 namespace SecurityTest
 {
@@ -63,7 +65,8 @@ namespace SecurityTest
 
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder_)
             {
-                ILoggerFactory loggerFactory = new LoggerFactory().AddConsole().AddDebug();
+                ILoggerFactory loggerFactory = new LoggerFactory();
+                loggerFactory.AddProvider(new EfLoggerProvider());
                 base.OnConfiguring(optionsBuilder_.EnableSensitiveDataLogging().UseLoggerFactory(loggerFactory));
             }
         }
