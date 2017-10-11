@@ -1,4 +1,5 @@
-﻿using Security;
+﻿using System;
+using Security;
 using SecurityTest.Util;
 using System.Collections.Generic;
 using System.Linq;
@@ -237,13 +238,262 @@ namespace SecurityTest
 
         /// <summary>
         /// Test of GetFinalPermissions() with permission loading and computation.
-        /// A permission flagged as administrator-owner cannot be ungranted to a superadmin user.
-        /// Case detail : permission attached to the role, removed for user's group ("never" right level).
-        /// Expected : permission is still attributed to the user
+        /// A permission flagged as administrator-owner is attached to the admin role, linked to a user.
+        /// This permission is removed for user's group ("never" right level).
+        /// Expected : A permission flagged as administrator-owner can be ungranted to a non-superadmin user.
         /// </summary>
         [Fact]
-        public void TestGetFinalPermissionsWithAdminOwnerFlagCase1()
+        public void TestGetFinalPermissionsWithAdminOwnerFlagUngranted()
         {
+         throw new NotImplementedException();   
+            try
+            {
+                _fixture.OpenTransaction();
+
+                #region test data setup
+
+                //// Permission 1, User 1, Group 1
+                //Permission perm1 = new Permission { Code = CST_PERM_CODE_1, Label = "Perm 1", OriginExtension = _assembly };
+
+                //Group group1 = new Group { Code = CST_GROUP_CODE_1, Label = "Group 1", OriginExtension = _assembly };
+
+                //User user1 = new User { DisplayName = "Test", FirstName = "Test", LastName = "Test" };
+
+                //_fixture.GetRepository<IPermissionRepository>().Create(perm1);
+                //_fixture.GetRepository<IGroupRepository>().Create(group1);
+                //_fixture.GetRepository<IUserRepository>().Create(user1);
+
+                //_fixture.SaveChanges();
+
+                //// Link Permission 1 to Role 1, RO
+                //_fixture.GetRepository<IRolePermissionRepository>().Create(new RolePermission
+                //{
+                //    PermissionId = perm1.Id,
+                //    RoleId = role1.Id,
+                //    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadOnly
+                //});
+
+                //// Link Permission 1 to User 1, Never
+                //_fixture.GetRepository<IUserPermissionRepository>().Create(new UserPermission
+                //{
+                //    PermissionId = perm1.Id,
+                //    UserId = user1.Id,
+                //    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdNever
+                //});
+
+                //// Link Permission 1 to Group 1, RW
+                //_fixture.GetRepository<IGroupPermissionRepository>().Create(new GroupPermission
+                //{
+                //    PermissionId = perm1.Id,
+                //    GroupId = group1.Id,
+                //    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadWrite
+                //});
+
+                //// Link Role 1 and Group 1 to user 1
+                //_fixture.GetRepository<IUserRoleRepository>().Create(new UserRole
+                //{
+                //    RoleId = role1.Id,
+                //    UserId = user1.Id
+                //});
+
+                //_fixture.GetRepository<IGroupUserRepository>().Create(new GroupUser
+                //{
+                //    GroupId = group1.Id,
+                //    UserId = user1.Id
+                //});
+
+                //_fixture.SaveChanges();
+
+                #endregion
+
+                //IEnumerable<Claim> claims = new PermissionManager().GetFinalPermissions(_fixture.DatabaseContext, user1);
+                //// Expected no permission because permission is denied
+                //Assert.Equal(0, claims.Count());
+            }
+            finally
+            {
+                _fixture.RollbackTransaction();
+            }
+        }
+
+        /// <summary>
+        /// Test of GetFinalPermissions() with permission loading and computation.
+        /// A permission flagged as administrator-owner is attached to the superadmin role, linked to a user.
+        /// This permission is removed for user's group ("never" right level).
+        /// Expected : A permission flagged as administrator-owner cannot be ungranted to a superadmin user.
+        /// </summary>
+        [Fact]
+        public void TestGetFinalPermissionsWithAdminOwnerFlagStillGranted()
+        {
+            throw new NotImplementedException();
+            try
+            {
+                _fixture.OpenTransaction();
+
+                #region test data setup
+
+                //// Permission 1, Role 1, User 1, Group 1
+                //Permission perm1 = new Permission { Code = CST_PERM_CODE_1, Label = "Perm 1", OriginExtension = _assembly };
+
+                //Role role1 = new Role { Code = CST_ROLE_CODE_1, Label = "Role 1", OriginExtension = _assembly };
+
+                //Group group1 = new Group { Code = CST_GROUP_CODE_1, Label = "Group 1", OriginExtension = _assembly };
+
+                //User user1 = new User { DisplayName = "Test", FirstName = "Test", LastName = "Test" };
+
+                //_fixture.GetRepository<IPermissionRepository>().Create(perm1);
+                //_fixture.GetRepository<IRoleRepository>().Create(role1);
+                //_fixture.GetRepository<IGroupRepository>().Create(group1);
+                //_fixture.GetRepository<IUserRepository>().Create(user1);
+
+                //_fixture.SaveChanges();
+
+                //// Link Permission 1 to Role 1, RO
+                //_fixture.GetRepository<IRolePermissionRepository>().Create(new RolePermission
+                //{
+                //    PermissionId = perm1.Id,
+                //    RoleId = role1.Id,
+                //    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadOnly
+                //});
+
+                //// Link Permission 1 to User 1, Never
+                //_fixture.GetRepository<IUserPermissionRepository>().Create(new UserPermission
+                //{
+                //    PermissionId = perm1.Id,
+                //    UserId = user1.Id,
+                //    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdNever
+                //});
+
+                //// Link Permission 1 to Group 1, RW
+                //_fixture.GetRepository<IGroupPermissionRepository>().Create(new GroupPermission
+                //{
+                //    PermissionId = perm1.Id,
+                //    GroupId = group1.Id,
+                //    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadWrite
+                //});
+
+                //// Link Role 1 and Group 1 to user 1
+                //_fixture.GetRepository<IUserRoleRepository>().Create(new UserRole
+                //{
+                //    RoleId = role1.Id,
+                //    UserId = user1.Id
+                //});
+
+                //_fixture.GetRepository<IGroupUserRepository>().Create(new GroupUser
+                //{
+                //    GroupId = group1.Id,
+                //    UserId = user1.Id
+                //});
+
+                //_fixture.SaveChanges();
+
+                #endregion
+
+                //IEnumerable<Claim> claims = new PermissionManager().GetFinalPermissions(_fixture.DatabaseContext, user1);
+                //// Expected no permission because permission is denied
+                //Assert.Equal(0, claims.Count());
+            }
+            finally
+            {
+                _fixture.RollbackTransaction();
+            }
+        }
+
+        /// <summary>
+        /// Test of GetFinalPermissions() with permission loading and computation.
+        /// A permission flagged as administrator-owner is attached to a group, linked to a user.
+        /// The use has superadmin role.
+        /// This permission is removed for user's group ("never" right level).
+        /// Expected : A permission flagged as administrator-owner cannot be ungranted to a superadmin user.
+        /// </summary>
+        [Fact]
+        public void TestGetFinalPermissionsWithAdminOwnerFlagStillGrantedCaseTwo()
+        {
+            throw new NotImplementedException();
+            try
+            {
+                _fixture.OpenTransaction();
+
+                #region test data setup
+
+                //// Permission 1, Role 1, User 1, Group 1
+                //Permission perm1 = new Permission { Code = CST_PERM_CODE_1, Label = "Perm 1", OriginExtension = _assembly };
+
+                //Role role1 = new Role { Code = CST_ROLE_CODE_1, Label = "Role 1", OriginExtension = _assembly };
+
+                //Group group1 = new Group { Code = CST_GROUP_CODE_1, Label = "Group 1", OriginExtension = _assembly };
+
+                //User user1 = new User { DisplayName = "Test", FirstName = "Test", LastName = "Test" };
+
+                //_fixture.GetRepository<IPermissionRepository>().Create(perm1);
+                //_fixture.GetRepository<IRoleRepository>().Create(role1);
+                //_fixture.GetRepository<IGroupRepository>().Create(group1);
+                //_fixture.GetRepository<IUserRepository>().Create(user1);
+
+                //_fixture.SaveChanges();
+
+                //// Link Permission 1 to Role 1, RO
+                //_fixture.GetRepository<IRolePermissionRepository>().Create(new RolePermission
+                //{
+                //    PermissionId = perm1.Id,
+                //    RoleId = role1.Id,
+                //    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadOnly
+                //});
+
+                //// Link Permission 1 to User 1, Never
+                //_fixture.GetRepository<IUserPermissionRepository>().Create(new UserPermission
+                //{
+                //    PermissionId = perm1.Id,
+                //    UserId = user1.Id,
+                //    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdNever
+                //});
+
+                //// Link Permission 1 to Group 1, RW
+                //_fixture.GetRepository<IGroupPermissionRepository>().Create(new GroupPermission
+                //{
+                //    PermissionId = perm1.Id,
+                //    GroupId = group1.Id,
+                //    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadWrite
+                //});
+
+                //// Link Role 1 and Group 1 to user 1
+                //_fixture.GetRepository<IUserRoleRepository>().Create(new UserRole
+                //{
+                //    RoleId = role1.Id,
+                //    UserId = user1.Id
+                //});
+
+                //_fixture.GetRepository<IGroupUserRepository>().Create(new GroupUser
+                //{
+                //    GroupId = group1.Id,
+                //    UserId = user1.Id
+                //});
+
+                //_fixture.SaveChanges();
+
+                #endregion
+
+                //IEnumerable<Claim> claims = new PermissionManager().GetFinalPermissions(_fixture.DatabaseContext, user1);
+                //// Expected no permission because permission is denied
+                //Assert.Equal(0, claims.Count());
+            }
+            finally
+            {
+                _fixture.RollbackTransaction();
+            }
+        }
+
+        /// <summary>
+        /// Test of GetFinalPermissions() with permission loading and computation.
+        /// A permission flagged as administrator-owner is attached to a group, linked to a user.
+        /// The use has not superadmin role.
+        /// This permission is removed for user's group ("never" right level).
+        /// Expected : A permission flagged as administrator-owner can be ungranted to a non-superadmin user.
+        /// </summary>
+        [Fact]
+        public void TestGetFinalPermissionsWithAdminOwnerFlagUngrantedCaseTwo()
+        {
+            throw new NotImplementedException();
             try
             {
                 _fixture.OpenTransaction();
