@@ -36,6 +36,8 @@ namespace SecurityTest
 
         /// <summary>
         /// Test of GetFinalPermissions() passing permission-related data.
+        /// A reference to the same permission is passed, first with RO right level, second with RW.
+        /// Expected: the permission with RW right level.
         /// </summary>
         [Fact]
         public void TestGetFinalPermissionsRwNoDatabase()
@@ -56,6 +58,8 @@ namespace SecurityTest
 
         /// <summary>
         /// Test of loading permissions from database, from roles and groups.
+        /// A permission is attributed to a group, another one to a role. user is linked to these role and group.
+        /// Expected : two permissions loaded.
         /// </summary>
         [Fact]
         public void TestLoadPermissions()
@@ -152,9 +156,11 @@ namespace SecurityTest
 
         /// <summary>
         /// Test of GetFinalPermissions() with permission loading and computation.
+        /// The same permission is linked to role, group and user with different right level. 
+        /// Expected: The "Never" right level takes precedence, thus no claim.
         /// </summary>
         [Fact]
-        public void TestGetFinalPermissionsWithLevel()
+        public void TestGetFinalPermissionsWithLevels()
         {
             try
             {
@@ -222,6 +228,88 @@ namespace SecurityTest
                 IEnumerable<Claim> claims = new PermissionManager().GetFinalPermissions(_fixture.DatabaseContext, user1);
                 // Expected no permission because permission is denied
                 Assert.Equal(0, claims.Count());
+            }
+            finally
+            {
+                _fixture.RollbackTransaction();
+            }
+        }
+
+        /// <summary>
+        /// Test of GetFinalPermissions() with permission loading and computation.
+        /// A permission flagged as administrator-owner cannot be ungranted to a superadmin user.
+        /// Case detail : permission attached to the role, removed for user's group ("never" right level).
+        /// Expected : permission is still attributed to the user
+        /// </summary>
+        [Fact]
+        public void TestGetFinalPermissionsWithAdminOwnerFlagCase1()
+        {
+            try
+            {
+                _fixture.OpenTransaction();
+
+                #region test data setup
+
+                //// Permission 1, Role 1, User 1, Group 1
+                //Permission perm1 = new Permission { Code = CST_PERM_CODE_1, Label = "Perm 1", OriginExtension = _assembly };
+
+                //Role role1 = new Role { Code = CST_ROLE_CODE_1, Label = "Role 1", OriginExtension = _assembly };
+
+                //Group group1 = new Group { Code = CST_GROUP_CODE_1, Label = "Group 1", OriginExtension = _assembly };
+
+                //User user1 = new User { DisplayName = "Test", FirstName = "Test", LastName = "Test" };
+
+                //_fixture.GetRepository<IPermissionRepository>().Create(perm1);
+                //_fixture.GetRepository<IRoleRepository>().Create(role1);
+                //_fixture.GetRepository<IGroupRepository>().Create(group1);
+                //_fixture.GetRepository<IUserRepository>().Create(user1);
+
+                //_fixture.SaveChanges();
+
+                //// Link Permission 1 to Role 1, RO
+                //_fixture.GetRepository<IRolePermissionRepository>().Create(new RolePermission
+                //{
+                //    PermissionId = perm1.Id,
+                //    RoleId = role1.Id,
+                //    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadOnly
+                //});
+
+                //// Link Permission 1 to User 1, Never
+                //_fixture.GetRepository<IUserPermissionRepository>().Create(new UserPermission
+                //{
+                //    PermissionId = perm1.Id,
+                //    UserId = user1.Id,
+                //    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdNever
+                //});
+
+                //// Link Permission 1 to Group 1, RW
+                //_fixture.GetRepository<IGroupPermissionRepository>().Create(new GroupPermission
+                //{
+                //    PermissionId = perm1.Id,
+                //    GroupId = group1.Id,
+                //    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadWrite
+                //});
+
+                //// Link Role 1 and Group 1 to user 1
+                //_fixture.GetRepository<IUserRoleRepository>().Create(new UserRole
+                //{
+                //    RoleId = role1.Id,
+                //    UserId = user1.Id
+                //});
+
+                //_fixture.GetRepository<IGroupUserRepository>().Create(new GroupUser
+                //{
+                //    GroupId = group1.Id,
+                //    UserId = user1.Id
+                //});
+
+                //_fixture.SaveChanges();
+
+                #endregion
+
+                //IEnumerable<Claim> claims = new PermissionManager().GetFinalPermissions(_fixture.DatabaseContext, user1);
+                //// Expected no permission because permission is denied
+                //Assert.Equal(0, claims.Count());
             }
             finally
             {
