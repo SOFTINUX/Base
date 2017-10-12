@@ -240,10 +240,10 @@ namespace SecurityTest
         /// Test of GetFinalPermissions() with permission loading and computation.
         /// A permission flagged as administrator-owner is attached to the admin role, linked to a user.
         /// This permission is removed for user's group ("never" right level).
-        /// Expected : A permission flagged as administrator-owner can be ungranted to a non-superadmin user.
+        /// Expected : A permission flagged as administrator-owner can be ungranted to a superadmin user.
         /// </summary>
         [Fact]
-        public void TestGetFinalPermissionsWithAdminOwnerFlagUngranted()
+        public void TestGetFinalPermissionsWithAdminOwnerFlagStillGranted()
         {
             try
             {
@@ -260,6 +260,9 @@ namespace SecurityTest
 
                 Role role1 = _fixture.GetRepository<IRoleRepository>().WithKey((int) RoleId.AdministratorOwner);
 
+                IRolePermissionRepository rolePermRepo = _fixture.GetRepository<IRolePermissionRepository>();
+                int permissionsForRoleNb = rolePermRepo.FilteredByRoleId(role1.Id).Count();
+
                 _fixture.GetRepository<IPermissionRepository>().Create(perm1);
                 _fixture.GetRepository<IGroupRepository>().Create(group1);
                 _fixture.GetRepository<IUserRepository>().Create(user1);
@@ -267,7 +270,7 @@ namespace SecurityTest
                 _fixture.SaveChanges();
 
                 // Link Permission 1 to Role, RW
-                _fixture.GetRepository<IRolePermissionRepository>().Create(new RolePermission
+                rolePermRepo.Create(new RolePermission
                 {
                     PermissionId = perm1.Id,
                     RoleId = role1.Id,
@@ -301,8 +304,8 @@ namespace SecurityTest
 
                 IEnumerable<Claim> claims = new PermissionManager().GetFinalPermissions(_fixture.DatabaseContext, user1);
                 // Expected permission to be granted
-                Assert.Equal(1, claims.Count());
-                Assert.Equal(FormatExpectedClaimValue(perm1.Code, true), claims.First().Value);
+                Assert.Equal(permissionsForRoleNb+1, claims.Count());
+                Assert.NotNull(claims.FirstOrDefault(c_ => c_.Value == FormatExpectedClaimValue(perm1.Code, true)));
             }
             finally
             {
@@ -314,10 +317,10 @@ namespace SecurityTest
         /// Test of GetFinalPermissions() with permission loading and computation.
         /// A permission flagged as administrator-owner is attached to the superadmin role, linked to a user.
         /// This permission is removed for user's group ("never" right level).
-        /// Expected : A permission flagged as administrator-owner cannot be ungranted to a superadmin user.
+        /// Expected : A permission flagged as administrator-owner cannot be ungranted to a non-superadmin user.
         /// </summary>
         [Fact]
-        public void TestGetFinalPermissionsWithAdminOwnerFlagStillGranted()
+        public void TestGetFinalPermissionsWithAdminOwnerFlagStillUngranted()
         {
             try
             {
@@ -334,6 +337,9 @@ namespace SecurityTest
 
                 Role role1 = _fixture.GetRepository<IRoleRepository>().WithKey((int)RoleId.Administrator);
 
+                IRolePermissionRepository rolePermRepo = _fixture.GetRepository<IRolePermissionRepository>();
+                int permissionsForRoleNb = rolePermRepo.FilteredByRoleId(role1.Id).Count();
+
                 _fixture.GetRepository<IPermissionRepository>().Create(perm1);
                 _fixture.GetRepository<IGroupRepository>().Create(group1);
                 _fixture.GetRepository<IUserRepository>().Create(user1);
@@ -341,7 +347,7 @@ namespace SecurityTest
                 _fixture.SaveChanges();
 
                 // Link Permission 1 to Role, RW
-                _fixture.GetRepository<IRolePermissionRepository>().Create(new RolePermission
+                rolePermRepo.Create(new RolePermission
                 {
                     PermissionId = perm1.Id,
                     RoleId = role1.Id,
@@ -374,8 +380,10 @@ namespace SecurityTest
                 #endregion
 
                 IEnumerable<Claim> claims = new PermissionManager().GetFinalPermissions(_fixture.DatabaseContext, user1);
-                // Expected permission to be not granted
-                Assert.Equal(0, claims.Count());
+                // Expected permission to be ungranted
+                Assert.Equal(permissionsForRoleNb, claims.Count());
+                Assert.Null(claims.FirstOrDefault(c_ => c_.Value == FormatExpectedClaimValue(perm1.Code, true)));
+
             }
             finally
             {
@@ -407,6 +415,9 @@ namespace SecurityTest
                 User user1 = new User { DisplayName = "Test", FirstName = "Test", LastName = "Test" };
 
                 Role role1 = _fixture.GetRepository<IRoleRepository>().WithKey((int)RoleId.AdministratorOwner);
+
+                IRolePermissionRepository rolePermRepo = _fixture.GetRepository<IRolePermissionRepository>();
+                int permissionsForRoleNb = rolePermRepo.FilteredByRoleId(role1.Id).Count();
 
                 _fixture.GetRepository<IPermissionRepository>().Create(perm1);
                 _fixture.GetRepository<IGroupRepository>().Create(group1);
@@ -449,8 +460,8 @@ namespace SecurityTest
 
                 IEnumerable<Claim> claims = new PermissionManager().GetFinalPermissions(_fixture.DatabaseContext, user1);
                 // Expected permission to be granted
-                Assert.Equal(1, claims.Count());
-                Assert.Equal(FormatExpectedClaimValue(perm1.Code, true), claims.First().Value);
+                Assert.Equal(permissionsForRoleNb+1, claims.Count());
+                Assert.NotNull(claims.FirstOrDefault(c_ => c_.Value == FormatExpectedClaimValue(perm1.Code, true)));
             }
             finally
             {
@@ -482,6 +493,9 @@ namespace SecurityTest
                 User user1 = new User { DisplayName = "Test", FirstName = "Test", LastName = "Test" };
 
                 Role role1 = _fixture.GetRepository<IRoleRepository>().WithKey((int)RoleId.Administrator);
+
+                IRolePermissionRepository rolePermRepo = _fixture.GetRepository<IRolePermissionRepository>();
+                int permissionsForRoleNb = rolePermRepo.FilteredByRoleId(role1.Id).Count();
 
                 _fixture.GetRepository<IPermissionRepository>().Create(perm1);
                 _fixture.GetRepository<IGroupRepository>().Create(group1);
@@ -524,7 +538,8 @@ namespace SecurityTest
 
                 IEnumerable<Claim> claims = new PermissionManager().GetFinalPermissions(_fixture.DatabaseContext, user1);
                 // Expected permission to be ungranted
-                Assert.Equal(0, claims.Count());
+                Assert.Equal(permissionsForRoleNb, claims.Count());
+                Assert.Null(claims.FirstOrDefault(c_ => c_.Value == FormatExpectedClaimValue(perm1.Code, true)));
             }
             finally
             {
