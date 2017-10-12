@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using Infrastructure;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
 using Security.Data.EntityFramework;
+using Security.Enums;
 
 namespace Security
 {
@@ -17,44 +20,50 @@ namespace Security
         /// <returns></returns>
         public IEnumerable<Claim> GetFinalPermissions(IRequestHandler context_, User user_)
         {
-            return GetFinalPermissions(LoadPermissionLevels(context_, user_));
+            return GetFinalPermissions(LoadPermissionLevels(context_, user_),
+                context_.Storage.GetRepository<IUserRoleRepository>().FilteredByUserId(user_.Id).FirstOrDefault(ur_ => ur_.RoleId == (int)RoleId.AdministratorOwner) != null);
         }
 
         /// <summary>
         /// Computes the claims from the permisssions and permission levels.
         /// </summary>
+        /// <param name="hasAdminOwnerRole_"></param>
         /// <param name="permissions_"></param>
         /// <returns></returns>
-        internal IEnumerable<Claim> GetFinalPermissions(IEnumerable<PermissionValue> permissions_)
+        internal IEnumerable<Claim> GetFinalPermissions(IEnumerable<PermissionValue> permissions_, bool hasAdminOwnerRole_)
         {
-            Dictionary<string, int> dictUniqueIdAndLevel = new Dictionary<string, int>();
+            Dictionary<string, PermissionValue> dictPermissionValueByUniqueId =
+                new Dictionary<string, PermissionValue>();
 
             foreach (PermissionValue permission in permissions_)
             {
-                if (dictUniqueIdAndLevel.ContainsKey(permission.UniqueId))
+                if (dictPermissionValueByUniqueId.ContainsKey(permission.UniqueId))
                 {
-                    dictUniqueIdAndLevel[permission.UniqueId] += permission.Level;
+                    dictPermissionValueByUniqueId[permission.UniqueId].Level += permission.Level;
                 }
                 else
                 {
-                    dictUniqueIdAndLevel.Add(permission.UniqueId, permission.Level);
+                    dictPermissionValueByUniqueId.Add(permission.UniqueId, permission);
                 }
             }
 
             List<Claim> claims = new List<Claim>();
 
-            foreach (string uniqueId in dictUniqueIdAndLevel.Keys)
+            foreach (string uniqueId in dictPermissionValueByUniqueId.Keys)
             {
-                if (dictUniqueIdAndLevel[uniqueId] % 2 == 1)
+                PermissionValue pv = dictPermissionValueByUniqueId[uniqueId];
+                if ((pv.Level % 2 == 1) && !(hasAdminOwnerRole_ && pv.AdministratorOwner))
                 {
-                    // odd number: "never" flag : no permission
+                    // odd number: "never" flag : no permission.
+                    // unless the permission is flagged admin-owner and the user has admin-owner role
                     continue;
                 }
 
-                if ((dictUniqueIdAndLevel[uniqueId] & (int) Enums.Permission.PermissionLevelValue.ReadWrite) != 0)
+                if ((pv.Level & (int)Enums.Permission.PermissionLevelValue.ReadWrite) != 0)
                 {
                     claims.Add(new Claim(Enums.ClaimType.Permission, uniqueId + "|RW"));
-                } else if ((dictUniqueIdAndLevel[uniqueId] & (int)Enums.Permission.PermissionLevelValue.ReadOnly) != 0)
+                }
+                else if ((pv.Level & (int)Enums.Permission.PermissionLevelValue.ReadOnly) != 0)
                 {
                     claims.Add(new Claim(Enums.ClaimType.Permission, uniqueId + "|RO"));
                 }
