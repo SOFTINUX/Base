@@ -42,7 +42,7 @@ namespace Security.Data.EntityFramework
                    join ur in storageContext.Set<UserRole>() on r.Id equals ur.RoleId
                    join pl in storageContext.Set<PermissionLevel>() on rp.PermissionLevelId equals pl.Id
                    where ur.UserId == userId_
-                   select new PermissionValue { UniqueId = rp.Permission.UniqueIdentifier, Level = pl.Value };
+                   select new PermissionValue { UniqueId = rp.Permission.UniqueIdentifier, Level = pl.Value, AdministratorOwner = p.AdministratorOwner};
         }
 
         public IEnumerable<PermissionValue> GetPermissionCodeAndLevelByGroupForUserId(int userId_)
@@ -53,7 +53,7 @@ namespace Security.Data.EntityFramework
                    join gu in storageContext.Set<GroupUser>() on g.Id equals gu.GroupId
                    join pl in storageContext.Set<PermissionLevel>() on gp.PermissionLevelId equals pl.Id
                    where gu.UserId == userId_
-                   select new PermissionValue { UniqueId = gp.Permission.UniqueIdentifier, Level = pl.Value };
+                   select new PermissionValue { UniqueId = gp.Permission.UniqueIdentifier, Level = pl.Value, AdministratorOwner = p.AdministratorOwner };
         }
 
         public IEnumerable<PermissionValue> GetPermissionCodeAndLevelByUserId(int userId_)
@@ -62,7 +62,7 @@ namespace Security.Data.EntityFramework
                    join up in storageContext.Set<UserPermission>() on p.Id equals up.PermissionId
                    join pl in storageContext.Set<PermissionLevel>() on up.PermissionLevelId equals pl.Id
                    where up.UserId == userId_
-                   select new PermissionValue { UniqueId = up.Permission.UniqueIdentifier, Level = pl.Value };
+                   select new PermissionValue { UniqueId = up.Permission.UniqueIdentifier, Level = pl.Value, AdministratorOwner = p.AdministratorOwner };
         }
     }
 }

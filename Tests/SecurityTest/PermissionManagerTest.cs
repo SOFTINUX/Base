@@ -1,12 +1,10 @@
-﻿using System;
-using Security;
+﻿using Security;
 using SecurityTest.Util;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
-using Security.Data.EntityFramework;
 using Security.Enums;
 using Xunit;
 using Permission = Security.Data.Entities.Permission;
@@ -51,7 +49,7 @@ namespace SecurityTest
  
             #endregion
             IEnumerable<Claim> claims =
-                new PermissionManager().GetFinalPermissions(new List<PermissionValue> { roPv, rwPv });
+                new PermissionManager().GetFinalPermissions(new List<PermissionValue> { roPv, rwPv }, false);
             Assert.Equal(1, claims.Count());
             Assert.Equal(ClaimType.Permission, claims.First().Type);
             Assert.Equal(FormatExpectedClaimValue(rwPerm.Code, true), claims.First().Value);
