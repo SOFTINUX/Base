@@ -10,7 +10,7 @@ using Security.Enums;
 
 namespace Security
 {
-    public class PermissionManager : IPermissionManager
+    public class PermissionManager
     {
         /// <summary>
         /// Computes the claims from the permisssions and permission levels.
