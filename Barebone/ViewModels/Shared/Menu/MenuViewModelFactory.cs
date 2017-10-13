@@ -21,20 +21,17 @@ namespace Barebone.ViewModels.Shared.Menu
         /// <returns></returns>
         public async Task<MenuViewModel> CreateAsync()
         {
-            var menuGroupViewModelsResultTask = Task.Run(() => GetMenuGroupViewModel());
+            var menuViewModelsResultTask = Task.Run(() => GetMenuViewModel());
 
-            List<MenuGroupViewModel> menuGroupViewModels = await menuGroupViewModelsResultTask;
-            return new MenuViewModel()
-            {
-                MenuGroups = menuGroupViewModels
-            };
+            MenuViewModel menu = await menuViewModelsResultTask;
+            return menu;
         }
 
         /// <summary>
-        /// Supposedly time-consuming method that builds the list of MenuGroupViewModel.
+        /// Supposedly time-consuming method that builds the menu view model.
         /// </summary>
         /// <returns></returns>
-        private List<MenuGroupViewModel> GetMenuGroupViewModel()
+        private MenuViewModel GetMenuViewModel()
         {
             List<MenuGroupViewModel> menuGroupViewModels = new List<MenuGroupViewModel>();
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
@@ -58,7 +55,10 @@ namespace Barebone.ViewModels.Shared.Menu
                     menuGroupViewModel.MenuItems = menuItemViewModels.OrderBy(mi => mi.Position);
                 }
             }
-            return menuGroupViewModels;
+            return new MenuViewModel()
+            {
+                MenuGroups = menuGroupViewModels
+            };
         }
 
         /// <summary>
