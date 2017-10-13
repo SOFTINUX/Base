@@ -11,6 +11,10 @@ namespace Barebone.ViewComponents
     {
         public MenuViewComponent(IStorage storage_, ILoggerFactory loggerFactory_) : base(storage_, loggerFactory_) { }
 
+        /// <summary>
+        /// Asynchronously builds menu.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IViewComponentResult> InvokeAsync()
         {
             MenuViewModelFactory factory = new MenuViewModelFactory(this);

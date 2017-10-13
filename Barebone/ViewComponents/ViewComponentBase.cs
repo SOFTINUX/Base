@@ -16,5 +16,10 @@ namespace Barebone.ViewComponents
             Storage = storage_;
             LoggerFactory = loggerFactory_;
         }
+
+        protected ViewComponentBase(ILoggerFactory loggerFactory_)
+        {
+            LoggerFactory = loggerFactory_;
+        }
     }
 }
