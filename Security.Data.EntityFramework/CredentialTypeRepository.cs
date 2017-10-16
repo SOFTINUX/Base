@@ -23,5 +23,9 @@ namespace Security.Data.EntityFramework
             return dbSet.ToList();
         }
 
+        public virtual CredentialType WithCode(string code_)
+        {
+            return dbSet.FirstOrDefault(e_ => e_.Code == code_);
+        }
     }
 }

@@ -9,5 +9,6 @@ namespace Security.Data.Abstractions
         void Create(CredentialType entity_);
         CredentialType WithKey(int entityId_);
         IEnumerable<CredentialType> All();
+        CredentialType WithCode(string code_);
     }
 }

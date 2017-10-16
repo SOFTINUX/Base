@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
 using Infrastructure;
@@ -30,9 +29,14 @@ namespace SecurityTest
 
             Storage = new Storage(GetProviderStorageContext(new TestOptions(storageOptions)));
 
+            LoggerFactory = new LoggerFactory();
+            LoggerFactory.AddConsole(configuration.GetSection("Logging")); //log levels set in your configuration
+            LoggerFactory.AddDebug(); //does all log levels
+
         }
         public HttpContext HttpContext { get; }
         public IStorage Storage { get; }
+        public ILoggerFactory LoggerFactory { get; }
 
         /// <summary>
         /// Returns the provider-specific StorageContextBase to use.
