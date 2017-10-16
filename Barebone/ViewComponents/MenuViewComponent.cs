@@ -1,17 +1,30 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Barebone.ViewModels.Shared.Menu;
 using ExtCore.Data.Abstractions;
+using Microsoft.Extensions.Logging;
 
 namespace Barebone.ViewComponents
 {
     public class MenuViewComponent : ViewComponentBase
     {
-        public MenuViewComponent(IStorage storage_) : base(storage_) { }
+        public MenuViewComponent(IStorage storage_, ILoggerFactory loggerFactory_) : base(storage_, loggerFactory_) { }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        /// <summary>
+        /// Asynchronously builds menu.
+        /// </summary>
+        /// <returns></returns>
+        public Task<IViewComponentResult> InvokeAsync()
         {
-            return View(new MenuViewModelFactory(this).Create());
+            MenuViewModelFactory factory = new MenuViewModelFactory(this);
+            
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            MenuViewModel menu = factory.Create();
+            watch.Stop();
+            LoggerFactory.CreateLogger<MenuViewComponent>().LogInformation("Time to build menu content by MenuViewModelFactory: " + watch.ElapsedMilliseconds + " ms");
+            return Task.FromResult<IViewComponentResult>(View(menu));
         }
     }
 }

@@ -302,6 +302,8 @@ __pycache__/
 
 .idea
 
+*.orig
+
 WebApplication/Extensions
 bower_components
 
