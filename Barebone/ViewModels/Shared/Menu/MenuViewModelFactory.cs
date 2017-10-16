@@ -15,23 +15,7 @@ namespace Barebone.ViewModels.Shared.Menu
         {
         }
 
-        /// <summary>
-        /// Calls the GetMenuGroupViewModel() with async wrapping.
-        /// </summary>
-        /// <returns></returns>
-        public async Task<MenuViewModel> CreateAsync()
-        {
-            var menuViewModelsResultTask = Task.Run(() => GetMenuViewModel());
-
-            MenuViewModel menu = await menuViewModelsResultTask;
-            return menu;
-        }
-
-        /// <summary>
-        /// Supposedly time-consuming method that builds the menu view model.
-        /// </summary>
-        /// <returns></returns>
-        private MenuViewModel GetMenuViewModel()
+        public MenuViewModel Create()
         {
             List<MenuGroupViewModel> menuGroupViewModels = new List<MenuGroupViewModel>();
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
@@ -76,7 +60,7 @@ namespace Barebone.ViewModels.Shared.Menu
 
             if (menuGroupViewModel != null)
                 return menuGroupViewModel;
-            
+
             menuGroupViewModel = new MenuGroupViewModelFactory(requestHandler_).Create(menuGroup_);
             menuGroupViewModels_.Add(menuGroupViewModel);
 

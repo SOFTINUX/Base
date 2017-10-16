@@ -12,14 +12,14 @@ namespace Barebone.ViewComponents
         {
         }
         
-        public async Task<IViewComponentResult> InvokeAsync()
+        public Task<IViewComponentResult> InvokeAsync()
         {
             Stopwatch watch = new Stopwatch();
             watch.Start();
             ScriptsViewModel model = new ScriptsViewModelFactory().Create();
             watch.Stop();
             LoggerFactory.CreateLogger<ScriptsViewComponent>().LogInformation("Time to build scripts list by ScriptsViewModelFactory: " + watch.ElapsedMilliseconds + " ms");
-            return View(model);
+            return Task.FromResult<IViewComponentResult>(View(model));
         }
 
 

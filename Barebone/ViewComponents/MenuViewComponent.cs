@@ -15,16 +15,16 @@ namespace Barebone.ViewComponents
         /// Asynchronously builds menu.
         /// </summary>
         /// <returns></returns>
-        public async Task<IViewComponentResult> InvokeAsync()
+        public Task<IViewComponentResult> InvokeAsync()
         {
             MenuViewModelFactory factory = new MenuViewModelFactory(this);
             
             Stopwatch watch = new Stopwatch();
             watch.Start();
-            MenuViewModel menu = await factory.CreateAsync();
+            MenuViewModel menu = factory.Create();
             watch.Stop();
             LoggerFactory.CreateLogger<MenuViewComponent>().LogInformation("Time to build menu content by MenuViewModelFactory: " + watch.ElapsedMilliseconds + " ms");
-            return View(menu);
+            return Task.FromResult<IViewComponentResult>(View(menu));
         }
     }
 }

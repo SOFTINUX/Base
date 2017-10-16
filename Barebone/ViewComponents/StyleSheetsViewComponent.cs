@@ -13,14 +13,14 @@ namespace Barebone.ViewComponents
         {
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public Task<IViewComponentResult> InvokeAsync()
         {
             Stopwatch watch = new Stopwatch();
             watch.Start();
             StyleSheetsViewModel model = new StyleSheetsViewModelFactory().Create();
             watch.Stop();
             LoggerFactory.CreateLogger<StyleSheetsViewComponent>().LogInformation("Time to build stylesheets list by StyleSheetsViewModelFactory: " + watch.ElapsedMilliseconds + " ms");
-            return View(model);
+            return Task.FromResult<IViewComponentResult>(View(model));
         }
     }
 }
