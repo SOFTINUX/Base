@@ -1,5 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 using Infrastructure;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Security.Data.Abstractions;
@@ -17,6 +22,8 @@ namespace Security
         private ICredentialTypeRepository _credentialTypeRepository;
         private ICredentialRepository _credentialRepository;
         private IUserRepository _userRepository;
+        private IUserRoleRepository _userRoleRepository;
+        private IRoleRepository _roleRepository;
         private ILogger _logger;
 #if DEBUG
         internal UserManagerErrorCode ErrorCode { get; private set; }
@@ -28,6 +35,8 @@ namespace Security
             _credentialTypeRepository = requestHandler_.Storage.GetRepository<ICredentialTypeRepository>();
             _credentialRepository = requestHandler_.Storage.GetRepository<ICredentialRepository>();
             _userRepository = requestHandler_.Storage.GetRepository<IUserRepository>();
+            _userRoleRepository = requestHandler_.Storage.GetRepository<IUserRoleRepository>();
+            _roleRepository = requestHandler_.Storage.GetRepository<IRoleRepository>();
             _logger = loggerFactory_.CreateLogger(GetType().FullName);
         }
 
@@ -73,29 +82,103 @@ namespace Security
 
             throw new NotImplementedException("Credential type '" + credentialType.Code + " ' not handled");
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user_">User who passed login verification</param>
+        /// <param name="isPersistent_">When true, cookie persists across brower closure</param>
         public async void LoadClaims(User user_, bool isPersistent_ = false)
         {
-            // TODO (à mon avis il faut supprimer async, c'est une action synchrone)
-            throw new NotImplementedException();
+            ClaimsIdentity identity = new ClaimsIdentity(GetAllClaims(user_), CookieAuthenticationDefaults.AuthenticationScheme);
+            ClaimsPrincipal principal = new ClaimsPrincipal(identity);
+
+            await _requestHandler.HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties { IsPersistent = isPersistent_ }
+            );
+        }
+
+        /// <summary>
+        /// Gathers all claims applicable to this user.
+        /// </summary>
+        /// <param name="user_"></param>
+        /// <returns></returns>
+        internal IEnumerable<Claim> GetAllClaims(User user_)
+        {
+            List<Claim> claims = new List<Claim>();
+            // user
+            claims.AddRange(GetUserClaims(user_));
+            // roles
+            claims.AddRange(GetRoleClaims(user_));
+            // permissions
+            claims.AddRange(new PermissionManager().GetFinalPermissions(_requestHandler, user_));
+            return claims;
+        }
+
+        /// <summary>
+        /// Gathers claims of type "name*"
+        /// </summary>
+        /// <param name="user_"></param>
+        /// <returns></returns>
+        private IEnumerable<Claim> GetUserClaims(User user_)
+        {
+            List<Claim> claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user_.Id.ToString()),
+                new Claim(ClaimTypes.Name, user_.DisplayName)
+            };
+
+            return claims;
+        }
+
+        /// <summary>
+        /// Gathers all claims of type "role".
+        /// </summary>
+        /// <param name="user_"></param>
+        /// <returns></returns>
+        private IEnumerable<Claim> GetRoleClaims(User user_)
+        {
+            List<Claim> claims = new List<Claim>();
+            IEnumerable<int> roleIds = _userRoleRepository.FilteredByUserId(user_.Id)?.Select(ur_ => ur_.RoleId).ToList();
+
+            if (roleIds == null)
+                return claims;
+            // TODO improve code : use a navigation property above to get role's code instead of n queries
+            foreach (int roleId in roleIds)
+            {
+                Role role = _roleRepository.WithKey(roleId);
+
+                claims.Add(new Claim(ClaimTypes.Role, role.Code));
+            }
+
+            return claims;
         }
 
         public async void SignOut()
         {
-            // TODO (à mon avis il faut supprimer async, c'est une action synchrone)
-            throw new NotImplementedException();
+            await _requestHandler.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
 
         public int GetCurrentUserId()
         {
-            // TODO
-            throw new NotImplementedException();
+            if (!_requestHandler.HttpContext.User.Identity.IsAuthenticated)
+                return -1;
+
+            Claim claim = _requestHandler.HttpContext.User.Claims.FirstOrDefault(c_ => c_.Type == ClaimTypes.NameIdentifier);
+
+            if (claim == null)
+                return -1;
+
+            if (!int.TryParse(claim.Value, out int currentUserId))
+                return -1;
+
+            return currentUserId;
         }
 
-        public int GetCurrentUser()
+        public User GetCurrentUser()
         {
-            // TODO
-            throw new NotImplementedException();
+            int currentUserId = GetCurrentUserId();
+
+            return currentUserId == -1 ? null : _userRepository.WithKey(currentUserId);
         }
     }
 }

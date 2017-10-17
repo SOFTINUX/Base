@@ -46,5 +46,21 @@ namespace SecurityTest
             Assert.Equal(UserManagerErrorCode.SecretVerificationFailed, userManager.ErrorCode);
 
         }
+
+        [Fact]
+        public void TestCorrectCase()
+        {
+            // TODO FIXME
+            // no need of transaction (no db write)
+            UserManager userManager = new UserManager(_fixture.DatabaseContext,
+                ((TestContext)_fixture.DatabaseContext).LoggerFactory);
+            Assert.Null(userManager.Login(Security.Enums.CredentialType.Email, "user", "123password"));
+            Assert.Equal(UserManagerErrorCode.None, userManager.ErrorCode);
+
+        }
+
+        // TODO add a test case for GetAllClaims()
+
+
     }
 }
