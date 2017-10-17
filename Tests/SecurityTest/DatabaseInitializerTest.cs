@@ -1,5 +1,4 @@
 using System.IO;
-using System.Linq;
 using Security;
 using Security.Data.Abstractions;
 using SecurityTest.Util;
@@ -21,9 +20,9 @@ namespace SecurityTest
         [Fact]
         public void Test()
         {
-            Assert.Equal(0, _fixture.GetRepository<ICredentialTypeRepository>().All().Count());
+            Assert.Empty(_fixture.GetRepository<ICredentialTypeRepository>().All());
             new DatabaseInitializer().CheckAndInitialize(_fixture.DatabaseContext);
-            Assert.Equal(1, _fixture.GetRepository<ICredentialTypeRepository>().All().Count());
+            Assert.Single(_fixture.GetRepository<ICredentialTypeRepository>().All());
 
         }
     }

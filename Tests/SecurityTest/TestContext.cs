@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SecurityTest.Util;
+using Serilog;
 
 namespace SecurityTest
 {
@@ -32,6 +33,13 @@ namespace SecurityTest
             LoggerFactory = new LoggerFactory();
             LoggerFactory.AddConsole(configuration.GetSection("Logging")); //log levels set in your configuration
             LoggerFactory.AddDebug(); //does all log levels
+
+            // WIP use Serilog logger to write to a file
+            //Log.Logger = new LoggerConfiguration()
+            //    .MinimumLevel.Debug()
+            //    .WriteTo.RollingFile(Path.Combine(Directory.GetCurrentDirectory(), "log-{Date}.txt"))
+            //    .CreateLogger();
+            //LoggerFactory.AddSerilog();
 
         }
         public HttpContext HttpContext { get; }

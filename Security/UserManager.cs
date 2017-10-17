@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
+using Security.Enums.Debug;
 
 namespace Security
 {
@@ -17,6 +18,9 @@ namespace Security
         private ICredentialRepository _credentialRepository;
         private IUserRepository _userRepository;
         private ILogger _logger;
+#if DEBUG
+        internal UserManagerErrorCode ErrorCode { get; private set; }
+#endif
 
         public UserManager(IRequestHandler requestHandler_, ILoggerFactory loggerFactory_)
         {
@@ -34,6 +38,9 @@ namespace Security
             if (credentialType == null)
             {
                 _logger.LogDebug("No such credential type: " + loginTypeCode_);
+#if DEBUG
+                ErrorCode = UserManagerErrorCode.NoCredentialType;
+#endif
                 return null;
             }
 
@@ -42,7 +49,10 @@ namespace Security
                 Credential credential = _credentialRepository.WithKeys(credentialType.Id, identifier_);
                 if (credential == null)
                 {
-                    _logger.LogDebug("No data for provided credential type and identifier");
+                    _logger.LogDebug("No match for provided credential type and identifier");
+#if DEBUG
+                    ErrorCode = UserManagerErrorCode.NoMatchCredentialTypeAndIdentifier;
+#endif
                     return null;
                 }
 
@@ -51,11 +61,17 @@ namespace Security
                     return _userRepository.WithKey(credential.UserId);
 
                 _logger.LogDebug("Credential secret verification failed");
+#if DEBUG
+                ErrorCode = UserManagerErrorCode.SecretVerificationFailed;
+#endif
                 return null;
             }
 
-            throw new NotImplementedException("Credential type '" + credentialType.Code + " ' not handled");
+#if DEBUG
+            ErrorCode = UserManagerErrorCode.UnknownCredentialType;
+#endif
 
+            throw new NotImplementedException("Credential type '" + credentialType.Code + " ' not handled");
         }
 
         public async void LoadClaims(User user_, bool isPersistent_ = false)

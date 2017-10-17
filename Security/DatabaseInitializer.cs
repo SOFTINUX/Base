@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Reflection;
 using Infrastructure;
+using Microsoft.AspNetCore.Identity;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
 
@@ -150,13 +151,14 @@ namespace Security
         private void InsertCredential(IRequestHandler context_)
         {
             ICredentialRepository repo = context_.Storage.GetRepository<ICredentialRepository>();
+            string hashedPassword = new PasswordHasher<User>().HashPassword(null, "123password");
 
             repo.Create(new Credential
             {
                 CredentialTypeId = 1,
                 UserId = 1,
-                Identifier = "superadmin",
-                Secret = "123password"
+                Identifier = "adminowner",
+                Secret = hashedPassword
             });
 
             repo.Create(new Credential
@@ -164,7 +166,7 @@ namespace Security
                 CredentialTypeId = 1,
                 UserId = 2,
                 Identifier = "admin",
-                Secret = "123password"
+                Secret = hashedPassword
             });
 
             repo.Create(new Credential
@@ -172,7 +174,7 @@ namespace Security
                 CredentialTypeId = 1,
                 UserId = 3,
                 Identifier = "user",
-                Secret = "123password"
+                Secret = hashedPassword
             });
         }
 
