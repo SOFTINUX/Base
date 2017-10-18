@@ -1,4 +1,5 @@
 ﻿using Security;
+using Security.Data.Entities;
 using Security.Enums.Debug;
 using SecurityTest.Util;
 using Xunit;
@@ -50,11 +51,12 @@ namespace SecurityTest
         [Fact]
         public void TestCorrectCase()
         {
-            // TODO FIXME
             // no need of transaction (no db write)
             UserManager userManager = new UserManager(_fixture.DatabaseContext,
                 ((TestContext)_fixture.DatabaseContext).LoggerFactory);
-            Assert.Null(userManager.Login(Security.Enums.CredentialType.Email, "user", "123password"));
+            User user = userManager.Login(Security.Enums.CredentialType.Email, "user", "123password");
+            Assert.NotNull(user);
+            Assert.Equal(3, user.Id);
             Assert.Equal(UserManagerErrorCode.None, userManager.ErrorCode);
 
         }
