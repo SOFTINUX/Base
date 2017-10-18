@@ -1,4 +1,6 @@
-﻿using Security;
+﻿using System;
+using Security;
+using Security.Data.Abstractions;
 using Security.Data.Entities;
 using Security.Enums.Debug;
 using SecurityTest.Util;
@@ -56,13 +58,16 @@ namespace SecurityTest
                 ((TestContext)_fixture.DatabaseContext).LoggerFactory);
             User user = userManager.Login(Security.Enums.CredentialType.Email, "user", "123password");
             Assert.NotNull(user);
-            Assert.Equal(3, user.Id);
+            Assert.Equal(_fixture.GetRepository<IUserRepository>().WithCredentialIdentifier("user").Id, user.Id);
             Assert.Equal(UserManagerErrorCode.None, userManager.ErrorCode);
 
         }
 
-        // TODO add a test case for GetAllClaims()
-
+        [Fact]
+        public void TestGetAllClaims()
+        {
+            throw new NotImplementedException();
+        }
 
     }
 }

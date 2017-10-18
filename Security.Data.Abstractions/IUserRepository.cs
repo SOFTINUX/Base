@@ -7,6 +7,7 @@ namespace Security.Data.Abstractions
     public interface IUserRepository : IRepository
     {
         User WithKey(int entityId_);
+        User WithCredentialIdentifier(string identifier_);
         IEnumerable<User> All();
         void Create(User entity_);
         void Edit(User entity_);
