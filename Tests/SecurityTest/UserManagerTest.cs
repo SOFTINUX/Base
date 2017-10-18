@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Security.Claims;
 using Security;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
@@ -66,7 +68,18 @@ namespace SecurityTest
         [Fact]
         public void TestGetAllClaims()
         {
-            throw new NotImplementedException();
+            User user = _fixture.GetRepository<IUserRepository>().WithCredentialIdentifier("user");
+            Assert.NotNull(user);
+
+            UserManager userManager = new UserManager(_fixture.DatabaseContext,
+                ((TestContext)_fixture.DatabaseContext).LoggerFactory);
+
+            IEnumerable<Claim> claims = userManager.GetAllClaims(user);
+            Assert.NotEmpty(claims);
+            foreach (Claim claim in claims)
+            {
+                Console.WriteLine(claim.Type + " ### " + claim.Value);
+            }
         }
 
     }
