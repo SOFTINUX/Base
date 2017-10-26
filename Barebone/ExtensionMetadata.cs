@@ -15,8 +15,8 @@ namespace Barebone
 
         public IEnumerable<Script> Scripts => new Script[]
         {
-            new Script("//ajax.aspnetcdn.com/ajax/jquery/jquery-1.11.3.min.js",100),
-            new Script("//ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js",200),
+            new Script("//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.0.min.js",100),
+            new Script("//ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js",200),
             new Script("//ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js",300),
             new Script("//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js",400),
             new Script("bower_components.bootstrap.dist.js.bootstrap.min.js",500),

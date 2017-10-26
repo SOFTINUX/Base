@@ -9,7 +9,9 @@
 </h2>
 <form class="form" method="post">
     <input type="text" asp-for="Email" />
+    <span asp-validation-for="Email" class="text-danger"></span>
     <input type="password" asp-for="Password" />
+    <span asp-validation-for="Password" class="text-danger"></span>
     <input type="checkbox" asp-for="RememberMe" />
     <div class="form__buttons buttons">
         <button class="button button-positive" type="submit">Sign in</button>
