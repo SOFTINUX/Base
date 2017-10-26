@@ -1,12 +1,14 @@
 using ExtCore.Data.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace Infrastructure
 {
     /// <summary>
-    /// Abstract controller parent of all controllers, that enforces IStorage dependency injection
+    /// Abstract controller parent of all controllers, that enforces IStorage dependency injection and authenticated access
     /// </summary>
+    [Authorize]
     public abstract class ControllerBase : Controller, IRequestHandler
     {
 

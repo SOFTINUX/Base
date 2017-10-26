@@ -22,21 +22,27 @@
                 <a class="navbar-brand" href="#">Softinux</a>
             </div>
         
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    @await Component.InvokeAsync("Menu")
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        @await Component.InvokeAsync("Menu")
 
-                </ul>
-            </div>
+                    </ul>
+                </div>
+            }
 
         </div>
     </nav>
+@if (User.Identity.IsAuthenticated)
+{
     <h1>
         Demo
     </h1>
     <div>
         @RenderBody()
     </div>
+}
 </div>
 </body>
 </html>
