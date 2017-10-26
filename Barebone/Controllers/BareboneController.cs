@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Barebone.ViewModels.Barebone;
 using ExtCore.Data.Abstractions;
 using Infrastructure;
+using ControllerBase = Infrastructure.ControllerBase;
 
 namespace Barebone.Controllers
 {

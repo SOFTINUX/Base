@@ -1,0 +1,18 @@
+﻿@{
+    this.ViewBag.Title = "Sign In";
+}
+@*@section title {
+    @ViewBag.Title
+}*@
+<h2>
+    @ViewBag.Title
+</h2>
+<form class="form" method="post">
+    <input type="text" asp-for="Email" />
+    <input type="password" asp-for="Password" />
+    <input type="checkbox" asp-for="RememberMe" />
+    <div class="form__buttons buttons">
+        <button class="button button-positive" type="submit">Sign in</button>
+    </div>
+    <h3 asp-for="ErrorMessage"></h3>
+</form>
