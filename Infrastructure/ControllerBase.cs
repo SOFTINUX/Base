@@ -27,6 +27,10 @@ namespace Infrastructure
             LoggerFactory = loggerFactory_;
         }
 
+        /// <summary>
+        /// Redirects to same url but looses model.
+        /// </summary>
+        /// <returns></returns>
         protected RedirectResult CreateRedirectToSelfResult()
         {
             return this.Redirect(this.Request.Path.Value + this.Request.QueryString.Value);

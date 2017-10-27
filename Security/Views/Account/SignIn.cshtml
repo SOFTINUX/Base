@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Security.ViewModels.Account.SignInViewModel
+@{
     this.ViewBag.Title = "Sign In";
 }
 @*@section title {
@@ -9,11 +10,14 @@
         @ViewBag.Title
     </h2>
     <form class="form" method="post">
-        <input type="text" asp-for="Email" />
+        <label asp-for="Email"></label>
+        <input type="text" asp-for="Email"/>
         <span asp-validation-for="Email" class="text-danger"></span>
-        <input type="password" asp-for="Password" />
+        <label asp-for="Password"></label>
+        <input type="password" asp-for="Password"/>
         <span asp-validation-for="Password" class="text-danger"></span>
-        <input type="checkbox" asp-for="RememberMe" />
+        <label asp-for="RememberMe"></label>
+        <input type="checkbox" asp-for="RememberMe"/>
         <button class="button btn-primary" type="submit">Sign in</button>
         <h3 asp-for="ErrorMessage"></h3>
     </form>
