@@ -29,18 +29,18 @@
                         @await Component.InvokeAsync("Menu")
 
                     </ul>
+                    <ul class="nav navbar-nav">
+                        <li>
+                            @Html.ActionLink("Sign Out", "SignOut", "Account")
+                        </li>
+                    </ul>
                 </div>
             }
 
         </div>
     </nav>
-@if (User.Identity.IsAuthenticated)
-{
-    <h1>
-        Demo
-    </h1>
-}
-    <div>
+    <div class="container">
+        @RenderSection("title", false)
         @RenderBody()
     </div>
 </div>
