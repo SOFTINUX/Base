@@ -1,0 +1,29 @@
+{
+  "name": "barebone",
+  "version": "1.0.0",
+  "description": "Softinux Base Barebone",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "bootstrap": "^4.0.0-beta.2",
+    "jquery": "^3.2.1",
+    "popper.js": "^1.12.6"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OSAMES/Base.git"
+  },
+  "keywords": [
+    "softinux",
+    "extcore"
+  ],
+  "author": "Softinux",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OSAMES/Base/issues"
+  },
+  "homepage": "https://github.com/OSAMES/Base#readme"
+}
