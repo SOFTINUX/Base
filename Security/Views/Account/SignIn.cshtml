@@ -1,19 +1,102 @@
 ﻿@model Security.ViewModels.Account.SignInViewModel
 
-@section title {
-    <h1>Sign In</h1>
-    }
-
-    <form class="form" method="post">
-        <label asp-for="Email"></label>
-        <input type="text" asp-for="Email"/>
-        <span asp-validation-for="Email" class="text-danger"></span>
-        <label asp-for="Password"></label>
-        <input type="password" asp-for="Password"/>
-        <span asp-validation-for="Password" class="text-danger"></span>
-        <label asp-for="RememberMe"></label>
-        <input type="checkbox" asp-for="RememberMe"/>
-        <button class="button btn-primary" type="submit">Sign in</button>
-        <h3 asp-for="ErrorMessage"></h3>
-    </form>
-
+<form class="form" method="post" id="loginform">
+    <div class="login-form">
+        <div class="row">
+            <div class="col">
+                <div class="login-form-section-left">
+                    <div class="row">
+                        <div class="col">
+                            <div class="login-form-title">LOGIN</div>
+                            <hr />
+                        </div>
+                    </div>
+                    <div class="login-form-fields">
+                        <div class="row">
+                            <div class="col">
+                                <div class="login-form-username">
+                                    <div>Username:</div>
+                                    <div>
+                                        <input class="form-control empty" type="text" placeholder="&#xf007;" asp-for="Email" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="login-form-password">
+                                    <div>Password:</div>
+                                    <div>
+                                        <input class="form-control empty password-field" type="password" placeholder="&#xf023;" asp-for="Password" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="login-form-helpers">
+                        <div class="row">
+                            <div class="col">
+                                <div class="login-form-helpers-field">
+                                    <span>
+                                        <input type="checkbox" id="rememberMe" asp-for="RememberMe"/>
+                                        <label for="rememberMe">Remember me</label>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                Forgot <a href="#">username</a> or <a href="#">password</a> ?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="login-form-oauth">
+                        <div class="row">
+                            <div class="col-3">
+                                <span>Or use:</span>
+                            </div>
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col">
+                                        <a href="#">
+                                            <i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                    <div class="col">
+                                        <a href="#">
+                                            <i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                    <div class="col">
+                                        <a href="#">
+                                            <i class="fa fa-github-square fa-2x" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                    <div class="col-5">
+                                        <a href="#">
+                                            <i class="fa fa-google-plus-square fa-2x" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="login-form-section-right">
+                    <a href="#" onClick="javascript:$('form').submit();">
+                        <div class="row">
+                            <div class="col">
+                                <span>
+                                    <i class="fa fa-chevron-right fa-5x" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <span class="go-label">
+                                    <h2>GO</h2>
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

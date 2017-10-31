@@ -2,43 +2,35 @@
 <html>
 <head>
   <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
   <title>@Html.Raw(this.ViewBag.Title as string)</title>
   @await Component.InvokeAsync("StyleSheets")
   @await Component.InvokeAsync("Scripts")
 </head>
 <body>
 <div>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @*TODO replace "Softinux" by some value that comes from application configuration (need a model?) *@
-                <a class="navbar-brand" href="#">Softinux</a>
-            </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        @*TODO replace "Softinux" by some value that comes from application configuration (need a model?) *@
+        <a class="navbar-brand" href="#">Softinux</a>
         
-            @if (User.Identity.IsAuthenticated)
-            {
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        @await Component.InvokeAsync("Menu")
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    @await Component.InvokeAsync("Menu")
 
-                    </ul>
-                    <ul class="nav navbar-nav">
-                        <li>
-                            @Html.ActionLink("Sign Out", "SignOut", "Account")
-                        </li>
-                    </ul>
-                </div>
-            }
-
-        </div>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li>
+                        @Html.ActionLink("Sign Out", "SignOut", "Account")
+                    </li>
+                </ul>
+            </div>
+        }
     </nav>
+    <!-- Page container -->
     <div class="container">
         @RenderSection("title", false)
         @RenderBody()

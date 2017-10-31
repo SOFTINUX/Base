@@ -16,12 +16,15 @@
     <None Remove="bower_components\bootstrap\dist\css\bootstrap-theme.min.css" />
     <None Remove="bower_components\bootstrap\dist\css\bootstrap.min.css" />
     <None Remove="bower_components\bootstrap\dist\js\bootstrap.min.js" />
+    <None Remove="node_modules\bootstrap\dist\css\bootstrap.min.css" />
+    <None Remove="node_modules\bootstrap\dist\js\bootstrap.min.js" />
   </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="bower_components\bootstrap\dist\css\bootstrap-theme.min.css" />
-    <EmbeddedResource Include="bower_components\bootstrap\dist\css\bootstrap.min.css" />
-    <EmbeddedResource Include="bower_components\bootstrap\dist\js\bootstrap.min.js" />
+  <ItemGroup>   
+    <EmbeddedResource Include="node_modules\bootstrap\dist\css\bootstrap.min.css" />
+    <EmbeddedResource Include="node_modules\bootstrap\dist\js\bootstrap.min.js" />
+    <EmbeddedResource Include="node_modules\jquery\dist\jquery.min.js" />
+    <EmbeddedResource Include="node_modules\popper.js\dist\popper.min.js" />
   </ItemGroup>
 
   <ItemGroup>
