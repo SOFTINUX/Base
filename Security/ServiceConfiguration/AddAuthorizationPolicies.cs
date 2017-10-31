@@ -1,5 +1,8 @@
 ﻿using System;
+using ExtCore.Infrastructure;
 using ExtCore.Infrastructure.Actions;
+using Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Security.ServiceConfiguration
@@ -10,7 +13,23 @@ namespace Security.ServiceConfiguration
 
         public void Execute(IServiceCollection services_, IServiceProvider serviceProvider_)
         {
-            // TODO later, gather policies provided by extensions
+            services_.AddAuthorization(options =>
+                {
+                    foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
+                    {
+                        if (extensionMetadata.AuthorizationPolicyProviders == null) continue;
+                        foreach (IAuthorizationPolicyProvider authorizationPolicyProvider in extensionMetadata
+                            .AuthorizationPolicyProviders)
+                        {
+                            var policy = authorizationPolicyProvider.GetDefaultPolicyAsync().Result;
+                            options.AddPolicy(policy.ToString(), policy);
+                        }
+                            
+                    }
+                }
+            );
         }
     }
 }
+
+// Reread code here: https://www.bbsmax.com/A/q4zVO6rXJK/ and ms docs

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Security
 {
@@ -10,5 +11,7 @@ namespace Security
              };
             public IEnumerable<Script> Scripts => new Script[] { };
             public IEnumerable<MenuGroup> MenuGroups => new MenuGroup[] { };
+            
+            public IEnumerable<IAuthorizationPolicyProvider> AuthorizationPolicyProviders => new EmptyAuthorizationPolicyProvider[] {};
         }
 }

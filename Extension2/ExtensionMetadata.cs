@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Extension2
 {
-    public class Metadata : IExtensionMetadata
+    public class ExtensionMetadata : IExtensionMetadata
     {
         public IEnumerable<StyleSheet> StyleSheets => new StyleSheet[] {};
         public IEnumerable<Script> Scripts => new Script[] {};
@@ -18,5 +19,7 @@ namespace Extension2
                 }
             )
         };
+        
+        public IEnumerable<IAuthorizationPolicyProvider> AuthorizationPolicyProviders => null;
     }
 }
