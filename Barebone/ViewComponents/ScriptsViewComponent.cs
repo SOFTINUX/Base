@@ -11,7 +11,7 @@ namespace Barebone.ViewComponents
         public ScriptsViewComponent(ILoggerFactory loggerFactory_) : base(loggerFactory_)
         {
         }
-        
+
         public Task<IViewComponentResult> InvokeAsync()
         {
             Stopwatch watch = new Stopwatch();

@@ -18,7 +18,7 @@ namespace Barebone.ViewComponents
         public Task<IViewComponentResult> InvokeAsync()
         {
             MenuViewModelFactory factory = new MenuViewModelFactory(this);
-            
+
             Stopwatch watch = new Stopwatch();
             watch.Start();
             MenuViewModel menu = factory.Create();

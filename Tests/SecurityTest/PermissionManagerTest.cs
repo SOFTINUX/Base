@@ -46,7 +46,7 @@ namespace SecurityTest
             Permission rwPerm = new Permission { Code = CST_PERM_CODE_1, OriginExtension = _assembly };
             PermissionValue roPv = new PermissionValue{ UniqueId = roPerm.UniqueIdentifier, Level = (int)Security.Enums.Permission.PermissionLevelValue.ReadOnly};
             PermissionValue rwPv = new PermissionValue{ UniqueId = rwPerm.UniqueIdentifier, Level = (int)Security.Enums.Permission.PermissionLevelValue.ReadWrite};
- 
+
             #endregion
             IEnumerable<Claim> claims =
                 new PermissionManager().GetFinalPermissions(new List<PermissionValue> { roPv, rwPv }, false);
@@ -155,7 +155,7 @@ namespace SecurityTest
 
         /// <summary>
         /// Test of GetFinalPermissions() with permission loading and computation.
-        /// The same permission is linked to role, group and user with different right level. 
+        /// The same permission is linked to role, group and user with different right level.
         /// Expected: The "Never" right level takes precedence, thus no claim.
         /// </summary>
         [Fact]
@@ -182,7 +182,7 @@ namespace SecurityTest
                 _fixture.GetRepository<IUserRepository>().Create(user1);
 
                 _fixture.SaveChanges();
-                
+
                 // Link Permission 1 to Role 1, RO
                 _fixture.GetRepository<IRolePermissionRepository>().Create(new RolePermission
                 {
@@ -190,7 +190,7 @@ namespace SecurityTest
                     RoleId = role1.Id,
                     PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadOnly
                 });
-                
+
                 // Link Permission 1 to User 1, Never
                 _fixture.GetRepository<IUserPermissionRepository>().Create(new UserPermission
                 {

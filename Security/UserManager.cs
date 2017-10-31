@@ -83,7 +83,7 @@ namespace Security
             throw new NotImplementedException("Credential type '" + credentialType.Code + " ' not handled");
         }
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="user_">User who passed login verification</param>
         /// <param name="isPersistent_">When true, cookie persists across brower closure</param>

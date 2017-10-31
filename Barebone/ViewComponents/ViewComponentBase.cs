@@ -8,7 +8,7 @@ namespace Barebone.ViewComponents
     public abstract class ViewComponentBase : ViewComponent, IRequestHandler
     {
         public IStorage Storage { get; }
-        
+
         public ILoggerFactory LoggerFactory { get; }
 
         protected ViewComponentBase(IStorage storage_, ILoggerFactory loggerFactory_)

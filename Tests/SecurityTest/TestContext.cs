@@ -52,9 +52,9 @@ namespace SecurityTest
         /// <param name="options_"></param>
         /// <returns></returns>
         public StorageContextBase GetProviderStorageContext(IOptions<StorageContextOptions> options_)
-            {
-                return new TestStorageContextBase(options_);
-            } 
+        {
+            return new TestStorageContextBase(options_);
+        }
 
         public class TestOptions : IOptions<StorageContextOptions>
         {

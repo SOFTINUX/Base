@@ -15,7 +15,6 @@ namespace Security.Data.Entities
 
         public int PermissionLevelId { get; set; }
 
-        
         /// <summary>
         /// Referenced entities.
         /// </summary>

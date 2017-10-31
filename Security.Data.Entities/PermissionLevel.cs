@@ -8,7 +8,7 @@ namespace Security.Data.Entities
     /// - 2: No: no right, can be overriden by right inheritance algorithm
     /// - 4: Read-only: Read-only right, can be overriden by right inheritance algorithm
     /// - 8: Modification: Read and modification right, cannot be overriden by right inheritance algorithm
-    /// 
+    ///
     /// Computed permission level:
     /// - even number: no right
     /// - dividable by 8 : modification right

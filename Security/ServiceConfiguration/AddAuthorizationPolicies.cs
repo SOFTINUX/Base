@@ -11,8 +11,6 @@ namespace Security.ServiceConfiguration
         public void Execute(IServiceCollection services_, IServiceProvider serviceProvider_)
         {
             // TODO later, gather policies provided by extensions
-
- 
         }
     }
 }

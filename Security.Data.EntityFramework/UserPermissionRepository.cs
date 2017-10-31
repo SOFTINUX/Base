@@ -9,7 +9,7 @@ namespace Security.Data.EntityFramework
 {
     public class UserPermissionRepository : RepositoryBase<UserPermission>, IUserPermissionRepository
     {
- 
+
         public UserPermission WithKeys(int userId_, int permissionId_)
         {
             return dbSet.FirstOrDefault(e_ => e_.UserId == userId_ && e_.PermissionId == permissionId_);

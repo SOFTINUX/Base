@@ -10,7 +10,6 @@ namespace Security.Data.EntityFramework
     public class UserRoleRepository : RepositoryBase<UserRole>, IUserRoleRepository
     {
 
- 
         public UserRole WithKeys(int userId_, int roleId_)
         {
             return dbSet.FirstOrDefault(e_ => e_.UserId == userId_ && e_.RoleId == roleId_);

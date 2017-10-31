@@ -39,7 +39,6 @@ namespace WebApplication
 
         public void Configure(IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_)
         {
-            
             if (hostingEnvironment_.IsDevelopment())
             {
                 applicationBuilder_.UseDeveloperExceptionPage();

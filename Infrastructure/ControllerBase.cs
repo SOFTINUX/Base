@@ -17,7 +17,7 @@ namespace Infrastructure
         public ILoggerFactory LoggerFactory { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="storage_">Storage interface provided by services container</param>
         /// <param name="loggerFactory_">Logger factory interface provided by services container, optionally</param>

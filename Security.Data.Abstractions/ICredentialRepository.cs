@@ -12,6 +12,6 @@ namespace Security.Data.Abstractions
         void Create(Credential entity_);
         void Edit(Credential entity_);
         void Delete(int entityId_);
-        
+
     }
 }

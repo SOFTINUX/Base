@@ -12,7 +12,7 @@ namespace Security.Controllers
     {
         public AccountController(IStorage storage_, ILoggerFactory loggerFactory_) : base(storage_, loggerFactory_)
         {
-            
+
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace Security.Controllers
                 // return this.CreateRedirectToSelfResult();
             }
             userManager.LoadClaims(user, signIn_.RememberMe);
-            
+
             // Go to dashboard, action Index of Barebone's controller
             return this.RedirectToAction("Index", "Barebone");
         }
