@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Infrastructure;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Extension2
 {
@@ -19,7 +18,5 @@ namespace Extension2
                 }
             )
         };
-        
-        public IEnumerable<IAuthorizationPolicyProvider> AuthorizationPolicyProviders => null;
     }
 }

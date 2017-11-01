@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using Infrastructure;
 using Security.Data.Abstractions;
@@ -61,17 +62,17 @@ namespace Security
 
                 if ((pv.Level & (int)Enums.Permission.PermissionLevelValue.ReadWrite) != 0)
                 {
-                    claims.Add(new Claim(Enums.ClaimType.Permission, uniqueId + "|RW"));
+                    claims.Add(new Claim(Enums.ClaimType.Permission, GetClaimValue(uniqueId, true)));
                 }
                 else if ((pv.Level & (int)Enums.Permission.PermissionLevelValue.ReadOnly) != 0)
                 {
-                    claims.Add(new Claim(Enums.ClaimType.Permission, uniqueId + "|RO"));
+                    claims.Add(new Claim(Enums.ClaimType.Permission, GetClaimValue(uniqueId, false)));
                 }
             }
 
             return claims;
         }
-
+        
         /// <summary>
         /// Loads the permissions from database.
         /// </summary>
@@ -90,6 +91,19 @@ namespace Security
             permissions.AddRange(repo.GetPermissionCodeAndLevelByGroupForUserId(user_.Id));
 
             return permissions;
+        }
+
+        /// <summary>
+        /// Gets the claim value from the permission unique ID and the access level
+        /// </summary>
+        /// <param name="permissionUniqueId_"></param>
+        /// <param name="write_">true when write access level, false when read</param>
+        /// <returns></returns>
+        public static string GetClaimValue(string permissionUniqueId_, bool write_)
+        {
+            return permissionUniqueId_ + (write_
+                ? Enums.Permission.READ_WRITE_SUFFIX
+                : Enums.Permission.READ_ONLY_SUFFIX);
         }
     }
 }

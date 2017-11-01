@@ -28,9 +28,15 @@ namespace SecurityTest
             _fixture = fixture_;
         }
 
+        /// <summary>
+        /// Same formatting as method that formats claim value from permission unique id and access level.
+        /// </summary>
+        /// <param name="permissionCode_"></param>
+        /// <param name="readWrite_"></param>
+        /// <returns></returns>
         private string FormatExpectedClaimValue(string permissionCode_, bool readWrite_)
         {
-            return $"{permissionCode_}|{_assembly}|{(readWrite_ ? "RW" : "RO")}";
+            return $"{permissionCode_}|{_assembly}{(readWrite_ ? Security.Enums.Permission.READ_WRITE_SUFFIX : Security.Enums.Permission.READ_ONLY_SUFFIX)}";
         }
 
         /// <summary>

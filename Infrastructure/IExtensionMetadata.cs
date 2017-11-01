@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Infrastructure
 {
@@ -8,6 +7,5 @@ namespace Infrastructure
         IEnumerable<StyleSheet> StyleSheets {get;}
         IEnumerable<Script> Scripts {get;}
         IEnumerable<MenuGroup> MenuGroups {get;}
-        IEnumerable<IAuthorizationPolicyProvider> AuthorizationPolicyProviders { get; }
     }
 }

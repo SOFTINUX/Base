@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Infrastructure;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Barebone
 {
@@ -29,6 +28,5 @@ namespace Barebone
 
         public IEnumerable<MenuGroup> MenuGroups => null;
         
-        public IEnumerable<IAuthorizationPolicyProvider> AuthorizationPolicyProviders => null;
     }
 }

@@ -4,7 +4,7 @@ using ExtCore.Data.Entities.Abstractions;
 namespace Security.Data.Entities
 {
     public class Permission : IEntity
-    {
+    {       
         public int Id { get; set; }
 
         public string Code { get; set; }

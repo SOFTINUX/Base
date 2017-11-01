@@ -84,7 +84,7 @@ namespace Security
             {
                 Id = (int)Enums.Permission.PermissionId.EditUser,
                 AdministratorOwner = true,
-                Code = Enums.Permission.EditUser,
+                Code = Enums.Permission.PERM_CODE_EDIT_USER,
                 Label = "Edit users",
                 OriginExtension = _securityAssemblyName
             });
@@ -93,7 +93,7 @@ namespace Security
             {
                 Id = (int)Enums.Permission.PermissionId.EditRole,
                 AdministratorOwner = true,
-                Code = Enums.Permission.EditRole,
+                Code = Enums.Permission.PERM_CODE_EDIT_ROLE,
                 Label = "Edit roles",
                 OriginExtension = _securityAssemblyName
             });
@@ -102,7 +102,7 @@ namespace Security
             {
                 Id = (int)Enums.Permission.PermissionId.EditGroup,
                 AdministratorOwner = true,
-                Code = Enums.Permission.EditGroup,
+                Code = Enums.Permission.PERM_CODE_EDIT_GROUP,
                 Label = "Edit groups",
                 OriginExtension = _securityAssemblyName
             });
@@ -111,7 +111,7 @@ namespace Security
             {
                 Id = (int)Enums.Permission.PermissionId.EditPermission,
                 AdministratorOwner = true,
-                Code = Enums.Permission.EditPermission,
+                Code = Enums.Permission.PERM_CODE_EDIT_PERMISSION,
                 Label = "Edit permissions",
                 OriginExtension = _securityAssemblyName
             });
