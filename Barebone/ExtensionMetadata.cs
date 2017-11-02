@@ -27,6 +27,6 @@ namespace Barebone
         };
 
         public IEnumerable<MenuGroup> MenuGroups => null;
-        
+
     }
 }
