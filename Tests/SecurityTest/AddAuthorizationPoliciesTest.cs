@@ -18,7 +18,7 @@ namespace SecurityTest
             // TODO create a mock for IServiceCollection, method AddAuthorization, that stores the data in a dictionary
             // See https://github.com/Moq/moq4/
             throw new NotImplementedException();
-            
+
         }
     }
 }

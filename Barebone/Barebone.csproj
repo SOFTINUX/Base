@@ -1,38 +1,46 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>6</LangVersion>
   </PropertyGroup>
-
   <ItemGroup>
-    <EmbeddedResource Include="Styles\**;Scripts\**;Views\**" />
+    <EmbeddedResource Include="Styles\**;Scripts\**;Views\**;**\node_modules\font-awesome\fonts\" />
   </ItemGroup>
-
   <ItemGroup>
-    <None Remove="bower_components\bootstrap\dist\css\bootstrap-theme.min.css" />
-    <None Remove="bower_components\bootstrap\dist\css\bootstrap.min.css" />
-    <None Remove="bower_components\bootstrap\dist\js\bootstrap.min.js" />
     <None Remove="node_modules\bootstrap\dist\css\bootstrap.min.css" />
+    <None Remove="node_modules\normalize.css\normalize.css" />
+    <None Remove="node_modules\font-awesome\css\font-awesome.min.css" />
+    <None Remove="node_modules\wfk-opensans\opensans.css" />
+    <None Remove="node_modules\jquery\dist\jquery.slim.min.js" />
     <None Remove="node_modules\bootstrap\dist\js\bootstrap.min.js" />
+    <None Remove="node_modules\popper.js\dist\umd\popper.min.js" />
+    <None Remove="node_modules\jquery-validation\dist\jquery.validate.min.js" />
+    <None Remove="node_modules\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <None Remove="node_modules\js-cookie\src\js.cookie.js" />
   </ItemGroup>
-
-  <ItemGroup>   
-    <EmbeddedResource Include="node_modules\bootstrap\dist\css\bootstrap.min.css" />
+  <ItemGroup>
+    <EmbeddedResource Include="node_modules\jquery\dist\jquery.slim.min.js" />
+    <EmbeddedResource Include="node_modules\popper.js\dist\umd\popper.min.js" />
     <EmbeddedResource Include="node_modules\bootstrap\dist\js\bootstrap.min.js" />
-    <EmbeddedResource Include="node_modules\jquery\dist\jquery.min.js" />
-    <EmbeddedResource Include="node_modules\popper.js\dist\popper.min.js" />
+    <EmbeddedResource Include="node_modules\jquery-validation\dist\jquery.validate.min.js" />
+    <EmbeddedResource Include="node_modules\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <EmbeddedResource Include="node_modules\js-cookie\src\js.cookie.js" />
+    <EmbeddedResource Include="node_modules\normalize.css\normalize.css" />
+    <EmbeddedResource Include="node_modules\bootstrap\dist\css\bootstrap.min.css" />
+    <EmbeddedResource Include="node_modules\font-awesome\css\font-awesome.min.css" />
+    <EmbeddedResource Include="node_modules\font-awesome\fonts\fontawesome-webfont.woff" />
+    <EmbeddedResource Include="node_modules\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <EmbeddedResource Include="node_modules\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <EmbeddedResource Include="node_modules\wfk-opensans\opensans.css" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="ExtCore.Mvc.Infrastructure" Version="3.1.0-beta1" />
     <PackageReference Include="ExtCore.Data.Abstractions" Version="3.1.0-beta1" />
+    <PackageReference Include="FontAwesome" Version="4.7.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.0" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\Security\Security.csproj" />

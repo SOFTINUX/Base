@@ -10,6 +10,6 @@ namespace Security
              };
             public IEnumerable<Script> Scripts => new Script[] { };
             public IEnumerable<MenuGroup> MenuGroups => new MenuGroup[] { };
-            
+
         }
 }

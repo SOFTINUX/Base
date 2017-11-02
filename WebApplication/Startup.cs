@@ -23,7 +23,7 @@ namespace WebApplication
 
         public void ConfigureServices(IServiceCollection services_)
         {
-            // Note: AddScoped : for services based on EF (once per request), 
+            // Note: AddScoped : for services based on EF (once per request),
             // other values : AddTransient (stateless), AddSingleton (avoids to implement singleton pattern ourselves)
 
             services_.AddScoped<IStorage, Storage>();

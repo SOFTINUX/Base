@@ -7,23 +7,26 @@ namespace Barebone
     {
         public IEnumerable<StyleSheet> StyleSheets => new StyleSheet[]
         {
-            new StyleSheet("//fonts.googleapis.com/css?family=Open+Sans", 100),
-            new StyleSheet("//cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css", 200),
+            new StyleSheet("/node_modules.wfk_opensans.opensans.css", 100),
+            new StyleSheet("/node_modules.normalize.css.normalize.css", 200),
             new StyleSheet("/node_modules.bootstrap.dist.css.bootstrap.min.css", 300),
-            new StyleSheet("//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", 400),
+            new StyleSheet("/node_modules.font_awesome.css.font-awesome.min.css", 400),
+            new StyleSheet("/node_modules.font_awesome.fonts.fontawesome.otf", 410),
+            new StyleSheet("/node_modules.font_awesome.fonts.fontawesome.woff", 420),
+            new StyleSheet("/node_modules.font_awesome.fonts.fontawesome.woff2", 430),
+            new StyleSheet("/node_modules.font_awesome.fonts.fontawesome.ttf", 440),
             new StyleSheet("/Styles.barebone.css",500)
         };
 
         public IEnumerable<Script> Scripts => new Script[]
         {
-            //new Script("//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.0.min.js",100),
-            new Script("/node_modules.jquery.dist.jquery.min.js",100),
-            new Script("/node_modules.popper.js.popper.min.js",110),
-            new Script("//ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js",200),
-            new Script("//ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js",300),
-            new Script("//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js",400),
-            new Script("/node_modules.bootstrap.dist.js.bootstrap.min.js",500),
-            new Script("/Scripts.barebone.js",600),
+            new Script("/node_modules.jquery.dist.jquery.slim.min.js",100),
+            new Script("/node_modules.popper.js.dist.umd.popper.min.js",200),
+            new Script("/node_modules.bootstrap.dist.js.bootstrap.min.js",300),
+            new Script("/node_modules.jquery_validation.dist.jquery.validate.min.js",400),
+            new Script("/node_modules.jquery_validation_unobtrusive.jquery.validate.unobtrusive.js",500),
+            new Script("/node_modules.js_cookie.src.js.cookie.js",600),
+            new Script("/Scripts.barebone.js",700),
         };
 
         public IEnumerable<MenuGroup> MenuGroups => null;
