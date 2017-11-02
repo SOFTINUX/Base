@@ -1,5 +1,6 @@
 ﻿using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
+using ExtCore.Data.EntityFramework.Sqlite;
 using ExtCore.WebApplication.Extensions;
 using Infrastructure;
 using Microsoft.AspNetCore.Builder;
@@ -31,7 +32,9 @@ namespace WebApplication
                     options_.ConnectionString = Configuration["ConnectionStrings:Default"];
                 }
             );
-            //services_.AddScoped<IStorageContext, StorageContextBase>();
+            // Register database-specific storage context implementation. 
+            // Necessary for IStorage service registration to fully work (see AddAuthorizationPolicies).
+            services_.AddScoped<IStorageContext, StorageContext>();
             services_.AddScoped<IStorage, Storage>();
 
             services_.AddExtCore(_extensionsPath);

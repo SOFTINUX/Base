@@ -22,9 +22,8 @@ namespace Security.ServiceConfiguration
 
         public void Execute(IServiceCollection services_, IServiceProvider serviceProvider_)
         {
-        /*    IStorage storage = serviceProvider_.GetService<IStorage>();
-            //IStorage storage = services_.BuildServiceProvider().GetService<IStorage>();
-            // Doesn't work, it cannot find a IStorageContext implementation in services_...
+            IStorage storage = serviceProvider_.GetService<IStorage>();
+
             IEnumerable<Permission> permissions = storage.GetRepository<IPermissionRepository>().All();
 
             services_.AddAuthorization(options_ =>
@@ -43,7 +42,7 @@ namespace Security.ServiceConfiguration
 
                 }
             );
-            */
+            
         }
     }
 }
