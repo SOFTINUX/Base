@@ -10,7 +10,7 @@ namespace Security.ServiceConfiguration
     /// </summary>
     public class ConfigureAuthentication : IConfigureServicesAction
     {
-        public int Priority => 3000;
+        public int Priority => 200;
 
         public void Execute(IServiceCollection serviceCollection_, IServiceProvider serviceProvider_)
         {

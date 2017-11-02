@@ -25,16 +25,19 @@ namespace WebApplication
         {
             // Note: AddScoped : for services based on EF (once per request),
             // other values : AddTransient (stateless), AddSingleton (avoids to implement singleton pattern ourselves)
-
-            services_.AddScoped<IStorage, Storage>();
+            
             services_.Configure<StorageContextOptions>(options_ =>
                 {
                     options_.ConnectionString = Configuration["ConnectionStrings:Default"];
                 }
             );
+            //services_.AddScoped<IStorageContext, StorageContextBase>();
+            services_.AddScoped<IStorage, Storage>();
+
+            services_.AddExtCore(_extensionsPath);
 
             services_.AddScoped<IDatabaseInitializer, DatabaseInitializer>();
-            services_.AddExtCore(_extensionsPath);
+
         }
 
         public void Configure(IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_)

@@ -9,7 +9,7 @@ namespace Security.ServiceConfiguration
     /// </summary>
     public class ActivateAuthentication : IConfigureAction
     {
-        public int Priority => 3000;
+        public int Priority => 200;
 
         public void Execute(IApplicationBuilder applicationBuilder_, IServiceProvider serviceProvider_)
         {

@@ -8,19 +8,24 @@ using Security.Data.Entities;
 
 namespace Security.ServiceConfiguration
 {
-    public class AddAuthorizationPolicies //: IConfigureServicesAction
+    public class AddAuthorizationPolicies : IConfigureServicesAction
     {
-        /*private readonly IStorage _storage;
-        public int Priority => 3010;
+        /// <summary>
+        /// Executes after ActivateAuthentication and ConfigureAuthentication service actions.
+        /// </summary>
+        public int Priority => 201;
 
-        public AddAuthorizationPolicies(IStorage storage_)
-        {
-            _storage = storage_;
-        }
+        /// <summary>
+        /// Necessary public empty constructor.
+        /// </summary>
+        public AddAuthorizationPolicies() { }
 
         public void Execute(IServiceCollection services_, IServiceProvider serviceProvider_)
         {
-            IEnumerable<Permission> permissions = _storage.GetRepository<IPermissionRepository>().All();
+        /*    IStorage storage = serviceProvider_.GetService<IStorage>();
+            //IStorage storage = services_.BuildServiceProvider().GetService<IStorage>();
+            // Doesn't work, it cannot find a IStorageContext implementation in services_...
+            IEnumerable<Permission> permissions = storage.GetRepository<IPermissionRepository>().All();
 
             services_.AddAuthorization(options_ =>
                 {
@@ -38,6 +43,7 @@ namespace Security.ServiceConfiguration
 
                 }
             );
-        }*/
+            */
+        }
     }
 }
