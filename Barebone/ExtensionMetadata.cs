@@ -16,7 +16,8 @@ namespace Barebone
             new StyleSheet("/node_modules.font_awesome.fonts.fontawesome-webfont.woff2", 430),
             new StyleSheet("/node_modules.font_awesome.fonts.fontawesome-webfont.ttf", 440),
             new StyleSheet("/node_modules.font_awesome.fonts.fontawesome-webfont.svg", 450),
-            new StyleSheet("/Styles.barebone.css",500)
+            new StyleSheet("/Styles.barebone.css",500),
+            new StyleSheet("css/styles.css",600)
         };
 
         public IEnumerable<Script> Scripts => new Script[]

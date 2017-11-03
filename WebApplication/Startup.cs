@@ -20,8 +20,14 @@ namespace WebApplication
         {
             Configuration = configuration_;
             _extensionsPath = hostingEnvironment_.ContentRootPath + Configuration["Extensions:Path"];
-        }
 
+#if DEBUG
+            var temp = "webroot path: " + hostingEnvironment_.WebRootPath + "\n" + "Content Root path: " + hostingEnvironment_.ContentRootPath;
+            System.Console.WriteLine("#######################################################");
+            System.Console.WriteLine(temp);
+            System.Console.WriteLine("#######################################################");
+        }
+#endif
         public void ConfigureServices(IServiceCollection services_)
         {
             // Note: AddScoped : for services based on EF (once per request),
