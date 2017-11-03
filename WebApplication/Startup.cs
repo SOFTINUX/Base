@@ -26,13 +26,13 @@ namespace WebApplication
         {
             // Note: AddScoped : for services based on EF (once per request),
             // other values : AddTransient (stateless), AddSingleton (avoids to implement singleton pattern ourselves)
-            
+
             services_.Configure<StorageContextOptions>(options_ =>
                 {
                     options_.ConnectionString = Configuration["ConnectionStrings:Default"];
                 }
             );
-            // Register database-specific storage context implementation. 
+            // Register database-specific storage context implementation.
             // Necessary for IStorage service registration to fully work (see AddAuthorizationPolicies).
             services_.AddScoped<IStorageContext, StorageContext>();
             services_.AddScoped<IStorage, Storage>();
