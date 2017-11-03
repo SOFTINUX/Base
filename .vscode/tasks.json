@@ -20,6 +20,51 @@
             "presentation": {
                 "reveal": "silent"
             }
+        },
+        {
+            "taskName": "Integration Tests",
+            "command": "dotnet",
+            "args": [
+                "test",
+                "SecurityTests.csproj"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}/Tests/SecurityTests"
+            },
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "taskName": "Unit Tests",
+            "command": "dotnet",
+            "args": [
+                "test",
+                "SecurityTests.csproj"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}/Tests/SecurityTests"
+            },
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "taskName": "TestAll",
+            "dependsOn": [
+                "Unit Tests",
+                "Integration Tests"
+            ]
         }
     ]
 }
