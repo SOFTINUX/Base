@@ -15,15 +15,6 @@
     {
         <header class="header">
             <nav class="navbar">
-                <!-- Search Box-->
-                @*<div class="search-box">
-                    <button class="dismiss">
-                        <i class="icon-close"></i>
-                    </button>
-                    <form id="searchForm" action="#" role="search">
-                        <input type="search" placeholder="What are you looking for..." class="form-control">
-                    </form>
-                </div>*@
                 <div class="container-fluid">
                     <div class="navbar-holder d-flex align-items-center justify-content-between">
                         <!-- Navbar Header-->
@@ -150,7 +141,7 @@
                             </li>
                             <!-- Logout -->
                             <li class="nav-item">
-                                <a href="login.html" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a>
+                                <a href="login.html" class="nav-link logout"> @Html.ActionLink("Logout", "SignOut", "Account")<i class="fa fa-sign-out"></i></a>
                             </li>
                         </ul>
                     </div>
