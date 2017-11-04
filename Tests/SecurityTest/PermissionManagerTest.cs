@@ -3,6 +3,7 @@ using SecurityTest.Util;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using Infrastructure;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
 using Security.Enums;
@@ -36,7 +37,7 @@ namespace SecurityTest
         /// <returns></returns>
         private string FormatExpectedClaimValue(string permissionCode_, bool readWrite_)
         {
-            return $"{permissionCode_}|{_assembly}{(readWrite_ ? Security.Enums.Permission.READ_WRITE_SUFFIX : Security.Enums.Permission.READ_ONLY_SUFFIX)}";
+            return $"{permissionCode_}|{_assembly}{(readWrite_ ? PolicyUtil.READ_WRITE_SUFFIX : PolicyUtil.READ_ONLY_SUFFIX)}";
         }
 
         /// <summary>
@@ -56,7 +57,7 @@ namespace SecurityTest
             #endregion
             IEnumerable<Claim> claims =
                 new PermissionManager().GetFinalPermissions(new List<PermissionValue> { roPv, rwPv }, false);
-            Assert.Equal(1, claims.Count());
+            Assert.Single(claims);
             Assert.Equal(ClaimType.Permission, claims.First().Type);
             Assert.Equal(FormatExpectedClaimValue(rwPerm.Code, true), claims.First().Value);
         }
@@ -232,7 +233,7 @@ namespace SecurityTest
 
                 IEnumerable<Claim> claims = new PermissionManager().GetFinalPermissions(_fixture.DatabaseContext, user1);
                 // Expected no permission because permission is denied
-                Assert.Equal(0, claims.Count());
+                Assert.Empty(claims);
             }
             finally
             {

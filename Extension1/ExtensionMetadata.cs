@@ -16,6 +16,14 @@ namespace Extension1
                 {
                     new MenuItem("/extension1", "Extension 1", 100)
                 }
+            ),
+            new MenuGroup(
+                "Administration",
+                2000,
+                new MenuItem[]
+                {
+                    new MenuItem("/extension1/admin", "Extension 1", 100)
+                }
             )
         };
     }

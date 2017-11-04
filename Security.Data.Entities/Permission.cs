@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using ExtCore.Data.Entities.Abstractions;
+using Infrastructure;
 
 namespace Security.Data.Entities
 {
     public class Permission : IEntity
-    {       
+    {
         public int Id { get; set; }
 
         public string Code { get; set; }
@@ -21,7 +22,7 @@ namespace Security.Data.Entities
         /// <summary>
         /// Unique identifier : code + origin extension name.
         /// </summary>
-        public string UniqueIdentifier => $"{Code}|{OriginExtension}";
+        public string UniqueIdentifier => PolicyUtil.GetPermissionUniqueIdentifier(Code, OriginExtension);
 
         /// <summary>
         /// Referenced entities, here the link table because it has other data to store than just FKs.

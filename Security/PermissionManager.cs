@@ -62,11 +62,11 @@ namespace Security
 
                 if ((pv.Level & (int)Enums.Permission.PermissionLevelValue.ReadWrite) != 0)
                 {
-                    claims.Add(new Claim(Enums.ClaimType.Permission, GetClaimValue(uniqueId, true)));
+                    claims.Add(new Claim(Enums.ClaimType.Permission, PolicyUtil.GetClaimValue(uniqueId, true)));
                 }
                 else if ((pv.Level & (int)Enums.Permission.PermissionLevelValue.ReadOnly) != 0)
                 {
-                    claims.Add(new Claim(Enums.ClaimType.Permission, GetClaimValue(uniqueId, false)));
+                    claims.Add(new Claim(Enums.ClaimType.Permission, PolicyUtil.GetClaimValue(uniqueId, false)));
                 }
             }
 
@@ -91,19 +91,6 @@ namespace Security
             permissions.AddRange(repo.GetPermissionCodeAndLevelByGroupForUserId(user_.Id));
 
             return permissions;
-        }
-
-        /// <summary>
-        /// Gets the claim value from the permission unique ID and the access level
-        /// </summary>
-        /// <param name="permissionUniqueId_"></param>
-        /// <param name="write_">true when write access level, false when read</param>
-        /// <returns></returns>
-        public static string GetClaimValue(string permissionUniqueId_, bool write_)
-        {
-            return permissionUniqueId_ + (write_
-                ? Enums.Permission.READ_WRITE_SUFFIX
-                : Enums.Permission.READ_ONLY_SUFFIX);
         }
     }
 }

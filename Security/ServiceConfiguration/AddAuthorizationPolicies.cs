@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ExtCore.Data.Abstractions;
 using ExtCore.Infrastructure.Actions;
+using Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
@@ -30,11 +31,11 @@ namespace Security.ServiceConfiguration
                 {
                     foreach (Permission permission in permissions)
                     {
-                        string claimValue = PermissionManager.GetClaimValue(permission.UniqueIdentifier, false);
+                        string claimValue = PolicyUtil.GetClaimValue(permission.UniqueIdentifier, false);
                             options_.AddPolicy(claimValue, policy_ => {
                                 policy_.RequireClaim(claimValue);
                             });
-                        claimValue = PermissionManager.GetClaimValue(permission.UniqueIdentifier, true);
+                        claimValue = PolicyUtil.GetClaimValue(permission.UniqueIdentifier, true);
                         options_.AddPolicy(claimValue, policy => {
                             policy.RequireClaim(claimValue);
                         });
@@ -42,7 +43,7 @@ namespace Security.ServiceConfiguration
 
                 }
             );
-            
+
         }
     }
 }

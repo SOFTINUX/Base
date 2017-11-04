@@ -18,15 +18,6 @@
         /// Code of a permission provided by the Security extension.
         /// </summary>
         public const string PERM_CODE_EDIT_PERMISSION = "edit_permission";
-        
-        /// <summary>
-        /// Suffix used to build the claim value from the permission unique identifier.
-        /// </summary>
-        public const string READ_WRITE_SUFFIX = "|RW";
-        /// <summary>
-        /// Suffix used to build the claim value from the permission unique identifier.
-        /// </summary>
-        public const string READ_ONLY_SUFFIX = "|R";
 
         /// <summary>
         /// ID of PermissionLevel records
