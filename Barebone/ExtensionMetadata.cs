@@ -11,11 +11,6 @@ namespace Barebone
             new StyleSheet("/node_modules.normalize.css.normalize.css", 200),
             new StyleSheet("/node_modules.bootstrap.dist.css.bootstrap.min.css", 300),
             new StyleSheet("/node_modules.font_awesome.css.font-awesome.min.css", 400),
-            new StyleSheet("/node_modules.font_awesome.fonts.fontawesome.otf", 410),
-            new StyleSheet("/node_modules.font_awesome.fonts.fontawesome-webfont.woff", 420),
-            new StyleSheet("/node_modules.font_awesome.fonts.fontawesome-webfont.woff2", 430),
-            new StyleSheet("/node_modules.font_awesome.fonts.fontawesome-webfont.ttf", 440),
-            new StyleSheet("/node_modules.font_awesome.fonts.fontawesome-webfont.svg", 450),
             new StyleSheet("/Styles.barebone.css",500),
             new StyleSheet("css/styles.css",600)
         };
