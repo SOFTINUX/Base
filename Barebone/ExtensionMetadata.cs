@@ -10,6 +10,7 @@ namespace Barebone
             new StyleSheet("/node_modules.wfk_opensans.opensans.css", 100),
             new StyleSheet("/node_modules.normalize.css.normalize.css", 200),
             new StyleSheet("/node_modules.bootstrap.dist.css.bootstrap.min.css", 300),
+            new StyleSheet("/node_modules.bootstrap.dist.css.bootstrap.min.css.map", 310),
             new StyleSheet("/node_modules.font_awesome.css.font-awesome.min.css", 400),
             new StyleSheet("/Styles.barebone.css",500),
             new StyleSheet("css/styles.css",600)

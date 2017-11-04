@@ -1,4 +1,5 @@
 {
+    "editor.formatOnSave": true,
     "dotnet-test-explorer.testProjectPath": ".\\Tests\\SecurityTest",
     "dotnet-test-explorer.build": false
 }

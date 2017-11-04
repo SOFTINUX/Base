@@ -1,0 +1,18 @@
+.bg-blue
+{
+    background-color: #D6EEFB;
+}
+
+.navbar-blue .navbar-nav .nav-link
+{
+    color: #152a50;
+}
+
+.brand-logo, .brandlogotext {
+    margin-top: -5px;
+}
+
+.navbar-brand {
+    height: 30px;
+    width: 30px;
+}
