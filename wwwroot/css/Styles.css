@@ -8,11 +8,22 @@
     color: #152a50;
 }
 
-.brand-logo, .brandlogotext {
-    margin-top: -5px;
-}
-
-.navbar-brand {
+.navbar-brand
+{
     height: 30px;
     width: 30px;
+}
+
+.navbar-brand
+{
+    padding: 0;
+    width: 120px;
+}
+
+.navbar-nav .nav-link
+{
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 50px;
+    line-height: 50px;
 }

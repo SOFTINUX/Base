@@ -24,11 +24,13 @@
     <EmbeddedResource Include="node_modules\jquery\dist\jquery.slim.min.js" />
     <EmbeddedResource Include="node_modules\popper.js\dist\umd\popper.min.js" />
     <EmbeddedResource Include="node_modules\bootstrap\dist\js\bootstrap.min.js" />
+    <EmbeddedResource Include="node_modules\bootstrap\dist\js\bootstrap.min.js.map" />
     <EmbeddedResource Include="node_modules\jquery-validation\dist\jquery.validate.min.js" />
     <EmbeddedResource Include="node_modules\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
     <EmbeddedResource Include="node_modules\js-cookie\src\js.cookie.js" />
     <EmbeddedResource Include="node_modules\normalize.css\normalize.css" />
     <EmbeddedResource Include="node_modules\bootstrap\dist\css\bootstrap.min.css" />
+    <EmbeddedResource Include="node_modules\bootstrap\dist\css\bootstrap.min.css.map" />
     <EmbeddedResource Include="node_modules\font-awesome\css\font-awesome.min.css" />
     <EmbeddedResource Include="node_modules\font-awesome\fonts\fontawesome-webfont.woff" />
     <EmbeddedResource Include="node_modules\font-awesome\fonts\fontawesome-webfont.woff2" />
