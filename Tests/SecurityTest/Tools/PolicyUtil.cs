@@ -13,7 +13,7 @@ namespace SecurityTest.Tools
         [Fact]
         public void PrintPolicyName()
         {
-            Console.WriteLine(Infrastructure.PolicyUtil.GetPolicyName<Extension1.ExtensionMetadata>("Admin", true));
+            //Console.WriteLine(Infrastructure.PolicyUtil.GetPolicyName<Extension1.ExtensionMetadata>("Admin", true));
         }
 
     }

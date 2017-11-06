@@ -36,7 +36,7 @@
     <EmbeddedResource Include="node_modules\font-awesome\fonts\fontawesome-webfont.woff2" />
     <EmbeddedResource Include="node_modules\font-awesome\fonts\fontawesome-webfont.ttf" />
     <EmbeddedResource Include="node_modules\font-awesome\fonts\fontawesome-webfont.svg" />
-    <EmbeddedResource Include="node_modules\font-awesome\fonts\fontawesome.otf" />
+    <EmbeddedResource Include="node_modules\font-awesome\fonts\FontAwesome.otf" />
     <EmbeddedResource Include="node_modules\wfk-opensans\opensans.css" />
   </ItemGroup>
   <ItemGroup>
