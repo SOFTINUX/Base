@@ -312,3 +312,6 @@ Tests/WorkDir/*
 
 # Directory is named "Debug" because it contains code defined in debug mode...
 !Security/Enums/Debug
+
+# serilog log file
+log-[0-9]*.txt
