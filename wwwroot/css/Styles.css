@@ -27,3 +27,12 @@
     height: 50px;
     line-height: 50px;
 }
+
+.bg-light {
+    background-color: #152a50 !important;
+}
+
+.navbar-light, .navbar-light .navbar-brand, .navbar-light a, .navbar-toggler-icon
+{
+    color: aliceblue !important;
+}
