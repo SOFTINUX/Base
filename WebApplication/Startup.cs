@@ -22,7 +22,7 @@ namespace WebApplication
         public Startup(IConfiguration configuration_, IHostingEnvironment hostingEnvironment_)
         {
             Configuration = configuration_;
-            _extensionsPath = hostingEnvironment_.ContentRootPath + Configuration["Extensions:Path"];
+            _extensionsPath = hostingEnvironment_.ContentRootPath + Configuration["Extensions:Path"].Replace('/', Path.DirectorySeparatorChar).Replace('\\', Path.DirectorySeparatorChar);
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -54,7 +54,12 @@ namespace WebApplication
                 }
             );
 
-            services_.Configure<BaseApplicationConfiguration>(Configuration.GetSection("Corporate"));
+            services_.Configure<CorporateConfiguration>(
+              options_ =>
+              {
+                  options_.Name = Configuration.GetValue<string>("Corporate:Name");
+                  options_.BrandLogo = Configuration.GetValue<string>("Corporate:BrandLogo");
+              });
 
             // Register database-specific storage context implementation.
             // Necessary for IStorage service registration to fully work (see AddAuthorizationPolicies).
