@@ -1,4 +1,5 @@
-﻿using ExtCore.Data.Abstractions;
+﻿using System.IO;
+using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
 using ExtCore.Data.EntityFramework.Sqlite;
 using ExtCore.WebApplication.Extensions;
@@ -8,6 +9,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Security;
+using Serilog;
+using Serilog.Events;
 
 namespace WebApplication
 {
@@ -21,15 +24,26 @@ namespace WebApplication
             Configuration = configuration_;
             _extensionsPath = hostingEnvironment_.ContentRootPath + Configuration["Extensions:Path"];
 
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.LiterateConsole()
+                .WriteTo.RollingFile("log-{Date}.txt")
+                .CreateLogger();
+
 #if DEBUG
-            var temp = "webroot path: " + hostingEnvironment_.WebRootPath + "\n" + "Content Root path: " + hostingEnvironment_.ContentRootPath;
+            Log.Information("#######################################################");
+            Log.Information("webroot path: " + hostingEnvironment_.WebRootPath + "\n" + "Content Root path: " + hostingEnvironment_.ContentRootPath);
+            Log.Information("#######################################################");
+            /* var temp = "webroot path: " + hostingEnvironment_.WebRootPath + "\n" + "Content Root path: " + hostingEnvironment_.ContentRootPath;
             System.Console.WriteLine("#######################################################");
             System.Console.WriteLine(temp);
-            System.Console.WriteLine("#######################################################");
+            System.Console.WriteLine("#######################################################"); */
         }
 #endif
         public void ConfigureServices(IServiceCollection services_)
         {
+            services_.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
+
             // Note: AddScoped : for services based on EF (once per request),
             // other values : AddTransient (stateless), AddSingleton (avoids to implement singleton pattern ourselves)
 
@@ -47,6 +61,7 @@ namespace WebApplication
             services_.AddExtCore(_extensionsPath);
 
             services_.AddScoped<IDatabaseInitializer, DatabaseInitializer>();
+            //services_.AddScoped<BaseLogger>();
 
         }
 
