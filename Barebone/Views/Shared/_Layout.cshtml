@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.Extensions.Options;
+@using Infrastructure;
+@inject IOptions<BaseApplicationConfiguration> OptionsApplicationConfiguration
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8"/>
@@ -15,7 +19,7 @@
         <header class="header">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <a class="navbar-brand" href="#">
-                    <img src="img/@Html.Raw(this.ViewBag.CorporateLogo as string)" width="30" height="30" alt="" class="brand-logo d-inline-block align-top">
+                    <img src="/img/@Html.Raw(this.ViewBag.CorporateLogo as string)" width="30" height="30" alt="" class="brand-logo d-inline-block align-top">
                     <span class="brandlogotext">@Html.Raw(this.ViewBag.CorporateName as string)</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,6 +59,7 @@
     <div class="container">
         @RenderSection("title", false)
         @RenderBody()
+        <span>@OptionsApplicationConfiguration.Value.CorporateName</span>
     </div>
 </body>
 </html>

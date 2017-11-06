@@ -13,7 +13,7 @@ namespace Barebone
             new StyleSheet("/node_modules.bootstrap.dist.css.bootstrap.min.css.map", 310),
             new StyleSheet("/node_modules.font_awesome.css.font-awesome.min.css", 400),
             new StyleSheet("/Styles.barebone.css",500),
-            new StyleSheet("css/Styles.css",600)
+            new StyleSheet("/css/Styles.css",600)
         };
 
         public IEnumerable<Script> Scripts => new Script[]

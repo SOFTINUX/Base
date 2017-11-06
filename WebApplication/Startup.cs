@@ -53,6 +53,9 @@ namespace WebApplication
                     options_.ConnectionString = Configuration["ConnectionStrings:Default"];
                 }
             );
+
+            services_.Configure<BaseApplicationConfiguration>(Configuration.GetSection("Corporate"));
+
             // Register database-specific storage context implementation.
             // Necessary for IStorage service registration to fully work (see AddAuthorizationPolicies).
             services_.AddScoped<IStorageContext, StorageContext>();
