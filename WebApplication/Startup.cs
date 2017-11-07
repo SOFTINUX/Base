@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Security;
 using Serilog;
 using Serilog.Events;
@@ -23,23 +24,8 @@ namespace WebApplication
         {
             Configuration = configuration_;
             _extensionsPath = hostingEnvironment_.ContentRootPath + Configuration["Extensions:Path"].Replace('/', Path.DirectorySeparatorChar).Replace('\\', Path.DirectorySeparatorChar);
-
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .WriteTo.LiterateConsole()
-                .WriteTo.RollingFile("log-{Date}.txt")
-                .CreateLogger();
-
-#if DEBUG
-            Log.Information("#######################################################");
-            Log.Information("webroot path: " + hostingEnvironment_.WebRootPath + "\n" + "Content Root path: " + hostingEnvironment_.ContentRootPath);
-            Log.Information("#######################################################");
-            /* var temp = "webroot path: " + hostingEnvironment_.WebRootPath + "\n" + "Content Root path: " + hostingEnvironment_.ContentRootPath;
-            System.Console.WriteLine("#######################################################");
-            System.Console.WriteLine(temp);
-            System.Console.WriteLine("#######################################################"); */
         }
-#endif
+
         public void ConfigureServices(IServiceCollection services_)
         {
             services_.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
@@ -69,11 +55,10 @@ namespace WebApplication
             services_.AddExtCore(_extensionsPath);
 
             services_.AddScoped<IDatabaseInitializer, DatabaseInitializer>();
-            //services_.AddScoped<BaseLogger>();
 
         }
 
-        public void Configure(IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_)
+        public void Configure(IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_, IConfiguration configuration_)
         {
             if (hostingEnvironment_.IsDevelopment())
             {
@@ -81,6 +66,19 @@ namespace WebApplication
                 //applicationBuilder.UseDatabaseErrorPage();
                 //applicationBuilder.UseBrowserLink();
             }
+
+            // call ConfigureLogger in a centralized place in the code
+            // so that we configure the logger factory provided by .NET Core with our configuratioon in Logging class.
+            Logging.ConfigureLogger(loggerFactory_, configuration_);
+            //set it as the primary LoggerFactory to use everywhere
+            Logging.LoggerFactory = loggerFactory_;
+
+#if DEBUG
+            Log.Information("#######################################################");
+            Log.Information("webroot path: " + hostingEnvironment_.WebRootPath + "\n" + "Content Root path: " + hostingEnvironment_.ContentRootPath);
+            Log.Information("#######################################################");
+#endif
+
             applicationBuilder_.UseExtCore();
 
             System.Console.WriteLine("PID= " + System.Diagnostics.Process.GetCurrentProcess().Id);
