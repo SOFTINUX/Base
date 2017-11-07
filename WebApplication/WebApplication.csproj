@@ -25,6 +25,7 @@
     <PackageReference Include="Serilog.Sinks.Literate" Version="3.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Barebone\Barebone.csproj"/>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\Security.Data.EntityFramework.Sqlite\Security.Data.EntityFramework.Sqlite.csproj" />
     <ProjectReference Include="..\Security\Security.csproj" />

@@ -24,12 +24,6 @@ namespace WebApplication
         {
             Configuration = configuration_;
             _extensionsPath = hostingEnvironment_.ContentRootPath + Configuration["Extensions:Path"].Replace('/', Path.DirectorySeparatorChar).Replace('\\', Path.DirectorySeparatorChar);
-
- #if DEBUG
-            Log.Information("#######################################################");
-            Log.Information("webroot path: " + hostingEnvironment_.WebRootPath + "\n" + "Content Root path: " + hostingEnvironment_.ContentRootPath);
-            Log.Information("#######################################################");
-#endif
         }
 
         public void ConfigureServices(IServiceCollection services_)
@@ -78,6 +72,12 @@ namespace WebApplication
             Logging.ConfigureLogger(loggerFactory_, configuration_);
             //set it as the primary LoggerFactory to use everywhere
             Logging.LoggerFactory = loggerFactory_;
+
+#if DEBUG
+            Log.Information("#######################################################");
+            Log.Information("webroot path: " + hostingEnvironment_.WebRootPath + "\n" + "Content Root path: " + hostingEnvironment_.ContentRootPath);
+            Log.Information("#######################################################");
+#endif
 
             applicationBuilder_.UseExtCore();
 
