@@ -16,7 +16,7 @@
             "name": ".NET Core Launch (web)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "build & prepare",
             "program": "${workspaceRoot}/WebApplication/bin/Debug/netcoreapp2.0/WebApplication.dll",
             "args": [],
             "cwd": "${workspaceRoot}/WebApplication/",
