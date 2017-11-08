@@ -28,7 +28,7 @@ IF "%1" == "build" GOTO End
 echo ###################
 echo Copy Dependencies
 echo ###################
-::set src_folder=
+
 set dst_folder=.\WebApplication\bin\Debug\netcoreapp2.0\
 for /f "tokens=*" %%i in (dependencies.txt) DO (
     xcopy /S/E/Y "%%i" "%dst_folder%"
