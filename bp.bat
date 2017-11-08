@@ -21,7 +21,6 @@ echo ###################
 echo BUILD SOLUTION
 echo ###################
 dotnet build
-::gulp --gulpfile ./WebApplication/gulpfile.js copy-extensions
 IF "%1" == "build" GOTO End
 
 :CopyDeps
@@ -32,7 +31,6 @@ echo ###################
 ::set src_folder=
 set dst_folder=.\WebApplication\bin\Debug\netcoreapp2.0\
 for /f "tokens=*" %%i in (dependencies.txt) DO (
-    ::xcopy /S/E "%src_folder%\%%i" "%dst_folder%"
     xcopy /S/E/Y "%%i" "%dst_folder%"
 )
 IF "%1" == "copydeps" GOTO End
@@ -56,7 +54,7 @@ echo.
 echo with no parameters, build proccess is:
 echo     - cleaning solution
 echo     - build solution
-echo     - copy dependecies
+echo     - copy dependencies
 echo     - copy extensions
 
 GOTO End
