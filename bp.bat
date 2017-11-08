@@ -28,7 +28,6 @@ IF "%1" == "build" GOTO End
 echo ###################
 echo Copy Dependencies
 echo ###################
-
 set dst_folder=.\WebApplication\bin\Debug\netcoreapp2.0\
 for /f "tokens=*" %%i in (dependencies.txt) DO (
     xcopy /S/E/Y "%%i" "%dst_folder%"
@@ -51,7 +50,7 @@ echo     - build : only build solution
 echo     - copydeps : only copy dependencies (defined in dependecies.txt)
 echo     - copyexts : only copy extensions (defined in extentions.txt)
 echo.
-echo with no parameters, build proccess is:
+echo with no parameters or unsupported parameters, build proccess is:
 echo     - cleaning solution
 echo     - build solution
 echo     - copy dependencies
