@@ -4,10 +4,10 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "taskName": "build & prepare",
+            "label": "build & prepare",
             "command": "./bp.bat",
             "linux": {
-                "command": "bp.sh"
+                "command": "./bp.sh"
             },
             "type": "shell",
             "group": "build",
@@ -18,7 +18,7 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "taskName": "build",
+            "label": "build",
             "command": "dotnet build",
             "type": "shell",
             "group": "build",
@@ -28,7 +28,7 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "taskName": "Gulp Copy DLL",
+            "label": "Gulp Copy DLL",
             "command": "gulp",
             "args": ["--gulpfile", "./WebApplication/gulpfile.js", "copy-extensions"],
             "type": "shell",
@@ -38,7 +38,7 @@
             }
         },
         {
-            "taskName": "Integration Tests",
+            "label": "Integration Tests",
             "command": "dotnet",
             "args": [
                 "test",
@@ -57,7 +57,7 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "taskName": "Unit Tests",
+            "label": "Unit Tests",
             "command": "dotnet",
             "args": [
                 "test",
@@ -76,7 +76,7 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "taskName": "TestAll",
+            "label": "TestAll",
             "dependsOn": [
                 "Unit Tests",
                 "Integration Tests"
