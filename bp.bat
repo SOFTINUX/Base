@@ -39,7 +39,7 @@ echo ###################
 echo Copy extensions
 echo ###################
 set dst_folder=.\WebApplication\Extensions\
-for /f "tokens=*" %%i in (extentions.txt) DO (
+for /f "tokens=*" %%i in (extensions.txt) DO (
     xcopy /S/E/Y "%%i" "%dst_folder%"
 )
 
@@ -48,7 +48,7 @@ echo Avaliable parameters is :
 echo     - clean : clean solution
 echo     - build : only build solution
 echo     - copydeps : only copy dependencies (defined in dependecies.txt)
-echo     - copyexts : only copy extensions (defined in extentions.txt)
+echo     - copyexts : only copy extensions (defined in exsentions.txt)
 echo.
 echo with no parameters or unsupported parameters, build proccess is:
 echo     - cleaning solution
