@@ -1,15 +1,25 @@
 # Project overview
 
-To be redacted
+SOFTINUX Base is free, open source and cross-platform based on ASP.NET Core and ExtCore framework. It is built using the best and the most modern tools and languages (Visual Studio 2017, Visual Studio Code, C# etc). Join our team!
+
+## Few Facts About SOFTINUX Base
+
+It is free and open source.
+It runs on Windows, Mac and Linux.
+It is completely modular and extendable. Using the features of the underlying ExtCore framework you can easily create your own extensions to extend its functionality.
+
+## Basic Concepts
+
+TODO
 
 # Technical installation
 
-1. Before building the app, go to *Barebone* subfolder and run `npm i --save-dev` command so that bootstrap package is installed.
+1. Before building the app, go to *Barebone* subfolder and run `npm i --save-dev` command so that dependencies packages is installed.
 2. Restore the nuGet packages and build the app. (With .NET Core 2, this is implicit command)
-3. Go to *WebApplication* subfolder and run `gulp copy-extensions`. If gulp is installed globally but not found, run `npm link gulp` and rerun `gulp copy-extensions`.
+3. Go to *WebApplication* subfolder and run `bp.bat copyexts` under Windows or `bp.bat copyexts` under Linux/Macos. (use -h for help)
 4. Run the app.
 
-# Visual Studio Code
+# Using Visual Studio Code For Developing
 If you would use Visual Studio Code, you need these extensions:
   - [Net Core Test Explorer](https://marketplace.visualstudio.com/items?itemName=formulahendry.dotnet-test-explorer)
   - [C#](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
@@ -39,3 +49,4 @@ At your discretion
   - [Python](https://marketplace.visualstudio.com/items?itemName=donjayamanne.python)
   - [Quokka.js](https://marketplace.visualstudio.com/items?itemName=WallabyJs.quokka-vscode)
 
+We also give the Tasks and Launcher of Visual studio Code configuration.
