@@ -3,7 +3,8 @@
 
 using Microsoft.AspNetCore.Mvc;
 using Extension1.ViewModels.Extension1;
-using Microsoft.AspNetCore.Authorization;
+using Infrastructure;
+using AuthorizeAttribute = Infrastructure.Attributes.AuthorizeAttribute;
 
 namespace Extension1.Controllers
 {
@@ -14,7 +15,7 @@ namespace Extension1.Controllers
             return View(new IndexViexModelFactory().Create());
         }
 
-        //[Authorize("Admin | Extension1, Version = 1.0.0.0, Culture = neutral, PublicKeyToken = null || RW")]
+        [Authorize("Admin", "Extension1", PolicyUtil.AccessLevel.RW)]
         public ActionResult Admin()
         {
             return View();

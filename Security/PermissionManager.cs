@@ -1,15 +1,12 @@
 ﻿// Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using Infrastructure;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
-using Security.Data.EntityFramework;
 using Security.Enums;
 
 namespace Security
@@ -75,7 +72,7 @@ namespace Security
 
             return claims;
         }
-        
+
         /// <summary>
         /// Loads the permissions from database.
         /// </summary>

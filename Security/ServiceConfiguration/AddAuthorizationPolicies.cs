@@ -9,6 +9,7 @@ using Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
+using Security.Policy;
 
 namespace Security.ServiceConfiguration
 {
@@ -34,15 +35,24 @@ namespace Security.ServiceConfiguration
                 {
                     foreach (Permission permission in permissions)
                     {
-                        string claimValue = PolicyUtil.GetClaimValue(permission.UniqueIdentifier, false);
-                            options_.AddPolicy(claimValue, policy_ => {
-                                policy_.RequireClaim(claimValue);
-                            });
-                        claimValue = PolicyUtil.GetClaimValue(permission.UniqueIdentifier, true);
-                        options_.AddPolicy(claimValue, policy => {
-                            policy.RequireClaim(claimValue);
+                        string claimValueAndPolicyName = PolicyUtil.GetClaimValue(permission.UniqueIdentifier, false);
+                        options_.AddPolicy(claimValueAndPolicyName, policy_ =>
+                        {
+                            policy_.RequireClaim(claimValueAndPolicyName);
                         });
+                        claimValueAndPolicyName = PolicyUtil.GetClaimValue(permission.UniqueIdentifier, true);
+                        options_.AddPolicy(claimValueAndPolicyName, policy =>
+                        {
+                            policy.RequireClaim(claimValueAndPolicyName);
+                        });
+
+                        KnownPolicies.Add(claimValueAndPolicyName);
                     }
+
+                    // and the fallback policy
+                    FallbackPolicyProvider fallbackPolicyProvider = new FallbackPolicyProvider();
+                    options_.AddPolicy(FallbackPolicyProvider.PolicyName, fallbackPolicyProvider.GetAuthorizationPolicy());
+                    KnownPolicies.Add(FallbackPolicyProvider.PolicyName);
 
                 }
             );

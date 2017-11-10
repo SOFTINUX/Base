@@ -6,6 +6,15 @@ namespace Infrastructure
     public static class PolicyUtil
     {
         /// <summary>
+        /// The access level, R for read-only, RW for read-write.
+        /// </summary>
+        public enum AccessLevel
+        {
+            R,
+            // ReSharper disable once InconsistentNaming
+            RW
+        }
+        /// <summary>
         /// Suffix used to build the claim value from the permission unique identifier.
         /// </summary>
         public const string READ_WRITE_SUFFIX = "|RW";
@@ -41,15 +50,27 @@ namespace Infrastructure
         }
 
         /// <summary>
+        /// Formats the policy name associated with a permission that has a code and an origin extension, and an access level.
+        /// </summary>
+        /// <param name="permissionCode_"></param>
+        /// <param name="originExtensionAssemblyName_">The origin extension assembly name, given by Assembly.GetName().Name</param>
+        /// <param name="accessLevel_"></param>
+        /// <returns></returns>
+        public static string GetPolicyName(string permissionCode_, string originExtensionAssemblyName_, AccessLevel accessLevel_)
+        {
+            return $"{GetPermissionUniqueIdentifier(permissionCode_, originExtensionAssemblyName_)}|{(accessLevel_)}";
+        }
+
+        /// <summary>
         /// Formats the unique identifier of a permission that has a code and an origin extension.
         /// </summary>
         /// <param name="permissionCode_"></param>
-        /// <param name="originExtensionAssemblyFullName_"></param>
+        /// <param name="originExtensionAssemblyName_">The origin extension assembly name, given by Assembly.GetName().Name</param>
         /// <returns></returns>
-        public static string GetPermissionUniqueIdentifier(string permissionCode_, string originExtensionAssemblyFullName_)
+        public static string GetPermissionUniqueIdentifier(string permissionCode_, string originExtensionAssemblyName_)
         {
             return
-                $"{permissionCode_}|{originExtensionAssemblyFullName_}";
+                $"{permissionCode_}|{originExtensionAssemblyName_}";
         }
     }
 }
