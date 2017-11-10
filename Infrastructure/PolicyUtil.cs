@@ -37,7 +37,7 @@ namespace Infrastructure
         /// <returns></returns>
         public static string GetPolicyName<T>(string permissionCode_, bool write_) where T : IExtensionMetadata
         {
-            return $"{permissionCode_}|{typeof(T).Assembly.FullName}|{(write_ ? READ_WRITE_SUFFIX : READ_ONLY_SUFFIX)}";
+            return $"{permissionCode_}|{typeof(T).Assembly.GetName().Name}|{(write_ ? READ_WRITE_SUFFIX : READ_ONLY_SUFFIX)}";
         }
 
         /// <summary>

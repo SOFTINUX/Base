@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using ExtCore.Data.Abstractions;
+using Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -13,9 +14,11 @@ namespace Security.Controllers
 {
     public class AccountController : ControllerBase
     {
-        public AccountController(IStorage storage_, ILoggerFactory loggerFactory_) : base(storage_, loggerFactory_)
-        {
+        private readonly IDatabaseInitializer _databaseInitializer;
 
+        public AccountController(IStorage storage_, ILoggerFactory loggerFactory_, IDatabaseInitializer databaseInitializer_) : base(storage_, loggerFactory_)
+        {
+            _databaseInitializer = databaseInitializer_;
         }
 
         /// <summary>
@@ -27,6 +30,8 @@ namespace Security.Controllers
         [AllowAnonymous]
         public IActionResult SignIn()
         {
+            // At this step we must check that database has been initialized, because authentiocation needs DB data.
+            _databaseInitializer.CheckAndInitialize(this);
             return this.View();
         }
 

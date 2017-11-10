@@ -12,7 +12,7 @@ namespace Security
 {
     public class DatabaseInitializer : IDatabaseInitializer
     {
-        private readonly string _securityAssemblyName = Assembly.GetExecutingAssembly().FullName;
+        private readonly string _securityAssemblyName = Assembly.GetExecutingAssembly().GetName().Name;
 
         /// <summary>
         /// Performs database base data inserts if no data
