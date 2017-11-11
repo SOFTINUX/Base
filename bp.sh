@@ -6,7 +6,7 @@
 function clean
 {
     echo "###################"
-    echo "CLEANING SOLUTION"
+    echo "CLEAN SOLUTION"
     echo "###################"
     dotnet clean
     if [ "$1" = "clean" ]; then exit; fi
@@ -43,14 +43,14 @@ function copydeps
 
 function help
 {
-    echo "Avaliable parameters is :"
+    echo "Avaliable parameter is :"
     echo "    - clean : clean solution"
     echo "    - build : only build solution"
-    echo "    - copydeps : only copy dependencies (defined in dependecies.txt)"
-    echo "    - copyexts : only copy extensions (defined in extentions.txt)"
+    echo "    - copydeps : only copy dependencies (defined in dependencies.txt)"
+    echo "    - copyexts : only copy extensions (defined in extensions.txt)"
     echo -ne "\n"
-    echo "with no parameters or unsupported parameters, build proccess is:"
-    echo "    - cleaning solution"
+    echo "with no parameter or unsupported parameters, build proccess is:"
+    echo "    - clean solution"
     echo "    - build solution"
     echo "    - copy dependencies"
     echo "    - copy extensions"

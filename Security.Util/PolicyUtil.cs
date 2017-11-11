@@ -1,7 +1,9 @@
 ﻿// Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-namespace Infrastructure
+using Infrastructure;
+
+namespace Security.Util
 {
     public static class PolicyUtil
     {
@@ -33,8 +35,8 @@ namespace Infrastructure
         public static string GetClaimValue(string permissionUniqueId_, bool write_)
         {
             return permissionUniqueId_ + (write_
-                       ? PolicyUtil.READ_WRITE_SUFFIX
-                       : PolicyUtil.READ_ONLY_SUFFIX);
+                       ? READ_WRITE_SUFFIX
+                       : READ_ONLY_SUFFIX);
         }
 
         /// <summary>

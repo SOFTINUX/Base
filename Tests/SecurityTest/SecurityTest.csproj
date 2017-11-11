@@ -22,4 +22,7 @@
     <ProjectReference Include="..\..\Security.Data.EntityFramework\Security.Data.EntityFramework.csproj" />
     <ProjectReference Include="..\..\Security\Security.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Tools\" />
+  </ItemGroup>
 </Project>

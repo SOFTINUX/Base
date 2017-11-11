@@ -8,6 +8,7 @@ using Infrastructure;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
 using Security.Enums;
+using Security.Util;
 
 namespace Security
 {
@@ -62,11 +63,11 @@ namespace Security
 
                 if ((pv.Level & (int)Enums.Permission.PermissionLevelValue.ReadWrite) != 0)
                 {
-                    claims.Add(new Claim(Enums.ClaimType.Permission, PolicyUtil.GetClaimValue(uniqueId, true)));
+                    claims.Add(new Claim(ClaimType.Permission, PolicyUtil.GetClaimValue(uniqueId, true)));
                 }
                 else if ((pv.Level & (int)Enums.Permission.PermissionLevelValue.ReadOnly) != 0)
                 {
-                    claims.Add(new Claim(Enums.ClaimType.Permission, PolicyUtil.GetClaimValue(uniqueId, false)));
+                    claims.Add(new Claim(ClaimType.Permission, PolicyUtil.GetClaimValue(uniqueId, false)));
                 }
             }
 

@@ -14,7 +14,7 @@ GOTO Clean
 
 :Clean
 echo ###################
-echo CLEANING SOLUTION
+echo CLEAN SOLUTION
 echo ###################
 dotnet clean
 IF "%1" == "clean" GOTO End
@@ -47,14 +47,14 @@ for /f "tokens=*" %%i in (extensions.txt) DO (
 )
 
 :Help
-echo Avaliable parameters is :
+echo Avaliable parameter is :
 echo     - clean : clean solution
 echo     - build : only build solution
-echo     - copydeps : only copy dependencies (defined in dependecies.txt)
-echo     - copyexts : only copy extensions (defined in exsentions.txt)
+echo     - copydeps : only copy dependencies (defined in dependencies.txt)
+echo     - copyexts : only copy extensions (defined in extensions.txt)
 echo.
-echo with no parameters or unsupported parameters, build proccess is:
-echo     - cleaning solution
+echo with no parameter or unsupported parameter, build proccess is:
+echo     - clean solution
 echo     - build solution
 echo     - copy dependencies
 echo     - copy extensions

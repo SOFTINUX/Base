@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 using ExtCore.Data.Entities.Abstractions;
-using Infrastructure;
+using Security.Util;
 
 namespace Security.Data.Entities
 {
