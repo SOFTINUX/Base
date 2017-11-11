@@ -11,7 +11,7 @@ namespace Security.Policy
     /// </summary>
     public class FallbackPolicyProvider
     {
-        public static string PolicyName => "Infrastructure.FallbackPolicy";
+        public const string PolicyName = "Infrastructure.FallbackPolicy";
 
         public AuthorizationPolicy GetAuthorizationPolicy()
         {
