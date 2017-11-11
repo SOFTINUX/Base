@@ -23,9 +23,11 @@ TODO
 
 ## Add New Project With CLI
 ### Add New Project
-dotnet new classlib -o <you_new_project>
+`dotnet new classlib -o <you_new_project>`
 ### Add Project Reference In Solution
-dotnet add reference <path_to_your_new_project>
+Goto in solution folder and type:
+
+`dotnet add reference <path_to_your_new_project>`
 
 # Using Visual Studio Code For Developing
 If you would use Visual Studio Code, you need these extensions:
