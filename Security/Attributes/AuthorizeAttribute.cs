@@ -21,11 +21,7 @@ namespace Security.Attributes
             string policyName = PolicyUtil.GetPolicyName(permissionCode_, extensionAssemblySimpleName_, accessLevel_);
 
             // We need to check that the corresponding permission exists
-            bool known = KnownPolicies.Contains(policyName);
-            if (!known)
-                policyName = FallbackPolicyProvider.PolicyName;
-
-            Policy = policyName;
+            Policy = KnownPolicies.Contains(policyName) ? policyName : FallbackPolicyProvider.PolicyName;
         }
 
     }

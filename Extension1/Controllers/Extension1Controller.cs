@@ -4,9 +4,8 @@
 
 using Extension1.ViewModels.Extension1;
 using Microsoft.AspNetCore.Mvc;
+using Security.Attributes;
 using Security.Util;
-using AuthorizeAttribute = Security.Attributes.AuthorizeAttribute;
-
 
 namespace Extension1.Controllers
 {
