@@ -4,8 +4,8 @@
 
 using Extension1.ViewModels.Extension1;
 using Microsoft.AspNetCore.Mvc;
-using Security.Attributes;
 using Security.Util;
+using Security.Util.Attributes;
 
 namespace Extension1.Controllers
 {

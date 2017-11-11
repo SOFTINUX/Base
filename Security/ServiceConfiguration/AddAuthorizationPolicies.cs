@@ -8,8 +8,8 @@ using ExtCore.Infrastructure.Actions;
 using Microsoft.Extensions.DependencyInjection;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
-using Security.Policy;
 using Security.Util;
+using Security.Util.Policy;
 
 namespace Security.ServiceConfiguration
 {

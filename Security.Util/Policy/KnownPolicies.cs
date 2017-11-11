@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Security.Policy
+namespace Security.Util.Policy
 {
     /// <summary>
     /// A simple in-memory storage of names of policies we registered to system.
