@@ -13,12 +13,21 @@ It is completely modular and extendable. Using the features of the underlying Ex
 
 TODO
 
-# Technical installation
+# Technical Section
 
+## Installation
 1. Before building the app, go to *Barebone* subfolder and run `npm i --save-dev` command so that dependencies packages is installed.
 2. Restore the nuGet packages and build the app. (With .NET Core 2, this is implicit command)
 3. Go to *WebApplication* subfolder and run `bp.bat copyexts` under Windows or `bp.bat copyexts` under Linux/Macos. (use -h for help)
 4. Run the app.
+
+## Add New Project With CLI
+### Add New Project
+`dotnet new classlib -o <you_new_project>`
+### Add Project Reference In Solution
+Goto in solution folder and type:
+
+`dotnet add reference <path_to_your_new_project>`
 
 # Using Visual Studio Code For Developing
 If you would use Visual Studio Code, you need these extensions:
