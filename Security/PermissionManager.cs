@@ -8,8 +8,8 @@ using Infrastructure;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
 using Security.Enums;
-using Security.Util;
-using Security.Util.Enums;
+using Security.Common;
+using Security.Common.Enums;
 
 namespace Security
 {

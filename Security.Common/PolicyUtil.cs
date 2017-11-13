@@ -3,7 +3,7 @@
 
 using Infrastructure;
 
-namespace Security.Util
+namespace Security.Common
 {
     public static class PolicyUtil
     {

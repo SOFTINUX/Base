@@ -2,9 +2,9 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using Microsoft.AspNetCore.Authorization;
-using Security.Util.Enums;
+using Security.Common.Enums;
 
-namespace Security.Util.Policy
+namespace Security.Common.Policy
 {
     /// <summary>
     /// Define a policy with no claims requirements, that will be used when no registered policy is found by Security.AuthorizeAttribute.
