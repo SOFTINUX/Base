@@ -46,24 +46,99 @@ namespace SecurityTest
 
         /// <summary>
         /// Test of GetFinalPermissions() passing permission-related data.
-        /// A reference to the same permission is passed, first with RO right level, second with RW.
-        /// Expected: the permission with RW right level.
+        /// A reference to the same permission is passed, first with R right level, second with RW.
+        /// Expected: one claim with R right level, one claim with RW right level (one claim per permission).
+        /// </summary>
+        [Fact]
+        public void TestGetFinalPermissionsRAndRwNoDatabase()
+        {
+            #region test data setup
+            Permission roPerm = new Permission { Code = CST_PERM_CODE_1, OriginExtension = _assembly };
+            Permission rwPerm = new Permission { Code = CST_PERM_CODE_1, OriginExtension = _assembly };
+            PermissionValue roPv = new PermissionValue { UniqueId = roPerm.UniqueIdentifier, Level = (int)Security.Enums.Permission.PermissionLevelValue.ReadOnly };
+            PermissionValue rwPv = new PermissionValue { UniqueId = rwPerm.UniqueIdentifier, Level = (int)Security.Enums.Permission.PermissionLevelValue.ReadWrite };
+
+            #endregion
+            IEnumerable<Claim> claims =
+                new PermissionManager().GetFinalPermissions(new List<PermissionValue> { roPv, rwPv }, false);
+            Assert.Equal(2, claims.Count());
+            Assert.Equal(ClaimType.Permission, claims.First().Type);
+            List<string> claimValues = new List<string>();
+            foreach (Claim claim in claims)
+            {
+                claimValues.Add(claim.Value);
+            }
+
+            List<string> expectedClaimValues = new List<string>();
+            expectedClaimValues.Add(FormatExpectedClaimValue(roPerm.Code, true));
+            expectedClaimValues.Add(FormatExpectedClaimValue(rwPerm.Code, false));
+
+            claimValues.Sort();
+            expectedClaimValues.Sort();
+            Assert.Equal(expectedClaimValues, claimValues);
+        }
+
+        /// <summary>
+        /// Test of GetFinalPermissions() passing permission-related data.
+        /// A reference to a permission is passed, with R right level.
+        /// Expected: one claim with R right level.
+        /// </summary>
+        [Fact]
+        public void TestGetFinalPermissionsRNoDatabase()
+        {
+            #region test data setup
+            Permission roPerm = new Permission { Code = CST_PERM_CODE_1, OriginExtension = _assembly };
+            PermissionValue roPv = new PermissionValue { UniqueId = roPerm.UniqueIdentifier, Level = (int)Security.Enums.Permission.PermissionLevelValue.ReadOnly };
+
+            #endregion
+            IEnumerable<Claim> claims =
+                new PermissionManager().GetFinalPermissions(new List<PermissionValue> { roPv }, false);
+            Assert.Single(claims);
+            Assert.Equal(ClaimType.Permission, claims.First().Type);
+            List<string> claimValues = new List<string>();
+            foreach (Claim claim in claims)
+            {
+                claimValues.Add(claim.Value);
+            }
+
+            List<string> expectedClaimValues = new List<string>();
+            expectedClaimValues.Add(FormatExpectedClaimValue(roPerm.Code, false));
+
+            claimValues.Sort();
+            expectedClaimValues.Sort();
+            Assert.Equal(expectedClaimValues, claimValues);
+        }
+
+        /// <summary>
+        /// Test of GetFinalPermissions() passing permission-related data.
+        /// A reference to a permission is passed, with RW right level.
+        /// Expected: one claim with R right level, one claim with RW right level (explicit claim for RW and implicit for R).
         /// </summary>
         [Fact]
         public void TestGetFinalPermissionsRwNoDatabase()
         {
             #region test data setup
-            Permission roPerm = new Permission { Code = CST_PERM_CODE_1, OriginExtension = _assembly };
             Permission rwPerm = new Permission { Code = CST_PERM_CODE_1, OriginExtension = _assembly };
-            PermissionValue roPv = new PermissionValue{ UniqueId = roPerm.UniqueIdentifier, Level = (int)Security.Enums.Permission.PermissionLevelValue.ReadOnly};
-            PermissionValue rwPv = new PermissionValue{ UniqueId = rwPerm.UniqueIdentifier, Level = (int)Security.Enums.Permission.PermissionLevelValue.ReadWrite};
+            PermissionValue rwPv = new PermissionValue { UniqueId = rwPerm.UniqueIdentifier, Level = (int)Security.Enums.Permission.PermissionLevelValue.ReadWrite };
 
             #endregion
             IEnumerable<Claim> claims =
-                new PermissionManager().GetFinalPermissions(new List<PermissionValue> { roPv, rwPv }, false);
-            Assert.Single(claims);
+                new PermissionManager().GetFinalPermissions(new List<PermissionValue> { rwPv }, false);
+            Assert.Equal(2, claims.Count());
             Assert.Equal(ClaimType.Permission, claims.First().Type);
-            Assert.Equal(FormatExpectedClaimValue(rwPerm.Code, true), claims.First().Value);
+            List<string> claimValues = new List<string>();
+            foreach (Claim claim in claims)
+            {
+                claimValues.Add(claim.Value);
+            }
+
+            List<string> expectedClaimValues = new List<string>();
+            expectedClaimValues.Add(FormatExpectedClaimValue(rwPerm.Code, true));
+            expectedClaimValues.Add(FormatExpectedClaimValue(rwPerm.Code, false));
+
+            claimValues.Sort();
+            expectedClaimValues.Sort();
+            Assert.Equal(expectedClaimValues, claimValues);
         }
 
         /// <summary>
@@ -106,28 +181,28 @@ namespace SecurityTest
 
                 _fixture.SaveChanges();
 
-                // Link Permission 1 to Role 1, RW
+                // Link Permission 1 to Role 1, R
                 _fixture.GetRepository<IRolePermissionRepository>().Create(new RolePermission
                 {
                     PermissionId = perm1.Id,
                     RoleId = role1.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadWrite
+                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadOnly
                 });
 
-                // Link Permission 2 to Group 1, RW
+                // Link Permission 2 to Group 1, R
                 _fixture.GetRepository<IGroupPermissionRepository>().Create(new GroupPermission
                 {
                     PermissionId = perm2.Id,
                     GroupId = group1.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadWrite
+                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadOnly
                 });
 
-                // Link Permission 3 to Group 2, RW
+                // Link Permission 3 to Group 2, R
                 _fixture.GetRepository<IGroupPermissionRepository>().Create(new GroupPermission
                 {
                     PermissionId = perm3.Id,
                     GroupId = group2.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadWrite
+                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadOnly
                 });
 
                 // Link Role 1 and Group 1 to user 1
@@ -261,16 +336,15 @@ namespace SecurityTest
                 #region test data setup
 
                 // Permission 1, User 1, Group 1
-                Permission perm1 = new Permission { Code = CST_PERM_CODE_1, Label = "Perm 1", OriginExtension = _assembly, AdministratorOwner = true};
+                Permission perm1 = new Permission { Code = CST_PERM_CODE_1, Label = "Perm 1", OriginExtension = _assembly, AdministratorOwner = true };
 
                 Group group1 = new Group { Code = CST_GROUP_CODE_1, Label = "Group 1", OriginExtension = _assembly };
 
                 User user1 = new User { DisplayName = "Test", FirstName = "Test", LastName = "Test" };
 
-                Role role1 = _fixture.GetRepository<IRoleRepository>().WithKey((int) RoleId.AdministratorOwner);
+                Role role1 = _fixture.GetRepository<IRoleRepository>().WithKey((int)RoleId.AdministratorOwner);
 
                 IRolePermissionRepository rolePermRepo = _fixture.GetRepository<IRolePermissionRepository>();
-                int permissionsForRoleNb = rolePermRepo.FilteredByRoleId(role1.Id).Count();
 
                 _fixture.GetRepository<IPermissionRepository>().Create(perm1);
                 _fixture.GetRepository<IGroupRepository>().Create(group1);
@@ -286,6 +360,17 @@ namespace SecurityTest
                     PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadWrite
                 });
 
+                // Link Role 1 to user 1
+                _fixture.GetRepository<IUserRoleRepository>().Create(new UserRole
+                {
+                    RoleId = role1.Id,
+                    UserId = user1.Id
+                });
+
+                _fixture.SaveChanges();
+
+                int initialClaimCount = new PermissionManager().GetFinalPermissions(_fixture.DatabaseContext, user1).Count();
+
                 // Link Permission 1 to Group 1, Never
                 _fixture.GetRepository<IGroupPermissionRepository>().Create(new GroupPermission
                 {
@@ -294,13 +379,7 @@ namespace SecurityTest
                     PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdNever
                 });
 
-                // Link Role 1 and Group 1 to user 1
-                _fixture.GetRepository<IUserRoleRepository>().Create(new UserRole
-                {
-                    RoleId = role1.Id,
-                    UserId = user1.Id
-                });
-
+                // Link Group 1 to user 1
                 _fixture.GetRepository<IGroupUserRepository>().Create(new GroupUser
                 {
                     GroupId = group1.Id,
@@ -312,9 +391,11 @@ namespace SecurityTest
                 #endregion
 
                 IEnumerable<Claim> claims = new PermissionManager().GetFinalPermissions(_fixture.DatabaseContext, user1);
-                // Expected permission to be granted
-                Assert.Equal(permissionsForRoleNb+1, claims.Count());
+                // Expected permission to be still granted, RW and R
+                Assert.Equal(initialClaimCount, claims.Count());
                 Assert.NotNull(claims.FirstOrDefault(c_ => c_.Value == FormatExpectedClaimValue(perm1.Code, true)));
+                Assert.NotNull(claims.FirstOrDefault(c_ => c_.Value == FormatExpectedClaimValue(perm1.Code, false)));
+
             }
             finally
             {
@@ -325,11 +406,12 @@ namespace SecurityTest
         /// <summary>
         /// Test of GetFinalPermissions() with permission loading and computation.
         /// A permission flagged as administrator-owner is attached to the superadmin role, linked to a user.
+        /// The use has not superadmin but admin role.
         /// This permission is removed for user's group ("never" right level).
-        /// Expected : A permission flagged as administrator-owner cannot be ungranted to a non-superadmin user.
+        /// Expected : A permission flagged as administrator-owner can be ungranted to a non superadmin user.
         /// </summary>
         [Fact]
-        public void TestGetFinalPermissionsWithAdminOwnerFlagStillUngranted()
+        public void TestGetFinalPermissionsWithAdminOwnerFlagUngranted()
         {
             try
             {
@@ -347,7 +429,6 @@ namespace SecurityTest
                 Role role1 = _fixture.GetRepository<IRoleRepository>().WithKey((int)RoleId.Administrator);
 
                 IRolePermissionRepository rolePermRepo = _fixture.GetRepository<IRolePermissionRepository>();
-                int permissionsForRoleNb = rolePermRepo.FilteredByRoleId(role1.Id).Count();
 
                 _fixture.GetRepository<IPermissionRepository>().Create(perm1);
                 _fixture.GetRepository<IGroupRepository>().Create(group1);
@@ -355,13 +436,24 @@ namespace SecurityTest
 
                 _fixture.SaveChanges();
 
-                // Link Permission 1 to Role, RW
+                // Link Permission 1 to Role, R
                 rolePermRepo.Create(new RolePermission
                 {
                     PermissionId = perm1.Id,
                     RoleId = role1.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadWrite
+                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadOnly
                 });
+
+                // Link Role 1 to user 1
+                _fixture.GetRepository<IUserRoleRepository>().Create(new UserRole
+                {
+                    RoleId = role1.Id,
+                    UserId = user1.Id
+                });
+
+                _fixture.SaveChanges();
+
+                int initialClaimCount = new PermissionManager().GetFinalPermissions(_fixture.DatabaseContext, user1).Count();
 
                 // Link Permission 1 to Group 1, Never
                 _fixture.GetRepository<IGroupPermissionRepository>().Create(new GroupPermission
@@ -371,13 +463,7 @@ namespace SecurityTest
                     PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdNever
                 });
 
-                // Link Role 1 and Group 1 to user 1
-                _fixture.GetRepository<IUserRoleRepository>().Create(new UserRole
-                {
-                    RoleId = role1.Id,
-                    UserId = user1.Id
-                });
-
+                // Link Group 1 to user 1
                 _fixture.GetRepository<IGroupUserRepository>().Create(new GroupUser
                 {
                     GroupId = group1.Id,
@@ -390,8 +476,8 @@ namespace SecurityTest
 
                 IEnumerable<Claim> claims = new PermissionManager().GetFinalPermissions(_fixture.DatabaseContext, user1);
                 // Expected permission to be ungranted
-                Assert.Equal(permissionsForRoleNb, claims.Count());
-                Assert.Null(claims.FirstOrDefault(c_ => c_.Value == FormatExpectedClaimValue(perm1.Code, true)));
+                Assert.Equal(initialClaimCount-1, claims.Count());
+                Assert.Null(claims.FirstOrDefault(c_ => c_.Value == FormatExpectedClaimValue(perm1.Code, false)));
 
             }
             finally
@@ -425,42 +511,44 @@ namespace SecurityTest
 
                 Role role1 = _fixture.GetRepository<IRoleRepository>().WithKey((int)RoleId.AdministratorOwner);
 
-                IRolePermissionRepository rolePermRepo = _fixture.GetRepository<IRolePermissionRepository>();
-                int permissionsForRoleNb = rolePermRepo.FilteredByRoleId(role1.Id).Count();
-
                 _fixture.GetRepository<IPermissionRepository>().Create(perm1);
                 _fixture.GetRepository<IGroupRepository>().Create(group1);
                 _fixture.GetRepository<IUserRepository>().Create(user1);
 
                 _fixture.SaveChanges();
 
-                // Link Permission 1 to Group, RW
+                // Link Permission 1 to Group, R
                 _fixture.GetRepository<IGroupPermissionRepository>().Create(new GroupPermission
                 {
                     PermissionId = perm1.Id,
                     GroupId = group1.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadWrite
+                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadOnly
                 });
 
-                // Link Permission 1 to User 1, Never
-                _fixture.GetRepository<IUserPermissionRepository>().Create(new UserPermission
+                // Link Group 1 to user 1
+                _fixture.GetRepository<IGroupUserRepository>().Create(new GroupUser
                 {
-                    PermissionId = perm1.Id,
-                    UserId = user1.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdNever
+                    GroupId = group1.Id,
+                    UserId = user1.Id
                 });
 
-                // Link Role 1 and Group 1 to user 1
+                // Link Role 1 to user 1
                 _fixture.GetRepository<IUserRoleRepository>().Create(new UserRole
                 {
                     RoleId = role1.Id,
                     UserId = user1.Id
                 });
 
-                _fixture.GetRepository<IGroupUserRepository>().Create(new GroupUser
+                _fixture.SaveChanges();
+
+                int initialClaimCount = new PermissionManager().GetFinalPermissions(_fixture.DatabaseContext, user1).Count();
+
+                // Link Permission 1 to User 1, Never
+                _fixture.GetRepository<IUserPermissionRepository>().Create(new UserPermission
                 {
-                    GroupId = group1.Id,
-                    UserId = user1.Id
+                    PermissionId = perm1.Id,
+                    UserId = user1.Id,
+                    PermissionLevelId = (int) Security.Enums.Permission.PermissionLevelId.IdNever
                 });
 
                 _fixture.SaveChanges();
@@ -468,9 +556,9 @@ namespace SecurityTest
                 #endregion
 
                 IEnumerable<Claim> claims = new PermissionManager().GetFinalPermissions(_fixture.DatabaseContext, user1);
-                // Expected permission to be granted
-                Assert.Equal(permissionsForRoleNb+1, claims.Count());
-                Assert.NotNull(claims.FirstOrDefault(c_ => c_.Value == FormatExpectedClaimValue(perm1.Code, true)));
+                // Expected permission to be still granted
+                Assert.Equal(initialClaimCount, claims.Count());
+                Assert.NotNull(claims.FirstOrDefault(c_ => c_.Value == FormatExpectedClaimValue(perm1.Code, false)));
             }
             finally
             {
@@ -481,7 +569,7 @@ namespace SecurityTest
         /// <summary>
         /// Test of GetFinalPermissions() with permission loading and computation.
         /// A permission flagged as administrator-owner is attached to a group, linked to a user.
-        /// The use has not superadmin role.
+        /// The use has not superadmin but admin role.
         /// This permission is removed for user ("never" right level).
         /// Expected : A permission flagged as administrator-owner can be ungranted to a non-superadmin user.
         /// </summary>
@@ -503,22 +591,37 @@ namespace SecurityTest
 
                 Role role1 = _fixture.GetRepository<IRoleRepository>().WithKey((int)RoleId.Administrator);
 
-                IRolePermissionRepository rolePermRepo = _fixture.GetRepository<IRolePermissionRepository>();
-                int permissionsForRoleNb = rolePermRepo.FilteredByRoleId(role1.Id).Count();
-
                 _fixture.GetRepository<IPermissionRepository>().Create(perm1);
                 _fixture.GetRepository<IGroupRepository>().Create(group1);
                 _fixture.GetRepository<IUserRepository>().Create(user1);
 
                 _fixture.SaveChanges();
 
-                // Link Permission 1 to Group, RW
+                // Link Permission 1 to Group, R
                 _fixture.GetRepository<IGroupPermissionRepository>().Create(new GroupPermission
                 {
                     PermissionId = perm1.Id,
                     GroupId = group1.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadWrite
+                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadOnly
                 });
+
+                // Link Role 1 to user 1
+                _fixture.GetRepository<IUserRoleRepository>().Create(new UserRole
+                {
+                    RoleId = role1.Id,
+                    UserId = user1.Id
+                });
+
+                // Link Group 1 to user 1
+                _fixture.GetRepository<IGroupUserRepository>().Create(new GroupUser
+                {
+                    GroupId = group1.Id,
+                    UserId = user1.Id
+                });
+
+                _fixture.SaveChanges();
+
+                int initialClaimCount = new PermissionManager().GetFinalPermissions(_fixture.DatabaseContext, user1).Count();
 
                 // Link Permission 1 to User 1, Never
                 _fixture.GetRepository<IUserPermissionRepository>().Create(new UserPermission
@@ -528,27 +631,14 @@ namespace SecurityTest
                     PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdNever
                 });
 
-                // Link Role 1 and Group 1 to user 1
-                _fixture.GetRepository<IUserRoleRepository>().Create(new UserRole
-                {
-                    RoleId = role1.Id,
-                    UserId = user1.Id
-                });
-
-                _fixture.GetRepository<IGroupUserRepository>().Create(new GroupUser
-                {
-                    GroupId = group1.Id,
-                    UserId = user1.Id
-                });
-
                 _fixture.SaveChanges();
 
                 #endregion
 
                 IEnumerable<Claim> claims = new PermissionManager().GetFinalPermissions(_fixture.DatabaseContext, user1);
                 // Expected permission to be ungranted
-                Assert.Equal(permissionsForRoleNb, claims.Count());
-                Assert.Null(claims.FirstOrDefault(c_ => c_.Value == FormatExpectedClaimValue(perm1.Code, true)));
+                Assert.Equal(initialClaimCount-1, claims.Count());
+                Assert.Null(claims.FirstOrDefault(c_ => c_.Value == FormatExpectedClaimValue(perm1.Code, false)));
             }
             finally
             {
