@@ -6,7 +6,7 @@ using Infrastructure;
 
 namespace Security
 {
-        public class ExtensionMetadata : IExtensionMetadata
+        public class ExtensionDatabaseMetadata : IExtensionDatabaseMetadata
         {
             public IEnumerable<StyleSheet> StyleSheets => new StyleSheet[] {
                 new StyleSheet("/Styles.Security.css",510),

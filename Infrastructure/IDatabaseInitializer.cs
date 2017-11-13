@@ -3,6 +3,7 @@
 
 namespace Infrastructure
 {
+    // TODO to be removed in favor of processing IDatabaseMetadata in a new Security.ServiceConfiguration.DatabaseInitialization class.
     public interface IDatabaseInitializer
     {
         void CheckAndInitialize(IRequestHandler context_);
