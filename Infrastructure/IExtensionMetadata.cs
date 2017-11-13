@@ -1,0 +1,18 @@
+﻿// Copyright © 2017 SOFTINUX. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+
+using System.Collections.Generic;
+
+namespace Infrastructure
+{
+    /// <summary>
+    /// Implementing this interface allows your extension to define one or more menu items,
+    /// and provide script and stylesheets elements to the main web application.
+    /// </summary>
+    public interface IExtensionMetadata
+    {
+        IEnumerable<StyleSheet> StyleSheets { get; }
+        IEnumerable<Script> Scripts { get; }
+        IEnumerable<MenuGroup> MenuGroups { get; }
+    }
+}
