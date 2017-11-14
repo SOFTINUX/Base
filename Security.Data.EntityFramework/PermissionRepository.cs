@@ -17,6 +17,10 @@ namespace Security.Data.EntityFramework
             return dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
         }
 
+         public virtual Permission WithKeys(string code_, string originExtensionAssemblyName_) {
+             return dbSet.FirstOrDefault(e_ => e_.Code == code_ && e_.OriginExtension == originExtensionAssemblyName_);
+         }
+
         public virtual IEnumerable<Permission> All()
         {
             return dbSet.ToList();

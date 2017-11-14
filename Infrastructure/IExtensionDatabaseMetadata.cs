@@ -36,6 +36,11 @@ namespace Infrastructure
         /// </summary>
         IEnumerable<KeyValuePair<string, string>> GroupCodeAndLabels { get; }
 
+        /// <summary>
+        /// Your custom code to add links between permission, role, user and group repository, but you have to manage yourself
+        /// whether the links already exist, and don't forget to call storage_.Save() when you're done.
+        /// </summary>
+        /// <param name="storage_"></param>
         void ConfigureLinks(IStorage storage_);
     }
 }

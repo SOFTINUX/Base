@@ -32,7 +32,7 @@ namespace Security
 
         public void ConfigureLinks(IStorage storage_)
         {
-            // TODO move here the useful code of DatabaseInitializer, after implementing the todo of Extension 1's DatabaseMetadata.
+            new DatabaseInitializer().CheckAndInitialize(storage_);
         }
     }
 }

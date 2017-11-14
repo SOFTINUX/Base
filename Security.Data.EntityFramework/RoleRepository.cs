@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ExtCore.Data.EntityFramework;
 using Microsoft.EntityFrameworkCore;
+using Security.Common.Enums;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
 
@@ -15,6 +16,10 @@ namespace Security.Data.EntityFramework
        public virtual Role WithKey(int entityId_)
        {
            return dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
+       }
+
+       public virtual Role WithKey(RoleId roleId_) {
+           return WithKey((int) roleId_);
        }
 
         public virtual IEnumerable<Role> All()

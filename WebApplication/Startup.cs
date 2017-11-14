@@ -57,8 +57,6 @@ namespace WebApplication
 
             services_.AddExtCore(_extensionsPath);
 
-            services_.AddScoped<IDatabaseInitializer, DatabaseInitializer>();
-
         }
 
         public void Configure(IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_, IConfiguration configuration_)

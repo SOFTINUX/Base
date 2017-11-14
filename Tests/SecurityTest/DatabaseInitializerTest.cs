@@ -24,7 +24,7 @@ namespace SecurityTest
         public void Test()
         {
             Assert.Empty(_fixture.GetRepository<ICredentialTypeRepository>().All());
-            new DatabaseInitializer().CheckAndInitialize(_fixture.DatabaseContext);
+            new DatabaseInitializer().CheckAndInitialize(_fixture.DatabaseContext.Storage);
             Assert.Single(_fixture.GetRepository<ICredentialTypeRepository>().All());
 
         }

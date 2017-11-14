@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using ExtCore.Data.Abstractions;
+using Security.Common.Enums;
 using Security.Data.Entities;
 
 namespace Security.Data.Abstractions
@@ -10,6 +11,7 @@ namespace Security.Data.Abstractions
     public interface IRoleRepository : IRepository
     {
         Role WithKey(int entityId_);
+        Role WithKey(RoleId roleId_);
         IEnumerable<Role> All();
         void Create(Role entity_);
         void Edit(Role entity_);
