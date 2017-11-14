@@ -12,8 +12,8 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
 else
 {
     <li>
-        <a href="#test" aria-expanded="false" data-toggle="collapse">@(Model.Name)<span class="caret"></span></a>
-        <ul id="test" class="collapse list-unstyled">
+        <a href="#@(Model.Name)" aria-expanded="false" data-toggle="collapse">@(Model.Name)<span class="caret"></span></a>
+        <ul id="@(Model.Name)" class="collapse list-unstyled">
             @foreach (var menuItem in this.Model.MenuItems)
                 {
                     @Html.Partial("_MenuItem", menuItem);
