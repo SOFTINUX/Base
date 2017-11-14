@@ -34,7 +34,7 @@ namespace Security.Data.EntityFramework
 
         public virtual void Edit(Credential entity_)
         {
-            storageContext.Entry(entity_).State = EntityState.Modified;
+            ((DbContext) storageContext).Entry(entity_).State = EntityState.Modified;
         }
 
         public virtual void Delete(int entityId_)

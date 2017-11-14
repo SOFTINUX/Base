@@ -29,7 +29,7 @@ namespace Security.Data.EntityFramework
 
         public virtual void Edit(Group entity_)
         {
-            storageContext.Entry(entity_).State = EntityState.Modified;
+            ((DbContext) storageContext).Entry(entity_).State = EntityState.Modified;
         }
 
         public virtual void Delete(int entityId_)

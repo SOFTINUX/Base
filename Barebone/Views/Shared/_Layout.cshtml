@@ -57,14 +57,17 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
                 </div>
             </nav>
         }
-        <div class="inner-content">
+    <div class="inner-content">
+        @if (User.Identity.IsAuthenticated)
+        {
             <header class="page-header">
                 <div class="container-fluid">
                     @RenderSection("title", false)
                 </div>
             </header>
-            @RenderBody()
-        </div>
+        }
+        @RenderBody()
+    </div>
     </div>
     @await Component.InvokeAsync("Scripts")
 </body>
