@@ -16,54 +16,56 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
 
     <title>@Html.Raw(this.ViewBag.Title as string)</title>
     @await Component.InvokeAsync("StyleSheets")
-    @await Component.InvokeAsync("Scripts")
 </head>
 <body>
     @if (User.Identity.IsAuthenticated)
     {
         <header class="header">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
                 <a class="navbar-brand" href="#">
                     <img src="/img/@Html.Raw(OptionsApplicationConfiguration.Value.BrandLogo)" width="30" height="30" alt="" class="brand-logo d-inline-block align-top">
                     <span class="brandlogotext">@Html.Raw(OptionsApplicationConfiguration.Value.Name)</span>
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="nav navbar-nav mr-auto">
-                        @await Component.InvokeAsync("Menu")
-                    </ul>
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <!-- <span>@Html.ActionLink("Sign Out", "SignOut", "Account")&nbsp;<i class="fa fa-sign-out fa-lg fa-fw" aria-hidden="true"></i></span> -->
-                            <a href="@Url.Action("SignOut", "Account")">
-                                Sign Out
-                                <span><i class="fa fa-sign-out fa-lg fa-fw" aria-hidden="true"></i></span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                </nav>
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="@Url.Action("SignOut", "Account")">
+                            Sign Out
+                            <span><i class="fa fa-sign-out fa-lg fa-fw" aria-hidden="true"></i></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </header>
-        @*<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                @await Component.InvokeAsync("Menu")
-
-            </ul>
-            <ul class="nav navbar-nav">
-                <li>
-                    @Html.ActionLink("Sign Out", "SignOut", "Account")
-                </li>
-            </ul>
-        </div>*@
     }
 
-    <!-- Page container -->
-    <div class="container">
-        @RenderSection("title", false)
-        @RenderBody()
+    @* Page container *@
+    <div class="page-content d-flex align-items-stretch">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <nav class="side-navbar">
+                @*<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSuppotedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>*@
+                <div class="sidebar-header d-flex align-items-center">
+                    USER INFO HERE
+                </div>
+                <span>Main</span>
+                <div class="" id="navbarSupportedContent">
+                    <ul class="list-unstyled">
+                        @await Component.InvokeAsync("Menu")
+                    </ul>
+                </div>
+            </nav>
+        }
+        <div class="inner-content">
+            <header class="page-header">
+                <div class="container-fluid">
+                    @RenderSection("title", false)
+                </div>
+            </header>
+            @RenderBody()
+        </div>
     </div>
+    @await Component.InvokeAsync("Scripts")
 </body>
 </html>

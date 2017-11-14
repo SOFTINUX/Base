@@ -5,7 +5,7 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
 
 .bg-blue
 {
-    background-color: #D6EEFB;
+    /* background-color: #D6EEFB; */
 }
 
 .navbar-blue .navbar-nav .nav-link
@@ -40,4 +40,66 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
 .navbar-light, .navbar-light .navbar-brand, .navbar-light a, .navbar-toggler-icon
 {
     color: aliceblue !important;
+}
+
+.dropdown-menu a {
+    color : #000000 !important;
+}
+
+/* side nav */
+nav.side-navbar {
+    max-width: 250px;
+    min-width: 250px;
+    background-color: #ffffff;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+nav.side-navbar, .sidebar-header {
+    padding: 30px 15px;
+}
+
+.inner-content {
+    width: calc(100% - 250px);
+}
+
+.d-flex {
+    display: flex !important;
+}
+
+.page-content {
+    background-color: #eef5f9;
+}
+
+.page-header {
+    background-color: #ffffff;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    z-index: 9;
+}
+
+header.page-header {
+    padding: 20px;
+}
+
+h2 {
+    font-size: 1.3rem;
+}
+.has-shadow {
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1), -1px 0 2px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1), -1px 0 2px rgba(0, 0, 0, 0.5);
+}
+
+.dashboard-section {
+    padding: 50px 0;
+}
+
+section.dashboard-section .row {
+    padding: 30px 15px;
+    margin: 0;
+}
+
+section.dashboard-section div[class*='col-'] .item {
+    padding: 15px;
 }
