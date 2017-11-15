@@ -47,7 +47,7 @@ Currently dotnet does not have a clean way to update packages in a project.
 
 It is nevertheless expected that this will change [#6064](https://github.com/NuGet/Home/issues/6054)
 # Using Visual Studio Code For Developing
-If you would use Visual Studio Code, you need these extensions:
+If you prefer to use Visual Studio Code, you need these extensions:
   - [Net Core Test Explorer](https://marketplace.visualstudio.com/items?itemName=formulahendry.dotnet-test-explorer)
   - [C#](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
   - [Code Outline](https://marketplace.visualstudio.com/items?itemName=patrys.vscode-code-outline)
@@ -69,11 +69,11 @@ Optional for better experience:
   - [Todo Highlight](https://marketplace.visualstudio.com/items?itemName=wayou.vscode-todo-highlight)
   - [TODO Parser](https://marketplace.visualstudio.com/items?itemName=minhthai.vscode-todo-parser)
 
-At your discretion
+At your discretion:
   - [Better Comments](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments)
   - [To Do Task](https://marketplace.visualstudio.com/items?itemName=sandy081.todotasks)
   - [Remind Me](https://marketplace.visualstudio.com/items?itemName=cg-cnu.vscode-remind-me)
   - [Python](https://marketplace.visualstudio.com/items?itemName=donjayamanne.python)
   - [Quokka.js](https://marketplace.visualstudio.com/items?itemName=WallabyJs.quokka-vscode)
 
-We also give the Tasks and Launcher of Visual studio Code configuration.
+We also provide the Tasks and Launcher of Visual studio Code configuration.
