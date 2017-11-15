@@ -29,6 +29,10 @@ Goto in solution folder and type:
 
 `dotnet add reference <path_to_your_new_project>`
 
+### Update Packages
+Currently dotnet does not have a clean way to update packages in a project.
+
+It is nevertheless expected that this will change [#6064](https://github.com/NuGet/Home/issues/6054)
 # Using Visual Studio Code For Developing
 If you would use Visual Studio Code, you need these extensions:
   - [Net Core Test Explorer](https://marketplace.visualstudio.com/items?itemName=formulahendry.dotnet-test-explorer)
