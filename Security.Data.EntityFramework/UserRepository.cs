@@ -23,7 +23,7 @@ namespace Security.Data.EntityFramework
         /// <returns></returns>
         public virtual User WithCredentialIdentifier(string identifier_)
         {
-            Credential c = ((DbContext)storageContext).Set<Credential>().FirstOrDefault(c_ => c_.Identifier == identifier_);
+            Credential c = storageContext.Set<Credential>().FirstOrDefault(c_ => c_.Identifier == identifier_);
             return c == null ? null : WithKey(c.UserId);
         }
 
@@ -40,7 +40,7 @@ namespace Security.Data.EntityFramework
 
         public virtual void Edit(User entity_)
         {
-            ((DbContext)storageContext).Entry(entity_).State = EntityState.Modified;
+            storageContext.Entry(entity_).State = EntityState.Modified;
         }
 
         public virtual void Delete(int entityId_)

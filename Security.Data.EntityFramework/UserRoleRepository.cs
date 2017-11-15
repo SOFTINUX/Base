@@ -35,7 +35,7 @@ namespace Security.Data.EntityFramework
 
         public virtual void Edit(UserRole entity_)
         {
-            ((DbContext)storageContext).Entry(entity_).State = EntityState.Modified;
+            storageContext.Entry(entity_).State = EntityState.Modified;
         }
 
         public void Delete(int userId_, int roleId_)

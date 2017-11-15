@@ -30,7 +30,7 @@ namespace Security.Data.EntityFramework
 
         public virtual void Edit(RolePermission entity_)
         {
-            ((DbContext) storageContext).Entry(entity_).State = EntityState.Modified;
+            storageContext.Entry(entity_).State = EntityState.Modified;
         }
 
         public void Delete(int roleId_, int permissionId_)
