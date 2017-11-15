@@ -11,23 +11,36 @@ It is completely modular and extendable. Using the features of the underlying Ex
 
 ## Basic Concepts
 
-TODO
+*Softinux Base* is a framework that looks like a .NET Core web application, but is intended to host mini web applications called extensions. Every extension will plug its content (pages, menu items) as well as security and authentication related items (permissions, roles, links...).
 
-# Technical Section
+*Base* manages the common stuff so that the developer can focus on its extension and business logic, just having to provide what we call metadata to know how to display and authorize access to content, and use our version of Authorize attribute.
+
+Read [this wiki page](https://github.com/SOFTINUX/Base/wiki/Writing-extensions) to learn more about this.
+
+# Getting started
 
 ## Installation
-1. Before building the app, go to *Barebone* subfolder and run `npm i --save-dev` command so that dependencies packages is installed.
-2. Restore the nuGet packages and build the app. (With .NET Core 2, this is implicit command)
+1. Before building the app, go to *Barebone* subfolder and run `npm i --save-dev` command so that dependencies packages are installed.
+2. Restore the nuGet packages and build the app. (with .NET Core 2, this is implicit command).
 3. Go to *WebApplication* subfolder and run `bp.bat copyexts` under Windows or `bp.bat copyexts` under Linux/Macos. (use -h for help)
 4. Run the app.
 
-## Add New Project With CLI
-### Add New Project
+## Implement your own extension
+### Add a new project
+Using command-line (easy and cross-platform):
+
 `dotnet new classlib -o <you_new_project>`
-### Add Project Reference In Solution
-Goto in solution folder and type:
+### Add project reference to the solution
+Go to solution folder and type:
 
 `dotnet add reference <path_to_your_new_project>`
+
+### Write your code
+In your new project, create a class that implements `Infrastructure.IExtensionMetadata`. You may also implement `Infrastructure.IExtensionDatabaseMetadata`.
+
+Your extension will depend on `Infrastructure` and `Security.Common`.
+
+Have a look at sample extensions, [wiki](https://github.com/SOFTINUX/Base/wiki), feel free to open issues for questions.
 
 ### Update Packages
 Currently dotnet does not have a clean way to update packages in a project.
