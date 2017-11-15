@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using ExtCore.Data.Abstractions;
-using Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -28,6 +27,7 @@ namespace Security.Controllers
         [AllowAnonymous]
         public IActionResult SignIn()
         {
+            // TODO remove this line once InitializeDatabase service configuration isn't bugged anymore
             // At this step we must check that database has been initialized, because authentication needs DB data.
             new DatabaseInitializer().CheckAndInitialize(Storage);
             return this.View();

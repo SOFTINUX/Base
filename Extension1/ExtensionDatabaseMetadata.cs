@@ -13,6 +13,8 @@ namespace Extension1
 {
     public class ExtensionDatabaseMetadata : IExtensionDatabaseMetadata
     {
+        public uint Priority => 10;
+
         private const string _permissionCode = "admin";
         public IEnumerable<Tuple<string, string, bool>> PermissionCodeLabelAndFlags =>
             new[] {new Tuple<string, string, bool>(_permissionCode, "Extension 1 administration", true)};

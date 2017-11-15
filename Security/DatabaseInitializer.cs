@@ -94,6 +94,8 @@ namespace Security
                 OriginExtension = _securityAssemblyName
             });
 
+            storage_.Save();
+
             repo.Create(new Permission
             {
                 Id = (int)Enums.Permission.PermissionId.EditRole,
@@ -102,6 +104,8 @@ namespace Security
                 Label = "Edit roles",
                 OriginExtension = _securityAssemblyName
             });
+
+            storage_.Save();
 
             repo.Create(new Permission
             {
@@ -112,6 +116,8 @@ namespace Security
                 OriginExtension = _securityAssemblyName
             });
 
+            storage_.Save();
+
             repo.Create(new Permission
             {
                 Id = (int)Enums.Permission.PermissionId.EditPermission,
@@ -120,6 +126,8 @@ namespace Security
                 Label = "Edit permissions",
                 OriginExtension = _securityAssemblyName
             });
+
+            storage_.Save();
         }
 
         private void InsertUserRole(IStorage storage_)

@@ -10,6 +10,13 @@ namespace Security.Data.Abstractions
     public interface IGroupRepository : IRepository
     {
         Group WithKey(int entityId_);
+        /// <summary>
+        /// Finds a group by code and origin extension assembly "short name" (Assembly.GetName().Name).
+        /// </summary>
+        /// <param name="code_"></param>
+        /// <param name="assemblyName_"></param>
+        /// <returns></returns>
+        Group WithKeys(string code_, string originExtensionAssemblyName_);
         IEnumerable<Group> All();
         void Create(Group entity_);
         void Edit(Group entity_);

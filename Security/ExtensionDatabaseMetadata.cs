@@ -11,6 +11,8 @@ namespace Security
 {
     public class ExtensionDatabaseMetadata : IExtensionDatabaseMetadata
     {
+        public uint Priority => 0;
+
         public IEnumerable<Tuple<string, string, bool>> PermissionCodeLabelAndFlags =>
             new[]
             {

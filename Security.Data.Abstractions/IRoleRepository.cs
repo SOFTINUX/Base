@@ -12,6 +12,13 @@ namespace Security.Data.Abstractions
     {
         Role WithKey(int entityId_);
         Role WithKey(RoleId roleId_);
+        /// <summary>
+        /// Finds a role by code and origin extension assembly "short name" (Assembly.GetName().Name).
+        /// </summary>
+        /// <param name="code_"></param>
+        /// <param name="assemblyName_"></param>
+        /// <returns></returns>
+        Role WithKeys(string code_, string originExtensionAssemblyName_);
         IEnumerable<Role> All();
         void Create(Role entity_);
         void Edit(Role entity_);

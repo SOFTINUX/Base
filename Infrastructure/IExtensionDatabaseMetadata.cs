@@ -17,6 +17,13 @@ namespace Infrastructure
     public interface IExtensionDatabaseMetadata
     {
         /// <summary>
+        /// Useful if an extension depends on another one's permissions, roles...
+        /// For example Security's priority is 0 (the lowest value).
+        /// </summary>
+        /// <returns></returns>
+        uint Priority { get; }
+
+        /// <summary>
         /// The permissions you wish to add to the application with code (unique to your extension), label, administrator-owner flag.
         /// You will use this code to use Security.Common.AuthorizeAttribute.
         /// Label is useful to distinguish this item among others in administration interface.

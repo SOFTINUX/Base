@@ -17,9 +17,10 @@ namespace Security.Data.EntityFramework
             return dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
         }
 
-         public virtual Permission WithKeys(string code_, string originExtensionAssemblyName_) {
-             return dbSet.FirstOrDefault(e_ => e_.Code == code_ && e_.OriginExtension == originExtensionAssemblyName_);
-         }
+        public virtual Permission WithKeys(string code_, string originExtensionAssemblyName_)
+        {
+            return dbSet.FirstOrDefault(e_ => e_.Code == code_ && e_.OriginExtension == originExtensionAssemblyName_);
+        }
 
         public virtual IEnumerable<Permission> All()
         {
@@ -49,7 +50,7 @@ namespace Security.Data.EntityFramework
                    join ur in storageContext.Set<UserRole>() on r.Id equals ur.RoleId
                    join pl in storageContext.Set<PermissionLevel>() on rp.PermissionLevelId equals pl.Id
                    where ur.UserId == userId_
-                   select new PermissionValue { UniqueId = rp.Permission.UniqueIdentifier, Level = pl.Value, AdministratorOwner = p.AdministratorOwner};
+                   select new PermissionValue { UniqueId = rp.Permission.UniqueIdentifier, Level = pl.Value, AdministratorOwner = p.AdministratorOwner };
         }
 
         public IEnumerable<PermissionValue> GetPermissionCodeAndLevelByGroupForUserId(int userId_)

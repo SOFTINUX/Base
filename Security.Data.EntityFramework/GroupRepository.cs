@@ -12,10 +12,15 @@ namespace Security.Data.EntityFramework
 {
     public class GroupRepository : RepositoryBase<Group>, IGroupRepository
     {
-       public virtual Group WithKey(int entityId_)
-       {
-           return dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
-       }
+        public virtual Group WithKey(int entityId_)
+        {
+            return dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
+        }
+
+        public virtual Group WithKeys(string code_, string originExtensionAssemblyName_)
+        {
+            return dbSet.FirstOrDefault(e_ => e_.Code == code_ && e_.OriginExtension == originExtensionAssemblyName_);
+        }
 
         public virtual IEnumerable<Group> All()
         {
