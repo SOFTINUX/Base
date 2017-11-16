@@ -9,7 +9,6 @@ function clean
     echo "CLEAN SOLUTION"
     echo "###################"
     dotnet clean
-    if [ "$1" = "clean" ]; then exit; fi
 }
 
 function build
@@ -18,7 +17,6 @@ function build
     echo "BUILD SOLUTION"
     echo "###################"
     dotnet build
-    if [ "$1" = "build" ]; then exit; fi
 }
 
 function copyexts
@@ -28,7 +26,6 @@ function copyexts
     echo "###################"
     SET_DEST="./WebApplication/Extensions"
     cat extensions.txt | sed 's/\\/\//g' | xargs -I % bash -c "cp % $SET_DEST; echo cp % $SET_DEST"
-    if [ "$1" = "copyexts" ]; then exit; fi
 }
 
 function copydeps
@@ -38,7 +35,6 @@ function copydeps
     echo "###################"
     SET_DEST="./WebApplication/bin/Debug/netcoreapp2.0/"
     cat dependencies.txt | sed 's/\\/\//g' | xargs -I % bash -c "cp % $SET_DEST; echo cp % $SET_DEST"
-    if [ "$1" = "copydeps" ]; then exit; fi
 }
 
 function help
