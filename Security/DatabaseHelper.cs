@@ -34,7 +34,7 @@ namespace Security
                 InsertEntities();
                 _storage.Save();
                 InsertDependentEntities();
-                _storage.Save();
+                // don't save because the other extensions insert entities of same type, else EF tracking fails.
             }
         }
 

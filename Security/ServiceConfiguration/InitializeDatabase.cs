@@ -40,9 +40,11 @@ namespace Security.ServiceConfiguration
                 RecordGroups(extensionMetadata.GroupCodeAndLabels, GetAssemblyName(extensionMetadata));
 
                 _storage.Save();
-                
+
                 // Additional links configuration
                 extensionMetadata.ConfigureLinks(_storage);
+
+                _storage.Save();
             }
         }
 

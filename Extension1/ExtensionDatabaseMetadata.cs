@@ -36,7 +36,6 @@ namespace Extension1
             rolePermRepo.Create(new RolePermission { PermissionId = perm1.Id, RoleId = (int) RoleId.Administrator});
             rolePermRepo.Create(new RolePermission { PermissionId = perm1.Id, RoleId = (int) RoleId.AdministratorOwner});
 
-            storage_.Save();
         }
     }
 }

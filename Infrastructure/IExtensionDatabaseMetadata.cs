@@ -45,7 +45,8 @@ namespace Infrastructure
 
         /// <summary>
         /// Your custom code to add links between permission, role, user and group repository, but you have to manage yourself
-        /// whether the links already exist, and don't forget to call storage_.Save() when you're done.
+        /// whether the links already exist. Don't call storage_.Save() because other extensions will insert entities of same type,
+        /// and EF Core needs to commit only when they're all added else tracking fails.
         /// </summary>
         /// <param name="storage_"></param>
         void ConfigureLinks(IStorage storage_);
