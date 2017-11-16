@@ -38,6 +38,7 @@ namespace Security.Controllers
         [HttpPost]
         //[ExportModelStateToTempData]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public IActionResult SignIn(SignInViewModel signIn_)
         {
             // Check required fields, if any empty return to login page
