@@ -34,7 +34,7 @@ namespace Security
 
         public void ConfigureLinks(IStorage storage_)
         {
-            new DatabaseInitializer().CheckAndInitialize(storage_);
+            new DatabaseHelper(storage_).CheckAndInitialize();
         }
     }
 }

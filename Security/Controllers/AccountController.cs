@@ -27,9 +27,6 @@ namespace Security.Controllers
         [AllowAnonymous]
         public IActionResult SignIn()
         {
-            // TODO remove this line once InitializeDatabase service configuration isn't bugged anymore
-            // At this step we must check that database has been initialized, because authentication needs DB data.
-            new DatabaseInitializer().CheckAndInitialize(Storage);
             return this.View();
         }
 

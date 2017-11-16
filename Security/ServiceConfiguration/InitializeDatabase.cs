@@ -11,7 +11,8 @@ using Security.Data.Entities;
 
 namespace Security.ServiceConfiguration
 {
-    public class InitializeDatabase : IConfigureServicesAction
+    // TODO restore ": IConfigureServicesAction" once unit test is ok (errors fixed)
+    public class InitializeDatabase //: IConfigureServicesAction
     {
         /// <summary>
         /// Executes after ActivateAuthentication and ConfigureAuthentication service actions.
@@ -27,9 +28,6 @@ namespace Security.ServiceConfiguration
 
         public void Execute(IServiceCollection services_, System.IServiceProvider serviceProvider_)
         {
-            // TODO activate when not bugged anymore
-            return;
-
             _storage = serviceProvider_.GetService<IStorage>();
 
             foreach (IExtensionDatabaseMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionDatabaseMetadata>().OrderBy(e_ => e_.Priority))
@@ -41,6 +39,8 @@ namespace Security.ServiceConfiguration
                 // Groups
                 RecordGroups(extensionMetadata.GroupCodeAndLabels, GetAssemblyName(extensionMetadata));
 
+                _storage.Save();
+                
                 // Additional links configuration
                 extensionMetadata.ConfigureLinks(_storage);
             }
@@ -60,7 +60,6 @@ namespace Security.ServiceConfiguration
                 if (repo.WithKeys(permission.Item1, permission.Item2) == null)
                 {
                     repo.Create(new Permission { Code = permission.Item1, Label = permission.Item2, AdministratorOwner = permission.Item3, OriginExtension = extensionAssemblyName_ });
-                     _storage.Save();
                 }
             }
         }
@@ -75,7 +74,6 @@ namespace Security.ServiceConfiguration
                 if (repo.WithKeys(role.Key, role.Value) == null)
                 {
                     repo.Create(new Role { Code = role.Key, Label = role.Value, OriginExtension = extensionAssemblyName_ });
-                    _storage.Save();
                 }
             }
         }
@@ -90,7 +88,6 @@ namespace Security.ServiceConfiguration
                 if (repo.WithKeys(group.Key, group.Value) == null)
                 {
                     repo.Create(new Group { Code = group.Key, Label = group.Value, OriginExtension = extensionAssemblyName_ });
-                     _storage.Save();
                 }
             }
         }
