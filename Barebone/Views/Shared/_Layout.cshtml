@@ -70,5 +70,16 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
     </div>
     </div>
     @await Component.InvokeAsync("Scripts")
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <script type="text/javascript">
+            $("input").keypress(function(event) {
+                if (event.which == 13) {
+                    event.preventDefault();
+                    $("form").submit();
+                }
+            });
+        </script>
+    }
 </body>
 </html>
