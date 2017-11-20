@@ -74,5 +74,20 @@ namespace Security.Controllers
         {
             return this.View();
         }
+
+        [HttpGet]
+        public IActionResult CreateOrEditUser(uint userId_)
+        {
+            //TODO: charger le user ou préparer création nouveau user.
+            return null;
+        }
+
+        [HttpPost]
+        public IActionResult SaveUser(uint userId_)
+        {
+            return null;
+        }
+
+
     }
 }

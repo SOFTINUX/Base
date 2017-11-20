@@ -43,11 +43,9 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
         @if (User.Identity.IsAuthenticated)
         {
             <nav class="side-navbar">
-                @*<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSuppotedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>*@
                 <div class="sidebar-header d-flex align-items-center">
-                    USER INFO HERE
+                    @* user badge *@
+                    @Html.Partial("_UserTest")
                 </div>
                 <span>Main</span>
                 <div class="" id="navbarSupportedContent">
