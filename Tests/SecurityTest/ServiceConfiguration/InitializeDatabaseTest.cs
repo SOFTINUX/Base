@@ -22,7 +22,7 @@ namespace SecurityTest.ServiceConfiguration
             _fixture = fixture_;
 
             // initialize test file from copy. Root dir is bin/debug/netcoreapp2.0
-            File.Copy("../../../../Artefacts/basedb_empty.sqlite", "../../../../WorkDir/basedb_tests.sqlite", true);
+            File.Copy("../../../../Artefacts/basedb_empty.sqlite".Replace('/', Path.DirectorySeparatorChar), "../../../../WorkDir/basedb_tests.sqlite".Replace('/', Path.DirectorySeparatorChar), true);
         }
 
         [Fact]
