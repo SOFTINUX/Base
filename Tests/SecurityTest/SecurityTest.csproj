@@ -24,7 +24,4 @@
     <ProjectReference Include="..\..\Security.Common\Security.Common.csproj" />
     <ProjectReference Include="..\..\Extension1\Extension1.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Tools\" />
-  </ItemGroup>
 </Project>
