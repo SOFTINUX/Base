@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using ExtCore.Data.Abstractions;
 
-namespace Infrastructure
+namespace Infrastructure.Interfaces
 {
     /// <summary>
     /// Implementing this interface allows your extension to provide all the base entities, i.e. permissions, roles, groups

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using ExtCore.Data.Abstractions;
 using Infrastructure;
+using Infrastructure.Interfaces;
 using Security.Common.Enums;
 using Security.Data.Abstractions;
 using Security.Data.Entities;

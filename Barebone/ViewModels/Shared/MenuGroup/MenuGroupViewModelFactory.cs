@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 using Barebone.ViewModels.Shared.MenuItem;
-using Infrastructure;
+using Infrastructure.Interfaces;
 
 namespace Barebone.ViewModels.Shared.MenuGroup
 {

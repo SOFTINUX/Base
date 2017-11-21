@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ExtCore.Infrastructure;
-using Infrastructure;
+using Infrastructure.Interfaces;
 using Barebone.ViewModels.Shared.StyleSheets;
 
 namespace Barebone.ViewModels.Shared.StyleSheet

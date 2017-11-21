@@ -9,7 +9,7 @@ using System.Reflection;
 using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
 using ExtCore.Infrastructure;
-using Infrastructure;
+using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 

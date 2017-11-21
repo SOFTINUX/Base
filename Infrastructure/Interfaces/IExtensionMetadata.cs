@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace Infrastructure
+namespace Infrastructure.Interfaces
 {
     /// <summary>
     /// Implementing this interface allows your extension to define one or more menu items,

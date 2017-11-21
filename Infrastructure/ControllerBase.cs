@@ -5,6 +5,7 @@ using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Infrastructure.Interfaces;
 
 namespace Infrastructure
 {

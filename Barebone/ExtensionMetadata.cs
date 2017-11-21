@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using Infrastructure;
+using Infrastructure.Interfaces;
 
 namespace Barebone
 {

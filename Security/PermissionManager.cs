@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using Infrastructure;
+using Infrastructure.Interfaces;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
 using Security.Enums;

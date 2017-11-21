@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 using ExtCore.Data.Abstractions;
-using Infrastructure;
+using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Security.Common.Enums;
 using Security.Data.Abstractions;

@@ -32,11 +32,15 @@ namespace SecurityTest
         {
             driver.Navigate().GoToUrl("http://localhost:5000/account/signin?next=%2F");
             Console.WriteLine(driver.Title);
-            IWebElement query = driver.FindElement(By.Id("username"));
-            query.SendKeys("admin");
-            query = driver.FindElement(By.Id("password"));
-            query.SendKeys("123password");
-            query.Submit();
+
+            IWebElement loginBox = driver.FindElement(By.Id("username"));
+            loginBox.SendKeys("admin");
+            IWebElement passwordBox = driver.FindElement(By.Id("password"));
+            passwordBox.SendKeys("123password");
+            IWebElement singinLink = driver.FindElement(By.Id("signin"));
+            //singinLink.Submit();
+            singinLink.Click();
+
             Console.WriteLine(driver.Title);
             driver.Quit();
         }

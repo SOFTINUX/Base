@@ -16,7 +16,7 @@ else
         <ul id="@(Model.Name)" class="collapse list-unstyled">
             @foreach (var menuItem in this.Model.MenuItems)
                 {
-                    @Html.Partial("_MenuItem", menuItem);
+                    @Html.Partial("_MenuItem", menuItem)
                 }
         </ul>
     </li>

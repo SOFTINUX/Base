@@ -4,7 +4,7 @@ using System.Linq;
 using ExtCore.Data.Abstractions;
 using ExtCore.Infrastructure;
 using ExtCore.Infrastructure.Actions;
-using Infrastructure;
+using Infrastructure.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
