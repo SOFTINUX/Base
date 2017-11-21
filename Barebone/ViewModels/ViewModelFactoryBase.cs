@@ -11,7 +11,7 @@ namespace Barebone.ViewModels
 
         public ViewModelFactoryBase(IRequestHandler requestHandler)
         {
-            this.RequestHandler = requestHandler;
+            RequestHandler = requestHandler;
         }
     }
 }

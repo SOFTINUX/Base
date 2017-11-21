@@ -20,11 +20,6 @@ namespace Security.ServiceConfiguration
         /// </summary>
         public int Priority => 201;
 
-        /// <summary>
-        /// Necessary public empty constructor.
-        /// </summary>
-        public AddAuthorizationPolicies() { }
-
         public void Execute(IServiceCollection services_, IServiceProvider serviceProvider_)
         {
             IStorage storage = serviceProvider_.GetService<IStorage>();

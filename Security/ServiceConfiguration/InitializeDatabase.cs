@@ -20,11 +20,6 @@ namespace Security.ServiceConfiguration
 
         private IStorage _storage;
 
-        /// <summary>
-        /// Necessary public empty constructor.
-        /// </summary>
-        public InitializeDatabase() { }
-
         public void Execute(IServiceCollection services_, IServiceProvider serviceProvider_)
         {
             _storage = serviceProvider_.GetService<IStorage>();
