@@ -9,7 +9,7 @@ namespace Barebone
 {
     public class ExtensionMetadata : IExtensionMetadata
     {
-        public IEnumerable<StyleSheet> StyleSheets => new StyleSheet[]
+        public IEnumerable<StyleSheet> StyleSheets => new[]
         {
             new StyleSheet("/node_modules.wfk_opensans.opensans.css", 100),
             new StyleSheet("/node_modules.normalize.css.normalize.css", 200),
@@ -20,7 +20,7 @@ namespace Barebone
             new StyleSheet("/css/Styles.css",600)
         };
 
-        public IEnumerable<Script> Scripts => new Script[]
+        public IEnumerable<Script> Scripts => new[]
         {
             new Script("/node_modules.jquery.dist.jquery.slim.min.js",100),
             new Script("/node_modules.popper.js.dist.umd.popper.min.js",200),

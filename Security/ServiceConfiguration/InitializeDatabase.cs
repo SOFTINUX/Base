@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ExtCore.Data.Abstractions;
 using ExtCore.Infrastructure;
-using ExtCore.Infrastructure.Actions;
 using Infrastructure.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Security.Data.Abstractions;
@@ -26,7 +25,7 @@ namespace Security.ServiceConfiguration
         /// </summary>
         public InitializeDatabase() { }
 
-        public void Execute(IServiceCollection services_, System.IServiceProvider serviceProvider_)
+        public void Execute(IServiceCollection services_, IServiceProvider serviceProvider_)
         {
             _storage = serviceProvider_.GetService<IStorage>();
 

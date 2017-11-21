@@ -4,7 +4,6 @@
 using System.Linq;
 using System.Reflection;
 using ExtCore.Data.Abstractions;
-using Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Security.Common.Enums;
 using Security.Data.Abstractions;

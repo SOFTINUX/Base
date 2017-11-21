@@ -4,8 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Microsoft.Extensions.DependencyInjection;
-using Security;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
 using Security.ServiceConfiguration;
@@ -29,7 +27,7 @@ namespace SecurityTest.ServiceConfiguration
         public void Test()
         {
             Assert.Empty(_fixture.GetRepository<IPermissionRepository>().All());
-            System.IServiceProvider testProvider = new MockedServiceProvider(_fixture);
+            IServiceProvider testProvider = new MockedServiceProvider(_fixture);
             new InitializeDatabase().Execute(null, testProvider);
             IEnumerable<Permission> perms = _fixture.GetRepository<IPermissionRepository>().All();
             Assert.NotEmpty(perms);

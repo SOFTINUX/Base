@@ -7,7 +7,7 @@ namespace Extension1.ViewModels.Extension1
     {
         public IndexViewModel Create()
         {
-            return new IndexViewModel() {};
+            return new IndexViewModel();
         }
     }
 }

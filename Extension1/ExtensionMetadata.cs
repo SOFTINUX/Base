@@ -11,12 +11,12 @@ namespace Extension1
     {
         public IEnumerable<StyleSheet> StyleSheets => new StyleSheet[] {};
         public IEnumerable<Script> Scripts => new Script[] {};
-        public IEnumerable<MenuGroup> MenuGroups => new MenuGroup[]
+        public IEnumerable<MenuGroup> MenuGroups => new[]
         {
             new MenuGroup(
                 "Content",
                 1000,
-                new MenuItem[]
+                new[]
                 {
                     new MenuItem("/extension1", "Extension 1", 100)
                 }
@@ -24,7 +24,7 @@ namespace Extension1
             new MenuGroup(
                 "Administration",
                 2000,
-                new MenuItem[]
+                new[]
                 {
                     new MenuItem("/extension1/admin", "Extension 1", 100)
                 }

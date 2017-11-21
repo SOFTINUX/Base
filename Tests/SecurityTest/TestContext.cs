@@ -11,7 +11,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SecurityTest.Util;
-using Serilog;
 
 namespace SecurityTest
 {

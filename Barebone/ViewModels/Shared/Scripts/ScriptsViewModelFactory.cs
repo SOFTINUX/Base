@@ -6,7 +6,6 @@ using System.Linq;
 using Barebone.ViewModels.Shared.Script;
 using ExtCore.Infrastructure;
 using Infrastructure.Interfaces;
-using Barebone.ViewModels.Shared.Scripts;
 
 namespace Barebone.ViewModels.Shared.Scripts
 {

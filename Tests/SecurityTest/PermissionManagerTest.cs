@@ -8,7 +8,6 @@ using System.Linq;
 using System.Security.Claims;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
-using Security.Enums;
 using Security.Common;
 using Security.Common.Enums;
 using Xunit;
@@ -69,9 +68,11 @@ namespace SecurityTest
                 claimValues.Add(claim.Value);
             }
 
-            List<string> expectedClaimValues = new List<string>();
-            expectedClaimValues.Add(FormatExpectedClaimValue(roPerm.Code, true));
-            expectedClaimValues.Add(FormatExpectedClaimValue(rwPerm.Code, false));
+            List<string> expectedClaimValues = new List<string>
+            {
+                FormatExpectedClaimValue(roPerm.Code, true),
+                FormatExpectedClaimValue(rwPerm.Code, false)
+            };
 
             claimValues.Sort();
             expectedClaimValues.Sort();
@@ -101,8 +102,7 @@ namespace SecurityTest
                 claimValues.Add(claim.Value);
             }
 
-            List<string> expectedClaimValues = new List<string>();
-            expectedClaimValues.Add(FormatExpectedClaimValue(roPerm.Code, false));
+            List<string> expectedClaimValues = new List<string> {FormatExpectedClaimValue(roPerm.Code, false)};
 
             claimValues.Sort();
             expectedClaimValues.Sort();
@@ -132,9 +132,11 @@ namespace SecurityTest
                 claimValues.Add(claim.Value);
             }
 
-            List<string> expectedClaimValues = new List<string>();
-            expectedClaimValues.Add(FormatExpectedClaimValue(rwPerm.Code, true));
-            expectedClaimValues.Add(FormatExpectedClaimValue(rwPerm.Code, false));
+            List<string> expectedClaimValues = new List<string>
+            {
+                FormatExpectedClaimValue(rwPerm.Code, true),
+                FormatExpectedClaimValue(rwPerm.Code, false)
+            };
 
             claimValues.Sort();
             expectedClaimValues.Sort();

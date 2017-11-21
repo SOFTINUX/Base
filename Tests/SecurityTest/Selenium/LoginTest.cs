@@ -1,8 +1,6 @@
 using System;
-using System.IO;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Remote;
 using Xunit;
 
 namespace SecurityTest
