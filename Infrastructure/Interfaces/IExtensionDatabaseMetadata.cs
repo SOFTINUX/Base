@@ -12,7 +12,9 @@ namespace Infrastructure.Interfaces
     /// that you wish to record to database.
     /// After these entities have been recorded, configuring links related to these elements (attributing permissions to roles etc)
     /// will be done using Security's administration interface or through custom code in ConfigureLinks(IStorage) implementation,
+#pragma warning disable 1570
     /// using storage_.GetRepository<IYourRepository>().
+#pragma warning restore 1570
     /// </summary>
     public interface IExtensionDatabaseMetadata
     {

@@ -10,7 +10,7 @@ namespace SecurityTest.Util
     /// </summary>
     public class MockedServiceProvider : System.IServiceProvider
     {
-        private DatabaseFixture _fixture;
+        private readonly DatabaseFixture _fixture;
         public MockedServiceProvider(DatabaseFixture fixture_)
         {
             _fixture = fixture_;

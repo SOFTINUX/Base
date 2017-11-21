@@ -7,7 +7,7 @@ namespace Security.Common.Policy
     /// </summary>
     public static class KnownPolicies
     {
-        private static HashSet<string> _set = new HashSet<string>();
+        private static readonly HashSet<string> _set = new HashSet<string>();
 
         public static void Add(string policyName_)
         {

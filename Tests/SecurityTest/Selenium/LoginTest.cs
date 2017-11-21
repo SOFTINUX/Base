@@ -13,7 +13,7 @@ namespace SecurityTest
         // Find it here: http://chromedriver.storage.googleapis.com/index.html
         // place the chromedriver into current directory or in a directory on the PATH environment variable
 
-        private ChromeDriver driver;
+        private readonly ChromeDriver driver;
 
         public LoginTest()
         {

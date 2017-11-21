@@ -20,7 +20,7 @@ namespace Security
     /// </summary>
     public class DatabaseHelper
     {
-        private IStorage _storage;
+        private readonly IStorage _storage;
 
         private readonly string _securityAssemblyName = Assembly.GetExecutingAssembly().GetName().Name;
 

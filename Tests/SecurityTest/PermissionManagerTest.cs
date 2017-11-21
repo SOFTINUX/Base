@@ -26,7 +26,7 @@ namespace SecurityTest
         private const string CST_GROUP_CODE_1 = "test_group_1";
         private const string CST_GROUP_CODE_2 = "test_group_2";
 
-        private static string _assembly = typeof(PermissionManagerTest).Assembly.GetName().Name;
+        private static readonly string _assembly = typeof(PermissionManagerTest).Assembly.GetName().Name;
 
         public PermissionManagerTest(DatabaseFixture fixture_)
         {

@@ -21,7 +21,7 @@ namespace WebApplication
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        private string _extensionsPath;
+        private readonly string _extensionsPath;
 
         public Startup(IConfiguration configuration_, IHostingEnvironment hostingEnvironment_)
         {

@@ -16,7 +16,7 @@ namespace Security.Data.Abstractions
         /// Finds a permission by code and origin extension assembly "short name" (Assembly.GetName().Name).
         /// </summary>
         /// <param name="code_"></param>
-        /// <param name="assemblyName_"></param>
+        /// <param name="originExtensionAssemblyName_"></param>
         /// <returns></returns>
         Permission WithKeys(string code_, string originExtensionAssemblyName_);
         IEnumerable<Permission> All();
