@@ -87,7 +87,7 @@ namespace Security
             _storage = storage_;
 
             // 1. credential
-            // TODO uncomment  InsertCredential();
+            InsertCredential();
 
             // 2. user-role
             // TODO uncomment   InsertUserRole();

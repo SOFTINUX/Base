@@ -38,7 +38,15 @@ namespace Security.ServiceConfiguration
                 RecordGroups(extensionMetadata.GroupCodeAndLabels, GetAssemblyName(extensionMetadata));
                 // TODO the other entities
             }
+
             _storage.Save();
+
+            // TODO FIXME find why despite the Save() call above, the next query that is insertion of
+            // Credential that uses credential type id as FK generates a query failure in EF
+            // line 140 of Security's ExtensionDatabaseMetadata.
+            // The query uses a last insert row id that corresponds to nothing (a role!).
+            // Even without a call to Save(). The problem seem to be the fact that we insert a FK value.
+
 
             // Record the links between entities then commit
             foreach (IExtensionDatabaseMetadata extensionMetadata in extensionMetadatas)
