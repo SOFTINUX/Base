@@ -24,6 +24,8 @@ namespace Extension1
         public override IEnumerable<KeyValuePair<string, string>> GroupCodeAndLabels => null;
         public override void ConfigureLinks(IStorage storage_)
         {
+            // TODO don't return
+            return;
             IPermissionRepository permRepo = storage_.GetRepository<IPermissionRepository>();
             Permission perm1 = permRepo.WithKeys(_permissionCode, "Extension1");
 

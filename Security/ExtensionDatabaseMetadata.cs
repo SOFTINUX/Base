@@ -87,17 +87,17 @@ namespace Security
             _storage = storage_;
 
             // 1. credential
-            InsertCredential();
+            // TODO uncomment  InsertCredential();
 
             // 2. user-role
-            InsertUserRole();
+            // TODO uncomment   InsertUserRole();
 
             // 3. group-user (none)
 
             // 4. user-permission (none)
 
             // 5. role-permission
-            InsertRolePermission();
+            // TODO uncomment   InsertRolePermission();
 
             // 6. group-permission (none)
         }
