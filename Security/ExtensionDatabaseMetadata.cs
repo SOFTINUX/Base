@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 using ExtCore.Data.Abstractions;
-using Infrastructure;
+using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Security.Common.Enums;
 using Security.Data.Abstractions;
@@ -80,17 +80,17 @@ namespace Security
         {
             IRolePermissionRepository repo = _storage.GetRepository<IRolePermissionRepository>();
 
-            repo.Create(new RolePermission { RoleId = (int)RoleId.AdministratorOwner, PermissionId = (int)Enums.Permission.PermissionId.EditGroup, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.IdReadWrite });
-            repo.Create(new RolePermission { RoleId = (int)RoleId.AdministratorOwner, PermissionId = (int)Enums.Permission.PermissionId.EditUser, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.IdReadWrite });
-            repo.Create(new RolePermission { RoleId = (int)RoleId.AdministratorOwner, PermissionId = (int)Enums.Permission.PermissionId.EditRole, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.IdReadWrite });
-            repo.Create(new RolePermission { RoleId = (int)RoleId.AdministratorOwner, PermissionId = (int)Enums.Permission.PermissionId.EditPermission, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.IdReadWrite });
+            repo.Create(new RolePermission { RoleId = (int)RoleId.AdministratorOwner, PermissionId = (int)Permission.PermissionId.EditGroup, PermissionLevelId = (int)Permission.PermissionLevelId.IdReadWrite });
+            repo.Create(new RolePermission { RoleId = (int)RoleId.AdministratorOwner, PermissionId = (int)Permission.PermissionId.EditUser, PermissionLevelId = (int)Permission.PermissionLevelId.IdReadWrite });
+            repo.Create(new RolePermission { RoleId = (int)RoleId.AdministratorOwner, PermissionId = (int)Permission.PermissionId.EditRole, PermissionLevelId = (int)Permission.PermissionLevelId.IdReadWrite });
+            repo.Create(new RolePermission { RoleId = (int)RoleId.AdministratorOwner, PermissionId = (int)Permission.PermissionId.EditPermission, PermissionLevelId = (int)Permission.PermissionLevelId.IdReadWrite });
 
-            repo.Create(new RolePermission { RoleId = (int)RoleId.Administrator, PermissionId = (int)Enums.Permission.PermissionId.EditGroup, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.IdReadWrite });
-            repo.Create(new RolePermission { RoleId = (int)RoleId.Administrator, PermissionId = (int)Enums.Permission.PermissionId.EditUser, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.IdReadWrite });
-            repo.Create(new RolePermission { RoleId = (int)RoleId.Administrator, PermissionId = (int)Enums.Permission.PermissionId.EditRole, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.IdReadWrite });
-            repo.Create(new RolePermission { RoleId = (int)RoleId.Administrator, PermissionId = (int)Enums.Permission.PermissionId.EditPermission, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.IdReadWrite });
+            repo.Create(new RolePermission { RoleId = (int)RoleId.Administrator, PermissionId = (int)Permission.PermissionId.EditGroup, PermissionLevelId = (int)Permission.PermissionLevelId.IdReadWrite });
+            repo.Create(new RolePermission { RoleId = (int)RoleId.Administrator, PermissionId = (int)Permission.PermissionId.EditUser, PermissionLevelId = (int)Permission.PermissionLevelId.IdReadWrite });
+            repo.Create(new RolePermission { RoleId = (int)RoleId.Administrator, PermissionId = (int)Permission.PermissionId.EditRole, PermissionLevelId = (int)Permission.PermissionLevelId.IdReadWrite });
+            repo.Create(new RolePermission { RoleId = (int)RoleId.Administrator, PermissionId = (int)Permission.PermissionId.EditPermission, PermissionLevelId = (int)Permission.PermissionLevelId.IdReadWrite });
 
-            repo.Create(new RolePermission { RoleId = (int)RoleId.User, PermissionId = (int)Enums.Permission.PermissionId.EditUser, PermissionLevelId = (int)Enums.Permission.PermissionLevelId.IdReadOnly });
+            repo.Create(new RolePermission { RoleId = (int)RoleId.User, PermissionId = (int)Permission.PermissionId.EditUser, PermissionLevelId = (int)Permission.PermissionLevelId.IdReadOnly });
         }
 
         // TODO don't hardcode user ids but query them

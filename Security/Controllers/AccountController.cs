@@ -27,7 +27,7 @@ namespace Security.Controllers
         [AllowAnonymous]
         public IActionResult SignIn()
         {
-            return this.View();
+            return View();
         }
 
         /// <summary>
@@ -42,8 +42,8 @@ namespace Security.Controllers
         public IActionResult SignIn(SignInViewModel signIn_)
         {
             // Check required fields, if any empty return to login page
-            if (!this.ModelState.IsValid)
-                return this.View(signIn_);
+            if (!ModelState.IsValid)
+                return View(signIn_);
 
             UserManager userManager = new UserManager(this, LoggerFactory);
             User user = userManager.Login(Enums.CredentialType.Email, signIn_.Email, signIn_.Password);
@@ -52,27 +52,27 @@ namespace Security.Controllers
             if (user == null)
             {
                 signIn_.ErrorMessage = "Sign in failed";
-                return this.View(signIn_);
+                return View(signIn_);
 
                 // return this.CreateRedirectToSelfResult();
             }
             userManager.LoadClaims(user, signIn_.RememberMe);
 
             // Go to dashboard, action Index of Barebone's controller
-            return this.RedirectToAction("Index", "Barebone");
+            return RedirectToAction("Index", "Barebone");
         }
 
         [HttpGet]
         public IActionResult SignOut()
         {
             new UserManager(this, LoggerFactory).SignOut();
-            return this.RedirectToAction("SignIn");
+            return RedirectToAction("SignIn");
         }
 
         [HttpGet]
         public IActionResult AccessDenied()
         {
-            return this.View();
+            return View();
         }
 
         [HttpGet]

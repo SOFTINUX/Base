@@ -7,7 +7,7 @@ namespace Barebone.ViewModels.Barebone
     {
         public IndexViewModel Create()
         {
-            return new IndexViewModel() {} ;
+            return new IndexViewModel();
         }
     }
 }

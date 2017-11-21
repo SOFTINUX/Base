@@ -12,16 +12,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Security;
 using Serilog;
-using Serilog.Events;
 
 namespace WebApplication
 {
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        private string _extensionsPath;
+        private readonly string _extensionsPath;
 
         public Startup(IConfiguration configuration_, IHostingEnvironment hostingEnvironment_)
         {
@@ -36,7 +34,7 @@ namespace WebApplication
             // Note: AddScoped : for services based on EF (once per request),
             // other values : AddTransient (stateless), AddSingleton (avoids to implement singleton pattern ourselves)
 
-            services_.AddSingleton<IConfiguration>(Configuration);
+            services_.AddSingleton(Configuration);
             services_.Configure<StorageContextOptions>(options_ =>
                 {
                     options_.ConnectionString = Configuration["ConnectionStrings:Default"];

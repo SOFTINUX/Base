@@ -4,7 +4,6 @@
 using System.Linq;
 using System.Reflection;
 using ExtCore.Data.Abstractions;
-using Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Security.Common.Enums;
 using Security.Data.Abstractions;
@@ -20,7 +19,7 @@ namespace Security
     /// </summary>
     public class DatabaseHelper
     {
-        private IStorage _storage;
+        private readonly IStorage _storage;
 
         private readonly string _securityAssemblyName = Assembly.GetExecutingAssembly().GetName().Name;
 

@@ -5,6 +5,7 @@ using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Infrastructure.Interfaces;
 
 namespace Infrastructure
 {
@@ -36,7 +37,7 @@ namespace Infrastructure
         /// <returns></returns>
         protected RedirectResult CreateRedirectToSelfResult()
         {
-            return this.Redirect(this.Request.Path.Value + this.Request.QueryString.Value);
+            return Redirect(Request.Path.Value + Request.QueryString.Value);
         }
     }
 }

@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using Infrastructure;
+using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
@@ -21,13 +21,13 @@ namespace Security
         // Note : par rapport à Platformus, la méthode chargeant toutes les claims de l'utiliseur sera à implémenter dans PermissionManager
         // On construit une liste qui contaient les claims "role" et les claims "permission".
 
-        private IRequestHandler _requestHandler;
-        private ICredentialTypeRepository _credentialTypeRepository;
-        private ICredentialRepository _credentialRepository;
-        private IUserRepository _userRepository;
-        private IUserRoleRepository _userRoleRepository;
-        private IRoleRepository _roleRepository;
-        private ILogger _logger;
+        private readonly IRequestHandler _requestHandler;
+        private readonly ICredentialTypeRepository _credentialTypeRepository;
+        private readonly ICredentialRepository _credentialRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IUserRoleRepository _userRoleRepository;
+        private readonly IRoleRepository _roleRepository;
+        private readonly ILogger _logger;
 #if DEBUG
         internal UserManagerErrorCode ErrorCode { get; private set; }
 #endif

@@ -1,8 +1,6 @@
 using System;
-using System.IO;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Remote;
 using Xunit;
 
 namespace SecurityTest
@@ -13,7 +11,8 @@ namespace SecurityTest
         // Find it here: http://chromedriver.storage.googleapis.com/index.html
         // place the chromedriver into current directory or in a directory on the PATH environment variable
 
-        private ChromeDriver driver;
+        private readonly ChromeDriver driver;
+        private readonly string baseUrl = "http://localhost:5000/account/signin?next=%2F";
 
         public LoginTest()
         {
@@ -30,13 +29,19 @@ namespace SecurityTest
         [Fact]
         public void GotoLoginPage()
         {
-            driver.Navigate().GoToUrl("http://localhost:5000/account/signin?next=%2F");
+            driver.Manage().Window.Maximize();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(15);
+            driver.Navigate().GoToUrl(baseUrl);
             Console.WriteLine(driver.Title);
-            IWebElement query = driver.FindElement(By.Id("username"));
-            query.SendKeys("admin");
-            query = driver.FindElement(By.Id("password"));
-            query.SendKeys("123password");
-            query.Submit();
+
+            IWebElement loginBox = driver.FindElement(By.Id("username"));
+            loginBox.SendKeys("admin");
+            IWebElement passwordBox = driver.FindElement(By.Id("password"));
+            passwordBox.SendKeys("123password");
+            IWebElement singinLink = driver.FindElement(By.Id("signin"));
+            //singinLink.Submit();
+            singinLink.Click();
+
             Console.WriteLine(driver.Title);
             driver.Quit();
         }

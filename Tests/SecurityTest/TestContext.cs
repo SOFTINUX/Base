@@ -4,14 +4,13 @@
 using System.IO;
 using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
-using Infrastructure;
+using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SecurityTest.Util;
-using Serilog;
 
 namespace SecurityTest
 {

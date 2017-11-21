@@ -4,7 +4,7 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
 *@
 
 @model Barebone.ViewModels.Shared.Scripts.ScriptsViewModel
-@foreach (var script in this.Model.Scripts)
+@foreach (var script in Model.Scripts)
 {
   @Html.Partial("_Script", script)
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ExtCore.Data.Abstractions;
+using Infrastructure.Interfaces;
 
 namespace Infrastructure
 {

@@ -1,6 +1,5 @@
 using System;
 using ExtCore.Data.Abstractions;
-using Xunit;
 
 namespace SecurityTest.Util
 {
@@ -8,9 +7,9 @@ namespace SecurityTest.Util
     /// A class that mimics System.IServiceProvider but provides access only to
     /// what is injected to unit tests thanks to DatabaseFixture, here an instance is passed directly to constructor.
     /// </summary>
-    public class MockedServiceProvider : System.IServiceProvider
+    public class MockedServiceProvider : IServiceProvider
     {
-        private DatabaseFixture _fixture;
+        private readonly DatabaseFixture _fixture;
         public MockedServiceProvider(DatabaseFixture fixture_)
         {
             _fixture = fixture_;

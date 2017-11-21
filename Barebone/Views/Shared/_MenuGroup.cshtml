@@ -14,9 +14,9 @@ else
     <li>
         <a href="#@(Model.Name)" aria-expanded="false" data-toggle="collapse">@(Model.Name)<span class="caret"></span></a>
         <ul id="@(Model.Name)" class="collapse list-unstyled">
-            @foreach (var menuItem in this.Model.MenuItems)
+            @foreach (var menuItem in Model.MenuItems)
                 {
-                    @Html.Partial("_MenuItem", menuItem);
+                    @Html.Partial("_MenuItem", menuItem)
                 }
         </ul>
     </li>

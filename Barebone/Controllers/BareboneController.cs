@@ -4,7 +4,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Barebone.ViewModels.Barebone;
 using ExtCore.Data.Abstractions;
-using Infrastructure;
 using ControllerBase = Infrastructure.ControllerBase;
 using Microsoft.Extensions.Configuration;
 

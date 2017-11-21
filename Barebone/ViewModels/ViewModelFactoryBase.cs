@@ -1,7 +1,7 @@
 // Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
-using Infrastructure;
+using Infrastructure.Interfaces;
 
 namespace Barebone.ViewModels
 {
@@ -11,7 +11,7 @@ namespace Barebone.ViewModels
 
         public ViewModelFactoryBase(IRequestHandler requestHandler)
         {
-            this.RequestHandler = requestHandler;
+            RequestHandler = requestHandler;
         }
     }
 }
