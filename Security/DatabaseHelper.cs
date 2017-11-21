@@ -12,6 +12,8 @@ using Security.Data.Entities;
 
 namespace Security
 {
+    // TODO delete this class
+
     /// <summary>
     /// Helper that inserts additional entities (credential type, permission level, user) and dependent entities (credentil and links to permission, user, role).
     /// This is complementary to standard database initialization provided by ExtensionDatabaseMetadata.

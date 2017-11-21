@@ -11,18 +11,18 @@ using Security.Data.Entities;
 
 namespace Extension1
 {
-    public class ExtensionDatabaseMetadata : IExtensionDatabaseMetadata
+    public class ExtensionDatabaseMetadata : ExtensionDatabaseMetadataBase
     {
-        public uint Priority => 10;
+        public override uint Priority => 10;
 
         private const string _permissionCode = "admin";
-        public IEnumerable<Tuple<string, string, bool>> PermissionCodeLabelAndFlags =>
+        public override IEnumerable<Tuple<string, string, bool>> PermissionCodeLabelAndFlags =>
             new[] {new Tuple<string, string, bool>(_permissionCode, "Extension 1 administration", true)};
 
-        public IEnumerable<KeyValuePair<string, string>> RoleCodeAndLabels => null;
+        public override IEnumerable<KeyValuePair<string, string>> RoleCodeAndLabels => null;
 
-        public IEnumerable<KeyValuePair<string, string>> GroupCodeAndLabels => null;
-        public void ConfigureLinks(IStorage storage_)
+        public override IEnumerable<KeyValuePair<string, string>> GroupCodeAndLabels => null;
+        public override void ConfigureLinks(IStorage storage_)
         {
             IPermissionRepository permRepo = storage_.GetRepository<IPermissionRepository>();
             Permission perm1 = permRepo.WithKeys(_permissionCode, "Extension1");

@@ -30,7 +30,11 @@ namespace Security.ServiceConfiguration
         {
             _storage = serviceProvider_.GetService<IStorage>();
 
-            foreach (IExtensionDatabaseMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionDatabaseMetadata>().OrderBy(e_ => e_.Priority))
+            IEnumerable<IExtensionDatabaseMetadata> extensionMetadatas =
+                ExtensionManager.GetInstances<IExtensionDatabaseMetadata>().OrderBy(e_ => e_.Priority);
+
+            // Recod all the entities that don't depend on another one then commit
+            foreach (IExtensionDatabaseMetadata extensionMetadata in extensionMetadatas)
             {
                 // Permissions
                 RecordPermissions(extensionMetadata.PermissionCodeLabelAndFlags, GetAssemblyName(extensionMetadata));
@@ -38,23 +42,28 @@ namespace Security.ServiceConfiguration
                 RecordRoles(extensionMetadata.RoleCodeAndLabels, GetAssemblyName(extensionMetadata));
                 // Groups
                 RecordGroups(extensionMetadata.GroupCodeAndLabels, GetAssemblyName(extensionMetadata));
+                // TODO the other entities
+            }
+            _storage.Save();
 
-                _storage.Save();
-
+            // Record the links between entities then commit
+            foreach (IExtensionDatabaseMetadata extensionMetadata in extensionMetadatas)
+            {
                 // Additional links configuration
                 extensionMetadata.ConfigureLinks(_storage);
-
-                _storage.Save();
             }
+            _storage.Save();
+
         }
 
-        private string GetAssemblyName(IExtensionDatabaseMetadata extension_) {
+        private string GetAssemblyName(IExtensionDatabaseMetadata extension_)
+        {
             return extension_.GetType().Assembly.GetName().Name;
         }
 
         private void RecordPermissions(IEnumerable<Tuple<string, string, bool>> permissions_, string extensionAssemblyName_)
         {
-            if(permissions_ == null)
+            if (permissions_ == null)
                 return;
             IPermissionRepository repo = _storage.GetRepository<IPermissionRepository>();
             foreach (Tuple<string, string, bool> permission in permissions_)
@@ -68,7 +77,7 @@ namespace Security.ServiceConfiguration
 
         private void RecordRoles(IEnumerable<KeyValuePair<string, string>> roles_, string extensionAssemblyName_)
         {
-            if(roles_== null)
+            if (roles_ == null)
                 return;
             IRoleRepository repo = _storage.GetRepository<IRoleRepository>();
             foreach (KeyValuePair<string, string> role in roles_)
@@ -80,9 +89,9 @@ namespace Security.ServiceConfiguration
             }
         }
 
-         private void RecordGroups(IEnumerable<KeyValuePair<string, string>> groups_, string extensionAssemblyName_)
+        private void RecordGroups(IEnumerable<KeyValuePair<string, string>> groups_, string extensionAssemblyName_)
         {
-            if(groups_ == null)
+            if (groups_ == null)
                 return;
             IGroupRepository repo = _storage.GetRepository<IGroupRepository>();
             foreach (KeyValuePair<string, string> group in groups_)
