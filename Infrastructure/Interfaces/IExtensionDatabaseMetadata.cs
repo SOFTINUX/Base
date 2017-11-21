@@ -52,7 +52,7 @@ namespace Infrastructure
         /// <summary>
         /// The permission levels that will be created in application (only by Security extension).
         /// </summary>
-        IEnumerable<Tuple<int, string, string, string>> PermissionLevelIdValueLabelAndTips { get; }
+        IEnumerable<Tuple<int, int, string, string>> PermissionLevelIdValueLabelAndTips { get; }
 
         /// <summary>
         /// The users you wish to add to the application.

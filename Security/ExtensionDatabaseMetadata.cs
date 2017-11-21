@@ -29,16 +29,31 @@ namespace Security
             };
 
         public IEnumerable<KeyValuePair<string, string>> RoleCodeAndLabels =>
-                   new[]
-                   {
+            new[]
+            {
                 new KeyValuePair<string, string>("administrator-owner", "Administrator Owner"),
                 new KeyValuePair<string, string>("administrator", "Administrator"),
                 new KeyValuePair<string, string>("user", "Administrator User"),
-                   };
+            };
+
         // TODO return values
         public IEnumerable<KeyValuePair<string, string>> GroupCodeAndLabels => null;
-        public IEnumerable<KeyValuePair<string, string>> CredentialTypeCodeAndLabels { get; }
-        public IEnumerable<Tuple<int, string, string, string>> PermissionLevelIdValueLabelAndTips { get; }
+
+        public IEnumerable<KeyValuePair<string, string>> CredentialTypeCodeAndLabels =>
+            new[]
+            {
+                new KeyValuePair<string, string>("email", "E-mail and password")
+            };
+
+        public IEnumerable<Tuple<int, int, string, string>> PermissionLevelIdValueLabelAndTips =>
+            new[]
+            {
+                new Tuple<int, int, string, string>((int)Permission.PermissionLevelId.IdNever, (int)Permission.PermissionLevelValue.Never, "Never", "No right, unmodifiable through right inheritance"),
+                new Tuple<int, int, string, string>((int)Permission.PermissionLevelId.IdNo, (int)Permission.PermissionLevelValue.No, "No", "No right, but could be allowed through right inheritance"),
+                new Tuple<int, int, string, string>((int)Permission.PermissionLevelId.IdReadOnly, (int)Permission.PermissionLevelValue.ReadOnly, "Read-only", "Read-only access"),
+                new Tuple<int, int, string, string>((int)Permission.PermissionLevelId.IdReadWrite, (int)Permission.PermissionLevelValue.ReadWrite, "Read-write", "Read-write access"),
+            };
+        // TODO return values
         public IEnumerable<Tuple<string, string, string>> UserFirstnameLastnameAndDisplayNames { get; }
 
         public void ConfigureLinks(IStorage storage_)
