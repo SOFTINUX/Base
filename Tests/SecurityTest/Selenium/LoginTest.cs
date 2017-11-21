@@ -12,6 +12,7 @@ namespace SecurityTest
         // place the chromedriver into current directory or in a directory on the PATH environment variable
 
         private readonly ChromeDriver driver;
+        private readonly string baseUrl = "http://localhost:5000/account/signin?next=%2F";
 
         public LoginTest()
         {
@@ -28,7 +29,9 @@ namespace SecurityTest
         [Fact]
         public void GotoLoginPage()
         {
-            driver.Navigate().GoToUrl("http://localhost:5000/account/signin?next=%2F");
+            driver.Manage().Window.Maximize();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(15);
+            driver.Navigate().GoToUrl(baseUrl);
             Console.WriteLine(driver.Title);
 
             IWebElement loginBox = driver.FindElement(By.Id("username"));
