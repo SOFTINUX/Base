@@ -19,6 +19,9 @@ namespace Security
 
         public uint Priority => 0;
 
+        /// <summary>
+        /// The permissions related to this extension administration.
+        /// </summary>
         public IEnumerable<Tuple<string, string, bool>> PermissionCodeLabelAndFlags =>
             new[]
             {
@@ -28,6 +31,9 @@ namespace Security
                 new Tuple<string, string, bool>(Permission.PERM_CODE_EDIT_GROUP, "Groups management", true)
             };
 
+        /// <summary>
+        /// The base roles.
+        /// </summary>
         public IEnumerable<KeyValuePair<string, string>> RoleCodeAndLabels =>
             new[]
             {
@@ -36,25 +42,45 @@ namespace Security
                 new KeyValuePair<string, string>("user", "Administrator User"),
             };
 
-        // TODO return values
+        /// <summary>
+        /// No groups by default.
+        /// </summary>
         public IEnumerable<KeyValuePair<string, string>> GroupCodeAndLabels => null;
 
+        /// <summary>
+        /// The base credential types.
+        /// </summary>
         public IEnumerable<KeyValuePair<string, string>> CredentialTypeCodeAndLabels =>
             new[]
             {
                 new KeyValuePair<string, string>("email", "E-mail and password")
             };
 
+        /// <summary>
+        /// The permission levels used in Security extension.
+        /// </summary>
         public IEnumerable<Tuple<int, int, string, string>> PermissionLevelIdValueLabelAndTips =>
             new[]
             {
-                new Tuple<int, int, string, string>((int)Permission.PermissionLevelId.IdNever, (int)Permission.PermissionLevelValue.Never, "Never", "No right, unmodifiable through right inheritance"),
-                new Tuple<int, int, string, string>((int)Permission.PermissionLevelId.IdNo, (int)Permission.PermissionLevelValue.No, "No", "No right, but could be allowed through right inheritance"),
-                new Tuple<int, int, string, string>((int)Permission.PermissionLevelId.IdReadOnly, (int)Permission.PermissionLevelValue.ReadOnly, "Read-only", "Read-only access"),
-                new Tuple<int, int, string, string>((int)Permission.PermissionLevelId.IdReadWrite, (int)Permission.PermissionLevelValue.ReadWrite, "Read-write", "Read-write access"),
+                new Tuple<int, int, string, string>((int) Permission.PermissionLevelId.IdNever,
+                    (int) Permission.PermissionLevelValue.Never, "Never",
+                    "No right, unmodifiable through right inheritance"),
+                new Tuple<int, int, string, string>((int) Permission.PermissionLevelId.IdNo,
+                    (int) Permission.PermissionLevelValue.No, "No",
+                    "No right, but could be allowed through right inheritance"),
+                new Tuple<int, int, string, string>((int) Permission.PermissionLevelId.IdReadOnly,
+                    (int) Permission.PermissionLevelValue.ReadOnly, "Read-only", "Read-only access"),
+                new Tuple<int, int, string, string>((int) Permission.PermissionLevelId.IdReadWrite,
+                    (int) Permission.PermissionLevelValue.ReadWrite, "Read-write", "Read-write access"),
             };
-        // TODO return values
-        public IEnumerable<Tuple<string, string, string>> UserFirstnameLastnameAndDisplayNames { get; }
+
+        public IEnumerable<Tuple<string, string, string>> UserFirstnameLastnameAndDisplayNames =>
+            new[]
+            {
+                new Tuple<string, string, string>("Super", "Admin", "Super Administrator"),
+                new Tuple<string, string, string>("Test", "Admin", "Test Admin"),
+                new Tuple<string, string, string>("Test", "User", "Test User"),
+            };
 
         public void ConfigureLinks(IStorage storage_)
         {
