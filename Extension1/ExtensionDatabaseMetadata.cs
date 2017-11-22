@@ -24,8 +24,6 @@ namespace Extension1
         public override IEnumerable<KeyValuePair<string, string>> GroupCodeAndLabels => null;
         public override void ConfigureLinks(IStorage storage_)
         {
-            // TODO don't return
-            return;
             IPermissionRepository permRepo = storage_.GetRepository<IPermissionRepository>();
             Permission perm1 = permRepo.WithKeys(_permissionCode, "Extension1");
 
@@ -35,8 +33,8 @@ namespace Extension1
             if(rolePermRepo.WithKeys((int) RoleId.AdministratorOwner, perm1.Id) != null)
                 return;
 
-            rolePermRepo.Create(new RolePermission { PermissionId = perm1.Id, RoleId = (int) RoleId.Administrator});
-            rolePermRepo.Create(new RolePermission { PermissionId = perm1.Id, RoleId = (int) RoleId.AdministratorOwner});
+            rolePermRepo.Create(new RolePermission { PermissionId = perm1.Id, RoleId = (int) RoleId.Administrator, PermissionLevelId = (int) Security.Enums.Permission.PermissionLevelId.IdReadWrite});
+            rolePermRepo.Create(new RolePermission { PermissionId = perm1.Id, RoleId = (int) RoleId.AdministratorOwner, PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadWrite });
 
         }
     }

@@ -15,6 +15,18 @@ namespace Security
 {
     public class ExtensionDatabaseMetadata : IExtensionDatabaseMetadata
     {
+        private Tuple<string, string, string> _superAdminData =
+            new Tuple<string, string, string>("Super", "Admin", "Super Administrator");
+
+        private Tuple<string, string, string> _adminData =
+            new Tuple<string, string, string>("Test", "Admin", "Test Admin");
+
+        private Tuple<string, string, string> _userData =
+            new Tuple<string, string, string>("Test", "User", "Test User");
+
+        private KeyValuePair<string, string> _credentialTypeData =
+            new KeyValuePair<string, string>("email", "E-mail and password");
+
         private IStorage _storage;
 
         public uint Priority => 0;
@@ -53,7 +65,7 @@ namespace Security
         public IEnumerable<KeyValuePair<string, string>> CredentialTypeCodeAndLabels =>
             new[]
             {
-                new KeyValuePair<string, string>("email", "E-mail and password")
+                _credentialTypeData
             };
 
         /// <summary>
@@ -77,9 +89,9 @@ namespace Security
         public IEnumerable<Tuple<string, string, string>> UserFirstnameLastnameAndDisplayNames =>
             new[]
             {
-                new Tuple<string, string, string>("Super", "Admin", "Super Administrator"),
-                new Tuple<string, string, string>("Test", "Admin", "Test Admin"),
-                new Tuple<string, string, string>("Test", "User", "Test User"),
+                _superAdminData,
+                _adminData,
+                _userData
             };
 
         public void ConfigureLinks(IStorage storage_)
@@ -119,44 +131,47 @@ namespace Security
             repo.Create(new RolePermission { RoleId = (int)RoleId.User, PermissionId = (int)Permission.PermissionId.EditUser, PermissionLevelId = (int)Permission.PermissionLevelId.IdReadOnly });
         }
 
-        // TODO don't hardcode user ids but query them
         private void InsertUserRole()
         {
             IUserRoleRepository repo = _storage.GetRepository<IUserRoleRepository>();
+            IUserRepository userRepo = _storage.GetRepository<IUserRepository>();
             // super-admin
-            repo.Create(new UserRole { RoleId = (int)RoleId.AdministratorOwner, UserId = 1 });
+            repo.Create(new UserRole { RoleId = (int)RoleId.AdministratorOwner, UserId = userRepo.WithKeys(_superAdminData.Item1, _superAdminData.Item2, _superAdminData.Item3).Id });
             // admin
-            repo.Create(new UserRole { RoleId = (int)RoleId.Administrator, UserId = 2 });
+            repo.Create(new UserRole { RoleId = (int)RoleId.Administrator, UserId = userRepo.WithKeys(_adminData.Item1, _adminData.Item2, _adminData.Item3).Id });
             // user
-            repo.Create(new UserRole { RoleId = (int)RoleId.User, UserId = 3 });
+            repo.Create(new UserRole { RoleId = (int)RoleId.User, UserId = userRepo.WithKeys(_userData.Item1, _userData.Item2, _userData.Item3).Id });
 
         }
-        // TODO don't hardcode credential type ids/user ids but query them
+
         private void InsertCredential()
         {
             ICredentialRepository repo = _storage.GetRepository<ICredentialRepository>();
-            string hashedPassword = new PasswordHasher<User>().HashPassword(null, "123password");
+            IUserRepository userRepo = _storage.GetRepository<IUserRepository>();
+            ICredentialTypeRepository credTypeRepo = _storage.GetRepository<ICredentialTypeRepository>();
 
+            string hashedPassword = new PasswordHasher<User>().HashPassword(null, "123password");
+            int credentialTypeId = credTypeRepo.WithCode(_credentialTypeData.Key).Id;
             repo.Create(new Credential
             {
-                CredentialTypeId = 1,
-                UserId = 1,
+                CredentialTypeId = credentialTypeId,
+                UserId = userRepo.WithKeys(_superAdminData.Item1, _superAdminData.Item2, _superAdminData.Item3).Id,
                 Identifier = "adminowner",
                 Secret = hashedPassword
             });
 
             repo.Create(new Credential
             {
-                CredentialTypeId = 1,
-                UserId = 2,
+                CredentialTypeId = credentialTypeId,
+                UserId = userRepo.WithKeys(_adminData.Item1, _adminData.Item2, _adminData.Item3).Id,
                 Identifier = "admin",
                 Secret = hashedPassword
             });
 
             repo.Create(new Credential
             {
-                CredentialTypeId = 1,
-                UserId = 3,
+                CredentialTypeId = credentialTypeId,
+                UserId = userRepo.WithKeys(_userData.Item1, _userData.Item2, _userData.Item3).Id,
                 Identifier = "user",
                 Secret = hashedPassword
             });

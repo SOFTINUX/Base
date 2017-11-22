@@ -14,7 +14,13 @@ namespace Security.ServiceConfiguration
     public class InitializeDatabase //: IConfigureServicesAction
     {
         /// <summary>
-        /// Executes after ActivateAuthentication and ConfigureAuthentication service actions.
+        /// Looks for all implementations of IExtensionDatabaseMetadata that allow the system to know which
+        /// persistent data the extensions provide.
+        /// Creates the entities that have no reference to other entities (permissions, roles...)
+        /// then calls custom code to create data in links tables.
+        /// The extensions provide the information about entities to save and custom code for saving to links tables.
+        ///
+        /// This action executes after ActivateAuthentication and ConfigureAuthentication service actions.
         /// </summary>
         public int Priority => 100;
 
@@ -27,7 +33,7 @@ namespace Security.ServiceConfiguration
             IEnumerable<IExtensionDatabaseMetadata> extensionMetadatas =
                 ExtensionManager.GetInstances<IExtensionDatabaseMetadata>().OrderBy(e_ => e_.Priority);
 
-            // Recod all the entities that don't depend on another one then commit
+            // Record all the entities that don't depend on another one then commit
             foreach (IExtensionDatabaseMetadata extensionMetadata in extensionMetadatas)
             {
                 // Permissions
@@ -45,13 +51,6 @@ namespace Security.ServiceConfiguration
             }
 
             _storage.Save();
-
-            // TODO FIXME find why despite the Save() call above, the next query that is insertion of
-            // Credential that uses credential type id as FK generates a query failure in EF
-            // line 140 of Security's ExtensionDatabaseMetadata.
-            // The query uses a last insert row id that corresponds to nothing (a role!).
-            // Even without a call to Save(). The problem seem to be the fact that we insert a FK value.
-
 
             // Record the links between entities then commit
             foreach (IExtensionDatabaseMetadata extensionMetadata in extensionMetadatas)
