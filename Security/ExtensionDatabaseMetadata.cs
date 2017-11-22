@@ -59,18 +59,18 @@ namespace Security
         /// <summary>
         /// The permission levels used in Security extension.
         /// </summary>
-        public IEnumerable<Tuple<int, int, string, string>> PermissionLevelIdValueLabelAndTips =>
+        public IEnumerable<Tuple<int, byte, string, string>> PermissionLevelIdValueLabelAndTips =>
             new[]
             {
-                new Tuple<int, int, string, string>((int) Permission.PermissionLevelId.IdNever,
+                new Tuple<int, byte, string, string>((int) Permission.PermissionLevelId.IdNever,
                     (int) Permission.PermissionLevelValue.Never, "Never",
                     "No right, unmodifiable through right inheritance"),
-                new Tuple<int, int, string, string>((int) Permission.PermissionLevelId.IdNo,
+                new Tuple<int, byte, string, string>((int) Permission.PermissionLevelId.IdNo,
                     (int) Permission.PermissionLevelValue.No, "No",
                     "No right, but could be allowed through right inheritance"),
-                new Tuple<int, int, string, string>((int) Permission.PermissionLevelId.IdReadOnly,
+                new Tuple<int, byte, string, string>((int) Permission.PermissionLevelId.IdReadOnly,
                     (int) Permission.PermissionLevelValue.ReadOnly, "Read-only", "Read-only access"),
-                new Tuple<int, int, string, string>((int) Permission.PermissionLevelId.IdReadWrite,
+                new Tuple<int, byte, string, string>((int) Permission.PermissionLevelId.IdReadWrite,
                     (int) Permission.PermissionLevelValue.ReadWrite, "Read-write", "Read-write access"),
             };
 
@@ -90,14 +90,14 @@ namespace Security
             InsertCredential();
 
             // 2. user-role
-            // TODO uncomment   InsertUserRole();
+            InsertUserRole();
 
             // 3. group-user (none)
 
             // 4. user-permission (none)
 
             // 5. role-permission
-            // TODO uncomment   InsertRolePermission();
+            InsertRolePermission();
 
             // 6. group-permission (none)
         }

@@ -15,9 +15,8 @@ namespace Infrastructure
         public abstract IEnumerable<Tuple<string, string, bool>> PermissionCodeLabelAndFlags { get; }
         public abstract IEnumerable<KeyValuePair<string, string>> RoleCodeAndLabels { get; }
         public abstract IEnumerable<KeyValuePair<string, string>> GroupCodeAndLabels { get; }
-
         public virtual IEnumerable<KeyValuePair<string, string>> CredentialTypeCodeAndLabels => null;
-        public virtual IEnumerable<Tuple<int, int, string, string>> PermissionLevelIdValueLabelAndTips => null;
+        public virtual IEnumerable<Tuple<int, byte, string, string>> PermissionLevelIdValueLabelAndTips => null;
         public virtual IEnumerable<Tuple<string, string, string>> UserFirstnameLastnameAndDisplayNames => null;
 
         /// <summary>

@@ -33,4 +33,7 @@
   <ItemGroup>
     <Folder Include="Extensions\" />
   </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="$(SolutionDir)bp.bat copydeps" />
+  </Target>
 </Project>

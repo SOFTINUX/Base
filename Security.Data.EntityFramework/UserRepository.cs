@@ -16,6 +16,12 @@ namespace Security.Data.EntityFramework
         {
             return dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
         }
+
+        public User WithKeys(string firstName_, string lastName_, string displayName_)
+        {
+            return dbSet.FirstOrDefault(e_ => e_.FirstName == firstName_ && e_.LastName == lastName_ && e_.DisplayName == displayName_);
+        }
+
         /// <summary>
         /// Get an user by credential identifier. Useful for unit tests.
         /// </summary>
