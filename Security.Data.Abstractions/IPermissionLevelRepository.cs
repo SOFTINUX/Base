@@ -11,6 +11,7 @@ namespace Security.Data.Abstractions
     {
         void Create(PermissionLevel entity_);
         PermissionLevel WithKey(int entityId_);
+        PermissionLevel WithValue(int value_);
         IEnumerable<PermissionLevel> All();
     }
 }

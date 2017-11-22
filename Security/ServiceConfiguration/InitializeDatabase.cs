@@ -32,11 +32,16 @@ namespace Security.ServiceConfiguration
             {
                 // Permissions
                 RecordPermissions(extensionMetadata.PermissionCodeLabelAndFlags, GetAssemblyName(extensionMetadata));
+                // Permissions level
+                RecordPermissionsLevel(extensionMetadata.PermissionLevelIdValueLabelAndTips,  GetAssemblyName(extensionMetadata));
                 // Roles
                 RecordRoles(extensionMetadata.RoleCodeAndLabels, GetAssemblyName(extensionMetadata));
                 // Groups
                 RecordGroups(extensionMetadata.GroupCodeAndLabels, GetAssemblyName(extensionMetadata));
-                // TODO the other entities
+                // Credential Type
+                RecordCredentialsType(extensionMetadata.CredentialTypeCodeAndLabels,  GetAssemblyName(extensionMetadata));
+                // User
+                RecordUsers(extensionMetadata.UserFirstnameLastnameAndDisplayNames,  GetAssemblyName(extensionMetadata));
             }
 
             _storage.Save();
@@ -73,6 +78,48 @@ namespace Security.ServiceConfiguration
                 if (repo.WithKeys(permission.Item1, permission.Item2) == null)
                 {
                     repo.Create(new Permission { Code = permission.Item1, Label = permission.Item2, AdministratorOwner = permission.Item3, OriginExtension = extensionAssemblyName_ });
+                }
+            }
+        }
+
+        private void RecordPermissionsLevel(IEnumerable<Tuple<int, byte, string, string>> permissionsLevel_, string extensionAssemblyName_)
+        {
+            if (permissionsLevel_ == null)
+                return;
+            IPermissionLevelRepository repo = _storage.GetRepository<IPermissionLevelRepository>();
+            foreach (Tuple<int, byte, string, string> permissionLevel in permissionsLevel_)
+            {
+                if (repo.WithValue(permissionLevel.Item2) == null)
+                {
+                    repo.Create(new PermissionLevel { Id = permissionLevel.Item1,  Value = permissionLevel.Item2, Label = permissionLevel.Item3, Tip = permissionLevel.Item4 });
+                }
+            }
+        }
+
+        private void RecordUsers(IEnumerable<Tuple<string, string, string>> user_, string extensionAssemblyName_)
+        {
+             if (user_ == null)
+                return;
+            IUserRepository repo = _storage.GetRepository<IUserRepository>();
+            foreach (Tuple<string, string, string> user in user_)
+            {
+                if (repo.WithKeys(user.Item1, user.Item2, user.Item3) == null)
+                {
+                    repo.Create(new User { FirstName = user.Item1, LastName = user.Item2, DisplayName = user.Item3 });
+                }
+            }
+        }
+
+        private void RecordCredentialsType(IEnumerable<KeyValuePair<string, string>> credentialsTypes_, string extensionAssemblyName_)
+        {
+            if (credentialsTypes_ == null)
+                return;
+            ICredentialTypeRepository repo = _storage.GetRepository<ICredentialTypeRepository>();
+            foreach (KeyValuePair<string, string> role in credentialsTypes_)
+            {
+                if (repo.WithCode(role.Key) == null)
+                {
+                    repo.Create(new CredentialType { Code = role.Key, Label = role.Value });
                 }
             }
         }
