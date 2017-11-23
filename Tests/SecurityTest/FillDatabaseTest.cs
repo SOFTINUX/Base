@@ -10,18 +10,19 @@ using Security.ServiceConfiguration;
 using SecurityTest.Util;
 using Xunit;
 
-namespace SecurityTest.ServiceConfiguration
+namespace SecurityTest
 {
+    /// <summary>
+    /// Unlike the other tests, this one doesn't use collection fixture DatabaseFixture (by using DatabaseCollection attribute)
+    /// but uses a class fixture EmptyDatabaseFixture.
+    /// </summary>
     [TestCaseOrderer("SecurityTest.PriorityOrderer", "SecurityTest")]
-    [Collection("Database collection")]
-    public class InitializeDatabaseTest : BaseTest
+    public class FillDatabaseTest : BaseTest, IClassFixture<EmptyDatabaseFixture>
     {
-        public InitializeDatabaseTest(DatabaseFixture fixture_)
+        public FillDatabaseTest(EmptyDatabaseFixture fixture_)
         {
             _fixture = fixture_;
 
-            // initialize test file from copy. Root dir is bin/debug/netcoreapp2.0
-            File.Copy("../../../../Artefacts/basedb_empty.sqlite".Replace('/', Path.DirectorySeparatorChar), "../../../../WorkDir/basedb_tests.sqlite".Replace('/', Path.DirectorySeparatorChar), true);
         }
 
         [Fact, TestPriority(0)]
@@ -29,7 +30,7 @@ namespace SecurityTest.ServiceConfiguration
         {
             Assert.Empty(_fixture.GetRepository<IPermissionRepository>().All());
             IServiceProvider testProvider = new MockedServiceProvider(_fixture);
-            new InitializeDatabase().Execute(null, testProvider);
+            new FillDatabase().Execute(null, testProvider);
             IEnumerable<Permission> perms = _fixture.GetRepository<IPermissionRepository>().All();
             Assert.NotEmpty(perms);
             foreach (Permission perm in perms)

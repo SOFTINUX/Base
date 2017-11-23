@@ -11,7 +11,7 @@ using Security.Data.Entities;
 namespace Security.ServiceConfiguration
 {
     // TODO restore ": IConfigureServicesAction" once unit test is ok (errors fixed)
-    public class InitializeDatabase //: IConfigureServicesAction
+    public class FillDatabase //: IConfigureServicesAction
     {
         /// <summary>
         /// Looks for all implementations of IExtensionDatabaseMetadata that allow the system to know which
