@@ -10,6 +10,8 @@ namespace SecurityTest.Util
 {
     public class EfLoggerProvider : ILoggerProvider
     {
+        private static readonly object _logFileWriteLock = new object();
+
         public static string LogFilePath =>
             Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "entityframework.log");
 
@@ -30,8 +32,11 @@ namespace SecurityTest.Util
 
             public void Log<TState>(LogLevel logLevel_, EventId eventId_, TState state_, Exception exception_, Func<TState, Exception, string> formatter_)
             {
-                File.AppendAllText(LogFilePath, formatter_(state_, exception_));
                 Console.WriteLine(formatter_(state_, exception_));
+                lock (_logFileWriteLock)
+                {
+                    File.AppendAllText(LogFilePath, formatter_(state_, exception_));
+                }
             }
 
             public IDisposable BeginScope<TState>(TState state_)
