@@ -12,6 +12,7 @@ using Xunit;
 
 namespace SecurityTest.ServiceConfiguration
 {
+    [TestCaseOrderer("SecurityTest.PriorityOrderer", "SecurityTest")]
     [Collection("Database collection")]
     public class InitializeDatabaseTest : BaseTest
     {
@@ -23,7 +24,7 @@ namespace SecurityTest.ServiceConfiguration
             File.Copy("../../../../Artefacts/basedb_empty.sqlite".Replace('/', Path.DirectorySeparatorChar), "../../../../WorkDir/basedb_tests.sqlite".Replace('/', Path.DirectorySeparatorChar), true);
         }
 
-        [Fact]
+        [Fact, TestPriority(0)]
         public void Test()
         {
             Assert.Empty(_fixture.GetRepository<IPermissionRepository>().All());

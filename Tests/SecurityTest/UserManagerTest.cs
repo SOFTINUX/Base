@@ -13,6 +13,7 @@ using Xunit;
 
 namespace SecurityTest
 {
+    [TestCaseOrderer("SecurityTest.PriorityOrderer", "SecurityTest")]
     [Collection("Database collection")]
     public class UserManagerTest : BaseTest
     {
@@ -22,7 +23,7 @@ namespace SecurityTest
 
         }
 
-        [Fact]
+        [Fact, TestPriority(1)]
         public void TestNoCredentialType()
         {
            // no need of transaction (no db write)
@@ -33,7 +34,7 @@ namespace SecurityTest
 
         }
 
-        [Fact]
+        [Fact, TestPriority(2)]
         public void TestNoIdentifierFound()
         {
             // no need of transaction (no db write)
@@ -44,7 +45,7 @@ namespace SecurityTest
 
         }
 
-        [Fact]
+        [Fact, TestPriority(3)]
         public void TestWrongSecret()
         {
             // no need of transaction (no db write)
@@ -55,7 +56,7 @@ namespace SecurityTest
 
         }
 
-        [Fact]
+        [Fact, TestPriority(4)]
         public void TestCorrectCase()
         {
             // no need of transaction (no db write)
@@ -68,7 +69,7 @@ namespace SecurityTest
 
         }
 
-        [Fact]
+        [Fact, TestPriority(5)]
         public void TestGetAllClaims()
         {
             User user = _fixture.GetRepository<IUserRepository>().WithCredentialIdentifier("user");

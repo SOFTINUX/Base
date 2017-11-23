@@ -53,12 +53,12 @@ namespace SecurityTest
         /// </summary>
         /// <param name="options_"></param>
         /// <returns></returns>
-        public StorageContextBase GetProviderStorageContext(IOptions<StorageContextOptions> options_)
+        private StorageContextBase GetProviderStorageContext(IOptions<StorageContextOptions> options_)
         {
             return new TestStorageContextBase(options_);
         }
 
-        public class TestOptions : IOptions<StorageContextOptions>
+        private class TestOptions : IOptions<StorageContextOptions>
         {
             public TestOptions(StorageContextOptions value_)
             {
@@ -71,7 +71,7 @@ namespace SecurityTest
         /// <summary>
         /// Provider-specific storage context to use, with sensitive data logging enabled for unit tests debugging.
         /// </summary>
-        public class TestStorageContextBase : ExtCore.Data.EntityFramework.Sqlite.StorageContext
+        private class TestStorageContextBase : ExtCore.Data.EntityFramework.Sqlite.StorageContext
         {
             public TestStorageContextBase(IOptions<StorageContextOptions> options_) : base(options_)
             {

@@ -15,6 +15,7 @@ using Permission = Security.Data.Entities.Permission;
 
 namespace SecurityTest
 {
+    [TestCaseOrderer("SecurityTest.PriorityOrderer", "SecurityTest")]
     [Collection("Database collection")]
     public class PermissionManagerTest : BaseTest
     {
@@ -48,7 +49,7 @@ namespace SecurityTest
         /// A reference to the same permission is passed, first with R right level, second with RW.
         /// Expected: one claim with R right level, one claim with RW right level (one claim per permission).
         /// </summary>
-        [Fact]
+        [Fact, TestPriority(1)]
         public void TestGetFinalPermissionsRAndRwNoDatabase()
         {
             #region test data setup
@@ -84,7 +85,7 @@ namespace SecurityTest
         /// A reference to a permission is passed, with R right level.
         /// Expected: one claim with R right level.
         /// </summary>
-        [Fact]
+        [Fact, TestPriority(2)]
         public void TestGetFinalPermissionsRNoDatabase()
         {
             #region test data setup
@@ -114,7 +115,7 @@ namespace SecurityTest
         /// A reference to a permission is passed, with RW right level.
         /// Expected: one claim with R right level, one claim with RW right level (explicit claim for RW and implicit for R).
         /// </summary>
-        [Fact]
+        [Fact, TestPriority(3)]
         public void TestGetFinalPermissionsRwNoDatabase()
         {
             #region test data setup
@@ -148,7 +149,7 @@ namespace SecurityTest
         /// A permission is attributed to a group, another one to a role. user is linked to these role and group.
         /// Expected : two permissions loaded.
         /// </summary>
-        [Fact]
+        [Fact, TestPriority(4)]
         public void TestLoadPermissions()
         {
             try
@@ -246,7 +247,7 @@ namespace SecurityTest
         /// The same permission is linked to role, group and user with different right level.
         /// Expected: The "Never" right level takes precedence, thus no claim.
         /// </summary>
-        [Fact]
+        [Fact, TestPriority(5)]
         public void TestGetFinalPermissionsWithLevels()
         {
             try
@@ -328,7 +329,7 @@ namespace SecurityTest
         /// This permission is removed for user's group ("never" right level).
         /// Expected : A permission flagged as administrator-owner can be ungranted to a superadmin user.
         /// </summary>
-        [Fact]
+        [Fact, TestPriority(6)]
         public void TestGetFinalPermissionsWithAdminOwnerFlagStillGranted()
         {
             try
@@ -412,7 +413,7 @@ namespace SecurityTest
         /// This permission is removed for user's group ("never" right level).
         /// Expected : A permission flagged as administrator-owner can be ungranted to a non superadmin user.
         /// </summary>
-        [Fact]
+        [Fact, TestPriority(7)]
         public void TestGetFinalPermissionsWithAdminOwnerFlagUngranted()
         {
             try
@@ -495,7 +496,7 @@ namespace SecurityTest
         /// This permission is removed for user ("never" right level).
         /// Expected : A permission flagged as administrator-owner cannot be ungranted to a superadmin user.
         /// </summary>
-        [Fact]
+        [Fact, TestPriority(8)]
         public void TestGetFinalPermissionsWithAdminOwnerFlagStillGrantedCaseTwo()
         {
             try
@@ -575,7 +576,7 @@ namespace SecurityTest
         /// This permission is removed for user ("never" right level).
         /// Expected : A permission flagged as administrator-owner can be ungranted to a non-superadmin user.
         /// </summary>
-        [Fact]
+        [Fact, TestPriority(9)]
         public void TestGetFinalPermissionsWithAdminOwnerFlagUngrantedCaseTwo()
         {
             try
