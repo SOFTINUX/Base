@@ -25,7 +25,7 @@ namespace SecurityTest.Util
             File.Delete(EfLoggerProvider.LogFilePath);
 
             // initialize test file from copy. Root dir is bin/debug/netcoreapp2.0
-            File.Copy("..\\..\\..\\..\\Artefacts\\basedb.sqlite", "..\\..\\..\\..\\WorkDir\\basedb_tests.sqlite", true);
+            File.Copy("../../../../Artefacts/basedb.sqlite".Replace('/', Path.DirectorySeparatorChar), "../../../../WorkDir/basedb_tests.sqlite".Replace('/', Path.DirectorySeparatorChar), true);
 
             DatabaseContext = new TestContext();
             List<Assembly> loadedAssemblies = new List<Assembly>();
