@@ -34,6 +34,6 @@
     <Folder Include="Extensions\" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="$(SolutionDir)bp.bat copydeps" />
+    <Exec Command="If '$(OS)'=='Unix' ($(SolutionDir)bp.sh copydeps) ELSE ($(SolutionDir)bp.bat copydeps)" />
   </Target>
 </Project>
