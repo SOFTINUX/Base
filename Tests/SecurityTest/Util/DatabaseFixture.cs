@@ -24,6 +24,9 @@ namespace SecurityTest.Util
     public class DatabaseFixture : IDisposable
     {
         protected virtual string DatabaseToCopyFromBaseName => "basedb";
+        protected virtual string DatabaseToCopyToBaseName => "basedb_tests";
+        protected virtual string ConnectionStringPath => "ConnectionStrings:Default";
+
         public IRequestHandler DatabaseContext { get; }
 
         public DatabaseFixture()
@@ -32,10 +35,12 @@ namespace SecurityTest.Util
             File.Delete(EfLoggerProvider.LogFilePath);
 
             // initialize test file from copy. Root dir is bin/debug/netcoreapp2.0
-            // ReSharper disable once VirtualMemberCallInConstructor
-            File.Copy($"../../../../Artefacts/{DatabaseToCopyFromBaseName}.sqlite", "../../../../WorkDir/basedb_tests.sqlite", true);
+            // ReSharper disable VirtualMemberCallInConstructor
+            File.Copy($"../../../../Artefacts/{DatabaseToCopyFromBaseName}.sqlite", $"../../../../WorkDir/{DatabaseToCopyToBaseName}.sqlite", true);
 
-            DatabaseContext = new TestContext();
+            DatabaseContext = new TestContext(ConnectionStringPath);
+            // ReSharper enable VirtualMemberCallInConstructor
+
             List<Assembly> loadedAssemblies = new List<Assembly>();
 
             foreach (FileInfo file in new DirectoryInfo(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))

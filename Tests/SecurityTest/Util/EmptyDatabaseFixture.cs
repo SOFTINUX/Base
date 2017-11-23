@@ -7,6 +7,8 @@
     public class EmptyDatabaseFixture : DatabaseFixture
     {
         protected override string DatabaseToCopyFromBaseName => "basedb_empty";
+        protected override string DatabaseToCopyToBaseName => "basedb_empty_tests";
+        protected override string ConnectionStringPath => "ConnectionStrings:EmptyDb";
 
         public EmptyDatabaseFixture()
         {

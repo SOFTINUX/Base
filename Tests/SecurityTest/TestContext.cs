@@ -1,6 +1,7 @@
 ﻿// Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System;
 using System.IO;
 using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
@@ -19,8 +20,15 @@ namespace SecurityTest
     /// </summary>
     public class TestContext : IRequestHandler
     {
-        public TestContext()
+        /// <summary>
+        /// Shared context for unit tests that setups and holds the database connection.
+        /// </summary>
+        /// <param name="connectionStringPath_">Connection string to use for this context</param>
+        public TestContext(string connectionStringPath_)
         {
+            if (string.IsNullOrWhiteSpace(connectionStringPath_))
+                throw new ArgumentNullException("connectionStringPath_", "A connection string path (from appsettings.json) should be provided");
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json");
@@ -28,20 +36,13 @@ namespace SecurityTest
             IConfigurationRoot configuration = builder.Build();
 
             StorageContextOptions storageOptions =
-                new StorageContextOptions {ConnectionString = configuration["ConnectionStrings:Default"].Replace("{binDir}", Directory.GetCurrentDirectory()) };
+                new StorageContextOptions {ConnectionString = configuration[connectionStringPath_].Replace("{binDir}", Directory.GetCurrentDirectory()) };
 
             Storage = new Storage(GetProviderStorageContext(new TestOptions(storageOptions)));
 
             LoggerFactory = new LoggerFactory();
             LoggerFactory.AddConsole(configuration.GetSection("Logging")); //log levels set in your configuration
             LoggerFactory.AddDebug(); //does all log levels
-
-            // WIP use Serilog logger to write to a file
-            //Log.Logger = new LoggerConfiguration()
-            //    .MinimumLevel.Debug()
-            //    .WriteTo.RollingFile(Path.Combine(Directory.GetCurrentDirectory(), "log-{Date}.txt"))
-            //    .CreateLogger();
-            //LoggerFactory.AddSerilog();
 
         }
         public HttpContext HttpContext { get; }
