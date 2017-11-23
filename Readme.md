@@ -67,7 +67,6 @@ Optional for better experience:
   - [Output Colorizer](https://marketplace.visualstudio.com/items?itemName=IBM.output-colorizer)
   - [Trailing Spaces](https://marketplace.visualstudio.com/items?itemName=shardulm94.trailing-spaces)
   - [Todo Highlight](https://marketplace.visualstudio.com/items?itemName=wayou.vscode-todo-highlight)
-  - [TODO Parser](https://marketplace.visualstudio.com/items?itemName=minhthai.vscode-todo-parser)
 
 At your discretion:
   - [Better Comments](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments)
