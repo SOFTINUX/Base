@@ -3,6 +3,7 @@
 
 @echo off
 
+cd %~dp0 
 IF "%1" == "/?" GOTO Help
 IF "%1" == "-h" GOTO Help
 IF "%1" == "clean" GOTO Clean
