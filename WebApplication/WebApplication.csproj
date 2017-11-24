@@ -33,19 +33,21 @@
   <ItemGroup>
     <Folder Include="Extensions\" />
   </ItemGroup>
-  <PropertyGroup>
+  <!-- <PropertyGroup>
     <IsWindows Condition="'$(OS)' == 'Windows_NT'">true</IsWindows>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(MSBuildRuntimeType)' == 'Core'">
+  </PropertyGroup> -->
+  <!-- <PropertyGroup Condition="'$(MSBuildRuntimeType)' == 'Core'">
     <IsOSX Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'">true</IsOSX>
     <IsLinux Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'">true</IsLinux>
-  </PropertyGroup>
-  <Target Name="PrintRID" BeforeTargets="Build">
+  </PropertyGroup> -->
+  <!-- <Target Name="PrintRID" BeforeTargets="Build">
     <Message Text="IsWindows $(IsWindows)" Importance="high" />
     <Message Text="IsOSX $(IsOSX)" Importance="high" />
     <Message Text="IsLinux $(IsLinux)" Importance="high" />
-  </Target>
+  </Target> -->
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="If '$(IsLinux)' == 'true'  (&#xD;&#xA;    $(SolutionDir)bp.sh copydeps&#xD;&#xA;) &#xD;&#xA;If '$(IsOSX)' == 'true' (&#xD;&#xA;    $(SolutionDir)bp.sh copydeps&#xD;&#xA;)&#xD;&#xA;If '$(IsWindows)' == 'true'  (&#xD;&#xA;    $(SolutionDir)bp.bat copydeps&#xD;&#xA;)" />
+    <Exec Command="$(SolutionDir)bp.bat copydeps" Condition="'$(OS)' == 'Windows_NT'"/>
+    <Exec Command="$(SolutionDir)bp.sh copydeps" Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'"/>
+    <Exec Command="$(SolutionDir)bp.sh copydeps" Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'"/>
   </Target>
 </Project>
