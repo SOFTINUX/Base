@@ -21,9 +21,9 @@ namespace Security.Data.EntityFramework
             return dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
         }
 
-        public virtual PermissionLevel WithValue(int value_)
+        public virtual PermissionLevel WithValue(int entityValue_)
         {
-            return dbSet.FirstOrDefault(e_ => e_.Id == value_);
+            return dbSet.FirstOrDefault(e_ => e_.Value == entityValue_);
         }
 
         public virtual IEnumerable<PermissionLevel> All()
