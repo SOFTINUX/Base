@@ -23,8 +23,11 @@ namespace Security
         /// <returns></returns>
         public IEnumerable<Claim> GetFinalPermissions(IRequestHandler context_, User user_)
         {
+            int adminOwnerRoleId = context_.Storage.GetRepository<IRoleRepository>()
+                .FindBy(Roles.ROLE_CODE_ADMINISTRATOR_OWNER, "Security").Id;
+
             return GetFinalPermissions(LoadPermissionLevels(context_, user_),
-                context_.Storage.GetRepository<IUserRoleRepository>().FilteredByUserId(user_.Id).FirstOrDefault(ur_ => ur_.RoleId == (int)RoleId.AdministratorOwner) != null);
+                context_.Storage.GetRepository<IUserRoleRepository>().FilteredByUserId(user_.Id).FirstOrDefault(ur_ => ur_.RoleId == adminOwnerRoleId) != null);
         }
 
         /// <summary>

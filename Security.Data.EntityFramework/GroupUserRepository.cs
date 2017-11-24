@@ -17,7 +17,7 @@ namespace Security.Data.EntityFramework
             return dbSet.ToList();
         }
 
-        public GroupUser WithKeys(int groupId_, int userId_)
+        public GroupUser FindBy(int groupId_, int userId_)
         {
             return dbSet.FirstOrDefault(e_ => e_.GroupId == groupId_ && e_.UserId == userId_);
         }
@@ -44,7 +44,7 @@ namespace Security.Data.EntityFramework
 
         public void Delete(int groupId_, int userId_)
         {
-            dbSet.Remove(WithKeys(groupId_, userId_));
+            dbSet.Remove(FindBy(groupId_, userId_));
         }
 
     }

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ExtCore.Data.EntityFramework;
 using Microsoft.EntityFrameworkCore;
-using Security.Common.Enums;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
 
@@ -13,19 +12,19 @@ namespace Security.Data.EntityFramework
 {
     public class RoleRepository : RepositoryBase<Role>, IRoleRepository
     {
-        public virtual Role WithKey(int entityId_)
+        /// <summary>
+        /// Finds a role by id (primary key).
+        /// </summary>
+        /// <param name="entityId_"></param>
+        /// <returns></returns>
+        public virtual Role FindById(int entityId_)
         {
             return dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
         }
 
-        public virtual Role WithKeys(string code_, string originExtensionAssemblyName_)
+        public virtual Role FindBy(string code_, string originExtensionAssemblyName_)
         {
             return dbSet.FirstOrDefault(e_ => e_.Code == code_ && e_.OriginExtension == originExtensionAssemblyName_);
-        }
-
-        public virtual Role WithKey(RoleId roleId_)
-        {
-            return WithKey((int)roleId_);
         }
 
         public virtual IEnumerable<Role> All()
@@ -45,7 +44,9 @@ namespace Security.Data.EntityFramework
 
         public virtual void Delete(int entityId_)
         {
-            dbSet.Remove(WithKey(entityId_));
+            var entity = dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
+            if(entity != null)
+                dbSet.Remove(entity);
         }
 
     }

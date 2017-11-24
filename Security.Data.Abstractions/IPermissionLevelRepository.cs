@@ -11,7 +11,7 @@ namespace Security.Data.Abstractions
     public interface IPermissionLevelRepository : IRepository
     {
         void Create(PermissionLevel entity_);
-        PermissionLevel ByValue(PermissionLevelValue levelValue_);
+        PermissionLevel FindBy(PermissionLevelValue levelValue_);
         IEnumerable<PermissionLevel> All();
     }
 }

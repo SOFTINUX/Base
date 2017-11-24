@@ -9,7 +9,7 @@ namespace Security.Data.Abstractions
 {
     public interface IUserRoleRepository : IRepository
     {
-        UserRole WithKeys(int userId_, int roleId_);
+        UserRole FindBy(int userId_, int roleId_);
         IEnumerable<UserRole> FilteredByRoleId(int roleId_);
         IEnumerable<UserRole> FilteredByUserId(int userId_);
         void Create(UserRole entity_);

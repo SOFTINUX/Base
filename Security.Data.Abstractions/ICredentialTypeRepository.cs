@@ -10,8 +10,7 @@ namespace Security.Data.Abstractions
     public interface ICredentialTypeRepository : IRepository
     {
         void Create(CredentialType entity_);
-        CredentialType WithKey(int entityId_);
         IEnumerable<CredentialType> All();
-        CredentialType WithCode(string code_);
+        CredentialType FindBy(string code_); // TODO create and use Infrastructure.Enums.CredentialTypes partial class
     }
 }

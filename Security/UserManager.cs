@@ -45,7 +45,7 @@ namespace Security
 
         public User Login(string loginTypeCode_, string identifier_, string secret_)
         {
-            CredentialType credentialType = _credentialTypeRepository.WithCode(loginTypeCode_);
+            CredentialType credentialType = _credentialTypeRepository.FindBy(loginTypeCode_);
 
             if (credentialType == null)
             {
@@ -58,7 +58,7 @@ namespace Security
 
             if (credentialType.Code == Enums.CredentialType.Email)
             {
-                Credential credential = _credentialRepository.WithKeys(credentialType.Id, identifier_);
+                Credential credential = _credentialRepository.FindBy(credentialType.Id, identifier_);
                 if (credential == null)
                 {
                     _logger.LogDebug("No match for provided credential type and identifier");
@@ -70,7 +70,7 @@ namespace Security
 
                 PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
                 if (passwordHasher.VerifyHashedPassword(null, credential.Secret, secret_) == PasswordVerificationResult.Success)
-                    return _userRepository.WithKey(credential.UserId);
+                    return _userRepository.FindById(credential.UserId);
 
                 _logger.LogDebug("Credential secret verification failed");
 #if DEBUG
@@ -148,7 +148,7 @@ namespace Security
             // TODO improve code : use a navigation property above to get role's code instead of n queries
             foreach (int roleId in roleIds)
             {
-                Role role = _roleRepository.WithKey(roleId);
+                Role role = _roleRepository.FindById(roleId);
 
                 claims.Add(new Claim(ClaimTypes.Role, role.Code));
             }
@@ -181,7 +181,7 @@ namespace Security
         {
             int currentUserId = GetCurrentUserId();
 
-            return currentUserId == -1 ? null : _userRepository.WithKey(currentUserId);
+            return currentUserId == -1 ? null : _userRepository.FindById(currentUserId);
         }
     }
 }

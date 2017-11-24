@@ -23,7 +23,7 @@ namespace Security.Data.EntityFramework
         /// </summary>
         /// <param name="levelValue_"></param>
         /// <returns></returns>
-        public virtual PermissionLevel ByValue(PermissionLevelValue levelValue_)
+        public virtual PermissionLevel FindBy(PermissionLevelValue levelValue_)
         {
             return dbSet.FirstOrDefault(e_ => e_.Value == (byte) levelValue_);
         }

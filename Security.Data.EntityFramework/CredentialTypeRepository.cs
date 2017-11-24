@@ -16,17 +16,12 @@ namespace Security.Data.EntityFramework
             dbSet.Add(entity_);
         }
 
-        public virtual CredentialType WithKey(int entityId_)
-       {
-           return dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
-       }
-
         public virtual IEnumerable<CredentialType> All()
         {
             return dbSet.ToList();
         }
 
-        public virtual CredentialType WithCode(string code_)
+        public virtual CredentialType FindBy(string code_)
         {
             return dbSet.FirstOrDefault(e_ => e_.Code == code_);
         }

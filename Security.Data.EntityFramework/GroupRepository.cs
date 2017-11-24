@@ -12,12 +12,7 @@ namespace Security.Data.EntityFramework
 {
     public class GroupRepository : RepositoryBase<Group>, IGroupRepository
     {
-        public virtual Group WithKey(int entityId_)
-        {
-            return dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
-        }
-
-        public virtual Group WithKeys(string code_, string originExtensionAssemblyName_)
+        public virtual Group FindBy(string code_, string originExtensionAssemblyName_)
         {
             return dbSet.FirstOrDefault(e_ => e_.Code == code_ && e_.OriginExtension == originExtensionAssemblyName_);
         }
@@ -39,7 +34,9 @@ namespace Security.Data.EntityFramework
 
         public virtual void Delete(int entityId_)
         {
-            dbSet.Remove(WithKey(entityId_));
+            var entity = dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
+            if(entity != null)
+                dbSet.Remove(entity);
         }
     }
 }

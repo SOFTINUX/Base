@@ -12,12 +12,12 @@ namespace Security.Data.EntityFramework
 {
     public class UserRepository : RepositoryBase<User>, IUserRepository
     {
-        public virtual User WithKey(int entityId_)
+        public virtual User FindById(int entityId_)
         {
             return dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
         }
 
-        public User WithKeys(string firstName_, string lastName_, string displayName_)
+        public User FindBy(string firstName_, string lastName_, string displayName_)
         {
             return dbSet.FirstOrDefault(e_ => e_.FirstName == firstName_ && e_.LastName == lastName_ && e_.DisplayName == displayName_);
         }
@@ -30,7 +30,7 @@ namespace Security.Data.EntityFramework
         public virtual User WithCredentialIdentifier(string identifier_)
         {
             Credential c = storageContext.Set<Credential>().FirstOrDefault(c_ => c_.Identifier == identifier_);
-            return c == null ? null : WithKey(c.UserId);
+            return c == null ? null : FindById(c.UserId);
         }
 
 
@@ -51,7 +51,7 @@ namespace Security.Data.EntityFramework
 
         public virtual void Delete(int entityId_)
         {
-            dbSet.Remove(WithKey(entityId_));
+            dbSet.Remove(FindById(entityId_));
         }
     }
 }

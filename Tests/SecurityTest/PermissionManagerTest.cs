@@ -38,10 +38,10 @@ namespace SecurityTest
         {
             _fixture = fixture_;
             IPermissionLevelRepository levelRepo = _fixture.GetRepository<IPermissionLevelRepository>();
-            _writeLevel  = levelRepo.ByValue(PermissionLevelValue.ReadWrite);
-            _readLevel = levelRepo.ByValue(PermissionLevelValue.ReadOnly);
-            _neverLevel = levelRepo.ByValue(PermissionLevelValue.Never);
-            _noLevel = levelRepo.ByValue(PermissionLevelValue.No);
+            _writeLevel  = levelRepo.FindBy(PermissionLevelValue.ReadWrite);
+            _readLevel = levelRepo.FindBy(PermissionLevelValue.ReadOnly);
+            _neverLevel = levelRepo.FindBy(PermissionLevelValue.Never);
+            _noLevel = levelRepo.FindBy(PermissionLevelValue.No);
 
         }
 
@@ -357,7 +357,7 @@ namespace SecurityTest
 
                 User user1 = new User { DisplayName = "Test", FirstName = "Test", LastName = "Test" };
 
-                Role role1 = _fixture.GetRepository<IRoleRepository>().WithKey((int)RoleId.AdministratorOwner);
+                Role role1 = _fixture.GetRepository<IRoleRepository>().FindBy(Roles.ROLE_CODE_ADMINISTRATOR_OWNER, "Security");
 
                 IRolePermissionRepository rolePermRepo = _fixture.GetRepository<IRolePermissionRepository>();
 
@@ -441,7 +441,7 @@ namespace SecurityTest
 
                 User user1 = new User { DisplayName = "Test", FirstName = "Test", LastName = "Test" };
 
-                Role role1 = _fixture.GetRepository<IRoleRepository>().WithKey((int)RoleId.Administrator);
+                Role role1 = _fixture.GetRepository<IRoleRepository>().FindBy(Roles.ROLE_CODE_ADMINISTRATOR, "Security");
 
                 IRolePermissionRepository rolePermRepo = _fixture.GetRepository<IRolePermissionRepository>();
 
@@ -524,7 +524,7 @@ namespace SecurityTest
 
                 User user1 = new User { DisplayName = "Test", FirstName = "Test", LastName = "Test" };
 
-                Role role1 = _fixture.GetRepository<IRoleRepository>().WithKey((int)RoleId.AdministratorOwner);
+                Role role1 = _fixture.GetRepository<IRoleRepository>().FindBy(Roles.ROLE_CODE_ADMINISTRATOR_OWNER, "Security");
 
                 _fixture.GetRepository<IPermissionRepository>().Create(perm1);
                 _fixture.GetRepository<IGroupRepository>().Create(group1);
@@ -604,7 +604,7 @@ namespace SecurityTest
 
                 User user1 = new User { DisplayName = "Test", FirstName = "Test", LastName = "Test" };
 
-                Role role1 = _fixture.GetRepository<IRoleRepository>().WithKey((int)RoleId.Administrator);
+                Role role1 = _fixture.GetRepository<IRoleRepository>().FindBy(Roles.ROLE_CODE_ADMINISTRATOR, "Security");
 
                 _fixture.GetRepository<IPermissionRepository>().Create(perm1);
                 _fixture.GetRepository<IGroupRepository>().Create(group1);

@@ -9,7 +9,7 @@ namespace Security.Data.Abstractions
 {
     public interface IGroupUserRepository : IRepository
     {
-        GroupUser WithKeys(int groupId_, int userId_);
+        GroupUser FindBy(int groupId_, int userId_);
         IEnumerable<GroupUser> FilteredByGroupId(int groupId_);
         IEnumerable<GroupUser> FilteredByUserId(int userId_);
         void Create(GroupUser entity_);

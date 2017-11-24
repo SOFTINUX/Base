@@ -13,7 +13,7 @@ namespace Security.Data.EntityFramework
     public class RolePermissionRepository : RepositoryBase<RolePermission>, IRolePermissionRepository
     {
 
-        public RolePermission WithKeys(int roleId_, int permissionId_)
+        public RolePermission FindBy(int roleId_, int permissionId_)
         {
             return dbSet.FirstOrDefault(e_ => e_.RoleId == roleId_ && e_.PermissionId == permissionId_);
         }
@@ -35,7 +35,9 @@ namespace Security.Data.EntityFramework
 
         public void Delete(int roleId_, int permissionId_)
         {
-            throw new System.NotImplementedException();
+            var entity = FindBy(roleId_, permissionId_);
+            if (entity != null)
+                dbSet.Remove(entity);
         }
 
      }

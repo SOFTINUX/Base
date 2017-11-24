@@ -1,9 +1,13 @@
 ﻿// Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
-namespace Security.Enums
+namespace Infrastructure.Enums
 {
-    public static class Permission
+    /// <summary>
+    /// This extendable (because it is partial) class defines all the permissions "codes",
+    /// i.e. distinct values in column "Code" of table "Permission".
+    /// </summary>
+    public partial class Permissions
     {
         /// <summary>
         /// Code of a permission provided by the Security extension.
@@ -22,15 +26,5 @@ namespace Security.Enums
         /// </summary>
         public const string PERM_CODE_EDIT_PERMISSION = "edit_permission";
 
-        /// <summary>
-        /// ID of Permission records
-        /// </summary>
-        public enum PermissionId
-        {
-            EditUser = 1,
-            EditRole = 2,
-            EditGroup = 3,
-            EditPermission = 4
-        }
     }
 }

@@ -9,7 +9,7 @@ namespace Security.Data.Abstractions
 {
     public interface IUserPermissionRepository : IRepository
     {
-        UserPermission WithKeys(int userId_, int permissionId_);
+        UserPermission FindBy(int userId_, int permissionId_);
         IEnumerable<UserPermission> FilteredByUserId(int userId_);
         void Create(UserPermission entity_);
         void Edit(UserPermission entity_);

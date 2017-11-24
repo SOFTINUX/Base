@@ -26,7 +26,7 @@ namespace Extension1
                 2000,
                 new[]
                 {
-                    new MenuItem("/extension1/admin", "Extension 1", 100)
+                    new MenuItem("/extension1/admin", "Manage Extension 1", 100)
                 }
             )
         };

@@ -12,12 +12,7 @@ namespace Security.Data.EntityFramework
 {
     public class PermissionRepository : RepositoryBase<Permission>, IPermissionRepository
     {
-        public virtual Permission WithKey(int entityId_)
-        {
-            return dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
-        }
-
-        public virtual Permission WithKeys(string code_, string originExtensionAssemblyName_)
+        public virtual Permission FindBy(string code_, string originExtensionAssemblyName_)
         {
             return dbSet.FirstOrDefault(e_ => e_.Code == code_ && e_.OriginExtension == originExtensionAssemblyName_);
         }
@@ -39,7 +34,9 @@ namespace Security.Data.EntityFramework
 
         public virtual void Delete(int entityId_)
         {
-            dbSet.Remove(WithKey(entityId_));
+            var entity = dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
+            if(entity != null)
+                dbSet.Remove(entity);
         }
 
         public IEnumerable<PermissionValue> GetPermissionCodeAndLevelByRoleForUserId(int userId_)

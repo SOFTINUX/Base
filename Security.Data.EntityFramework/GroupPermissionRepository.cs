@@ -12,7 +12,7 @@ namespace Security.Data.EntityFramework
 {
     public class GroupPermissionRepository : RepositoryBase<GroupPermission>, IGroupPermissionRepository
     {
-        public GroupPermission WithKeys(int groupId_, int permissionId_)
+        public GroupPermission FindBy(int groupId_, int permissionId_)
         {
             return dbSet.FirstOrDefault(e_ => e_.GroupId == groupId_ && e_.PermissionId == permissionId_);
         }
@@ -34,7 +34,9 @@ namespace Security.Data.EntityFramework
 
         public void Delete(int groupId_, int permissionId_)
         {
-            throw new System.NotImplementedException();
+            var entity = FindBy(groupId_, permissionId_);
+            if (entity != null)
+                dbSet.Remove(entity);
         }
 
       }

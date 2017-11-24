@@ -9,15 +9,13 @@ namespace Security.Data.Abstractions
 {
     public interface IPermissionRepository : IRepository
     {
-        Permission WithKey(int entityId_);
-
         /// <summary>
         /// Finds a permission by code and origin extension assembly "short name" (Assembly.GetName().Name).
         /// </summary>
-        /// <param name="code_"></param>
-        /// <param name="originExtensionAssemblyName_"></param>
+        /// <param name="code_">A permission code. See Infrastructure.Enums.Permissions</param>
+        /// <param name="originExtensionAssemblyName_">extension assembly "short name" (Assembly.GetName().Name)</param>
         /// <returns></returns>
-        Permission WithKeys(string code_, string originExtensionAssemblyName_);
+        Permission FindBy(string code_, string originExtensionAssemblyName_);
         IEnumerable<Permission> All();
         void Create(Permission entity_);
         void Edit(Permission entity_);

@@ -7,22 +7,23 @@ using ExtCore.Data.Abstractions;
 using Infrastructure.Enums;
 using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using Security.Common.Enums;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
-using Permission = Security.Enums.Permission;
 
 namespace Security
 {
     public class ExtensionDatabaseMetadata : IExtensionDatabaseMetadata
     {
-        private Tuple<string, string, string> _superAdminData =
+        // this value will not change
+        private const string _securityAssemblyName = "Security";
+
+        private Tuple<string, string, string> _superAdminUserData =
             new Tuple<string, string, string>("Super", "Admin", "Super Administrator");
 
-        private Tuple<string, string, string> _adminData =
+        private Tuple<string, string, string> _adminUserData =
             new Tuple<string, string, string>("Test", "Admin", "Test Admin");
 
-        private Tuple<string, string, string> _userData =
+        private Tuple<string, string, string> _userUserData =
             new Tuple<string, string, string>("Test", "User", "Test User");
 
         private KeyValuePair<string, string> _credentialTypeData =
@@ -32,16 +33,21 @@ namespace Security
 
         public uint Priority => 0;
 
+        // used in several methods so declared here and gat valued in ConfigureLinks().
+        private IRoleRepository _roleRepo;
+        Role _adminOwnerRole, _adminRole, _userRole;
+
+
         /// <summary>
         /// The permissions related to this extension administration.
         /// </summary>
         public IEnumerable<Tuple<string, string, bool>> PermissionCodeLabelAndFlags =>
             new[]
             {
-                new Tuple<string, string, bool>(Permission.PERM_CODE_EDIT_PERMISSION, "Permissions management", true),
-                new Tuple<string, string, bool>(Permission.PERM_CODE_EDIT_ROLE, "Roles management", true),
-                new Tuple<string, string, bool>(Permission.PERM_CODE_EDIT_USER, "Users management", true),
-                new Tuple<string, string, bool>(Permission.PERM_CODE_EDIT_GROUP, "Groups management", true)
+                new Tuple<string, string, bool>(Permissions.PERM_CODE_EDIT_PERMISSION, "Permissions management", true),
+                new Tuple<string, string, bool>(Permissions.PERM_CODE_EDIT_ROLE, "Roles management", true),
+                new Tuple<string, string, bool>(Permissions.PERM_CODE_EDIT_USER, "Users management", true),
+                new Tuple<string, string, bool>(Permissions.PERM_CODE_EDIT_GROUP, "Groups management", true)
             };
 
         /// <summary>
@@ -50,9 +56,9 @@ namespace Security
         public IEnumerable<KeyValuePair<string, string>> RoleCodeAndLabels =>
             new[]
             {
-                new KeyValuePair<string, string>("administrator-owner", "Administrator Owner"),
-                new KeyValuePair<string, string>("administrator", "Administrator"),
-                new KeyValuePair<string, string>("user", "Administrator User"),
+                new KeyValuePair<string, string>(Roles.ROLE_CODE_ADMINISTRATOR_OWNER, "Administrator Owner"),
+                new KeyValuePair<string, string>(Roles.ROLE_CODE_ADMINISTRATOR, "Administrator"),
+                new KeyValuePair<string, string>(Roles.ROLE_CODE_USER, "Administrator User"),
             };
 
         /// <summary>
@@ -86,14 +92,20 @@ namespace Security
         public IEnumerable<Tuple<string, string, string>> UserFirstnameLastnameAndDisplayNames =>
             new[]
             {
-                _superAdminData,
-                _adminData,
-                _userData
+                _superAdminUserData,
+                _adminUserData,
+                _userUserData
             };
 
         public void ConfigureLinks(IStorage storage_)
         {
             _storage = storage_;
+
+            // Get the role entities we need
+            _roleRepo = _storage.GetRepository<IRoleRepository>();
+            _adminOwnerRole = _roleRepo.FindBy(Roles.ROLE_CODE_ADMINISTRATOR_OWNER, _securityAssemblyName);
+            _adminRole = _roleRepo.FindBy(Roles.ROLE_CODE_ADMINISTRATOR, _securityAssemblyName);
+            _userRole = _roleRepo.FindBy(Roles.ROLE_CODE_USER, _securityAssemblyName);
 
             // 1. credential
             InsertCredential();
@@ -115,23 +127,30 @@ namespace Security
         {
             IRolePermissionRepository repo = _storage.GetRepository<IRolePermissionRepository>();
 
-            // Get the permission level we need
+            // Get the permission level entities we need
             IPermissionLevelRepository levelRepo = _storage.GetRepository<IPermissionLevelRepository>();
-            PermissionLevel readLevel = levelRepo.ByValue(PermissionLevelValue.ReadOnly);
-            PermissionLevel writeLevel = levelRepo.ByValue(PermissionLevelValue.ReadWrite);
+            PermissionLevel readLevel = levelRepo.FindBy(PermissionLevelValue.ReadOnly);
+            PermissionLevel writeLevel = levelRepo.FindBy(PermissionLevelValue.ReadWrite);
+
+            // Get the permission entities we need
+            IPermissionRepository permRepo = _storage.GetRepository<IPermissionRepository>();
+            Permission editGroupPerm = permRepo.FindBy(Permissions.PERM_CODE_EDIT_GROUP, _securityAssemblyName);
+            Permission editUserPerm = permRepo.FindBy(Permissions.PERM_CODE_EDIT_USER, _securityAssemblyName);
+            Permission editRolePerm = permRepo.FindBy(Permissions.PERM_CODE_EDIT_ROLE, _securityAssemblyName);
+            Permission editPermissionPerm = permRepo.FindBy(Permissions.PERM_CODE_EDIT_PERMISSION, _securityAssemblyName);
 
             // Create the links
-            repo.Create(new RolePermission { RoleId = (int)RoleId.AdministratorOwner, PermissionId = (int)Permission.PermissionId.EditGroup, PermissionLevelId = writeLevel.Id });
-            repo.Create(new RolePermission { RoleId = (int)RoleId.AdministratorOwner, PermissionId = (int)Permission.PermissionId.EditUser, PermissionLevelId = writeLevel.Id });
-            repo.Create(new RolePermission { RoleId = (int)RoleId.AdministratorOwner, PermissionId = (int)Permission.PermissionId.EditRole, PermissionLevelId = writeLevel.Id });
-            repo.Create(new RolePermission { RoleId = (int)RoleId.AdministratorOwner, PermissionId = (int)Permission.PermissionId.EditPermission, PermissionLevelId = writeLevel.Id });
+            repo.Create(new RolePermission { RoleId = _adminOwnerRole.Id, PermissionId = editGroupPerm.Id, PermissionLevelId = writeLevel.Id });
+            repo.Create(new RolePermission { RoleId = _adminOwnerRole.Id, PermissionId = editUserPerm.Id, PermissionLevelId = writeLevel.Id });
+            repo.Create(new RolePermission { RoleId = _adminOwnerRole.Id, PermissionId = editRolePerm.Id, PermissionLevelId = writeLevel.Id });
+            repo.Create(new RolePermission { RoleId = _adminOwnerRole.Id, PermissionId = editPermissionPerm.Id, PermissionLevelId = writeLevel.Id });
 
-            repo.Create(new RolePermission { RoleId = (int)RoleId.Administrator, PermissionId = (int)Permission.PermissionId.EditGroup, PermissionLevelId = writeLevel.Id });
-            repo.Create(new RolePermission { RoleId = (int)RoleId.Administrator, PermissionId = (int)Permission.PermissionId.EditUser, PermissionLevelId = writeLevel.Id });
-            repo.Create(new RolePermission { RoleId = (int)RoleId.Administrator, PermissionId = (int)Permission.PermissionId.EditRole, PermissionLevelId = writeLevel.Id });
-            repo.Create(new RolePermission { RoleId = (int)RoleId.Administrator, PermissionId = (int)Permission.PermissionId.EditPermission, PermissionLevelId = writeLevel.Id });
+            repo.Create(new RolePermission { RoleId = _adminRole.Id, PermissionId = editGroupPerm.Id, PermissionLevelId = writeLevel.Id });
+            repo.Create(new RolePermission { RoleId = _adminRole.Id, PermissionId = editUserPerm.Id, PermissionLevelId = writeLevel.Id });
+            repo.Create(new RolePermission { RoleId = _adminRole.Id, PermissionId = editRolePerm.Id, PermissionLevelId = writeLevel.Id });
+            repo.Create(new RolePermission { RoleId = _adminRole.Id, PermissionId = editPermissionPerm.Id, PermissionLevelId = writeLevel.Id });
 
-            repo.Create(new RolePermission { RoleId = (int)RoleId.User, PermissionId = (int)Permission.PermissionId.EditUser, PermissionLevelId = readLevel.Id });
+            repo.Create(new RolePermission { RoleId = _userRole.Id, PermissionId = editUserPerm.Id, PermissionLevelId = readLevel.Id });
         }
 
         private void InsertUserRole()
@@ -139,11 +158,11 @@ namespace Security
             IUserRoleRepository repo = _storage.GetRepository<IUserRoleRepository>();
             IUserRepository userRepo = _storage.GetRepository<IUserRepository>();
             // super-admin
-            repo.Create(new UserRole { RoleId = (int)RoleId.AdministratorOwner, UserId = userRepo.WithKeys(_superAdminData.Item1, _superAdminData.Item2, _superAdminData.Item3).Id });
+            repo.Create(new UserRole { RoleId = _adminOwnerRole.Id, UserId = userRepo.FindBy(_superAdminUserData.Item1, _superAdminUserData.Item2, _superAdminUserData.Item3).Id });
             // admin
-            repo.Create(new UserRole { RoleId = (int)RoleId.Administrator, UserId = userRepo.WithKeys(_adminData.Item1, _adminData.Item2, _adminData.Item3).Id });
+            repo.Create(new UserRole { RoleId = _adminRole.Id, UserId = userRepo.FindBy(_adminUserData.Item1, _adminUserData.Item2, _adminUserData.Item3).Id });
             // user
-            repo.Create(new UserRole { RoleId = (int)RoleId.User, UserId = userRepo.WithKeys(_userData.Item1, _userData.Item2, _userData.Item3).Id });
+            repo.Create(new UserRole { RoleId = _userRole.Id, UserId = userRepo.FindBy(_userUserData.Item1, _userUserData.Item2, _userUserData.Item3).Id });
 
         }
 
@@ -154,11 +173,11 @@ namespace Security
             ICredentialTypeRepository credTypeRepo = _storage.GetRepository<ICredentialTypeRepository>();
 
             string hashedPassword = new PasswordHasher<User>().HashPassword(null, "123password");
-            int credentialTypeId = credTypeRepo.WithCode(_credentialTypeData.Key).Id;
+            int credentialTypeId = credTypeRepo.FindBy(_credentialTypeData.Key).Id;
             repo.Create(new Credential
             {
                 CredentialTypeId = credentialTypeId,
-                UserId = userRepo.WithKeys(_superAdminData.Item1, _superAdminData.Item2, _superAdminData.Item3).Id,
+                UserId = userRepo.FindBy(_superAdminUserData.Item1, _superAdminUserData.Item2, _superAdminUserData.Item3).Id,
                 Identifier = "adminowner",
                 Secret = hashedPassword
             });
@@ -166,7 +185,7 @@ namespace Security
             repo.Create(new Credential
             {
                 CredentialTypeId = credentialTypeId,
-                UserId = userRepo.WithKeys(_adminData.Item1, _adminData.Item2, _adminData.Item3).Id,
+                UserId = userRepo.FindBy(_adminUserData.Item1, _adminUserData.Item2, _adminUserData.Item3).Id,
                 Identifier = "admin",
                 Secret = hashedPassword
             });
@@ -174,7 +193,7 @@ namespace Security
             repo.Create(new Credential
             {
                 CredentialTypeId = credentialTypeId,
-                UserId = userRepo.WithKeys(_userData.Item1, _userData.Item2, _userData.Item3).Id,
+                UserId = userRepo.FindBy(_userUserData.Item1, _userUserData.Item2, _userUserData.Item3).Id,
                 Identifier = "user",
                 Secret = hashedPassword
             });

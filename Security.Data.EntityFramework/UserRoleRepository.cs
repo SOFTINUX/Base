@@ -13,7 +13,7 @@ namespace Security.Data.EntityFramework
     public class UserRoleRepository : RepositoryBase<UserRole>, IUserRoleRepository
     {
 
-        public UserRole WithKeys(int userId_, int roleId_)
+        public UserRole FindBy(int userId_, int roleId_)
         {
             return dbSet.FirstOrDefault(e_ => e_.UserId == userId_ && e_.RoleId == roleId_);
         }
@@ -40,7 +40,7 @@ namespace Security.Data.EntityFramework
 
         public void Delete(int userId_, int roleId_)
         {
-            dbSet.Remove(WithKeys(userId_, roleId_));
+            dbSet.Remove(FindBy(userId_, roleId_));
         }
 
     }

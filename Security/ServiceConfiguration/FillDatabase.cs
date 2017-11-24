@@ -75,7 +75,7 @@ namespace Security.ServiceConfiguration
             IPermissionRepository repo = _storage.GetRepository<IPermissionRepository>();
             foreach (Tuple<string, string, bool> permission in permissions_)
             {
-                if (repo.WithKeys(permission.Item1, permission.Item2) == null)
+                if (repo.FindBy(permission.Item1, permission.Item2) == null)
                 {
                     repo.Create(new Permission { Code = permission.Item1, Label = permission.Item2, AdministratorOwner = permission.Item3, OriginExtension = extensionAssemblyName_ });
                 }
@@ -89,7 +89,7 @@ namespace Security.ServiceConfiguration
             IPermissionLevelRepository repo = _storage.GetRepository<IPermissionLevelRepository>();
             foreach (Tuple<PermissionLevelValue, string, string> permissionLevel in permissionsLevel_)
             {
-                if (repo.ByValue(permissionLevel.Item1) == null)
+                if (repo.FindBy(permissionLevel.Item1) == null)
                 {
                     repo.Create(new PermissionLevel {  Value = (byte) permissionLevel.Item1, Label = permissionLevel.Item2, Tip = permissionLevel.Item3 });
                 }
@@ -103,7 +103,7 @@ namespace Security.ServiceConfiguration
             IUserRepository repo = _storage.GetRepository<IUserRepository>();
             foreach (Tuple<string, string, string> user in user_)
             {
-                if (repo.WithKeys(user.Item1, user.Item2, user.Item3) == null)
+                if (repo.FindBy(user.Item1, user.Item2, user.Item3) == null)
                 {
                     repo.Create(new User { FirstName = user.Item1, LastName = user.Item2, DisplayName = user.Item3 });
                 }
@@ -117,7 +117,7 @@ namespace Security.ServiceConfiguration
             ICredentialTypeRepository repo = _storage.GetRepository<ICredentialTypeRepository>();
             foreach (KeyValuePair<string, string> role in credentialsTypes_)
             {
-                if (repo.WithCode(role.Key) == null)
+                if (repo.FindBy(role.Key) == null)
                 {
                     repo.Create(new CredentialType { Code = role.Key, Label = role.Value });
                 }
@@ -131,7 +131,7 @@ namespace Security.ServiceConfiguration
             IRoleRepository repo = _storage.GetRepository<IRoleRepository>();
             foreach (KeyValuePair<string, string> role in roles_)
             {
-                if (repo.WithKeys(role.Key, role.Value) == null)
+                if (repo.FindBy(role.Key, role.Value) == null)
                 {
                     repo.Create(new Role { Code = role.Key, Label = role.Value, OriginExtension = extensionAssemblyName_ });
                 }
@@ -145,7 +145,7 @@ namespace Security.ServiceConfiguration
             IGroupRepository repo = _storage.GetRepository<IGroupRepository>();
             foreach (KeyValuePair<string, string> group in groups_)
             {
-                if (repo.WithKeys(group.Key, group.Value) == null)
+                if (repo.FindBy(group.Key, group.Value) == null)
                 {
                     repo.Create(new Group { Code = group.Key, Label = group.Value, OriginExtension = extensionAssemblyName_ });
                 }
