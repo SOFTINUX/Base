@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using Infrastructure.Enums;
 using Infrastructure.Interfaces;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
@@ -61,13 +62,13 @@ namespace Security
                     continue;
                 }
 
-                if ((pv.Level & (int)Enums.Permission.PermissionLevelValue.ReadWrite) != 0)
+                if ((pv.Level & (byte)PermissionLevelValue.ReadWrite) != 0)
                 {
                     // Implicit read write allowed when read-write right allowed
                     claims.Add(new Claim(ClaimType.Permission, PolicyUtil.GetClaimValue(uniqueId, true)));
                     claims.Add(new Claim(ClaimType.Permission, PolicyUtil.GetClaimValue(uniqueId, false)));
                 }
-                else if ((pv.Level & (int)Enums.Permission.PermissionLevelValue.ReadOnly) != 0)
+                else if ((pv.Level & (byte)PermissionLevelValue.ReadOnly) != 0)
                 {
                     claims.Add(new Claim(ClaimType.Permission, PolicyUtil.GetClaimValue(uniqueId, false)));
                 }

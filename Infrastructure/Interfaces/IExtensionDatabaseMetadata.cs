@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using ExtCore.Data.Abstractions;
+using Infrastructure.Enums;
 
 namespace Infrastructure.Interfaces
 {
@@ -53,9 +54,8 @@ namespace Infrastructure.Interfaces
 
         /// <summary>
         /// The permission levels that will be created in application (only by Security extension).
-        /// Id is forced by design
         /// </summary>
-        IEnumerable<Tuple<int, byte, string, string>> PermissionLevelIdValueLabelAndTips { get; }
+        IEnumerable<Tuple<PermissionLevelValue, string, string>> PermissionLevelValueLabelAndTips { get; }
 
         /// <summary>
         /// The users you wish to add to the application.

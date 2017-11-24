@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using ExtCore.Data.Abstractions;
+using Infrastructure.Enums;
 using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Security.Common.Enums;
@@ -71,19 +72,15 @@ namespace Security
         /// <summary>
         /// The permission levels used in Security extension.
         /// </summary>
-        public IEnumerable<Tuple<int, byte, string, string>> PermissionLevelIdValueLabelAndTips =>
+        public IEnumerable<Tuple<PermissionLevelValue, string, string>> PermissionLevelValueLabelAndTips =>
             new[]
             {
-                new Tuple<int, byte, string, string>((int) Permission.PermissionLevelId.IdNever,
-                    (int) Permission.PermissionLevelValue.Never, "Never",
+                new Tuple<PermissionLevelValue, string, string>(PermissionLevelValue.Never, "Never",
                     "No right, unmodifiable through right inheritance"),
-                new Tuple<int, byte, string, string>((int) Permission.PermissionLevelId.IdNo,
-                    (int) Permission.PermissionLevelValue.No, "No",
+                new Tuple<PermissionLevelValue, string, string>(PermissionLevelValue.No, "No",
                     "No right, but could be allowed through right inheritance"),
-                new Tuple<int, byte, string, string>((int) Permission.PermissionLevelId.IdReadOnly,
-                    (int) Permission.PermissionLevelValue.ReadOnly, "Read-only", "Read-only access"),
-                new Tuple<int, byte, string, string>((int) Permission.PermissionLevelId.IdReadWrite,
-                    (int) Permission.PermissionLevelValue.ReadWrite, "Read-write", "Read-write access"),
+                new Tuple<PermissionLevelValue, string, string>(PermissionLevelValue.ReadOnly, "Read-only", "Read-only access"),
+                new Tuple<PermissionLevelValue, string, string>(PermissionLevelValue.ReadWrite, "Read-write", "Read-write access"),
             };
 
         public IEnumerable<Tuple<string, string, string>> UserFirstnameLastnameAndDisplayNames =>
@@ -118,17 +115,23 @@ namespace Security
         {
             IRolePermissionRepository repo = _storage.GetRepository<IRolePermissionRepository>();
 
-            repo.Create(new RolePermission { RoleId = (int)RoleId.AdministratorOwner, PermissionId = (int)Permission.PermissionId.EditGroup, PermissionLevelId = (int)Permission.PermissionLevelId.IdReadWrite });
-            repo.Create(new RolePermission { RoleId = (int)RoleId.AdministratorOwner, PermissionId = (int)Permission.PermissionId.EditUser, PermissionLevelId = (int)Permission.PermissionLevelId.IdReadWrite });
-            repo.Create(new RolePermission { RoleId = (int)RoleId.AdministratorOwner, PermissionId = (int)Permission.PermissionId.EditRole, PermissionLevelId = (int)Permission.PermissionLevelId.IdReadWrite });
-            repo.Create(new RolePermission { RoleId = (int)RoleId.AdministratorOwner, PermissionId = (int)Permission.PermissionId.EditPermission, PermissionLevelId = (int)Permission.PermissionLevelId.IdReadWrite });
+            // Get the permission level we need
+            IPermissionLevelRepository levelRepo = _storage.GetRepository<IPermissionLevelRepository>();
+            PermissionLevel readLevel = levelRepo.ByValue(PermissionLevelValue.ReadOnly);
+            PermissionLevel writeLevel = levelRepo.ByValue(PermissionLevelValue.ReadWrite);
 
-            repo.Create(new RolePermission { RoleId = (int)RoleId.Administrator, PermissionId = (int)Permission.PermissionId.EditGroup, PermissionLevelId = (int)Permission.PermissionLevelId.IdReadWrite });
-            repo.Create(new RolePermission { RoleId = (int)RoleId.Administrator, PermissionId = (int)Permission.PermissionId.EditUser, PermissionLevelId = (int)Permission.PermissionLevelId.IdReadWrite });
-            repo.Create(new RolePermission { RoleId = (int)RoleId.Administrator, PermissionId = (int)Permission.PermissionId.EditRole, PermissionLevelId = (int)Permission.PermissionLevelId.IdReadWrite });
-            repo.Create(new RolePermission { RoleId = (int)RoleId.Administrator, PermissionId = (int)Permission.PermissionId.EditPermission, PermissionLevelId = (int)Permission.PermissionLevelId.IdReadWrite });
+            // Create the links
+            repo.Create(new RolePermission { RoleId = (int)RoleId.AdministratorOwner, PermissionId = (int)Permission.PermissionId.EditGroup, PermissionLevelId = writeLevel.Id });
+            repo.Create(new RolePermission { RoleId = (int)RoleId.AdministratorOwner, PermissionId = (int)Permission.PermissionId.EditUser, PermissionLevelId = writeLevel.Id });
+            repo.Create(new RolePermission { RoleId = (int)RoleId.AdministratorOwner, PermissionId = (int)Permission.PermissionId.EditRole, PermissionLevelId = writeLevel.Id });
+            repo.Create(new RolePermission { RoleId = (int)RoleId.AdministratorOwner, PermissionId = (int)Permission.PermissionId.EditPermission, PermissionLevelId = writeLevel.Id });
 
-            repo.Create(new RolePermission { RoleId = (int)RoleId.User, PermissionId = (int)Permission.PermissionId.EditUser, PermissionLevelId = (int)Permission.PermissionLevelId.IdReadOnly });
+            repo.Create(new RolePermission { RoleId = (int)RoleId.Administrator, PermissionId = (int)Permission.PermissionId.EditGroup, PermissionLevelId = writeLevel.Id });
+            repo.Create(new RolePermission { RoleId = (int)RoleId.Administrator, PermissionId = (int)Permission.PermissionId.EditUser, PermissionLevelId = writeLevel.Id });
+            repo.Create(new RolePermission { RoleId = (int)RoleId.Administrator, PermissionId = (int)Permission.PermissionId.EditRole, PermissionLevelId = writeLevel.Id });
+            repo.Create(new RolePermission { RoleId = (int)RoleId.Administrator, PermissionId = (int)Permission.PermissionId.EditPermission, PermissionLevelId = writeLevel.Id });
+
+            repo.Create(new RolePermission { RoleId = (int)RoleId.User, PermissionId = (int)Permission.PermissionId.EditUser, PermissionLevelId = readLevel.Id });
         }
 
         private void InsertUserRole()

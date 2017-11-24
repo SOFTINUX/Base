@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ExtCore.Data.Abstractions;
 using ExtCore.Infrastructure;
+using Infrastructure.Enums;
 using Infrastructure.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Security.Data.Abstractions;
@@ -39,7 +40,7 @@ namespace Security.ServiceConfiguration
                 // Permissions
                 RecordPermissions(extensionMetadata.PermissionCodeLabelAndFlags, GetAssemblyName(extensionMetadata));
                 // Permissions level
-                RecordPermissionsLevel(extensionMetadata.PermissionLevelIdValueLabelAndTips,  GetAssemblyName(extensionMetadata));
+                RecordPermissionsLevel(extensionMetadata.PermissionLevelValueLabelAndTips,  GetAssemblyName(extensionMetadata));
                 // Roles
                 RecordRoles(extensionMetadata.RoleCodeAndLabels, GetAssemblyName(extensionMetadata));
                 // Groups
@@ -81,16 +82,16 @@ namespace Security.ServiceConfiguration
             }
         }
 
-        private void RecordPermissionsLevel(IEnumerable<Tuple<int, byte, string, string>> permissionsLevel_, string extensionAssemblyName_)
+        private void RecordPermissionsLevel(IEnumerable<Tuple<PermissionLevelValue, string, string>> permissionsLevel_, string extensionAssemblyName_)
         {
             if (permissionsLevel_ == null)
                 return;
             IPermissionLevelRepository repo = _storage.GetRepository<IPermissionLevelRepository>();
-            foreach (Tuple<int, byte, string, string> permissionLevel in permissionsLevel_)
+            foreach (Tuple<PermissionLevelValue, string, string> permissionLevel in permissionsLevel_)
             {
-                if (repo.WithValue(permissionLevel.Item2) == null)
+                if (repo.ByValue(permissionLevel.Item1) == null)
                 {
-                    repo.Create(new PermissionLevel { Id = permissionLevel.Item1,  Value = permissionLevel.Item2, Label = permissionLevel.Item3, Tip = permissionLevel.Item4 });
+                    repo.Create(new PermissionLevel {  Value = (byte) permissionLevel.Item1, Label = permissionLevel.Item2, Tip = permissionLevel.Item3 });
                 }
             }
         }

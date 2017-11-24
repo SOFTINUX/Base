@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using ExtCore.Data.Abstractions;
 using Infrastructure;
+using Infrastructure.Enums;
 using Security.Common.Enums;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
@@ -33,8 +34,13 @@ namespace Extension1
             if(rolePermRepo.WithKeys((int) RoleId.AdministratorOwner, perm1.Id) != null)
                 return;
 
-            rolePermRepo.Create(new RolePermission { PermissionId = perm1.Id, RoleId = (int) RoleId.Administrator, PermissionLevelId = (int) Security.Enums.Permission.PermissionLevelId.IdReadWrite});
-            rolePermRepo.Create(new RolePermission { PermissionId = perm1.Id, RoleId = (int) RoleId.AdministratorOwner, PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadWrite });
+            // Get the permission level we need
+            IPermissionLevelRepository levelRepo = storage_.GetRepository<IPermissionLevelRepository>();
+            PermissionLevel writeLevel = levelRepo.ByValue(PermissionLevelValue.ReadWrite);
+
+            // Create the links
+            rolePermRepo.Create(new RolePermission { PermissionId = perm1.Id, RoleId = (int) RoleId.Administrator, PermissionLevelId = writeLevel.Id});
+            rolePermRepo.Create(new RolePermission { PermissionId = perm1.Id, RoleId = (int) RoleId.AdministratorOwner, PermissionLevelId = writeLevel.Id });
 
         }
     }

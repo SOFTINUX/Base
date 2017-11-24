@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using ExtCore.Data.Abstractions;
+using Infrastructure.Enums;
 using Security.Data.Entities;
 
 namespace Security.Data.Abstractions
@@ -10,8 +11,7 @@ namespace Security.Data.Abstractions
     public interface IPermissionLevelRepository : IRepository
     {
         void Create(PermissionLevel entity_);
-        PermissionLevel WithKey(int entityId_);
-        PermissionLevel WithValue(int value_);
+        PermissionLevel ByValue(PermissionLevelValue levelValue_);
         IEnumerable<PermissionLevel> All();
     }
 }

@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ExtCore.Data.EntityFramework;
+using Infrastructure.Enums;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
 
@@ -16,14 +17,15 @@ namespace Security.Data.EntityFramework
             dbSet.Add(entity_);
         }
 
-        public virtual PermissionLevel WithKey(int entityId_)
+        /// <summary>
+        /// Loads a record by matching on "value" column.
+        /// Permission level values are a list of frozen values.
+        /// </summary>
+        /// <param name="levelValue_"></param>
+        /// <returns></returns>
+        public virtual PermissionLevel ByValue(PermissionLevelValue levelValue_)
         {
-            return dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
-        }
-
-        public virtual PermissionLevel WithValue(int entityValue_)
-        {
-            return dbSet.FirstOrDefault(e_ => e_.Value == entityValue_);
+            return dbSet.FirstOrDefault(e_ => e_.Value == (byte) levelValue_);
         }
 
         public virtual IEnumerable<PermissionLevel> All()

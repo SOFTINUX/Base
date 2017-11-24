@@ -6,6 +6,7 @@ using SecurityTest.Util;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using Infrastructure.Enums;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
 using Security.Common;
@@ -28,9 +29,20 @@ namespace SecurityTest
 
         private static readonly string _assembly = typeof(PermissionManagerTest).Assembly.GetName().Name;
 
+        // permission levels
+
+        private PermissionLevel _writeLevel, _readLevel, _neverLevel, _noLevel;
+
+
         public PermissionManagerTest(DatabaseFixture fixture_)
         {
             _fixture = fixture_;
+            IPermissionLevelRepository levelRepo = _fixture.GetRepository<IPermissionLevelRepository>();
+            _writeLevel  = levelRepo.ByValue(PermissionLevelValue.ReadWrite);
+            _readLevel = levelRepo.ByValue(PermissionLevelValue.ReadOnly);
+            _neverLevel = levelRepo.ByValue(PermissionLevelValue.Never);
+            _noLevel = levelRepo.ByValue(PermissionLevelValue.No);
+
         }
 
         /// <summary>
@@ -55,8 +67,8 @@ namespace SecurityTest
             #region test data setup
             Permission roPerm = new Permission { Code = CST_PERM_CODE_1, OriginExtension = _assembly };
             Permission rwPerm = new Permission { Code = CST_PERM_CODE_1, OriginExtension = _assembly };
-            PermissionValue roPv = new PermissionValue { UniqueId = roPerm.UniqueIdentifier, Level = (int)Security.Enums.Permission.PermissionLevelValue.ReadOnly };
-            PermissionValue rwPv = new PermissionValue { UniqueId = rwPerm.UniqueIdentifier, Level = (int)Security.Enums.Permission.PermissionLevelValue.ReadWrite };
+            PermissionValue roPv = new PermissionValue { UniqueId = roPerm.UniqueIdentifier, Level = (byte)PermissionLevelValue.ReadOnly };
+            PermissionValue rwPv = new PermissionValue { UniqueId = rwPerm.UniqueIdentifier, Level = (byte)PermissionLevelValue.ReadWrite };
 
             #endregion
             IEnumerable<Claim> claims =
@@ -90,7 +102,7 @@ namespace SecurityTest
         {
             #region test data setup
             Permission roPerm = new Permission { Code = CST_PERM_CODE_1, OriginExtension = _assembly };
-            PermissionValue roPv = new PermissionValue { UniqueId = roPerm.UniqueIdentifier, Level = (int)Security.Enums.Permission.PermissionLevelValue.ReadOnly };
+            PermissionValue roPv = new PermissionValue { UniqueId = roPerm.UniqueIdentifier, Level = (byte)PermissionLevelValue.ReadOnly };
 
             #endregion
             IEnumerable<Claim> claims =
@@ -120,7 +132,7 @@ namespace SecurityTest
         {
             #region test data setup
             Permission rwPerm = new Permission { Code = CST_PERM_CODE_1, OriginExtension = _assembly };
-            PermissionValue rwPv = new PermissionValue { UniqueId = rwPerm.UniqueIdentifier, Level = (int)Security.Enums.Permission.PermissionLevelValue.ReadWrite };
+            PermissionValue rwPv = new PermissionValue { UniqueId = rwPerm.UniqueIdentifier, Level = (byte)PermissionLevelValue.ReadWrite };
 
             #endregion
             IEnumerable<Claim> claims =
@@ -189,7 +201,7 @@ namespace SecurityTest
                 {
                     PermissionId = perm1.Id,
                     RoleId = role1.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadOnly
+                    PermissionLevelId = _readLevel.Id
                 });
 
                 // Link Permission 2 to Group 1, R
@@ -197,7 +209,7 @@ namespace SecurityTest
                 {
                     PermissionId = perm2.Id,
                     GroupId = group1.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadOnly
+                    PermissionLevelId = _readLevel.Id
                 });
 
                 // Link Permission 3 to Group 2, R
@@ -205,7 +217,7 @@ namespace SecurityTest
                 {
                     PermissionId = perm3.Id,
                     GroupId = group2.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadOnly
+                    PermissionLevelId = _readLevel.Id
                 });
 
                 // Link Role 1 and Group 1 to user 1
@@ -277,7 +289,7 @@ namespace SecurityTest
                 {
                     PermissionId = perm1.Id,
                     RoleId = role1.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadOnly
+                    PermissionLevelId = _readLevel.Id
                 });
 
                 // Link Permission 1 to User 1, Never
@@ -285,7 +297,7 @@ namespace SecurityTest
                 {
                     PermissionId = perm1.Id,
                     UserId = user1.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdNever
+                    PermissionLevelId = _neverLevel.Id
                 });
 
                 // Link Permission 1 to Group 1, RW
@@ -293,7 +305,7 @@ namespace SecurityTest
                 {
                     PermissionId = perm1.Id,
                     GroupId = group1.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadWrite
+                    PermissionLevelId = _writeLevel.Id
                 });
 
                 // Link Role 1 and Group 1 to user 1
@@ -360,7 +372,7 @@ namespace SecurityTest
                 {
                     PermissionId = perm1.Id,
                     RoleId = role1.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadWrite
+                    PermissionLevelId = _writeLevel.Id
                 });
 
                 // Link Role 1 to user 1
@@ -379,7 +391,7 @@ namespace SecurityTest
                 {
                     PermissionId = perm1.Id,
                     GroupId = group1.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdNever
+                    PermissionLevelId = _neverLevel.Id
                 });
 
                 // Link Group 1 to user 1
@@ -444,7 +456,7 @@ namespace SecurityTest
                 {
                     PermissionId = perm1.Id,
                     RoleId = role1.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadOnly
+                    PermissionLevelId = _readLevel.Id
                 });
 
                 // Link Role 1 to user 1
@@ -463,7 +475,7 @@ namespace SecurityTest
                 {
                     PermissionId = perm1.Id,
                     GroupId = group1.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdNever
+                    PermissionLevelId = _neverLevel.Id
                 });
 
                 // Link Group 1 to user 1
@@ -525,7 +537,7 @@ namespace SecurityTest
                 {
                     PermissionId = perm1.Id,
                     GroupId = group1.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadOnly
+                    PermissionLevelId = _readLevel.Id
                 });
 
                 // Link Group 1 to user 1
@@ -551,7 +563,7 @@ namespace SecurityTest
                 {
                     PermissionId = perm1.Id,
                     UserId = user1.Id,
-                    PermissionLevelId = (int) Security.Enums.Permission.PermissionLevelId.IdNever
+                    PermissionLevelId = _neverLevel.Id
                 });
 
                 _fixture.SaveChanges();
@@ -605,7 +617,7 @@ namespace SecurityTest
                 {
                     PermissionId = perm1.Id,
                     GroupId = group1.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdReadOnly
+                    PermissionLevelId = _readLevel.Id
                 });
 
                 // Link Role 1 to user 1
@@ -631,7 +643,7 @@ namespace SecurityTest
                 {
                     PermissionId = perm1.Id,
                     UserId = user1.Id,
-                    PermissionLevelId = (int)Security.Enums.Permission.PermissionLevelId.IdNever
+                    PermissionLevelId = _neverLevel.Id
                 });
 
                 _fixture.SaveChanges();
