@@ -17,11 +17,11 @@ namespace Security.Data.EntityFramework
         }
 
         public virtual PermissionLevel WithKey(int entityId_)
-       {
-           return dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
-       }
+        {
+            return dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
+        }
 
-        public PermissionLevel WithValue(int value_)
+        public virtual PermissionLevel WithValue(int value_)
         {
             return dbSet.FirstOrDefault(e_ => e_.Id == value_);
         }
@@ -30,6 +30,5 @@ namespace Security.Data.EntityFramework
         {
             return dbSet.ToList();
         }
-
     }
 }
