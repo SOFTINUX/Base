@@ -64,6 +64,14 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
                 </div>
             </header>
         }
+        @if (Model != null && !String.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div>
+                <div class="alert alert-danger" role="alert">
+                    <strong>LOGIN ERROR:</strong>&nbsp;@Html.Raw(Model.ErrorMessage)
+                </div>
+            </div>
+        }
         @RenderBody()
     </div>
     </div>

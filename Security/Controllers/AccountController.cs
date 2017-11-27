@@ -51,10 +51,9 @@ namespace Security.Controllers
             // Login failure: return to login page
             if (user == null)
             {
-                signIn_.ErrorMessage = "Sign in failed";
+                signIn_.ErrorMessage = "Incorrect user name or password.";
+                ModelState.AddModelError("BadUserPassword", signIn_.ErrorMessage);
                 return View(signIn_);
-
-                // return this.CreateRedirectToSelfResult();
             }
             userManager.LoadClaims(user, signIn_.RememberMe);
 
