@@ -28,59 +28,28 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "Gulp Copy DLL",
-            "command": "gulp",
-            "args": ["--gulpfile", "./WebApplication/gulpfile.js", "copy-extensions"],
+            "label": "clean",
+            "command": "dotnet clean",
             "type": "shell",
             "group": "build",
             "presentation": {
                 "reveal": "silent"
-            }
-        },
-        {
-            "label": "Integration Tests",
-            "command": "dotnet",
-            "args": [
-                "test",
-                "SecurityTests.csproj"
-            ],
-            "options": {
-                "cwd": "${workspaceRoot}/Tests/SecurityTests"
-            },
-            "group": {
-                "kind": "test",
-                "isDefault": true
-            },
-            "presentation": {
-                "reveal": "always"
             },
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "Unit Tests",
-            "command": "dotnet",
-            "args": [
-                "test",
-                "SecurityTests.csproj"
-            ],
-            "options": {
-                "cwd": "${workspaceRoot}/Tests/SecurityTests"
-            },
-            "group": {
-                "kind": "test",
-                "isDefault": true
-            },
-            "presentation": {
-                "reveal": "always"
-            },
-            "problemMatcher": "$msCompile"
+        "label": "Copy dependencies",
+        "command": "./bp.bat copydeps",
+        "linux": {
+            "command": "./bp.sh copydeps"
         },
-        {
-            "label": "TestAll",
-            "dependsOn": [
-                "Unit Tests",
-                "Integration Tests"
-            ]
-        }
+        "type": "shell",
+        "group": "build",
+        "presentation": {
+            "reveal": "always",
+            "panel": "shared"
+        },
+        "problemMatcher": "$msCompile"
+    }
     ]
 }
