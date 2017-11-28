@@ -5,6 +5,6 @@ namespace Barebone.ViewModels.Barebone
 {
     public class IndexViewModel
     {
-
+        public string ErrorMessage { get; set; }
     }
 }

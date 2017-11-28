@@ -40,6 +40,14 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
 
     @* Page container *@
     <div class="page-content d-flex align-items-stretch">
+        @if (Model != null && !String.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div id="notification" class="show">
+                <div class="alert alert-danger" role="alert">
+                    <strong>LOGIN ERROR:</strong>&nbsp;@Html.Raw(Model.ErrorMessage)
+                </div>
+            </div>
+        }
         @if (User.Identity.IsAuthenticated)
         {
             <nav class="side-navbar">
@@ -63,14 +71,6 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
                     @RenderSection("title", false)
                 </div>
             </header>
-        }
-        @if (Model != null && !String.IsNullOrEmpty(Model.ErrorMessage))
-        {
-            <div>
-                <div class="alert alert-danger" role="alert">
-                    <strong>LOGIN ERROR:</strong>&nbsp;@Html.Raw(Model.ErrorMessage)
-                </div>
-            </div>
         }
         @RenderBody()
     </div>

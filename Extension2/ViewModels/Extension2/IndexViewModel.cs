@@ -5,5 +5,6 @@ namespace Extension2.ViewModels.Extension2
 {
     public class IndexViewModel
     {
+        public string ErrorMessage { get; set; }
     }
 }

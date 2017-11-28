@@ -43,7 +43,11 @@ namespace Security.Controllers
         {
             // Check required fields, if any empty return to login page
             if (!ModelState.IsValid)
+            {
+                signIn_.ErrorMessage = "Unexpected error.";
+                ModelState.AddModelError("UnexpectedError", signIn_.ErrorMessage);
                 return View(signIn_);
+            }
 
             UserManager userManager = new UserManager(this, LoggerFactory);
             User user = userManager.Login(Enums.CredentialType.Email, signIn_.Email, signIn_.Password);
