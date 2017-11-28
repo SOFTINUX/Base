@@ -2,6 +2,7 @@ using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace SecurityTest
 {
@@ -13,9 +14,12 @@ namespace SecurityTest
 
         private readonly ChromeDriver driver;
         private readonly string baseUrl = "http://localhost:5000/account/signin?next=%2F";
+        private readonly ITestOutputHelper _outputHandler;
 
-        public LoginTest()
+        public LoginTest(ITestOutputHelper outputHandler_)
         {
+            _outputHandler = outputHandler_;
+
             ChromeOptions options = new ChromeOptions();
             //options.AddExtensions(new File("/path/to/extension.crx"));
             driver = new ChromeDriver(options);
@@ -32,7 +36,7 @@ namespace SecurityTest
             driver.Manage().Window.Maximize();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(15);
             driver.Navigate().GoToUrl(baseUrl);
-            Console.WriteLine(driver.Title);
+            _outputHandler.WriteLine(driver.Title);
 
             IWebElement loginBox = driver.FindElement(By.Id("username"));
             loginBox.SendKeys("admin");
@@ -42,7 +46,7 @@ namespace SecurityTest
             //singinLink.Submit();
             singinLink.Click();
 
-            Console.WriteLine(driver.Title);
+            _outputHandler.WriteLine(driver.Title);
             driver.Quit();
         }
 

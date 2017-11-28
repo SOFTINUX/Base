@@ -3,12 +3,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
 using Security.ServiceConfiguration;
 using SecurityTest.Util;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace SecurityTest
 {
@@ -17,11 +17,12 @@ namespace SecurityTest
     /// but uses a class fixture EmptyDatabaseFixture.
     /// </summary>
     [TestCaseOrderer("SecurityTest.PriorityOrderer", "SecurityTest")]
-    public class FillDatabaseTest : BaseTest, IClassFixture<EmptyDatabaseFixture>
+    public class FillDatabaseOnEmptyDbTest : BaseTest, IClassFixture<EmptyDatabaseFixture>
     {
-        public FillDatabaseTest(EmptyDatabaseFixture fixture_)
+        public FillDatabaseOnEmptyDbTest(EmptyDatabaseFixture fixture_, ITestOutputHelper outputHandler_)
         {
             _fixture = fixture_;
+            _outputHandler = outputHandler_;
 
         }
 
@@ -34,7 +35,7 @@ namespace SecurityTest
             IEnumerable<Permission> perms = _fixture.GetRepository<IPermissionRepository>().All();
             Assert.NotEmpty(perms);
             foreach (Permission perm in perms)
-                Console.WriteLine("[" + perm.Id + "] " + perm.Code);
+                _outputHandler.WriteLine("[" + perm.Id + "] " + perm.Code);
         }
     }
 }

@@ -10,6 +10,7 @@ using Security.Data.Entities;
 using Security.Enums.Debug;
 using SecurityTest.Util;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace SecurityTest
 {
@@ -17,9 +18,10 @@ namespace SecurityTest
     [Collection("Database collection")]
     public class UserManagerTest : BaseTest
     {
-        public UserManagerTest(DatabaseFixture fixture_)
+        public UserManagerTest(DatabaseFixture fixture_, ITestOutputHelper outputHandler_)
         {
             _fixture = fixture_;
+            _outputHandler = outputHandler_;
 
         }
 
@@ -82,7 +84,7 @@ namespace SecurityTest
             Assert.NotEmpty(claims);
             foreach (Claim claim in claims)
             {
-                Console.WriteLine(claim.Type + " ### " + claim.Value);
+                _outputHandler.WriteLine(claim.Type + " ### " + claim.Value);
             }
         }
 
