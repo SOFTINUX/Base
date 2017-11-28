@@ -21,9 +21,9 @@ namespace Security.Data.EntityFramework
             return dbSet.ToList();
         }
 
-        public virtual CredentialType FindBy(string code_)
+        public virtual CredentialType FindBy(string code_, string originExtensionAssemblyName_)
         {
-            return dbSet.FirstOrDefault(e_ => e_.Code == code_);
+            return dbSet.FirstOrDefault(e_ => e_.Code == code_ && e_.OriginExtension == originExtensionAssemblyName_);
         }
     }
 }

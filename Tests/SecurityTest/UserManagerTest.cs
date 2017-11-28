@@ -31,7 +31,7 @@ namespace SecurityTest
            // no need of transaction (no db write)
             UserManager userManager = new UserManager(_fixture.DatabaseContext,
                 ((TestContext) _fixture.DatabaseContext).LoggerFactory);
-            Assert.Null(userManager.Login("wrong credential type", "user", "123password"));
+            Assert.Null(userManager.Login("wrong credential type", "user", "123password", "Security"));
             Assert.Equal(UserManagerErrorCode.NoCredentialType, userManager.ErrorCode);
 
         }
@@ -42,7 +42,7 @@ namespace SecurityTest
             // no need of transaction (no db write)
             UserManager userManager = new UserManager(_fixture.DatabaseContext,
                 ((TestContext)_fixture.DatabaseContext).LoggerFactory);
-            Assert.Null(userManager.Login(Security.Enums.CredentialType.Email, "no such user", "123password"));
+            Assert.Null(userManager.Login(Security.Enums.CredentialType.Email, "no such user", "123password", "Security"));
             Assert.Equal(UserManagerErrorCode.NoMatchCredentialTypeAndIdentifier, userManager.ErrorCode);
 
         }
@@ -53,7 +53,7 @@ namespace SecurityTest
             // no need of transaction (no db write)
             UserManager userManager = new UserManager(_fixture.DatabaseContext,
                 ((TestContext)_fixture.DatabaseContext).LoggerFactory);
-            Assert.Null(userManager.Login(Security.Enums.CredentialType.Email, "user", "not the password"));
+            Assert.Null(userManager.Login(Security.Enums.CredentialType.Email, "user", "not the password", "Security"));
             Assert.Equal(UserManagerErrorCode.SecretVerificationFailed, userManager.ErrorCode);
 
         }
@@ -64,7 +64,7 @@ namespace SecurityTest
             // no need of transaction (no db write)
             UserManager userManager = new UserManager(_fixture.DatabaseContext,
                 ((TestContext)_fixture.DatabaseContext).LoggerFactory);
-            User user = userManager.Login(Security.Enums.CredentialType.Email, "user", "123password");
+            User user = userManager.Login(Security.Enums.CredentialType.Email, "user", "123password", "Security");
             Assert.NotNull(user);
             Assert.Equal(_fixture.GetRepository<IUserRepository>().WithCredentialIdentifier("user").Id, user.Id);
             Assert.Equal(UserManagerErrorCode.None, userManager.ErrorCode);

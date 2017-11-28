@@ -11,6 +11,12 @@ namespace Security.Data.Abstractions
     {
         void Create(CredentialType entity_);
         IEnumerable<CredentialType> All();
-        CredentialType FindBy(string code_); // TODO create and use Infrastructure.Enums.CredentialTypes partial class
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="code_">Code given from Infrastructure.Enums.CredentialTypes partial class or its other parts</param>
+        /// <param name="originExtensionAssemblyName_"></param>
+        /// <returns></returns>
+        CredentialType FindBy(string code_, string originExtensionAssemblyName_); // TODO create and use Infrastructure.Enums.CredentialTypes partial class
     }
 }

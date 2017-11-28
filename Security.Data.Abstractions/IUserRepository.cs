@@ -10,7 +10,7 @@ namespace Security.Data.Abstractions
     public interface IUserRepository : IRepository
     {
         User FindById(int entityId_);
-        User FindBy(string firstName_, string lastName_, string displayName_);
+        User FindBy(string firstName_, string lastName_, string displayName_, string originExtensionAssemblyName_);
         User WithCredentialIdentifier(string identifier_);
         IEnumerable<User> All();
         void Create(User entity_);

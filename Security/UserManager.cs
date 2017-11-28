@@ -43,9 +43,17 @@ namespace Security
             _logger = loggerFactory_.CreateLogger(GetType().FullName);
         }
 
-        public User Login(string loginTypeCode_, string identifier_, string secret_)
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="loginTypeCode_">Code/mnemo of login type</param>
+        /// <param name="identifier_">User identifier</param>
+        /// <param name="secret_">Secret like a password, token id etc</param>
+        /// <param name="loginTypeOriginExtensionAssemblyName_">Name of assembly that provides this login type</param>
+        /// <returns></returns>
+        public User Login(string loginTypeCode_, string identifier_, string secret_, string loginTypeOriginExtensionAssemblyName_)
         {
-            CredentialType credentialType = _credentialTypeRepository.FindBy(loginTypeCode_);
+            CredentialType credentialType = _credentialTypeRepository.FindBy(loginTypeCode_, loginTypeOriginExtensionAssemblyName_);
 
             if (credentialType == null)
             {
@@ -56,6 +64,8 @@ namespace Security
                 return null;
             }
 
+            // TODO when supporting other credential types, the extension will have to perform credential verification
+            // i.e. Security extension will use PasswordHasher used below.
             if (credentialType.Code == Enums.CredentialType.Email)
             {
                 Credential credential = _credentialRepository.FindBy(credentialType.Id, identifier_);

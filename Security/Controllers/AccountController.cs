@@ -50,7 +50,8 @@ namespace Security.Controllers
             }
 
             UserManager userManager = new UserManager(this, LoggerFactory);
-            User user = userManager.Login(Enums.CredentialType.Email, signIn_.Email, signIn_.Password);
+            // For now we support only "email" credential type provided by Security extension. Later we will support other types (LDAP...)
+            User user = userManager.Login(Enums.CredentialType.Email, signIn_.Email, signIn_.Password, "Security");
 
             // Login failure: return to login page
             if (user == null)

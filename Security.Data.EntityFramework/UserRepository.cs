@@ -17,9 +17,12 @@ namespace Security.Data.EntityFramework
             return dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
         }
 
-        public User FindBy(string firstName_, string lastName_, string displayName_)
+        public User FindBy(string firstName_, string lastName_, string displayName_, string originExtensionAssemblyName_)
         {
-            return dbSet.FirstOrDefault(e_ => e_.FirstName == firstName_ && e_.LastName == lastName_ && e_.DisplayName == displayName_);
+            return dbSet.FirstOrDefault(e_ => e_.FirstName == firstName_
+            && e_.LastName == lastName_
+            && e_.DisplayName == displayName_
+            && e_.OriginExtension == originExtensionAssemblyName_);
         }
 
         /// <summary>

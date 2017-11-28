@@ -158,11 +158,11 @@ namespace Security
             IUserRoleRepository repo = _storage.GetRepository<IUserRoleRepository>();
             IUserRepository userRepo = _storage.GetRepository<IUserRepository>();
             // super-admin
-            repo.Create(new UserRole { RoleId = _adminOwnerRole.Id, UserId = userRepo.FindBy(_superAdminUserData.Item1, _superAdminUserData.Item2, _superAdminUserData.Item3).Id });
+            repo.Create(new UserRole { RoleId = _adminOwnerRole.Id, UserId = userRepo.FindBy(_superAdminUserData.Item1, _superAdminUserData.Item2, _superAdminUserData.Item3, _securityAssemblyName).Id });
             // admin
-            repo.Create(new UserRole { RoleId = _adminRole.Id, UserId = userRepo.FindBy(_adminUserData.Item1, _adminUserData.Item2, _adminUserData.Item3).Id });
+            repo.Create(new UserRole { RoleId = _adminRole.Id, UserId = userRepo.FindBy(_adminUserData.Item1, _adminUserData.Item2, _adminUserData.Item3, _securityAssemblyName).Id });
             // user
-            repo.Create(new UserRole { RoleId = _userRole.Id, UserId = userRepo.FindBy(_userUserData.Item1, _userUserData.Item2, _userUserData.Item3).Id });
+            repo.Create(new UserRole { RoleId = _userRole.Id, UserId = userRepo.FindBy(_userUserData.Item1, _userUserData.Item2, _userUserData.Item3, _securityAssemblyName).Id });
 
         }
 
@@ -173,11 +173,11 @@ namespace Security
             ICredentialTypeRepository credTypeRepo = _storage.GetRepository<ICredentialTypeRepository>();
 
             string hashedPassword = new PasswordHasher<User>().HashPassword(null, "123password");
-            int credentialTypeId = credTypeRepo.FindBy(_credentialTypeData.Key).Id;
+            int credentialTypeId = credTypeRepo.FindBy(_credentialTypeData.Key, _securityAssemblyName).Id;
             repo.Create(new Credential
             {
                 CredentialTypeId = credentialTypeId,
-                UserId = userRepo.FindBy(_superAdminUserData.Item1, _superAdminUserData.Item2, _superAdminUserData.Item3).Id,
+                UserId = userRepo.FindBy(_superAdminUserData.Item1, _superAdminUserData.Item2, _superAdminUserData.Item3, _securityAssemblyName).Id,
                 Identifier = "adminowner",
                 Secret = hashedPassword
             });
@@ -185,7 +185,7 @@ namespace Security
             repo.Create(new Credential
             {
                 CredentialTypeId = credentialTypeId,
-                UserId = userRepo.FindBy(_adminUserData.Item1, _adminUserData.Item2, _adminUserData.Item3).Id,
+                UserId = userRepo.FindBy(_adminUserData.Item1, _adminUserData.Item2, _adminUserData.Item3, _securityAssemblyName).Id,
                 Identifier = "admin",
                 Secret = hashedPassword
             });
@@ -193,7 +193,7 @@ namespace Security
             repo.Create(new Credential
             {
                 CredentialTypeId = credentialTypeId,
-                UserId = userRepo.FindBy(_userUserData.Item1, _userUserData.Item2, _userUserData.Item3).Id,
+                UserId = userRepo.FindBy(_userUserData.Item1, _userUserData.Item2, _userUserData.Item3, _securityAssemblyName).Id,
                 Identifier = "user",
                 Secret = hashedPassword
             });
