@@ -18,6 +18,11 @@ namespace Security.Data.Entities
         public string Label { get; set; }
 
         /// <summary>
+        /// Full name of extension's assembly, to manage data by extension (add, reset, remove).
+        /// </summary>
+        public string OriginExtension { get; set; }
+
+        /// <summary>
         /// Referenced entities.
         /// </summary>
         public virtual ICollection<Credential> Credentials { get; set; }

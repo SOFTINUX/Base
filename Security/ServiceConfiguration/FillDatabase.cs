@@ -40,7 +40,7 @@ namespace Security.ServiceConfiguration
                 // Permissions
                 RecordPermissions(extensionMetadata.PermissionCodeLabelAndFlags, GetAssemblyName(extensionMetadata));
                 // Permissions level
-                RecordPermissionsLevel(extensionMetadata.PermissionLevelValueLabelAndTips,  GetAssemblyName(extensionMetadata));
+                RecordPermissionsLevel(extensionMetadata.PermissionLevelValueLabelAndTips);
                 // Roles
                 RecordRoles(extensionMetadata.RoleCodeAndLabels, GetAssemblyName(extensionMetadata));
                 // Groups
@@ -82,7 +82,7 @@ namespace Security.ServiceConfiguration
             }
         }
 
-        private void RecordPermissionsLevel(IEnumerable<Tuple<PermissionLevelValue, string, string>> permissionsLevel_, string extensionAssemblyName_)
+        private void RecordPermissionsLevel(IEnumerable<Tuple<PermissionLevelValue, string, string>> permissionsLevel_)
         {
             if (permissionsLevel_ == null)
                 return;
@@ -105,7 +105,7 @@ namespace Security.ServiceConfiguration
             {
                 if (repo.FindBy(user.Item1, user.Item2, user.Item3) == null)
                 {
-                    repo.Create(new User { FirstName = user.Item1, LastName = user.Item2, DisplayName = user.Item3 });
+                    repo.Create(new User { FirstName = user.Item1, LastName = user.Item2, DisplayName = user.Item3, OriginExtension = extensionAssemblyName_ });
                 }
             }
         }
@@ -119,7 +119,7 @@ namespace Security.ServiceConfiguration
             {
                 if (repo.FindBy(role.Key) == null)
                 {
-                    repo.Create(new CredentialType { Code = role.Key, Label = role.Value });
+                    repo.Create(new CredentialType { Code = role.Key, Label = role.Value, OriginExtension = extensionAssemblyName_});
                 }
             }
         }
