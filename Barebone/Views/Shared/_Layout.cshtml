@@ -56,11 +56,7 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
                     @Html.Partial("_UserTest")
                 </div>
                 <span>Main</span>
-                <div class="" id="navbarSupportedContent">
-                    <ul class="list-unstyled">
-                        @await Component.InvokeAsync("Menu")
-                    </ul>
-                </div>
+                @await Component.InvokeAsync("Menu")
             </nav>
         }
     <div class="inner-content">

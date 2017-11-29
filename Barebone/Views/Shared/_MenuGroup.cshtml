@@ -5,22 +5,12 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
 
 @model Barebone.ViewModels.Shared.MenuGroup.MenuGroupViewModel
 
-@if (Model.MenuItems.Count() == 1)
-{
-    @Html.Partial("_MenuItem", Model.MenuItems.First())
-}
-else
-{
-    <li>
-        <a href="#@(Model.Name)" aria-expanded="false" data-toggle="collapse">@(Model.Name)<span class="caret"></span></a>
-        <ul id="@(Model.Name)" class="collapse list-unstyled">
-            @foreach (var menuItem in Model.MenuItems)
-                {
-                    @Html.Partial("_MenuItem", menuItem)
-                }
-        </ul>
-    </li>
-
-}
-
-
+<li data-toggle="collapse" data-target="#@(Model.Name)" class="collapsed">
+    <a href="#"> @(Model.Name) <span class="arrow"></span></a>
+</li>
+<ul class="sub-menu collapse" id="@(Model.Name)" data-code="main-@(this.Model.Position)">
+    @foreach (var menuItem in Model.MenuItems)
+    {
+        @Html.Partial("_MenuItem", menuItem)
+    }
+</ul>
