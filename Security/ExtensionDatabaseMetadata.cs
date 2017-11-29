@@ -21,10 +21,10 @@ namespace Security
             new Tuple<string, string, string>("Super", "Admin", "Super Administrator");
 
         private Tuple<string, string, string> _adminUserData =
-            new Tuple<string, string, string>("Test", "Admin", "Test Admin");
+            new Tuple<string, string, string>("Test", "Admin", "Administrator");
 
         private Tuple<string, string, string> _userUserData =
-            new Tuple<string, string, string>("Test", "User", "Test User");
+            new Tuple<string, string, string>("Test", "User", "User");
 
         private KeyValuePair<string, string> _credentialTypeData =
             new KeyValuePair<string, string>("email", "E-mail and password");

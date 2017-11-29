@@ -9,10 +9,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
 
-namespace Security.ServiceConfiguration
+namespace Security.Administration
 {
-    // TODO restore ": IConfigureServicesAction" once unit test is ok (errors fixed)
-    public class FillDatabase //: IConfigureServicesAction
+   /// <summary>
+   /// This class should be used for initial installation so that we install database data once database schema is ready.
+   /// To be reworked later as an administration part.
+   /// </summary>
+    public class FillDatabase
     {
         /// <summary>
         /// Looks for all implementations of IExtensionDatabaseMetadata that allow the system to know which

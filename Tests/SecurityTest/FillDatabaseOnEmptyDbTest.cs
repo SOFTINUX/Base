@@ -3,9 +3,9 @@
 
 using System;
 using System.Collections.Generic;
+using Security.Administration;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
-using Security.ServiceConfiguration;
 using SecurityTest.Util;
 using Xunit;
 using Xunit.Abstractions;
