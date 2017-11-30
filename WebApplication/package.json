@@ -1,8 +1,0 @@
-{
-  "devDependencies": {
-    "gulp": "^3.9.1"
-  },
-  "name": "webapplication",
-  "private": true,
-  "version": "1.0.0"
-}
