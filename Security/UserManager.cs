@@ -105,6 +105,7 @@ namespace Security
             ClaimsIdentity identity = new ClaimsIdentity(GetAllClaims(user_), CookieAuthenticationDefaults.AuthenticationScheme);
             ClaimsPrincipal principal = new ClaimsPrincipal(identity);
 
+            // La même chose que platformus mais ne semble pas correct.
             await _requestHandler.HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties { IsPersistent = isPersistent_ }
             );

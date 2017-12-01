@@ -1,6 +1,7 @@
 ﻿// Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System.Security.Claims;
 using Security.Common.Policy;
 
 namespace Security.Common.Attributes
@@ -22,6 +23,12 @@ namespace Security.Common.Attributes
 
             // We need to check that the corresponding permission exists
             Policy = KnownPolicies.Contains(policyName) ? policyName : FallbackPolicyProvider.PolicyName;
+
+            // Debug - le problème est ici, comprendre ce qui a été mal fait pour que ClaimsPrincipal.Current soit null
+            // on n'a pas bien rattaché le user et ses claims au contexte applicatif d'identité (ClaimsPrincipal.Current).
+            // Le code concerné est dans UserManager.LoadClaims()
+
+            var currentUser = ClaimsPrincipal.Current;
         }
 
     }
