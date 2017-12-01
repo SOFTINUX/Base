@@ -19,28 +19,30 @@ namespace Security.Common
         /// <summary>
         /// Suffix used to build the claim value from the permission unique identifier.
         /// </summary>
-        public const string READ_WRITE_SUFFIX = "|RW";
+        public const string READ_WRITE_SUFFIX = "|rw";
 
         /// <summary>
         /// Suffix used to build the claim value from the permission unique identifier.
         /// </summary>
-        public const string READ_ONLY_SUFFIX = "|R";
+        public const string READ_ONLY_SUFFIX = "|r";
 
         /// <summary>
-        /// Gets the claim value from the permission unique ID and the access level
+        /// Gets the claim value from the permission unique ID and the access level.
+        /// Note: the returned value is lower case.
         /// </summary>
         /// <param name="permissionUniqueId_"></param>
         /// <param name="write_">true when write access level, false when read</param>
         /// <returns></returns>
         public static string GetClaimValue(string permissionUniqueId_, bool write_)
         {
-            return permissionUniqueId_ + (write_
+            return (permissionUniqueId_ + (write_
                        ? READ_WRITE_SUFFIX
-                       : READ_ONLY_SUFFIX);
+                       : READ_ONLY_SUFFIX)).ToLowerInvariant();
         }
 
         /// <summary>
         /// Formats the policy name associated with a permission that has a code and an origin extension.
+        /// Note: the returned value is lower case.
         /// </summary>
         /// <param name="permissionCode_"></param>
         /// <param name="write_"></param>
@@ -48,11 +50,12 @@ namespace Security.Common
         /// <returns></returns>
         public static string GetPolicyName<T>(string permissionCode_, bool write_) where T : IExtensionMetadata
         {
-            return $"{permissionCode_}|{typeof(T).Assembly.GetName().Name}|{(write_ ? READ_WRITE_SUFFIX : READ_ONLY_SUFFIX)}";
+            return $"{permissionCode_}|{typeof(T).Assembly.GetName().Name}|{(write_ ? READ_WRITE_SUFFIX : READ_ONLY_SUFFIX)}".ToLowerInvariant();
         }
 
         /// <summary>
         /// Formats the policy name associated with a permission that has a code and an origin extension, and an access level.
+        /// Note: the returned value is lower case.
         /// </summary>
         /// <param name="permissionCode_"></param>
         /// <param name="originExtensionAssemblyName_">The origin extension assembly name, given by Assembly.GetName().Name</param>
@@ -60,11 +63,12 @@ namespace Security.Common
         /// <returns></returns>
         public static string GetPolicyName(string permissionCode_, string originExtensionAssemblyName_, AccessLevel accessLevel_)
         {
-            return $"{GetPermissionUniqueIdentifier(permissionCode_, originExtensionAssemblyName_)}|{(accessLevel_)}";
+            return $"{GetPermissionUniqueIdentifier(permissionCode_, originExtensionAssemblyName_)}|{(accessLevel_)}".ToLowerInvariant();
         }
 
         /// <summary>
         /// Formats the unique identifier of a permission that has a code and an origin extension.
+        /// Note: the returned value is lower case.
         /// </summary>
         /// <param name="permissionCode_"></param>
         /// <param name="originExtensionAssemblyName_">The origin extension assembly name, given by Assembly.GetName().Name</param>
@@ -72,7 +76,7 @@ namespace Security.Common
         public static string GetPermissionUniqueIdentifier(string permissionCode_, string originExtensionAssemblyName_)
         {
             return
-                $"{permissionCode_}|{originExtensionAssemblyName_}";
+                $"{permissionCode_}|{originExtensionAssemblyName_}".ToLowerInvariant();
         }
     }
 }

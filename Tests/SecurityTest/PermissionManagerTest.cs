@@ -53,7 +53,7 @@ namespace SecurityTest
         /// <returns></returns>
         private string FormatExpectedClaimValue(string permissionCode_, bool readWrite_)
         {
-            return $"{permissionCode_}|{_assembly}{(readWrite_ ? PolicyUtil.READ_WRITE_SUFFIX : PolicyUtil.READ_ONLY_SUFFIX)}";
+            return $"{permissionCode_}|{_assembly}{(readWrite_ ? PolicyUtil.READ_WRITE_SUFFIX : PolicyUtil.READ_ONLY_SUFFIX)}".ToLowerInvariant();
         }
 
         /// <summary>
