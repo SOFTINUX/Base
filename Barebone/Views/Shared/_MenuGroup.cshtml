@@ -5,9 +5,9 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
 
 @model Barebone.ViewModels.Shared.MenuGroup.MenuGroupViewModel
 
-<li data-toggle="collapse" data-target="#@(Model.Name)" class="collapsed">
+<div data-toggle="collapse" data-target="#@(Model.Name)" class="collapsed menu-header">
     <a href="#"> @(Model.Name) <span class="arrow"></span></a>
-</li>
+</div>
 <ul class="sub-menu collapse" id="@(Model.Name)" data-code="main-@(this.Model.Position)">
     @foreach (var menuItem in Model.MenuItems)
     {

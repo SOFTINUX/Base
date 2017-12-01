@@ -125,8 +125,8 @@ section.dashboard-section div[class*='col-'] .item {
        }
     */
 }
-.side-navbar ul :not(collapsed) .arrow:before,
-.side-navbar li :not(collapsed) .arrow:before {
+.side-navbar :not(collapsed) .arrow:before,
+.side-navbar :not(collapsed) .arrow:before {
     font-family: FontAwesome;
     content: "\f078";
     display: inline-block;
@@ -176,4 +176,9 @@ section.dashboard-section div[class*='col-'] .item {
     -o-transition: all 1s ease;
     -ms-transition: all 1s ease;
     transition: all 1s ease;
+}
+
+.side-navbar .menu-header a{
+    color: black;
+    font-size: 0.9em;
 }
