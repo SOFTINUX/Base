@@ -5,7 +5,6 @@
 using Extension1.ViewModels.Extension1;
 using Microsoft.AspNetCore.Mvc;
 using Security.Common;
-using Security.Common.Attributes;
 
 namespace Extension1.Controllers
 {
@@ -16,7 +15,7 @@ namespace Extension1.Controllers
             return View(new IndexViexModelFactory().Create());
         }
 
-        [Authorize("Admin", "Extension1", PolicyUtil.AccessLevel.RW)]
+        [Security.Common.Attributes.Authorize("Admin", "Extension1", PolicyUtil.AccessLevel.RW)]
         public ActionResult Admin()
         {
             return View();

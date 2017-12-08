@@ -5,11 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using Infrastructure.Enums;
 using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
+using Security.Common.Enums;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
 using Security.Enums.Debug;
@@ -105,7 +107,6 @@ namespace Security
             ClaimsIdentity identity = new ClaimsIdentity(GetAllClaims(user_), CookieAuthenticationDefaults.AuthenticationScheme);
             ClaimsPrincipal principal = new ClaimsPrincipal(identity);
 
-            // La même chose que platformus mais ne semble pas correct.
             await _requestHandler.HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties { IsPersistent = isPersistent_ }
             );
@@ -120,42 +121,45 @@ namespace Security
         {
             List<Claim> claims = new List<Claim>();
             // user
-            claims.AddRange(GetUserClaims(user_));
+            AddUserClaims(claims, user_);
             // roles
-            claims.AddRange(GetRoleClaims(user_));
+            AddRoleClaims(claims, user_);
+
             // permissions
             claims.AddRange(new PermissionManager().GetFinalPermissions(_requestHandler, user_));
+
             return claims;
         }
 
         /// <summary>
-        /// Gathers claims of type "name*"
+        /// Add user-related claims to current claims. Claims of type "name*"
         /// </summary>
+        /// <param name="currentClaims_"></param>
         /// <param name="user_"></param>
         /// <returns></returns>
-        private IEnumerable<Claim> GetUserClaims(User user_)
+        private void AddUserClaims(List<Claim> currentClaims_, User user_)
         {
-            List<Claim> claims = new List<Claim>
-            {
+            currentClaims_.AddRange(
+            new []{
                 new Claim(ClaimTypes.NameIdentifier, user_.Id.ToString()),
                 new Claim(ClaimTypes.Name, user_.DisplayName)
-            };
-
-            return claims;
+            }
+            );
         }
 
         /// <summary>
-        /// Gathers all claims of type "role".
+        /// Add role-related claims to current claims. Claims of type "role".
         /// </summary>
+        /// <param name="currentClaims_"></param>
         /// <param name="user_"></param>
         /// <returns></returns>
-        private IEnumerable<Claim> GetRoleClaims(User user_)
+        private void AddRoleClaims(List<Claim> currentClaims_, User user_)
         {
             List<Claim> claims = new List<Claim>();
             IEnumerable<int> roleIds = _userRoleRepository.FilteredByUserId(user_.Id)?.Select(ur_ => ur_.RoleId).ToList();
 
             if (roleIds == null)
-                return claims;
+                return;
             // TODO improve code : use a navigation property above to get role's code instead of n queries
             foreach (int roleId in roleIds)
             {
@@ -164,7 +168,6 @@ namespace Security
                 claims.Add(new Claim(ClaimTypes.Role, role.Code));
             }
 
-            return claims;
         }
 
         public async void SignOut()

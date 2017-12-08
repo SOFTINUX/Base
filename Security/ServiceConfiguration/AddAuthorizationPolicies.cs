@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
 using Security.Common;
+using Security.Common.Enums;
 using Security.Common.Policy;
 
 namespace Security.ServiceConfiguration
@@ -33,12 +34,12 @@ namespace Security.ServiceConfiguration
                         string claimValueAndPolicyName = PolicyUtil.GetClaimValue(permission.UniqueIdentifier, false);
                         options_.AddPolicy(claimValueAndPolicyName, policy_ =>
                         {
-                            policy_.RequireClaim(claimValueAndPolicyName);
+                            policy_.RequireClaim(ClaimType.Permission, claimValueAndPolicyName);
                         });
                         claimValueAndPolicyName = PolicyUtil.GetClaimValue(permission.UniqueIdentifier, true);
                         options_.AddPolicy(claimValueAndPolicyName, policy =>
                         {
-                            policy.RequireClaim(claimValueAndPolicyName);
+                            policy.RequireClaim(ClaimType.Permission, claimValueAndPolicyName);
                         });
 
                         KnownPolicies.Add(claimValueAndPolicyName);

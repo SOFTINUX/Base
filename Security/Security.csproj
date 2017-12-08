@@ -8,6 +8,7 @@
   <ItemGroup>
     <None Remove="Views\Account\AccessDenied.cshtml" />
     <None Remove="Views\Account\SignIn.cshtml" />
+    <None Remove="Views\Shared\_ListClaims.cshtml" />
     <None Remove="Views\_ViewImports.cshtml" />
   </ItemGroup>
   <ItemGroup>
