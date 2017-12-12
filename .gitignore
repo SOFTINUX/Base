@@ -315,3 +315,6 @@ Tests/WorkDir/*
 
 # serilog log file
 log-[0-9]*.txt
+
+# visual studio code local history extension
+.history
