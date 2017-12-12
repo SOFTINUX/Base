@@ -4,7 +4,6 @@
 
 using Extension1.ViewModels.Extension1;
 using Microsoft.AspNetCore.Mvc;
-using Security.Common;
 
 namespace Extension1.Controllers
 {
@@ -15,7 +14,7 @@ namespace Extension1.Controllers
             return View(new IndexViexModelFactory().Create());
         }
 
-        [Security.Common.Attributes.Authorize("Admin", "Extension1", PolicyUtil.AccessLevel.RW)]
+        [Security.Common.Attributes.Authorize("Admin", "Extension1")]
         public ActionResult Admin()
         {
             return View();

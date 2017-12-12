@@ -67,13 +67,11 @@ namespace Security
 
                 if ((pv.Level & (byte)PermissionLevelValue.ReadWrite) != 0)
                 {
-                    // Implicit read write allowed when read-write right allowed
-                    claims.Add(new Claim(ClaimType.Permission, PolicyUtil.GetClaimValue(uniqueId, true)));
-                    claims.Add(new Claim(ClaimType.Permission, PolicyUtil.GetClaimValue(uniqueId, false)));
+                    claims.Add(new Claim(ClaimType.Permission, PolicyUtil.GetClaimValue(uniqueId)));
                 }
                 else if ((pv.Level & (byte)PermissionLevelValue.ReadOnly) != 0)
                 {
-                    claims.Add(new Claim(ClaimType.Permission, PolicyUtil.GetClaimValue(uniqueId, false)));
+                    claims.Add(new Claim(ClaimType.Permission, PolicyUtil.GetClaimValue(uniqueId)));
                 }
             }
 

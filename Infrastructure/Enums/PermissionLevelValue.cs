@@ -5,6 +5,7 @@ namespace Infrastructure.Enums
 {
     /// <summary>
     /// Value of PermissionLevel records
+    /// TODO replace ReadOnly and ReadWrite by "Yes".
     /// </summary>
     public enum PermissionLevelValue
     {

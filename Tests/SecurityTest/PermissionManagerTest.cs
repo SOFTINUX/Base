@@ -49,11 +49,10 @@ namespace SecurityTest
         /// Same formatting as method that formats claim value from permission unique id and access level.
         /// </summary>
         /// <param name="permissionCode_"></param>
-        /// <param name="readWrite_"></param>
         /// <returns></returns>
-        private string FormatExpectedClaimValue(string permissionCode_, bool readWrite_)
+        private string FormatExpectedClaimValue(string permissionCode_)
         {
-            return $"{permissionCode_}|{_assembly}{(readWrite_ ? PolicyUtil.READ_WRITE_SUFFIX : PolicyUtil.READ_ONLY_SUFFIX)}".ToLowerInvariant();
+            return $"{permissionCode_}|{_assembly}".ToLowerInvariant();
         }
 
         /// <summary>
@@ -83,8 +82,7 @@ namespace SecurityTest
 
             List<string> expectedClaimValues = new List<string>
             {
-                FormatExpectedClaimValue(roPerm.Code, true),
-                FormatExpectedClaimValue(rwPerm.Code, false)
+                FormatExpectedClaimValue(roPerm.Code)
             };
 
             claimValues.Sort();
@@ -115,7 +113,7 @@ namespace SecurityTest
                 claimValues.Add(claim.Value);
             }
 
-            List<string> expectedClaimValues = new List<string> { FormatExpectedClaimValue(roPerm.Code, false) };
+            List<string> expectedClaimValues = new List<string> { FormatExpectedClaimValue(roPerm.Code) };
 
             claimValues.Sort();
             expectedClaimValues.Sort();
@@ -147,8 +145,7 @@ namespace SecurityTest
 
             List<string> expectedClaimValues = new List<string>
             {
-                FormatExpectedClaimValue(rwPerm.Code, true),
-                FormatExpectedClaimValue(rwPerm.Code, false)
+                FormatExpectedClaimValue(rwPerm.Code)
             };
 
             claimValues.Sort();
@@ -408,8 +405,7 @@ namespace SecurityTest
                 IEnumerable<Claim> claims = new PermissionManager().GetFinalPermissions(_fixture.DatabaseContext, user1);
                 // Expected permission to be still granted, RW and R
                 Assert.Equal(initialClaimCount, claims.Count());
-                Assert.NotNull(claims.FirstOrDefault(c_ => c_.Value == FormatExpectedClaimValue(perm1.Code, true)));
-                Assert.NotNull(claims.FirstOrDefault(c_ => c_.Value == FormatExpectedClaimValue(perm1.Code, false)));
+                Assert.NotNull(claims.FirstOrDefault(c_ => c_.Value == FormatExpectedClaimValue(perm1.Code)));
 
             }
             finally
@@ -492,7 +488,7 @@ namespace SecurityTest
                 IEnumerable<Claim> claims = new PermissionManager().GetFinalPermissions(_fixture.DatabaseContext, user1);
                 // Expected permission to be ungranted
                 Assert.Equal(initialClaimCount - 1, claims.Count());
-                Assert.Null(claims.FirstOrDefault(c_ => c_.Value == FormatExpectedClaimValue(perm1.Code, false)));
+                Assert.Null(claims.FirstOrDefault(c_ => c_.Value == FormatExpectedClaimValue(perm1.Code)));
 
             }
             finally
@@ -573,7 +569,7 @@ namespace SecurityTest
                 IEnumerable<Claim> claims = new PermissionManager().GetFinalPermissions(_fixture.DatabaseContext, user1);
                 // Expected permission to be still granted
                 Assert.Equal(initialClaimCount, claims.Count());
-                Assert.NotNull(claims.FirstOrDefault(c_ => c_.Value == FormatExpectedClaimValue(perm1.Code, false)));
+                Assert.NotNull(claims.FirstOrDefault(c_ => c_.Value == FormatExpectedClaimValue(perm1.Code)));
             }
             finally
             {
@@ -653,7 +649,7 @@ namespace SecurityTest
                 IEnumerable<Claim> claims = new PermissionManager().GetFinalPermissions(_fixture.DatabaseContext, user1);
                 // Expected permission to be ungranted
                 Assert.Equal(initialClaimCount - 1, claims.Count());
-                Assert.Null(claims.FirstOrDefault(c_ => c_.Value == FormatExpectedClaimValue(perm1.Code, false)));
+                Assert.Null(claims.FirstOrDefault(c_ => c_.Value == FormatExpectedClaimValue(perm1.Code)));
             }
             finally
             {

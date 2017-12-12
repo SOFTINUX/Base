@@ -5,69 +5,48 @@ using Infrastructure.Interfaces;
 
 namespace Security.Common
 {
+    /// <summary>
+    /// Utility to quickly format a policy name, a claim value, when you know which application permission matches this claim or policy.
+    /// TODO better renaming of these functions.
+    /// </summary>
     public static class PolicyUtil
     {
         /// <summary>
-        /// The access level, R for read-only, RW for read-write.
-        /// </summary>
-        public enum AccessLevel
-        {
-            R,
-            // ReSharper disable once InconsistentNaming
-            RW
-        }
-        /// <summary>
-        /// Suffix used to build the claim value from the permission unique identifier.
-        /// </summary>
-        public const string READ_WRITE_SUFFIX = "|rw";
-
-        /// <summary>
-        /// Suffix used to build the claim value from the permission unique identifier.
-        /// </summary>
-        public const string READ_ONLY_SUFFIX = "|r";
-
-        /// <summary>
-        /// Gets the claim value from the permission unique ID and the access level.
-        /// Note: the returned value is lower case.
+        /// Gets the claim value: permission unique ID, lowercased.
         /// </summary>
         /// <param name="permissionUniqueId_"></param>
-        /// <param name="write_">true when write access level, false when read</param>
         /// <returns></returns>
-        public static string GetClaimValue(string permissionUniqueId_, bool write_)
+        public static string GetClaimValue(string permissionUniqueId_)
         {
-            return (permissionUniqueId_ + (write_
-                       ? READ_WRITE_SUFFIX
-                       : READ_ONLY_SUFFIX)).ToLowerInvariant();
+            return permissionUniqueId_.ToLowerInvariant();
         }
 
         /// <summary>
-        /// Formats the policy name associated with a permission that has a code and an origin extension.
+        /// Formats the policy name (= also claim value), knowing a permission code (name) and its "T" origin extension.
         /// Note: the returned value is lower case.
         /// </summary>
         /// <param name="permissionCode_"></param>
-        /// <param name="write_"></param>
         /// <typeparam name="T">Extension metadata</typeparam>
         /// <returns></returns>
-        public static string GetPolicyName<T>(string permissionCode_, bool write_) where T : IExtensionMetadata
+        public static string GetPolicyName<T>(string permissionCode_) where T : IExtensionMetadata
         {
-            return $"{permissionCode_}|{typeof(T).Assembly.GetName().Name}|{(write_ ? READ_WRITE_SUFFIX : READ_ONLY_SUFFIX)}".ToLowerInvariant();
+            return $"{permissionCode_}|{typeof(T).Assembly.GetName().Name}".ToLowerInvariant();
         }
 
         /// <summary>
-        /// Formats the policy name associated with a permission that has a code and an origin extension, and an access level.
+        /// Formats the policy name (= also claim value), knowing a permission code (name) and its origin extension.
         /// Note: the returned value is lower case.
         /// </summary>
         /// <param name="permissionCode_"></param>
         /// <param name="originExtensionAssemblyName_">The origin extension assembly name, given by Assembly.GetName().Name</param>
-        /// <param name="accessLevel_"></param>
         /// <returns></returns>
-        public static string GetPolicyName(string permissionCode_, string originExtensionAssemblyName_, AccessLevel accessLevel_)
+        public static string GetPolicyName(string permissionCode_, string originExtensionAssemblyName_)
         {
-            return $"{GetPermissionUniqueIdentifier(permissionCode_, originExtensionAssemblyName_)}|{(accessLevel_)}".ToLowerInvariant();
+            return $"{GetPermissionUniqueIdentifier(permissionCode_, originExtensionAssemblyName_)}".ToLowerInvariant();
         }
 
         /// <summary>
-        /// Formats the unique identifier of a permission that has a code and an origin extension.
+        /// Formats the unique identifier of a permission that has a code (name) and an origin extension.
         /// Note: the returned value is lower case.
         /// </summary>
         /// <param name="permissionCode_"></param>
