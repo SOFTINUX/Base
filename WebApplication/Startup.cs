@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.IO;
+using System.Reflection;
 using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
 using ExtCore.Data.EntityFramework.Sqlite;
@@ -38,6 +39,7 @@ namespace WebApplication
             services_.Configure<StorageContextOptions>(options_ =>
                 {
                     options_.ConnectionString = Configuration["ConnectionStrings:Default"];
+                    options_.MigrationsAssembly = typeof(DesignTimeStorageContextFactory).GetTypeInfo().Assembly.FullName;
                 }
             );
 
@@ -52,6 +54,7 @@ namespace WebApplication
             // Necessary for IStorage service registration to fully work (see AddAuthorizationPolicies).
             services_.AddScoped<IStorageContext, StorageContext>();
             services_.AddScoped<IStorage, Storage>();
+            DesignTimeStorageContextFactory.Initialize(services_.BuildServiceProvider());
 
             services_.AddExtCore(_extensionsPath);
 
