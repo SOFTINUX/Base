@@ -10,34 +10,34 @@ using Security.Data.Entities;
 
 namespace Security.Data.EntityFramework
 {
-    public class GroupUserRepository : RepositoryBase<GroupUser>, IGroupUserRepository
+    public class GroupUserRepository : RepositoryBase<UserGroup>, IGroupUserRepository
     {
-       public virtual IEnumerable<GroupUser> All()
+       public virtual IEnumerable<UserGroup> All()
         {
             return dbSet.ToList();
         }
 
-        public GroupUser FindBy(int groupId_, int userId_)
+        public UserGroup FindBy(int groupId_, int userId_)
         {
             return dbSet.FirstOrDefault(e_ => e_.GroupId == groupId_ && e_.UserId == userId_);
         }
 
-        public IEnumerable<GroupUser> FilteredByGroupId(int groupId_)
+        public IEnumerable<UserGroup> FilteredByGroupId(int groupId_)
         {
             return dbSet.Where(e_ => e_.GroupId == groupId_).ToList();
         }
 
-        public IEnumerable<GroupUser> FilteredByUserId(int userId_)
+        public IEnumerable<UserGroup> FilteredByUserId(int userId_)
         {
             return dbSet.Where(e_ => e_.UserId == userId_).ToList();
         }
 
-        public virtual void Create(GroupUser entity_)
+        public virtual void Create(UserGroup entity_)
         {
             dbSet.Add(entity_);
         }
 
-        public virtual void Edit(GroupUser entity_)
+        public virtual void Edit(UserGroup entity_)
         {
             storageContext.Entry(entity_).State = EntityState.Modified;
         }

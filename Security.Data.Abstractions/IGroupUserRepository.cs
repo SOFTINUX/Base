@@ -9,11 +9,11 @@ namespace Security.Data.Abstractions
 {
     public interface IGroupUserRepository : IRepository
     {
-        GroupUser FindBy(int groupId_, int userId_);
-        IEnumerable<GroupUser> FilteredByGroupId(int groupId_);
-        IEnumerable<GroupUser> FilteredByUserId(int userId_);
-        void Create(GroupUser entity_);
-        void Edit(GroupUser entity_);
+        UserGroup FindBy(int groupId_, int userId_);
+        IEnumerable<UserGroup> FilteredByGroupId(int groupId_);
+        IEnumerable<UserGroup> FilteredByUserId(int userId_);
+        void Create(UserGroup entity_);
+        void Edit(UserGroup entity_);
         void Delete(int groupId_, int userId_);
     }
 }

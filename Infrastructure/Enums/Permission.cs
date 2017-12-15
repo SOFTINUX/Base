@@ -9,6 +9,8 @@ namespace Infrastructure.Enums
     /// </summary>
     public partial class Permissions
     {
+        // TODO replace these by "Admin", "Write", "Read", "Never"
+
         /// <summary>
         /// Code of a permission provided by the Security extension.
         /// </summary>

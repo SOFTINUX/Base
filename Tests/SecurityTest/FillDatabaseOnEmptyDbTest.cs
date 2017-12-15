@@ -35,7 +35,7 @@ namespace SecurityTest
             IEnumerable<Permission> perms = _fixture.GetRepository<IPermissionRepository>().All();
             Assert.NotEmpty(perms);
             foreach (Permission perm in perms)
-                _outputHandler.WriteLine("[" + perm.Id + "] " + perm.Code);
+                _outputHandler.WriteLine("[" + perm.Id + "] " + perm.Name);
         }
     }
 }

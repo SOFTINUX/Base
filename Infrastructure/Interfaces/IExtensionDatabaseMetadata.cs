@@ -26,41 +26,41 @@ namespace Infrastructure.Interfaces
         /// <returns></returns>
         uint Priority { get; }
 
-        /// <summary>
-        /// The permissions you wish to add to the application with code (unique to your extension), label, administrator-owner flag.
-        /// You will use this code to use Security.Common.AuthorizeAttribute.
-        /// Label is useful to distinguish this item among others in administration interface.
-        /// When administrator-owner flag is set, this permission will be sticky to administrator-owner role, regardless current configuration.
-        /// </summary>
-        IEnumerable<Tuple<string, string, bool>> PermissionCodeLabelAndFlags { get; }
+        ///// <summary>
+        ///// The permissions you wish to add to the application with code (unique to your extension), label, administrator-owner flag.
+        ///// You will use this code to use Security.Common.AuthorizeAttribute.
+        ///// Label is useful to distinguish this item among others in administration interface.
+        ///// When administrator-owner flag is set, this permission will be sticky to administrator-owner role, regardless current configuration.
+        ///// </summary>
+        //IEnumerable<Tuple<string, string, bool>> PermissionCodeLabelAndFlags { get; }
 
-        /// <summary>
-        /// The roles you wish to add to the application, with code (unique to your extension) and label.
-        /// Label is useful to distinguish this item among others in administration interface.
-        /// </summary>
-        IEnumerable<KeyValuePair<string, string>> RoleCodeAndLabels { get; }
+        ///// <summary>
+        ///// The roles you wish to add to the application, with code (unique to your extension) and label.
+        ///// Label is useful to distinguish this item among others in administration interface.
+        ///// </summary>
+        //IEnumerable<KeyValuePair<string, string>> RoleCodeAndLabels { get; }
 
-        /// <summary>
-        /// The groups you wish to add to the application, with code (unique to your extension) and label.
-        /// Label is useful to distinguish this item among others in administration interface.
-        /// </summary>
-        IEnumerable<KeyValuePair<string, string>> GroupCodeAndLabels { get; }
+        ///// <summary>
+        ///// The groups you wish to add to the application, with code (unique to your extension) and label.
+        ///// Label is useful to distinguish this item among others in administration interface.
+        ///// </summary>
+        //IEnumerable<KeyValuePair<string, string>> GroupCodeAndLabels { get; }
 
-        /// <summary>
-        /// The credential types (way of authenticating)  you wish to add to the application, with code (unique to your extension) and label.
-        /// Label is useful to distinguish this item among others in administration interface.
-        /// </summary>
-        IEnumerable<KeyValuePair<string, string>> CredentialTypeCodeAndLabels { get; }
+        ///// <summary>
+        ///// The credential types (way of authenticating)  you wish to add to the application, with code (unique to your extension) and label.
+        ///// Label is useful to distinguish this item among others in administration interface.
+        ///// </summary>
+        //IEnumerable<KeyValuePair<string, string>> CredentialTypeCodeAndLabels { get; }
 
-        /// <summary>
-        /// The permission levels that will be created in application (only by Security extension).
-        /// </summary>
-        IEnumerable<Tuple<PermissionLevelValue, string, string>> PermissionLevelValueLabelAndTips { get; }
+        ///// <summary>
+        ///// The permission levels that will be created in application (only by Security extension).
+        ///// </summary>
+        //IEnumerable<Tuple<PermissionLevelValue, string, string>> PermissionLevelValueLabelAndTips { get; }
 
-        /// <summary>
-        /// The users you wish to add to the application.
-        /// </summary>
-        IEnumerable<Tuple<string, string, string>> UserFirstnameLastnameAndDisplayNames { get; }
+        ///// <summary>
+        ///// The users you wish to add to the application.
+        ///// </summary>
+        //IEnumerable<Tuple<string, string, string>> UserFirstnameLastnameAndDisplayNames { get; }
 
         /// <summary>
         /// Your custom code to add links between permission, role, user and group repository, but you have to manage yourself

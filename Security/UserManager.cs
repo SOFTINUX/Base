@@ -24,8 +24,6 @@ namespace Security
         // On construit une liste qui contaient les claims "role" et les claims "permission".
 
         private readonly IRequestHandler _requestHandler;
-        private readonly ICredentialTypeRepository _credentialTypeRepository;
-        private readonly ICredentialRepository _credentialRepository;
         private readonly IUserRepository _userRepository;
         private readonly IUserRoleRepository _userRoleRepository;
         private readonly IRoleRepository _roleRepository;
@@ -37,8 +35,6 @@ namespace Security
         public UserManager(IRequestHandler requestHandler_, ILoggerFactory loggerFactory_)
         {
             _requestHandler = requestHandler_;
-            _credentialTypeRepository = requestHandler_.Storage.GetRepository<ICredentialTypeRepository>();
-            _credentialRepository = requestHandler_.Storage.GetRepository<ICredentialRepository>();
             _userRepository = requestHandler_.Storage.GetRepository<IUserRepository>();
             _userRoleRepository = requestHandler_.Storage.GetRepository<IUserRoleRepository>();
             _roleRepository = requestHandler_.Storage.GetRepository<IRoleRepository>();
@@ -55,47 +51,51 @@ namespace Security
         /// <returns></returns>
         public User Login(string loginTypeCode_, string identifier_, string secret_, string loginTypeOriginExtensionAssemblyName_)
         {
-            CredentialType credentialType = _credentialTypeRepository.FindBy(loginTypeCode_, loginTypeOriginExtensionAssemblyName_);
+            return null;
 
-            if (credentialType == null)
-            {
-                _logger.LogDebug("No such credential type: " + loginTypeCode_);
-#if DEBUG
-                ErrorCode = UserManagerErrorCode.NoCredentialType;
-#endif
-                return null;
-            }
+            // TODO implement using WIF
 
-            // TODO when supporting other credential types, the extension will have to perform credential verification
-            // i.e. Security extension will use PasswordHasher used below.
-            if (credentialType.Code == Enums.CredentialType.Email)
-            {
-                Credential credential = _credentialRepository.FindBy(credentialType.Id, identifier_);
-                if (credential == null)
-                {
-                    _logger.LogDebug("No match for provided credential type and identifier");
-#if DEBUG
-                    ErrorCode = UserManagerErrorCode.NoMatchCredentialTypeAndIdentifier;
-#endif
-                    return null;
-                }
+//            CredentialType credentialType = _credentialTypeRepository.FindBy(loginTypeCode_, loginTypeOriginExtensionAssemblyName_);
 
-                PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
-                if (passwordHasher.VerifyHashedPassword(null, credential.Secret, secret_) == PasswordVerificationResult.Success)
-                    return _userRepository.FindById(credential.UserId);
+//            if (credentialType == null)
+//            {
+//                _logger.LogDebug("No such credential type: " + loginTypeCode_);
+//#if DEBUG
+//                ErrorCode = UserManagerErrorCode.NoCredentialType;
+//#endif
+//                return null;
+//            }
 
-                _logger.LogDebug("Credential secret verification failed");
-#if DEBUG
-                ErrorCode = UserManagerErrorCode.SecretVerificationFailed;
-#endif
-                return null;
-            }
+//            // TODO when supporting other credential types, the extension will have to perform credential verification
+//            // i.e. Security extension will use PasswordHasher used below.
+//            if (credentialType.Code == Enums.CredentialType.Email)
+//            {
+//                Credential credential = _credentialRepository.FindBy(credentialType.Id, identifier_);
+//                if (credential == null)
+//                {
+//                    _logger.LogDebug("No match for provided credential type and identifier");
+//#if DEBUG
+//                    ErrorCode = UserManagerErrorCode.NoMatchCredentialTypeAndIdentifier;
+//#endif
+//                    return null;
+//                }
 
-#if DEBUG
-            ErrorCode = UserManagerErrorCode.UnknownCredentialType;
-#endif
+//                PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
+//                if (passwordHasher.VerifyHashedPassword(null, credential.Secret, secret_) == PasswordVerificationResult.Success)
+//                    return _userRepository.FindById(credential.UserId);
 
-            throw new NotImplementedException("Credential type '" + credentialType.Code + " ' not handled");
+//                _logger.LogDebug("Credential secret verification failed");
+//#if DEBUG
+//                ErrorCode = UserManagerErrorCode.SecretVerificationFailed;
+//#endif
+//                return null;
+//            }
+
+//#if DEBUG
+//            ErrorCode = UserManagerErrorCode.UnknownCredentialType;
+//#endif
+
+//            throw new NotImplementedException("Credential type '" + credentialType.Code + " ' not handled");
         }
         /// <summary>
         ///
@@ -126,7 +126,7 @@ namespace Security
             AddRoleClaims(claims, user_);
 
             // permissions
-            claims.AddRange(new PermissionManager().GetFinalPermissions(_requestHandler, user_));
+            // TODO create ClaimManager static class to gather permissions from roles, groups and user... claims.AddRange();
 
             return claims;
         }
@@ -142,7 +142,7 @@ namespace Security
             currentClaims_.AddRange(
             new []{
                 new Claim(ClaimTypes.NameIdentifier, user_.Id.ToString()),
-                new Claim(ClaimTypes.Name, user_.DisplayName)
+                new Claim(ClaimTypes.Name, user_.FirstName + user_.LastName)
             }
             );
         }
@@ -160,12 +160,12 @@ namespace Security
 
             if (roleIds == null)
                 return;
-            // TODO improve code : use a navigation property above to get role's code instead of n queries
+            // TODO improve code : use a navigation property above to get role's name instead of n queries
             foreach (int roleId in roleIds)
             {
                 Role role = _roleRepository.FindById(roleId);
 
-                claims.Add(new Claim(ClaimTypes.Role, role.Code));
+                claims.Add(new Claim(ClaimTypes.Role, role.Name));
             }
 
         }

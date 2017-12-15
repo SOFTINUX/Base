@@ -5,7 +5,6 @@ using System.IO;
 using System.Reflection;
 using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
-using ExtCore.Data.EntityFramework.Sqlite;
 using ExtCore.WebApplication.Extensions;
 using Infrastructure;
 using Microsoft.AspNetCore.Builder;
@@ -13,6 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Security.Data.EntityFramework;
 using Serilog;
 
 namespace WebApplication
@@ -52,8 +52,9 @@ namespace WebApplication
 
             // Register database-specific storage context implementation.
             // Necessary for IStorage service registration to fully work (see AddAuthorizationPolicies).
-            services_.AddScoped<IStorageContext, StorageContext>();
+            services_.AddScoped<IStorageContext, ApplicationStorageContext>();
             services_.AddScoped<IStorage, Storage>();
+
             DesignTimeStorageContextFactory.Initialize(services_.BuildServiceProvider());
 
             services_.AddExtCore(_extensionsPath);

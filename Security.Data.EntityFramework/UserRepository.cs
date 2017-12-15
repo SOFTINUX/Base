@@ -20,20 +20,18 @@ namespace Security.Data.EntityFramework
         public User FindBy(string firstName_, string lastName_, string displayName_, string originExtensionAssemblyName_)
         {
             return dbSet.FirstOrDefault(e_ => e_.FirstName == firstName_
-            && e_.LastName == lastName_
-            && e_.DisplayName == displayName_
-            && e_.OriginExtension == originExtensionAssemblyName_);
+            && e_.LastName == lastName_);
         }
 
         /// <summary>
+        /// OBSOLETE
         /// Get an user by credential identifier. Useful for unit tests.
         /// </summary>
         /// <param name="identifier_"></param>
         /// <returns></returns>
         public virtual User WithCredentialIdentifier(string identifier_)
         {
-            Credential c = storageContext.Set<Credential>().FirstOrDefault(c_ => c_.Identifier == identifier_);
-            return c == null ? null : FindById(c.UserId);
+            return null;
         }
 
 

@@ -16,12 +16,12 @@ namespace Infrastructure
     public abstract class ExtensionDatabaseMetadataBase : IExtensionDatabaseMetadata
     {
         public abstract uint Priority { get; }
-        public abstract IEnumerable<Tuple<string, string, bool>> PermissionCodeLabelAndFlags { get; }
-        public abstract IEnumerable<KeyValuePair<string, string>> RoleCodeAndLabels { get; }
-        public abstract IEnumerable<KeyValuePair<string, string>> GroupCodeAndLabels { get; }
-        public virtual IEnumerable<KeyValuePair<string, string>> CredentialTypeCodeAndLabels => null;
-        public virtual IEnumerable<Tuple<PermissionLevelValue, string, string>> PermissionLevelValueLabelAndTips => null;
-        public virtual IEnumerable<Tuple<string, string, string>> UserFirstnameLastnameAndDisplayNames => null;
+        //public abstract IEnumerable<Tuple<string, string, bool>> PermissionCodeLabelAndFlags { get; }
+        //public abstract IEnumerable<KeyValuePair<string, string>> RoleCodeAndLabels { get; }
+        //public abstract IEnumerable<KeyValuePair<string, string>> GroupCodeAndLabels { get; }
+        //public virtual IEnumerable<KeyValuePair<string, string>> CredentialTypeCodeAndLabels => null;
+        //public virtual IEnumerable<Tuple<PermissionLevelValue, string, string>> PermissionLevelValueLabelAndTips => null;
+        //public virtual IEnumerable<Tuple<string, string, string>> UserFirstnameLastnameAndDisplayNames => null;
 
         /// <summary>
         /// Does nothing.

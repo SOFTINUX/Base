@@ -61,30 +61,30 @@ namespace SecurityTest
         {
             List<KeyValuePair<int, string>> counters = new List<KeyValuePair<int, string>>();
 
-            // 0. Permissions
-            counters.Add(
-                new KeyValuePair<int, string>(_fixture.GetRepository<IPermissionRepository>().All().Count(e_ => e_.OriginExtension == _securityAssemblyName),
-                "Number of permissions for Security extension"));
-            // 1. Roles
-            counters.Add(
-                new KeyValuePair<int, string>(_fixture.GetRepository<IRoleRepository>().All().Count(e_ => e_.OriginExtension == _securityAssemblyName),
-                    "Number of roles for Security extension"));
-            // 2. Users
-            counters.Add(
-                new KeyValuePair<int, string>(_fixture.GetRepository<IUserRepository>().All().Count(e_ => e_.OriginExtension == _securityAssemblyName),
-                    "Number of users for Security extension"));
-            // 3. CredentialType
-            counters.Add(
-                new KeyValuePair<int, string>(_fixture.GetRepository<ICredentialTypeRepository>().All().Count(e_ => e_.OriginExtension == _securityAssemblyName),
-                    "Number of credential types for Security extension"));
-            // No groups inserted by this extension
+            //// 0. Permissions
+            //counters.Add(
+            //    new KeyValuePair<int, string>(_fixture.GetRepository<IPermissionRepository>().All().Count(e_ => e_.OriginExtension == _securityAssemblyName),
+            //    "Number of permissions for Security extension"));
+            //// 1. Roles
+            //counters.Add(
+            //    new KeyValuePair<int, string>(_fixture.GetRepository<IRoleRepository>().All().Count(e_ => e_.OriginExtension == _securityAssemblyName),
+            //        "Number of roles for Security extension"));
+            //// 2. Users
+            //counters.Add(
+            //    new KeyValuePair<int, string>(_fixture.GetRepository<IUserRepository>().All().Count(e_ => e_.OriginExtension == _securityAssemblyName),
+            //        "Number of users for Security extension"));
+            //// 3. CredentialType
+            //counters.Add(
+            //    new KeyValuePair<int, string>(_fixture.GetRepository<ICredentialTypeRepository>().All().Count(e_ => e_.OriginExtension == _securityAssemblyName),
+            //        "Number of credential types for Security extension"));
+            //// No groups inserted by this extension
 
-            // 4. Role-permission links: all permissions linked to administrator-owner role
-            int roleId = _fixture.GetRepository<IRoleRepository>()
-                .FindBy(Roles.ROLE_CODE_ADMINISTRATOR_OWNER, _securityAssemblyName).Id;
-            counters.Add(
-                new KeyValuePair<int, string>(_fixture.GetRepository<IRolePermissionRepository>().FilteredByRoleId(roleId).Count(),
-                "Number of role-permission links for Security extension"));
+            //// 4. Role-permission links: all permissions linked to administrator-owner role
+            //int roleId = _fixture.GetRepository<IRoleRepository>()
+            //    .FindBy(Roles.ROLE_CODE_ADMINISTRATOR_OWNER, _securityAssemblyName).Id;
+            //counters.Add(
+            //    new KeyValuePair<int, string>(_fixture.GetRepository<IRolePermissionRepository>().FilteredByRoleId(roleId).Count(),
+            //    "Number of role-permission links for Security extension"));
 
             return counters;
         }

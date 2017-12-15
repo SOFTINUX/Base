@@ -19,7 +19,7 @@ namespace Security.ServiceConfiguration
         /// <summary>
         /// Executes after ActivateAuthentication and ConfigureAuthentication service actions.
         /// </summary>
-        public int Priority => 201;
+        public int Priority => 202;
 
         /// <summary>
         /// For every application permission, creates a policy that requires a custom claim (of type Permission),

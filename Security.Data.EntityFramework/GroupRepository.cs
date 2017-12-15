@@ -14,7 +14,7 @@ namespace Security.Data.EntityFramework
     {
         public virtual Group FindBy(string code_, string originExtensionAssemblyName_)
         {
-            return dbSet.FirstOrDefault(e_ => e_.Code == code_ && e_.OriginExtension == originExtensionAssemblyName_);
+            return dbSet.FirstOrDefault(e_ => e_.Name == code_);
         }
 
         public virtual IEnumerable<Group> All()

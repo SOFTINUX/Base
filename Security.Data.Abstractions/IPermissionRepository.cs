@@ -20,8 +20,5 @@ namespace Security.Data.Abstractions
         void Create(Permission entity_);
         void Edit(Permission entity_);
         void Delete(int entityId_);
-        IEnumerable<PermissionValue> GetPermissionCodeAndLevelByRoleForUserId(int userId_);
-        IEnumerable<PermissionValue> GetPermissionCodeAndLevelByGroupForUserId(int userId_);
-        IEnumerable<PermissionValue> GetPermissionCodeAndLevelByUserId(int userId_);
     }
 }
