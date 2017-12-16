@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.DependencyInjection;
 using Security.Data.Entities;
-using Security.Data.EntityFramework;
+using Security.Data.EntityFramework.Sqlite;
 
 namespace Security.ServiceConfiguration
 {

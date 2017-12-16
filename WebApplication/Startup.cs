@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Security.Data.EntityFramework;
+using Security.Data.EntityFramework.Sqlite;
 using Serilog;
 
 namespace WebApplication

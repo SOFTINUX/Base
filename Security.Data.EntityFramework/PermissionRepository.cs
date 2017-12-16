@@ -38,7 +38,5 @@ namespace Security.Data.EntityFramework
             if(entity != null)
                 dbSet.Remove(entity);
         }
-
-      
     }
 }
