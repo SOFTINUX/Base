@@ -9,6 +9,7 @@ using ExtCore.WebApplication.Extensions;
 using Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -44,6 +45,12 @@ namespace WebApplication
                 }
             );
 
+            services_.AddDbContext<ApplicationStorageContext>(options =>
+                {
+                    options.UseSqlite(Configuration["ConnectionStrings:Default"]);
+                }
+            );
+
             services_.Configure<CorporateConfiguration>(
               options_ =>
               {
@@ -55,6 +62,18 @@ namespace WebApplication
             // Necessary for IStorage service registration to fully work (see AddAuthorizationPolicies).
             services_.AddScoped<IStorageContext, ApplicationStorageContext>();
             services_.AddScoped<IStorage, Storage>();
+
+                         /*  // Configure Identity
+            services_.AddIdentity<Security.Data.Entities.User, Security.Data.Entities.Role>(options =>
+                {
+                    // Configure identity options here.
+                    options.Password.RequireDigit = true;
+                    options.Password.RequiredLength = 8;
+                    options.Password.RequireLowercase = true;
+                    options.Password.RequireNonAlphanumeric = true;
+                    options.Password.RequireUppercase = true;
+                })
+                .AddEntityFrameworkStores<ApplicationStorageContext>(); // Tell Identity which EF DbContext to use */
 
             DesignTimeStorageContextFactory.Initialize(services_.BuildServiceProvider());
 

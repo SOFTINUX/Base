@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.DependencyInjection;
 using Security.Data.Entities;
-using Security.Data.EntityFramework.Sqlite;
+//using Security.Data.EntityFramework.Sqlite;
 
 namespace Security.ServiceConfiguration
 {
@@ -22,18 +22,6 @@ namespace Security.ServiceConfiguration
 
         public void Execute(IServiceCollection serviceCollection_, IServiceProvider serviceProvider_)
         {
-            // Configure Identity
-            serviceCollection_.AddIdentity<User, Role>(options =>
-                {
-                    // Configure identity options here.
-                    options.Password.RequireDigit = true;
-                    options.Password.RequiredLength = 8;
-                    options.Password.RequireLowercase = true;
-                    options.Password.RequireNonAlphanumeric = true;
-                    options.Password.RequireUppercase = true;
-                })
-                .AddEntityFrameworkStores<ApplicationStorageContext>(); // Tell Identity which EF DbContext to use
-
             serviceCollection_.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options_ =>
                     {

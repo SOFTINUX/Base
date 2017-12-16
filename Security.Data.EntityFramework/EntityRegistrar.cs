@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
 using ExtCore.Data.EntityFramework;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Security.Data.Entities;
 
@@ -11,6 +12,27 @@ namespace Security.Data.EntityFramework
     {
         public void RegisterEntities(ModelBuilder modelBuilder_)
         {
+
+           /*  modelBuilder_.Entity<UserLogin>(etb_ => {
+                etb_.HasKey(e_ => new { e_.ProviderKey, e_.LoginProvider });
+            });
+
+            modelBuilder_.Entity<User>(etb_ => {
+                etb_.HasKey(e_ => new { e_.Id });
+            });
+
+            modelBuilder_.Entity<Role>(etb_ => {
+                etb_.HasKey(e_ => new { e_.Id });
+            });
+
+            modelBuilder_.Entity<UserRole>(etb_ => {
+                etb_.HasKey(e_ => new { e_.UserId , e_.RoleId});
+            });
+
+            modelBuilder_.Entity<UserToken>(etb_ => {
+                etb_.HasKey(e_ => new { e_.LoginProvider, e_.Name });
+            }); */
+
             // non-WIF entities
 
             // Permission

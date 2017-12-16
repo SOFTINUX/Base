@@ -14,12 +14,12 @@ using Security.Common.Policy;
 
 namespace Security.ServiceConfiguration
 {
-    public class AddAuthorizationPolicies : IConfigureServicesAction
+    public class AddAuthorizationPolicies //: IConfigureServicesAction
     {
         /// <summary>
         /// Executes after ActivateAuthentication and ConfigureAuthentication service actions.
         /// </summary>
-        public int Priority => 202;
+        public int Priority => 1001;
 
         /// <summary>
         /// For every application permission, creates a policy that requires a custom claim (of type Permission),
