@@ -10,6 +10,6 @@ namespace Security.Data.Entities
     public class Role : IdentityRole<int>, IEntity
     {
         public virtual ICollection<RolePermission> RolePermissions { get; set; }
-        public virtual ICollection<UserRole> UserRoles { get; set; }
+        public virtual ICollection<IdentityUserRole<int>> UserRoles { get; set; }
     }
 }

@@ -8,6 +8,6 @@ namespace Security.Data.Entities
 {
     public class UserToken : IdentityUserToken<int>, IEntity
     {
-        public virtual User User { get; set; }
+        public virtual IdentityUser<int> User { get; set; }
     }
 }

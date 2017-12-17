@@ -1,12 +1,11 @@
-﻿using System;
-using ExtCore.Data.Abstractions;
+﻿using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Security.Data.Entities;
 
-namespace Security.Data.EntityFramework.Sqlite
+namespace WebApplication
 {
     public class ApplicationStorageContext : IdentityDbContext<User, Role, int>, IStorageContext
     {

@@ -15,10 +15,10 @@ namespace Security.Data.Entities
         public DateTime FirstConnection { get; set; }
         public DateTime LastConnection { get; set; }
 
-        public virtual ICollection<UserRole> UserRoles { get; set; }
+        public virtual ICollection<IdentityUserRole<int>> UserRoles { get; set; }
         public virtual ICollection<UserGroup> GroupUsers { get; set; }
         public virtual ICollection<UserPermission> UserPermissions { get; set; }
-        public virtual ICollection<UserToken> UserTokens { get; set; }
-        public virtual ICollection<UserLogin> UserLogins { get; set; }
+        public virtual ICollection<IdentityUserToken<int>> UserTokens { get; set; }
+        public virtual ICollection<IdentityUserLogin<int>> UserLogins { get; set; }
     }
 }
