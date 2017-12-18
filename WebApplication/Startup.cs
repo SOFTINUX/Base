@@ -87,8 +87,8 @@ namespace WebApplication
                 }; */
 
                 // customize other stuff as needed
-                options.LoginPath = "/Account/LogIn";
-                options.LogoutPath = "/Account/LogOff";
+                options.LoginPath = "/account/signin";
+                options.LogoutPath = "/account/signoff";
                 options.Cookie.Name = "." + Configuration["Corporate:Name"];
                 options.Cookie.HttpOnly = true; //this must be true to prevent XSS
                 options.Cookie.SameSite = SameSiteMode.None;

@@ -7,8 +7,15 @@ using Security.Data.Entities;
 
 namespace WebApplication
 {
-    public class ApplicationStorageContext : IdentityDbContext<User, Role, int>, IStorageContext
+    public partial class ApplicationStorageContext : IdentityDbContext<User, Role, int>, IStorageContext
     {
+        public DbSet<Permission> Permission { get; set; }
+        public DbSet<Group> Group { get; set; }
+        public DbSet<GroupPermission> GroupPermission { get; set; }
+        public DbSet<UserGroup> UserGroup { get; set; }
+        public DbSet<RolePermission> RolePermission { get; set; }
+        public DbSet<UserPermission> UserPermission { get; set; }
+
         public ApplicationStorageContext(DbContextOptions<ApplicationStorageContext> options_)
             : base(options_)
         {

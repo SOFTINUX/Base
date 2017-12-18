@@ -22,22 +22,22 @@ namespace Security.ServiceConfiguration
 
         public void Execute(IServiceCollection serviceCollection_, IServiceProvider serviceProvider_)
         {
-            serviceCollection_.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options_ =>
-                    {
-                        // Override the default events (By default Identity performs a 302 redirect to a login page for unauthenticated or unauthorized requests)
-                        options_.Events = new CookieAuthenticationEvents
-                        {
-                            OnRedirectToAccessDenied = ReplaceRedirectorWithStatusCode(HttpStatusCode.Forbidden),
-                            OnRedirectToLogin = ReplaceRedirectorWithStatusCode(HttpStatusCode.Unauthorized)
-                        };
-                        options_.AccessDeniedPath = "/account/accessdenied";
-                        options_.LoginPath = "/account/signin";
-                        options_.LogoutPath = "/account/signout";
-                        options_.ReturnUrlParameter = "next";
-                        options_.ExpireTimeSpan = TimeSpan.FromDays(7);
-                    }
-                );
+            //serviceCollection_.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            //    .AddCookie(options_ =>
+            //        {
+            //            // Override the default events (By default Identity performs a 302 redirect to a login page for unauthenticated or unauthorized requests)
+            //            options_.Events = new CookieAuthenticationEvents
+            //            {
+            //                OnRedirectToAccessDenied = ReplaceRedirectorWithStatusCode(HttpStatusCode.Forbidden),
+            //                OnRedirectToLogin = ReplaceRedirectorWithStatusCode(HttpStatusCode.Unauthorized)
+            //            };
+            //            options_.AccessDeniedPath = "/account/accessdenied";
+            //            options_.LoginPath = "/account/signin";
+            //            options_.LogoutPath = "/account/signout";
+            //            options_.ReturnUrlParameter = "next";
+            //            options_.ExpireTimeSpan = TimeSpan.FromDays(7);
+            //        }
+            //    );
         }
 
         static Func<RedirectContext<CookieAuthenticationOptions>, Task> ReplaceRedirectorWithStatusCode(
