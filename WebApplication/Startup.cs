@@ -7,8 +7,11 @@ using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
 using ExtCore.WebApplication.Extensions;
 using Infrastructure;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -38,24 +41,27 @@ namespace WebApplication
             // other values : AddTransient (stateless), AddSingleton (avoids to implement singleton pattern ourselves)
 
             services_.AddSingleton(Configuration);
-            services_.Configure<StorageContextOptions>(options_ =>
+
+            /* services_.Configure<StorageContextOptions>(options_ =>
                 {
                     options_.ConnectionString = Configuration["ConnectionStrings:Default"];
                     //options_.MigrationsAssembly = typeof(DesignTimeStorageContextFactory).GetTypeInfo().Assembly.FullName;
                 }
-            );
+            ); */
 
             services_.AddDbContext<ApplicationStorageContext>(options =>
                 {
                     options.UseSqlite(Configuration["ConnectionStrings:Default"]);
-                }
+                },
+                ServiceLifetime.Scoped
             );
 
             services_.Configure<CorporateConfiguration>(options_ =>
                 {
                     options_.Name = Configuration.GetValue<string>("Corporate:Name");
                     options_.BrandLogo = Configuration.GetValue<string>("Corporate:BrandLogo");
-                });
+                }
+            );
 
             // Configure Identity
             services_.AddIdentity<Security.Data.Entities.User, Security.Data.Entities.Role>(options =>
@@ -69,6 +75,27 @@ namespace WebApplication
                 })
                .AddEntityFrameworkStores<ApplicationStorageContext>()
                .AddDefaultTokenProviders(); // Tell Identity which EF DbContext to use
+
+               // configure the application cookie
+            services_.ConfigureApplicationCookie( options =>
+            {
+                // override the default event
+               /*  options.Events = new CookieAuthenticationEvents
+                {
+                    OnRedirectToAccessDenied = ReplaceRedirectorWithStatusCode(HttpStatusCode.Forbidden),
+                    OnRedirectToLogin = ReplaceRedirectorWithStatusCode(HttpStatusCode.Unauthorized)
+                }; */
+
+                // customize other stuff as needed
+                options.LoginPath = "/Account/LogIn";
+                options.LogoutPath = "/Account/LogOff";
+                options.Cookie.Name = "." + Configuration["Corporate:Name"];
+                options.Cookie.HttpOnly = true; //this must be true to prevent XSS
+                options.Cookie.SameSite = SameSiteMode.None;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.None; //should ideally be "Always"
+
+                options.SlidingExpiration = true;
+            });
 
             // Register database-specific storage context implementation.
             // Necessary for IStorage service registration to fully work (see AddAuthorizationPolicies).
@@ -102,6 +129,7 @@ namespace WebApplication
             Log.Information("#######################################################");
 #endif
 
+            applicationBuilder_.UseAuthentication();
             applicationBuilder_.UseExtCore();
 
             System.Console.WriteLine("PID= " + System.Diagnostics.Process.GetCurrentProcess().Id);
