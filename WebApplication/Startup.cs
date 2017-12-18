@@ -41,7 +41,7 @@ namespace WebApplication
             services_.Configure<StorageContextOptions>(options_ =>
                 {
                     options_.ConnectionString = Configuration["ConnectionStrings:Default"];
-                    options_.MigrationsAssembly = typeof(DesignTimeStorageContextFactory).GetTypeInfo().Assembly.FullName;
+                    //options_.MigrationsAssembly = typeof(DesignTimeStorageContextFactory).GetTypeInfo().Assembly.FullName;
                 }
             );
 
@@ -51,32 +51,31 @@ namespace WebApplication
                 }
             );
 
-            services_.Configure<CorporateConfiguration>(
-              options_ =>
-              {
-                  options_.Name = Configuration.GetValue<string>("Corporate:Name");
-                  options_.BrandLogo = Configuration.GetValue<string>("Corporate:BrandLogo");
-              });
+            services_.Configure<CorporateConfiguration>(options_ =>
+                {
+                    options_.Name = Configuration.GetValue<string>("Corporate:Name");
+                    options_.BrandLogo = Configuration.GetValue<string>("Corporate:BrandLogo");
+                });
+
+            // Configure Identity
+            services_.AddIdentity<Security.Data.Entities.User, Security.Data.Entities.Role>(options =>
+                {
+                    // Configure identity options here.
+                    options.Password.RequireDigit = true;
+                    options.Password.RequiredLength = 8;
+                    options.Password.RequireLowercase = true;
+                    options.Password.RequireNonAlphanumeric = true;
+                    options.Password.RequireUppercase = true;
+                })
+               .AddEntityFrameworkStores<ApplicationStorageContext>()
+               .AddDefaultTokenProviders(); // Tell Identity which EF DbContext to use
 
             // Register database-specific storage context implementation.
             // Necessary for IStorage service registration to fully work (see AddAuthorizationPolicies).
             services_.AddScoped<IStorageContext, ApplicationStorageContext>();
             services_.AddScoped<IStorage, Storage>();
 
-            // Configure Identity
-            services_.AddIdentity<Security.Data.Entities.User, Security.Data.Entities.Role>(options =>
-               {
-                   // Configure identity options here.
-                   options.Password.RequireDigit = true;
-                               options.Password.RequiredLength = 8;
-                               options.Password.RequireLowercase = true;
-                               options.Password.RequireNonAlphanumeric = true;
-                               options.Password.RequireUppercase = true;
-               })
-               .AddEntityFrameworkStores<ApplicationStorageContext>()
-               .AddDefaultTokenProviders(); // Tell Identity which EF DbContext to use
-
-            DesignTimeStorageContextFactory.Initialize(services_.BuildServiceProvider());
+            //DesignTimeStorageContextFactory.Initialize(services_.BuildServiceProvider());
 
             services_.AddExtCore(_extensionsPath);
 
