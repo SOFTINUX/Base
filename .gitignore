@@ -318,3 +318,6 @@ log-[0-9]*.txt
 
 # visual studio code local history extension
 .history
+
+# App EF Migration
+[Ww]ebApplication/[Mm]igrations/
