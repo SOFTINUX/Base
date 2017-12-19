@@ -1,14 +1,15 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SeedDatabase.Controllers
 {
-    [Route("api/[controller]")]
-    public class DefaultController : Controller
+    [Route("dev/seed")]
+    public class SeedDatabaseController : Controller
     {
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Index()
         {
-            return Ok("Hello world:");
+            return Ok("Hello world!");
         }
     }
 }

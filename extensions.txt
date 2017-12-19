@@ -1,2 +1,3 @@
 Extension1\bin\Debug\netcoreapp2.0\Extension1.dll
 Extension2\bin\Debug\netcoreapp2.0\Extension2.dll
+SeedDatabase\bin\Debug\netcoreapp2.0\SeedDatabase.dll
