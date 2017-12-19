@@ -36,11 +36,11 @@ namespace SeedDatabase.Controllers
 
             foreach(var r in roles)
             {
-                if (r.GetRoleName() == "administrator"){
                     // create an idenity role object out of the enum value
                     Security.Data.Entities.Role identityRole = new Security.Data.Entities.Role {
-                        Id = 1, // roles[0].GetRoleName(), TODO: take a good Id
-                        Name = roles[0].GetRoleName()
+                        // ID is auto-generated
+                        Name = r.GetRoleName(),
+                        NormalizedName = r.GetRoleName().ToUpperInvariant()
                     };
 
                     if(!await _roleManager.RoleExistsAsync(roleName: identityRole.Name))
@@ -51,7 +51,6 @@ namespace SeedDatabase.Controllers
                         if(!result.Succeeded)
                             return  StatusCode(StatusCodes.Status500InternalServerError);
                     }
-                }
             }
 
             // our default user
@@ -63,19 +62,19 @@ namespace SeedDatabase.Controllers
                 LockoutEnabled = false
             };
 
-            // ad the user to the database if it does'nt alreday exist
-            if(await _userManager.FindByEmailAsync(user.Email) == null)
+            // add the user to the database if it doesn't already exist
+            if (await _userManager.FindByEmailAsync(user.Email) == null)
             {
                 // WARNING:: Do Not check in credentials of any kind into source control
                 var result = await _userManager.CreateAsync(user, password: "5ESTdYB5cyYwA2dKhJqyjPYnKUc&45Ydw^gz^jy&FCV3gxpmDPdaDmxpMkhpp&9TRadU%wQ2TUge!TsYXsh77Qmauan3PEG8!6EP");
 
-                if(!result.Succeeded) //return 500 if it fails
+                if (!result.Succeeded) //return 500 if it fails
                     return StatusCode(StatusCodes.Status500InternalServerError);
 
                 //Assign all roles to the default user
                 result = await _userManager.AddToRolesAsync(user, roles.Select(r => r.GetRoleName()));
 
-                if(!result.Succeeded) // return 500 if fails
+                if (!result.Succeeded) // return 500 if fails
                     return StatusCode(StatusCodes.Status500InternalServerError);
             }
 
