@@ -17,17 +17,17 @@ namespace Security.Data.EntityFramework
             return dbSet.ToList();
         }
 
-        public UserGroup FindBy(int groupId_, int userId_)
+        public UserGroup FindBy(string groupId_, string userId_)
         {
             return dbSet.FirstOrDefault(e_ => e_.GroupId == groupId_ && e_.UserId == userId_);
         }
 
-        public IEnumerable<UserGroup> FilteredByGroupId(int groupId_)
+        public IEnumerable<UserGroup> FilteredByGroupId(string groupId_)
         {
             return dbSet.Where(e_ => e_.GroupId == groupId_).ToList();
         }
 
-        public IEnumerable<UserGroup> FilteredByUserId(int userId_)
+        public IEnumerable<UserGroup> FilteredByUserId(string userId_)
         {
             return dbSet.Where(e_ => e_.UserId == userId_).ToList();
         }
@@ -42,7 +42,7 @@ namespace Security.Data.EntityFramework
             storageContext.Entry(entity_).State = EntityState.Modified;
         }
 
-        public void Delete(int groupId_, int userId_)
+        public void Delete(string groupId_, string userId_)
         {
             dbSet.Remove(FindBy(groupId_, userId_));
         }

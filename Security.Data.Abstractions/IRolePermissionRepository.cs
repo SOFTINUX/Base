@@ -9,10 +9,10 @@ namespace Security.Data.Abstractions
 {
     public interface IRolePermissionRepository : IRepository
     {
-        RolePermission FindBy(int roleId_, int permissionId_);
-        IEnumerable<RolePermission> FilteredByRoleId(int roleId_);
+        RolePermission FindBy(string roleId_, string permissionId_);
+        IEnumerable<RolePermission> FilteredByRoleId(string roleId_);
         void Create(RolePermission entity_);
         void Edit(RolePermission entity_);
-        void Delete(int roleId_, int permissionId_);
+        void Delete(string roleId_, string permissionId_);
     }
 }

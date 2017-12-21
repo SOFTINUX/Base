@@ -32,7 +32,7 @@ namespace Security.Data.EntityFramework
             storageContext.Entry(entity_).State = EntityState.Modified;
         }
 
-        public virtual void Delete(int entityId_)
+        public virtual void Delete(string entityId_)
         {
             var entity = dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
             if(entity != null)

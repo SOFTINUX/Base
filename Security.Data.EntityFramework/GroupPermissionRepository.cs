@@ -12,12 +12,12 @@ namespace Security.Data.EntityFramework
 {
     public class GroupPermissionRepository : RepositoryBase<GroupPermission>, IGroupPermissionRepository
     {
-        public GroupPermission FindBy(int groupId_, int permissionId_)
+        public GroupPermission FindBy(string groupId_, string permissionId_)
         {
             return dbSet.FirstOrDefault(e_ => e_.GroupId == groupId_ && e_.PermissionId == permissionId_);
         }
 
-        public IEnumerable<GroupPermission> FilteredByGroupId(int groupId_)
+        public IEnumerable<GroupPermission> FilteredByGroupId(string groupId_)
         {
             return dbSet.Where(e_ => e_.GroupId == groupId_).ToList();
         }
@@ -32,7 +32,7 @@ namespace Security.Data.EntityFramework
             storageContext.Entry(entity_).State = EntityState.Modified;
         }
 
-        public void Delete(int groupId_, int permissionId_)
+        public void Delete(string groupId_, string permissionId_)
         {
             var entity = FindBy(groupId_, permissionId_);
             if (entity != null)

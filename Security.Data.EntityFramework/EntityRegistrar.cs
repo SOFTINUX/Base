@@ -35,40 +35,33 @@ namespace Security.Data.EntityFramework
 
             // Redefinition so that there are no extra FK/columns created
             // https://docs.microsoft.com/en-us/aspnet/core/migration/1x-to-2x/identity-2x
-            modelBuilder_.Entity<User>()
-                .HasMany(e => e.UserRoles)
-                .WithOne()
-                .HasForeignKey(e => e.UserId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Cascade);
+           // modelBuilder_.Entity<User>()
+           //     .HasMany(e => e.UserRoles)
+           //     .WithOne()
+           //     .HasForeignKey(e => e.UserId)
+           //     .IsRequired()
+           //     .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder_.Entity<User>()
-                .HasMany(e => e.UserRoles)
-                .WithOne()
-                .HasForeignKey(e => e.RoleId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Cascade);
+           //modelBuilder_.Entity<Role>()
+           //     .HasMany(e => e.UserRoles)
+           //     .WithOne()
+           //     .HasForeignKey(e => e.RoleId)
+           //     .IsRequired()
+           //     .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder_.Entity<Role>()
-                .HasMany(e => e.UserRoles)
-                .WithOne()
-                .HasForeignKey(e => e.RoleId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Cascade);
+           // modelBuilder_.Entity<User>()
+           //     .HasMany(e => e.UserLogins)
+           //     .WithOne()
+           //     .HasForeignKey(e => e.UserId)
+           //     .IsRequired()
+           //     .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder_.Entity<User>()
-                .HasMany(e => e.UserLogins)
-                .WithOne()
-                .HasForeignKey(e => e.UserId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder_.Entity<User>()
-                .HasMany(e => e.UserTokens)
-                .WithOne()
-                .HasForeignKey(e => e.UserId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Cascade);
+           // modelBuilder_.Entity<User>()
+           //     .HasMany(e => e.UserTokens)
+           //     .WithOne()
+           //     .HasForeignKey(e => e.UserId)
+           //     .IsRequired()
+           //     .OnDelete(DeleteBehavior.Cascade);
 
             // non-WIF entities
 

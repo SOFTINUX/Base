@@ -13,12 +13,12 @@ namespace Security.Data.EntityFramework
     public class UserPermissionRepository : RepositoryBase<UserPermission>, IUserPermissionRepository
     {
 
-        public UserPermission FindBy(int userId_, int permissionId_)
+        public UserPermission FindBy(string userId_, string permissionId_)
         {
             return dbSet.FirstOrDefault(e_ => e_.UserId == userId_ && e_.PermissionId == permissionId_);
         }
 
-        public IEnumerable<UserPermission> FilteredByUserId(int userId_)
+        public IEnumerable<UserPermission> FilteredByUserId(string userId_)
         {
             return dbSet.Where(e_ => e_.UserId == userId_).ToList();
         }
@@ -33,7 +33,7 @@ namespace Security.Data.EntityFramework
             storageContext.Entry(entity_).State = EntityState.Modified;
         }
 
-        public void Delete(int userId_, int permissionId_)
+        public void Delete(string userId_, string permissionId_)
         {
             var entity = FindBy(userId_, permissionId_);
             if (entity != null)

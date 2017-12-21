@@ -6,7 +6,7 @@ using System.IO;
 using System.Reflection;
 using Microsoft.Extensions.Logging;
 
-namespace SecurityTest.Util
+namespace Security.Data.EntityFramework.Util
 {
     public class EfLoggerProvider : ILoggerProvider
     {

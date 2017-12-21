@@ -13,12 +13,12 @@ namespace Security.Data.EntityFramework
     public class RolePermissionRepository : RepositoryBase<RolePermission>, IRolePermissionRepository
     {
 
-        public RolePermission FindBy(int roleId_, int permissionId_)
+        public RolePermission FindBy(string roleId_, string permissionId_)
         {
             return dbSet.FirstOrDefault(e_ => e_.RoleId == roleId_ && e_.PermissionId == permissionId_);
         }
 
-        public IEnumerable<RolePermission> FilteredByRoleId(int roleId_)
+        public IEnumerable<RolePermission> FilteredByRoleId(string roleId_)
         {
             return dbSet.Where(e_ => e_.RoleId == roleId_).ToList();
         }
@@ -33,7 +33,7 @@ namespace Security.Data.EntityFramework
             storageContext.Entry(entity_).State = EntityState.Modified;
         }
 
-        public void Delete(int roleId_, int permissionId_)
+        public void Delete(string roleId_, string permissionId_)
         {
             var entity = FindBy(roleId_, permissionId_);
             if (entity != null)

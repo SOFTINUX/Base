@@ -10,8 +10,8 @@ namespace Security.Data.Entities
     /// </summary>
     public class UserPermission : IEntity
     {
-        public int UserId { get; set; }
-        public int PermissionId { get; set; }
+        public string UserId { get; set; }
+        public string PermissionId { get; set; }
 
         public virtual User User { get; set; }
         public virtual Permission Permission { get; set; }

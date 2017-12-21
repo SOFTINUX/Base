@@ -9,10 +9,10 @@ namespace Security.Data.Abstractions
 {
     public interface IGroupPermissionRepository : IRepository
     {
-        GroupPermission FindBy(int groupId_, int permissionId_);
-        IEnumerable<GroupPermission> FilteredByGroupId(int groupId_);
+        GroupPermission FindBy(string groupId_, string permissionId_);
+        IEnumerable<GroupPermission> FilteredByGroupId(string groupId_);
         void Create(GroupPermission entity_);
         void Edit(GroupPermission entity_);
-        void Delete(int groupId_, int permissionId_);
+        void Delete(string groupId_, string permissionId_);
     }
 }

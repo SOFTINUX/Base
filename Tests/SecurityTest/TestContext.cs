@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Security.Data.EntityFramework.Util;
 using SecurityTest.Util;
 
 namespace SecurityTest

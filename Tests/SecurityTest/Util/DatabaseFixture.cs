@@ -12,6 +12,7 @@ using ExtCore.Infrastructure;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using Security.Data.EntityFramework.Util;
 
 namespace SecurityTest.Util
 {

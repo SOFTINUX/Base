@@ -2,8 +2,9 @@
 using ExtCore.Data.EntityFramework;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging;
 using Security.Data.Entities;
+using Security.Data.EntityFramework.Util;
 
 namespace WebApplication
 {
@@ -19,13 +20,21 @@ namespace WebApplication
         public ApplicationStorageContext(DbContextOptions<ApplicationStorageContext> options_)
             : base(options_)
         {
-
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder_)
         {
-            base.OnModelCreating(modelBuilder);
-            this.RegisterEntities(modelBuilder);
+#if DEBUG
+            ILoggerFactory loggerFactory = new LoggerFactory();
+            loggerFactory.AddProvider(new EfLoggerProvider());
+            base.OnConfiguring(optionsBuilder_.EnableSensitiveDataLogging().UseLoggerFactory(loggerFactory));
+#endif
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder_)
+        {
+            base.OnModelCreating(modelBuilder_);
+            this.RegisterEntities(modelBuilder_);
         }
 
     }

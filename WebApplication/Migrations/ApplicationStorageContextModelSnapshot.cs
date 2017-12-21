@@ -68,9 +68,13 @@ namespace WebApplication.Migrations
                     b.Property<string>("UserId")
                         .IsRequired();
 
+                    b.Property<string>("UserId1");
+
                     b.HasKey("LoginProvider", "ProviderKey");
 
                     b.HasIndex("UserId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("AspNetUserLogins");
                 });
@@ -81,9 +85,17 @@ namespace WebApplication.Migrations
 
                     b.Property<string>("RoleId");
 
+                    b.Property<string>("RoleId1");
+
+                    b.Property<string>("UserId1");
+
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
+
+                    b.HasIndex("RoleId1");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("AspNetUserRoles");
                 });
@@ -96,16 +108,20 @@ namespace WebApplication.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<string>("UserId1");
+
                     b.Property<string>("Value");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("AspNetUserTokens");
                 });
 
             modelBuilder.Entity("Security.Data.Entities.Group", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
@@ -117,9 +133,9 @@ namespace WebApplication.Migrations
 
             modelBuilder.Entity("Security.Data.Entities.GroupPermission", b =>
                 {
-                    b.Property<int>("GroupId");
+                    b.Property<string>("GroupId");
 
-                    b.Property<int>("PermissionId");
+                    b.Property<string>("PermissionId");
 
                     b.HasKey("GroupId", "PermissionId");
 
@@ -130,7 +146,7 @@ namespace WebApplication.Migrations
 
             modelBuilder.Entity("Security.Data.Entities.Permission", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
@@ -167,17 +183,13 @@ namespace WebApplication.Migrations
 
             modelBuilder.Entity("Security.Data.Entities.RolePermission", b =>
                 {
-                    b.Property<int>("RoleId");
+                    b.Property<string>("RoleId");
 
-                    b.Property<int>("PermissionId");
-
-                    b.Property<string>("RoleId1");
+                    b.Property<string>("PermissionId");
 
                     b.HasKey("RoleId", "PermissionId");
 
                     b.HasIndex("PermissionId");
-
-                    b.HasIndex("RoleId1");
 
                     b.ToTable("RolePermission");
                 });
@@ -242,32 +254,26 @@ namespace WebApplication.Migrations
 
             modelBuilder.Entity("Security.Data.Entities.UserGroup", b =>
                 {
-                    b.Property<int>("GroupId");
+                    b.Property<string>("GroupId");
 
-                    b.Property<int>("UserId");
-
-                    b.Property<string>("UserId1");
+                    b.Property<string>("UserId");
 
                     b.HasKey("GroupId", "UserId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserGroup");
                 });
 
             modelBuilder.Entity("Security.Data.Entities.UserPermission", b =>
                 {
-                    b.Property<int>("UserId");
+                    b.Property<string>("UserId");
 
-                    b.Property<int>("PermissionId");
-
-                    b.Property<string>("UserId1");
+                    b.Property<string>("PermissionId");
 
                     b.HasKey("UserId", "PermissionId");
 
                     b.HasIndex("PermissionId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("UserPermission");
                 });
@@ -291,30 +297,46 @@ namespace WebApplication.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.HasOne("Security.Data.Entities.User")
-                        .WithMany("UserLogins")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Security.Data.Entities.User")
+                        .WithMany("UserLogins")
+                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.HasOne("Security.Data.Entities.Role")
-                        .WithMany("UserRoles")
+                        .WithMany()
                         .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Security.Data.Entities.Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId1");
+
+                    b.HasOne("Security.Data.Entities.User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Security.Data.Entities.User")
                         .WithMany("UserRoles")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.HasOne("Security.Data.Entities.User")
-                        .WithMany("UserTokens")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Security.Data.Entities.User")
+                        .WithMany("UserTokens")
+                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("Security.Data.Entities.GroupPermission", b =>
@@ -339,7 +361,8 @@ namespace WebApplication.Migrations
 
                     b.HasOne("Security.Data.Entities.Role", "Role")
                         .WithMany("RolePermissions")
-                        .HasForeignKey("RoleId1");
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Security.Data.Entities.UserGroup", b =>
@@ -351,7 +374,8 @@ namespace WebApplication.Migrations
 
                     b.HasOne("Security.Data.Entities.User", "User")
                         .WithMany("GroupUsers")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Security.Data.Entities.UserPermission", b =>
@@ -363,7 +387,8 @@ namespace WebApplication.Migrations
 
                     b.HasOne("Security.Data.Entities.User", "User")
                         .WithMany("UserPermissions")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

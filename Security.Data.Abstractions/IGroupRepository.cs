@@ -19,6 +19,6 @@ namespace Security.Data.Abstractions
         IEnumerable<Group> All();
         void Create(Group entity_);
         void Edit(Group entity_);
-        void Delete(int entityId_);
+        void Delete(string entityId_);
     }
 }

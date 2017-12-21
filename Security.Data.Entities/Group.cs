@@ -8,7 +8,7 @@ namespace Security.Data.Entities
 {
     public class Group : IEntity
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
 
         public virtual ICollection<GroupPermission> GroupPermissions { get; set; }
