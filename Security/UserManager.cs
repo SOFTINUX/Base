@@ -156,12 +156,12 @@ namespace Security
         private void AddRoleClaims(List<Claim> currentClaims_, User user_)
         {
             List<Claim> claims = new List<Claim>();
-            IEnumerable<int> roleIds = _userRoleRepository.FilteredByUserId(user_.Id)?.Select(ur_ => ur_.RoleId).ToList();
+            IEnumerable<string> roleIds = _userRoleRepository.FilteredByUserId(user_.Id)?.Select(ur_ => ur_.RoleId).ToList();
 
             if (roleIds == null)
                 return;
             // TODO improve code : use a navigation property above to get role's name instead of n queries
-            foreach (int roleId in roleIds)
+            foreach (string roleId in roleIds)
             {
                 Role role = _roleRepository.FindById(roleId);
 
@@ -175,27 +175,27 @@ namespace Security
             await _requestHandler.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
 
-        public int GetCurrentUserId()
+        public string GetCurrentUserId()
         {
             if (!_requestHandler.HttpContext.User.Identity.IsAuthenticated)
-                return -1;
+                return "Not Authenticated";
 
             Claim claim = _requestHandler.HttpContext.User.Claims.FirstOrDefault(c_ => c_.Type == ClaimTypes.NameIdentifier);
 
             if (claim == null)
-                return -1;
+                return "is null";
 
-            if (!int.TryParse(claim.Value, out int currentUserId))
-                return -1;
+            if (string.IsNullOrWhiteSpace(claim.Value))
+                return "bad tryparse int";
 
-            return currentUserId;
+            return claim.Value;
         }
 
         public User GetCurrentUser()
         {
-            int currentUserId = GetCurrentUserId();
+            string currentUserId = GetCurrentUserId();
 
-            return currentUserId == -1 ? null : _userRepository.FindById(currentUserId);
+            return currentUserId == "" ? null : _userRepository.FindById(currentUserId);
         }
     }
 }

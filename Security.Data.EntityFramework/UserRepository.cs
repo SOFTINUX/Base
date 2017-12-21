@@ -12,7 +12,7 @@ namespace Security.Data.EntityFramework
 {
     public class UserRepository : RepositoryBase<User>, IUserRepository
     {
-        public virtual User FindById(int entityId_)
+        public virtual User FindById(string entityId_)
         {
             return dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
         }
@@ -50,7 +50,7 @@ namespace Security.Data.EntityFramework
             storageContext.Entry(entity_).State = EntityState.Modified;
         }
 
-        public virtual void Delete(int entityId_)
+        public virtual void Delete(string entityId_)
         {
             dbSet.Remove(FindById(entityId_));
         }

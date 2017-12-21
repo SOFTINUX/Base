@@ -9,11 +9,11 @@ namespace Security.Data.Abstractions
 {
     public interface IUserRoleRepository : IRepository
     {
-        UserRole FindBy(int userId_, int roleId_);
-        IEnumerable<UserRole> FilteredByRoleId(int roleId_);
-        IEnumerable<UserRole> FilteredByUserId(int userId_);
+        UserRole FindBy(string userId_, string roleId_);
+        IEnumerable<UserRole> FilteredByRoleId(string roleId_);
+        IEnumerable<UserRole> FilteredByUserId(string userId_);
         void Create(UserRole entity_);
         void Edit(UserRole entity_);
-        void Delete(int userId_, int roleId_);
+        void Delete(string userId_, string roleId_);
     }
 }

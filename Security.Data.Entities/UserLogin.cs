@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Security.Data.Entities
 {
-    public class UserLogin : IdentityUserLogin<int>, IEntity
+    public class UserLogin : IdentityUserLogin<string>, IEntity
     {
-        public virtual IdentityUser<int> User { get; set; }
+        public virtual IdentityUser User { get; set; }
     }
 }

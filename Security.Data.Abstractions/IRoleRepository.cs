@@ -9,7 +9,7 @@ namespace Security.Data.Abstractions
 {
     public interface IRoleRepository : IRepository
     {
-        Role FindById(int entityId_);
+        Role FindById(string entityId_);
 
         /// <summary>
         /// Finds a role by code and origin extension assembly "short name" (Assembly.GetName().Name).
@@ -21,6 +21,6 @@ namespace Security.Data.Abstractions
         IEnumerable<Role> All();
         void Create(Role entity_);
         void Edit(Role entity_);
-        void Delete(int entityId_);
+        void Delete(string entityId_);
     }
 }

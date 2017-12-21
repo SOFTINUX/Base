@@ -7,7 +7,7 @@ using Security.Data.Entities;
 
 namespace WebApplication
 {
-    public partial class ApplicationStorageContext : IdentityDbContext<User, Role, int>, IStorageContext
+    public partial class ApplicationStorageContext : IdentityDbContext<User, Role, string>, IStorageContext
     {
         public DbSet<Permission> Permission { get; set; }
         public DbSet<Group> Group { get; set; }

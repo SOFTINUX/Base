@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Security.Data.Entities
 {
-    public class Role : IdentityRole<int>, IEntity
+    public class Role : IdentityRole, IEntity
     {
         public virtual ICollection<RolePermission> RolePermissions { get; set; }
-        public virtual ICollection<IdentityUserRole<int>> UserRoles { get; set; }
+        public virtual ICollection<IdentityUserRole<string>> UserRoles { get; set; }
     }
 }

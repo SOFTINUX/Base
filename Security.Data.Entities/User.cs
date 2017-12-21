@@ -8,17 +8,17 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Security.Data.Entities
 {
-    public class User : IdentityUser<int>, IEntity
+    public class User : IdentityUser, IEntity
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime FirstConnection { get; set; }
         public DateTime LastConnection { get; set; }
 
-        public virtual ICollection<IdentityUserRole<int>> UserRoles { get; set; }
+        public virtual ICollection<IdentityUserRole<string>> UserRoles { get; set; }
         public virtual ICollection<UserGroup> GroupUsers { get; set; }
         public virtual ICollection<UserPermission> UserPermissions { get; set; }
-        public virtual ICollection<IdentityUserToken<int>> UserTokens { get; set; }
-        public virtual ICollection<IdentityUserLogin<int>> UserLogins { get; set; }
+        public virtual ICollection<IdentityUserToken<string>> UserTokens { get; set; }
+        public virtual ICollection<IdentityUserLogin<string>> UserLogins { get; set; }
     }
 }

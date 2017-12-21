@@ -9,12 +9,12 @@ namespace Security.Data.Abstractions
 {
     public interface IUserRepository : IRepository
     {
-        User FindById(int entityId_);
+        User FindById(string entityId_);
         User FindBy(string firstName_, string lastName_, string displayName_, string originExtensionAssemblyName_);
         User WithCredentialIdentifier(string identifier_);
         IEnumerable<User> All();
         void Create(User entity_);
         void Edit(User entity_);
-        void Delete(int entityId_);
+        void Delete(string entityId_);
     }
 }

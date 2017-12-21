@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Security.Data.Entities
 {
-    public class UserToken : IdentityUserToken<int>, IEntity
+    public class UserToken : IdentityUserToken<string>, IEntity
     {
-        public virtual IdentityUser<int> User { get; set; }
+        public virtual IdentityUser User { get; set; }
     }
 }

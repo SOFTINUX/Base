@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
+using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -38,9 +39,8 @@ namespace SeedDatabase.Controllers
             {
                     // create an idenity role object out of the enum value
                     Security.Data.Entities.Role identityRole = new Security.Data.Entities.Role {
-                        // ID is auto-generated
-                        Name = r.GetRoleName(),
-                        NormalizedName = r.GetRoleName().ToUpperInvariant()
+                        Id = r.GetRoleName(),
+                        Name = r.GetRoleName()
                     };
 
                     if(!await _roleManager.RoleExistsAsync(roleName: identityRole.Name))
@@ -72,7 +72,7 @@ namespace SeedDatabase.Controllers
                     return StatusCode(StatusCodes.Status500InternalServerError);
 
                 //Assign all roles to the default user
-                result = await _userManager.AddToRolesAsync(user, roles.Select(r => r.GetRoleName()));
+                result = await _userManager.AddToRolesAsync(user, new[] { "Administrator" });
 
                 if (!result.Succeeded) // return 500 if fails
                     return StatusCode(StatusCodes.Status500InternalServerError);

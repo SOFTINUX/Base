@@ -1,6 +1,7 @@
 ﻿// Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ExtCore.Data.EntityFramework;
@@ -17,7 +18,7 @@ namespace Security.Data.EntityFramework
         /// </summary>
         /// <param name="entityId_"></param>
         /// <returns></returns>
-        public virtual Role FindById(int entityId_)
+        public virtual Role FindById(string entityId_)
         {
             return dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
         }
@@ -42,7 +43,7 @@ namespace Security.Data.EntityFramework
             storageContext.Entry(entity_).State = EntityState.Modified;
         }
 
-        public virtual void Delete(int entityId_)
+        public virtual void Delete(string entityId_)
         {
             var entity = dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
             if(entity != null)

@@ -13,17 +13,17 @@ namespace Security.Data.EntityFramework
     public class UserRoleRepository : RepositoryBase<UserRole>, IUserRoleRepository
     {
 
-        public UserRole FindBy(int userId_, int roleId_)
+        public UserRole FindBy(string userId_, string roleId_)
         {
             return dbSet.FirstOrDefault(e_ => e_.UserId == userId_ && e_.RoleId == roleId_);
         }
 
-        public IEnumerable<UserRole> FilteredByRoleId(int roleId_)
+        public IEnumerable<UserRole> FilteredByRoleId(string roleId_)
         {
             return dbSet.Where(e_ => e_.RoleId == roleId_).ToList();
         }
 
-        public IEnumerable<UserRole> FilteredByUserId(int userId_)
+        public IEnumerable<UserRole> FilteredByUserId(string userId_)
         {
             return dbSet.Where(e_ => e_.UserId == userId_).ToList();
         }
@@ -38,7 +38,7 @@ namespace Security.Data.EntityFramework
             storageContext.Entry(entity_).State = EntityState.Modified;
         }
 
-        public void Delete(int userId_, int roleId_)
+        public void Delete(string userId_, string roleId_)
         {
             dbSet.Remove(FindBy(userId_, roleId_));
         }
