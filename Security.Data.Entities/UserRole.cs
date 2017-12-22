@@ -11,7 +11,7 @@ namespace Security.Data.Entities
     /// </summary>
     public class UserRole : IdentityUserRole<string>, IEntity
     {
-        public virtual IdentityUser User { get; set; }
-        public virtual IdentityRole Role { get; set; }
+        /* public virtual IdentityUser User { get; set; }
+        public virtual IdentityRole Role { get; set; } */
     }
 }

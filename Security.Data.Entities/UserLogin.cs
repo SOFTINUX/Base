@@ -8,6 +8,6 @@ namespace Security.Data.Entities
 {
     public class UserLogin : IdentityUserLogin<string>, IEntity
     {
-        public virtual IdentityUser User { get; set; }
+        //public virtual IdentityUser User { get; set; }
     }
 }

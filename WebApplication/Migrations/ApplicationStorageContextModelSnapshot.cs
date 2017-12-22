@@ -68,13 +68,9 @@ namespace WebApplication.Migrations
                     b.Property<string>("UserId")
                         .IsRequired();
 
-                    b.Property<string>("UserId1");
-
                     b.HasKey("LoginProvider", "ProviderKey");
 
                     b.HasIndex("UserId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("AspNetUserLogins");
                 });
@@ -85,17 +81,9 @@ namespace WebApplication.Migrations
 
                     b.Property<string>("RoleId");
 
-                    b.Property<string>("RoleId1");
-
-                    b.Property<string>("UserId1");
-
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
-
-                    b.HasIndex("RoleId1");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("AspNetUserRoles");
                 });
@@ -108,13 +96,9 @@ namespace WebApplication.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("UserId1");
-
                     b.Property<string>("Value");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("AspNetUserTokens");
                 });
@@ -273,8 +257,6 @@ namespace WebApplication.Migrations
 
                     b.HasKey("UserId", "PermissionId");
 
-                    b.HasIndex("PermissionId");
-
                     b.ToTable("UserPermission");
                 });
 
@@ -300,10 +282,6 @@ namespace WebApplication.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Security.Data.Entities.User")
-                        .WithMany("UserLogins")
-                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -313,18 +291,10 @@ namespace WebApplication.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Security.Data.Entities.Role")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("RoleId1");
-
                     b.HasOne("Security.Data.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Security.Data.Entities.User")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -333,10 +303,6 @@ namespace WebApplication.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Security.Data.Entities.User")
-                        .WithMany("UserTokens")
-                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("Security.Data.Entities.GroupPermission", b =>
@@ -358,11 +324,6 @@ namespace WebApplication.Migrations
                         .WithMany()
                         .HasForeignKey("PermissionId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Security.Data.Entities.Role", "Role")
-                        .WithMany("RolePermissions")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Security.Data.Entities.UserGroup", b =>
@@ -373,20 +334,7 @@ namespace WebApplication.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Security.Data.Entities.User", "User")
-                        .WithMany("GroupUsers")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Security.Data.Entities.UserPermission", b =>
-                {
-                    b.HasOne("Security.Data.Entities.Permission", "Permission")
                         .WithMany()
-                        .HasForeignKey("PermissionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Security.Data.Entities.User", "User")
-                        .WithMany("UserPermissions")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
