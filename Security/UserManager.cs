@@ -20,9 +20,6 @@ namespace Security
 {
     public class UserManager
     {
-        // Note : par rapport à Platformus, la méthode chargeant toutes les claims de l'utiliseur sera à implémenter dans PermissionManager
-        // On construit une liste qui contaient les claims "role" et les claims "permission".
-
         private readonly IRequestHandler _requestHandler;
         private readonly IUserRepository _userRepository;
         private readonly IUserRoleRepository _userRoleRepository;
@@ -126,7 +123,7 @@ namespace Security
             AddRoleClaims(claims, user_);
 
             // permissions
-            // TODO create ClaimManager static class to gather permissions from roles, groups and user... claims.AddRange();
+            claims.AddRange(new ClaimsManager(_requestHandler.Storage).GetAllPermissionClaims(user_.Id));
 
             return claims;
         }

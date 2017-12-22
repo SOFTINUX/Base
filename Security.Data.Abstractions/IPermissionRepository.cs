@@ -20,5 +20,11 @@ namespace Security.Data.Abstractions
         void Create(Permission entity_);
         void Edit(Permission entity_);
         void Delete(string entityId_);
+        /// <summary>
+        /// All permissions linked to user, user's groups, user's roles.
+        /// </summary>
+        /// <param name="userId_"></param>
+        /// <returns></returns>
+        HashSet<Permission> AllForUser(string userId_);
     }
 }
