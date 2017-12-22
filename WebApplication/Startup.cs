@@ -1,6 +1,7 @@
 ﻿// Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System;
 using System.IO;
 using System.Reflection;
 using ExtCore.Data.Abstractions;
@@ -87,12 +88,12 @@ namespace WebApplication
                 }; */
 
                 // customize other stuff as needed
-                options.LoginPath = "/account/signin";
-                options.LogoutPath = "/account/signoff";
-                options.Cookie.Name = "." + Configuration["Corporate:Name"];
+                options.LoginPath = Configuration["ConfigureApplicationCookie:LoginPath"];
+                options.LogoutPath = Configuration["ConfigureApplicationCookie:LogoutPath"];
+                options.Cookie.Name = Configuration["ConfigureApplicationCookie:Cookie.Name"] + Configuration["Corporate:Name"];
                 options.Cookie.HttpOnly = true; //this must be true to prevent XSS
-                options.Cookie.SameSite = SameSiteMode.None;
-                options.Cookie.SecurePolicy = CookieSecurePolicy.None; //should ideally be "Always"
+                options.Cookie.SameSite = (SameSiteMode)Enum.Parse(typeof(SameSiteMode), Configuration["ConfigureApplicationCookie:Cookie.SameSite"], false);
+                options.Cookie.SecurePolicy = (CookieSecurePolicy)Enum.Parse(typeof(CookieSecurePolicy), Configuration["ConfigureApplicationCookie:Cookie.SecurePolicy"], false); //should ideally be "Always"
 
                 options.SlidingExpiration = true;
             });
