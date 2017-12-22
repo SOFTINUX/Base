@@ -51,7 +51,7 @@ namespace Security.Data.EntityFramework
             IEnumerable<Permission> permissionsOfGroups = from p in storageContext.Set<Permission>()
                 join gp in storageContext.Set<GroupPermission>() on p.Id equals gp.PermissionId
                 join g in storageContext.Set<Group>() on gp.GroupId equals g.Id
-                join ug in storageContext.Set<UserGroup>() on g.Id equals ug.RoleId
+                join ug in storageContext.Set<UserGroup>() on g.Id equals ug.GroupId
                 where ug.UserId == userId_
                 select p;
 
