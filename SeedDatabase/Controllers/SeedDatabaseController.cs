@@ -57,8 +57,8 @@ namespace SeedDatabase.Controllers
             Security.Data.Entities.User user = new Security.Data.Entities.User {
                 FirstName = "Doe",
                 LastName = "John",
-                Email = "johndoe@example.com",
-                UserName = "johndoe@example.com",
+                Email = "johndoe@softinux.com",
+                UserName = "johndoe@softinux.com",
                 LockoutEnabled = false
             };
 
@@ -66,7 +66,7 @@ namespace SeedDatabase.Controllers
             if (await _userManager.FindByEmailAsync(user.Email) == null)
             {
                 // WARNING:: Do Not check in credentials of any kind into source control
-                var result = await _userManager.CreateAsync(user, password: "5ESTdYB5cyYwA2dKhJqyjPYnKUc&45Ydw^gz^jy&FCV3gxpmDPdaDmxpMkhpp&9TRadU%wQ2TUge!TsYXsh77Qmauan3PEG8!6EP");
+                var result = await _userManager.CreateAsync(user, password: "123_Password");
 
                 if (!result.Succeeded) //return 500 if it fails
                     return StatusCode(StatusCodes.Status500InternalServerError);
