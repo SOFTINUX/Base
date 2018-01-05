@@ -5,13 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using Infrastructure.Enums;
 using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using Security.Common.Enums;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
 using Security.Enums.Debug;
@@ -46,6 +43,7 @@ namespace Security
         /// <param name="secret_">Secret like a password, token id etc</param>
         /// <param name="loginTypeOriginExtensionAssemblyName_">Name of assembly that provides this login type</param>
         /// <returns></returns>
+        [Obsolete("Method to remove")]
         public User Login(string loginTypeCode_, string identifier_, string secret_, string loginTypeOriginExtensionAssemblyName_)
         {
             return null;
@@ -170,29 +168,6 @@ namespace Security
         public async void SignOut()
         {
             await _requestHandler.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        }
-
-        public string GetCurrentUserId()
-        {
-            if (!_requestHandler.HttpContext.User.Identity.IsAuthenticated)
-                return "Not Authenticated";
-
-            Claim claim = _requestHandler.HttpContext.User.Claims.FirstOrDefault(c_ => c_.Type == ClaimTypes.NameIdentifier);
-
-            if (claim == null)
-                return "is null";
-
-            if (string.IsNullOrWhiteSpace(claim.Value))
-                return "bad tryparse int";
-
-            return claim.Value;
-        }
-
-        public User GetCurrentUser()
-        {
-            string currentUserId = GetCurrentUserId();
-
-            return currentUserId == "" ? null : _userRepository.FindById(currentUserId);
         }
     }
 }

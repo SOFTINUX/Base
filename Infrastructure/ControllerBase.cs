@@ -18,7 +18,7 @@ namespace Infrastructure
 
         public IStorage Storage { get; set; }
 
-        public ILoggerFactory LoggerFactory { get; set; }
+        protected ILoggerFactory _loggerFactory;
 
         /// <summary>
         ///
@@ -28,7 +28,7 @@ namespace Infrastructure
         protected ControllerBase(IStorage storage_, ILoggerFactory loggerFactory_ = null)
         {
             Storage = storage_;
-            LoggerFactory = loggerFactory_;
+            _loggerFactory = loggerFactory_;
         }
 
         /// <summary>

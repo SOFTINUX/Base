@@ -1,8 +1,10 @@
 ﻿// Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Security.Data.Entities;
@@ -13,9 +15,13 @@ namespace Security.Controllers
 {
     public class AccountController : ControllerBase
     {
-        public AccountController(IStorage storage_, ILoggerFactory loggerFactory_) : base(storage_, loggerFactory_)
-        {
+        private SignInManager<User> _signInManager;
+        private ILogger _logger;
 
+        public AccountController(IStorage storage_, ILoggerFactory loggerFactory_, SignInManager<User> signInManager_) : base(storage_, loggerFactory_)
+        {
+            _signInManager = signInManager_;
+            _logger = _loggerFactory.CreateLogger(GetType().FullName);
         }
 
         /// <summary>
@@ -39,37 +45,59 @@ namespace Security.Controllers
         //[ExportModelStateToTempData]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public IActionResult SignIn(SignInViewModel signIn_)
+        public async Task<IActionResult> SignIn(SignInViewModel signIn_)
         {
             // Check required fields, if any empty return to login page
             if (!ModelState.IsValid)
             {
-                signIn_.ErrorMessage = "Unexpected error.";
-                ModelState.AddModelError("UnexpectedError", signIn_.ErrorMessage);
-                return View(signIn_);
-            }
-
-            UserManager userManager = new UserManager(this, LoggerFactory);
-            // For now we support only "email" credential type provided by Security extension. Later we will support other types (LDAP...)
-            User user = userManager.Login(Enums.CredentialType.Email, signIn_.Email, signIn_.Password, "Security");
-
-            // Login failure: return to login page
-            if (user == null)
-            {
-                signIn_.ErrorMessage = "Incorrect user name or password.";
+                signIn_.ErrorMessage = "Required data missing";
                 ModelState.AddModelError("BadUserPassword", signIn_.ErrorMessage);
                 return View(signIn_);
             }
-            userManager.LoadClaims(user, signIn_.RememberMe);
 
-            // Go to dashboard, action Index of Barebone's controller
-            return RedirectToAction("Index", "Barebone");
+            //ViewData["ReturnUrl"] = returnUrl;
+
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+            var result = await _signInManager.PasswordSignInAsync(signIn_.Email, signIn_.Password, signIn_.RememberMe, lockoutOnFailure: false);
+            if (result.Succeeded)
+            {
+                _logger.LogInformation("User logged in");
+                //return RedirectToLocal(returnUrl);
+
+                // TODO load claims
+                //userManager.LoadClaims(user, signIn_.RememberMe);
+
+                // Go to dashboard, action Index of Barebone's controller
+                return RedirectToAction("Index", "Barebone");
+            }
+            //if (result.RequiresTwoFactor)
+            //{
+            //    return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
+            //}
+            if (result.IsLockedOut)
+            {
+                _logger.LogWarning("User account locked out");
+                //return RedirectToAction(nameof(Lockout));
+                signIn_.ErrorMessage = "User account locked out";
+                ModelState.AddModelError("BadUserPassword", signIn_.ErrorMessage);
+            }
+            else
+            {
+                //ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                signIn_.ErrorMessage = "Invalid login attempt";
+                ModelState.AddModelError("BadUserPassword", signIn_.ErrorMessage);
+            }
+            // If we got this far, something failed, redisplay form
+            return View(signIn_);
+
         }
 
         [HttpGet]
-        public IActionResult SignOut()
+        public async Task<IActionResult> SignOut()
         {
-            new UserManager(this, LoggerFactory).SignOut();
+            await _signInManager.SignOutAsync();
+            _logger.LogInformation("User logged out.");
             return RedirectToAction("SignIn");
         }
 

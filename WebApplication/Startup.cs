@@ -119,7 +119,7 @@ namespace WebApplication
             }
 
             // call ConfigureLogger in a centralized place in the code
-            // so that we configure the logger factory provided by .NET Core with our configuratioon in Logging class.
+            // so that we configure the logger factory provided by .NET Core with our configuration in Logging class.
             Logging.ConfigureLogger(loggerFactory_, configuration_);
             //set it as the primary LoggerFactory to use everywhere
             Logging.LoggerFactory = loggerFactory_;
