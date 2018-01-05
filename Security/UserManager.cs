@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using ExtCore.Data.Abstractions;
 using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -17,21 +18,23 @@ namespace Security
 {
     public class UserManager
     {
-        private readonly IRequestHandler _requestHandler;
         private readonly IUserRepository _userRepository;
         private readonly IUserRoleRepository _userRoleRepository;
         private readonly IRoleRepository _roleRepository;
         private readonly ILogger _logger;
+        private readonly IStorage _storage;
 #if DEBUG
         internal UserManagerErrorCode ErrorCode { get; private set; }
 #endif
 
-        public UserManager(IRequestHandler requestHandler_, ILoggerFactory loggerFactory_)
+        // TODO remove requestHandler_ parameter, make storage_ parameter not optioonal, make all code compile
+        public UserManager(IRequestHandler requestHandler_, ILoggerFactory loggerFactory_, IStorage storage_ = null)
         {
-            _requestHandler = requestHandler_;
-            _userRepository = requestHandler_.Storage.GetRepository<IUserRepository>();
-            _userRoleRepository = requestHandler_.Storage.GetRepository<IUserRoleRepository>();
-            _roleRepository = requestHandler_.Storage.GetRepository<IRoleRepository>();
+
+            _storage = storage_;
+            _userRepository = _storage.GetRepository<IUserRepository>();
+            _userRoleRepository = _storage.GetRepository<IUserRoleRepository>();
+            _roleRepository = _storage.GetRepository<IRoleRepository>();
             _logger = loggerFactory_.CreateLogger(GetType().FullName);
         }
 
@@ -99,12 +102,12 @@ namespace Security
         /// <param name="isPersistent_">When true, cookie persists across brower closure</param>
         public async void LoadClaims(User user_, bool isPersistent_ = false)
         {
-            ClaimsIdentity identity = new ClaimsIdentity(GetAllClaims(user_), CookieAuthenticationDefaults.AuthenticationScheme);
-            ClaimsPrincipal principal = new ClaimsPrincipal(identity);
+            //ClaimsIdentity identity = new ClaimsIdentity(GetAllClaims(user_), CookieAuthenticationDefaults.AuthenticationScheme);
+            //ClaimsPrincipal principal = new ClaimsPrincipal(identity);
 
-            await _requestHandler.HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties { IsPersistent = isPersistent_ }
-            );
+            //await _requestHandler.HttpContext.SignInAsync(
+            //    CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties { IsPersistent = isPersistent_ }
+            //);
         }
 
         /// <summary>
@@ -112,6 +115,7 @@ namespace Security
         /// </summary>
         /// <param name="user_"></param>
         /// <returns></returns>
+        [Obsolete("to be removed")]
         internal IEnumerable<Claim> GetAllClaims(User user_)
         {
             List<Claim> claims = new List<Claim>();
@@ -121,7 +125,7 @@ namespace Security
             AddRoleClaims(claims, user_);
 
             // permissions
-            claims.AddRange(new ClaimsManager(_requestHandler.Storage).GetAllPermissionClaims(user_.Id));
+            claims.AddRange(new ClaimsManager(_storage).GetAllPermissionClaims(user_.Id));
 
             return claims;
         }
@@ -132,6 +136,7 @@ namespace Security
         /// <param name="currentClaims_"></param>
         /// <param name="user_"></param>
         /// <returns></returns>
+        [Obsolete("to be removed")]
         private void AddUserClaims(List<Claim> currentClaims_, User user_)
         {
             currentClaims_.AddRange(
@@ -148,6 +153,7 @@ namespace Security
         /// <param name="currentClaims_"></param>
         /// <param name="user_"></param>
         /// <returns></returns>
+        [Obsolete("to be removed")]
         private void AddRoleClaims(List<Claim> currentClaims_, User user_)
         {
             List<Claim> claims = new List<Claim>();
@@ -165,9 +171,33 @@ namespace Security
 
         }
 
-        public async void SignOut()
+        /// <summary>
+        /// Adds custom claims to WIF-managed ClaimsIdentity object, from application user object.
+        /// </summary>
+        /// <param name="user_"></param>
+        /// <param name="identity_"></param>
+        public void AddClaims(User user_, ClaimsIdentity identity_)
         {
-            await _requestHandler.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            // First name
+            if (!string.IsNullOrWhiteSpace(user_.FirstName))
+            {
+                identity_.AddClaims(new[] {
+                    new Claim(ClaimTypes.GivenName, user_.FirstName)
+                });
+            }
+
+            // Last name
+            if (!string.IsNullOrWhiteSpace(user_.LastName))
+            {
+                identity_.AddClaims(new[] {
+                    new Claim(ClaimTypes.Surname, user_.LastName),
+                });
+            }
+
+            // Permissions
+            identity_.AddClaims(new ClaimsManager(_storage).GetAllPermissionClaims(user_.Id));
+
         }
+
     }
 }

@@ -15,10 +15,10 @@ namespace Infrastructure
     [Authorize]
     public abstract class ControllerBase : Controller, IRequestHandler
     {
-
+        // TODO make protected readonly ?
         public IStorage Storage { get; set; }
 
-        protected ILoggerFactory _loggerFactory;
+        protected readonly ILoggerFactory _loggerFactory;
 
         /// <summary>
         ///

@@ -18,6 +18,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Security;
+using Security.Data.Entities;
 using Security.Data.EntityFramework;
 using Serilog;
 
@@ -64,6 +66,8 @@ namespace WebApplication
                 }
             );
 
+            // TODO voir à redéplacer dans Security, ServiceConfiguration
+            // *** début du bloc à déplacer
             // Configure Identity
             services_.AddIdentity<Security.Data.Entities.User, Security.Data.Entities.Role>(options =>
                 {
@@ -97,6 +101,10 @@ namespace WebApplication
 
                 options.SlidingExpiration = true;
             });
+
+            services_.AddScoped<IUserClaimsPrincipalFactory<User>, ClaimsPrincipalFactory>();
+
+            // *** fin du bloc à déplacer
 
             // Register database-specific storage context implementation.
             // Necessary for IStorage service registration to fully work (see AddAuthorizationPolicies).
