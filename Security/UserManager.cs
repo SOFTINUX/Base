@@ -18,9 +18,9 @@ namespace Security
 {
     public class UserManager
     {
-        private readonly IUserRepository _userRepository;
+        //private readonly IUserRepository _userRepository;
        // private readonly IUserRoleRepository _userRoleRepository;
-        private readonly IRoleRepository _roleRepository;
+        //private readonly IRoleRepository _roleRepository;
         private readonly ILogger _logger;
         private readonly IStorage _storage;
 #if DEBUG
@@ -32,9 +32,9 @@ namespace Security
         {
 
             _storage = storage_;
-            _userRepository = _storage.GetRepository<IUserRepository>();
+            //userRepository = _storage.GetRepository<IUserRepository>();
             //_userRoleRepository = _storage.GetRepository<IUserRoleRepository>();
-            _roleRepository = _storage.GetRepository<IRoleRepository>();
+            //_roleRepository = _storage.GetRepository<IRoleRepository>();
             _logger = loggerFactory_.CreateLogger(GetType().FullName);
         }
 

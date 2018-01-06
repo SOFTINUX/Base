@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
-using System.Collections;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -15,9 +13,9 @@ namespace SeedDatabase.Controllers
     public class SeedDatabaseController : Controller
     {
         private readonly UserManager<Security.Data.Entities.User> _userManager;
-        private readonly RoleManager<Security.Data.Entities.Role> _roleManager;
+        private readonly RoleManager<IdentityRole<string>> _roleManager;
 
-        public SeedDatabaseController(UserManager<Security.Data.Entities.User> userManager, RoleManager<Security.Data.Entities.Role> roleManager)
+        public SeedDatabaseController(UserManager<Security.Data.Entities.User> userManager, RoleManager<IdentityRole<string>> roleManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -37,8 +35,9 @@ namespace SeedDatabase.Controllers
 
             foreach(var r in roles)
             {
-                    // create an idenity role object out of the enum value
-                    Security.Data.Entities.Role identityRole = new Security.Data.Entities.Role {
+                // create an idenity role object out of the enum value
+                IdentityRole<string> identityRole = new IdentityRole<string>
+                {
                         Id = r.GetRoleName(),
                         Name = r.GetRoleName()
                     };

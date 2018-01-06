@@ -34,8 +34,8 @@ namespace Security
         public uint Priority => 0;
 
         // used in several methods so declared here and gat valued in ConfigureLinks().
-        private IRoleRepository _roleRepo;
-        Role _adminOwnerRole, _adminRole, _userRole;
+        //private IRoleRepository _roleRepo;
+        //Role _adminOwnerRole, _adminRole, _userRole;
 
 
         ///// <summary>

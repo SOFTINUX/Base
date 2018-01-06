@@ -69,7 +69,7 @@ namespace WebApplication
             // TODO voir à redéplacer dans Security, ServiceConfiguration
             // *** début du bloc à déplacer
             // Configure Identity
-            services_.AddIdentity<Security.Data.Entities.User, Security.Data.Entities.Role>(options =>
+            services_.AddIdentity<Security.Data.Entities.User, IdentityRole<string>>(options =>
                 {
                     // Configure identity options here.
                     options.Password.RequireDigit = true;
