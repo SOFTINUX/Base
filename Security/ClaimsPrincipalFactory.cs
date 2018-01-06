@@ -14,28 +14,22 @@ namespace Security
     public class ClaimsPrincipalFactory : UserClaimsPrincipalFactory<User, IdentityRole<string>>
     {
         private readonly IStorage _storage;
-        private readonly ILoggerFactory _loggerFactory;
 
         public ClaimsPrincipalFactory(
             UserManager<User> userManager_,
             RoleManager<IdentityRole<string>> roleManager_,
             IOptions<IdentityOptions> optionsAccessor_,
-            IStorage storage_,
-            ILoggerFactory loggerFactory_)
+            IStorage storage_)
             : base(userManager_, roleManager_, optionsAccessor_)
         {
             _storage = storage_;
-            _loggerFactory = loggerFactory_;
-
         }
 
         public override async Task<ClaimsPrincipal> CreateAsync(User user_)
         {
             var principal = await base.CreateAsync(user_);
 
-            // FIXME fix the linq query using the correct table names
-            // InvalidOperationException: Cannot create a DbSet for 'UserRole' because this type is not included in the model for the context.
-            new UserManager(null, _loggerFactory, _storage).AddClaims(user_, (ClaimsIdentity)principal.Identity);
+            new ClaimsManager(_storage).AddClaims(user_, (ClaimsIdentity)principal.Identity);
 
             return principal;
         }
