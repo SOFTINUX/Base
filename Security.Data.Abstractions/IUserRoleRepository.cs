@@ -7,13 +7,13 @@ using Security.Data.Entities;
 
 namespace Security.Data.Abstractions
 {
-    public interface IUserRoleRepository : IRepository
-    {
-        UserRole FindBy(string userId_, string roleId_);
-        IEnumerable<UserRole> FilteredByRoleId(string roleId_);
-        IEnumerable<UserRole> FilteredByUserId(string userId_);
-        void Create(UserRole entity_);
-        void Edit(UserRole entity_);
-        void Delete(string userId_, string roleId_);
-    }
+    //public interface IUserRoleRepository : IRepository
+    //{
+    //    UserRole FindBy(string userId_, string roleId_);
+    //    IEnumerable<UserRole> FilteredByRoleId(string roleId_);
+    //    IEnumerable<UserRole> FilteredByUserId(string userId_);
+    //    void Create(UserRole entity_);
+    //    void Edit(UserRole entity_);
+    //    void Delete(string userId_, string roleId_);
+    //}
 }

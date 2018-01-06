@@ -19,7 +19,7 @@ namespace Security
     public class UserManager
     {
         private readonly IUserRepository _userRepository;
-        private readonly IUserRoleRepository _userRoleRepository;
+       // private readonly IUserRoleRepository _userRoleRepository;
         private readonly IRoleRepository _roleRepository;
         private readonly ILogger _logger;
         private readonly IStorage _storage;
@@ -33,7 +33,7 @@ namespace Security
 
             _storage = storage_;
             _userRepository = _storage.GetRepository<IUserRepository>();
-            _userRoleRepository = _storage.GetRepository<IUserRoleRepository>();
+            //_userRoleRepository = _storage.GetRepository<IUserRoleRepository>();
             _roleRepository = _storage.GetRepository<IRoleRepository>();
             _logger = loggerFactory_.CreateLogger(GetType().FullName);
         }
@@ -157,17 +157,17 @@ namespace Security
         private void AddRoleClaims(List<Claim> currentClaims_, User user_)
         {
             List<Claim> claims = new List<Claim>();
-            IEnumerable<string> roleIds = _userRoleRepository.FilteredByUserId(user_.Id)?.Select(ur_ => ur_.RoleId).ToList();
+            //IEnumerable<string> roleIds = _userRoleRepository.FilteredByUserId(user_.Id)?.Select(ur_ => ur_.RoleId).ToList();
 
-            if (roleIds == null)
-                return;
-            // TODO improve code : use a navigation property above to get role's name instead of n queries
-            foreach (string roleId in roleIds)
-            {
-                Role role = _roleRepository.FindById(roleId);
+            //if (roleIds == null)
+            //    return;
+            //// TODO improve code : use a navigation property above to get role's name instead of n queries
+            //foreach (string roleId in roleIds)
+            //{
+            //    Role role = _roleRepository.FindById(roleId);
 
-                claims.Add(new Claim(ClaimTypes.Role, role.Name));
-            }
+            //    claims.Add(new Claim(ClaimTypes.Role, role.Name));
+            //}
 
         }
 

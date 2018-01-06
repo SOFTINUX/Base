@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ExtCore.Data.EntityFramework;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
@@ -44,7 +45,7 @@ namespace Security.Data.EntityFramework
             IEnumerable<Permission> permissionsOfRoles = from p in storageContext.Set<Permission>()
                 join rp in storageContext.Set<RolePermission>() on p.Id equals rp.PermissionId
                 join r in storageContext.Set<Role>() on rp.RoleId equals r.Id
-                join ur in storageContext.Set<UserRole>() on r.Id equals ur.RoleId
+                join ur in storageContext.Set<IdentityUserRole<string>>() on r.Id equals ur.RoleId
                 where ur.UserId == userId_
                 select p;
 

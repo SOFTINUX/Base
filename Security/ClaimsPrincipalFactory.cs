@@ -1,7 +1,6 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
-using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -36,7 +35,7 @@ namespace Security
 
             // FIXME fix the linq query using the correct table names
             // InvalidOperationException: Cannot create a DbSet for 'UserRole' because this type is not included in the model for the context.
-            //new UserManager(null, _loggerFactory, _storage).AddClaims(user_, (ClaimsIdentity)principal.Identity);
+            new UserManager(null, _loggerFactory, _storage).AddClaims(user_, (ClaimsIdentity)principal.Identity);
 
             return principal;
         }

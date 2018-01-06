@@ -10,38 +10,38 @@ using Security.Data.Entities;
 
 namespace Security.Data.EntityFramework
 {
-    public class UserRoleRepository : RepositoryBase<UserRole>, IUserRoleRepository
-    {
+    //public class UserRoleRepository : RepositoryBase<UserRole>, IUserRoleRepository
+    //{
 
-        public UserRole FindBy(string userId_, string roleId_)
-        {
-            return dbSet.FirstOrDefault(e_ => e_.UserId == userId_ && e_.RoleId == roleId_);
-        }
+    //    public UserRole FindBy(string userId_, string roleId_)
+    //    {
+    //        return dbSet.FirstOrDefault(e_ => e_.UserId == userId_ && e_.RoleId == roleId_);
+    //    }
 
-        public IEnumerable<UserRole> FilteredByRoleId(string roleId_)
-        {
-            return dbSet.Where(e_ => e_.RoleId == roleId_).ToList();
-        }
+    //    public IEnumerable<UserRole> FilteredByRoleId(string roleId_)
+    //    {
+    //        return dbSet.Where(e_ => e_.RoleId == roleId_).ToList();
+    //    }
 
-        public IEnumerable<UserRole> FilteredByUserId(string userId_)
-        {
-            return dbSet.Where(e_ => e_.UserId == userId_).ToList();
-        }
+    //    public IEnumerable<UserRole> FilteredByUserId(string userId_)
+    //    {
+    //        return dbSet.Where(e_ => e_.UserId == userId_).ToList();
+    //    }
 
-        public virtual void Create(UserRole entity_)
-        {
-            dbSet.Add(entity_);
-        }
+    //    public virtual void Create(UserRole entity_)
+    //    {
+    //        dbSet.Add(entity_);
+    //    }
 
-        public virtual void Edit(UserRole entity_)
-        {
-            storageContext.Entry(entity_).State = EntityState.Modified;
-        }
+    //    public virtual void Edit(UserRole entity_)
+    //    {
+    //        storageContext.Entry(entity_).State = EntityState.Modified;
+    //    }
 
-        public void Delete(string userId_, string roleId_)
-        {
-            dbSet.Remove(FindBy(userId_, roleId_));
-        }
+    //    public void Delete(string userId_, string roleId_)
+    //    {
+    //        dbSet.Remove(FindBy(userId_, roleId_));
+    //    }
 
-    }
+    //}
 }
