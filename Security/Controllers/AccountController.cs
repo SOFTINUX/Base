@@ -63,10 +63,6 @@ namespace Security.Controllers
             if (result.Succeeded)
             {
                 _logger.LogInformation("User logged in");
-                //return RedirectToLocal(returnUrl);
-
-                // TODO load claims
-                //userManager.LoadClaims(user, signIn_.RememberMe);
 
                 // Go to dashboard, action Index of Barebone's controller
                 return RedirectToAction("Index", "Barebone");
