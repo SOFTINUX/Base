@@ -30,9 +30,6 @@ namespace Security.Data.EntityFramework
                 }
             );
 
-            // Foreign key to WIF entity
-            // TODO
-
             // Group
             modelBuilder_.Entity<Group>(etb_ =>
                 {

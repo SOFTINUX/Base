@@ -146,6 +146,8 @@ namespace WebApplication.Migrations
 
                     b.HasKey("GroupId", "PermissionId");
 
+                    b.HasIndex("PermissionId");
+
                     b.ToTable("GroupPermission");
                 });
 
@@ -170,6 +172,8 @@ namespace WebApplication.Migrations
                     b.Property<string>("PermissionId");
 
                     b.HasKey("RoleId", "PermissionId");
+
+                    b.HasIndex("PermissionId");
 
                     b.ToTable("RolePermission");
                 });
@@ -240,6 +244,8 @@ namespace WebApplication.Migrations
 
                     b.HasKey("GroupId", "UserId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("UserGroup");
                 });
 
@@ -250,6 +256,8 @@ namespace WebApplication.Migrations
                     b.Property<string>("PermissionId");
 
                     b.HasKey("UserId", "PermissionId");
+
+                    b.HasIndex("PermissionId");
 
                     b.ToTable("UserPermission");
                 });
@@ -294,6 +302,58 @@ namespace WebApplication.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.HasOne("Security.Data.Entities.User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Security.Data.Entities.GroupPermission", b =>
+                {
+                    b.HasOne("Security.Data.Entities.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Security.Data.Entities.Permission", "Permission")
+                        .WithMany()
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Security.Data.Entities.RolePermission", b =>
+                {
+                    b.HasOne("Security.Data.Entities.Permission", "Permission")
+                        .WithMany()
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<string>", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Security.Data.Entities.UserGroup", b =>
+                {
+                    b.HasOne("Security.Data.Entities.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Security.Data.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Security.Data.Entities.UserPermission", b =>
+                {
+                    b.HasOne("Security.Data.Entities.Permission", "Permission")
+                        .WithMany()
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Security.Data.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

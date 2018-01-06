@@ -13,5 +13,8 @@ namespace Security.Data.Entities
         public string GroupId { get; set; }
         public string PermissionId { get; set; }
 
+        public virtual Group Group { get; set; }
+        public virtual Permission Permission { get; set; }
+
     }
 }
