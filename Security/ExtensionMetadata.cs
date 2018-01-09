@@ -13,7 +13,17 @@ namespace Security
                 new StyleSheet("/Styles.Security.css",510),
              };
             public IEnumerable<Script> Scripts => new Script[] { };
-            public IEnumerable<MenuGroup> MenuGroups => new MenuGroup[] { };
+            public IEnumerable<MenuGroup> MenuGroups => new MenuGroup[]
+            {
+                new MenuGroup(
+                    "Administration",
+                    2000,
+                    new[]
+                    {
+                        new MenuItem("/administration", "Admin dimention", 100)
+                    }
+                )
+            };
 
         }
 }

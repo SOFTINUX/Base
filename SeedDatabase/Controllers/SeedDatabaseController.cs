@@ -77,7 +77,13 @@ namespace SeedDatabase.Controllers
                     return StatusCode(StatusCodes.Status500InternalServerError);
             }
 
-            return Ok();
+            return Ok("User Creation Ok.");
+        }
+
+        [HttpPost("/dev/seed/permissions")]
+        public IActionResult Permissions()
+        {
+            return StatusCode(StatusCodes.Status204NoContent);
         }
     }
 }

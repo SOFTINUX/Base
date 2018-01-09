@@ -8,7 +8,6 @@ namespace Security.Common
     /// <summary>
     /// Utility to quickly format a policy name, a claim value, when you know which application permission matches this claim or policy.
     /// TODO better renaming of these functions.
-    /// TODO REMOVE ToLowerInvariant everywhere in code.
     /// </summary>
     public static class PolicyUtil
     {
@@ -19,7 +18,7 @@ namespace Security.Common
         /// <returns></returns>
         public static string GetClaimValue(string permissionUniqueId_)
         {
-            return permissionUniqueId_.ToLowerInvariant();
+            return permissionUniqueId_;
         }
 
         /// <summary>
@@ -31,7 +30,7 @@ namespace Security.Common
         /// <returns></returns>
         public static string GetPolicyName<T>(string permissionCode_) where T : IExtensionMetadata
         {
-            return $"{typeof(T).Assembly.GetName().Name}.{permissionCode_}".ToLowerInvariant();
+            return $"{typeof(T).Assembly.GetName().Name}.{permissionCode_}";
         }
 
         /// <summary>
@@ -43,7 +42,7 @@ namespace Security.Common
         /// <returns></returns>
         public static string GetPolicyName(string permissionCode_, string originExtensionAssemblyName_)
         {
-            return $"{GetPermissionUniqueIdentifier(permissionCode_, originExtensionAssemblyName_)}".ToLowerInvariant();
+            return $"{GetPermissionUniqueIdentifier(permissionCode_, originExtensionAssemblyName_)}";
         }
 
         /// <summary>
@@ -55,8 +54,7 @@ namespace Security.Common
         /// <returns></returns>
         public static string GetPermissionUniqueIdentifier(string permissionCode_, string originExtensionAssemblyName_)
         {
-            return
-                $"{originExtensionAssemblyName_}.{permissionCode_}".ToLowerInvariant();
+            return $"{originExtensionAssemblyName_}.{permissionCode_}";
         }
     }
 }

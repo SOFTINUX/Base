@@ -8,6 +8,7 @@ using Security.Data.Entities;
 
 namespace Security
 {
+    /// <inheritdoc />
     /// <summary>
     /// Overriding WIF's UserClaimsPrincipalFactory allows to add custom claims to the WIF's current user.
     /// </summary>
