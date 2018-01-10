@@ -14,19 +14,19 @@ namespace Infrastructure.Enums
         /// <summary>
         /// Code of a permission provided by the Security extension.
         /// </summary>
-        public const string PERM_CODE_EDIT_USER = "edit_user";
+        public const string PERM_ADMIN = "admin";
         /// <summary>
         /// Code of a permission provided by the Security extension.
         /// </summary>
-        public const string PERM_CODE_EDIT_ROLE = "edit_role";
+        public const string PERM_WRITE = "write";
         /// <summary>
         /// Code of a permission provided by the Security extension.
         /// </summary>
-        public const string PERM_CODE_EDIT_GROUP = "edit_group";
+        public const string PERM_READ = "read";
         /// <summary>
         /// Code of a permission provided by the Security extension.
         /// </summary>
-        public const string PERM_CODE_EDIT_PERMISSION = "edit_permission";
+        public const string PERM_NEVER = "never";
 
     }
 }

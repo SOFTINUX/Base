@@ -5,6 +5,7 @@ namespace SeedDatabase
 {
     public enum Role
     {
+        AdministratorOwner,
         Administrator,
         User,
         Anonymous
@@ -12,6 +13,7 @@ namespace SeedDatabase
 
     public enum Group
     {
+        AdministratorOwner,
         Administrators,
         Users,
         Anonymous
@@ -21,7 +23,8 @@ namespace SeedDatabase
     {
         Admin,
         Write,
-        Read
+        Read,
+        Never
     }
 
     public static class Constants
