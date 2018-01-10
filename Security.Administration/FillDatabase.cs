@@ -8,6 +8,7 @@ using ExtCore.Data.Abstractions;
 using ExtCore.Infrastructure;
 using Infrastructure.Enums;
 using Infrastructure.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
@@ -74,19 +75,25 @@ namespace Security.Administration
             return extension_.GetType().Assembly.GetName().Name;
         }
 
-        //private void RecordPermissions(IEnumerable<Tuple<string, string, bool>> permissions_, string extensionAssemblyName_)
-        //{
-        //    if (permissions_ == null)
-        //        return;
-        //    IPermissionRepository repo = _storage.GetRepository<IPermissionRepository>();
-        //    foreach (Tuple<string, string, bool> permission in permissions_)
-        //    {
-        //        if (repo.FindBy(permission.Item1, extensionAssemblyName_) == null)
-        //        {
-        //            repo.Create(new Permission { Code = permission.Item1, Label = permission.Item2, AdministratorOwner = permission.Item3, OriginExtension = extensionAssemblyName_ });
-        //        }
-        //    }
-        //}
+        private void RecordPermissions()
+        {
+            IPermissionRepository repo = _storage.GetRepository<IPermissionRepository>();
+            Infrastructure.Enums.Permission[] permissions = (Infrastructure.Enums.Permission[])Enum.GetValues(typeof(PermissionHelper));
+
+            foreach(var p in permissions)
+            {
+                // create an idenity role objecct out of the enum value
+                Security.Data.Entities.Permission permission = new Security.Data.Entities.Permission()
+                {
+                    Id = p.GetPermissionName(),
+                    Name = p.GetPermissionName(),
+                    OriginExtension = "Security"
+                };
+
+                repo.Create(permission);
+            }
+            _storage.Save();
+        }
 
         //private void RecordPermissionsLevel(IEnumerable<Tuple<PermissionLevelValue, string, string>> permissionsLevel_)
         //{

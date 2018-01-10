@@ -6,7 +6,11 @@
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="ExtCore.Data.Entities.Abstractions" Version="3.1.0" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\Security.Data.Entities\Security.Data.Entities.csproj" />
+    <ProjectReference Include="..\Security.Data.Abstractions\Security.Data.Abstractions.csproj" />
   </ItemGroup>
 </Project>

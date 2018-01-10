@@ -3,9 +3,12 @@
 
 using System;
 using System.Threading.Tasks;
+using ExtCore.Data.Abstractions;
+using Infrastructure.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Security.Data.Abstractions;
 
 namespace SeedDatabase.Controllers
 {
@@ -14,11 +17,15 @@ namespace SeedDatabase.Controllers
     {
         private readonly UserManager<Security.Data.Entities.User> _userManager;
         private readonly RoleManager<IdentityRole<string>> _roleManager;
+        private readonly IStorage _storage;
 
-        public SeedDatabaseController(UserManager<Security.Data.Entities.User> userManager, RoleManager<IdentityRole<string>> roleManager)
+        public SeedDatabaseController(UserManager<Security.Data.Entities.User> userManager,
+            RoleManager<IdentityRole<string>> roleManager,
+            IStorage storage)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _storage = storage;
         }
 
         [HttpGet]
@@ -35,7 +42,7 @@ namespace SeedDatabase.Controllers
 
             foreach(var r in roles)
             {
-                // create an idenity role object out of the enum value
+                // create an identity role object out of the enum value
                 IdentityRole<string> identityRole = new IdentityRole<string>
                 {
                         Id = r.GetRoleName(),
@@ -64,7 +71,7 @@ namespace SeedDatabase.Controllers
             // add the user to the database if it doesn't already exist
             if (await _userManager.FindByEmailAsync(user.Email) == null)
             {
-                // WARNING:: Do Not check in credentials of any kind into source control
+                // WARNING: Do Not check in credentials of any kind into source control
                 var result = await _userManager.CreateAsync(user, password: "123_Password");
 
                 if (!result.Succeeded) //return 500 if it fails
@@ -83,6 +90,23 @@ namespace SeedDatabase.Controllers
         [HttpPost("/dev/seed/permissions")]
         public IActionResult Permissions()
         {
+            IPermissionRepository repo = _storage.GetRepository<IPermissionRepository>();
+            Infrastructure.Enums.Permission[] permissions = (Infrastructure.Enums.Permission[])Enum.GetValues(typeof(Permission));
+
+            foreach(var p in permissions)
+            {
+                // create a permission object out of the enum value
+                Security.Data.Entities.Permission permission = new Security.Data.Entities.Permission()
+                {
+                    Id = p.GetPermissionName(),
+                    Name = p.GetPermissionName(),
+                    OriginExtension = "Security"
+                };
+
+                repo.Create(permission);
+            }
+            _storage.Save();
+
             return StatusCode(StatusCodes.Status204NoContent);
         }
     }
