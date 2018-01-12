@@ -90,7 +90,7 @@ namespace SeedDatabase.Controllers
         [HttpPost("/dev/seed/permissions")]
         public IActionResult Permissions()
         {
-            IPermissionRepository repo = _storage.GetRepository<IPermissionRepository>();
+            //IPermissionRepository repo = _storage.GetRepository<IPermissionRepository>();
             Infrastructure.Enums.Permission[] permissions = (Infrastructure.Enums.Permission[])Enum.GetValues(typeof(Permission));
 
             foreach(var p in permissions)
@@ -103,7 +103,7 @@ namespace SeedDatabase.Controllers
                     OriginExtension = "Security"
                 };
 
-                repo.Create(permission);
+                _storage.GetRepository<IPermissionRepository>().Create(permission);
             }
             _storage.Save();
 

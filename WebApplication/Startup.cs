@@ -51,23 +51,7 @@ namespace WebApplication
                     //options_.MigrationsAssembly = typeof(DesignTimeStorageContextFactory).GetTypeInfo().Assembly.FullName;
                 }
             ); */
-
-            services_.AddDbContext<ApplicationStorageContext>(options =>
-                {
-                    options.UseSqlite(Configuration["ConnectionStrings:Default"]);
-                },
-                ServiceLifetime.Scoped
-            );
-
-            services_.Configure<CorporateConfiguration>(options_ =>
-                {
-                    options_.Name = Configuration.GetValue<string>("Corporate:Name");
-                    options_.BrandLogo = Configuration.GetValue<string>("Corporate:BrandLogo");
-                }
-            );
-
-            // TODO voir à redéplacer dans Security, ServiceConfiguration
-            // *** début du bloc à déplacer
+            
             // Configure Identity
             services_.AddIdentity<Security.Data.Entities.User, IdentityRole<string>>(options =>
                 {
@@ -102,9 +86,21 @@ namespace WebApplication
                 options.SlidingExpiration = true;
             });
 
-            services_.AddScoped<IUserClaimsPrincipalFactory<User>, ClaimsPrincipalFactory>();
+            services_.AddDbContext<ApplicationStorageContext>(options =>
+                {
+                    options.UseSqlite(Configuration["ConnectionStrings:Default"]);
+                },
+                ServiceLifetime.Scoped
+            );
 
-            // *** fin du bloc à déplacer
+            services_.Configure<CorporateConfiguration>(options_ =>
+                {
+                    options_.Name = Configuration.GetValue<string>("Corporate:Name");
+                    options_.BrandLogo = Configuration.GetValue<string>("Corporate:BrandLogo");
+                }
+            );
+
+            services_.AddScoped<IUserClaimsPrincipalFactory<User>, ClaimsPrincipalFactory>();
 
             // Register database-specific storage context implementation.
             // Necessary for IStorage service registration to fully work (see AddAuthorizationPolicies).
@@ -122,8 +118,8 @@ namespace WebApplication
             if (hostingEnvironment_.IsDevelopment())
             {
                 applicationBuilder_.UseDeveloperExceptionPage();
-                //applicationBuilder.UseDatabaseErrorPage();
-                //applicationBuilder.UseBrowserLink();
+                applicationBuilder_.UseDatabaseErrorPage();
+                //applicationBuilder_.UseBrowserLink();
             }
 
             // call ConfigureLogger in a centralized place in the code
