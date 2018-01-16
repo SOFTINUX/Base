@@ -18,7 +18,6 @@ namespace Security.Controllers
         {
             _logger = _loggerFactory.CreateLogger(GetType().FullName);
             _logger.LogInformation("oups");
-            User.
         }
 
         [HttpGet]
