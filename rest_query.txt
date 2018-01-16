@@ -1,0 +1,5 @@
+POST http://localhost:5000/dev/seed/CreateUser HTTP/1.1
+
+###
+
+GET http://localhost:5000/dev/seed/ HTTP/1.1
