@@ -29,13 +29,14 @@ namespace SeedDatabase.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Index()
         {
             return Ok("Hello world!");
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index()
+        [Route("/dev/seed/CreateUser")]
+        public async Task<IActionResult> CreateUser()
         {
             // Get the list of the role from the enum
             Role[] roles = (Role[])Enum.GetValues(typeof(Role));
@@ -84,12 +85,16 @@ namespace SeedDatabase.Controllers
                     return StatusCode(StatusCodes.Status500InternalServerError);
             }
 
+            SavePermissions(user);
+
             return Ok("User Creation Ok.");
         }
 
-        [HttpPost("/dev/seed/permissions")]
-        public IActionResult Permissions()
+        private IActionResult SavePermissions(Security.Data.Entities.User user_)
         {
+            if (user_ == null)
+                return StatusCode(StatusCodes.Status204NoContent, $"User is null.");
+
             //IPermissionRepository repo = _storage.GetRepository<IPermissionRepository>();
             Infrastructure.Enums.Permission[] permissions = (Infrastructure.Enums.Permission[])Enum.GetValues(typeof(Permission));
 
@@ -105,9 +110,71 @@ namespace SeedDatabase.Controllers
 
                 _storage.GetRepository<IPermissionRepository>().Create(permission);
             }
-            _storage.Save();
 
-            return StatusCode(StatusCodes.Status204NoContent);
+            try
+            {
+                _storage.Save();
+                SaveUserPermission("Admin", user_);
+                return Ok("Saving permissions ok.");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status204NoContent, $"Cannot saving permissions. Error: {e.Message}");
+            }
         }
+
+        private IActionResult SaveUserPermission(string permissionId_, Security.Data.Entities.User user_)
+        {
+            if (
+                (!string.IsNullOrEmpty(permissionId_) || !string.IsNullOrWhiteSpace(permissionId_)) &&
+                user_ != null
+                )
+            {
+                Security.Data.Entities.UserPermission userPermission = new Security.Data.Entities.UserPermission()
+                {
+                    UserId = user_.Id,
+                    PermissionId = permissionId_
+                };
+
+                _storage.GetRepository<IUserPermissionRepository>().Create(userPermission);
+            }
+            try
+            {
+                _storage.Save();
+                SaveRolePermission("Administrator", "Admin");
+                return Ok("Saving user permissions ok.");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status204NoContent, $"Cannot saving user permissions. Error: {e.Message}");
+            }
+        }
+
+        private IActionResult SaveRolePermission(string roleId_, string permissionId_)
+        {
+            if (
+                (!string.IsNullOrEmpty(permissionId_) || !string.IsNullOrWhiteSpace(permissionId_)) &&
+                (!string.IsNullOrEmpty(roleId_) || !string.IsNullOrWhiteSpace(roleId_))
+                )
+            {
+                Security.Data.Entities.RolePermission rolePermission = new Security.Data.Entities.RolePermission()
+                {
+                    RoleId = roleId_,
+                    PermissionId = permissionId_
+                };
+                _storage.GetRepository<IRolePermissionRepository>().Create(rolePermission);
+            }
+
+            try
+            {
+                _storage.Save();
+                return Ok("Saving role permissions ok.");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status204NoContent, $"Cannot saving role permissions. Error: {e.Message}");
+            }
+        }
+
     }
 }

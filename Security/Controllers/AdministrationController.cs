@@ -9,7 +9,7 @@ using ControllerBase = Infrastructure.ControllerBase;
 
 namespace Security.Controllers
 {
-    [Authorize("Administrator", "Security")]
+    [Authorize("Admin", "Security")]
     public class AdministrationController : ControllerBase
     {
         private ILogger _logger;
@@ -17,6 +17,8 @@ namespace Security.Controllers
         public AdministrationController(IStorage storage_, ILoggerFactory loggerFactory_) : base(storage_, loggerFactory_)
         {
             _logger = _loggerFactory.CreateLogger(GetType().FullName);
+            _logger.LogInformation("oups");
+            User.
         }
 
         [HttpGet]
