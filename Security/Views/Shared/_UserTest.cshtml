@@ -1,6 +1,0 @@
-@using Microsoft.AspNetCore.Identity
-@using Security.Data.Entities
-
-@inject UserManager<User> UserManager
-
-<h5>@UserManager.GetUserAsync(User).Result.LastName</h5>

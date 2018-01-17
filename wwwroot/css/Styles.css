@@ -3,30 +3,43 @@ Copyright © 2017 SOFTINUX. All rights reserved.
 Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 */
 
-.bg-blue
-{
+body {
+    font-family: "Poppins", sans-serif;
+    font-size: 1rem;
+    font-weight: normal;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    margin-bottom: 0.5rem;
+    font-family: inherit;
+    font-weight: 700;
+    line-height: 1.1;
+    color: inherit;
+}
+
+.bg-blue {
     /* background-color: #D6EEFB; */
 }
 
-.navbar-blue .navbar-nav .nav-link
-{
+.navbar-blue .navbar-nav .nav-link {
     color: #152a50;
 }
 
-.navbar-brand
-{
+.navbar-brand {
     height: 30px;
     width: 30px;
 }
 
-.navbar-brand
-{
+.navbar-brand {
     padding: 0;
     width: 120px;
 }
 
-.navbar-nav .nav-link
-{
+.navbar-nav .nav-link {
     padding-top: 0;
     padding-bottom: 0;
     height: 50px;
@@ -37,13 +50,12 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
     background-color: #152a50 !important;
 }
 
-.navbar-light, .navbar-light .navbar-brand, .navbar-light a, .navbar-toggler-icon
-{
+.navbar-light, .navbar-light .navbar-brand, .navbar-light a, .navbar-toggler-icon {
     color: aliceblue !important;
 }
 
 .dropdown-menu a {
-    color : #000000 !important;
+    color: #000000 !important;
 }
 
 /* side nav */
@@ -56,17 +68,37 @@ nav.side-navbar {
     z-index: 10;
 }
 
-nav.side-navbar, .sidebar-header {
+nav.side-navbar .sidebar-header {
     padding: 30px 15px;
+}
+
+nav.side-navbar .avatar {
+    width: 55px;
+    height: 55px;
+}
+
+nav.side-navbar .title {
+    margin-left: 10px;
+}
+
+nav.side-navbar .title h1 {
+    color: #333;
+}
+
+nav.side-navbar .title p {
+    font-size: 0.9em;
+    font-weight: 200;
+    margin-bottom: 0;
+    color: #aaa;
 }
 
 .inner-content {
     width: calc(100% - 250px);
 }
 
-.d-flex {
+/*.d-flex {
     display: flex !important;
-}
+}*/
 
 .page-content {
     background-color: #eef5f9;
@@ -86,6 +118,7 @@ header.page-header {
 h2 {
     font-size: 1.3rem;
 }
+
 .has-shadow {
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1), -1px 0 2px rgba(0, 0, 0, 0.5);
     -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1), -1px 0 2px rgba(0, 0, 0, 0.5);
@@ -104,29 +137,40 @@ section.dashboard-section div[class*='col-'] .item {
     padding: 15px;
 }
 
-.side-navbar ul,
-.side-navbar li {
+nav.side-navbar {
+    background: #fff;
+    min-width: 250px;
+    max-width: 250px;
+    color: #686a76;
+    -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    z-index: 9;
+}
+
+nav.side-navbar ul,
+nav.side-navbar li {
     list-style: none;
     padding: 0px;
     margin: 0px;
     line-height: 35px;
     cursor: pointer;
-    /*    
-      .collapsed{
-         .arrow:before{
-                   font-family: FontAwesome;
-                   content: "\f053";
-                   display: inline-block;
-                   padding-left:10px;
-                   padding-right: 10px;
-                   vertical-align: middle;
-                   float:right;
-              }
-       }
-    */
+    /*
+    .collapsed{
+        .arrow:before{
+                font-family: FontAwesome;
+                content: "\f053";
+                display: inline-block;
+                padding-left:10px;
+                padding-right: 10px;
+                vertical-align: middle;
+                float:right;
+            }
+    }
+*/
 }
-.side-navbar :not(collapsed) .arrow:before,
-.side-navbar :not(collapsed) .arrow:before {
+
+nav.side-navbar :not(collapsed) .arrow:before,
+nav.side-navbar :not(collapsed) .arrow:before {
     font-family: FontAwesome;
     content: "\f078";
     display: inline-block;
@@ -136,8 +180,8 @@ section.dashboard-section div[class*='col-'] .item {
     float: right;
 }
 
-.side-navbar ul .sub-menu li,
-.side-navbar li .sub-menu li {
+nav.side-navbar ul .sub-menu li,
+nav.side-navbar li .sub-menu li {
     /* background-color: #181c20; */
     border: none;
     line-height: 28px;
@@ -145,8 +189,8 @@ section.dashboard-section div[class*='col-'] .item {
     margin-left: 0px;
 }
 
-.side-navbar ul .sub-menu li:before,
-.side-navbar li .sub-menu li:before {
+nav.side-navbar ul .sub-menu li:before,
+nav.side-navbar li .sub-menu li:before {
     font-family: FontAwesome;
     content: "\f105";
     display: inline-block;
@@ -154,21 +198,25 @@ section.dashboard-section div[class*='col-'] .item {
     padding-right: 10px;
     vertical-align: middle;
 }
-.side-navbar li {
+
+nav.side-navbar li {
     padding-left: 0px;
     /* border-left: 3px solid #2e353d; */
     /* border-bottom: 1px solid #23282e; */
 }
-.side-navbar li a {
+
+nav.side-navbar li a {
     text-decoration: none;
     /* color: #e1ffff; */
 }
-.side-navbar li a i {
+
+nav.side-navbar li a i {
     padding-left: 10px;
     width: 20px;
     padding-right: 20px;
 }
-.side-navbar li:hover {
+
+nav.side-navbar li:hover {
     /* border-left: 3px solid #d19b3d; */
     /* background-color: #4f5b69; */
     -webkit-transition: all 1s ease;
@@ -178,7 +226,20 @@ section.dashboard-section div[class*='col-'] .item {
     transition: all 1s ease;
 }
 
-.side-navbar .menu-header a{
+nav.side-navbar .menu-header a {
     color: black;
     font-size: 0.9em;
 }
+
+nav.side-navbar span.heading {
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-left: 20px;
+    color: #ccc;
+    font-size: 0.8em;
+}
+
+h4, .h4 {
+    font-size: 1.1rem;
+}
+

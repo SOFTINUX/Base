@@ -1,0 +1,10 @@
+@using Microsoft.AspNetCore.Identity
+@using Security.Data.Entities
+
+@inject UserManager<User> UserManager
+
+<div class="avatar"><img src="img/profile-circle2-128.png" alt="..." class="img-fluid rounded-circle"></div>
+<div class="title">
+    <h1 class="h4">@UserManager.GetUserAsync(User).Result.LastName&nbsp;@UserManager.GetUserAsync(User).Result.FirstName</h1>
+    <p>Test User</p>
+</div>

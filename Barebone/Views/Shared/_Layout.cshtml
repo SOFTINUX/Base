@@ -53,9 +53,10 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
             <nav class="side-navbar">
                 <div class="sidebar-header d-flex align-items-center">
                     @* user badge *@
-                    @Html.Partial("_UserTest")
+                    @Html.Partial("_UserBadge")
                 </div>
-                <span>Main</span>
+                <span class="heading">Main</span>
+                @* Menu Navigation *@
                 @await Component.InvokeAsync("Menu")
             </nav>
         }

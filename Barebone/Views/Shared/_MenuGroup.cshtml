@@ -8,7 +8,7 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
 <div data-toggle="collapse" data-target="#@(Model.Name)" class="collapsed menu-header">
     <a href="#"> @(Model.Name) <span class="arrow"></span></a>
 </div>
-<ul class="sub-menu collapse" id="@(Model.Name)" data-code="main-@(this.Model.Position)">
+<ul class="sub-menu collapse list-unstyled" id="@(Model.Name)" data-code="main-@(this.Model.Position)">
     @foreach (var menuItem in Model.MenuItems)
     {
         @Html.Partial("_MenuItem", menuItem)
