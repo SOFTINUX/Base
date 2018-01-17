@@ -17,7 +17,7 @@ namespace Security.Common.Attributes
         /// <param name="extensionAssemblySimpleName_">Extension assembly simple name, typically given by Assembly.GetAssemblyName().Name</param>
         public AuthorizeAttribute(string permissionCode_, string extensionAssemblySimpleName_)
         {
-            string policyName = PolicyUtil.GetPolicyName(permissionCode_, extensionAssemblySimpleName_).ToLowerInvariant();
+            string policyName = PolicyUtil.GetPolicyName(permissionCode_, extensionAssemblySimpleName_);
 
             // We need to check that the corresponding permission exists
             Policy = KnownPolicies.Contains(policyName) ? policyName : FallbackPolicyProvider.PolicyName;

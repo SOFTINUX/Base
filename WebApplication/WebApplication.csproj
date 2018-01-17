@@ -40,7 +40,7 @@
     <SolutionDir Condition=" '$(SolutionDir)' == '' ">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), softinux-1.sln))\</SolutionDir>
   </PropertyGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="$(SolutionDir)bp.bat copydeps" Condition="'$(OS)' == 'Windows_NT'" />
+    <Exec Command="$(SolutionDir)bp.bat copydeps&#xD;&#xA;$(SolutionDir)bp.bat copyexts" Condition="'$(OS)' == 'Windows_NT'" />
     <Exec Command="$(SolutionDir)bp.sh copydeps" Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'" />
     <Exec Command="$(SolutionDir)bp.sh copydeps" Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'" />
   </Target>
