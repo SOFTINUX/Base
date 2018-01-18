@@ -84,10 +84,12 @@ nav.side-navbar .avatar {
 
 nav.side-navbar .title {
     margin-left: 10px;
+    max-width: 150px;
 }
 
 nav.side-navbar .title h1 {
     color: #333;
+    word-wrap: break-word;
 }
 
 nav.side-navbar .title p {
@@ -97,22 +99,22 @@ nav.side-navbar .title p {
     color: #aaa;
 }
 
-nav.side-navbar .title .edit_profile {
-    display: block;
-    float: right;
-    margin-top: -7px;
-    margin-left: 35px;
+nav.side-navbar .float_left{
+    float: left;
 }
 
-nav.side-navbar .title .edit_profile_btn {
-    /*background: #f5f5f5;*/
+nav.side-navbar .float_right{
+    float: right;
+    margin-top: -7px;
+    margin-left: 8px;
+}
+
+
+
+nav.side-navbar .edit_profile_btn {
     color: #707070;
     cursor: pointer;
     display: inline-block;
-    /*font-family: inherit;
-font-size: 14px;
-font-variant: normal;
-font-weight: normal;*/
     height: 2.14285714em;
     line-height: 1.42857143;
     margin: 0;
@@ -123,13 +125,13 @@ font-weight: normal;*/
     border: 1px solid transparent;
 }
 
-nav.side-navbar .title .edit_profile_btn .subtle {
+nav.side-navbar .edit_profile_btn .subtle {
     background: transparent;
     border-color: transparent;
     color: #707070;
 }
 
-nav.side-navbar .title .edit_profile_btn:hover {
+nav.side-navbar .edit_profile_btn:hover {
     background: #e9e9e9;
     border-color: #999;
     box-sizing: border-box;

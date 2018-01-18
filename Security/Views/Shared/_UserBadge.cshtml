@@ -9,11 +9,11 @@
 
 <div class="avatar"><img src="/img/profile-circle2-128.png" alt="..." class="img-fluid rounded-circle"></div>
 <div class="title">
-    <h1 class="h4">
-        @UserManager.GetUserAsync(User).Result.LastName&nbsp;@UserManager.GetUserAsync(User).Result.FirstName
-        <div class="edit_profile">
-            <a href="@Url.Action("EditProfile", "Account")" class="edit_profile_btn subtle"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-        </div>
-    </h1>
+    <div class="edit_profile float_left">
+        <h1 class="h4">@UserManager.GetUserAsync(User).Result.LastName&nbsp;@UserManager.GetUserAsync(User).Result.FirstName</h1>
+    </div>
     <p>Test User</p>
+</div>
+<div class="edit_profile float_right">
+    <a href="@Url.Action("EditProfile", "Account")" class="edit_profile_btn subtle"><i class="fa fa-pencil" aria-hidden="true"></i></a>
 </div>
