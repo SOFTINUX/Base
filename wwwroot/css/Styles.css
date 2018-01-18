@@ -21,6 +21,11 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     color: inherit;
 }
 
+a:hover, a:visited {
+    text-decoration: none;
+    color: #000;
+}
+
 .bg-blue {
     /* background-color: #D6EEFB; */
 }
@@ -90,6 +95,46 @@ nav.side-navbar .title p {
     font-weight: 200;
     margin-bottom: 0;
     color: #aaa;
+}
+
+nav.side-navbar .title .edit_profile {
+    display: block;
+    float: right;
+    margin-top: -7px;
+    margin-left: 35px;
+}
+
+nav.side-navbar .title .edit_profile_btn {
+    /*background: #f5f5f5;*/
+    color: #707070;
+    cursor: pointer;
+    display: inline-block;
+    /*font-family: inherit;
+font-size: 14px;
+font-variant: normal;
+font-weight: normal;*/
+    height: 2.14285714em;
+    line-height: 1.42857143;
+    margin: 0;
+    padding: 4px 10px;
+    text-decoration: none;
+    vertical-align: baseline;
+    white-space: nowrap;
+    border: 1px solid transparent;
+}
+
+nav.side-navbar .title .edit_profile_btn .subtle {
+    background: transparent;
+    border-color: transparent;
+    color: #707070;
+}
+
+nav.side-navbar .title .edit_profile_btn:hover {
+    background: #e9e9e9;
+    border-color: #999;
+    box-sizing: border-box;
+    border: 1px solid #999;
+    border-radius: 3.01px;
 }
 
 .inner-content {

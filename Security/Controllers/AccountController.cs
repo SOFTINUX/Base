@@ -6,6 +6,7 @@ using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.Logging;
 using Security.Data.Entities;
 using Security.ViewModels.Account;
@@ -102,18 +103,21 @@ namespace Security.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateOrEditUser(uint userId_)
+        public IActionResult CreateOrEditUser(string userId_)
         {
-            //TODO: charger le user ou préparer création nouveau user.
             return null;
         }
 
         [HttpPost]
-        public IActionResult SaveUser(uint userId_)
+        public IActionResult SaveUser(string userId_)
         {
             return null;
         }
 
-
+        [HttpGet]
+        public IActionResult EditProfile(string userId_)
+        {
+            return View("User");
+        }
     }
 }

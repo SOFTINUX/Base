@@ -1,1 +1,29 @@
-User Page
+@* Copyright © 2017 SOFTINUX. All rights reserved.
+    Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+*@
+@using Microsoft.AspNetCore.Identity
+@using Security.Data.Entities
+
+@inject UserManager<User> UserManager
+
+@section title {
+    <h2>Profile: @UserManager.GetUserAsync(User).Result.LastName&nbsp;@UserManager.GetUserAsync(User).Result.FirstName</h2>
+}
+
+<section class="dashboard-section">
+    <div class="container-fluid">
+        <div class="row bg-white has-shadow">
+            <div class="col-xl-3">
+                <label>Avatar</label>
+            </div>
+            <div class="col-xl-3">
+                <div class="item d-flex align-items-center">
+                    Hey, this is your profile page!!
+                </div>
+            </div>
+            <div class="col-xl-3">
+
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,10 +1,19 @@
+@* Copyright © 2017 SOFTINUX. All rights reserved.
+    Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+*@
+
 @using Microsoft.AspNetCore.Identity
 @using Security.Data.Entities
 
 @inject UserManager<User> UserManager
 
-<div class="avatar"><img src="img/profile-circle2-128.png" alt="..." class="img-fluid rounded-circle"></div>
+<div class="avatar"><img src="/img/profile-circle2-128.png" alt="..." class="img-fluid rounded-circle"></div>
 <div class="title">
-    <h1 class="h4">@UserManager.GetUserAsync(User).Result.LastName&nbsp;@UserManager.GetUserAsync(User).Result.FirstName</h1>
+    <h1 class="h4">
+        @UserManager.GetUserAsync(User).Result.LastName&nbsp;@UserManager.GetUserAsync(User).Result.FirstName
+        <div class="edit_profile">
+            <a href="@Url.Action("EditProfile", "Account")" class="edit_profile_btn subtle"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+        </div>
+    </h1>
     <p>Test User</p>
 </div>
