@@ -99,10 +99,6 @@ nav.side-navbar .title p {
     color: #aaa;
 }
 
-nav.side-navbar .float_left{
-    float: left;
-}
-
 nav.side-navbar .float_right{
     float: right;
     margin-top: -7px;
