@@ -2,6 +2,7 @@
  Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 */
 
+/*
 .login-form {
     position: absolute;
     top: 50%;
@@ -18,12 +19,12 @@
     text-decoration: none;
 }
 .login-form-section-left {
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#3e3e3e+0,212121+100 */
-    background: #3e3e3e; /* Old browsers */
-    background: -moz-radial-gradient(center, ellipse cover, #3e3e3e 0%, #212121 100%); /* FF3.6-15 */
-    background: -webkit-radial-gradient(center, ellipse cover, #3e3e3e 0%,#212121 100%); /* Chrome10-25,Safari5.1-6 */
-    background: radial-gradient(ellipse at center, #3e3e3e 0%,#212121 1000%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3e3e3e', endColorstr='#212121',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    !* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#3e3e3e+0,212121+100 *!
+    background: #3e3e3e; !* Old browsers *!
+    background: -moz-radial-gradient(center, ellipse cover, #3e3e3e 0%, #212121 100%); !* FF3.6-15 *!
+    background: -webkit-radial-gradient(center, ellipse cover, #3e3e3e 0%,#212121 100%); !* Chrome10-25,Safari5.1-6 *!
+    background: radial-gradient(ellipse at center, #3e3e3e 0%,#212121 1000%); !* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ *!
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3e3e3e', endColorstr='#212121',GradientType=1 ); !* IE6-9 fallback on horizontal gradient *!
     width: 410px;
     height: 240px;
     float:left;
@@ -41,7 +42,7 @@
 }
 .login-form-username, .login-form-password {
     font-size: 12px;
-    /* margin-top: 10px; */
+    !* margin-top: 10px; *!
 }
 .login-form-username {
     margin-left: 30px;
@@ -61,24 +62,24 @@ input.empty {
     font-weight: normal;
     text-decoration: inherit;
 }
-.form-control::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+.form-control::-webkit-input-placeholder { !* WebKit, Blink, Edge *!
     color:    #ff9700;
     text-align:right;
 }
-.form-control:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+.form-control:-moz-placeholder { !* Mozilla Firefox 4 to 18 *!
     color:    #ff9700;
     opacity:  1;
     text-align:right;
 }
-.form-control::-moz-placeholder { /* Mozilla Firefox 19+ */
+.form-control::-moz-placeholder { !* Mozilla Firefox 19+ *!
     color:    #ff9700;
     opacity:  1;
     text-align:right;
 }
-.form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+.form-control:-ms-input-placeholder { !* Internet Explorer 10-11 *!
     color:    #ff9700;
 }
-.form-control::-ms-input-placeholder { /* Microsoft Edge */
+.form-control::-ms-input-placeholder { !* Microsoft Edge *!
     color:    #ff9700;
 }
 .fa-chevron-right {
@@ -104,8 +105,8 @@ input.empty {
     text-decoration: underline;
 }
 hr {
-    border: 0; 
-    height: 1px; 
+    border: 0;
+    height: 1px;
     background-image: -webkit-linear-gradient(left, #383030, #8c8b8b, #383030);
     background-image: -moz-linear-gradient(left, #383030, #8c8b8b, #383030);
     background-image: -ms-linear-gradient(left, #383030, #8c8b8b, #383030);
@@ -121,4 +122,4 @@ hr {
 .login-form-oauth .row .col,  .login-form-oauth .row .col-5{
     padding-left: 0px;
     padding-right: 0px;
-}
+}*/

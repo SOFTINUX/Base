@@ -6,38 +6,58 @@
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Styles\**;Scripts\**;Views\**;**\node_modules\font-awesome\fonts\" />
+    <EmbeddedResource Include="Styles\**;Scripts\**;Views\**;**\node_modules\icheck\skins\square\**" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="node_modules\bootstrap\dist\css\bootstrap.min.css" />
     <None Remove="node_modules\normalize.css\normalize.css" />
     <None Remove="node_modules\font-awesome\css\font-awesome.min.css" />
     <None Remove="node_modules\wfk-opensans\opensans.css" />
-    <None Remove="node_modules\jquery\dist\jquery.slim.min.js" />
+    <None Remove="node_modules\jquery\dist\jquery.min.js" />
     <None Remove="node_modules\bootstrap\dist\js\bootstrap.min.js" />
-    <None Remove="node_modules\popper.js\dist\umd\popper.min.js" />
     <None Remove="node_modules\jquery-validation\dist\jquery.validate.min.js" />
     <None Remove="node_modules\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
     <None Remove="node_modules\js-cookie\src\js.cookie.js" />
+    <None Remove="node_modules\admin-lte\dist\js\adminlte.min.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="node_modules\jquery\dist\jquery.slim.min.js" />
-    <EmbeddedResource Include="node_modules\popper.js\dist\umd\popper.min.js" />
+    <EmbeddedResource Include="node_modules\jquery\dist\jquery.min.js" />
+    <EmbeddedResource Include="node_modules\jquery\dist\jquery.min.map" />
     <EmbeddedResource Include="node_modules\bootstrap\dist\js\bootstrap.min.js" />
-    <EmbeddedResource Include="node_modules\bootstrap\dist\js\bootstrap.min.js.map" />
     <EmbeddedResource Include="node_modules\jquery-validation\dist\jquery.validate.min.js" />
     <EmbeddedResource Include="node_modules\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
     <EmbeddedResource Include="node_modules\js-cookie\src\js.cookie.js" />
+    <EmbeddedResource Include="node_modules\icheck\icheck.js" />
+    <EmbeddedResource Include="node_modules\admin-lte\dist\js\adminlte.min.js" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="node_modules\normalize.css\normalize.css" />
     <EmbeddedResource Include="node_modules\bootstrap\dist\css\bootstrap.min.css" />
     <EmbeddedResource Include="node_modules\bootstrap\dist\css\bootstrap.min.css.map" />
+    <EmbeddedResource Include="node_modules\admin-lte\dist\css\AdminLTE.min.css" />
+    <EmbeddedResource Include="node_modules\admin-lte\dist\css\adminlte.min.css.map" />
     <EmbeddedResource Include="node_modules\font-awesome\css\font-awesome.min.css" />
+    <EmbeddedResource Include="node_modules\font-awesome\css\font-awesome.css.map" />
+    <EmbeddedResource Include="node_modules\ionicons\dist\css\ionicons.min.css" />
+    <EmbeddedResource Include="node_modules\ionicons\dist\css\ionicons.min.css.map" />
+    <EmbeddedResource Include="node_modules\wfk-opensans\opensans.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.eot" />
+    <EmbeddedResource Include="node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.svg" />
+    <EmbeddedResource Include="node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.ttf" />
+    <EmbeddedResource Include="node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.woff" />
+    <EmbeddedResource Include="node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.woff2" />
     <EmbeddedResource Include="node_modules\font-awesome\fonts\fontawesome-webfont.woff" />
     <EmbeddedResource Include="node_modules\font-awesome\fonts\fontawesome-webfont.woff2" />
     <EmbeddedResource Include="node_modules\font-awesome\fonts\fontawesome-webfont.ttf" />
     <EmbeddedResource Include="node_modules\font-awesome\fonts\fontawesome-webfont.svg" />
     <EmbeddedResource Include="node_modules\font-awesome\fonts\FontAwesome.otf" />
-    <EmbeddedResource Include="node_modules\wfk-opensans\opensans.css" />
+    <EmbeddedResource Include="node_modules\ionicons\dist\fonts\ionicons.eot" />
+    <EmbeddedResource Include="node_modules\ionicons\dist\fonts\ionicons.svg" />
+    <EmbeddedResource Include="node_modules\ionicons\dist\fonts\ionicons.ttf" />
+    <EmbeddedResource Include="node_modules\ionicons\dist\fonts\ionicons.woff" />
+    <EmbeddedResource Include="node_modules\ionicons\dist\fonts\ionicons.woff2" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ExtCore.Mvc.Infrastructure" Version="3.2.0-beta3" />

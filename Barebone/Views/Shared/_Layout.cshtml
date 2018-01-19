@@ -17,7 +17,14 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
     <title>@Html.Raw(ViewBag.Title as string)</title>
     @await Component.InvokeAsync("StyleSheets")
 </head>
-<body>
+@{
+    string authClass="";
+    @if (!User.Identity.IsAuthenticated)
+    {
+        authClass="hold-transition login-page";
+    }
+}
+<body class="@authClass">
     @if (User.Identity.IsAuthenticated)
     {
         <header class="header">
@@ -81,6 +88,13 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
                     event.preventDefault();
                     $("form").submit();
                 }
+            });
+            $(function () {
+                $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+                });
             });
         </script>
     }

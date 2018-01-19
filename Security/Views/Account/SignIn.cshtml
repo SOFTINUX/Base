@@ -5,105 +5,43 @@
 @using Microsoft.AspNetCore.Authentication
 @model Security.ViewModels.Account.SignInViewModel
 
+<div class="login-box">
+  <div class="login-logo">
+    <a href="#"><strong>SOFTINUX</strong></a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="login-box-body">
+    <p class="login-box-msg">Sign in to start your session</p>
 
-<form class="form" method="post" id="loginform">
-    <div class="login-form">
-        <div class="row">
-            <div class="col">
-                <div class="login-form-section-left">
-                    <div class="row">
-                        <div class="col">
-                            <div class="login-form-title">LOGIN</div>
-                            <hr />
-                        </div>
-                    </div>
-                    @Html.AntiForgeryToken()
-                    <div class="login-form-fields">
-                        <div class="row">
-                            <div class="col">
-                                <div class="login-form-username">
-                                    <div>Username:</div>
-                                    <div>
-                                        <input id="username" class="form-control empty" type="text" placeholder="&#xf007;" asp-for="Email" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="login-form-password">
-                                    <div>Password:</div>
-                                    <div>
-                                        <input id="password" class="form-control empty password-field" type="password" placeholder="&#xf023;" asp-for="Password" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="login-form-helpers">
-                        <div class="row">
-                            <div class="col">
-                                <div class="login-form-helpers-field">
-                                    <span>
-                                        <input type="checkbox" id="rememberMe" asp-for="RememberMe"/>
-                                        <label for="rememberMe">Remember me</label>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col">
-                                Forgot <a href="#">username</a> or <a href="#">password</a> ?
-                            </div>
-                        </div>
-                    </div>
-                    <div class="login-form-oauth">
-                        <div class="row">
-                            <div class="col-3">
-                                <span>Or use:</span>
-                            </div>
-                            <div class="col">
-                                <div class="row">
-                                    <div class="col">
-                                        <a href="#">
-                                            <i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i>
-                                        </a>
-                                    </div>
-                                    <div class="col">
-                                        <a href="#">
-                                            <i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i>
-                                        </a>
-                                    </div>
-                                    <div class="col">
-                                        <a href="#">
-                                            <i class="fa fa-github-square fa-2x" aria-hidden="true"></i>
-                                        </a>
-                                    </div>
-                                    <div class="col-5">
-                                        <a href="#">
-                                            <i class="fa fa-google-plus-square fa-2x" aria-hidden="true"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="login-form-section-right">
-                    <a id="signin" href="#" onClick="javascript:$('form').submit();">
-                        <div class="row">
-                            <div class="col">
-                                <span>
-                                    <i class="fa fa-chevron-right fa-5x" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <span class="go-label">
-                                    <h2>GO</h2>
-                                </span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
+    <form method="post" id="loginform">
+      @Html.AntiForgeryToken()
+      <div class="form-group has-feedback">
+        <input id="username" type="email" class="form-control" placeholder="Email">
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+      </div>
+      @Html.AntiForgeryToken()
+      <div class="form-group has-feedback">
+        <input id="password" type="password" class="form-control" placeholder="Password">
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+      <div class="row">
+        <div class="col-xs-8">
+          <div class="checkbox icheck">
+            <label>
+              <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> Remember Me
+            </label>
+          </div>
         </div>
-    </div>
-</form>
+        <!-- /.col -->
+        <div class="col-xs-4">
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+        </div>
+        <!-- /.col -->
+      </div>
+    </form>
+
+    <a href="#">I forgot my password</a><br>
+
+  </div>
+  <!-- /.login-box-body -->
+</div>

@@ -3,6 +3,7 @@ Copyright © 2017 SOFTINUX. All rights reserved.
 Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 */
 
+/*
 body {
     font-family: "Poppins", sans-serif;
     font-size: 1rem;
@@ -27,7 +28,7 @@ a:hover, a:visited {
 }
 
 .bg-blue {
-    /* background-color: #D6EEFB; */
+    !* background-color: #D6EEFB; *!
 }
 
 .navbar-blue .navbar-nav .nav-link {
@@ -63,7 +64,7 @@ a:hover, a:visited {
     color: #000000 !important;
 }
 
-/* side nav */
+!* side nav *!
 nav.side-navbar {
     max-width: 250px;
     min-width: 250px;
@@ -139,9 +140,9 @@ nav.side-navbar .edit_profile_btn:hover {
     width: calc(100% - 250px);
 }
 
-/*.d-flex {
+!*.d-flex {
     display: flex !important;
-}*/
+}*!
 
 .page-content {
     background-color: #eef5f9;
@@ -197,7 +198,7 @@ nav.side-navbar li {
     margin: 0px;
     line-height: 35px;
     cursor: pointer;
-    /*
+    !*
     .collapsed{
         .arrow:before{
                 font-family: FontAwesome;
@@ -209,7 +210,7 @@ nav.side-navbar li {
                 float:right;
             }
     }
-*/
+*!
 }
 
 nav.side-navbar :not(collapsed) .arrow:before,
@@ -225,10 +226,10 @@ nav.side-navbar :not(collapsed) .arrow:before {
 
 nav.side-navbar ul .sub-menu li,
 nav.side-navbar li .sub-menu li {
-    /* background-color: #181c20; */
+    !* background-color: #181c20; *!
     border: none;
     line-height: 28px;
-    /* border-bottom: 1px solid #23282e; */
+    !* border-bottom: 1px solid #23282e; *!
     margin-left: 0px;
 }
 
@@ -244,13 +245,13 @@ nav.side-navbar li .sub-menu li:before {
 
 nav.side-navbar li {
     padding-left: 0px;
-    /* border-left: 3px solid #2e353d; */
-    /* border-bottom: 1px solid #23282e; */
+    !* border-left: 3px solid #2e353d; *!
+    !* border-bottom: 1px solid #23282e; *!
 }
 
 nav.side-navbar li a {
     text-decoration: none;
-    /* color: #e1ffff; */
+    !* color: #e1ffff; *!
 }
 
 nav.side-navbar li a i {
@@ -260,8 +261,8 @@ nav.side-navbar li a i {
 }
 
 nav.side-navbar li:hover {
-    /* border-left: 3px solid #d19b3d; */
-    /* background-color: #4f5b69; */
+    !* border-left: 3px solid #d19b3d; *!
+    !* background-color: #4f5b69; *!
     -webkit-transition: all 1s ease;
     -moz-transition: all 1s ease;
     -o-transition: all 1s ease;
@@ -285,4 +286,5 @@ nav.side-navbar span.heading {
 h4, .h4 {
     font-size: 1.1rem;
 }
+*/
 
