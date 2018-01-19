@@ -16,12 +16,12 @@
     <form method="post" id="loginform">
       @Html.AntiForgeryToken()
       <div class="form-group has-feedback">
-        <input id="username" type="email" class="form-control" placeholder="Email">
+        <input id="username" type="email" class="form-control" placeholder="Email" asp-for="Email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       @Html.AntiForgeryToken()
       <div class="form-group has-feedback">
-        <input id="password" type="password" class="form-control" placeholder="Password">
+        <input id="password" type="password" class="form-control" placeholder="Password" asp-for="Password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
