@@ -6,7 +6,10 @@
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Styles\**;Scripts\**;Views\**;**\node_modules\icheck\skins\square\**" />
+    <EmbeddedResource Include="Styles\**;Scripts\**;Views\**" />
+    <EmbeddedResource Include="**\node_modules\icheck\skins\square\**" />
+    <EmbeddedResource Include="**\node_modules\admin-lte\dist\css\skins\**" />
+    <EmbeddedResource Include="**\node_modules\admin-lte\dist\css\alt\**" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="node_modules\bootstrap\dist\css\bootstrap.min.css" />

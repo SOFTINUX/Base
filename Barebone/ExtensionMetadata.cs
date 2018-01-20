@@ -19,9 +19,10 @@ namespace Barebone
             // -- Admin LTE
             new StyleSheet("/node_modules.admin_lte.dist.css.AdminLTE.min.css", 410),
             new StyleSheet("/node_modules.admin_lte.dist.css.adminlte.min.css.map", 411),
-            new StyleSheet("/node_modules.ionicons.dist.css.ionicons.min.css", 420),
-            new StyleSheet("/node_modules.ionicons.dist.css.ionicons.min.css.map", 421),
-            new StyleSheet("/node_modules.icheck.skins.square.blue.css", 421),
+            new StyleSheet("/node_modules.admin_lte.dist.css.skins.skin-blue.min.css", 412),
+            new StyleSheet("/node_modules.ionicons.dist.css.ionicons.min.css", 413),
+            new StyleSheet("/node_modules.ionicons.dist.css.ionicons.min.css.map", 414),
+            new StyleSheet("/node_modules.icheck.skins.square.blue.css", 415),
             // --
             new StyleSheet("/Styles.barebone.css",500),
             new StyleSheet("/css/Styles.css",600)
