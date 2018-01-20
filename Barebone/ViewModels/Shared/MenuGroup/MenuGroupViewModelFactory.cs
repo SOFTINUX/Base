@@ -18,7 +18,8 @@ namespace Barebone.ViewModels.Shared.MenuGroup
             return new MenuGroupViewModel()
             {
                 Name = menuGroup_.Name,
-                Position = menuGroup_.Position
+                Position = menuGroup_.Position,
+                FontAwesomeClass = menuGroup_.FontAwesomeClass
             };
         }
     }

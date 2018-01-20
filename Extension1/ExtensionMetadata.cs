@@ -19,16 +19,17 @@ namespace Extension1
                 new[]
                 {
                     new MenuItem("/extension1", "Extension 1", 100)
-                }
+                },
+                "fa-files-o"
             ),
             new MenuGroup(
                 "Administration",
                 2000,
                 new[]
                 {
-                    new MenuItem("/extension1/admin", "Manage Extension 1", 100)
+                    new MenuItem("/extension1/admin", "Extension 1", 100)
                 }
-            )
+            ),
         };
     }
 }

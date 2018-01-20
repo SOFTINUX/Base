@@ -9,15 +9,21 @@ namespace Infrastructure
         public string Name {get; set;}
         public int Position {get;}
 
+        /// <summary>
+        /// The fa-xxx class to render the associated icon
+        /// </summary>
+        public string FontAwesomeClass {get;}
+
         //TODO here place properties for menu access permissions
         //public IEnumerable<string> PermissionCodes { get; set; }
 
         //public MenuItem(string url_, string name_, int position_, IEnumerable<string> permissionCodes_)
-        public MenuItem(string url_, string name_, int position_)
+        public MenuItem(string url_, string name_, int position_, string fontAwesomeClass_ = "fa-circle-o")
         {
             Url = url_;
             Name = name_;
             Position = position_;
+            FontAwesomeClass = fontAwesomeClass_;
             // PermissionCodes = permissionCodes_;
         }
     }

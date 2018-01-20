@@ -10,13 +10,19 @@ namespace Infrastructure
         public string Name {get; set;}
         public int Position {get;}
 
+        /// <summary>
+        /// The fa-xxx class to render the associated icon
+        /// </summary>
+        public string FontAwesomeClass {get;}
+
         public IEnumerable<MenuItem> MenuItems {get;}
 
-        public MenuGroup(string name_, int position_, IEnumerable<MenuItem> menuItems_)
+        public MenuGroup(string name_, int position_, IEnumerable<MenuItem> menuItems_, string fontAwesomeClass_ = "fa-bars")
         {
             Name = name_;
             Position = position_;
             MenuItems = menuItems_;
+            FontAwesomeClass = fontAwesomeClass_;
         }
     }
 }

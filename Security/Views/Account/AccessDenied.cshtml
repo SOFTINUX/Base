@@ -1,9 +1,11 @@
-﻿@* Copyright © 2017 SOFTINUX. All rights reserved.
+﻿@using System.Web
+@* Copyright © 2017 SOFTINUX. All rights reserved.
 Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 *@
 
 @{
-    ViewBag.currentUrl = Context.Request.QueryString.ToUriComponent();
+    string url = HttpUtility.UrlDecode(Context.Request.QueryString.ToUriComponent());
+    ViewBag.currentUrl = url.Substring(url.IndexOf('='));
 }
 @section title {
     <h2>Access Denied</h2>
@@ -18,7 +20,7 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
             <div class="col-xl-3">
                 <div class="item d-flex align-items-center">
                     <div class="alert alert-danger" role="alert">
-                        You don't have access to <strong>@(ViewBag.currentUrl)</strong>
+                        <i class="icon fa fa-ban"> </i>You don't have access to <strong>@(ViewBag.currentUrl)</strong>
                     </div>
                 </div>
             </div>

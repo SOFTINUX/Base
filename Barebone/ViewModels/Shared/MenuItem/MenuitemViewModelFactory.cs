@@ -17,7 +17,8 @@ namespace Barebone.ViewModels.Shared.MenuItem
             {
                 Url = menuItem_.Url,
                 Name = menuItem_.Name,
-                Position = menuItem_.Position
+                Position = menuItem_.Position,
+                FontAwesomeClass = menuItem_.FontAwesomeClass
             };
         }
     }

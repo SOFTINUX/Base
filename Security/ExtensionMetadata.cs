@@ -17,11 +17,12 @@ namespace Security
             {
                 new MenuGroup(
                     "Administration",
-                    2000,
+                    0, // Always first
                     new[]
                     {
-                        new MenuItem("/administration", "Admin dimention", 100)
-                    }
+                        new MenuItem("/securityadministration", "Main", 100) // long url to avoid another extension's controller names collision
+                    },
+                    "fa-gears"
                 )
             };
 
