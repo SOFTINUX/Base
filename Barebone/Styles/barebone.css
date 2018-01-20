@@ -171,3 +171,8 @@
       background-size: 240px 24px;
   }
 }
+
+/* height of user profile dropdown */
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header {
+    height: 4em;
+}
