@@ -19,31 +19,30 @@ namespace Barebone.ViewModels.Shared.Menu
 
         public MenuViewModel Create()
         {
-            List<MenuGroupViewModel> menuGroupViewModels = new List<MenuGroupViewModel>();
+            Dictionary<string, MenuGroupViewModel> menuGroupViewModels = new Dictionary<string, MenuGroupViewModel>();
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
             {
                 if (extensionMetadata.MenuGroups == null) continue;
 
                 foreach (Infrastructure.MenuGroup menuGroup in extensionMetadata.MenuGroups)
                 {
-                    List<MenuItemViewModel> menuItemViewModels = new List<MenuItemViewModel>();
+                    MenuGroupViewModel menuGroupViewModel = FindOrCreateMenuGroup(RequestHandler, menuGroupViewModels, menuGroup);
+
+                    // Take existing items
+                    List<MenuItemViewModel> menuItemViewModels = menuGroupViewModel.MenuItems;
 
                     foreach (Infrastructure.MenuItem menuItem in menuGroup.MenuItems)
                         // TODO: here add claims verification for menu items
                         menuItemViewModels.Add(
                             new MenuItemViewModelFactory(RequestHandler).Create(menuItem));
 
-                    MenuGroupViewModel menuGroupViewModel = FindOrCreateMenuGroup(RequestHandler, menuGroupViewModels, menuGroup);
-
-                    if (menuGroupViewModel.MenuItems != null)
-                        menuItemViewModels.AddRange(menuGroupViewModel.MenuItems);
-
-                    menuGroupViewModel.MenuItems = menuItemViewModels.OrderBy(mi => mi.Position);
+                    // Set all the ordered items back to menu group
+                    menuGroupViewModel.MenuItems = menuItemViewModels.OrderBy(mi => mi.Position).ToList();
                 }
             }
             return new MenuViewModel()
             {
-                MenuGroups = menuGroupViewModels
+                MenuGroups = menuGroupViewModels.Values.OrderBy(m_ => m_.Position)
             };
         }
 
@@ -54,17 +53,17 @@ namespace Barebone.ViewModels.Shared.Menu
         /// <param name="menuGroupViewModels_"></param>
         /// <param name="menuGroup_"></param>
         /// <returns></returns>
-        private static MenuGroupViewModel FindOrCreateMenuGroup(IRequestHandler requestHandler_, List<MenuGroupViewModel> menuGroupViewModels_,
+        private static MenuGroupViewModel FindOrCreateMenuGroup(IRequestHandler requestHandler_, Dictionary<string, MenuGroupViewModel> menuGroupViewModels_,
             Infrastructure.MenuGroup menuGroup_)
         {
-            MenuGroupViewModel menuGroupViewModel =
-                menuGroupViewModels_.FirstOrDefault(mg => mg.Name == menuGroup_.Name);
+            MenuGroupViewModel menuGroupViewModel;
+            menuGroupViewModels_.TryGetValue(menuGroup_.Name, out menuGroupViewModel);
 
             if (menuGroupViewModel != null)
                 return menuGroupViewModel;
 
             menuGroupViewModel = new MenuGroupViewModelFactory(requestHandler_).Create(menuGroup_);
-            menuGroupViewModels_.Add(menuGroupViewModel);
+            menuGroupViewModels_.Add(menuGroupViewModel.Name, menuGroupViewModel);
 
             return menuGroupViewModel;
         }

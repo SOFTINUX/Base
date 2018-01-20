@@ -1,6 +1,8 @@
 // Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System.Collections.Generic;
+using Barebone.ViewModels.Shared.MenuItem;
 using Infrastructure.Interfaces;
 
 namespace Barebone.ViewModels.Shared.MenuGroup
@@ -19,7 +21,8 @@ namespace Barebone.ViewModels.Shared.MenuGroup
             {
                 Name = menuGroup_.Name,
                 Position = menuGroup_.Position,
-                FontAwesomeClass = menuGroup_.FontAwesomeClass
+                FontAwesomeClass = menuGroup_.FontAwesomeClass,
+                MenuItems = new List<MenuItemViewModel>()
             };
         }
     }
