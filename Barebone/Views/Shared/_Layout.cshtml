@@ -28,11 +28,11 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
         @* Main Header *@
         <header class="main-header">
             @* Logo *@
-            <a href="index2.html" class="logo">
+            <a href="#" class="logo">
                 @* mini logo for sidebar mini 50x50 pixels *@
-                <span class="logo-mini"><b>A</b>LT</span>
+                <span class="logo-mini"><strong>STX</strong></span>
                 @* logo for regular state and mobile devices *@
-                <span class="logo-lg"><b>Admin</b>LTE</span>
+                <span class="logo-lg"><strong>SOFTINUX</strong></span>
             </a>
 
             @* Header Navbar *@
@@ -314,6 +314,17 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
             @RenderBody()
         </div>
     </div>*@
+
+        @* Main Footer *@
+        <footer class="main-footer">
+            @* To the right *@
+            <div class="pull-right hidden-xs">
+            DEMO
+            </div>
+            @* Default to the left *@
+            <strong>Copyright &copy; 2017 <a href="#">SOFTINUX</a>.</strong> All rights reserved.
+        </footer>
+    </div>
     @await Component.InvokeAsync("Scripts")
     @if (!User.Identity.IsAuthenticated)
     {
@@ -333,6 +344,5 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
             });
         </script>
     }
-    </div>
 </body>
 </html>
