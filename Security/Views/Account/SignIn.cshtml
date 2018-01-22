@@ -1,47 +1,52 @@
 ﻿@* Copyright © 2017 SOFTINUX. All rights reserved.
- Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+    Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 *@
 
+@using Infrastructure
 @using Microsoft.AspNetCore.Authentication
+@using Microsoft.Extensions.Options
 @model Security.ViewModels.Account.SignInViewModel
 
+@inject IOptions<CorporateConfiguration> OptionsApplicationConfiguration
+
 <div class="login-box">
-  <div class="login-logo">
-    <a href="#"><strong>SOFTINUX</strong></a>
-  </div>
-  <!-- /.login-logo -->
-  <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session</p>
+    <div class="login-logo">
+        <a href="#"><img src="/img/@Html.Raw(OptionsApplicationConfiguration.Value.BrandLogo)" class="brandlogo-image singin-brandlogo-image" alt="User Image">
+            <br/><strong>SOFTINUX</strong></a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+        <p class="login-box-msg">Sign in to start your session</p>
 
-    <form method="post" id="loginform">
-      @Html.AntiForgeryToken()
-      <div class="form-group has-feedback">
-        <input id="username" type="email" class="form-control" placeholder="Email" asp-for="Email">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-      </div>
-      @Html.AntiForgeryToken()
-      <div class="form-group has-feedback">
-        <input id="password" type="password" class="form-control" placeholder="Password" asp-for="Password">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-      </div>
-      <div class="row">
-        <div class="col-xs-8">
-          <div class="checkbox icheck">
-            <label>
-              <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> Remember Me
-            </label>
-          </div>
-        </div>
-        <!-- /.col -->
-        <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
-        </div>
-        <!-- /.col -->
-      </div>
-    </form>
+        <form method="post" id="loginform">
+            @Html.AntiForgeryToken()
+            <div class="form-group has-feedback">
+                <input id="username" type="email" class="form-control" placeholder="Email" asp-for="Email">
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            @Html.AntiForgeryToken()
+            <div class="form-group has-feedback">
+                <input id="password" type="password" class="form-control" placeholder="Password" asp-for="Password">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="checkbox icheck">
+                        <label>
+                            <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> Remember Me
+                        </label>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-xs-4">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                </div>
+                <!-- /.col -->
+            </div>
+        </form>
 
-    <a href="#">I forgot my password</a><br>
+        <a href="#">I forgot my password</a><br>
 
-  </div>
-  <!-- /.login-box-body -->
+    </div>
+    <!-- /.login-box-body -->
 </div>

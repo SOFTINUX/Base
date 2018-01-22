@@ -1,19 +1,20 @@
 @* Copyright © 2017 SOFTINUX. All rights reserved.
     Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 *@
+@using Infrastructure
 @using Microsoft.AspNetCore.Identity
 @using Security.Data.Entities
 
 @inject UserManager<User> UserManager
 
-@section title {
+@section title
+{
     <h2>User Profile</h2>
 }
 
-
 <div class="row">
     <div class="col-md-3">
-        <!-- Profile Image -->
+        @* Profile Image *@
         <div class="box box-primary">
             <div class="box-body box-profile">
                 <img class="profile-user-img img-responsive img-circle" src="/img/profile-circle2-128.png" alt="User profile picture">
@@ -22,17 +23,30 @@
 
                 <p class="text-muted text-center">@UserManager.GetUserAsync(User).Result.Email</p>
 
-                <p class=""></p>
+                <ul class="list-group list-group-unbordered">
+                    <li class="list-group-item">
+                        <b>User Name: </b> <a class="pull-right">@UserManager.GetUserAsync(User).Result.UserName</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Last connexion: </b> <a class="pull-right">@UserManager.GetUserAsync(User).Result.LastConnection</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Two factor authentifaction enabled: </b> <a class="pull-right">@UserManager.GetUserAsync(User).Result.TwoFactorEnabled</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Email confirmed: </b> <a class="pull-right">@UserManager.GetUserAsync(User).Result.EmailConfirmed</a>
+                    </li>
+                </ul>
             </div>
-            <!-- /.box-body -->
+            @* /.box-body *@
         </div>
-        <!-- /.box -->
+        @* /.box *@
     </div>
     <div class="col-md-9">
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
                 <li class="active">
-                    <a href="#details" data-toggle="tab">Details</a>
+                    <a href="#details" data-toggle="tab">Detail</a>
                 </li>
                 <li>
                     <a href="#groups" data-toggle="tab">Groups</a>
@@ -40,8 +54,15 @@
             </ul>
             <div class="tab-content">
                 <div class="active tab-pane" id="details">
+                    <h3><i class="fa fa-globe" aria-hidden="true"></i>&nbsp;&nbsp;Profile Information</h3>
                     <form class="form-horizontal">
                         <fieldset disabled>
+                            <div class="form-group">
+                                <label for="inputPicture" class="col-sm-2 control-label">Profile Picture </label>
+                                <div class="col-sm-10">
+                                    <input type="file" class="form-control" id="inputFirstname" placeholder="Avatar" accept=".png, .jpg, .jpeg" value="@UserManager.GetUserAsync(User).Result.FirstName" />
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label for="inputFirstname" class="col-sm-2 control-label">First Name</label>
                                 <div class="col-sm-10">
@@ -54,32 +75,67 @@
                                     <input type="text" class="form-control" id="inputLastname" placeholder="Last Name" value="@UserManager.GetUserAsync(User).Result.LastName" />
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="tel" class="form-control" id="inputEmail" placeholder="Email" value="@UserManager.GetUserAsync(User).Result.Email" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPhone" class="col-sm-2 control-label">Phone</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" data-inputmask="mask: +32(9[99])[9]99-99-99" data-mask="" value="@UserManager.GetUserAsync(User).Result.PhoneNumber">
+                                </div>
+                            </div>
                         </fieldset>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary">Edit</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <h3><i class="fa fa-globe" aria-hidden="true"></i>&nbsp;&nbsp;Change Password</h3>
+                    <form class="form-horizontal">
+                        <fieldset disabled>
+                            <div class="form-group">
+                                <label for="inputOldpassword" class="col-sm-2 control-label">Old Password</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" id="inputOldpassword" placeholder="Old password" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputNewpassword" class="col-sm-2 control-label">New Password</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" id="inputNewpassword" placeholder="New password" />
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary">Change</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="tab-pane" id="groups">
-                    <p>Groups</p>
+                    <h3><i class="fa fa-users" aria-hidden="true"></i>&nbsp;&nbsp;My Groups</h3>
+                    <h4>My Claims</h4><br/>
+                    @Html.Partial("_ListClaims")
                 </div>
             </div>
         </div>
     </div>
 </div>
-@* /.box *@
 
-@*<section class="dashboard-section">
-    <div class="container-fluid">
-        <div class="row bg-white has-shadow">
-            <div class="col-xl-3">
-                <label>Avatar</label>
-            </div>
-            <div class="col-xl-3">
-                <div class="item d-flex align-items-center">
-                    Hey, this is your profile page!!
-                </div>
-            </div>
-            <div class="col-xl-3">
+@section Scripts
+{
+    <script>
+        $(selector).inputmask("phone", {
+            onKeyValidation: function () { //show some metadata in the console
+            console.log($(this).inputmask("getmetadata")["city"]);
+            }
+            });
+    </script>
 
-            </div>
-        </div>
-    </div>
-</section>*@
+}

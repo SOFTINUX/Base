@@ -36,8 +36,9 @@ namespace Barebone
             new Script("/node_modules.jquery_validation_unobtrusive.jquery.validate.unobtrusive.js",400),
             new Script("/node_modules.js_cookie.src.js.cookie.js",500),
             // -- Admin LTE
-            new Script("/node_modules.icheck.icheck.js",600),
-            new Script("/node_modules.admin_lte.dist.js.adminlte.min.js",610),
+            new Script("/node_modules.inputmask.dist.min.jquery.inputmask.bundle.min.js",600),
+            new Script("/node_modules.icheck.icheck.js",650),
+            new Script("/node_modules.admin_lte.dist.js.adminlte.min.js",660),
             // --
             new Script("/Scripts.barebone.js",700),
         };

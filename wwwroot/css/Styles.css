@@ -12,6 +12,11 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
     background-color: #ffffff;
 }
 
+.singin-brandlogo-image {
+    width: 120px;
+    height: 120px;
+}
+
 /*
 body {
     font-family: "Poppins", sans-serif;

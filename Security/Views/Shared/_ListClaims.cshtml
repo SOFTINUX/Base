@@ -2,44 +2,37 @@
      var claimslist = this.User.Claims.ToList();
  }
 
-<span>YOU USER NAME IS: @this.User.Identity.Name</span><br />
-<span>YOUR CLAIMS LIST:</span><br />
-
-<div>
-    <table class="table-inverse">
-        <thead>
+<table class="table table-bordered">
+    <tbody>
+    <tr>
+        <th style="width: 10px">#</th>
+        <th>Claim type</th>
+        <th>Claim value</th>
+        <th>Issuer</th>
+        <th>OriginalIssuer</th>
+        <th>Subject</th>
+    </tr>
+    @for (var index = 0; index < claimslist.Count; index++)
+    {
+        var item = claimslist[index];
         <tr>
-            <th>#</th>
-            <th>Claim type</th>
-            <th>Claim value</th>
-            <th>Issuer</th>
-            <th>OriginalIssuer</th>
-            <th>Subject</th>
+            <th scope="row">@index</th>
+            <td>
+                @item.Type
+            </td>
+            <td>
+                @item.Value
+            </td>
+            <td>
+                @item.Issuer
+            </td>
+            <td>
+                @item.OriginalIssuer
+            </td>
+            <td>
+                @item.Subject
+            </td>
         </tr>
-        </thead>
-        <tbody>
-        @for (var index = 0; index < claimslist.Count; index++)
-        {
-            var item = claimslist[index];
-            <tr>
-                <th scope="row">@index</th>
-                <td>
-                    @item.Type
-                </td>
-                <td>
-                    @item.Value
-                </td>
-                <td>
-                    @item.Issuer
-                </td>
-                <td>
-                    @item.OriginalIssuer
-                </td>
-                <td>
-                    @item.Subject
-                </td>
-            </tr>
-        }
-        </tbody>
-    </table>
-</div>
+    }
+    </tbody>
+</table>
