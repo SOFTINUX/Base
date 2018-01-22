@@ -20,7 +20,7 @@ namespace Security
                     0, // Always first
                     new[]
                     {
-                        new MenuItem("/securityadministration", "Main", 100) // long url to avoid another extension's controller names collision
+                        new MenuItem("/administration", "Main", 100)
                     },
                     "fa-gears"
                 )
