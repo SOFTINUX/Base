@@ -19,7 +19,6 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Security.Administration\Security.Administration.csproj" />
     <ProjectReference Include="..\..\Security.Data.EntityFramework.Sqlite\Security.Data.EntityFramework.Sqlite.csproj" />
     <ProjectReference Include="..\..\Security.Data.EntityFramework\Security.Data.EntityFramework.csproj" />
     <ProjectReference Include="..\..\Security\Security.csproj" />
