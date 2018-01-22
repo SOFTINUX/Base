@@ -5,6 +5,7 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
 
 @using Microsoft.Extensions.Options;
 @using Infrastructure;
+@using Security.Data.Entities
 @inject IOptions<CorporateConfiguration> OptionsApplicationConfiguration
 
 <!DOCTYPE html>
@@ -32,7 +33,7 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
                 @* mini logo for sidebar mini 50x50 pixels *@
                 <span class="logo-mini"><strong>STX</strong></span>
                 @* logo for regular state and mobile devices *@
-                <span class="logo-lg"><strong>SOFTINUX</strong></span>
+                <span class="logo-lg"><img src="/img/@Html.Raw(OptionsApplicationConfiguration.Value.BrandLogo)" class="brandlogo-image" alt="User Image"><strong>@Html.Raw(OptionsApplicationConfiguration.Value.Name)</strong></span>
             </a>
 
             @* Header Navbar *@
@@ -44,163 +45,13 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
                 @* Navbar Right Menu *@
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
-                        @* Messages: style can be found in dropdown.less *@
-                         @*<li class="dropdown messages-menu">
-                            $1$ Menu toggle button #1#
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-envelope-o"></i>
-                                <span class="label label-success">4</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="header">You have 4 messages</li>
-                                <li>
-                                    $1$ inner menu: contains the messages #1#
-                                    <ul class="menu">
-                                        <li>$1$ start message #1#
-                                            <a href="#">
-                                                <div class="pull-left">
-                                                    $1$ User Image #1#
-                                                    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                                                </div>
-                                                $1$ Message title and timestamp #1#
-                                                <h4>
-                                                    Support Team
-                                                    <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                                </h4>
-                                                $1$ The message #1#
-                                                <p>Why not buy a new awesome theme?</p>
-                                            </a>
-                                        </li>
-                                        $1$ end message #1#
-                                    </ul>
-                                    $1$ /.menu #1#
-                                </li>
-                                <li class="footer"><a href="#">See All Messages</a></li>
-                            </ul>
-                        </li> *@
-                        @* /.messages-menu *@
-
-                        @* Notifications Menu *@
-                       @*  <li class="dropdown notifications-menu">
-                            $1$ Menu toggle button #1#
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-bell-o"></i>
-                                <span class="label label-warning">10</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                            <li class="header">You have 10 notifications</li>
-                            <li>
-                                $1$ Inner Menu: contains the notifications #1#
-                                <ul class="menu">
-                                    <li>$1$ start notification #1#
-                                        <a href="#">
-                                        <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                        </a>
-                                    </li>
-                                    $1$ end notification #1#
-                                </ul>
-                            </li>
-                            <li class="footer"><a href="#">View all</a></li>
-                            </ul>
-                        </li> *@
-                        @* Tasks Menu *@
-                        @* <li class="dropdown tasks-menu">
-                            $1$ Menu Toggle Button #1#
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-flag-o"></i>
-                                <span class="label label-danger">9</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="header">You have 9 tasks</li>
-                                <li>
-                                    $1$ Inner menu: contains the tasks #1#
-                                    <ul class="menu">
-                                        <li>$1$ Task item #1#
-                                            <a href="#">
-                                                $1$ Task title and progress text #1#
-                                                <h3>
-                                                    Design some buttons
-                                                    <small class="pull-right">20%</small>
-                                                </h3>
-                                                $1$ The progress bar #1#
-                                                <div class="progress xs">
-                                                    $1$ Change the css width attribute to simulate progress #1#
-                                                    <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">20% Complete</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        $1$ end task item #1#
-                                    </ul>
-                                </li>
-                                <li class="footer">
-                                    <a href="#">View all tasks</a>
-                                </li>
-                            </ul>
-                        </li> *@
-                        @* User Account Menu *@
-                        <li class="dropdown user user-menu">
-                            @* Menu Toggle Button *@
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                @* The user image in the navbar*@
-                                @* <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"> *@
-                                @* hidden-xs hides the username on small devices so only the image appears. *@
-                                <span class="hidden-xs">Alexander Pierce</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                            @* The user image in the menu *@
-                                <li class="user-header">
-                                    @* <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">*@
-                                    <p> 
-                                    Alexander Pierce @* - Web Developer
-                                    <small>Member since Nov. 2012</small> *@
-                                    </p>
-                                </li>
-                                @* Menu Body *@
-                                @*<li class="user-body">
-                                     <div class="row">
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">Followers</a>
-                                        </div>
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">Sales</a>
-                                        </div>
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">Friends</a>
-                                        </div>
-                                    </div> 
-                                    $1$ /.row #1#
-                                </li>*@
-                                @* Menu Footer*@
-                                <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                    </div>
-                                    <div class="pull-right">
-                                        <a href="@Url.Action("SignOut", "Account")" class="btn btn-default btn-flat">Sign out</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
+                        @Html.Partial("_UserBadge")
                         @* Control Sidebar Toggle Button *@
                         <li>
                             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
                         </li>
                     </ul>
                 </div>
-                @* <a class="navbar-brand" href="#">
-                     <img src="/img/@Html.Raw(OptionsApplicationConfiguration.Value.BrandLogo)" width="30" height="30" alt="" class="brand-logo d-inline-block align-top">
-                     <span class="brandlogotext">@Html.Raw(OptionsApplicationConfiguration.Value.Name)</span>
-                 </a>
-                 <ul class="nav navbar-nav">
-                     <li>
-                         <a href="@Url.Action("SignOut", "Account")">
-                             Sign Out
-                             <span><i class="fa fa-sign-out fa-lg fa-fw" aria-hidden="true"></i></span>
-                         </a>
-                     </li>
-                 </ul> *@
             </nav>
         </header>
 
@@ -218,7 +69,7 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
                         $1$ Status #1#
                         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                     </div>*@
-                </div> 
+                </div>
 
                 @* search form (Optional) *@
                @*  <form action="#" method="get" class="sidebar-form">
@@ -249,13 +100,7 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
                     @RenderSection("title", false)
                     @*<small></small>*@
                 </h1>
-                @*
-                <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                    <li class="active">Here</li>
-                </ol>
-                *@
-                </section>
+            </section>
             @* Main content *@
             <section class="content container-fluid">
                 @RenderBody()

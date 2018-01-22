@@ -7,10 +7,66 @@
 @inject UserManager<User> UserManager
 
 @section title {
-    <h2>Profile: @UserManager.GetUserAsync(User).Result.LastName&nbsp;@UserManager.GetUserAsync(User).Result.FirstName</h2>
+    <h2>User Profile</h2>
 }
 
-<section class="dashboard-section">
+
+<div class="row">
+    <div class="col-md-3">
+        <!-- Profile Image -->
+        <div class="box box-primary">
+            <div class="box-body box-profile">
+                <img class="profile-user-img img-responsive img-circle" src="/img/profile-circle2-128.png" alt="User profile picture">
+
+                <h3 class="profile-username text-center">@UserManager.GetUserAsync(User).Result.LastName&nbsp;@UserManager.GetUserAsync(User).Result.FirstName</h3>
+
+                <p class="text-muted text-center">@UserManager.GetUserAsync(User).Result.Email</p>
+
+                <p class=""></p>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <div class="col-md-9">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#details" data-toggle="tab">Details</a>
+                </li>
+                <li>
+                    <a href="#groups" data-toggle="tab">Groups</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="active tab-pane" id="details">
+                    <form class="form-horizontal">
+                        <fieldset disabled>
+                            <div class="form-group">
+                                <label for="inputFirstname" class="col-sm-2 control-label">First Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputFirstname" placeholder="First Name" value="@UserManager.GetUserAsync(User).Result.FirstName" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputLastname" class="col-sm-2 control-label">Last Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputLastname" placeholder="Last Name" value="@UserManager.GetUserAsync(User).Result.LastName" />
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="tab-pane" id="groups">
+                    <p>Groups</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@* /.box *@
+
+@*<section class="dashboard-section">
     <div class="container-fluid">
         <div class="row bg-white has-shadow">
             <div class="col-xl-3">
@@ -26,4 +82,4 @@
             </div>
         </div>
     </div>
-</section>
+</section>*@
