@@ -22,7 +22,7 @@ namespace Security
                     {
                         new MenuItem("/administration", "Main", 100)
                     },
-                    "fa-gears"
+                    "fa-wrench"
                 )
             };
 

@@ -7,7 +7,7 @@ namespace Barebone.ViewModels.Shared.MenuItem
     {
         public string Url {get; set;}
         public string Name {get; set;}
-        public int Position { get; set; }
+        public uint Position { get; set; }
         public string FontAwesomeClass {get; set; }
     }
 }

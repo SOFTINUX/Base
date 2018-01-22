@@ -42,7 +42,8 @@ namespace Barebone.ViewModels.Shared.Menu
             }
             return new MenuViewModel()
             {
-                MenuGroups = menuGroupViewModels.Values.OrderBy(m_ => m_.Position)
+                // If two menu groups have the same position, they're ordered alphabetically
+                MenuGroups = menuGroupViewModels.Values.OrderBy(m_ => m_.Position).ThenBy(m_ => m_.Name)
             };
         }
 
@@ -59,11 +60,17 @@ namespace Barebone.ViewModels.Shared.Menu
             MenuGroupViewModel menuGroupViewModel;
             menuGroupViewModels_.TryGetValue(menuGroup_.Name, out menuGroupViewModel);
 
-            if (menuGroupViewModel != null)
-                return menuGroupViewModel;
-
-            menuGroupViewModel = new MenuGroupViewModelFactory(requestHandler_).Create(menuGroup_);
-            menuGroupViewModels_.Add(menuGroupViewModel.Name, menuGroupViewModel);
+            if (menuGroupViewModel == null)
+            {
+                menuGroupViewModel = new MenuGroupViewModelFactory(requestHandler_).Create(menuGroup_);
+                menuGroupViewModels_.Add(menuGroupViewModel.Name, menuGroupViewModel);
+            }
+            else
+            {
+                // If menu group already exist, the Font Awesome will be the one of the lowest position menu group
+                if(menuGroup_.Position < menuGroupViewModel.Position)
+                    menuGroupViewModel.FontAwesomeClass = menuGroup_.FontAwesomeClass;
+            }
 
             return menuGroupViewModel;
         }

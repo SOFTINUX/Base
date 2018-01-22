@@ -8,7 +8,7 @@ namespace Infrastructure
     public class MenuGroup
     {
         public string Name {get; set;}
-        public int Position {get;}
+        public uint Position {get;}
 
         /// <summary>
         /// The fa-xxx class to render the associated icon
@@ -17,7 +17,7 @@ namespace Infrastructure
 
         public IEnumerable<MenuItem> MenuItems {get;}
 
-        public MenuGroup(string name_, int position_, IEnumerable<MenuItem> menuItems_, string fontAwesomeClass_ = "fa-bars")
+        public MenuGroup(string name_, uint position_, IEnumerable<MenuItem> menuItems_, string fontAwesomeClass_ = "fa-bars")
         {
             Name = name_;
             Position = position_;

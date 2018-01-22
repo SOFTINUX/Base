@@ -28,7 +28,8 @@ namespace Extension1
                 new[]
                 {
                     new MenuItem("/extension1/admin", "Extension 1", 100)
-                }
+                },
+                "fa-gears"
             ),
         };
     }

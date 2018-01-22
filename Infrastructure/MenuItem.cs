@@ -7,7 +7,7 @@ namespace Infrastructure
     {
         public string Url {get; set;}
         public string Name {get; set;}
-        public int Position {get;}
+        public uint Position {get;}
 
         /// <summary>
         /// The fa-xxx class to render the associated icon
@@ -18,7 +18,7 @@ namespace Infrastructure
         //public IEnumerable<string> PermissionCodes { get; set; }
 
         //public MenuItem(string url_, string name_, int position_, IEnumerable<string> permissionCodes_)
-        public MenuItem(string url_, string name_, int position_, string fontAwesomeClass_ = "fa-circle-o")
+        public MenuItem(string url_, string name_, uint position_, string fontAwesomeClass_ = "fa-circle-o")
         {
             Url = url_;
             Name = name_;

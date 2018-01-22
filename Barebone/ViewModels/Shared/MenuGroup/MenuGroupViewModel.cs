@@ -9,7 +9,7 @@ namespace Barebone.ViewModels.Shared.MenuGroup
     public class MenuGroupViewModel
     {
         public string Name { get; set; }
-        public int Position { get; set; }
+        public uint Position { get; set; }
         public string FontAwesomeClass {get; set; }
         public List<MenuItemViewModel> MenuItems { get; set; }
 
