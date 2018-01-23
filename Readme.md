@@ -32,9 +32,7 @@ Go to *Webapplication* folder and run `dotnet ef database update`. This will cre
 #### 5. Build the appplication
 Go to *WebApplication* folder and run `bp.bat` under Windows or `bp.sh` under Linux/Macos. (use -h for help)
 #### 6. Run the app.
-Into *WebApplication* folder and type `dotnet run`.
-
-You can also execute from root solution folder with this command `dotnet run --project WebApplication\WebApplication.csproj`
+Into *WebApplication* folder and type `dotnet run`.<br/>(If you want, you can also execute from root solution folder with this command `dotnet run --project WebApplication\WebApplication.csproj`)
 
 After that, the application is available on http://localhost:64900/
 
