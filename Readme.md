@@ -20,10 +20,23 @@ Read [this wiki page](https://github.com/SOFTINUX/Base/wiki/Writing-extensions) 
 # Getting started
 
 ## Installation
-1. Before building the app, go to *Barebone* subfolder and run `npm i --save-dev` command so that dependencies packages are installed.
-2. Restore the nuGet packages and build the app. (with .NET Core 2, this is implicit command).
-3. Go to *WebApplication* subfolder and run `bp.bat copyexts` under Windows or `bp.bat copyexts` under Linux/Macos. (use -h for help)
-4. Run the app.
+#### 1. Restore dependencies
+Before building the app, go to *Barebone* subfolder and run `npm i --save-dev` command so that dependencies packages are installed.
+#### 2. Restore nuget packages
+Restore the nuGet packages is now an implicit command executed at application build.
+#### 3. Generate databse migration. 
+Go to *Webapplication* folder and run `dotnet ef migrations add InitialCreate`.
+(Do not take into account the error concerning the permissions table not found.)
+#### 4.Update database with migration
+Go to *Webapplication* folder and run `dotnet ef database update`. This will create the database. (See application.json for database. By default is a Sqlite file)
+#### 5. Build the appplication
+Go to *WebApplication* folder and run `bp.bat` under Windows or `bp.sh` under Linux/Macos. (use -h for help)
+#### 6. Run the app.
+Into *WebApplication* folder and type `dotnet run`.
+
+You can also execute from root solution folder with this command `dotnet run --project WebApplication\WebApplication.csproj`
+
+After that, the application is available on http://localhost:64900/
 
 ## Implement your own extension
 ### Add a new project
