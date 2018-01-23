@@ -34,8 +34,11 @@ This will create the database. (See application.json for database. By default is
 Go to the root folder and run `bp.bat` under Windows or `bp.sh` under Linux/Macos. (use -h for help)
 #### 6. Run the app
 Go to *WebApplication* folder and type `dotnet run`.<br/>
-(If you want, you can also execute from root solution folder with this command `dotnet run --project WebApplication\WebApplication.csproj`)<br />
-After that, the application is available on http://localhost:64900/
+(If you want, you can also execute from root solution folder with this command `dotnet run --project WebApplication\WebApplication.csproj`)<br /><br />
+After that, the application is available on http://localhost:5000/ <br />
+(If you launched application from Visual Studio, this port will change, <br />
+being randomly defined, and value is stored in *WebApplication/Properties/launchSettings.json* <br />
+You can edit this value in Visual Studio: WebApplication's properties > Debug tab > Web Server Settings/App URL).
 
 #### 7. Add the first user (demo user)
 With Postman (or the program of your choice) make a POST request to this url: http://localhost:64900/dev/seed/CreateUser<br />
