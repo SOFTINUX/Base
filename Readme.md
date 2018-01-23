@@ -27,7 +27,7 @@ Restore the nuGet packages is now an implicit command executed at application bu
 #### 3. Generate databse migration. 
 Go to *Webapplication* folder and run `dotnet ef migrations add InitialCreate`.
 (Do not take into account the error concerning the permissions table not found.)
-#### 4.Update database with migration
+#### 4. Update database with migration
 Go to *Webapplication* folder and run `dotnet ef database update`. This will create the database. (See application.json for database. By default is a Sqlite file)
 #### 5. Build the appplication
 Go to *WebApplication* folder and run `bp.bat` under Windows or `bp.sh` under Linux/Macos. (use -h for help)
@@ -37,6 +37,17 @@ Into *WebApplication* folder and type `dotnet run`.
 You can also execute from root solution folder with this command `dotnet run --project WebApplication\WebApplication.csproj`
 
 After that, the application is available on http://localhost:64900/
+
+#### 7. Add the first user (demo user)
+With Postman (or the program of your choice) make a POST request to this urls: http://localhost:64900/dev/seed/CreateUser
+
+(with curl: `curl -i -X POST http://localhost:64900/dev/seed/CreateUser`)
+
+This will create the demo user with general permissions.
+
+#### 8. Login
+user: johndoe@softinux.com
+password: 123_Password
 
 ## Implement your own extension
 ### Add a new project
