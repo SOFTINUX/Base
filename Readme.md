@@ -47,6 +47,7 @@ This will create the demo user with general permissions.
 
 #### 8. Login
 user: johndoe@softinux.com
+
 password: 123_Password
 
 ## Implement your own extension
