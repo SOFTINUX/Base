@@ -21,32 +21,31 @@ Read [this wiki page](https://github.com/SOFTINUX/Base/wiki/Writing-extensions) 
 
 ## Installation
 #### 1. Restore dependencies
-Before building the app, go to *Barebone* subfolder and run `npm i --save-dev` command so that dependencies packages are installed.
+Go to *Barebone* folder and run `npm i --save-dev` command so that dependencies packages are installed.
 #### 2. Restore nuget packages
 Restore the nuGet packages is now an implicit command executed at application build.
-#### 3. Generate databse migration. 
+#### 3. Generate database migration.
 Go to *Webapplication* folder and run `dotnet ef migrations add InitialCreate`.
 (Do not take into account the error concerning the permissions table not found.)
 #### 4. Update database with migration
-Go to *Webapplication* folder and run `dotnet ef database update`. This will create the database. (See application.json for database. By default is a Sqlite file)
+Go to *Webapplication* folder and run `dotnet ef database update`.<br />
+This will create the database. (See application.json for database. By default is a Sqlite file)
 #### 5. Build the appplication
 Go to *WebApplication* folder and run `bp.bat` under Windows or `bp.sh` under Linux/Macos. (use -h for help)
 #### 6. Run the app.
-Into *WebApplication* folder and type `dotnet run`.<br/>(If you want, you can also execute from root solution folder with this command `dotnet run --project WebApplication\WebApplication.csproj`)
-
+Into *WebApplication* folder and type `dotnet run`.<br/>
+(If you want, you can also execute from root solution folder with this command `dotnet run --project WebApplication\WebApplication.csproj`)<br />
 After that, the application is available on http://localhost:64900/
 
 #### 7. Add the first user (demo user)
-With Postman (or the program of your choice) make a POST request to this urls: http://localhost:64900/dev/seed/CreateUser
-
-(with curl: `curl -i -X POST http://localhost:64900/dev/seed/CreateUser`)
-
+With Postman (or the program of your choice) make a POST request to this urls: http://localhost:64900/dev/seed/CreateUser<br />
+(with curl: `curl -i -X POST http://localhost:64900/dev/seed/CreateUser`)<br />
 This will create the demo user with general permissions.
 
-#### 8. Login
-user: johndoe@softinux.com
-
-password: 123_Password
+#### 8. Login with demo user
+user: johndoe@softinux.com<br />
+password: 123_Password<br />
+(password is case sensitive)
 
 ## Implement your own extension
 ### Add a new project
