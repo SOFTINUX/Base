@@ -25,7 +25,7 @@ Go to *Barebone* folder and run `npm i --save-dev` command so that dependencies 
 #### 2. Restore nuget packages
 Restore the nuGet packages is now an implicit command executed at application build.
 #### 3. Generate database migration.
-Go to *Webapplication* folder and run `dotnet ef migrations add InitialCreate`.
+Go to *Webapplication* folder and run `dotnet ef migrations add InitialCreate`.<br />
 (Do not take into account the error concerning the permissions table not found.)
 #### 4. Update database with migration
 Go to *Webapplication* folder and run `dotnet ef database update`.<br />
