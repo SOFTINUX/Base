@@ -1,12 +1,12 @@
 # Project overview
 [![Build status](https://ci.appveyor.com/api/projects/status/mktm6ae3csndb9ma?svg=true)](https://ci.appveyor.com/project/Xarkam/base)
 
-SOFTINUX Base is free, open source and cross-platform based on ASP.NET Core and ExtCore framework. It is built using the best and the most modern tools and languages (Visual Studio 2017, Visual Studio Code, C# etc). Join our team!
+*SOFTINUX Base* is a free, open source and cross-platform based on ASP.NET Core and ExtCore framework. It is built using the best and the most modern tools and languages (Visual Studio 2017, Visual Studio Code, C# etc). Join our team!
 
 ## Few Facts About SOFTINUX Base
 
-It is free and open source.
-It runs on Windows, Mac and Linux.
+It is free and open source.<br />
+It runs on Windows, Mac and Linux.<br />
 It is completely modular and extendable. Using the features of the underlying ExtCore framework you can easily create your own extensions to extend its functionality.
 
 ## Basic Concepts
@@ -25,20 +25,20 @@ Go to *Barebone* folder and run `npm i --save-dev` command so that dependencies 
 #### 2. Restore nuget packages
 Restore the nuGet packages is now an implicit command executed at application build.
 #### 3. Generate database migration.
-Go to *Webapplication* folder and run `dotnet ef migrations add InitialCreate`.<br />
+Go to *WebApplication* folder and run `dotnet ef migrations add InitialCreate`.<br />
 (Do not take into account the error concerning the permissions table not found.)
 #### 4. Update database with migration
 Go to *Webapplication* folder and run `dotnet ef database update`.<br />
 This will create the database. (See application.json for database. By default is a Sqlite file)
 #### 5. Build the appplication
-Go to *WebApplication* folder and run `bp.bat` under Windows or `bp.sh` under Linux/Macos. (use -h for help)
-#### 6. Run the app.
-Into *WebApplication* folder and type `dotnet run`.<br/>
+Go to the root folder and run `bp.bat` under Windows or `bp.sh` under Linux/Macos. (use -h for help)
+#### 6. Run the app
+Go to *WebApplication* folder and type `dotnet run`.<br/>
 (If you want, you can also execute from root solution folder with this command `dotnet run --project WebApplication\WebApplication.csproj`)<br />
 After that, the application is available on http://localhost:64900/
 
 #### 7. Add the first user (demo user)
-With Postman (or the program of your choice) make a POST request to this urls: http://localhost:64900/dev/seed/CreateUser<br />
+With Postman (or the program of your choice) make a POST request to this url: http://localhost:64900/dev/seed/CreateUser<br />
 (with curl: `curl -i -X POST http://localhost:64900/dev/seed/CreateUser`)<br />
 This will create the demo user with general permissions.
 
