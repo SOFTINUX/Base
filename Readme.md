@@ -109,4 +109,4 @@ At your discretion:
   - [Python](https://marketplace.visualstudio.com/items?itemName=donjayamanne.python)
   - [Quokka.js](https://marketplace.visualstudio.com/items?itemName=WallabyJs.quokka-vscode)
 
-We also provide the Tasks and Launcher of Visual studio Code configuration.
+We also provide the lasks.json and launcher.json configuration for Visual studio Code.
