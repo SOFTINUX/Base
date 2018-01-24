@@ -5,12 +5,12 @@ using System;
 using System.Collections.Generic;
 using ExtCore.Data.Abstractions;
 using ExtCore.Infrastructure.Actions;
+using Infrastructure;
+using Infrastructure.Enums;
+using Infrastructure.Policy;
 using Microsoft.Extensions.DependencyInjection;
 using Security.Data.Abstractions;
-using Security.Data.Entities;
-using Security.Common;
-using Security.Common.Enums;
-using Security.Common.Policy;
+using Permission = Security.Data.Entities.Permission;
 
 namespace Security.ServiceConfiguration
 {

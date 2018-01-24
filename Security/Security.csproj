@@ -15,6 +15,5 @@
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\Security.Data.EntityFramework.Sqlite\Security.Data.EntityFramework.Sqlite.csproj" />
     <ProjectReference Include="..\Security.Data.EntityFramework\Security.Data.EntityFramework.csproj" />
-    <ProjectReference Include="..\Security.Common\Security.Common.csproj" />
   </ItemGroup>
 </Project>

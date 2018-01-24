@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace Security.Common.Policy
+namespace Infrastructure.Policy
 {
     /// <summary>
     /// A simple in-memory storage of names of policies we registered to system.

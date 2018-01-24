@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{C2AE1CC4-1171-4C29-AA5B-88A540A109B6}"
 EndProject
@@ -23,8 +23,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Security.Data.EntityFramework", "Security.Data.EntityFramework\Security.Data.EntityFramework.csproj", "{820BEABD-13B9-427B-AF57-611DFD595969}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecurityTest", "Tests\SecurityTest\SecurityTest.csproj", "{F9AC9321-FD31-49EF-9939-ACE601BA6B5D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Security.Common", "Security.Common\Security.Common.csproj", "{AC1FCF0A-5F56-41A3-AAF3-D8249A3A61E8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedDatabase", "SeedDatabase\SeedDatabase.csproj", "{2B0CE783-D89A-452A-A210-E54032512DF9}"
 EndProject
@@ -170,18 +168,6 @@ Global
 		{F9AC9321-FD31-49EF-9939-ACE601BA6B5D}.Release|x64.Build.0 = Release|Any CPU
 		{F9AC9321-FD31-49EF-9939-ACE601BA6B5D}.Release|x86.ActiveCfg = Release|Any CPU
 		{F9AC9321-FD31-49EF-9939-ACE601BA6B5D}.Release|x86.Build.0 = Release|Any CPU
-		{AC1FCF0A-5F56-41A3-AAF3-D8249A3A61E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AC1FCF0A-5F56-41A3-AAF3-D8249A3A61E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AC1FCF0A-5F56-41A3-AAF3-D8249A3A61E8}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{AC1FCF0A-5F56-41A3-AAF3-D8249A3A61E8}.Debug|x64.Build.0 = Debug|Any CPU
-		{AC1FCF0A-5F56-41A3-AAF3-D8249A3A61E8}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{AC1FCF0A-5F56-41A3-AAF3-D8249A3A61E8}.Debug|x86.Build.0 = Debug|Any CPU
-		{AC1FCF0A-5F56-41A3-AAF3-D8249A3A61E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AC1FCF0A-5F56-41A3-AAF3-D8249A3A61E8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AC1FCF0A-5F56-41A3-AAF3-D8249A3A61E8}.Release|x64.ActiveCfg = Release|Any CPU
-		{AC1FCF0A-5F56-41A3-AAF3-D8249A3A61E8}.Release|x64.Build.0 = Release|Any CPU
-		{AC1FCF0A-5F56-41A3-AAF3-D8249A3A61E8}.Release|x86.ActiveCfg = Release|Any CPU
-		{AC1FCF0A-5F56-41A3-AAF3-D8249A3A61E8}.Release|x86.Build.0 = Release|Any CPU
 		{2B0CE783-D89A-452A-A210-E54032512DF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2B0CE783-D89A-452A-A210-E54032512DF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B0CE783-D89A-452A-A210-E54032512DF9}.Debug|x64.ActiveCfg = Debug|Any CPU

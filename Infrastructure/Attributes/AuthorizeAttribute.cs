@@ -1,9 +1,9 @@
 ﻿// Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
-using Security.Common.Policy;
+using Infrastructure.Policy;
 
-namespace Security.Common.Attributes
+namespace Infrastructure.Attributes
 {
     public class AuthorizeAttribute : Microsoft.AspNetCore.Authorization.AuthorizeAttribute
     {

@@ -4,9 +4,10 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using ExtCore.Data.Abstractions;
-using Security.Common.Enums;
+using Infrastructure.Enums;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
+using Permission = Security.Data.Entities.Permission;
 
 namespace Security
 {

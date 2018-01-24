@@ -3,7 +3,7 @@
 
 using Infrastructure.Interfaces;
 
-namespace Security.Common
+namespace Infrastructure
 {
     /// <summary>
     /// Utility to quickly format a policy name, a claim value, when you know which application permission matches this claim or policy.

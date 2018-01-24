@@ -1,10 +1,10 @@
 ﻿using System.Net;
 using ExtCore.Data.Abstractions;
+using Infrastructure.Attributes;
 using Infrastructure.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Logging;
-using Security.Common.Attributes;
 using ControllerBase = Infrastructure.ControllerBase;
 
 namespace Security.Controllers

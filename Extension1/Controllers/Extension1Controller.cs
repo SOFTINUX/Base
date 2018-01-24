@@ -3,6 +3,7 @@
 
 
 using Extension1.ViewModels.Extension1;
+using Infrastructure.Attributes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Extension1.Controllers
@@ -14,7 +15,7 @@ namespace Extension1.Controllers
             return View(new IndexViexModelFactory().Create());
         }
 
-        [Security.Common.Attributes.Authorize("Admin", "Extension1")]
+        [Authorize("Admin", "Extension1")]
         public ActionResult Admin()
         {
             return View();

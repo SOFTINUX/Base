@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
 using ExtCore.Data.Entities.Abstractions;
-using Security.Common;
+using Infrastructure;
 
 namespace Security.Data.Entities
 {

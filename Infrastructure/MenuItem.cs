@@ -1,31 +1,66 @@
 // Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System.Collections.Generic;
+using Infrastructure.Attributes;
+
 namespace Infrastructure
 {
     public class MenuItem
     {
-        public string Url {get; set;}
-        public string Name {get; set;}
-        public uint Position {get;}
+        public string Url { get; set; }
+        public string Name { get; set; }
+        public uint Position { get; }
 
         /// <summary>
         /// The fa-xxx class to render the associated icon
         /// </summary>
-        public string FontAwesomeClass {get;}
+        public string FontAwesomeClass { get; }
 
-        //TODO here place properties for menu access permissions
-        //public IEnumerable<string> PermissionCodes { get; set; }
+        /// <summary>
+        /// If not empty, any of these roles is required (access granted if a single role is possessed by current user).
+        /// Menu item is decorated with Microsoft.AspNetCore.Authorization.AuthorizeAttribute with Roles.
+        /// </summary>
+        private List<string> _anyRequiredRoles = new List<string>();
 
-        //public MenuItem(string url_, string name_, int position_, IEnumerable<string> permissionCodes_)
-        public MenuItem(string url_, string name_, uint position_, string fontAwesomeClass_ = "fa-circle-o")
+        /// <summary>
+        /// If not empty, all these policies are required (access granted if all matching Permission claims are possessed by current user).
+        /// Menu item is decorated with either Microsoft.AspNetCore.Authorization.AuthorizeAttribute with Policy
+        /// or Infrastructure.Attributes.AuthorizeAttribute.
+        /// </summary>
+        private List<string> _allRequiredPolicies = new List<string>();
+
+        public MenuItem(string url_, string name_, uint position_, string fontAwesomeClass_ = null,
+            List<AuthorizeAttribute> infrastructureAuthorizeAttributes_ = null,
+            List<Microsoft.AspNetCore.Authorization.AuthorizeAttribute> microsoftAuthorizeAttributes_ = null)
         {
             Url = url_;
             Name = name_;
             Position = position_;
-            FontAwesomeClass = fontAwesomeClass_;
-            // PermissionCodes = permissionCodes_;
+            // Always a default icon
+            FontAwesomeClass = fontAwesomeClass_ ?? "fa-circle-o";
+
+            if (microsoftAuthorizeAttributes_ != null)
+            {
+                // Get the authorized roles and policies
+                foreach (var attr in microsoftAuthorizeAttributes_)
+                {
+                    if (!string.IsNullOrWhiteSpace(attr.Roles))
+                        _anyRequiredRoles.AddRange(attr.Roles.Split(','));
+                    if (!string.IsNullOrWhiteSpace(attr.Policy))
+                        _allRequiredPolicies.Add(attr.Policy);
+                }
+            }
+
+            if (infrastructureAuthorizeAttributes_ != null)
+            {
+                // Get the authorized policies
+                foreach (var attr in infrastructureAuthorizeAttributes_)
+                {
+                    if (!string.IsNullOrWhiteSpace(attr.Policy))
+                        _allRequiredPolicies.Add(attr.Policy);
+                }
+            }
         }
     }
-
 }

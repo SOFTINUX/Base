@@ -3,28 +3,31 @@
 
 using System.Collections.Generic;
 using Infrastructure;
+using Infrastructure.Attributes;
 using Infrastructure.Interfaces;
 
 namespace Security
 {
-        public class ExtensionMetadata : IExtensionMetadata
-        {
-            public IEnumerable<StyleSheet> StyleSheets => new[] {
+    public class ExtensionMetadata : IExtensionMetadata
+    {
+        public IEnumerable<StyleSheet> StyleSheets => new[] {
                 new StyleSheet("/Styles.Security.css",510),
              };
-            public IEnumerable<Script> Scripts => new Script[] { };
-            public IEnumerable<MenuGroup> MenuGroups => new MenuGroup[]
-            {
+        public IEnumerable<Script> Scripts => new Script[] { };
+
+        public IEnumerable<MenuGroup> MenuGroups => new MenuGroup[]
+        {
                 new MenuGroup(
                     "Administration",
                     0, // Always first
                     new[]
                     {
-                        new MenuItem("/administration", "Main", 100)
+                        new MenuItem("/administration", "Main", 100, null,
+                            new List<AuthorizeAttribute>(new[] { new AuthorizeAttribute("Admin", "Security"), }))
                     },
                     "fa-wrench"
                 )
-            };
+        };
 
-        }
+    }
 }
