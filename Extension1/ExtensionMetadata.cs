@@ -31,6 +31,11 @@ namespace Extension1
                 },
                 "fa-gears"
             ),
+            // A test empty menu group
+            new MenuGroup(
+                "Other",
+                3000,
+                null),
         };
     }
 }
