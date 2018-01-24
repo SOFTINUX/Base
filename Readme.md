@@ -53,6 +53,8 @@ password: 123_Password<br />
 (password is case sensitive)
 
 ## Implement your own extension
+You can use [Visual Studio 2017](https://www.visualstudio.com/fr/downloads/), [Visual Studio Code](https://code.visualstudio.com/) or [JetBrains Rider](https://www.jetbrains.com/rider/) to make your own extension.<br />
+If you decide to use Visual Studio, be aware **that projects are not compatible with Visual Studio 2015**.
 ### Add a new project
 Using command-line (easy and cross-platform):
 
