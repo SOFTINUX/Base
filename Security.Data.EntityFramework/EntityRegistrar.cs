@@ -1,5 +1,8 @@
-﻿
+﻿// Copyright © 2017 SOFTINUX. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
+
 using ExtCore.Data.EntityFramework;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Security.Data.Entities;
 
@@ -9,21 +12,8 @@ namespace Security.Data.EntityFramework
     {
         public void RegisterEntities(ModelBuilder modelBuilder_)
         {
-            // CredentialType
-            modelBuilder_.Entity<CredentialType>(etb_ =>
-                {
-                    etb_.HasKey(e_ => e_.Id);
-                    etb_.Property(e_ => e_.Id).ValueGeneratedOnAdd();
-                }
-            );
 
-            // Credential
-            modelBuilder_.Entity<Credential>(etb_ =>
-                {
-                    etb_.HasKey(e_ => e_.Id);
-                    etb_.Property(e_ => e_.Id).ValueGeneratedOnAdd();
-                }
-            );
+            // non-WIF entities
 
             // Permission
             modelBuilder_.Entity<Permission>(etb_ =>
@@ -33,42 +23,10 @@ namespace Security.Data.EntityFramework
                 }
             );
 
-            // Role
-            modelBuilder_.Entity<Role>(etb_ =>
-                {
-                    etb_.HasKey(e_ => e_.Id);
-                    etb_.Property(e_ => e_.Id).ValueGeneratedOnAdd();
-                }
-            );
-
             // RolePermission
             modelBuilder_.Entity<RolePermission>(etb_ =>
                 {
-                    etb_.HasKey(e_ => e_.Id);
-                    etb_.Property(e_ => e_.Id).ValueGeneratedOnAdd();
-                }
-            );
-
-            // User
-            modelBuilder_.Entity<User>(etb_ =>
-                {
-                    etb_.HasKey(e_ => e_.Id);
-                    etb_.Property(e_ => e_.Id).ValueGeneratedOnAdd();
-                }
-            );
-
-            // UserRole
-            modelBuilder_.Entity<UserRole>(etb_ =>
-                {
-                    etb_.HasKey(e_ => new { e_.RoleId, e_.UserId });
-                }
-            );
-
-            // PermissionLevel
-            modelBuilder_.Entity<PermissionLevel>(etb_ =>
-                {
-                    etb_.HasKey(e_ => e_.Id);
-                    etb_.Property(e_ => e_.Id).ValueGeneratedOnAdd();
+                    etb_.HasKey(e_ => new { e_.RoleId, e_.PermissionId });
                 }
             );
 
@@ -80,8 +38,8 @@ namespace Security.Data.EntityFramework
                 }
             );
 
-            // GroupUser
-            modelBuilder_.Entity<GroupUser>(etb_ =>
+            // UserGroup
+            modelBuilder_.Entity<UserGroup>(etb_ =>
                 {
                     etb_.HasKey(e_ => new { e_.GroupId, e_.UserId });
                 }
@@ -89,17 +47,15 @@ namespace Security.Data.EntityFramework
 
             // GroupPermission
             modelBuilder_.Entity<GroupPermission>(etb_ =>
-                {
-                    etb_.HasKey(e_ => e_.Id);
-                    etb_.Property(e_ => e_.Id).ValueGeneratedOnAdd();
-                }
+            {
+                etb_.HasKey(e_ => new { e_.GroupId, e_.PermissionId });
+            }
             );
 
             // UserPermission
             modelBuilder_.Entity<UserPermission>(etb_ =>
                 {
-                    etb_.HasKey(e_ => e_.Id);
-                    etb_.Property(e_ => e_.Id).ValueGeneratedOnAdd();
+                    etb_.HasKey(e_ => new { e_.UserId, e_.PermissionId });
                 }
             );
         }

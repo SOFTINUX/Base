@@ -309,3 +309,18 @@ bower_components
 
 Tests/WorkDir/*
 !Tests/WorkDir/.workdir
+
+# Directory is named "Debug" because it contains code defined in debug mode...
+!Security/Enums/Debug
+
+# serilog log file
+log-[0-9]*.txt
+
+# visual studio code local history extension
+.history
+
+# App EF Migration
+[Ww]ebApplication/[Mm]igrations/
+
+#App EF Database
+[Ww]ebApplication/basedb.sqlite

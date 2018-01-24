@@ -1,23 +1,30 @@
+// Copyright © 2017 SOFTINUX. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
+
 using Microsoft.AspNetCore.Mvc;
 using Barebone.ViewModels.Barebone;
 using ExtCore.Data.Abstractions;
-using Infrastructure;
+using ControllerBase = Infrastructure.ControllerBase;
+using Microsoft.Extensions.Configuration;
 
 namespace Barebone.Controllers
 {
     public class BareboneController : ControllerBase
     {
-        private readonly IDatabaseInitializer _databaseInitializer;
+        private readonly string corporateName, corporateLogo;
 
-        public BareboneController(IStorage storage_, IDatabaseInitializer databaseInitializer_) : base(storage_)
+        public BareboneController(IStorage storage_, IConfiguration configuration_) : base(storage_)
         {
-            _databaseInitializer = databaseInitializer_;
+            corporateName = configuration_["Corporate:Name"];
+            corporateLogo = configuration_["Corporate:BrandLogo"];
         }
 
         public ActionResult Index()
         {
-            _databaseInitializer.CheckAndInitialize(this);
+            ViewBag.CorporateName = corporateName;
+            ViewBag.CorporateLogo = corporateLogo;
             return View(new IndexViewModelFactory().Create());
         }
+
     }
 }

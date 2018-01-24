@@ -1,13 +1,14 @@
 {
     "version": "0.2.0",
-    "configurations": [{
+    "configurations": [
+        {
             "name": ".NET Core Launch (console)",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceRoot}/WebApplication/bin/Debug/netcoreapp1.1/WebApplication.dll",
+            "program": "${workspaceRoot}/WebApplication/bin/Debug/netcoreapp2.0/WebApplication.dll",
             "args": [],
-            "cwd": "${workspaceRoot}",
+            "cwd": "${workspaceRoot}/WebApplication/",
             "stopAtEntry": false,
             "console": "internalConsole"
         },
@@ -15,10 +16,41 @@
             "name": ".NET Core Launch (web)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
-            "program": "${workspaceRoot}/WebApplication/bin/Debug/netcoreapp1.1/WebApplication.dll",
+            "preLaunchTask": "build & prepare",
+            "program": "${workspaceRoot}/WebApplication/bin/Debug/netcoreapp2.0/WebApplication.dll",
             "args": [],
-            "cwd": "${workspaceRoot}",
+            "cwd": "${workspaceRoot}/WebApplication/",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnFirstSessionStart",
+            "launchBrowser": {
+                "enabled": true,
+                "args": "${auto-detect-url}",
+                "windows": {
+                    "command": "cmd.exe",
+                    "args": "/C start ${auto-detect-url}"
+                },
+                "osx": {
+                    "command": "open"
+                },
+                "linux": {
+                    "command": "xdg-open"
+                }
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceRoot}/Views"
+            }
+        },
+        {
+            "name": "Build & Run",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceRoot}/WebApplication/bin/Debug/netcoreapp2.0/WebApplication.dll",
+            "args": [],
+            "cwd": "${workspaceRoot}/WebApplication/",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnFirstSessionStart",
             "launchBrowser": {

@@ -1,3 +1,6 @@
+// Copyright © 2017 SOFTINUX. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
+
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -18,7 +21,7 @@ namespace Barebone.ViewComponents
         public Task<IViewComponentResult> InvokeAsync()
         {
             MenuViewModelFactory factory = new MenuViewModelFactory(this);
-            
+
             Stopwatch watch = new Stopwatch();
             watch.Start();
             MenuViewModel menu = factory.Create();

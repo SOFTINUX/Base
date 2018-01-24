@@ -1,0 +1,38 @@
+{
+  "name": "barebone",
+  "version": "1.0.0",
+  "description": "Softinux Base Barebone",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "admin-lte": "^2.4.2",
+    "font-awesome": "^4.7.0",
+    "icheck": "^1.0.2",
+    "inputmask": "^3.3.11",
+    "ionicons": "^3.0.0",
+    "jquery": "^3.2.1",
+    "jquery-validation": "^1.17.0",
+    "jquery-validation-unobtrusive": "^3.2.6",
+    "js-cookie": "^2.2.0",
+    "normalize.css": "^7.0.0",
+    "popper.js": "^1.12.6",
+    "wfk-opensans": "^1.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OSAMES/Base.git"
+  },
+  "keywords": [
+    "softinux",
+    "extcore"
+  ],
+  "author": "Softinux",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OSAMES/Base/issues"
+  },
+  "homepage": "https://github.com/OSAMES/Base#readme"
+}

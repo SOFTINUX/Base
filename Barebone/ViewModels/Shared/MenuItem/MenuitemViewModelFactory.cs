@@ -1,4 +1,7 @@
-using Infrastructure;
+// Copyright © 2017 SOFTINUX. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
+
+using Infrastructure.Interfaces;
 
 namespace Barebone.ViewModels.Shared.MenuItem
 {
@@ -14,7 +17,8 @@ namespace Barebone.ViewModels.Shared.MenuItem
             {
                 Url = menuItem_.Url,
                 Name = menuItem_.Name,
-                Position = menuItem_.Position
+                Position = menuItem_.Position,
+                FontAwesomeClass = menuItem_.FontAwesomeClass
             };
         }
     }

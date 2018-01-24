@@ -1,0 +1,33 @@
+﻿@using System.Web
+@* Copyright © 2017 SOFTINUX. All rights reserved.
+Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+*@
+
+@{
+    string url = HttpUtility.UrlDecode(Context.Request.QueryString.ToUriComponent());
+    ViewBag.currentUrl = url.Substring(url.IndexOf('=')+1);
+}
+@section title {
+    <h2>Access Denied</h2>
+}
+
+<section class="dashboard-section">
+    <div class="container-fluid">
+        <div class="row bg-white has-shadow">
+            <div class="col-xl-3">
+
+            </div>
+            <div class="col-xl-3">
+                <div class="item d-flex align-items-center">
+                    <div class="alert alert-danger" role="alert">
+                        <i class="icon fa fa-ban"> </i>You don't have access to <strong>@(ViewBag.currentUrl)</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3">
+
+            </div>
+        </div>
+    </div>
+</section>
+

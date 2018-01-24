@@ -1,8 +1,10 @@
+// Copyright © 2017 SOFTINUX. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.Collections.Generic;
 using System.Linq;
 using ExtCore.Infrastructure;
-using Infrastructure;
+using Infrastructure.Interfaces;
 using Barebone.ViewModels.Shared.StyleSheets;
 
 namespace Barebone.ViewModels.Shared.StyleSheet

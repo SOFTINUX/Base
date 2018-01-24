@@ -2,8 +2,23 @@
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
     "version": "2.0.0",
-    "tasks": [{
-            "taskName": "build",
+    "tasks": [
+        {
+            "label": "build & prepare",
+            "command": "./bp.bat",
+            "linux": {
+                "command": "./bp.sh"
+            },
+            "type": "shell",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build",
             "command": "dotnet build",
             "type": "shell",
             "group": "build",
@@ -13,13 +28,28 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "taskName": "Gulp task",
-            "command": "gulp --gulpfile ./WebApplication/gulpfile.js copy-extensions",
+            "label": "clean",
+            "command": "dotnet clean",
             "type": "shell",
             "group": "build",
             "presentation": {
                 "reveal": "silent"
-            }
-        }
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+        "label": "Copy dependencies",
+        "command": "./bp.bat copydeps",
+        "linux": {
+            "command": "./bp.sh copydeps"
+        },
+        "type": "shell",
+        "group": "build",
+        "presentation": {
+            "reveal": "always",
+            "panel": "shared"
+        },
+        "problemMatcher": "$msCompile"
+    }
     ]
 }

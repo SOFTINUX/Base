@@ -1,23 +1,26 @@
-@using System.Linq
-@using Microsoft.AspNetCore.Mvc.Rendering
+@*
+Copyright © 2017 SOFTINUX. All rights reserved.
+Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+*@
+
 @model Barebone.ViewModels.Shared.MenuGroup.MenuGroupViewModel
 
-@if (Model.MenuItems.Count() == 1)
-{
-    @Html.Partial("_MenuItem", Model.MenuItems.First())
-}
-else
-{
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@(Model.Name)<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-            @foreach (var menuItem in this.Model.MenuItems)
-                {
-                    @Html.Partial("_MenuItem", menuItem);
-                }
-        </ul>
-    </li>
+<li class="treeview">
+          <a href="#">
+            <i class="fa @(Model.FontAwesomeClass)"></i> <span>@(Model.Name)</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+    <ul class="treeview-menu">
+        @foreach (var menuItem in Model.MenuItems)
+        {
+            @Html.Partial("_MenuItem", menuItem)
+        }
+    </ul>
+</li>
 
-}
+
+
 
 

@@ -1,42 +1,177 @@
-﻿<!DOCTYPE html>
+﻿@*
+Copyright © 2017 SOFTINUX. All rights reserved.
+Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+*@
+
+@using Microsoft.Extensions.Options;
+@using Infrastructure;
+@using Security.Data.Entities
+@inject IOptions<CorporateConfiguration> OptionsApplicationConfiguration
+
+<!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <title>@Html.Raw(this.ViewBag.Title as string)</title>
-  @await Component.InvokeAsync("StyleSheets")
-  @await Component.InvokeAsync("Scripts")
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>@Html.Raw(ViewBag.Title as string)</title>
+    @await Component.InvokeAsync("StyleSheets")
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body>
-<div>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @*TODO replace "Softinux" by some value that comes from application configuration (need a model?) *@
-                <a class="navbar-brand" href="#">Softinux</a>
-            </div>
-        
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    @await Component.InvokeAsync("Menu")
+@{
+    string authClass="";
+    authClass = !User.Identity.IsAuthenticated ? "hold-transition login-page" : "hold-transition skin-blue sidebar-mini";
+}
+<body class="@authClass">
+    <div class="wrapper">
+        @if (User.Identity.IsAuthenticated)
+        {
+            @* Main Header *@
+            <header class="main-header">
+                @* Logo *@
+                <a href="#" class="logo">
+                    @* mini logo for sidebar mini 50x50 pixels *@
+                    <span class="logo-mini"><img src="/img/@Html.Raw(OptionsApplicationConfiguration.Value.BrandLogo)" class="brandlogo-image" alt="Brand Logo"></span>
+                    @* logo for regular state and mobile devices *@
+                    <span class="logo-lg"><img src="/img/@Html.Raw(OptionsApplicationConfiguration.Value.BrandLogo)" class="brandlogo-image" alt="Brand Logo"><strong>@Html.Raw(OptionsApplicationConfiguration.Value.Name)</strong></span>
+                </a>
 
-                </ul>
-            </div>
+                @* Header Navbar *@
+                <nav class="navbar navbar-static-top" role="navigation">
+                    @* Sidebar toggle button *@
+                    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>
+                    @* Navbar Right Menu *@
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                            @Html.Partial("_UserBadge")
+                            @* Control Sidebar Toggle Button *@
+                            <li>
+                                <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
 
-        </div>
-    </nav>
-    <h1>
-        Demo
-    </h1>
-    <div>
-        @RenderBody()
+            @* Left side column. contains the logo and sidebar *@
+            <aside class="main-sidebar">
+                @* sidebar: style can be found in sidebar.less *@
+                <section class="sidebar">
+                    @* Sidebar Menu *@
+                    <ul class="sidebar-menu tree" data-widget="tree">
+                        @* <li class="header">HEADER</li> *@
+                        @await Component.InvokeAsync("Menu")
+                    </ul>
+                    @* /.sidebar-menu *@
+                </section>
+                @* /.sidebar *@
+            </aside>
+
+            @* Content Wrapper. Contains page content *@
+            <div class="content-wrapper">
+                @* Content Header (Page header) *@
+                <section class="content-header">
+                    <h1>
+                        @RenderSection("title", false)
+                        @*<small></small>*@
+                    </h1>
+                </section>
+                @* Main content *@
+                <section class="content container-fluid">
+                    @RenderBody()
+                </section>
+                @* /.content *@
+            </div>
+        }
+        else
+        {
+            @RenderBody()
+        }
+
+        @* Error Message On SignIn Fail *@
+        @if (Model != null && !String.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div id="notification" class="show">
+                <div class="alert alert-danger" role="alert">
+                    <i class="icon fa fa-ban"></i><strong>LOGIN ERROR:</strong>&nbsp;@Html.Raw(Model.ErrorMessage)
+                </div>
+            </div>
+        }
+
+        @* Page container *@
+        @*<div class="page-content d-flex align-items-stretch">
+            @if (Model != null && !String.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div id="notification" class="show">
+                    <div class="alert alert-danger" role="alert">
+                        <strong>LOGIN ERROR:</strong>&nbsp;@Html.Raw(Model.ErrorMessage)
+                    </div>
+                </div>
+            }
+            @if (User.Identity.IsAuthenticated)
+            {
+                <nav class="side-navbar">
+                    <div class="sidebar-header d-flex align-items-center">
+                        @* user badge *@
+        @*
+                @Html.Partial("_UserBadge")
+            </div>
+            <span class="heading">Main</span>
+            @* Menu Navigation *@
+        @*
+                        @await Component.InvokeAsync("Menu")
+                    </nav>
+                }
+                <div class="inner-content">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <header class="page-header">
+                            <div class="container-fluid">
+                                @RenderSection("title", false)
+                            </div>
+                        </header>
+                    }
+                    @RenderBody()
+                </div>
+            </div>*@
+        @if (User.Identity.IsAuthenticated)
+        {
+            @* Main Footer *@
+            <footer class="main-footer">
+                @* To the right *@
+                <div class="pull-right hidden-xs">
+                    DEMO
+                </div>
+                @* Default to the left *@
+                <strong>Copyright &copy; 2017 <a href="#">SOFTINUX</a>.</strong> All rights reserved.
+            </footer>
+        }
     </div>
-</div>
+    @await Component.InvokeAsync("Scripts")
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <script type="text/javascript">
+            $("input").keypress(function (event) {
+                if (event.which == 13) {
+                    event.preventDefault();
+                    $("form").submit();
+                }
+            });
+            $(function () {
+                $('input').iCheck({
+                    checkboxClass: 'icheckbox_square-blue',
+                    radioClass: 'iradio_square-blue',
+                    increaseArea: '20%' // optional
+                });
+            });
+        </script>
+    }
+    @if (User.Identity.IsAuthenticated)
+    {
+        @RenderSection("Scripts", false)
+    }
 </body>
 </html>

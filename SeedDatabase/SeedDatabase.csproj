@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>6</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="ExtCore.Data.Entities.Abstractions" Version="3.2.0-beta3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\Security.Data.Entities\Security.Data.Entities.csproj" />
+    <ProjectReference Include="..\Security.Data.Abstractions\Security.Data.Abstractions.csproj" />
+  </ItemGroup>
+</Project>
