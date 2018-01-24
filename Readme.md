@@ -76,10 +76,6 @@ Your extension will depend on `Infrastructure` and `Security.Common`.
 
 Have a look at sample extensions, [wiki](https://github.com/SOFTINUX/Base/wiki), feel free to open issues for questions.
 
-### Update Packages
-Currently dotnet does not have a clean way to update packages in a project.
-
-It is nevertheless expected that this will change [#6064](https://github.com/NuGet/Home/issues/6054)
 # Using Visual Studio Code For Developing
 If you prefer to use Visual Studio Code, you need these extensions:
   - [Net Core Test Explorer](https://marketplace.visualstudio.com/items?itemName=formulahendry.dotnet-test-explorer)
