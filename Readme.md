@@ -36,7 +36,7 @@ Go to the root folder and run `bp.bat` under Windows or `bp.sh` under Linux/Maco
 Go to *WebApplication* folder and type `dotnet run`.<br/>
 (If you want, you can also execute from root solution folder with this command `dotnet run --project WebApplication\WebApplication.csproj`)<br /><br />
 After that, the application is available on http://localhost:5000/ <br />
-##### Information About Visual Studio 2015/2017
+##### Information About Visual Studio 2017
 If you launched application from Visual Studio, this port will change, <br />
 being randomly defined, and value is stored in *WebApplication/Properties/launchSettings.json* <br />
 You can edit this value in Visual Studio: WebApplication's properties > Debug tab > Web Server Settings/App URL or directly in launchSettings file.<br />
