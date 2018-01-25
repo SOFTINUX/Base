@@ -10,7 +10,6 @@ using Infrastructure.Enums;
 using Infrastructure.Policy;
 using Microsoft.Extensions.DependencyInjection;
 using Security.Data.Abstractions;
-using Permission = Security.Data.Entities.Permission;
 
 namespace Security.ServiceConfiguration
 {
@@ -37,11 +36,11 @@ namespace Security.ServiceConfiguration
         {
             IStorage storage = serviceProvider_.GetService<IStorage>();
 
-            IEnumerable<Permission> permissions = storage.GetRepository<IPermissionRepository>().All();
+            IEnumerable<Security.Data.Entities.Permission> permissions = storage.GetRepository<IPermissionRepository>().All();
 
             services_.AddAuthorization(options_ =>
                 {
-                    foreach (Permission permission in permissions)
+                    foreach (Security.Data.Entities.Permission permission in permissions)
                     {
                         string claimValueAndPolicyName = PolicyUtil.GetClaimValue(permission.UniqueIdentifier);
                         options_.AddPolicy(claimValueAndPolicyName, policy_ =>

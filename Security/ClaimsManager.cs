@@ -7,7 +7,6 @@ using ExtCore.Data.Abstractions;
 using Infrastructure.Enums;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
-using Permission = Security.Data.Entities.Permission;
 
 namespace Security
 {
@@ -53,9 +52,9 @@ namespace Security
         /// <param name="userId_"></param>
         /// <returns></returns>
         public IEnumerable<Claim> GetAllPermissionClaims(string userId_) {
-           IEnumerable<Permission> permissions = _storage.GetRepository<IPermissionRepository>().AllForUser(userId_);
+           IEnumerable<Security.Data.Entities.Permission> permissions = _storage.GetRepository<IPermissionRepository>().AllForUser(userId_);
            List<Claim> claims = new List<Claim>();
-           foreach (Permission p in permissions)
+           foreach (Security.Data.Entities.Permission p in permissions)
            {
                claims.Add(new Claim(ClaimType.Permission, p.UniqueIdentifier));
            }
