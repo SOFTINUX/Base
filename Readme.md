@@ -72,7 +72,7 @@ Go to solution folder and type:
 ### Write your code
 In your new project, create a class that implements `Infrastructure.IExtensionMetadata`. You may also implement `Infrastructure.IExtensionDatabaseMetadata`.
 
-Your extension will depend on `Infrastructure` and `Security.Common`.
+Your extension will depend on `Infrastructure`.
 
 Have a look at sample extensions, [wiki](https://github.com/SOFTINUX/Base/wiki), feel free to open issues for questions.
 

@@ -2,7 +2,6 @@ Security.Data.EntityFramework.Sqlite\bin\Debug\netcoreapp2.0\Security.Data.Entit
 Security.Data.EntityFramework\bin\Debug\netcoreapp2.0\Security.Data.EntityFramework.dll
 Security.Data.Entities\bin\Debug\netcoreapp2.0\Security.Data.Entities.dll
 Security.Data.Abstractions\bin\Debug\netcoreapp2.0\Security.Data.Abstractions.dll
-Security.Common\bin\Debug\netcoreapp2.0\Security.Common.dll
 Security\bin\Debug\netcoreapp2.0\Security.dll
 Infrastructure\bin\Debug\netcoreapp2.0\Infrastructure.dll
 Barebone\bin\Debug\netcoreapp2.0\Barebone.dll
