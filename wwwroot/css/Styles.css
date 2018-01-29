@@ -17,6 +17,11 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
     height: 120px;
 }
 
+.center-cell-button {
+    margin: auto;
+    display: block;
+}
+
 /*
 body {
     font-family: "Poppins", sans-serif;

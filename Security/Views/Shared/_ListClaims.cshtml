@@ -1,38 +1,42 @@
-﻿ @{
-     var claimslist = this.User.Claims.ToList();
- }
+﻿@* Copyright © 2017 SOFTINUX. All rights reserved.
+    Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+*@
+
+@{
+    var claimslist = this.User.Claims.ToList();
+}
 
 <table class="table table-bordered">
     <tbody>
-    <tr>
-        <th style="width: 10px">#</th>
-        <th>Claim type</th>
-        <th>Claim value</th>
-        <th>Issuer</th>
-        <th>OriginalIssuer</th>
-        <th>Subject</th>
-    </tr>
-    @for (var index = 0; index < claimslist.Count; index++)
-    {
-        var item = claimslist[index];
         <tr>
-            <th scope="row">@index</th>
-            <td>
-                @item.Type
-            </td>
-            <td>
-                @item.Value
-            </td>
-            <td>
-                @item.Issuer
-            </td>
-            <td>
-                @item.OriginalIssuer
-            </td>
-            <td>
-                @item.Subject
-            </td>
+            <th style="width: 10px">#</th>
+            <th>Claim type</th>
+            <th>Claim value</th>
+            <th>Issuer</th>
+            <th>OriginalIssuer</th>
+            <th>Subject</th>
         </tr>
-    }
+        @for (var index = 0; index < claimslist.Count; index++)
+        {
+            var item = claimslist[index];
+            <tr>
+                <th scope="row">@index</th>
+                <td>
+                    @item.Type
+                </td>
+                <td>
+                    @item.Value
+                </td>
+                <td>
+                    @item.Issuer
+                </td>
+                <td>
+                    @item.OriginalIssuer
+                </td>
+                <td>
+                    @item.Subject
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
