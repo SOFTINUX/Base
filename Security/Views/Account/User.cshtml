@@ -92,6 +92,7 @@
                         </fieldset>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
+                                <button id="cancel_save_profile_btn" class="btn btn-danger hidden">Cancel</button>
                                 <button id="save_profile_btn" class="btn btn-primary">Edit</button>
                             </div>
                         </div>
@@ -155,10 +156,21 @@
                 }
             });
 
+            $("#cancel_save_profile_btn").click(function(event) {
+                event.preventDefault();
+                $("#profile_form_fieldset").prop('disabled', true);
+                $("#save_profile_btn").prop("disabled", false);
+                $("button#save_profile_btn").text("Edit");
+                $("#cancel_save_profile_btn").addClass("hidden");
+                $("#save_profile_btn").removeClass("btn-success").addClass("btn-primary");
+                $("#profile_form")[0].reset();
+            });
+
             $("#profile_form :input").bind("keyup change paste", function() {
                 $("#save_profile_btn").prop("disabled", false);
                 $("#save_profile_btn").removeClass("btn-primary").addClass("btn-success");
                 $("button#save_profile_btn").text("Save");
+                $("#cancel_save_profile_btn").removeClass("hidden");
             });
         });
 
