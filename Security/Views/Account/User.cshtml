@@ -122,6 +122,7 @@
                         </fieldset>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
+                                <button id="cancel_change_pwd-btn" class="btn btn-danger hidden">Cancel</button>
                                 <button id="change_pwd-btn" class="btn btn-primary">Change</button>
                             </div>
                         </div>
@@ -171,6 +172,32 @@
                 $("#save_profile_btn").removeClass("btn-primary").addClass("btn-success");
                 $("button#save_profile_btn").text("Save");
                 $("#cancel_save_profile_btn").removeClass("hidden");
+            });
+
+            $("#change_pwd-btn").click(function(event) {
+                event.preventDefault();
+                if ($("#pwd_form_fliedset").prop("disabled")) {
+                    $("#pwd_form_fliedset").removeAttr('disabled');
+                    $("#change_pwd-btn").prop("disabled", true);
+                    $("#cancel_change_pwd-btn").removeClass("hidden");
+                }
+            });
+
+            $("#cancel_change_pwd-btn").click(function(event) {
+                event.preventDefault();
+                $("#pwd_form_fliedset").prop('disabled', true);
+                $("#change_pwd-btn").prop("disabled", false);
+                $("button#change_pwd-btn").text("Save");
+                $("#cancel_change_pwd-btn").addClass("hidden");
+                $("#change_pwd-btn").removeClass("btn-success").addClass("btn-primary");
+                $("#pwd_form")[0].reset();
+            });
+
+            $("#pwd_form :input").bind("keyup change paste", function() {
+                $("#change_pwd-btn").prop("disabled", false);
+                $("#change_pwd-btn").removeClass("btn-primary").addClass("btn-success");
+                $("button#change_pwd-btn").text("Save");
+                $("#cancel_change_pwd-btn").removeClass("hidden");
             });
         });
 
