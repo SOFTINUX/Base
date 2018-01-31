@@ -140,70 +140,12 @@
 
 @section Scripts
 {
+    @await Component.InvokeAsync("Scripts")
     <script>
         @*$(selector).inputmask("phone", {
             onKeyValidation: function () { //show some metadata in the console
                 console.log($(this).inputmask("getmetadata")["city"]);
             }
         });*@
-
-        $(function() {
-            $("#save_profile_btn").click(function(event) {
-                event.preventDefault();
-                if ($("#profile_form_fieldset").prop("disabled")) {
-                    $("#profile_form_fieldset").removeAttr('disabled');
-                    $("#save_profile_btn").prop("disabled", true);
-                    $("#cancel_save_profile_btn").prop("visible", true);
-                }
-            });
-
-            $("#cancel_save_profile_btn").click(function(event) {
-                event.preventDefault();
-                $("#profile_form_fieldset").prop('disabled', true);
-                $("#save_profile_btn").prop("disabled", false);
-                $("button#save_profile_btn").text("Edit");
-                $("#cancel_save_profile_btn").addClass("hidden");
-                $("#save_profile_btn").removeClass("btn-success").addClass("btn-primary");
-                $("#profile_form")[0].reset();
-            });
-
-            $("#profile_form :input").bind("keyup change paste", function() {
-                $("#save_profile_btn").prop("disabled", false);
-                $("#save_profile_btn").removeClass("btn-primary").addClass("btn-success");
-                $("button#save_profile_btn").text("Save");
-                $("#cancel_save_profile_btn").removeClass("hidden");
-            });
-
-            $("#change_pwd-btn").click(function(event) {
-                event.preventDefault();
-                if ($("#pwd_form_fliedset").prop("disabled")) {
-                    $("#pwd_form_fliedset").removeAttr('disabled');
-                    $("#change_pwd-btn").prop("disabled", true);
-                    $("#cancel_change_pwd-btn").removeClass("hidden");
-                }
-            });
-
-            $("#cancel_change_pwd-btn").click(function(event) {
-                event.preventDefault();
-                $("#pwd_form_fliedset").prop('disabled', true);
-                $("#change_pwd-btn").prop("disabled", false);
-                $("button#change_pwd-btn").text("Save");
-                $("#cancel_change_pwd-btn").addClass("hidden");
-                $("#change_pwd-btn").removeClass("btn-success").addClass("btn-primary");
-                $("#pwd_form")[0].reset();
-            });
-
-            $("#pwd_form :input").bind("keyup change paste", function() {
-                $("#change_pwd-btn").prop("disabled", false);
-                $("#change_pwd-btn").removeClass("btn-primary").addClass("btn-success");
-                $("button#change_pwd-btn").text("Save");
-                $("#cancel_change_pwd-btn").removeClass("hidden");
-            });
-        });
-
-        function btn_state(fieldset, btnid) {
-
-        }
     </script>
-
 }

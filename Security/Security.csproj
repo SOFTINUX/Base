@@ -3,9 +3,11 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Styles\**;Scripts\**;Views\**" />
+    <EmbeddedResource Include="Styles\**;Scripts\**\*.min.js;Views\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Scripts\security_user.js" />
+    <None Remove="Scripts\security_user.min.js" />
     <None Remove="Views\Account\AccessDenied.cshtml" />
     <None Remove="Views\Account\SignIn.cshtml" />
     <None Remove="Views\Shared\_ListClaims.cshtml" />

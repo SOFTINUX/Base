@@ -13,7 +13,10 @@ namespace Security
         public IEnumerable<StyleSheet> StyleSheets => new[] {
                 new StyleSheet("/Styles.Security.css",510),
              };
-        public IEnumerable<Script> Scripts => new Script[] { };
+        public IEnumerable<Script> Scripts => new Script[]
+        {
+            new Script("/Scripts.security_user.min.js",710),
+        };
 
         public IEnumerable<MenuGroup> MenuGroups => new MenuGroup[]
         {
