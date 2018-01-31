@@ -29,6 +29,7 @@ function copyexts
     echo "Copy extensions"
     echo "###################"
     SET_DEST="./WebApplication/Extensions"
+    mkdir $SET_DEST
     cat extensions.txt | sed 's/\\/\//g' | xargs -I % bash -c "cp % $SET_DEST; echo cp % $SET_DEST"
 }
 
