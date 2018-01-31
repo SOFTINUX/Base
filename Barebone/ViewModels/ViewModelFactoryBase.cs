@@ -13,7 +13,7 @@ namespace Barebone.ViewModels
         protected ILogger _logger;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="requestHandler_"></param>
         /// <param name="loggerFactory_">Optional</param>
