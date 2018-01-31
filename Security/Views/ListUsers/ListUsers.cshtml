@@ -18,35 +18,37 @@
             <div class="box-body">
                 <table class="table table-bordered">
                     <tbody>
-                        <tr>
-                            <th style="width: 10px">#</th>
-                            <th>Name</th>
-                            <th>Guid</th>
-                            <th>Modify</th>
-                            <th>Delete</th>
-                        </tr>
-                        @{
-                            int counter = 1;
-                            foreach (var item in ViewBag.userlist)
-                            {
-                                <tr>
-                                    <th scope="row">@counter</th>
-                                    <td>
-                                        @item.Text
-                                    </td>
-                                    <td>
-                                        @item.Value
-                                    </td>
-                                    <td>
-                                        <button class="btn center-cell-button"><i class="fa fa-edit"></i></button>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-danger center-cell-button"><i class="fa fa-trash-o"></i></button>
-                                    </td>
-                                </tr>
-                                counter++;
-                            }
+                    <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Name</th>
+                        <th>Guid</th>
+                        <th>Modify</th>
+                        <th>Delete</th>
+                    </tr>
+                    @{
+                        int counter = 1;
+                        foreach (var item in ViewBag.userlist)
+                        {
+                            <tr>
+                                <th scope="row">@counter</th>
+                                <td>
+                                    @item.Text
+                                </td>
+                                <td>
+                                    @item.Value
+                                </td>
+                                <td>
+                                    <span data-toggle="modal" data-target="#modal-default">
+                                        <button rel="tooltip" class="btn center-cell-button" data-toggle="tooltip" title="Edit User"><i class="fa fa-edit"></i></button>
+                                    </span>
+                                </td>
+                                <td>
+                                    <button rel="tooltip" class="btn btn-danger center-cell-button" data-toggle="tooltip" title="Delete User"><i class="fa fa-trash-o"></i></button>
+                                </td>
+                            </tr>
+                            counter++;
                         }
+                    }
                     </tbody>
                 </table>
             </div>
@@ -54,3 +56,33 @@
         @* /.box *@
     </div>
 </div>
+
+<div class="modal fade" id="modal-default" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Default Modal</h4>
+            </div>
+            <div class="modal-body">
+                <p>One fine body…</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function(){
+            $('[rel="tooltip"]').tooltip({trigger: "hover"});
+        });
+    </script>
+}
