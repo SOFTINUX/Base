@@ -4,11 +4,7 @@
 using System;
 using System.Collections.Generic;
 using ExtCore.Data.Abstractions;
-using Infrastructure.Enums;
 using Infrastructure.Interfaces;
-using Microsoft.AspNetCore.Identity;
-using Security.Data.Abstractions;
-using Security.Data.Entities;
 
 namespace Security
 {

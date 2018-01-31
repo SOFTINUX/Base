@@ -3,13 +3,10 @@
 
 using System;
 using System.IO;
-using System.Reflection;
 using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
 using ExtCore.WebApplication.Extensions;
 using Infrastructure;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -20,7 +17,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Security;
 using Security.Data.Entities;
-using Security.Data.EntityFramework;
 using Serilog;
 
 namespace WebApplication
@@ -51,7 +47,7 @@ namespace WebApplication
                     //options_.MigrationsAssembly = typeof(DesignTimeStorageContextFactory).GetTypeInfo().Assembly.FullName;
                 }
             ); */
-            
+
             // Configure Identity
             services_.AddIdentity<Security.Data.Entities.User, IdentityRole<string>>(options =>
                 {

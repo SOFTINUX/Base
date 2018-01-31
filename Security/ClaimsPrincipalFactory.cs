@@ -5,7 +5,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Security.Data.Entities;
 

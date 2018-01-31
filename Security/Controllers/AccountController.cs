@@ -6,7 +6,6 @@ using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.Logging;
 using Security.Data.Entities;
 using Security.ViewModels.Account;
