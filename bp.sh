@@ -5,7 +5,7 @@
 
 #These two lines is to set correct directory position if you build from JetBrain Rider
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd $DIR
+cd "$DIR"
 
 function clean
 {
