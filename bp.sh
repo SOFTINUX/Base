@@ -29,7 +29,9 @@ function copyexts
     echo "Copy extensions"
     echo "###################"
     SET_DEST="./WebApplication/Extensions"
-    mkdir $SET_DEST
+    if [ ! -d "$SET_DEST" ]; then
+        mkdir -p $SET_DEST
+    fi
     cat extensions.txt | sed 's/\\/\//g' | xargs -I % bash -c "cp % $SET_DEST; echo cp % $SET_DEST"
 }
 
@@ -39,6 +41,10 @@ function copydeps
     echo "Copy Dependencies"
     echo "###################"
     SET_DEST="./WebApplication/bin/Debug/netcoreapp2.0/"
+    if [ ! -d "$SET_DEST" ]; then
+        echo "The dependencies destination folder does not exist."
+        exit 1
+    fi
     cat dependencies.txt | sed 's/\\/\//g' | xargs -I % bash -c "cp % $SET_DEST; echo cp % $SET_DEST"
 }
 
