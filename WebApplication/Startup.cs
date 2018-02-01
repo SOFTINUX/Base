@@ -107,6 +107,9 @@ namespace WebApplication
 
             services_.AddExtCore(_extensionsPath);
 
+            // register for DI to for in REST controller
+            services_.AddSingleton<IServiceCollection, ServiceCollection>();
+
         }
 
         public void Configure(IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_, IConfiguration configuration_)

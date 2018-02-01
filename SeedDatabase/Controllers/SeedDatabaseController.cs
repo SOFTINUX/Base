@@ -8,6 +8,8 @@ using Infrastructure.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
+using Security;
 using Security.Data.Abstractions;
 
 namespace SeedDatabase.Controllers
@@ -18,14 +20,16 @@ namespace SeedDatabase.Controllers
         private readonly UserManager<Security.Data.Entities.User> _userManager;
         private readonly RoleManager<IdentityRole<string>> _roleManager;
         private readonly IStorage _storage;
+        private readonly IServiceCollection _services;
 
-        public SeedDatabaseController(UserManager<Security.Data.Entities.User> userManager,
-            RoleManager<IdentityRole<string>> roleManager,
-            IStorage storage)
+        public SeedDatabaseController(UserManager<Security.Data.Entities.User> userManager_,
+            RoleManager<IdentityRole<string>> roleManager_,
+            IStorage storage_, IServiceCollection services_)
         {
-            _userManager = userManager;
-            _roleManager = roleManager;
-            _storage = storage;
+            _userManager = userManager_;
+            _roleManager = roleManager_;
+            _storage = storage_;
+            _services = services_;
         }
 
         [HttpGet]
@@ -114,6 +118,10 @@ namespace SeedDatabase.Controllers
             try
             {
                 _storage.Save();
+
+                // Refresh application policies
+                PoliciesManager.DefineAvailablePolicies(_services, _storage);
+
                 SaveUserPermission("Admin", user_);
                 return Ok("Saving permissions ok.");
             }

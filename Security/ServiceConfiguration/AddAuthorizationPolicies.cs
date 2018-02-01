@@ -2,14 +2,9 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
-using System.Collections.Generic;
 using ExtCore.Data.Abstractions;
 using ExtCore.Infrastructure.Actions;
-using Infrastructure;
-using Infrastructure.Enums;
-using Infrastructure.Policy;
 using Microsoft.Extensions.DependencyInjection;
-using Security.Data.Abstractions;
 
 namespace Security.ServiceConfiguration
 {
@@ -35,30 +30,7 @@ namespace Security.ServiceConfiguration
         public void Execute(IServiceCollection services_, IServiceProvider serviceProvider_)
         {
             IStorage storage = serviceProvider_.GetService<IStorage>();
-
-            IEnumerable<Security.Data.Entities.Permission> permissions = storage.GetRepository<IPermissionRepository>().All();
-
-            services_.AddAuthorization(options_ =>
-                {
-                    foreach (Security.Data.Entities.Permission permission in permissions)
-                    {
-                        string claimValueAndPolicyName = PolicyUtil.GetClaimValue(permission.UniqueIdentifier);
-                        options_.AddPolicy(claimValueAndPolicyName, policy_ =>
-                        {
-                            policy_.RequireClaim(ClaimType.Permission, claimValueAndPolicyName);
-                        });
-
-                        KnownPolicies.Add(claimValueAndPolicyName);
-                    }
-
-                    // and the fallback policy
-                    FallbackPolicyProvider fallbackPolicyProvider = new FallbackPolicyProvider();
-                    options_.AddPolicy(FallbackPolicyProvider.PolicyName, fallbackPolicyProvider.GetAuthorizationPolicy());
-                    KnownPolicies.Add(FallbackPolicyProvider.PolicyName);
-
-                }
-            );
-
+            PoliciesManager.DefineAvailablePolicies(services_, storage);
         }
     }
 }
