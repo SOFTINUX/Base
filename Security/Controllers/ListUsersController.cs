@@ -13,7 +13,7 @@ using ControllerBase = Infrastructure.ControllerBase;
 
 namespace Security.Controllers
 {
-    [Authorize("Admin", "Security")]
+    [PermissionRequirement("Admin", "Security")]
     public class ListUsersController : ControllerBase
     {
         private readonly ILogger _logger;

@@ -108,7 +108,7 @@ namespace WebApplication
             services_.AddExtCore(_extensionsPath);
 
             // register for DI to for in REST controller
-            services_.AddSingleton<IServiceCollection, ServiceCollection>();
+            services_.AddScoped<IServiceCollection, ServiceCollection>();
 
         }
 

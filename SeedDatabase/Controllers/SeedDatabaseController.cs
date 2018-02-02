@@ -120,7 +120,7 @@ namespace SeedDatabase.Controllers
                 _storage.Save();
 
                 // Refresh application policies
-                PoliciesManager.DefineAvailablePolicies(_services, _storage);
+                //PoliciesManager.DefineAvailablePolicies(_services, _storage);
 
                 SaveUserPermission("Admin", user_);
                 return Ok("Saving permissions ok.");

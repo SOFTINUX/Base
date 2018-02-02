@@ -30,6 +30,8 @@ namespace Infrastructure
         /// </summary>
         private List<string> _allRequiredPolicies = new List<string>();
 
+        // TODO change type of  infrastructureAuthorizeAttributes_ to List<PermissionRequirementAttribute>
+
         public MenuItem(string url_, string name_, uint position_, string fontAwesomeClass_ = null,
             List<AuthorizeAttribute> infrastructureAuthorizeAttributes_ = null,
             List<Microsoft.AspNetCore.Authorization.AuthorizeAttribute> microsoftAuthorizeAttributes_ = null)
