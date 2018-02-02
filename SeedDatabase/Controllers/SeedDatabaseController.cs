@@ -65,40 +65,64 @@ namespace SeedDatabase.Controllers
             }
 
             // our default user
-            Security.Data.Entities.User user = new Security.Data.Entities.User {
-                FirstName = "Doe",
-                LastName = "John",
+            Security.Data.Entities.User admin = new Security.Data.Entities.User {
+                FirstName = "John",
+                LastName = "Doe",
                 Email = "johndoe@softinux.com",
                 UserName = "johndoe@softinux.com",
                 LockoutEnabled = false
             };
 
-            // add the user to the database if it doesn't already exist
-            if (await _userManager.FindByEmailAsync(user.Email) == null)
+            // second user
+            Security.Data.Entities.User janeUser = new Security.Data.Entities.User {
+                FirstName = "Jane",
+                LastName = "Fonda",
+                Email = "janefonda@softinux.com",
+                UserName = "janefonda@softinux.com",
+                LockoutEnabled = false
+            };
+
+            // second user
+            Security.Data.Entities.User paulUser = new Security.Data.Entities.User {
+                FirstName = "Paul",
+                LastName = "Keller",
+                Email = "paulkeller@softinux.com",
+                UserName = "paulkeller@softinux.com",
+                LockoutEnabled = false
+            };
+
+            bool firstUser = true;
+            foreach (var user in new[] {admin, janeUser, paulUser})
             {
-                // WARNING: Do Not check in credentials of any kind into source control
-                var result = await _userManager.CreateAsync(user, password: "123_Password");
+                // add the user to the database if it doesn't already exist
+                        if (await _userManager.FindByEmailAsync(user.Email) == null)
+                        {
+                            // WARNING: Do Not check in credentials of any kind into source control
+                            var result = await _userManager.CreateAsync(user, password: "123_Password");
 
-                if (!result.Succeeded) //return 500 if it fails
-                    return StatusCode(StatusCodes.Status500InternalServerError);
+                            if (!result.Succeeded) //return 500 if it fails
+                                return StatusCode(StatusCodes.Status500InternalServerError);
 
-                //Assign all roles to the default user
-                result = await _userManager.AddToRolesAsync(user, new[] { "Administrator" });
+                            //Assign roles to user
+                            result = await _userManager.AddToRolesAsync(user, new[] { firstUser ? "Administrator" : "User" });
 
-                if (!result.Succeeded) // return 500 if fails
-                    return StatusCode(StatusCodes.Status500InternalServerError);
+                            if (!result.Succeeded) // return 500 if fails
+                                return StatusCode(StatusCodes.Status500InternalServerError);
+                        }
+                        firstUser = false;
             }
 
-            SavePermissions(user);
+            SavePermissions();
+
+            SaveUserPermission("Admin", admin);
+
+            SaveRolePermission("Administrator", "Admin");
 
             return Ok("User Creation Ok.");
         }
 
-        private IActionResult SavePermissions(Security.Data.Entities.User user_)
+        private IActionResult SavePermissions()
         {
-            if (user_ == null)
-                return StatusCode(StatusCodes.Status204NoContent, $"User is null.");
-
             //IPermissionRepository repo = _storage.GetRepository<IPermissionRepository>();
             Infrastructure.Enums.Permission[] permissions = (Infrastructure.Enums.Permission[])Enum.GetValues(typeof(Permission));
 
@@ -119,10 +143,6 @@ namespace SeedDatabase.Controllers
             {
                 _storage.Save();
 
-                // Refresh application policies
-                //PoliciesManager.DefineAvailablePolicies(_services, _storage);
-
-                SaveUserPermission("Admin", user_);
                 return Ok("Saving permissions ok.");
             }
             catch (Exception e)
@@ -149,7 +169,7 @@ namespace SeedDatabase.Controllers
             try
             {
                 _storage.Save();
-                SaveRolePermission("Administrator", "Admin");
+
                 return Ok("Saving user permissions ok.");
             }
             catch (Exception e)
