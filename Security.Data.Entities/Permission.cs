@@ -19,7 +19,7 @@ namespace Security.Data.Entities
         /// <summary>
         /// Unique identifier : code + origin extension name.
         /// </summary>
-        public string UniqueIdentifier => PolicyUtil.GetPermissionUniqueIdentifier(Name, OriginExtension);
+        public string UniqueIdentifier => Util.GetPermissionUniqueIdentifier(Name, OriginExtension);
 
     }
 }

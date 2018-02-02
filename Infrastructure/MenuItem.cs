@@ -24,16 +24,14 @@ namespace Infrastructure
         private List<string> _anyRequiredRoles = new List<string>();
 
         /// <summary>
-        /// If not empty, all these policies are required (access granted if all matching Permission claims are possessed by current user).
+        /// If not empty, all these values are required (access granted if all matching Permission claims are possessed by current user).
         /// Menu item is decorated with either Microsoft.AspNetCore.Authorization.AuthorizeAttribute with Policy
-        /// or Infrastructure.Attributes.AuthorizeAttribute.
+        /// or Infrastructure.Attributes.PermissionRequirementAttribute.
         /// </summary>
-        private List<string> _allRequiredPolicies = new List<string>();
-
-        // TODO change type of  infrastructureAuthorizeAttributes_ to List<PermissionRequirementAttribute>
+        private List<string> _allRequiredPermissionIdentifiers = new List<string>();
 
         public MenuItem(string url_, string name_, uint position_, string fontAwesomeClass_ = null,
-            List<AuthorizeAttribute> infrastructureAuthorizeAttributes_ = null,
+            List<PermissionRequirementAttribute> infrastructureAuthorizeAttributes_ = null,
             List<Microsoft.AspNetCore.Authorization.AuthorizeAttribute> microsoftAuthorizeAttributes_ = null)
         {
             Url = url_;
@@ -50,17 +48,17 @@ namespace Infrastructure
                     if (!string.IsNullOrWhiteSpace(attr.Roles))
                         _anyRequiredRoles.AddRange(attr.Roles.Split(','));
                     if (!string.IsNullOrWhiteSpace(attr.Policy))
-                        _allRequiredPolicies.Add(attr.Policy);
+                        _allRequiredPermissionIdentifiers.Add(attr.Policy);
                 }
             }
 
             if (infrastructureAuthorizeAttributes_ != null)
             {
-                // Get the authorized policies
+                // Get the authorized permission identifiers
                 foreach (var attr in infrastructureAuthorizeAttributes_)
                 {
-                    if (!string.IsNullOrWhiteSpace(attr.Policy))
-                        _allRequiredPolicies.Add(attr.Policy);
+                    if (!string.IsNullOrWhiteSpace(attr.PermissionIdentifier))
+                        _allRequiredPermissionIdentifiers.Add(attr.PermissionIdentifier);
                 }
             }
         }
