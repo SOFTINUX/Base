@@ -7,7 +7,7 @@ using Security.Data.Entities;
 
 namespace Security.Data.Abstractions
 {
-    public interface IGroupUserRepository : IRepository
+    public interface IUserGroupRepository : IRepository
     {
         UserGroup FindBy(string groupId_, string userId_);
         IEnumerable<UserGroup> FilteredByGroupId(string groupId_);

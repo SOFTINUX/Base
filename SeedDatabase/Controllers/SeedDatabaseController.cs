@@ -20,16 +20,14 @@ namespace SeedDatabase.Controllers
         private readonly UserManager<Security.Data.Entities.User> _userManager;
         private readonly RoleManager<IdentityRole<string>> _roleManager;
         private readonly IStorage _storage;
-        private readonly IServiceCollection _services;
 
         public SeedDatabaseController(UserManager<Security.Data.Entities.User> userManager_,
             RoleManager<IdentityRole<string>> roleManager_,
-            IStorage storage_, IServiceCollection services_)
+            IStorage storage_)
         {
             _userManager = userManager_;
             _roleManager = roleManager_;
             _storage = storage_;
-            _services = services_;
         }
 
         [HttpGet]
@@ -111,19 +109,138 @@ namespace SeedDatabase.Controllers
                         }
                         firstUser = false;
             }
+            // Save PERMISSIONS
+            var saveResult = SavePermissions();
+            if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
+                return saveResult;
 
-            SavePermissions();
+            // Save GROUPS
+            saveResult = SaveGroup("ExtensionsAdministrators", "Extensions administrators");
+            if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
+                return saveResult;
 
-            SaveUserPermission("Admin", admin);
+            // Save USER-GROUP
+            // Paul is in a group
+            saveResult = SaveUserGroup("ExtensionsAdministrators", paulUser);
+            if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
+                return saveResult;
 
-            SaveRolePermission("Administrator", "Admin");
+            // Save USER-PERMISSION
+
+            // Admin
+            saveResult = SaveUserPermission(Infrastructure.Enums.Permission.Admin.ToString(), admin);
+            if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
+                return saveResult;
+
+            // Save ROLE-PERMISSION
+
+            // 1. Admin role: admin, write, read
+            saveResult = SaveRolePermission(Role.Administrator.ToString(), Infrastructure.Enums.Permission.Admin.ToString());
+            if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
+                return saveResult;
+
+            saveResult = SaveRolePermission(Role.Administrator.ToString(), Infrastructure.Enums.Permission.Write.ToString());
+            if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
+                return saveResult;
+
+            saveResult = SaveRolePermission(Role.Administrator.ToString(), Infrastructure.Enums.Permission.Read.ToString());
+            if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
+                return saveResult;
+
+            // 2. User role: write, read
+            saveResult = SaveRolePermission(Role.User.ToString(), Infrastructure.Enums.Permission.Write.ToString());
+            if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
+                return saveResult;
+
+            saveResult = SaveRolePermission(Role.User.ToString(), Infrastructure.Enums.Permission.Read.ToString());
+            if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
+                return saveResult;
+
+            saveResult = SaveRolePermission(Role.Administrator.ToString(), "Extension1.Admin");
+            if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
+                return saveResult;
+
+            // Save GROUP-PERMISSION
+            // The group "ExtensionsAdministrators" (which contains Paul) has right for extension1 administration
+            saveResult = SaveGroupPermission("Extension1.Admin", "ExtensionsAdministrators");
+            if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
+                return saveResult;
 
             return Ok("User Creation Ok.");
         }
 
+        private IActionResult SaveGroupPermission(string permissionId_, string groupId_)
+        {
+            if (!string.IsNullOrWhiteSpace(permissionId_) && !string.IsNullOrWhiteSpace(groupId_))
+            {
+                Security.Data.Entities.GroupPermission groupPermission = new Security.Data.Entities.GroupPermission()
+                {
+                    GroupId = groupId_,
+                    PermissionId = permissionId_
+                };
+
+                _storage.GetRepository<IGroupPermissionRepository>().Create(groupPermission);
+            }
+            try
+            {
+                _storage.Save();
+
+                return Ok("Saving group-permission ok.");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Cannot saving group-permission. Error: {e.Message}");
+            }
+        }
+
+        private IActionResult SaveUserGroup(string groupId_, Security.Data.Entities.User user_)
+        {
+            if (!string.IsNullOrWhiteSpace(groupId_) && user_ != null)
+            {
+                Security.Data.Entities.UserGroup userGroup = new Security.Data.Entities.UserGroup()
+                {
+                    UserId = user_.Id,
+                    GroupId = groupId_
+                };
+
+                _storage.GetRepository<IUserGroupRepository>().Create(userGroup);
+            }
+            try
+            {
+                _storage.Save();
+
+                return Ok("Saving user-group ok.");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Cannot saving user-group. Error: {e.Message}");
+            }
+        }
+
+        private IActionResult SaveGroup(string id_, string name_)
+        {
+            Security.Data.Entities.Group extensionsAdminGroup = new Security.Data.Entities.Group
+            {
+                Id = id_,
+                Name = name_
+            };
+
+            _storage.GetRepository<IGroupRepository>().Create(extensionsAdminGroup);
+
+            try
+            {
+                _storage.Save();
+
+                return Ok("Saving group ok.");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Cannot saving group. Error: {e.Message}");
+            }
+        }
+
         private IActionResult SavePermissions()
         {
-            //IPermissionRepository repo = _storage.GetRepository<IPermissionRepository>();
             Infrastructure.Enums.Permission[] permissions = (Infrastructure.Enums.Permission[])Enum.GetValues(typeof(Permission));
 
             foreach(var p in permissions)
@@ -139,6 +256,16 @@ namespace SeedDatabase.Controllers
                 _storage.GetRepository<IPermissionRepository>().Create(permission);
             }
 
+            // Permission for extension1 administration
+            Security.Data.Entities.Permission permission1 = new Security.Data.Entities.Permission()
+            {
+                Id = "Extension1.Admin", // OriginExtension + Name
+                Name = "Admin",
+                OriginExtension = "Extension1"
+            };
+
+            _storage.GetRepository<IPermissionRepository>().Create(permission1);
+
             try
             {
                 _storage.Save();
@@ -147,16 +274,13 @@ namespace SeedDatabase.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status204NoContent, $"Cannot saving permissions. Error: {e.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Cannot saving permissions. Error: {e.Message}");
             }
         }
 
         private IActionResult SaveUserPermission(string permissionId_, Security.Data.Entities.User user_)
         {
-            if (
-                (!string.IsNullOrEmpty(permissionId_) || !string.IsNullOrWhiteSpace(permissionId_)) &&
-                user_ != null
-                )
+            if (!string.IsNullOrWhiteSpace(permissionId_) && user_ != null)
             {
                 Security.Data.Entities.UserPermission userPermission = new Security.Data.Entities.UserPermission()
                 {
@@ -170,19 +294,19 @@ namespace SeedDatabase.Controllers
             {
                 _storage.Save();
 
-                return Ok("Saving user permissions ok.");
+                return Ok("Saving user-permission ok.");
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status204NoContent, $"Cannot saving user permissions. Error: {e.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Cannot saving user-permission. Error: {e.Message}");
             }
         }
 
         private IActionResult SaveRolePermission(string roleId_, string permissionId_)
         {
             if (
-                (!string.IsNullOrEmpty(permissionId_) || !string.IsNullOrWhiteSpace(permissionId_)) &&
-                (!string.IsNullOrEmpty(roleId_) || !string.IsNullOrWhiteSpace(roleId_))
+                (!string.IsNullOrWhiteSpace(permissionId_)) &&
+                (!string.IsNullOrWhiteSpace(roleId_))
                 )
             {
                 Security.Data.Entities.RolePermission rolePermission = new Security.Data.Entities.RolePermission()
@@ -196,11 +320,11 @@ namespace SeedDatabase.Controllers
             try
             {
                 _storage.Save();
-                return Ok("Saving role permissions ok.");
+                return Ok("Saving role-permission ok.");
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status204NoContent, $"Cannot saving role permissions. Error: {e.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Cannot saving role-permission. Error: {e.Message}");
             }
         }
 

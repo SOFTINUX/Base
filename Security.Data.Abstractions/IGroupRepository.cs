@@ -10,12 +10,12 @@ namespace Security.Data.Abstractions
     public interface IGroupRepository : IRepository
     {
         /// <summary>
-        /// Finds a group by code and origin extension assembly "short name" (Assembly.GetName().Name).
+        /// Finds a group by name and origin extension assembly "short name" (Assembly.GetName().Name).
         /// </summary>
-        /// <param name="code_"></param>
+        /// <param name="name_"></param>
         /// <param name="originExtensionAssemblyName_">extension assembly "short name" (Assembly.GetName().Name)</param>
         /// <returns></returns>
-        Group FindBy(string code_, string originExtensionAssemblyName_);
+        Group FindBy(string name_, string originExtensionAssemblyName_);
         IEnumerable<Group> All();
         void Create(Group entity_);
         void Edit(Group entity_);

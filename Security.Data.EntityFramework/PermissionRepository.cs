@@ -13,9 +13,9 @@ namespace Security.Data.EntityFramework
 {
     public class PermissionRepository : RepositoryBase<Permission>, IPermissionRepository
     {
-        public virtual Permission FindBy(string code_, string originExtensionAssemblyName_)
+        public virtual Permission FindBy(string name_, string originExtensionAssemblyName_)
         {
-            return dbSet.FirstOrDefault(e_ => e_.Name == code_ && e_.OriginExtension == originExtensionAssemblyName_);
+            return dbSet.FirstOrDefault(e_ => e_.Name == name_ && e_.OriginExtension == originExtensionAssemblyName_);
         }
 
         public virtual IEnumerable<Permission> All()

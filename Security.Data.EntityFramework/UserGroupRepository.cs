@@ -10,7 +10,7 @@ using Security.Data.Entities;
 
 namespace Security.Data.EntityFramework
 {
-    public class GroupUserRepository : RepositoryBase<UserGroup>, IGroupUserRepository
+    public class UserGroupRepository : RepositoryBase<UserGroup>, IUserGroupRepository
     {
        public virtual IEnumerable<UserGroup> All()
         {

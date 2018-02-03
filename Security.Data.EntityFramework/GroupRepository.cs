@@ -12,9 +12,9 @@ namespace Security.Data.EntityFramework
 {
     public class GroupRepository : RepositoryBase<Group>, IGroupRepository
     {
-        public virtual Group FindBy(string code_, string originExtensionAssemblyName_)
+        public virtual Group FindBy(string name_, string originExtensionAssemblyName_)
         {
-            return dbSet.FirstOrDefault(e_ => e_.Name == code_);
+            return dbSet.FirstOrDefault(e_ => e_.Name == name_);
         }
 
         public virtual IEnumerable<Group> All()
