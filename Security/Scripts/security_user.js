@@ -29,10 +29,10 @@ $(function() {
 
 function edit_state(fieldsetid, editbtnid) {
     event.preventDefault();
+    $("#cancel_" + editbtnid).removeClass("hidden");
     if ($("#" + fieldsetid).prop("disabled")) {
         $("#" + fieldsetid).removeAttr('disabled');
         $("#" + editbtnid).prop("disabled", true);
-        $("#cancel_" + editbtnid).prop("visible", true);
     }
 }
 
