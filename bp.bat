@@ -8,8 +8,8 @@ IF "%1" == "/?" GOTO Help
 IF "%1" == "-h" GOTO Help
 IF "%1" == "clean" GOTO Clean
 IF "%1" == "build" GOTO Build
-IF "%1" == "copydeps" GOTO CopyDeps
-IF "%1" == "copyexts" GOTO CopyExts
+IF "%1" == "copyexts" GOTO CopyDeps
+IF "%1" == "copydeps" GOTO CopyExts
 
 GOTO Clean
 
@@ -33,6 +33,7 @@ echo ###################
 echo Copy Dependencies
 echo ###################
 set dst_folder=.\WebApplication\bin\Debug\netcoreapp2.0\
+if not exist "%dst_folder%" GOTO End
 for /f "tokens=*" %%i in (dependencies.txt) DO (
     xcopy /S/E/Y "%%i" "%dst_folder%"
 )
@@ -43,6 +44,7 @@ echo ###################
 echo Copy extensions
 echo ###################
 set dst_folder=.\WebApplication\Extensions\
+if not exist "%dst_folder%" mkdir "%dst_folder%"
 for /f "tokens=*" %%i in (extensions.txt) DO (
     xcopy /S/E/Y "%%i" "%dst_folder%"
 )

@@ -12,6 +12,16 @@
     <None Remove="Views\Shared\_ListClaims.cshtml" />
     <None Remove="Views\Shared\_User_Profile_Details.cshtml" />
     <None Remove="Views\_ViewImports.cshtml" />
+    <None Remove="..\Barebone\node_modules\datatables.net\js\jquery.dataTables.js" />
+    <None Remove="..\Barebone\node_modules\datatables.net-bs\js\dataTables.bootstrap.js" />
+    <None Remove="..\Barebone\node_modules\datatables.net-bs\css\dataTables.bootstrap.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Barebone\node_modules\datatables.net\js\jquery.dataTables.js" />
+    <EmbeddedResource Include="..\Barebone\node_modules\datatables.net-bs\js\dataTables.bootstrap.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Barebone\node_modules\datatables.net-bs\css\dataTables.bootstrap.css" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
