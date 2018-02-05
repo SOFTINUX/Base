@@ -14,14 +14,18 @@
     <None Remove="Views\_ViewImports.cshtml" />
     <None Remove="..\Barebone\node_modules\datatables.net\js\jquery.dataTables.js" />
     <None Remove="..\Barebone\node_modules\datatables.net-bs\js\dataTables.bootstrap.js" />
+    <None Remove="..\Barebone\node_modules\datatables.net-select\js\dataTables.select.min.js" />
     <None Remove="..\Barebone\node_modules\datatables.net-bs\css\dataTables.bootstrap.css" />
+    <None Remove="..\Barebone\node_modules\datatables.net-select-bs\css\select.bootstrap.min.css" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\Barebone\node_modules\datatables.net\js\jquery.dataTables.js" />
     <EmbeddedResource Include="..\Barebone\node_modules\datatables.net-bs\js\dataTables.bootstrap.js" />
+    <EmbeddedResource Include="..\Barebone\node_modules\datatables.net-select\js\dataTables.select.min.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\Barebone\node_modules\datatables.net-bs\css\dataTables.bootstrap.css" />
+    <EmbeddedResource Include="..\Barebone\node_modules\datatables.net-select-bs\css\select.bootstrap.min.css" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />

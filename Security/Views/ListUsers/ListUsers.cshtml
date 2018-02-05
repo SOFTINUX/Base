@@ -15,6 +15,7 @@
 
 @section Styles {
     <link rel="stylesheet" href="/dataTables.bootstrap.css">
+    <link rel="stylesheet" href="/select.bootstrap.min.css">
 }
 
 <div class="row">
@@ -24,51 +25,49 @@
             <div class="box-body">
                 <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                     <div class="row">
+                        <div class="col-sm-6">
+                            <div class="dt-buttons btn-group">
+                                <button class="btn btn-primary button-selected button-edit" tabindex="0" aria-controls="example">
+                                    <span>Edit</span>
+                                </button>
+                                <button class="btn btn-danger button-selected button-remove" tabindex="0" aria-controls="example">
+                                    <span>Delete</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-12">
                             <table id="table_userList" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="userlist">
                                 <thead>
-                                    <tr role="row">
-                                        <th class="sorting" style="width: 10px">#</th>
-                                        <th class="sorting" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending">Name</th>
-                                        <th class="sorting" rowspan="1" colspan="1" aria-label="Guid: activate to sort column ascending">Guid</th>
-                                        <th class="sorting" rowspan="1" colspan="1">Modify</th>
-                                        <th class="sorting" rowspan="1" colspan="1">Delete</th>
-                                    </tr>
+                                <tr role="row">
+                                    <th class="sorting" style="width: 10px">#</th>
+                                    <th class="sorting" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending">Name</th>
+                                    <th class="sorting" rowspan="1" colspan="1" aria-label="Guid: activate to sort column ascending">Guid</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    @{
-                                        int counter = 1;
-                                        foreach (var item in ViewBag.userlist)
-                                        {
-                                            <tr role="row">
-                                                <th scope="row">@counter</th>
-                                                <td>
-                                                    @item.Text
-                                                </td>
-                                                <td>
-                                                    @item.Value
-                                                </td>
-                                                <td>
-                                                    <span data-toggle="modal" data-target="#modal-default">
-                                                        <button rel="tooltip" class="btn center-cell-button" data-toggle="tooltip" title="Edit User"><i class="fa fa-edit"></i></button>
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <button rel="tooltip" class="btn btn-danger center-cell-button" data-toggle="tooltip" title="Delete User"><i class="fa fa-trash-o"></i></button>
-                                                </td>
-                                            </tr>
-                                            counter++;
-                                        }
+                                @{
+                                    int counter = 1;
+                                    foreach (var item in ViewBag.userlist)
+                                    {
+                                        <tr role="row">
+                                            <th scope="row">@counter</th>
+                                            <td>
+                                                @item.Text
+                                            </td>
+                                            <td>
+                                                @item.Value
+                                            </td>
+                                        </tr>
+                                        counter++;
                                     }
+                                }
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-5">
-                            <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing [x] to [x] of [x] entries</div>
-                        </div>
-                        <div class="col-sm-7">here pagination</div>
                     </div>
                 </div>
             </div>
@@ -103,9 +102,25 @@
     {
     <script src="/jquery.dataTables.js"></script>
     <script src="/dataTables.bootstrap.js"></script>
+    <script src="/dataTables.select.min.js"></script>
     <script>
         $(document).ready(function () {
             $('[rel="tooltip"]').tooltip({ trigger: "hover" });
+
+            var table = $("#table_userList").DataTable({
+                lengthChange: false,
+                select: true
+            });
+
+            @* Display the buttons *@
+            new $.fn.dataTable.Buttons( table, [
+                { extend: "edit", editor: editor },
+                { extend: "delete", editor: editor }
+            ] );
+
+            table.buttons().container()
+                .appendTo( $('.col-sm-6:eq(0)', table.table().container() ) );
         });
+
     </script>
 }
