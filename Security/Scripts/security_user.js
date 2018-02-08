@@ -43,6 +43,7 @@ $(function() {
 function edit_state(fieldsetid, editbtnid) {
     event.preventDefault();
     $("#cancel_" + editbtnid).removeClass("hidden");
+    $("button#" + editbtnid).addClass("hidden");
     $("#file_browser").addClass("btn-primary");
     $("#file_browser").removeClass("btn-default");
     if ($("#" + fieldsetid).prop("disabled")) {
@@ -57,6 +58,7 @@ function cancel_edit_state(formid, fieldsetid, editbtnid, editbtntxt) {
     $("#" + editbtnid).prop("disabled", false);
     $("button#" + editbtnid).text(editbtntxt);
     $("#cancel_" + editbtnid).addClass("hidden");
+    $("button#" + editbtnid).removeClass("hidden");
     $("#file_browser").removeClass("btn-primary");
     $("#" + editbtnid).removeClass("btn-success").addClass("btn-primary");
     $("#" + formid)[0].reset();
@@ -67,4 +69,5 @@ function input_changed(editbtnid) {
     $("#" + editbtnid).removeClass("btn-primary").addClass("btn-success");
     $("button#" + editbtnid).text("Save");
     $("#cancel_" + editbtnid).removeClass("hidden");
+    $("button#" + editbtnid).removeClass("hidden");
 }
