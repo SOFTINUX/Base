@@ -2,20 +2,14 @@
     Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 *@
 
-@using Security.Data.Entities
-
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
 @section title {
     <h2>Users List</h2>
-
 }
 
 @section Styles {
     <link rel="stylesheet" href="/dataTables.bootstrap.css">
     <link rel="stylesheet" href="/select.bootstrap.min.css">
+    <link rel="stylesheet" href="/buttons.bootstrap.min.css">
 }
 
 <div class="row">
@@ -26,14 +20,6 @@
                 <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="dt-buttons btn-group">
-                                <button class="btn btn-primary button-selected button-edit" tabindex="0" aria-controls="example">
-                                    <span>Edit</span>
-                                </button>
-                                <button class="btn btn-danger button-selected button-remove" tabindex="0" aria-controls="example">
-                                    <span>Delete</span>
-                                </button>
-                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -99,12 +85,14 @@
 </div>
 
 @section Scripts
-    {
+{
     <script src="/jquery.dataTables.js"></script>
     <script src="/dataTables.bootstrap.js"></script>
     <script src="/dataTables.select.min.js"></script>
+    <script src="/dataTables.buttons.min.js"></script>
+    <script src="/buttons.bootstrap.min.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('[rel="tooltip"]').tooltip({ trigger: "hover" });
 
             var table = $("#table_userList").DataTable({
@@ -113,14 +101,26 @@
             });
 
             @* Display the buttons *@
-            new $.fn.dataTable.Buttons( table, [
-                { extend: "edit", editor: editor },
-                { extend: "delete", editor: editor }
-            ] );
+            new $.fn.dataTable.Buttons( table, {
+                buttons: [
+                    {
+                        text: 'Edit',
+                        action: function ( e, dt, node, config ) {
+                            alert( 'Button Edit activated' );
+                        }
+                    },
+                    {
+                        text: 'Delete',
+                        action: function ( e, dt, node, config ) {
+                            alert( 'Button Delete activated' );
+                        }
+                    }
+                ]
+            } );
 
-            table.buttons().container()
-                .appendTo( $('.col-sm-6:eq(0)', table.table().container() ) );
-        });
+        table.buttons().container()
+            .appendTo($('.col-sm-6:eq(0)', table.table().container()));
+    });
 
     </script>
 }
