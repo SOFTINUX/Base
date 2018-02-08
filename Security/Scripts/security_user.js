@@ -25,11 +25,26 @@ $(function() {
     $("#pwd_form :input").bind("keyup change paste", function() {
         input_changed("change_pwd-btn");
     });
+
+    $('#file_browser').click(function(e){
+        e.preventDefault();
+        $('#inputAvatar').click();
+    });
+
+    $('#inputAvatar').change(function(){
+        $('#file_path').val($(this).val());
+    });
+
+    /*$('#file_path').click(function(){
+        $('#file_browser').click();
+    });*/
 });
 
 function edit_state(fieldsetid, editbtnid) {
     event.preventDefault();
     $("#cancel_" + editbtnid).removeClass("hidden");
+    $("#file_browser").addClass("btn-primary");
+    $("#file_browser").removeClass("btn-default");
     if ($("#" + fieldsetid).prop("disabled")) {
         $("#" + fieldsetid).removeAttr('disabled');
         $("#" + editbtnid).prop("disabled", true);
@@ -42,6 +57,7 @@ function cancel_edit_state(formid, fieldsetid, editbtnid, editbtntxt) {
     $("#" + editbtnid).prop("disabled", false);
     $("button#" + editbtnid).text(editbtntxt);
     $("#cancel_" + editbtnid).addClass("hidden");
+    $("#file_browser").removeClass("btn-primary");
     $("#" + editbtnid).removeClass("btn-success").addClass("btn-primary");
     $("#" + formid)[0].reset();
 }
