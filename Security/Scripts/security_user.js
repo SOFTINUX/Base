@@ -44,8 +44,10 @@ function edit_state(fieldsetid, editbtnid) {
     event.preventDefault();
     $("#cancel_" + editbtnid).removeClass("hidden");
     $("button#" + editbtnid).addClass("hidden");
-    $("#file_browser").addClass("btn-primary");
-    $("#file_browser").removeClass("btn-default");
+    if (editbtnid === "save_profile_btn") {
+        $("#file_browser").addClass("btn-primary");
+        $("#file_browser").removeClass("btn-default");
+    }
     if ($("#" + fieldsetid).prop("disabled")) {
         $("#" + fieldsetid).removeAttr('disabled');
         $("#" + editbtnid).prop("disabled", true);

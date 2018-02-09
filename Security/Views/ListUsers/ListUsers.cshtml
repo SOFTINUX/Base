@@ -26,29 +26,29 @@
                         <div class="col-md-12">
                             <table id="table_userList" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="userlist">
                                 <thead>
-                                <tr role="row">
-                                    <th class="sorting" style="width: 10px">#</th>
-                                    <th class="sorting" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending">Name</th>
-                                    <th class="sorting" rowspan="1" colspan="1" aria-label="Guid: activate to sort column ascending">Guid</th>
-                                </tr>
+                                    <tr role="row">
+                                        <th class="sorting" style="width: 10px">#</th>
+                                        <th class="sorting" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending">Name</th>
+                                        <th class="sorting" rowspan="1" colspan="1" aria-label="Guid: activate to sort column ascending">Guid</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                @{
-                                    int counter = 1;
-                                    foreach (var item in ViewBag.userlist)
-                                    {
-                                        <tr role="row">
-                                            <th scope="row">@counter</th>
-                                            <td>
-                                                @item.Text
-                                            </td>
-                                            <td>
-                                                @item.Value
-                                            </td>
-                                        </tr>
-                                        counter++;
+                                    @{
+                                        int counter = 1;
+                                        foreach (var item in ViewBag.userlist)
+                                        {
+                                            <tr role="row">
+                                                <th scope="row">@counter</th>
+                                                <td>
+                                                    @item.Text
+                                                </td>
+                                                <td>
+                                                    @item.Value
+                                                </td>
+                                            </tr>
+                                            counter++;
+                                        }
                                     }
-                                }
                                 </tbody>
                             </table>
                         </div>
@@ -63,19 +63,109 @@
 </div>
 
 <div class="modal fade" id="modal-default" style="display: none;">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
-                <h4 class="modal-title">Default Modal</h4>
+                <h4 class="modal-title">Modify User</h4>
             </div>
             <div class="modal-body">
-                <p>One fine body…</p>
+                <h3><i class="fa fa-globe" aria-hidden="true"></i>&nbsp;&nbsp;Profile Information</h3>
+                <form id="profile_form" class="form-horizontal">
+                    <fieldset id="profile_form_fieldset" form="profile_form">
+                        <div class="form-group">
+                            <label for="userName" class="col-sm-2 control-label">User Name</label>
+                            <div class="col-sm-10">
+                                <input id="userName" class="form-control admin-label" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastConnexion" class="col-sm-2 control-label">Last Connexion</label>
+                            <div class="col-sm-10">
+                                <input id="lastConnexion" class="form-control admin-label" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="emailconfirmed" class="col-sm-2 control-label">Email Confirmed</label>
+                            <div class="col-sm-10">
+                                <input type="checkbox" id="emailconfirmed" name="iCheck">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="twofactorauth" class="col-sm-2 control-label">Two Factor Authentication</label>
+                            <div class="col-sm-10">
+                                <input type="checkbox" id="twofactorauth" name="iCheck">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPicture" class="col-sm-2 control-label">Profile Picture </label>
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="button" id="file_browser">
+                                            <i class="fa fa-folder-open"></i> Browse
+                                        </button>
+                                    </span>
+                                    <input type="text" id="file_path" class="form-control" placeholder="Browse..." readonly>
+                                </div>
+                                <input type="file" class="hidden" id="inputAvatar" name="file" accept="image/*">
+                                <img src="" class="hidden" id="avatar_preview" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputFirstname" class="col-sm-2 control-label">First Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputFirstname" placeholder="First Name" value="1" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputLastname" class="col-sm-2 control-label">Last Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputLastname" placeholder="Last Name" value="1" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                            <div class="col-sm-10">
+                                <input type="tel" class="form-control" id="inputEmail" placeholder="Email" value="1" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPhone" class="col-sm-2 control-label">Phone</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" data-inputmask="mask: +32(9[99])[9]99-99-99" data-mask="" value="1">
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+                <h3><i class="fa fa-globe" aria-hidden="true"></i>&nbsp;&nbsp;Change Password</h3>
+                <form id="pwd_form" class="form-horizontal">
+                    <fieldset id="pwd_form_fliedset" form="pwd_form" disabled>
+                        <div class="form-group">
+                            <label for="inputNewPassword" class="col-sm-2 control-label">New Password</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="inputNewPassword" placeholder="New password" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputNewPassword2" class="col-sm-2 control-label">Confirm Password</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="inputNewPassword2" placeholder="Repeat new password" />
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="cancel_change_pwd-btn" class="btn btn-danger hidden">Cancel</button>
+                            <button id="change_pwd-btn" class="btn btn-primary">Change</button>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
@@ -85,7 +175,7 @@
 </div>
 
 @section Scripts
-{
+    {
     <script src="/jquery.dataTables.js"></script>
     <script src="/dataTables.bootstrap.js"></script>
     <script src="/dataTables.select.min.js"></script>
@@ -106,7 +196,7 @@
                     {
                         text: 'Edit',
                         action: function ( e, dt, node, config ) {
-                            alert( 'Button Edit activated' );
+                            $("#modal-default").modal("show");
                         }
                     },
                     {
@@ -118,9 +208,15 @@
                 ]
             } );
 
-        table.buttons().container()
-            .appendTo($('.col-sm-6:eq(0)', table.table().container()));
-    });
+            table.buttons().container()
+                .appendTo($('.col-sm-6:eq(0)', table.table().container()));
+
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_minimal',
+                radioClass: 'iradio_minimal',
+                //increaseArea: '20%' // optional
+            });
+        });
 
     </script>
 }
