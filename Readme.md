@@ -46,6 +46,9 @@ If you launched application from Visual Studio, this port will change, <br />
 being randomly defined, and value is stored in *WebApplication/Properties/launchSettings.json* <br />
 You can edit this value in Visual Studio: WebApplication's properties > Debug tab > Web Server Settings/App URL or directly in launchSettings file.<br />
 After, the default port used by *dotnet run* is the port defined in *WebApplication/Properties/launchSettings.json*.
+#### Information About Rider 2017.3
+Rider 2017.3 cannot execute the PostBuildEvent declared into WebApplication.csproj
+You need to execute `./bp.sh copyexts` and `./bp.sh copydeps` after build the solution or project.
 
 #### 7. Add the first user (demo user)
 With Postman (or the program of your choice) make a POST request to this url: http://localhost:5000/dev/seed/CreateUser<br />
