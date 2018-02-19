@@ -25,3 +25,16 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
 input[readonly].admin-label {
     background: #fff;
 }
+
+.modal-warning-alternative .modal-header {
+    background-color: #db8b0b;
+}
+
+.modal-warning-alternative .modal-title {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.modal-warning-alternative .modal-footer {
+    background-color: #dedede;
+}
