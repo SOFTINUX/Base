@@ -44,10 +44,8 @@ namespace Security.Controllers
         [Route("administration/listusers/edituser")]
         public IActionResult EditUser(string userId_)
         {
-            ViewBag.user = _usersmanager.Users.FirstOrDefault(u_ => u_.Id == userId_);
-            throw new NotImplementedException("Edit user is not implemented");
-
-            return View("ListUsers");
+            var user = _usersmanager.Users.FirstOrDefault(u_ => u_.Id == userId_);
+            return View("Admin_Edit_User", user);
         }
     }
 }
