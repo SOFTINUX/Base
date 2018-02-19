@@ -195,7 +195,7 @@
 </div>
 
 @section Scripts
-    {
+{
     <script src="/jquery.dataTables.js"></script>
     <script src="/dataTables.bootstrap.js"></script>
     <script src="/dataTables.select.min.js"></script>
@@ -211,27 +211,34 @@
             });
 
             @* Display the buttons *@
-            new $.fn.dataTable.Buttons( table, {
-                buttons: [
-                    {
-                        text: 'Edit',
-                        action: function ( e, dt, node, config ) {
-                            var count = table.rows( { selected: true } ).count();
-                            if (count === 1 )
-                                $("#modal-default").modal("show");
-                            else {
-                                $("#modal-alert").modal("show");
+            new $.fn.dataTable.Buttons(table,
+                {
+                    buttons: [
+                        {
+                            text: 'Edit',
+                            action: function(e, dt, node, config) {
+                                var count = table.rows({ selected: true }).count();
+                                if (count === 1) {
+                                    var sdata = table.cell('.selected', 2).data();
+                                   /* $modal.load("@Url.Action("EditUser", "ListUsers")",
+                                        function() {
+                                            //var $modal = $('#modal-default');
+                                            $("#modal-default").modal("show");
+                                        });*/
+                                    $("#modal-default").modal("show");
+                                } else {
+                                    $("#modal-alert").modal("show");
+                                }
+                            }
+                        },
+                        {
+                            text: 'Delete',
+                            action: function(e, dt, node, config) {
+                                alert('Button Delete activated');
                             }
                         }
-                    },
-                    {
-                        text: 'Delete',
-                        action: function ( e, dt, node, config ) {
-                            alert( 'Button Delete activated' );
-                        }
-                    }
-                ]
-            } );
+                    ]
+                });
 
             table.buttons().container()
                 .appendTo($('.col-sm-6:eq(0)', table.table().container()));

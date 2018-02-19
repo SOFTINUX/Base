@@ -46,6 +46,8 @@ namespace Security.Controllers
         {
             ViewBag.user = _usersmanager.Users.FirstOrDefault(u_ => u_.Id == userId_);
             throw new NotImplementedException("Edit user is not implemented");
+
+            return View("ListUsers");
         }
     }
 }
