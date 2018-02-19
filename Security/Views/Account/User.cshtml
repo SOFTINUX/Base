@@ -17,8 +17,6 @@
     User user_ = UserManager.GetUserAsync(User).Result;
 }
 
-@model User
-
 <div class="row">
     <div class="col-md-3">
         @Html.Partial("_User_Profile_Details_Card", user_)

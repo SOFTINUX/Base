@@ -3,11 +3,11 @@
 
 $(function() {
     $("#save_profile_btn").click(function(event) {
-        edit_state("profile_form_fieldset", "save_profile_btn");
+        edit_state("profile_form_fieldset", "save_profile_btn", event);
     });
 
     $("#cancel_save_profile_btn").click(function(event) {
-        cancel_edit_state("profile_form", "profile_form_fieldset", "save_profile_btn", "Edit");
+        cancel_edit_state("profile_form", "profile_form_fieldset", "save_profile_btn", "Edit", event);
     });
 
     $("#profile_form :input").bind("keyup change paste", function() {
@@ -15,19 +15,19 @@ $(function() {
     });
 
     $("#change_pwd-btn").click(function(event) {
-        edit_state("pwd_form_fliedset", "change_pwd-btn");
+        edit_state("pwd_form_fliedset", "change_pwd-btn", event);
     });
 
     $("#cancel_change_pwd-btn").click(function(event) {
-        cancel_edit_state("pwd_form", "pwd_form_fliedset", "change_pwd-btn", "Change");
+        cancel_edit_state("pwd_form", "pwd_form_fliedset", "change_pwd-btn", "Change", event);
     });
 
     $("#pwd_form :input").bind("keyup change paste", function() {
         input_changed("change_pwd-btn");
     });
 
-    $('#file_browser').click(function(e){
-        e.preventDefault();
+    $('#file_browser').click(function(event){
+        event.preventDefault();
         $('#inputAvatar').click();
     });
 
@@ -40,7 +40,7 @@ $(function() {
     });*/
 });
 
-function edit_state(fieldsetid, editbtnid) {
+function edit_state(fieldsetid, editbtnid, event) {
     event.preventDefault();
     $("#cancel_" + editbtnid).removeClass("hidden");
     $("button#" + editbtnid).addClass("hidden");
@@ -54,7 +54,7 @@ function edit_state(fieldsetid, editbtnid) {
     }
 }
 
-function cancel_edit_state(formid, fieldsetid, editbtnid, editbtntxt) {
+function cancel_edit_state(formid, fieldsetid, editbtnid, editbtntxt, event) {
     event.preventDefault();
     $("#" + fieldsetid).prop('disabled', true);
     $("#" + editbtnid).prop("disabled", false);

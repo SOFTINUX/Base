@@ -38,6 +38,6 @@
     <ProjectReference Include="..\Security.Data.EntityFramework\Security.Data.EntityFramework.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Scripts\" />
+    <Folder Include="Scripts" />
   </ItemGroup>
 </Project>
