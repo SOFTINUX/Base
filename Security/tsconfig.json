@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "out": "Scripts/CCSEQ.Library.js",
+        "module": "amd",
+        "sourceMap": true,
+        "target": "es5",
+        "allowJs": true,
+        "typeRoots": [
+            "../Barebone/node_modules/@types"
+            ]
+    }
+}
