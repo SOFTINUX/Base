@@ -5,10 +5,10 @@ namespace Infrastructure.Enums
 {
     public enum Permission
     {
-        Admin,
-        Write,
-        Read,
-        Never
+        Never = 0,
+        Read = 1,
+        Write = 2,
+        Admin = 4
     }
 
     public static class PermissionHelper

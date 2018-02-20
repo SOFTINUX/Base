@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ExtCore.Data.Abstractions;
 using Infrastructure.Attributes;
-using Microsoft.Data.OData.Query.SemanticAst;
 using Microsoft.Extensions.Logging;
 using Security.Data.Entities;
 using ControllerBase = Infrastructure.ControllerBase;
@@ -19,7 +18,6 @@ namespace Security.Controllers
     public class ListUsersController : ControllerBase
     {
         private readonly ILogger _logger;
-        private readonly IStorage _storage;
         private readonly UserManager<User> _usersmanager;
         //public  List<IdentityUserRole<string>> Roles { get; set; }
 
@@ -29,7 +27,6 @@ namespace Security.Controllers
             _logger.LogInformation("oups");
 
             _usersmanager = users_;
-            _storage = storage_;
         }
 
         // GET

@@ -23,6 +23,9 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
 @{
     string authClass="";
     authClass = !User.Identity.IsAuthenticated ? "hold-transition login-page" : "hold-transition skin-blue sidebar-mini";
+    // use typed "properties" variable else the compiler isn't able to understand the LINQ expression.
+    System.Reflection.PropertyInfo[] properties = Model?.GetType().GetProperties();
+    bool hasModelWithErrorMessageProperty = properties != null && properties.Where(p => p.Name.Equals("ErrorMessage")).Any();
 }
 <body class="@authClass">
     <div class="wrapper">
@@ -93,7 +96,7 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
         }
 
         @* Error Message On SignIn Fail *@
-        @if (Model != null && !String.IsNullOrEmpty(Model.ErrorMessage))
+        @if (Model != null && hasModelWithErrorMessageProperty && !String.IsNullOrEmpty(Model.ErrorMessage))
         {
             <div id="notification" class="show">
                 <div class="alert alert-danger" role="alert">

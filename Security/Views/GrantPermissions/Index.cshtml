@@ -1,0 +1,103 @@
+@* Copyright © 2017 SOFTINUX. All rights reserved.
+    Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+*@
+@model Security.ViewModels.Permissions.GlobalGrantViewModel
+
+@section title {
+    <h2>Global Permissions</h2>
+}
+
+@section Styles {
+    <link rel="stylesheet" href="/dataTables.bootstrap.css">
+    <link rel="stylesheet" href="/select.bootstrap.min.css">
+    <link rel="stylesheet" href="/buttons.bootstrap.min.css">
+}
+
+
+@* https://datatables.net/examples/advanced_init/html5-data-attributes.html
+interesting for adding sorting/filtering capabilities to columns that will be rendered by a checkbox.
+*@
+
+<h3>Role access</h3>
+<div class="row">
+    <div class="col-md-12">
+        @* .box *@
+        <div class="box">
+            <div class="box-body">
+                <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                    <div class="row">
+                        <div class="col-sm-6">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="table_grantingsList" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="grantings">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting" style="width: 10px">#</th>
+                                        <th class="sorting" rowspan="1" colspan="1" aria-label="Role: activate to sort column ascending"> </th>
+                                        <th class="sorting" rowspan="1" colspan="1" aria-label="Activate to sort column ascending">Admin</th>
+                                        <th class="sorting" rowspan="1" colspan="1" aria-label="Activate to sort column ascending">Write</th>
+                                        <th class="sorting" rowspan="1" colspan="1" aria-label="Activate to sort column ascending">Read</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int counter = 1;
+                                        foreach (var item in Model.RolePermissions.Keys)
+                                        {
+                                            <tr role="row">
+                                                <th scope="row">@counter</th>
+                                                <td>
+                                                    @item
+                                                </td>
+                                                <td>
+                                                    @if(Model.RolePermissions[@item].Contains(Infrastructure.Enums.Permission.Admin))
+                                                    {
+                                                        <input type="checkbox" checked="checked">
+                                                    } else
+                                                    {
+                                                        <input type="checkbox">
+                                                    }
+
+                                                </td>
+                                                <td>
+                                                    @if(Model.RolePermissions[@item].Contains(Infrastructure.Enums.Permission.Write))
+                                                    {
+                                                        <input type="checkbox" checked="checked">
+                                                    } else
+                                                    {
+                                                        <input type="checkbox">
+                                                    }
+
+                                                </td>
+                                                <td>
+                                                    @if(Model.RolePermissions[@item].Contains(Infrastructure.Enums.Permission.Read))
+                                                    {
+                                                        <input type="checkbox" checked="checked">
+                                                    } else
+                                                    {
+                                                        <input type="checkbox">
+                                                    }
+
+                                                </td>
+                                            </tr>
+                                            counter++;
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                    </div>
+                </div>
+            </div>
+        </div>
+        @* /.box *@
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript" src="/icheck.js"></script>
+}

@@ -6,24 +6,27 @@ Licensed under the Apache License, Version 2.0. See License.txt in the project r
     <h2>Administration</h2>
 }
 
-<div class="box">
-    @*<div class="box-header with-border">
-        <h3 class="box-title">Default Box Example</h3>
-        <div class="box-tools pull-right">
-            $1$ Buttons, labels, and many other things can be placed here! #1#
-            $1$ Here is a label for example #1#
-            <span class="label label-primary">Label</span>
+    <div class="box">
+        @*<div class="box-header with-border">
+            <h3 class="box-title">Default Box Example</h3>
+            <div class="box-tools pull-right">
+                $1$ Buttons, labels, and many other things can be placed here! #1#
+                $1$ Here is a label for example #1#
+                <span class="label label-primary">Label</span>
+            </div>
+            $1$ /.box-tools #1#
+        </div>*@
+        @* /.box-header *@
+        <div class="box-body">
+            <a href="/administration/listusers">List all users</a>
         </div>
-        $1$ /.box-tools #1#
-    </div>*@
-    @* /.box-header *@
-    <div class="box-body">
-        <a href="/administration/listusers">List all users</a>
+        <div class="box-body">
+            <a href="/administration/grantpermissions">Grant Global Permissions</a>
+        </div>
+        @*$1$ /.box-body #1#
+        <div class="box-footer">
+            The footer of the box
+        </div>
+        $1$ box-footer #1#*@
     </div>
-    @*$1$ /.box-body #1#
-    <div class="box-footer">
-        The footer of the box
-    </div>
-    $1$ box-footer #1#*@
-</div>
 @* /.box *@
