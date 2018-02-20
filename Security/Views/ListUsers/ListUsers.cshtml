@@ -139,9 +139,11 @@
                                     var sdata = table.cell('.selected', 2).data();
                                     $("#modal-default-body").load("@Url.Action("EditUser", "ListUsers")" + "?userId_=" + sdata,
                                         function() {
+                                            $("#file_browser").addClass("btn-primary");
+                                            $("#file_browser").removeClass("btn-default");
+                                            browseForAvatar();
                                             $("#modal-default").modal("show");
                                         });
-                                    //$("#modal-default").modal("show");
                                 } else {
                                     $("#modal-alert").modal("show");
                                 }

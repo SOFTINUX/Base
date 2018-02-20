@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
 $(function() {
+    browseForAvatar();
+
     $("#save_profile_btn").click(function(event) {
         edit_state("profile_form_fieldset", "save_profile_btn", event);
     });
@@ -26,19 +28,17 @@ $(function() {
         input_changed("change_pwd-btn");
     });
 
+    $('#inputAvatar').change(function(){
+        $('#file_path').val($(this).val());
+    });
+});
+
+function browseForAvatar() {
     $('#file_browser').click(function(event){
         event.preventDefault();
         $('#inputAvatar').click();
     });
-
-    $('#inputAvatar').change(function(){
-        $('#file_path').val($(this).val());
-    });
-
-    /*$('#file_path').click(function(){
-        $('#file_browser').click();
-    });*/
-});
+}
 
 function edit_state(fieldsetid, editbtnid, event) {
     event.preventDefault();
