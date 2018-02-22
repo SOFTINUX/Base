@@ -34,11 +34,10 @@ interesting for adding sorting/filtering capabilities to columns that will be re
                             <table id="table_grantingsList" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="grantings">
                                 <thead>
                                     <tr role="row">
-                                        <th class="sorting" style="width: 10px">#</th>
-                                        <th class="sorting" rowspan="1" colspan="1" aria-label="Role: activate to sort column ascending"> </th>
-                                        <th class="sorting" rowspan="1" colspan="1" aria-label="Activate to sort column ascending">Admin</th>
-                                        <th class="sorting" rowspan="1" colspan="1" aria-label="Activate to sort column ascending">Write</th>
-                                        <th class="sorting" rowspan="1" colspan="1" aria-label="Activate to sort column ascending">Read</th>
+                                        <th rowspan="1" colspan="1"> </th>
+                                        <th rowspan="1" colspan="1">Admin</th>
+                                        <th rowspan="1" colspan="1">Write</th>
+                                        <th rowspan="1" colspan="1">Read</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -47,37 +46,36 @@ interesting for adding sorting/filtering capabilities to columns that will be re
                                         foreach (var item in Model.RolePermissions.Keys)
                                         {
                                             <tr role="row">
-                                                <th scope="row">@counter</th>
                                                 <td>
                                                     @item
                                                 </td>
                                                 <td>
                                                     @if(Model.RolePermissions[@item].Contains(Infrastructure.Enums.Permission.Admin))
                                                     {
-                                                        <input type="checkbox" checked="checked">
+                                                        <input id="admin" type="checkbox" checked="checked">
                                                     } else
                                                     {
-                                                        <input type="checkbox">
+                                                        <input id="admin" type="checkbox">
                                                     }
 
                                                 </td>
                                                 <td>
                                                     @if(Model.RolePermissions[@item].Contains(Infrastructure.Enums.Permission.Write))
                                                     {
-                                                        <input type="checkbox" checked="checked">
+                                                        <input id="write" type="checkbox" checked="checked">
                                                     } else
                                                     {
-                                                        <input type="checkbox">
+                                                        <input id="write" type="checkbox">
                                                     }
 
                                                 </td>
                                                 <td>
                                                     @if(Model.RolePermissions[@item].Contains(Infrastructure.Enums.Permission.Read))
                                                     {
-                                                        <input type="checkbox" checked="checked">
+                                                        <input id="read" type="checkbox" checked="checked">
                                                     } else
                                                     {
-                                                        <input type="checkbox">
+                                                        <input id="read" type="checkbox">
                                                     }
 
                                                 </td>
@@ -100,4 +98,21 @@ interesting for adding sorting/filtering capabilities to columns that will be re
 
 @section Scripts {
     <script type="text/javascript" src="/icheck.js"></script>
+    <script>
+        $(document).ready(function() {
+            freezePermissionCheckBox();
+
+            $("#admin").click(function(event) {
+                freezePermissionCheckBox();
+            });
+
+            $("#write").click(function(event) {
+                freezePermissionCheckBox();
+            });
+
+            $("#read").click(function(event) {
+                freezePermissionCheckBox();
+            });
+        });
+    </script>
 }

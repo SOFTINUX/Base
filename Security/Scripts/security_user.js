@@ -3,6 +3,7 @@
 
 $(function() {
     browseForAvatar();
+    freezePermissionCheckBox();
 
     $("#save_profile_btn").click(function(event) {
         edit_state("profile_form_fieldset", "save_profile_btn", event);
@@ -38,6 +39,28 @@ function browseForAvatar() {
         event.preventDefault();
         $('#inputAvatar').click();
     });
+}
+
+function freezePermissionCheckBox() {
+    $("#admin")
+        .prop("readonly", !$("#write").is(":checked") && $("#admin").is(":checked"))
+        .prop("disabled", !$("#write").is(":checked") && !$("#admin").is(":checked"));
+
+    console.log("Is #write checked: ", $("#write").is(":checked"));
+    console.log("Is #write disabled: ", $("#write").is(":disabled"));
+    console.log("Admin checkbox disabled : ", !$("#write").is(":checked") && !$("#admin").is(":checked"));
+
+    $("#write")
+        .prop("readonly", !$("#read").is(":checked") && $("#write").is(":checked"))
+        .prop("disabled", !$("#read").is(":checked") && !$("#write").is(":checked"));
+
+    console.log("Is #read checked: ", $("#read").is(":checked"));
+    console.log("Is #read disabled: ", $("#read").is(":disabled"));
+    console.log("Write checkbox disabled : ", !$("#write").is(":checked") && !$("#read").is(":checked"));
+
+
+    /*$("#write").prop("readonly", $("#admin").is(":checked")).prop("disabled",$("#admin").is(":checked"));
+    $("#read").prop("readonly", $("#write").is(":disabled")).prop("disabled", $("#write").is(":checked"));*/
 }
 
 function edit_state(fieldsetid, editbtnid, event) {
