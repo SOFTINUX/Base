@@ -43,16 +43,16 @@ function browseForAvatar() {
 
 function freezePermissionCheckBox() {
     $("#admin")
-        .prop("readonly", !$("#write").is(":checked") && $("#admin").is(":checked"))
-        .prop("disabled", !$("#write").is(":checked") && !$("#admin").is(":checked"));
+        .prop("readonly", !$("#write").is(":checked") && !$("#admin").is(":checked"));
+         //.prop("disabled", !$("#write").is(":checked") && !$("#admin").is(":checked"));
 
     console.log("Is #write checked: ", $("#write").is(":checked"));
     console.log("Is #write disabled: ", $("#write").is(":disabled"));
     console.log("Admin checkbox disabled : ", !$("#write").is(":checked") && !$("#admin").is(":checked"));
 
-    $("#write")
-        .prop("readonly", !$("#read").is(":checked") && $("#write").is(":checked"))
-        .prop("disabled", !$("#read").is(":checked") && !$("#write").is(":checked"));
+    // $("#write")
+    //     .prop("readonly", !$("#read").is(":checked") && $("#write").is(":checked"))
+    //     .prop("disabled", !$("#read").is(":checked") && !$("#write").is(":checked"));
 
     console.log("Is #read checked: ", $("#read").is(":checked"));
     console.log("Is #read disabled: ", $("#read").is(":disabled"));
