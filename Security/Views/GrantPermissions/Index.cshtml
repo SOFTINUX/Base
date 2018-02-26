@@ -55,7 +55,7 @@ interesting for adding sorting/filtering capabilities to columns that will be re
                                                         <input id="admin" type="checkbox" checked="checked">
                                                     } else
                                                     {
-                                                        <input id="admin" type="checkbox">
+                                                        <input id="admin" type="checkbox" @if(!Model.RolePermissions[item].Contains(Infrastructure.Enums.Permission.Write)) {@Html.Raw("disabled")}>
                                                     }
 
                                                 </td>
@@ -65,14 +65,14 @@ interesting for adding sorting/filtering capabilities to columns that will be re
                                                         <input id="write" type="checkbox" checked="checked" @if (Model.RolePermissions[item].Contains(Infrastructure.Enums.Permission.Admin)) { @Html.Raw("disabled")} />
                                                     } else
                                                     {
-                                                        <input id="write" type="checkbox">
+                                                        <input id="write" type="checkbox" @if(!Model.RolePermissions[item].Contains(Infrastructure.Enums.Permission.Read)) {@Html.Raw("disabled")}>
                                                     }
 
                                                 </td>
                                                 <td>
                                                     @if(Model.RolePermissions[item].Contains(Infrastructure.Enums.Permission.Read))
                                                     {
-                                                        <input id="read" type="checkbox" checked="checked" @if(Model.RolePermissions[item].Contains(Infrastructure.Enums.Permission.Write)) {@Html.Raw("disabled");}>
+                                                        <input id="read" type="checkbox" checked="checked" @if(Model.RolePermissions[item].Contains(Infrastructure.Enums.Permission.Write)) {@Html.Raw("disabled")}>
                                                     } else
                                                     {
                                                         <input id="read" type="checkbox">
@@ -97,7 +97,7 @@ interesting for adding sorting/filtering capabilities to columns that will be re
 </div>
 
 @section Scripts {
-    <script type="text/javascript" src="/icheck.js"></script>
+    <script type="text/javascript" src="/node_modules.icheck.icheck.js"></script>
     <script>
         $(document).ready(function() {
 

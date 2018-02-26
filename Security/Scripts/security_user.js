@@ -3,7 +3,7 @@
 
 $(function() {
     browseForAvatar();
-    freezePermissionCheckBox();
+    //freezePermissionCheckBox();
 
     $("#save_profile_btn").click(function(event) {
         edit_state("profile_form_fieldset", "save_profile_btn", event);
