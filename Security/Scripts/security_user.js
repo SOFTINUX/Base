@@ -63,6 +63,33 @@ function freezePermissionCheckBox() {
     $("#read").prop("readonly", $("#write").is(":disabled")).prop("disabled", $("#write").is(":checked"));*/
 }
 
+/* events handler */
+function listenToPermissionsCheckboxEvents() {
+    $("input:checkbox.grant-permission").on("change", function(){
+            //console.log(this.value + " checked? " + $(this).prop("checked"));
+            permissionCheckboxChanged($(this));
+    });
+}
+
+/* Param : checkbox element (jQuery selector) */
+function permissionCheckboxChanged(jCb) {
+    // slave checkbox ?
+    var slaveCb = jCb.attr("data-slave-cb");
+    console.log(slaveCb);
+    if(slaveCb) {
+        var currentCbChecked = jCb.prop("checked");
+        // FIXME this selector doesn't find the slave checkboox
+        console.log(jCb.parent().children("input:checkbox[value='"+slaveCb+"']"));
+        if(currentCbChecked) {
+                console.log("disable slave cb " + slaveCb);
+                $(jCb.parent().children("input:checkbox[value='"+slaveCb+"']")[0]).prop("disabled", true);
+        } else {
+            console.log("enable slave cb " + slaveCb);
+            $(jCb.parent().children("input:checkbox[value='"+slaveCb+"']")[0]).prop("disabled", false);
+        }
+    }
+}
+
 function edit_state(fieldsetid, editbtnid, event) {
     event.preventDefault();
     $("#cancel_" + editbtnid).removeClass("hidden");
