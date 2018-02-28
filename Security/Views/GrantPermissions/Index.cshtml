@@ -55,24 +55,24 @@ interesting for adding sorting/filtering capabilities to columns that will be re
                                                         <input value="admin" data-slave-cb="write" class="grant-permission" type="checkbox" checked="checked">
                                                     } else
                                                     {
-                                                        <input value="admin" data-slave-cb="write" class="grant-permission" type="checkbox" @if(!Model.RolePermissions[item].Contains(Infrastructure.Enums.Permission.Write)) {@Html.Raw("disabled")}>
+                                                        <input value="admin" data-slave-cb="write" class="grant-permission" type="checkbox">
                                                     }
 
                                                 </td>
                                                 <td>
                                                     @if(Model.RolePermissions[item].Contains(Infrastructure.Enums.Permission.Write))
                                                     {
-                                                        <input value="write" data-slave-cb="read" class="grant-permission" type="checkbox" checked="checked" @if (Model.RolePermissions[item].Contains(Infrastructure.Enums.Permission.Admin)) { @Html.Raw("disabled")} />
+                                                        <input value="write" data-slave-cb="read" class="grant-permission" type="checkbox" checked="checked">
                                                     } else
                                                     {
-                                                        <input value="write" data-slave-cb="read" class="grant-permission" type="checkbox" @if(!Model.RolePermissions[item].Contains(Infrastructure.Enums.Permission.Read)) {@Html.Raw("disabled")}>
+                                                        <input value="write" data-slave-cb="read" class="grant-permission" type="checkbox">
                                                     }
 
                                                 </td>
                                                 <td>
                                                     @if(Model.RolePermissions[item].Contains(Infrastructure.Enums.Permission.Read))
                                                     {
-                                                        <input value="read" type="checkbox" checked="checked" @if(Model.RolePermissions[item].Contains(Infrastructure.Enums.Permission.Write)) {@Html.Raw("disabled")}>
+                                                        <input value="read" type="checkbox" checked="checked">
                                                     } else
                                                     {
                                                         <input value="read" type="checkbox">

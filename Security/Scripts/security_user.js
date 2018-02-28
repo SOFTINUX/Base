@@ -81,6 +81,8 @@ function permissionCheckboxChanged(jCb) {
         if(currentCbChecked) {
             // disable and check slave cb
             $(slaveCb).prop("checked", true).prop("disabled", true);
+            // cascade event
+            permissionCheckboxChanged($(slaveCb));
         } else {
             // enable slave cb
             $(slaveCb).prop("disabled", false);
