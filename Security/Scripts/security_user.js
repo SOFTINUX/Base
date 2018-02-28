@@ -75,17 +75,15 @@ function listenToPermissionsCheckboxEvents() {
 function permissionCheckboxChanged(jCb) {
     // slave checkbox ?
     var slaveCb = jCb.attr("data-slave-cb");
-    console.log(slaveCb);
     if(slaveCb) {
         var currentCbChecked = jCb.prop("checked");
-        // FIXME this selector doesn't find the slave checkboox
-        console.log(jCb.parent().children("input:checkbox[value='"+slaveCb+"']"));
+        var slaveCb = jCb.parent().parent().children("td").children("input:checkbox[value='"+slaveCb+"']")[0];
         if(currentCbChecked) {
-                console.log("disable slave cb " + slaveCb);
-                $(jCb.parent().children("input:checkbox[value='"+slaveCb+"']")[0]).prop("disabled", true);
+            // disable and check slave cb
+            $(slaveCb).prop("checked", true).prop("disabled", true);
         } else {
-            console.log("enable slave cb " + slaveCb);
-            $(jCb.parent().children("input:checkbox[value='"+slaveCb+"']")[0]).prop("disabled", false);
+            // enable slave cb
+            $(slaveCb).prop("disabled", false);
         }
     }
 }
