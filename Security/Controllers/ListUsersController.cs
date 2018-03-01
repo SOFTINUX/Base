@@ -11,21 +11,20 @@ using Infrastructure.Attributes;
 using Microsoft.Extensions.Logging;
 using Security.Data.Entities;
 using ControllerBase = Infrastructure.ControllerBase;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Security.Controllers
 {
     [PermissionRequirement("Admin", "Security")]
     public class ListUsersController : ControllerBase
     {
-        private readonly ILogger _logger;
+        //private readonly ILogger _logger;
         private readonly UserManager<User> _usersmanager;
         //public  List<IdentityUserRole<string>> Roles { get; set; }
 
         public ListUsersController(IStorage storage_, UserManager<User> users_, ILoggerFactory loggerFactory_) : base(storage_, loggerFactory_)
         {
-            _logger = _loggerFactory.CreateLogger(GetType().FullName);
-            _logger.LogInformation("oups");
-
+            //_logger = _loggerFactory.CreateLogger(GetType().FullName);
             _usersmanager = users_;
         }
 
