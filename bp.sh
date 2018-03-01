@@ -20,7 +20,7 @@ function build
     echo "###################"
     echo "BUILD SOLUTION"
     echo "###################"
-    dotnet build
+    dotnet build /property:GenerateFullPaths=true
 }
 
 function copyexts

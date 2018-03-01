@@ -24,7 +24,7 @@ IF "%1" == "clean" GOTO End
 echo ###################
 echo BUILD SOLUTION
 echo ###################
-dotnet build
+dotnet build /property:GenerateFullPaths=true
 IF "%1" == "build" GOTO End
 
 :CopyDeps

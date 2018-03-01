@@ -20,6 +20,9 @@
         {
             "label": "build",
             "command": "dotnet build",
+            "args": [
+                "/property:GenerateFullPaths=true"
+            ],
             "type": "shell",
             "group": "build",
             "presentation": {
