@@ -19,13 +19,13 @@ namespace SeedDatabase
         Anonymous
     }
 
-    public enum Permission
-    {
-        Admin,
-        Write,
-        Read,
-        Never
-    }
+    // public enum Permission
+    // {
+    //     Admin,
+    //     Write,
+    //     Read,
+    //     Never
+    // }
 
     public static class Constants
     {
@@ -37,7 +37,7 @@ namespace SeedDatabase
         {
             return group.ToString();
         }
-        public static string GetPermissionName(this Permission permission) // convenience method
+        public static string GetPermissionName(this Infrastructure.Enums.Permission permission) // convenience method
         {
             return permission.ToString();
         }
