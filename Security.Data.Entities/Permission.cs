@@ -11,15 +11,5 @@ namespace Security.Data.Entities
         public string Id { get; set; }
         public string Name { get; set; }
 
-        /// <summary>
-        /// Full name of extension's assembly, to manage data by extension (add, reset, remove).
-        /// </summary>
-        public string OriginExtension { get; set; }
-
-        /// <summary>
-        /// Unique identifier : code + origin extension name.
-        /// </summary>
-        public string UniqueIdentifier => Util.GetPermissionUniqueIdentifier(Name, OriginExtension);
-
     }
 }

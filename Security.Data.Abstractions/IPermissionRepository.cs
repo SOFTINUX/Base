@@ -9,22 +9,15 @@ namespace Security.Data.Abstractions
 {
     public interface IPermissionRepository : IRepository
     {
-        /// <summary>
-        /// Finds a permission by name and origin extension assembly "short name" (Assembly.GetName().Name).
-        /// </summary>
-        /// <param name="name_">Permission name. Base names in Infrastructure.Enums.Permissions</param>
-        /// <param name="originExtensionAssemblyName_">extension assembly "short name" (Assembly.GetName().Name)</param>
-        /// <returns></returns>
-        Permission FindBy(string name_, string originExtensionAssemblyName_);
         IEnumerable<Permission> All();
         void Create(Permission entity_);
         void Edit(Permission entity_);
         void Delete(string entityId_);
         /// <summary>
-        /// All permissions linked to user, user's groups, user's roles.
+        /// Every permission with its scope, linked to user, user's groups, user's roles.
         /// </summary>
         /// <param name="userId_"></param>
         /// <returns></returns>
-        HashSet<Permission> AllForUser(string userId_);
+        HashSet<KeyValuePair<Infrastructure.Enums.Permission, string>> AllForUser(string userId_);
     }
 }

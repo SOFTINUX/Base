@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using ExtCore.Data.Abstractions;
+using Infrastructure;
 using Infrastructure.Enums;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
@@ -47,16 +48,16 @@ namespace Security
         }
 
         /// <summary>
-        /// Reads all permissions from database and create a custom "permission" claim for each.
+        /// Reads all scoped permissions from database and create a custom "permission" claim for each.
         /// </summary>
         /// <param name="userId_"></param>
         /// <returns></returns>
         public IEnumerable<Claim> GetAllPermissionClaims(string userId_) {
-           IEnumerable<Security.Data.Entities.Permission> permissions = _storage.GetRepository<IPermissionRepository>().AllForUser(userId_);
+            HashSet<KeyValuePair<Infrastructure.Enums.Permission, string>> scopedPermissions = _storage.GetRepository<IPermissionRepository>().AllForUser(userId_);
            List<Claim> claims = new List<Claim>();
-           foreach (Security.Data.Entities.Permission p in permissions)
+           foreach (KeyValuePair<Infrastructure.Enums.Permission, string> kv in scopedPermissions)
            {
-               claims.Add(new Claim(ClaimType.Permission, p.UniqueIdentifier));
+               claims.Add(new Claim(ClaimType.Permission, Util.GetScopedPermissionIdentifier(kv.Key, kv.Value)));
            }
            return claims;
         }

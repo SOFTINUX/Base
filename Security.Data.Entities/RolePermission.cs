@@ -13,6 +13,7 @@ namespace Security.Data.Entities
     {
         public string RoleId { get; set; }
         public string PermissionId { get; set; }
+        public string Scope { get; set; }
 
         public virtual IdentityRole<string> Role { get; set; }
         public virtual Permission Permission { get; set; }

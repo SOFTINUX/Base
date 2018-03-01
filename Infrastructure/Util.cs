@@ -10,14 +10,14 @@ namespace Infrastructure
     {
 
         /// <summary>
-        /// Formats the unique identifier of a permission that has a code (name) and an origin extension.
+        /// Formats the unique identifier that defines a permission and its scope.
         /// </summary>
-        /// <param name="permissionCode_"></param>
-        /// <param name="originExtensionAssemblyName_">The origin extension assembly name, given by Assembly.GetName().Name</param>
+        /// <param name="permission_"></param>
+        /// <param name="scope_">The scope, equal to assembly name, given by Assembly.GetName().Name</param>
         /// <returns></returns>
-        public static string GetPermissionUniqueIdentifier(string permissionCode_, string originExtensionAssemblyName_)
+        public static string GetScopedPermissionIdentifier(Infrastructure.Enums.Permission permission_, string scope_)
         {
-            return $"{originExtensionAssemblyName_}.{permissionCode_}";
+            return $"{scope_}.{permission_}";
         }
     }
 }
