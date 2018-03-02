@@ -18,5 +18,4 @@ namespace Infrastructure.Enums
             return permission_.ToString();
         }
     }
-    
 }

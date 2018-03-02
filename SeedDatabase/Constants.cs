@@ -19,14 +19,6 @@ namespace SeedDatabase
         Anonymous
     }
 
-    // public enum Permission
-    // {
-    //     Admin,
-    //     Write,
-    //     Read,
-    //     Never
-    // }
-
     public static class Constants
     {
         public static string GetRoleName(this Role role) // convenience method
@@ -39,7 +31,8 @@ namespace SeedDatabase
         }
         public static string GetPermissionName(this Infrastructure.Enums.Permission permission) // convenience method
         {
-            return permission.ToString();
+            return Infrastructure.Enums.PermissionHelper.GetPermissionName(permission);
+            //return permission.ToString();
         }
     }
 }
