@@ -1,5 +1,6 @@
 {
     "editor.formatOnSave": false,
     "dotnet-test-explorer.testProjectPath": ".\\Tests\\SecurityTest",
-    "dotnet-test-explorer.build": false
+    "dotnet-test-explorer.build": false,
+    "cSpell.enabled": false
 }
