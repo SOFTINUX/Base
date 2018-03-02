@@ -266,8 +266,7 @@ namespace SeedDatabase.Controllers
                 Security.Data.Entities.Permission permission = new Security.Data.Entities.Permission()
                 {
                     Id = p.GetPermissionName(),
-                    Name = p.GetPermissionName(),
-                    OriginExtension = "Security"
+                    Name = p.GetPermissionName()
                 };
 
                 _storage.GetRepository<IPermissionRepository>().Create(permission);
@@ -277,8 +276,7 @@ namespace SeedDatabase.Controllers
             Security.Data.Entities.Permission permission1 = new Security.Data.Entities.Permission()
             {
                 Id = "Extension1.Admin", // OriginExtension + Name
-                Name = "Admin",
-                OriginExtension = "Extension1"
+                Name = "Admin"
             };
 
             _storage.GetRepository<IPermissionRepository>().Create(permission1);
