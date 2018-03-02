@@ -11,6 +11,11 @@ namespace Security.Data.Entities
     /// </summary>
     public class RolePermission : IEntity
     {
+        public RolePermission()
+        {
+            Scope = "Security";
+        }
+
         public string RoleId { get; set; }
         public string PermissionId { get; set; }
         public string Scope { get; set; }

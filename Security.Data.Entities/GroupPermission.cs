@@ -10,6 +10,11 @@ namespace Security.Data.Entities
     /// </summary>
     public class GroupPermission : IEntity
     {
+        public GroupPermission()
+        {
+            Scope = "Security";
+        }
+
         public string GroupId { get; set; }
         public string PermissionId { get; set; }
         public string Scope { get; set; }

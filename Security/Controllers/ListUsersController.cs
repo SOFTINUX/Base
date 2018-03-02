@@ -15,7 +15,7 @@ using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Security.Controllers
 {
-    [PermissionRequirement("Admin", "Security")]
+    [PermissionRequirement(Infrastructure.Enums.Permission.Admin, "Security")]
     public class ListUsersController : ControllerBase
     {
         //private readonly ILogger _logger;

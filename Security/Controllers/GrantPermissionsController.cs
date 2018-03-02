@@ -10,7 +10,7 @@ using ControllerBase = Infrastructure.ControllerBase;
 
 namespace Security.Controllers
 {
-    [PermissionRequirement("Admin", "Security")]
+    [PermissionRequirement(Infrastructure.Enums.Permission.Admin, "Security")]
     public class GrantPermissionsController : ControllerBase
     {
         public GrantPermissionsController(IStorage storage_) : base(storage_)

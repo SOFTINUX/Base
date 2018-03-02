@@ -15,7 +15,7 @@ namespace Infrastructure
         /// <param name="permission_"></param>
         /// <param name="scope_">The scope, equal to assembly name, given by Assembly.GetName().Name</param>
         /// <returns></returns>
-        public static string GetScopedPermissionIdentifier(Infrastructure.Enums.Permission permission_, string scope_)
+        public static string GetScopedPermissionIdentifier(Enums.Permission permission_, string scope_)
         {
             return $"{scope_}.{permission_}";
         }

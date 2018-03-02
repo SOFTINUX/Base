@@ -10,7 +10,7 @@ namespace Infrastructure.Attributes
         /// </summary>
         public string PermissionIdentifier { get; }
 
-        public PermissionRequirementAttribute(string permissionCode_, string extensionAssemblySimpleName_)
+        public PermissionRequirementAttribute(Enums.Permission permissionCode_, string extensionAssemblySimpleName_)
         : base(Enums.ClaimType.Permission, Util.GetScopedPermissionIdentifier(permissionCode_, extensionAssemblySimpleName_))
         {
             PermissionIdentifier =

@@ -15,7 +15,7 @@ namespace Extension1.Controllers
             return View(new IndexViexModelFactory().Create());
         }
 
-        [PermissionRequirement("Admin", "Extension1")]
+        [PermissionRequirement(Infrastructure.Enums.Permission.Admin, "Extension1")]
         public ActionResult Admin()
         {
             return View();
