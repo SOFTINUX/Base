@@ -77,7 +77,7 @@ function permissionCheckboxChanged(jCb) {
     var slaveCb = jCb.attr("data-slave-cb");
     if(slaveCb) {
         var currentCbChecked = jCb.prop("checked");
-        var slaveCb = jCb.parent().parent().children("td").children("input:checkbox[value='"+slaveCb+"']")[0];
+        var slaveCb = jCb.parent().parent().parent().children("td").children("div").children("input:checkbox[value='"+slaveCb+"']")[0];
         if(currentCbChecked) {
             // disable and check slave cb
             $(slaveCb).prop("checked", true).prop("disabled", true);

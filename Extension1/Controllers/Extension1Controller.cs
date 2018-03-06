@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
 
+using System.Net;
 using Extension1.ViewModels.Extension1;
 using Infrastructure.Attributes;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,7 @@ namespace Extension1.Controllers
         }
 
         [PermissionRequirement(Infrastructure.Enums.Permission.Admin, "Extension1")]
+        [Authorization()]
         public ActionResult Admin()
         {
             return View();

@@ -50,34 +50,40 @@ interesting for adding sorting/filtering capabilities to columns that will be re
                                                     @item
                                                 </td>
                                                 <td>
-                                                    @if(Model.RolePermissions[item].Contains(Infrastructure.Enums.Permission.Admin))
-                                                    {
-                                                        <input value="admin" data-slave-cb="write" class="grant-permission" type="checkbox" checked="checked">
-                                                    } else
-                                                    {
-                                                        <input value="admin" data-slave-cb="write" class="grant-permission" type="checkbox">
-                                                    }
-
+                                                    <div class="checkbox icheck">
+                                                        @if (Model.RolePermissions[item].Contains(Infrastructure.Enums.Permission.Admin))
+                                                        {
+                                                            <input type="checkbox" value="admin" class="grant-permission" data-slave-cb="write" checked="checked">
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="checkbox" value="admin" class="grant-permission" data-slave-cb="write">
+                                                        }
+                                                    </div>
                                                 </td>
                                                 <td>
-                                                    @if(Model.RolePermissions[item].Contains(Infrastructure.Enums.Permission.Write))
-                                                    {
-                                                        <input value="write" data-slave-cb="read" class="grant-permission" type="checkbox" checked="checked">
-                                                    } else
-                                                    {
-                                                        <input value="write" data-slave-cb="read" class="grant-permission" type="checkbox">
-                                                    }
-
+                                                    <div class="checkbox icheck">
+                                                        @if (Model.RolePermissions[item].Contains(Infrastructure.Enums.Permission.Write))
+                                                        {
+                                                            <input type="checkbox" value="write" class="grant-permission" data-slave-cb="read" checked="checked">
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="checkbox" value="write" class="grant-permission" data-slave-cb="read">
+                                                        }
+                                                    </div>
                                                 </td>
                                                 <td>
-                                                    @if(Model.RolePermissions[item].Contains(Infrastructure.Enums.Permission.Read))
-                                                    {
-                                                        <input value="read" type="checkbox" checked="checked">
-                                                    } else
-                                                    {
-                                                        <input value="read" type="checkbox">
-                                                    }
-
+                                                    <div class="checkbox icheck">
+                                                        @if (Model.RolePermissions[item].Contains(Infrastructure.Enums.Permission.Read))
+                                                        {
+                                                            <input type="checkbox" value="read" checked="checked">
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="checkbox" value="read">
+                                                        }
+                                                    </div>
                                                 </td>
                                             </tr>
                                             counter++;
@@ -99,6 +105,15 @@ interesting for adding sorting/filtering capabilities to columns that will be re
 @section Scripts {
     <script type="text/javascript" src="/node_modules.icheck.icheck.js"></script>
     <script>
+
+        $(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
+        });
+
         $(document).ready(function() {
 
             listenToPermissionsCheckboxEvents();

@@ -28,10 +28,10 @@ namespace Security.Controllers
             model.RolePermissions.Add("Admin", new List<Infrastructure.Enums.Permission>
             {Infrastructure.Enums.Permission.Admin, Infrastructure.Enums.Permission.Write, Infrastructure.Enums.Permission.Read});
 
-            model.RolePermissions.Add("Write", new List<Infrastructure.Enums.Permission>
+            model.RolePermissions.Add("User", new List<Infrastructure.Enums.Permission>
             {Infrastructure.Enums.Permission.Write, Infrastructure.Enums.Permission.Read});
 
-            model.RolePermissions.Add("Read", new List<Infrastructure.Enums.Permission>
+            model.RolePermissions.Add("Anonymous", new List<Infrastructure.Enums.Permission>
             {Infrastructure.Enums.Permission.Read});
 
             return View(model);
