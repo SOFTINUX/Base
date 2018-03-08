@@ -17,7 +17,6 @@ namespace Extension1.Controllers
         }
 
         [PermissionRequirement(Infrastructure.Enums.Permission.Admin, "Extension1")]
-        [Authorization()]
         public ActionResult Admin()
         {
             return View();

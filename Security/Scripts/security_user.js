@@ -1,4 +1,4 @@
-﻿// Copyright © 2017 SOFTINUX. All rights reserved.
+// Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
 $(function() {
@@ -41,51 +41,28 @@ function browseForAvatar() {
     });
 }
 
-function freezePermissionCheckBox() {
-    $("#admin")
-        .prop("readonly", !$("#write").is(":checked") && !$("#admin").is(":checked"));
-         //.prop("disabled", !$("#write").is(":checked") && !$("#admin").is(":checked"));
-
-    console.log("Is #write checked: ", $("#write").is(":checked"));
-    console.log("Is #write disabled: ", $("#write").is(":disabled"));
-    console.log("Admin checkbox disabled : ", !$("#write").is(":checked") && !$("#admin").is(":checked"));
-
-    // $("#write")
-    //     .prop("readonly", !$("#read").is(":checked") && $("#write").is(":checked"))
-    //     .prop("disabled", !$("#read").is(":checked") && !$("#write").is(":checked"));
-
-    console.log("Is #read checked: ", $("#read").is(":checked"));
-    console.log("Is #read disabled: ", $("#read").is(":disabled"));
-    console.log("Write checkbox disabled : ", !$("#write").is(":checked") && !$("#read").is(":checked"));
-
-
-    /*$("#write").prop("readonly", $("#admin").is(":checked")).prop("disabled",$("#admin").is(":checked"));
-    $("#read").prop("readonly", $("#write").is(":disabled")).prop("disabled", $("#write").is(":checked"));*/
-}
-
 /* events handler */
 function listenToPermissionsCheckboxEvents() {
-    $("input:checkbox.grant-permission").on("change", function(){
-            //console.log(this.value + " checked? " + $(this).prop("checked"));
-            permissionCheckboxChanged($(this));
+    $('input').on('ifChanged', function(event){
+        permissionCheckboxChanged($(this));
     });
 }
 
 /* Param : checkbox element (jQuery selector) */
-function permissionCheckboxChanged(jCb) {
+function permissionCheckboxChanged(jCheckBox) {
     // slave checkbox ?
-    var slaveCb = jCb.attr("data-slave-cb");
-    if(slaveCb) {
-        var currentCbChecked = jCb.prop("checked");
-        var slaveCb = jCb.parent().parent().parent().children("td").children("div").children("input:checkbox[value='"+slaveCb+"']")[0];
-        if(currentCbChecked) {
+    var slaveCheckBox = jCheckBox.attr("data-slave-cb");
+    if(slaveCheckBox) {
+        var currentCheckBoxChecked = jCheckBox.is(':checked');
+        var slaveCheckBox = jCheckBox.closest("tr").children("td").find("input:checkbox[value='"+slaveCheckBox+"']")[0];
+        if(currentCheckBoxChecked) {
             // disable and check slave cb
-            $(slaveCb).prop("checked", true).prop("disabled", true);
+            $(slaveCheckBox).iCheck('check').iCheck('disable');
             // cascade event
-            permissionCheckboxChanged($(slaveCb));
+            permissionCheckboxChanged($(slaveCheckBox));
         } else {
             // enable slave cb
-            $(slaveCb).prop("disabled", false);
+            $(slaveCheckBox).iCheck('enable');
         }
     }
 }
