@@ -135,6 +135,7 @@ namespace WebApplication
 
             applicationBuilder_.UseAuthentication();
             applicationBuilder_.UseExtCore();
+            applicationBuilder_.UseStaticFiles();
 
             System.Console.WriteLine("PID= " + System.Diagnostics.Process.GetCurrentProcess().Id);
         }
