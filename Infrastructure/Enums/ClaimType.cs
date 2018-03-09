@@ -6,5 +6,8 @@ namespace Infrastructure.Enums
     public class ClaimType
     {
         public const string Permission = "Permission";
+        // TODO créer une claim par groupe (de la même façon que c'est fait pour les rôles (par le WIF) et les permissions (par notre ClaimsManager)).
+        // A faire dans ClaimsManager.
+        public const string Group = "Group";
     }
 }
