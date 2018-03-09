@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Infrastructure.Attributes
 {
+    // TODO constructeur qui prend juste un [] de string "Security.Admin", "Security.Write" par exemple et implémenter le contrôle.
+    // Plus simple de lecture pour celui qui doit utiliser l'attribut.
     public class AnyPermissionRequirementAttribute : ActionFilterAttribute
     {
         private readonly Enums.Permission[] _permissions;
