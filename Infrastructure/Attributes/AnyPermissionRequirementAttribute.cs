@@ -43,7 +43,7 @@ namespace Infrastructure.Attributes
 
             if (!accessGranted)
             {
-                context_.Result = new UnauthorizedResult();
+                context_.Result = new ForbidResult();
             }
         }
     }
