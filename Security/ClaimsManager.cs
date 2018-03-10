@@ -57,6 +57,8 @@ namespace Security
            List<Claim> claims = new List<Claim>();
            foreach (KeyValuePair<Infrastructure.Enums.Permission, string> kv in scopedPermissions)
            {
+               // TODO FIXME pour toutes les permissions du même scope, ne créer que le claim pour la permission de niveau le plus haut
+               // (Admin si on a Admin et Write depuis les lectures en DB, par exemple hérité d'un rôle et d'un groupe).
                claims.Add(new Claim(ClaimType.Permission, Util.GetScopedPermissionIdentifier(kv.Key, kv.Value)));
            }
            return claims;

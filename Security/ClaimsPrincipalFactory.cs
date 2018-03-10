@@ -18,7 +18,7 @@ namespace Security
     {
         private readonly IStorage _storage;
 
-        internal ClaimsPrincipalFactory(
+        public ClaimsPrincipalFactory(
             UserManager<User> userManager_,
             RoleManager<IdentityRole<string>> roleManager_,
             IOptions<IdentityOptions> optionsAccessor_,

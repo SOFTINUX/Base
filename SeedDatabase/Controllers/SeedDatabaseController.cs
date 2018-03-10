@@ -85,7 +85,7 @@ namespace SeedDatabase.Controllers
                 LockoutEnabled = false
             };
 
-            // second user
+            // third user
             Security.Data.Entities.User paulUser = new Security.Data.Entities.User {
                 FirstName = "Paul",
                 LastName = "Keller",
@@ -145,25 +145,13 @@ namespace SeedDatabase.Controllers
 
             // Save ROLE-PERMISSION
 
-            // 1. Admin role: admin, write, read
+            // 1. Admin role: admin
             saveResult = SaveRolePermission(Role.Administrator.ToString(), Permission.Admin.ToString());
             if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
                 return saveResult;
 
-            saveResult = SaveRolePermission(Role.Administrator.ToString(), Permission.Write.ToString());
-            if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
-                return saveResult;
-
-            saveResult = SaveRolePermission(Role.Administrator.ToString(), Permission.Read.ToString());
-            if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
-                return saveResult;
-
-            // 2. User role: write, read
+            // 2. User role: write
             saveResult = SaveRolePermission(Role.User.ToString(), Permission.Write.ToString());
-            if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
-                return saveResult;
-
-            saveResult = SaveRolePermission(Role.User.ToString(), Permission.Read.ToString());
             if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
                 return saveResult;
 
