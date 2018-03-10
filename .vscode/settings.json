@@ -2,5 +2,21 @@
     "editor.formatOnSave": false,
     "dotnet-test-explorer.testProjectPath": ".\\Tests\\SecurityTest",
     "dotnet-test-explorer.build": false,
-    "cSpell.enabled": false
+    "editor.showFoldingControls": "always",
+    "editor.fontLigatures": true,
+    "editor.renderControlCharacters": false,
+    "workbench.sideBar.location": "left",
+    "workbench.activityBar.visible": true,
+    "workbench.colorCustomizations": {
+        "editorGutter.background": "#1e1e1e",
+        "tab.activeBorder": "#FFA500",
+    },
+    // Controls if quick suggestions should show up while typing
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": false,
+        "strings": false
+    },
+    // Controls if suggestions should automatically show up when typing trigger characters
+    "editor.suggestOnTriggerCharacters": true
 }
