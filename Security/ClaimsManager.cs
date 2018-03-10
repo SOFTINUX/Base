@@ -11,11 +11,11 @@ using Security.Data.Entities;
 
 namespace Security
 {
-    public class ClaimsManager
+    internal class ClaimsManager
     {
         private IStorage _storage;
 
-        public ClaimsManager(IStorage storage_) {
+        internal ClaimsManager(IStorage storage_) {
             _storage = storage_;
         }
 
@@ -24,7 +24,7 @@ namespace Security
         /// </summary>
         /// <param name="user_"></param>
         /// <param name="identity_"></param>
-        public void AddClaims(User user_, ClaimsIdentity identity_)
+        internal void AddClaims(User user_, ClaimsIdentity identity_)
         {
             // First name
             if (!string.IsNullOrWhiteSpace(user_.FirstName))
@@ -52,7 +52,7 @@ namespace Security
         /// </summary>
         /// <param name="userId_"></param>
         /// <returns></returns>
-        public IEnumerable<Claim> GetAllPermissionClaims(string userId_) {
+        internal IEnumerable<Claim> GetAllPermissionClaims(string userId_) {
             HashSet<KeyValuePair<Infrastructure.Enums.Permission, string>> scopedPermissions = _storage.GetRepository<IPermissionRepository>().AllForUser(userId_);
            List<Claim> claims = new List<Claim>();
            foreach (KeyValuePair<Infrastructure.Enums.Permission, string> kv in scopedPermissions)
