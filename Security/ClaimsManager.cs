@@ -42,24 +42,42 @@ namespace Security
                 });
             }
 
+            // Roles
+            // TODO
+
             // Permissions
             identity_.AddClaims(new ClaimsManager(_storage).GetAllPermissionClaims(user_.Id));
 
         }
 
         /// <summary>
-        /// Reads all scoped permissions from database and create a custom "permission" claim for each.
+        /// Reads all scoped permissions from database and create a custom "permission" claim for every scope, if any permission found for this scope.
         /// </summary>
         /// <param name="userId_"></param>
         /// <returns></returns>
         internal IEnumerable<Claim> GetAllPermissionClaims(string userId_) {
             HashSet<KeyValuePair<Infrastructure.Enums.Permission, string>> scopedPermissions = _storage.GetRepository<IPermissionRepository>().AllForUser(userId_);
            List<Claim> claims = new List<Claim>();
+           Dictionary<string, Infrastructure.Enums.Permission> permissionByScope = new Dictionary<string, Infrastructure.Enums.Permission>();
+           // Take highest level permission for every scope
            foreach (KeyValuePair<Infrastructure.Enums.Permission, string> kv in scopedPermissions)
            {
-               // TODO FIXME pour toutes les permissions du même scope, ne créer que le claim pour la permission de niveau le plus haut
-               // (Admin si on a Admin et Write depuis les lectures en DB, par exemple hérité d'un rôle et d'un groupe).
-               claims.Add(new Claim(ClaimType.Permission, Util.GetScopedPermissionIdentifier(kv.Key, kv.Value)));
+                if(permissionByScope.ContainsKey(kv.Value))
+                {
+                    if((int) permissionByScope[kv.Value] < (int) kv.Key)
+                    {
+                        permissionByScope[kv.Value] = kv.Key;
+                    }
+                }
+                else
+                {
+                    permissionByScope.Add(kv.Value, kv.Key);
+                }
+           }
+            // Now build the claims
+           foreach(KeyValuePair<string, Infrastructure.Enums.Permission> kv in permissionByScope)
+           {
+               claims.Add(new Claim(ClaimType.Permission, Util.GetScopedPermissionIdentifier(kv.Value, kv.Key)));
            }
            return claims;
         }
