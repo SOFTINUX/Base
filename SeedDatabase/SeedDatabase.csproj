@@ -6,7 +6,7 @@
     <LangVersion>7</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ExtCore.Data.Entities.Abstractions" Version="3.2.0-beta3" />
+    <PackageReference Include="ExtCore.Data.Entities.Abstractions" Version="3.2.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />

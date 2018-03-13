@@ -5,6 +5,7 @@
 using System.Net;
 using Extension1.ViewModels.Extension1;
 using Infrastructure.Attributes;
+using Infrastructure.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Extension1.Controllers
@@ -18,6 +19,12 @@ namespace Extension1.Controllers
 
         [PermissionRequirement(Infrastructure.Enums.Permission.Admin, "Extension1")]
         public ActionResult Admin()
+        {
+            return View();
+        }
+
+        [AnyPermissionRequirement(new []{Permission.Write, Permission.Admin}, new[]{"Security", "Security"})]
+        public ActionResult Protected()
         {
             return View();
         }
