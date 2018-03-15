@@ -20,10 +20,10 @@
     "ionicons": "^3.0.0",
     "jquery": "^3.3.1",
     "jquery-validation": "^1.17.0",
-    "jquery-validation-unobtrusive": "^3.2.6",
+    "jquery-validation-unobtrusive": "^3.2.8",
     "js-cookie": "^2.2.0",
     "normalize.css": "^7.0.0",
-    "popper.js": "^1.12.9",
+    "popper.js": "^1.14.1",
     "wfk-opensans": "^1.0.1",
     "toastr": "^2.1.4"
   },
