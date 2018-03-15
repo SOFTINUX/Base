@@ -147,8 +147,8 @@
             });
 
             $('#save-role-btn').click(function(event){
-                console.log($("#role_name_input").val(''));
-                if ($("#role_name_input").val(''))
+                console.log($("#role_name_input").val());
+                if (!$("#role_name_input").val())
                 {
                     toastr.error('No role given.', 'Role not saved!');
                     return;
