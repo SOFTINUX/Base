@@ -4,7 +4,7 @@
 @model Security.ViewModels.Permissions.GlobalGrantViewModel
 
 @section title {
-    <h2>Global Permissions</h2>
+    <h2>Roles & Permissions</h2>
 }
 
 @section Styles {
@@ -31,10 +31,26 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
+                            <div class="margin">
+                                <div class="btn-group"><button id="add-role" type="button" class="btn btn-block btn-default">Add role</button></div>
+                                <div class="btn-group"><button id="edit-role" type="button" class="btn btn-block btn-default">Edit role</button></div>
+                                <div class="btn-group"><button id="delete-role" type="button" class="btn btn-block btn-danger">Delete role</button></div>
+                            </div>
+
+                            <div class="row hidden" id="add-role-field">
+                                <div class="col-md-4">
+                                    <div class="input-group margin ">
+                                        <input id="role_name_input" type="text" class="form-control">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-block btn-success" id="save-role-btn">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <table id="table_grantingsList" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="grantings">
                                 <thead>
                                     <tr role="row">
-                                        <th rowspan="1" colspan="1"> </th>
+                                        <th rowspan="1" colspan="1">Role</th>
                                         <th rowspan="1" colspan="1">Admin</th>
                                         <th rowspan="1" colspan="1">Write</th>
                                         <th rowspan="1" colspan="1">Read</th>
@@ -104,8 +120,6 @@
                             </table>
                         </div>
                     </div>
-                    <div class="row">
-                    </div>
                 </div>
             </div>
         </div>
@@ -118,26 +132,34 @@
     <script>
 
         $(function () {
+            toastr.options.positionClass = 'toast-top-right';
+
             $('input').iCheck({
                 checkboxClass: 'icheckbox_square-blue',
                 radioClass: 'iradio_square-blue',
                 increaseArea: '20%' // optional
             });
+
+            $('#add-role').click(function(event){
+                if ($("#add-role-field").hasClass("hidden"))
+                    $("#add-role-field").removeClass("hidden");
+                else
+                    $("#add-role-field").addClass("hidden");
+            });
+
+            $('#save-role-btn').click(function(event){
+                console.log($("#role_name_input").val(''));
+                if ($("#role_name_input").val(''))
+                {
+                    toastr.error('No role given.', 'Role not saved!');
+                    return;
+                }
+                toastr.success('role saved.');
+            });
         });
 
         $(document).ready(function () {
             listenToPermissionsCheckboxEvents();
-            /*$("#admin").click(function(event) {
-                freezePermissionCheckBox();
-            });
-
-            $("#write").click(function(event) {
-                freezePermissionCheckBox();
-            });
-
-            $("#read").click(function(event) {
-                freezePermissionCheckBox();
-            });*/
         });
     </script>
 }

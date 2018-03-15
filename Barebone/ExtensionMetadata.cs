@@ -23,6 +23,8 @@ namespace Barebone
             new StyleSheet("/node_modules.ionicons.dist.css.ionicons.min.css", 413),
             new StyleSheet("/node_modules.ionicons.dist.css.ionicons.min.css.map", 414),
             new StyleSheet("/node_modules.icheck.skins.square.blue.css", 415),
+            // -- Toastr
+            new StyleSheet("/node_modules.toastr.build.toastr.min.css", 416),
             // --
             new StyleSheet("/Styles.barebone.css",500),
             new StyleSheet("/css/Styles.css",600)
@@ -39,6 +41,8 @@ namespace Barebone
             new Script("/node_modules.inputmask.dist.min.jquery.inputmask.bundle.min.js",600),
             new Script("/node_modules.icheck.icheck.js",650),
             new Script("/node_modules.admin_lte.dist.js.adminlte.min.js",660),
+            // -- Roastr
+            new Script("/node_modules.toastr.build.toastr.min.js",661),
             // --
             new Script("/Scripts.barebone.js",700),
         };

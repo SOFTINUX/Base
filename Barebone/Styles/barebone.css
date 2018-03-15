@@ -25,6 +25,11 @@
   src: url("node_modules.ionicons.dist.fonts.ionicons.eot?v=3.0.0-alpha.3#iefix") format("embedded-opentype"), url("node_modules.ionicons.dist.fonts.ionicons.woff2?v=3.0.0-alpha.3") format("woff2"), url("node_modules.ionicons.dist.fonts.ionicons.woff?v=3.0.0-alpha.3") format("woff"), url("node_modules.ionicons.dist.fonts.ionicons.ttf?v=3.0.0-alpha.3") format("truetype"), url("node_modules.ionicons.dist.fonts.ionicons.svg?v=3.0.0-alpha.3#Ionicons") format("svg"); font-weight: normal; font-style: normal; 
 }
 
+#toast-container > div {
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
 #notification {
   visibility: hidden;
   min-width: 250px;
