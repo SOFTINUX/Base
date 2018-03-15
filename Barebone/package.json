@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "Softinux Base Barebone",
   "main": "index.js",
-  "dependencies": {
-    "toastr": "^2.1.4"
-  },
+  "dependencies": { },
   "devDependencies": {
     "@types/jquery": "^3.3.1",
     "admin-lte": "^2.4.2",
@@ -26,7 +24,8 @@
     "js-cookie": "^2.2.0",
     "normalize.css": "^7.0.0",
     "popper.js": "^1.12.9",
-    "wfk-opensans": "^1.0.1"
+    "wfk-opensans": "^1.0.1",
+    "toastr": "^2.1.4"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
