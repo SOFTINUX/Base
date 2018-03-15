@@ -14,7 +14,7 @@ namespace Security.ServiceConfiguration
     /// <summary>
     /// Configuration of application services to activate authenticated access
     /// </summary>
-    public class ConfigureAuthentication : IConfigureServicesAction
+    internal class ConfigureAuthentication : IConfigureServicesAction
     {
         public int Priority => 200;
 

@@ -25,7 +25,7 @@ namespace Security.Data.EntityFramework
             // RolePermission
             modelBuilder_.Entity<RolePermission>(etb_ =>
                 {
-                    etb_.HasKey(e_ => new { e_.RoleId, e_.PermissionId });
+                    etb_.HasKey(e_ => new { e_.RoleId, e_.PermissionId, e_.Scope });
                 }
             );
 
@@ -47,14 +47,14 @@ namespace Security.Data.EntityFramework
             // GroupPermission
             modelBuilder_.Entity<GroupPermission>(etb_ =>
             {
-                etb_.HasKey(e_ => new { e_.GroupId, e_.PermissionId });
+                etb_.HasKey(e_ => new { e_.GroupId, e_.PermissionId, e_.Scope });
             }
             );
 
             // UserPermission
             modelBuilder_.Entity<UserPermission>(etb_ =>
                 {
-                    etb_.HasKey(e_ => new { e_.UserId, e_.PermissionId });
+                    etb_.HasKey(e_ => new { e_.UserId, e_.PermissionId, e_.Scope });
                 }
             );
         }
