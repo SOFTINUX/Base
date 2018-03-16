@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Softinux Base Barebone",
   "main": "index.js",
-  "dependencies": { },
+  "dependencies": {},
   "devDependencies": {
     "@types/jquery": "^3.3.1",
     "admin-lte": "^2.4.2",

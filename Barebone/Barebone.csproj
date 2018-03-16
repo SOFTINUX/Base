@@ -19,7 +19,7 @@
     <None Remove="node_modules\jquery\dist\jquery.min.js" />
     <None Remove="node_modules\bootstrap\dist\js\bootstrap.min.js" />
     <None Remove="node_modules\jquery-validation\dist\jquery.validate.min.js" />
-    <None Remove="node_modules\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <None Remove="node_modules\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js" />
     <None Remove="node_modules\js-cookie\src\js.cookie.js" />
     <None Remove="node_modules\admin-lte\dist\js\adminlte.min.js" />
     <None Remove="node_modules\inputmask\dist\min\jquery.inputmask.bundle.min.js" />
@@ -35,7 +35,7 @@
     <EmbeddedResource Include="node_modules\jquery\dist\jquery.min.map" />
     <EmbeddedResource Include="node_modules\bootstrap\dist\js\bootstrap.min.js" />
     <EmbeddedResource Include="node_modules\jquery-validation\dist\jquery.validate.min.js" />
-    <EmbeddedResource Include="node_modules\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <EmbeddedResource Include="node_modules\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js" />
     <EmbeddedResource Include="node_modules\js-cookie\src\js.cookie.js" />
     <EmbeddedResource Include="node_modules\icheck\icheck.js" />
     <EmbeddedResource Include="node_modules\inputmask\dist\min\jquery.inputmask.bundle.min.js" />
