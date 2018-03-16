@@ -2,10 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using ExtCore.Data.Abstractions;
 using Infrastructure;
 using Infrastructure.Enums;
+using Microsoft.AspNetCore.Identity;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
 
@@ -13,10 +15,12 @@ namespace Security
 {
     internal class ClaimsManager
     {
-        private IStorage _storage;
+        private readonly IStorage _storage;
+        private readonly UserManager<User> _userManager;
 
-        internal ClaimsManager(IStorage storage_) {
+        internal ClaimsManager(IStorage storage_, UserManager<User> userManager_) {
             _storage = storage_;
+            _userManager = userManager_;
         }
 
         /// <summary>
@@ -24,7 +28,7 @@ namespace Security
         /// </summary>
         /// <param name="user_"></param>
         /// <param name="identity_"></param>
-        internal void AddClaims(User user_, ClaimsIdentity identity_)
+        internal async void AddClaims(User user_, ClaimsIdentity identity_)
         {
             // First name
             if (!string.IsNullOrWhiteSpace(user_.FirstName))
@@ -43,10 +47,16 @@ namespace Security
             }
 
             // Roles
-            // TODO
+            IList<string> roles = await _userManager.GetRolesAsync(user_);
+            foreach (string role in roles)
+            {
+                identity_.AddClaims(new[] {
+                    new Claim(ClaimTypes.Role, role),
+                });
+            }
 
             // Permissions
-            identity_.AddClaims(new ClaimsManager(_storage).GetAllPermissionClaims(user_.Id));
+            identity_.AddClaims(GetAllPermissionClaims(user_.Id));
 
         }
 

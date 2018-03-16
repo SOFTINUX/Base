@@ -32,7 +32,7 @@ namespace Security
         {
             var principal = await base.CreateAsync(user_);
 
-            new ClaimsManager(_storage).AddClaims(user_, (ClaimsIdentity)principal.Identity);
+            new ClaimsManager(_storage, UserManager).AddClaims(user_, (ClaimsIdentity)principal.Identity);
 
             return principal;
         }
