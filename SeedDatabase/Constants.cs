@@ -1,6 +1,9 @@
 // Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
+using Security.Common;
+using Security.Common.Enums;
+
 namespace SeedDatabase
 {
     public enum Role
@@ -18,9 +21,9 @@ namespace SeedDatabase
             return role.ToString();
         }
         
-        public static string GetPermissionName(this Infrastructure.Enums.Permission permission) // convenience method
+        public static string GetPermissionName(this Permission permission) // convenience method
         {
-            return Infrastructure.Enums.PermissionHelper.GetPermissionName(permission);
+            return PermissionHelper.GetPermissionName(permission);
         }
     }
 }

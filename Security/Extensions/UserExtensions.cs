@@ -3,6 +3,8 @@
 
 using System.Linq;
 using System.Security.Claims;
+using Security.Common;
+using Security.Common.Enums;
 
 namespace Infrastructure.UserExtension
 {
@@ -33,9 +35,9 @@ namespace Infrastructure.UserExtension
             /// <param name="permission_"></param>
             /// <param name="extensionAssemblySimpleName_"></param>
             /// <returns></returns>
-            public static bool HasPermissionClaim(this ClaimsPrincipal claimsPrincipal_, Enums.Permission permission_, string extensionAssemblySimpleName_)
+            public static bool HasPermissionClaim(this ClaimsPrincipal claimsPrincipal_, Permission permission_, string extensionAssemblySimpleName_)
             {
-                return HasClaim(claimsPrincipal_, Enums.ClaimType.Permission.ToString(), Util.GetScopedPermissionIdentifier(permission_, extensionAssemblySimpleName_));
+                return HasClaim(claimsPrincipal_, ClaimType.Permission.ToString(), PermissionHelper.GetScopedPermissionIdentifier(permission_, extensionAssemblySimpleName_));
             }
     }
 }

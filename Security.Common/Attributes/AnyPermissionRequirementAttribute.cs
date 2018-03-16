@@ -7,8 +7,9 @@ using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Security.Common.Enums;
 
-namespace Infrastructure.Attributes
+namespace Security.Common.Attributes
 {
     public class AnyPermissionRequirementAttribute : ActionFilterAttribute
     {
@@ -16,7 +17,7 @@ namespace Infrastructure.Attributes
         /// Permissions grouped by scope.
         /// </summary>
         /// <returns></returns>
-        private readonly Dictionary<string, List<Enums.Permission>> _scopedPermissions = new Dictionary<string, List<Enums.Permission>>();
+        private readonly Dictionary<string, List<Permission>> _scopedPermissions = new Dictionary<string, List<Permission>>();
 
         /// <summary>
         /// Allows access when the user has at least one of the claims of type "Permission" with value
@@ -24,14 +25,14 @@ namespace Infrastructure.Attributes
         /// </summary>
         /// <param name="permissionCode_"></param>
         /// <param name="extensionAssemblySimpleName_"></param>
-        public AnyPermissionRequirementAttribute(Enums.Permission[] permissionCode_, string[] extensionAssemblySimpleName_)
+        public AnyPermissionRequirementAttribute(Permission[] permissionCode_, string[] extensionAssemblySimpleName_)
         {
             for (int i = 0; i < permissionCode_.Length; i++)
             {
                 if (_scopedPermissions.ContainsKey(extensionAssemblySimpleName_[i]))
                     _scopedPermissions[extensionAssemblySimpleName_[i]].Add(permissionCode_[i]);
                 else
-                    _scopedPermissions.Add(extensionAssemblySimpleName_[i], new List<Enums.Permission> { permissionCode_[i] });
+                    _scopedPermissions.Add(extensionAssemblySimpleName_[i], new List<Permission> { permissionCode_[i] });
             }
         }
 
@@ -44,13 +45,13 @@ namespace Infrastructure.Attributes
         {
             foreach (string perm in scopedPermissions_)
             {
-                string scope = Util.GetPermissionScope(perm);
-                Enums.Permission permission = Enum.Parse<Enums.Permission>(Util.GetPermissionLevel(perm));
+                string scope = PermissionHelper.GetPermissionScope(perm);
+                Permission permission = Enum.Parse<Permission>(PermissionHelper.GetPermissionLevel(perm));
 
                 if (_scopedPermissions.ContainsKey(scope))
                     _scopedPermissions[scope].Add(permission);
                 else
-                    _scopedPermissions.Add(scope, new List<Enums.Permission> { permission });
+                    _scopedPermissions.Add(scope, new List<Permission> { permission });
             }
         }
 
@@ -60,11 +61,11 @@ namespace Infrastructure.Attributes
             foreach (string scope in _scopedPermissions.Keys)
             {
                 // Get the user claim, if any, matching the scope of interest
-                Claim claimOfLookupScope = context_.HttpContext.User.Claims.Where(c_ => c_.Type == Enums.ClaimType.Permission.ToString() && c_.Value.ToString().StartsWith($"{scope}.")).FirstOrDefault();
+                Claim claimOfLookupScope = context_.HttpContext.User.Claims.FirstOrDefault(c_ => c_.Type == ClaimType.Permission.ToString() && c_.Value.ToString().StartsWith($"{scope}."));
 
                 if (claimOfLookupScope != null)
                 {
-                    Enums.Permission currentLevel = Enum.Parse<Enums.Permission>(Util.GetPermissionLevel(claimOfLookupScope));
+                    Permission currentLevel = Enum.Parse<Permission>(PermissionHelper.GetPermissionLevel(claimOfLookupScope));
                     foreach (int minLevel in _scopedPermissions[scope])
                     {
                         if ((int)currentLevel >= minLevel)

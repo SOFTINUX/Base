@@ -2,14 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using ExtCore.Data.Abstractions;
-using Infrastructure;
-using Infrastructure.Enums;
 using Microsoft.AspNetCore.Identity;
+using Security.Common;
+using Security.Common.Enums;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
+using Permission = Security.Common.Enums.Permission;
 
 namespace Security
 {
@@ -66,11 +66,11 @@ namespace Security
         /// <param name="userId_"></param>
         /// <returns></returns>
         internal IEnumerable<Claim> GetAllPermissionClaims(string userId_) {
-            HashSet<KeyValuePair<Infrastructure.Enums.Permission, string>> scopedPermissions = _storage.GetRepository<IPermissionRepository>().AllForUser(userId_);
+           HashSet<KeyValuePair<Permission, string>> scopedPermissions = _storage.GetRepository<IPermissionRepository>().AllForUser(userId_);
            List<Claim> claims = new List<Claim>();
-           Dictionary<string, Infrastructure.Enums.Permission> permissionByScope = new Dictionary<string, Infrastructure.Enums.Permission>();
+           Dictionary<string, Permission> permissionByScope = new Dictionary<string, Permission>();
            // Take highest level permission for every scope
-           foreach (KeyValuePair<Infrastructure.Enums.Permission, string> kv in scopedPermissions)
+           foreach (KeyValuePair<Permission, string> kv in scopedPermissions)
            {
                 if(permissionByScope.ContainsKey(kv.Value))
                 {
@@ -85,9 +85,9 @@ namespace Security
                 }
            }
             // Now build the claims
-           foreach(KeyValuePair<string, Infrastructure.Enums.Permission> kv in permissionByScope)
+           foreach(KeyValuePair<string, Permission> kv in permissionByScope)
            {
-               claims.Add(new Claim(ClaimType.Permission, Util.GetScopedPermissionIdentifier(kv.Value, kv.Key)));
+               claims.Add(new Claim(ClaimType.Permission, PermissionHelper.GetScopedPermissionIdentifier(kv.Value, kv.Key)));
            }
            return claims;
         }

@@ -2,14 +2,15 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
 using ExtCore.Data.Abstractions;
-using Infrastructure.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Security.Common.Attributes;
+using Security.Common.Enums;
 using ControllerBase = Infrastructure.ControllerBase;
 
 namespace Security.Controllers
 {
-    [PermissionRequirement(Infrastructure.Enums.Permission.Admin, "Security")]
+    [PermissionRequirement(Permission.Admin, "Security")]
     public class AdministrationController : ControllerBase
     {
         private ILogger _logger;

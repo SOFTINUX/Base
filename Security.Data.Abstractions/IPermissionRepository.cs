@@ -18,6 +18,6 @@ namespace Security.Data.Abstractions
         /// </summary>
         /// <param name="userId_"></param>
         /// <returns></returns>
-        HashSet<KeyValuePair<Infrastructure.Enums.Permission, string>> AllForUser(string userId_);
+        HashSet<KeyValuePair<Common.Enums.Permission, string>> AllForUser(string userId_);
     }
 }

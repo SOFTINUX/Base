@@ -15,4 +15,7 @@
     <PackageReference Include="Serilog.Sinks.File" Version="4.0.0" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="2.0.2" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Security.Common\Security.Common.csproj" />
+  </ItemGroup>
 </Project>

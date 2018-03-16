@@ -4,9 +4,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using ExtCore.Data.EntityFramework;
-using Infrastructure.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Security.Common;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
 using Permission = Security.Data.Entities.Permission;
@@ -42,26 +42,26 @@ namespace Security.Data.EntityFramework
         /// </summary>
         /// <param name="userId_"></param>
         /// <returns>List of key/value : permission and scope</returns>
-        public HashSet<KeyValuePair<Infrastructure.Enums.Permission, string>> AllForUser(string userId_)
+        public HashSet<KeyValuePair<Common.Enums.Permission, string>> AllForUser(string userId_)
         {
-            IEnumerable<KeyValuePair<Infrastructure.Enums.Permission, string>> permissionsOfRoles = from p in storageContext.Set<Permission>()
+            IEnumerable<KeyValuePair<Common.Enums.Permission, string>> permissionsOfRoles = from p in storageContext.Set<Permission>()
                                                                            join rp in storageContext.Set<RolePermission>() on p.Id equals rp.PermissionId
                                                                            join r in storageContext.Set<IdentityRole<string>>() on rp.RoleId equals r.Id
                                                                            join ur in storageContext.Set<IdentityUserRole<string>>() on r.Id equals ur.RoleId
                                                                            where ur.UserId == userId_
-                                                                           select new KeyValuePair<Infrastructure.Enums.Permission, string>(PermissionHelper.FromId(p.Id), rp.Scope);
+                                                                           select new KeyValuePair<Common.Enums.Permission, string>(PermissionHelper.FromId(p.Id), rp.Scope);
 
-            IEnumerable<KeyValuePair<Infrastructure.Enums.Permission, string>> permissionsOfUser = from p in storageContext.Set<Permission>()
+            IEnumerable<KeyValuePair<Common.Enums.Permission, string>> permissionsOfUser = from p in storageContext.Set<Permission>()
                                                                           join up in storageContext.Set<UserPermission>() on p.Id equals up.PermissionId
                                                                           where up.UserId == userId_
-                                                                          select new KeyValuePair<Infrastructure.Enums.Permission, string>(PermissionHelper.FromId(p.Id), up.Scope);
+                                                                          select new KeyValuePair<Common.Enums.Permission, string>(PermissionHelper.FromId(p.Id), up.Scope);
 
-            HashSet<KeyValuePair<Infrastructure.Enums.Permission, string>> allPermissions = new HashSet<KeyValuePair<Infrastructure.Enums.Permission, string>>();
+            HashSet<KeyValuePair<Common.Enums.Permission, string>> allPermissions = new HashSet<KeyValuePair<Common.Enums.Permission, string>>();
 
-            foreach (KeyValuePair<Infrastructure.Enums.Permission, string> p in permissionsOfRoles)
+            foreach (KeyValuePair<Common.Enums.Permission, string> p in permissionsOfRoles)
                 allPermissions.Add(p);
 
-            foreach (KeyValuePair<Infrastructure.Enums.Permission, string> p in permissionsOfUser)
+            foreach (KeyValuePair<Common.Enums.Permission, string> p in permissionsOfUser)
                 allPermissions.Add(p);
 
 

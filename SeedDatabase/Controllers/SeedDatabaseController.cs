@@ -4,12 +4,12 @@
 using System;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
-using Infrastructure.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Security.Data.Abstractions;
 using Microsoft.Extensions.Logging;
+using Security.Common.Enums;
 
 namespace SeedDatabase.Controllers
 {

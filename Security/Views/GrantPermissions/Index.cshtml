@@ -1,6 +1,7 @@
 @* Copyright © 2017 SOFTINUX. All rights reserved.
     Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 *@
+@using Security.Common.Enums
 @model Security.ViewModels.Permissions.GlobalGrantViewModel
 
 @section title {
@@ -68,7 +69,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="checkbox icheck">
-                                                        @if (Model.RolePermissions[item].Contains(Infrastructure.Enums.Permission.Admin))
+                                                        @if (Model.RolePermissions[item].Contains(Permission.Admin))
                                                         {
                                                             <input type="checkbox" value="admin" class="grant-permission" data-slave-cb="write" checked="checked">
                                                         }
@@ -80,9 +81,9 @@
                                                 </td>
                                                 <td>
                                                     <div class="checkbox icheck">
-                                                        @if (Model.RolePermissions[item].Contains(Infrastructure.Enums.Permission.Write))
+                                                        @if (Model.RolePermissions[item].Contains(Permission.Write))
                                                         {
-                                                            if (Model.RolePermissions[item].Contains(Infrastructure.Enums.Permission.Admin))
+                                                            if (Model.RolePermissions[item].Contains(Permission.Admin))
                                                             {
                                                                 checkboxState = "disabled";
                                                             }
@@ -97,9 +98,9 @@
                                                 </td>
                                                 <td>
                                                     <div class="checkbox icheck">
-                                                        @if (Model.RolePermissions[item].Contains(Infrastructure.Enums.Permission.Read))
+                                                        @if (Model.RolePermissions[item].Contains(Permission.Read))
                                                         {
-                                                            if (Model.RolePermissions[item].Contains(Infrastructure.Enums.Permission.Write))
+                                                            if (Model.RolePermissions[item].Contains(Permission.Write))
                                                             {
                                                                 checkboxState = "disabled";
                                                             }

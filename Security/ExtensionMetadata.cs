@@ -3,8 +3,9 @@
 
 using System.Collections.Generic;
 using Infrastructure;
-using Infrastructure.Attributes;
 using Infrastructure.Interfaces;
+using Security.Common.Attributes;
+using Security.Common.Enums;
 
 namespace Security
 {
@@ -26,7 +27,7 @@ namespace Security
                     new[]
                     {
                         new MenuItem("/administration", "Main", 100, null,
-                            new List<PermissionRequirementAttribute>(new[] { new PermissionRequirementAttribute(Infrastructure.Enums.Permission.Admin, "Security"), }))
+                            new List<PermissionRequirementAttribute>(new[] { new PermissionRequirementAttribute(Permission.Admin, "Security"), }))
                     },
                     "fa-wrench"
                 )

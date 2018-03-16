@@ -1,14 +1,7 @@
 // Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
-using System;
-using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.Routing;
-using Microsoft.AspNetCore.Http;
-
-namespace Htmlextensions
+namespace Infrastructure
 {
     public static class HtmlExtensions
     {

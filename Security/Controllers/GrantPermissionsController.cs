@@ -3,14 +3,15 @@
 
 using System.Collections.Generic;
 using ExtCore.Data.Abstractions;
-using Infrastructure.Attributes;
 using Microsoft.AspNetCore.Mvc;
+using Security.Common.Attributes;
+using Security.Common.Enums;
 using Security.ViewModels.Permissions;
 using ControllerBase = Infrastructure.ControllerBase;
 
 namespace Security.Controllers
 {
-    [PermissionRequirement(Infrastructure.Enums.Permission.Admin, "Security")]
+    [PermissionRequirement(Permission.Admin, "Security")]
     public class GrantPermissionsController : ControllerBase
     {
         public GrantPermissionsController(IStorage storage_) : base(storage_)
@@ -25,14 +26,14 @@ namespace Security.Controllers
             GlobalGrantViewModel model = new GlobalGrantViewModel();
 
             // sample very simple hardcoded data - TODO read data from database
-            model.RolePermissions.Add("Admin", new List<Infrastructure.Enums.Permission>
-            {Infrastructure.Enums.Permission.Admin, Infrastructure.Enums.Permission.Write, Infrastructure.Enums.Permission.Read});
+            model.RolePermissions.Add("Admin", new List<Permission>
+            {Permission.Admin, Permission.Write, Permission.Read});
 
-            model.RolePermissions.Add("User", new List<Infrastructure.Enums.Permission>
-            {Infrastructure.Enums.Permission.Write, Infrastructure.Enums.Permission.Read});
+            model.RolePermissions.Add("User", new List<Permission>
+            {Permission.Write, Permission.Read});
 
-            model.RolePermissions.Add("Anonymous", new List<Infrastructure.Enums.Permission>
-            {Infrastructure.Enums.Permission.Read});
+            model.RolePermissions.Add("Anonymous", new List<Permission>
+            {Permission.Read});
 
             return View(model);
         }

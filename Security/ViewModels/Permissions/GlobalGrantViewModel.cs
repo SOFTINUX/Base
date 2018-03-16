@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.Collections.Generic;
+using Security.Common.Enums;
 
 namespace Security.ViewModels.Permissions
 {
@@ -14,18 +15,18 @@ namespace Security.ViewModels.Permissions
         /// For every role, the attributed permissions.
         /// </summary>
         /// <returns></returns>
-        public Dictionary<string, List<Infrastructure.Enums.Permission>> RolePermissions {get; set;}
+        public Dictionary<string, List<Permission>> RolePermissions {get; set;}
 
         /// <summary>
         /// For every user, the attributed permissions.
         /// </summary>
         /// <returns></returns>
-        public Dictionary<string, List<Infrastructure.Enums.Permission>> UserPermissions {get; set;}
+        public Dictionary<string, List<Permission>> UserPermissions {get; set;}
 
         public GlobalGrantViewModel()
         {
-            RolePermissions = new Dictionary<string, List<Infrastructure.Enums.Permission>>();
-            UserPermissions = new Dictionary<string, List<Infrastructure.Enums.Permission>>();
+            RolePermissions = new Dictionary<string, List<Permission>>();
+            UserPermissions = new Dictionary<string, List<Permission>>();
         }
     }
 }

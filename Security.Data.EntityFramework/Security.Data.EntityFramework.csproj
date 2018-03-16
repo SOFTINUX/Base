@@ -7,6 +7,7 @@
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Security.Common\Security.Common.csproj" />
     <ProjectReference Include="..\Security.Data.Abstractions\Security.Data.Abstractions.csproj" />
   </ItemGroup>
 </Project>

@@ -7,15 +7,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ExtCore.Data.Abstractions;
-using Infrastructure.Attributes;
 using Microsoft.Extensions.Logging;
+using Security.Common.Attributes;
 using Security.Data.Entities;
 using ControllerBase = Infrastructure.ControllerBase;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
+using Permission = Security.Common.Enums.Permission;
 
 namespace Security.Controllers
 {
-    [PermissionRequirement(Infrastructure.Enums.Permission.Admin, "Security")]
+    [PermissionRequirement(Permission.Admin, "Security")]
     public class ListUsersController : ControllerBase
     {
         //private readonly ILogger _logger;
