@@ -38,7 +38,7 @@ namespace Security.Data.EntityFramework
         }
 
         /// <summary>
-        /// Every permission with its scope, linked to user, user's groups, user's roles.
+        /// Every permission with its scope, linked to user and user's roles.
         /// </summary>
         /// <param name="userId_"></param>
         /// <returns>List of key/value : permission and scope</returns>
@@ -51,13 +51,6 @@ namespace Security.Data.EntityFramework
                                                                            where ur.UserId == userId_
                                                                            select new KeyValuePair<Infrastructure.Enums.Permission, string>(PermissionHelper.FromId(p.Id), rp.Scope);
 
-            IEnumerable<KeyValuePair<Infrastructure.Enums.Permission, string>> permissionsOfGroups = from p in storageContext.Set<Permission>()
-                                                                            join gp in storageContext.Set<GroupPermission>() on p.Id equals gp.PermissionId
-                                                                            join g in storageContext.Set<Group>() on gp.GroupId equals g.Id
-                                                                            join ug in storageContext.Set<UserGroup>() on g.Id equals ug.GroupId
-                                                                            where ug.UserId == userId_
-                                                                            select new KeyValuePair<Infrastructure.Enums.Permission, string>(PermissionHelper.FromId(p.Id), gp.Scope);
-
             IEnumerable<KeyValuePair<Infrastructure.Enums.Permission, string>> permissionsOfUser = from p in storageContext.Set<Permission>()
                                                                           join up in storageContext.Set<UserPermission>() on p.Id equals up.PermissionId
                                                                           where up.UserId == userId_
@@ -66,9 +59,6 @@ namespace Security.Data.EntityFramework
             HashSet<KeyValuePair<Infrastructure.Enums.Permission, string>> allPermissions = new HashSet<KeyValuePair<Infrastructure.Enums.Permission, string>>();
 
             foreach (KeyValuePair<Infrastructure.Enums.Permission, string> p in permissionsOfRoles)
-                allPermissions.Add(p);
-
-            foreach (KeyValuePair<Infrastructure.Enums.Permission, string> p in permissionsOfGroups)
                 allPermissions.Add(p);
 
             foreach (KeyValuePair<Infrastructure.Enums.Permission, string> p in permissionsOfUser)

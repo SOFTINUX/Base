@@ -29,28 +29,6 @@ namespace Security.Data.EntityFramework
                 }
             );
 
-            // Group
-            modelBuilder_.Entity<Group>(etb_ =>
-                {
-                    etb_.HasKey(e_ => e_.Id);
-                    etb_.Property(e_ => e_.Id).ValueGeneratedOnAdd();
-                }
-            );
-
-            // UserGroup
-            modelBuilder_.Entity<UserGroup>(etb_ =>
-                {
-                    etb_.HasKey(e_ => new { e_.GroupId, e_.UserId });
-                }
-            );
-
-            // GroupPermission
-            modelBuilder_.Entity<GroupPermission>(etb_ =>
-            {
-                etb_.HasKey(e_ => new { e_.GroupId, e_.PermissionId, e_.Scope });
-            }
-            );
-
             // UserPermission
             modelBuilder_.Entity<UserPermission>(etb_ =>
                 {
