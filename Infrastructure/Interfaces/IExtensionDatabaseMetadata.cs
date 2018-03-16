@@ -9,7 +9,7 @@ using Infrastructure.Enums;
 namespace Infrastructure.Interfaces
 {
     /// <summary>
-    /// Implementing this interface allows your extension to provide all the base entities, i.e. permissions, roles, groups
+    /// Implementing this interface allows your extension to provide all the base entities, i.e. permissions, roles
     /// that you wish to record to database.
     /// After these entities have been recorded, configuring links related to these elements (attributing permissions to roles etc)
     /// will be done using Security's administration interface or through custom code in ConfigureLinks(IStorage) implementation,

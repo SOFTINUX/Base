@@ -11,28 +11,16 @@ namespace SeedDatabase
         Anonymous
     }
 
-    public enum Group
-    {
-        AdministratorOwner,
-        Administrators,
-        Users,
-        Anonymous
-    }
-
     public static class Constants
     {
         public static string GetRoleName(this Role role) // convenience method
         {
             return role.ToString();
         }
-        public static string GetGroupName(this Group group) // convenience method
-        {
-            return group.ToString();
-        }
+        
         public static string GetPermissionName(this Infrastructure.Enums.Permission permission) // convenience method
         {
             return Infrastructure.Enums.PermissionHelper.GetPermissionName(permission);
-            //return permission.ToString();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Infrastructure
 {
     /// <summary>
     /// Useful base class for implementations of IExtensionDatabaseMetadata in case your extension provides only
-    /// custom permissions, roles and groups, but not credential types etc.
+    /// custom permissions, roles, but not credential types etc.
     /// </summary>
     public abstract class ExtensionDatabaseMetadataBase : IExtensionDatabaseMetadata
     {

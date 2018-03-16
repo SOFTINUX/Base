@@ -14,7 +14,7 @@ namespace Security.Data.Abstractions
         void Edit(Permission entity_);
         void Delete(string entityId_);
         /// <summary>
-        /// Every permission with its scope, linked to user, user's groups, user's roles.
+        /// Every permission with its scope, linked to user, user's roles.
         /// </summary>
         /// <param name="userId_"></param>
         /// <returns></returns>
