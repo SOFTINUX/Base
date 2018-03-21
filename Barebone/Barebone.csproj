@@ -18,6 +18,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Styles\**;Scripts\**;Views\**" />
     <EmbeddedResource Include="**\node_modules\icheck\skins\square\**" />
+    <EmbeddedResource Include="**\node_modules\icheck\skins\minimal\**" />
+    <EmbeddedResource Include="**\node_modules\icheck\skins\line\**" />
+    <EmbeddedResource Include="**\node_modules\icheck\skins\flat\**" />
     <EmbeddedResource Include="**\node_modules\admin-lte\dist\css\skins\**" />
     <EmbeddedResource Include="**\node_modules\admin-lte\dist\css\alt\**" />
   </ItemGroup>

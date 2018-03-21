@@ -6,8 +6,8 @@
   "dependencies": {},
   "devDependencies": {
     "@types/jquery": "^3.3.1",
-    "admin-lte": "^2.4.2",
-    "bootstrap": "^3.3.7",
+    "admin-lte": "^2.4.3",
+    "bootstrap": "3.3.7",
     "datatables.net": "^1.10.16",
     "datatables.net-bs": "^1.10.16",
     "datatables.net-buttons": "^1.5.1",
@@ -22,7 +22,7 @@
     "jquery-validation": "^1.17.0",
     "jquery-validation-unobtrusive": "^3.2.8",
     "js-cookie": "^2.2.0",
-    "normalize.css": "^7.0.0",
+    "normalize.css": "^8.0.0",
     "popper.js": "^1.14.1",
     "wfk-opensans": "^1.0.1",
     "toastr": "^2.1.4"

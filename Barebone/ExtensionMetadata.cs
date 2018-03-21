@@ -23,8 +23,11 @@ namespace Barebone
             new StyleSheet("/node_modules.ionicons.dist.css.ionicons.min.css", 413),
             new StyleSheet("/node_modules.ionicons.dist.css.ionicons.min.css.map", 414),
             new StyleSheet("/node_modules.icheck.skins.square.blue.css", 415),
+            new StyleSheet("/node_modules.icheck.skins.minimal.blue.css", 416),
+            new StyleSheet("/node_modules.icheck.skins.flat.blue.css", 417),
+            new StyleSheet("/node_modules.icheck.skins.line.blue.css", 418),
             // -- Toastr
-            new StyleSheet("/node_modules.toastr.build.toastr.min.css", 416),
+            new StyleSheet("/node_modules.toastr.build.toastr.min.css", 417),
             // --
             new StyleSheet("/Styles.barebone.css",500),
             new StyleSheet("/css/Styles.css",600)

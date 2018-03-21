@@ -44,6 +44,7 @@
   visibility: visible;
 }
 
+/* iCheckbox Square */
 .icheckbox_square-orange,
 .iradio_square-orange {
   background: url(node_modules.icheck.skins.square.orange.png) no-repeat;
@@ -173,6 +174,411 @@
   .icheckbox_square,
   .iradio_square {
       background-image: url(node_modules.icheck.skins.square.square@2x.png);
+      -webkit-background-size: 240px 24px;
+      background-size: 240px 24px;
+  }
+}
+
+/* iCheckbox Minimal */
+.icheckbox_minimal-orange,
+.iradio_minimal-orange {
+  background: url(node_modules.icheck.skins.minimal.orange.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_minimal-orange,
+  .iradio_minimal-orange {
+      background-image: url(node_modules.icheck.skins.minimal.orange@2x.png);
+  }
+}
+
+.icheckbox_minimal-yellow,
+.iradio_minimal-yellow {
+  background: url(node_modules.icheck.skins.minimal.yellow.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_minimal-yellow,
+  .iradio_minimal-yellow {
+      background-image: url(node_modules.icheck.skins.minimal.yellow@2x.png);
+  }
+}
+
+.icheckbox_minimal-pink,
+.iradio_minimal-pink {
+    background: url(node_modules.icheck.skins.minimal.pink.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_minimal-pink,
+  .iradio_minimal-pink {
+      background-image: url(node_modules.icheck.skins.minimal.pink@2x.png);
+  }
+}
+
+.icheckbox_minimal-purple,
+.iradio_minimal-purple {
+    background: url(node_modules.icheck.skins.minimal.purple.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_minimal-purple,
+  .iradio_minimal-purple {
+      background-image: url(node_modules.icheck.skins.minimal.purple@2x.png);
+  }
+}
+
+.icheckbox_minimal-grey,
+.iradio_minimal-grey {
+    background: url(node_modules.icheck.skins.minimal.grey.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_minimal-grey,
+  .iradio_minimal-grey {
+      background-image: url(node_modules.icheck.skins.minimal.grey@2x.png);
+  }
+}
+
+.icheckbox_minimal-aero,
+.iradio_minimal-aero {
+    background: url(node_modules.icheck.skins.minimal.aero.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_minimal-aero,
+  .iradio_minimal-aero {
+      background-image: url(node_modules.icheck.skins.minimal.aero@2x.png);
+  }
+}
+
+.icheckbox_minimal-blue,
+.iradio_minimal-blue {
+    background: url(node_modules.icheck.skins.minimal.blue.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_minimal-blue,
+  .iradio_minimal-blue {
+      background-image: url(node_modules.icheck.skins.minimal.blue@2x.png);
+  }
+}
+
+.icheckbox_minimal-green,
+.iradio_minimal-green {
+    background: url(node_modules.icheck.skins.minimal.green.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_minimal-green,
+  .iradio_minimal-green {
+      background-image: url(node_modules.icheck.skins.minimal.green@2x.png);
+      -webkit-background-size: 240px 24px;
+      background-size: 240px 24px;
+  }
+}
+
+.icheckbox_minimal-red,
+.iradio_minimal-red {
+    background: url(node_modules.icheck.skins.minimal.red.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_minimal-red,
+  .iradio_minimal-red {
+      background-image: url(node_modules.icheck.skins.minimal.red@2x.png);
+  }
+}
+
+.icheckbox_minimal,
+.iradio_minimal {
+    background: url(node_modules.icheck.skins.minimal.minimal.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_minimal,
+  .iradio_minimal {
+      background-image: url(node_modules.icheck.skins.minimal.minimal@2x.png);
+      -webkit-background-size: 240px 24px;
+      background-size: 240px 24px;
+  }
+}
+
+/* iCheckbox Flat */
+.icheckbox_flat-orange,
+.iradio_flat-orange {
+  background: url(node_modules.icheck.skins.flat.orange.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_flat-orange,
+  .iradio_flat-orange {
+      background-image: url(node_modules.icheck.skins.flat.orange@2x.png);
+  }
+}
+
+.icheckbox_flat-yellow,
+.iradio_flat-yellow {
+  background: url(node_modules.icheck.skins.flat.yellow.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_flat-yellow,
+  .iradio_flat-yellow {
+      background-image: url(node_modules.icheck.skins.flat.yellow@2x.png);
+  }
+}
+
+.icheckbox_flat-pink,
+.iradio_flat-pink {
+    background: url(node_modules.icheck.skins.flat.pink.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_flat-pink,
+  .iradio_flat-pink {
+      background-image: url(node_modules.icheck.skins.flat.pink@2x.png);
+  }
+}
+
+.icheckbox_flat-purple,
+.iradio_flat-purple {
+    background: url(node_modules.icheck.skins.flat.purple.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_flat-purple,
+  .iradio_flat-purple {
+      background-image: url(node_modules.icheck.skins.flat.purple@2x.png);
+  }
+}
+
+.icheckbox_flat-grey,
+.iradio_flat-grey {
+    background: url(node_modules.icheck.skins.flat.grey.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_flat-grey,
+  .iradio_flat-grey {
+      background-image: url(node_modules.icheck.skins.flat.grey@2x.png);
+  }
+}
+
+.icheckbox_flat-aero,
+.iradio_flat-aero {
+    background: url(node_modules.icheck.skins.flat.aero.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_flat-aero,
+  .iradio_flat-aero {
+      background-image: url(node_modules.icheck.skins.flat.aero@2x.png);
+  }
+}
+
+.icheckbox_flat-blue,
+.iradio_flat-blue {
+    background: url(node_modules.icheck.skins.flat.blue.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_flat-blue,
+  .iradio_flat-blue {
+      background-image: url(node_modules.icheck.skins.flat.blue@2x.png);
+  }
+}
+
+.icheckbox_flat-green,
+.iradio_flat-green {
+    background: url(node_modules.icheck.skins.flat.green.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_flat-green,
+  .iradio_flat-green {
+      background-image: url(node_modules.icheck.skins.flat.green@2x.png);
+      -webkit-background-size: 240px 24px;
+      background-size: 240px 24px;
+  }
+}
+
+.icheckbox_flat-red,
+.iradio_flat-red {
+    background: url(node_modules.icheck.skins.flat.red.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_flat-red,
+  .iradio_flat-red {
+      background-image: url(node_modules.icheck.skins.flat.red@2x.png);
+  }
+}
+
+.icheckbox_flat,
+.iradio_flat {
+    background: url(node_modules.icheck.skins.flat.flat.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_flat,
+  .iradio_flat {
+      background-image: url(node_modules.icheck.skins.flat.flat@2x.png);
+      -webkit-background-size: 240px 24px;
+      background-size: 240px 24px;
+  }
+}
+
+/* iCheckbox Line */
+.icheckbox_line-orange,
+.iradio_line-orange {
+  background: url(node_modules.icheck.skins.line.orange.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_line-orange,
+  .iradio_line-orange {
+      background-image: url(node_modules.icheck.skins.line.orange@2x.png);
+  }
+}
+
+.icheckbox_line-yellow,
+.iradio_line-yellow {
+  background: url(node_modules.icheck.skins.line.yellow.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_line-yellow,
+  .iradio_line-yellow {
+      background-image: url(node_modules.icheck.skins.line.yellow@2x.png);
+  }
+}
+
+.icheckbox_line-pink,
+.iradio_line-pink {
+    background: url(node_modules.icheck.skins.line.pink.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_line-pink,
+  .iradio_line-pink {
+      background-image: url(node_modules.icheck.skins.line.pink@2x.png);
+  }
+}
+
+.icheckbox_line-purple,
+.iradio_line-purple {
+    background: url(node_modules.icheck.skins.line.purple.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_line-purple,
+  .iradio_line-purple {
+      background-image: url(node_modules.icheck.skins.line.purple@2x.png);
+  }
+}
+
+.icheckbox_line-grey,
+.iradio_line-grey {
+    background: url(node_modules.icheck.skins.line.grey.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_line-grey,
+  .iradio_line-grey {
+      background-image: url(node_modules.icheck.skins.line.grey@2x.png);
+  }
+}
+
+.icheckbox_line-aero,
+.iradio_line-aero {
+    background: url(node_modules.icheck.skins.line.aero.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_line-aero,
+  .iradio_line-aero {
+      background-image: url(node_modules.icheck.skins.line.aero@2x.png);
+  }
+}
+
+.icheckbox_line-blue,
+.iradio_line-blue {
+    background: url(node_modules.icheck.skins.line.blue.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_line-blue,
+  .iradio_line-blue {
+      background-image: url(node_modules.icheck.skins.line.blue@2x.png);
+  }
+}
+
+.icheckbox_line-green,
+.iradio_line-green {
+    background: url(node_modules.icheck.skins.line.green.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_line-green,
+  .iradio_line-green {
+      background-image: url(node_modules.icheck.skins.line.green@2x.png);
+      -webkit-background-size: 240px 24px;
+      background-size: 240px 24px;
+  }
+}
+
+.icheckbox_line-red,
+.iradio_line-red {
+    background: url(node_modules.icheck.skins.line.red.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_line-red,
+  .iradio_line-red {
+      background-image: url(node_modules.icheck.skins.line.red@2x.png);
+  }
+}
+
+.icheckbox_line,
+.iradio_line {
+    background: url(node_modules.icheck.skins.line.line.png) no-repeat;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox_line,
+  .iradio_line {
+      background-image: url(node_modules.icheck.skins.line.line@2x.png);
       -webkit-background-size: 240px 24px;
       background-size: 240px 24px;
   }
