@@ -18,8 +18,8 @@ namespace Extension1
                 1000,
                 new[]
                 {
-                    new MenuItem("/extension1", "Extension 1", 100),
-                    new MenuItem("/extension1/protected", "Extension 1 (protected)", 101)
+                    new MenuItem("/extension1", "Gestion clientèle", 100),
+                    new MenuItem("/extension1/protected", "Gestion clientèle (protected)", 101)
                 },
                 "fa-files-o"
             ),
@@ -28,7 +28,7 @@ namespace Extension1
                 2000,
                 new[]
                 {
-                    new MenuItem("/extension1/admin", "Extension 1", 100)
+                    new MenuItem("/extension1/admin", "Gestion clientèle", 100)
                 },
                 "fa-gears"
             ),
