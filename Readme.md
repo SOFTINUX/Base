@@ -91,6 +91,7 @@ If you prefer to use Visual Studio Code, you need these extensions:
   - [Path Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)
   - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
   - [TSLint](https://marketplace.visualstudio.com/items?itemName=eg2.tslint)
+  - [Visual Studio Code Solution Explorer](https://marketplace.visualstudio.com/items?itemName=fernandoescolar.vscode-solution-explorer)
 
 Optional for better experience:
   - [Can I Use](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-caniuse)
