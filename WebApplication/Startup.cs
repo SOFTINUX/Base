@@ -99,11 +99,8 @@ namespace WebApplication
             services_.AddScoped<IUserClaimsPrincipalFactory<User>, ClaimsPrincipalFactory>();
 
             // Register database-specific storage context implementation.
-            // Necessary for IStorage service registration to fully work (see AddAuthorizationPolicies).
             services_.AddScoped<IStorageContext, ApplicationStorageContext>();
             services_.AddScoped<IStorage, Storage>();
-
-            //DesignTimeStorageContextFactory.Initialize(services_.BuildServiceProvider());
 
             services_.AddExtCore(_extensionsPath);
 
@@ -133,9 +130,10 @@ namespace WebApplication
             Log.Information("#######################################################");
 #endif
 
-            applicationBuilder_.UseAuthentication();
             applicationBuilder_.UseExtCore();
             applicationBuilder_.UseStaticFiles();
+
+            // More configuration like "applicationBuilder_.Use..." in Security.ServiceConfiguration.*
 
             System.Console.WriteLine("PID= " + System.Diagnostics.Process.GetCurrentProcess().Id);
         }
