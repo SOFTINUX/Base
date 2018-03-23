@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Chinook.Data.Entities\Chinook.Data.Entities.csproj" />
+    <ProjectReference Include="..\Chinook.Data.Abstractions\Chinook.Data.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

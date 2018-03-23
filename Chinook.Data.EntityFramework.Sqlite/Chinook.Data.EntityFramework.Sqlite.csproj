@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+   <ItemGroup>
+    <PackageReference Include="ExtCore.Data.EntityFramework.Sqlite" Version="3.2.0" />
+  </ItemGroup>
+
+   <ItemGroup>
+     <ProjectReference Include="..\Chinook.Data.EntityFramework\Chinook.Data.EntityFramework.csproj" />
+     <ProjectReference Include="..\Chinook.Data.Abstractions\Chinook.Data.Abstractions.csproj" />
+   </ItemGroup>
+
+</Project>
