@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Infrastructure;
 using Infrastructure.Interfaces;
 
-namespace Extension1
+namespace Chinook
 {
     public class ExtensionMetadata : IExtensionMetadata
     {
@@ -18,8 +18,8 @@ namespace Extension1
                 1000,
                 new[]
                 {
-                    new MenuItem("/extension1", "Gestion clientèle", 100),
-                    new MenuItem("/extension1/protected", "Gestion clientèle (protected)", 101)
+                    new MenuItem("/chinook", "Chinook", 100),
+                    new MenuItem("/chinook/protected", "Chinook (protected)", 101)
                 },
                 "fa-files-o"
             ),
@@ -28,7 +28,7 @@ namespace Extension1
                 2000,
                 new[]
                 {
-                    new MenuItem("/extension1/admin", "Gestion clientèle", 100)
+                    new MenuItem("/chinook/admin", "Chinook", 100)
                 },
                 "fa-gears"
             ),

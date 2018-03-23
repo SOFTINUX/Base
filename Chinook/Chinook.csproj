@@ -9,7 +9,7 @@
     <EmbeddedResource Include="Views\**" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Views\Extension1\Protected.cshtml" />
+    <None Remove="Views\Chinook\Protected.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />

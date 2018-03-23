@@ -132,8 +132,8 @@ namespace SeedDatabase.Controllers
             if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
                 return saveResult;
 
-            // Paul : Admin (Extension1)
-            saveResult = SaveUserPermission(Permission.Admin.ToString(), paulUser, "Extension1");
+            // Paul : Admin (Chinook)
+            saveResult = SaveUserPermission(Permission.Admin.ToString(), paulUser, "Chinook");
             if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
                 return saveResult;
 
@@ -144,8 +144,8 @@ namespace SeedDatabase.Controllers
             if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
                 return saveResult;
 
-            // 2. Admin role: admin (Extension1)
-            saveResult = SaveRolePermission(Role.Administrator.ToString(), Permission.Admin.ToString(), "Extension1");
+            // 2. Admin role: admin (Chinook)
+            saveResult = SaveRolePermission(Role.Administrator.ToString(), Permission.Admin.ToString(), "Chinook");
             if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
                 return saveResult;
 
@@ -173,10 +173,10 @@ namespace SeedDatabase.Controllers
                 _storage.GetRepository<IPermissionRepository>().Create(permission);
             }
 
-            // Permission for extension1 administration
+            // Permission for Chinook administration
             Security.Data.Entities.Permission permission1 = new Security.Data.Entities.Permission()
             {
-                Id = "Extension1.Admin", // OriginExtension + Name
+                Id = "Chinook.Admin", // OriginExtension + Name
                 Name = "Admin"
             };
 
