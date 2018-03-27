@@ -40,7 +40,7 @@ namespace Chinook.Controllers
         [PermissionRequirement(Permission.Admin, "Chinook")]
         public ActionResult Init()
         {
-            string result = new SqlHelper(Storage.StorageContext).ExecuteSqlFile(
+            string result = new SqlHelper(Storage).ExecuteSqlFile(
                 Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                     "Chinook_Sqlite_AutoIncrementPKs.sql"));
             this.ViewBag.InitDone = true;

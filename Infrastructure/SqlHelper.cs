@@ -8,11 +8,11 @@ namespace Infrastructure
 {
     public class SqlHelper
     {
-        private IStorageContext _context;
+        private IStorage _storage;
 
-        public SqlHelper(IStorageContext context_)
+        public SqlHelper(IStorage storage_)
         {
-            _context = context_;
+            _storage = storage_;
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Infrastructure
 
             try
             {
-                ((StorageContextBase)_context).Database.ExecuteSqlCommand(File.ReadAllText(filePath_));
+                ((DbContext)_storage.StorageContext).Database.ExecuteSqlCommand(File.ReadAllText(filePath_));
             }
             catch (Exception e)
             {

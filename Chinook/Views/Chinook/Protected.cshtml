@@ -5,7 +5,7 @@
     <h2>Chinook Initialize Data</h2>
 }
 
-@Html.ActionLink("Execute data's initialization", "Init", "Chinook")
+@Html.ActionLink("Create and fill database tables", "Init", "Chinook")
 
 @{
     if (true == ViewBag.InitDone)
@@ -20,3 +20,5 @@
         }
     }
 }
+
+@* TODO : add a box (see adminLTE doc), an "onclick" to the html action link, include infrastructure.js.min and make it work *@

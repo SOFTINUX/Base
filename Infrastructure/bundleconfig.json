@@ -1,0 +1,13 @@
+[
+  {
+    "outputFileName": "Scripts/infrastructure.min.js",
+    "inputFiles": [
+      "Scripts/infrastructure.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]
