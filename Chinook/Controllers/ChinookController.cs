@@ -3,6 +3,7 @@
 
 
 using Chinook.ViewModels.Chinook;
+using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Security.Common.Attributes;
 using Security.Common.Enums;
@@ -11,6 +12,8 @@ namespace Chinook.Controllers
 {
     public class ChinookController : Controller
     {
+        private readonly IStorage _storage;
+
         public ActionResult Index()
         {
             return View(new IndexViexModelFactory().Create());
@@ -26,6 +29,12 @@ namespace Chinook.Controllers
         public ActionResult Protected()
         {
             return View();
+        }
+
+        [PermissionRequirement(Permission.Admin, "Chinook")]
+        public ActionResult Init()
+        {
+            return View("Protected");
         }
     }
 }
