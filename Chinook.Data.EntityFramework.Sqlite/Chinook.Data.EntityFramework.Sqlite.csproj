@@ -13,4 +13,10 @@
      <ProjectReference Include="..\Chinook.Data.Abstractions\Chinook.Data.Abstractions.csproj" />
    </ItemGroup>
 
+   <ItemGroup>
+     <None Update="Chinook_Sqlite_AutoIncrementPKs.sql">
+       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+     </None>
+   </ItemGroup>
+
 </Project>

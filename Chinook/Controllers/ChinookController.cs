@@ -2,17 +2,23 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
 
+using System.IO;
+using System.Reflection;
 using Chinook.ViewModels.Chinook;
 using ExtCore.Data.Abstractions;
+using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Security.Common.Attributes;
 using Security.Common.Enums;
 
 namespace Chinook.Controllers
 {
-    public class ChinookController : Controller
+    public class ChinookController : Infrastructure.ControllerBase
     {
-        private readonly IStorage _storage;
+        public ChinookController(IStorage storage_) : base(storage_)
+        {
+
+        }
 
         public ActionResult Index()
         {
@@ -34,6 +40,11 @@ namespace Chinook.Controllers
         [PermissionRequirement(Permission.Admin, "Chinook")]
         public ActionResult Init()
         {
+            string result = new SqlHelper(Storage.StorageContext).ExecuteSqlFile(
+                Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                    "Chinook_Sqlite_AutoIncrementPKs.sql"));
+            this.ViewBag.InitDone = true;
+            this.ViewBag.InitResult = result;
             return View("Protected");
         }
     }

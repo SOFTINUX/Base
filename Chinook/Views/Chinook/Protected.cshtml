@@ -1,8 +1,22 @@
 @* Copyright © 2017 SOFTINUX. All rights reserved.
- Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+    Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 *@
 @section title {
     <h2>Chinook Initialize Data</h2>
 }
 
-<a @Url.Action("Init", "Chinook")>Execute data's inilialization</a>
+@Html.ActionLink("Execute data's initialization", "Init", "Chinook")
+
+@{
+    if (true == ViewBag.InitDone)
+    {
+        if (!String.IsNullOrEmpty(ViewBag.InitResult))
+        {
+            <p style="color:red">@(ViewBag.InitResult)</p>
+        }
+        else
+        {
+            <p style="color:green">Data initialization OK</p>
+        }
+    }
+}
