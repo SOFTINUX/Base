@@ -17,9 +17,9 @@ namespace Security.Data.EntityFramework
         {
             return dbSet.ToList();
         }
-        public RolePermission FindBy(string roleId_, string permissionId_)
+        public RolePermission FindBy(string roleId_, string scope_)
         {
-            return dbSet.FirstOrDefault(e_ => e_.RoleId == roleId_ && e_.PermissionId == permissionId_);
+            return dbSet.FirstOrDefault(e_ => e_.RoleId == roleId_ && e_.Scope == scope_);
         }
 
         public IEnumerable<RolePermission> FilteredByRoleId(string roleId_)
@@ -37,9 +37,9 @@ namespace Security.Data.EntityFramework
             storageContext.Entry(entity_).State = EntityState.Modified;
         }
 
-        public void Delete(string roleId_, string permissionId_)
+        public void Delete(string roleId_, string scope_)
         {
-            var entity = FindBy(roleId_, permissionId_);
+            var entity = FindBy(roleId_, scope_);
             if (entity != null)
                 dbSet.Remove(entity);
         }

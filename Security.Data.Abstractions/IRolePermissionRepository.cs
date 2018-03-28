@@ -10,10 +10,10 @@ namespace Security.Data.Abstractions
     public interface IRolePermissionRepository : IRepository
     {
         List<RolePermission> All();
-        RolePermission FindBy(string roleId_, string permissionId_);
+        RolePermission FindBy(string roleId_, string scope_);
         IEnumerable<RolePermission> FilteredByRoleId(string roleId_);
         void Create(RolePermission entity_);
         void Edit(RolePermission entity_);
-        void Delete(string roleId_, string permissionId_);
+        void Delete(string roleId_, string scope_);
     }
 }

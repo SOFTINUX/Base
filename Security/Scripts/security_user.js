@@ -55,16 +55,31 @@ function permissionCheckboxChanged(jCheckBox) {
     if(slaveCheckBox) {
         var currentCheckBoxChecked = jCheckBox.is(':checked');
         var slaveCheckBox = jCheckBox.closest("tr").children("td").find("input:checkbox[value='"+slaveCheckBox+"']")[0];
-        if(currentCheckBoxChecked) {
-            // disable and check slave cb
+        if (currentCheckBoxChecked) {
+            // current checkbox value is saved as new permission
+            // FIXME fix code and uncomment function call
+            //savePermission(jCheckBox.closest("tr").attr("data-entity-id"),
+            //    jCheckBox.closest("tbody").attr("data-entity-id"),
+            //    jCheckBox.value());
+            // disable and uncheck slave cb
             $(slaveCheckBox).iCheck('check').iCheck('disable');
             // cascade event
             permissionCheckboxChanged($(slaveCheckBox));
         } else {
+            // slave checkbox value is saved as new permission
+            // FIXME fix code and uncomment function call
+            //savePermission(jCheckBox.closest("tr").attr("data-entity-id"),
+            //    jCheckBox.closest("tbody").attr("data-entity-id"),
+            //    slaveCheckBox);
             // enable slave cb
             $(slaveCheckBox).iCheck('enable');
         }
     }
+}
+
+function savePermission(role, scope, permission) {
+    console.log("Role: " + role + ", scope: " + scope + ", permission: " + permission);
+    // TODO ajax call to administration/updaterolepermission
 }
 
 function edit_state(fieldsetid, editbtnid, event) {

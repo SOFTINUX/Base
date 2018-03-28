@@ -3,7 +3,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using ExtCore.Infrastructure;
 using Infrastructure.Extensions;
@@ -12,7 +11,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Security.Common;
 using Security.Common.Attributes;
-using Security.Common.Enums;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
 using Security.ViewModels.Permissions;
@@ -67,6 +65,22 @@ namespace Security.Controllers
                 }
             }
             return View(model);
+        }
+        /// <summary>
+        /// Update scoped role-permission.
+        /// </summary>
+        /// <param name="roleId_">Role</param>
+        /// <param name="permissionId_">New permission level to save</param>
+        /// <param name="scope_">Scope</param>
+        /// <returns>JSON with "true" when it succeeded</returns>
+        // GET
+        [Route("administration/updaterolepermission")]
+        public IActionResult UpdateRole(string roleId_, string permissionId_, string scope_)
+        {
+            IRolePermissionRepository repo = Storage.GetRepository<IRolePermissionRepository>();
+            repo.Delete(roleId_, scope_);
+            repo.Create(new RolePermission { RoleId = roleId_, PermissionId = permissionId_, Scope = scope_ });
+            return new JsonResult(true);
         }
     }
 }
