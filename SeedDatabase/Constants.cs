@@ -8,7 +8,6 @@ namespace SeedDatabase
 {
     public enum Role
     {
-        AdministratorOwner,
         Administrator,
         User,
         Anonymous
@@ -20,7 +19,7 @@ namespace SeedDatabase
         {
             return role.ToString();
         }
-        
+
         public static string GetPermissionName(this Permission permission) // convenience method
         {
             return PermissionHelper.GetPermissionName(permission);

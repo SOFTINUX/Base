@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using Security.Common.Enums;
 
@@ -78,6 +80,16 @@ namespace Security.Common
         public static string GetPermissionScope(string claimValue_)
         {
             return claimValue_.Substring(0, claimValue_.Length - claimValue_.LastIndexOf(".", StringComparison.Ordinal));
+        }
+
+        /// <summary>
+        /// Get the list of values from Permission enum that are lower or equal to a value (if Write, then Read and Write).
+        /// </summary>
+        /// <param name="permission_"></param>
+        /// <returns></returns>
+        public static List<Permission> GetLowerOrEqual(Permission permission_)
+        {
+            return new List<Permission>((Permission[])Enum.GetValues(typeof(Permission))).Where(p_ => (int) p_ <= (int) permission_).ToList();
         }
     }
 }

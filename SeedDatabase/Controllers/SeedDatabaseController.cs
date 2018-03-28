@@ -154,6 +154,11 @@ namespace SeedDatabase.Controllers
             if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
                 return saveResult;
 
+            // 4. Anonymous role: read (globally)
+            saveResult = SaveRolePermission(Role.Anonymous.ToString(), Permission.Read.ToString());
+            if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
+                return saveResult;
+
             return Ok("User Creation Ok.");
         }
 

@@ -13,6 +13,10 @@ namespace Security.Data.EntityFramework
     public class RolePermissionRepository : RepositoryBase<RolePermission>, IRolePermissionRepository
     {
 
+        public List<RolePermission> All()
+        {
+            return dbSet.ToList();
+        }
         public RolePermission FindBy(string roleId_, string permissionId_)
         {
             return dbSet.FirstOrDefault(e_ => e_.RoleId == roleId_ && e_.PermissionId == permissionId_);

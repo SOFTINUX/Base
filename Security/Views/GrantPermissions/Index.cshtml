@@ -2,7 +2,7 @@
     Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 *@
 @using Security.Common.Enums
-@model Security.ViewModels.Permissions.GlobalGrantViewModel
+@model Security.ViewModels.Permissions.GrantViewModel
 
 @section title {
     <h2>Roles & Permissions</h2>
@@ -61,7 +61,9 @@
                                     @{
                                         string checkboxState = "";
                                         int counter = 1;
-                                        foreach (var item in Model.RolePermissions.Keys)
+                                        List<string> roles = Model.PermissionsByRoleAndScope["Security"].Keys.ToList();
+                                        roles.Sort();
+                                        foreach (var item in roles)
                                         {
                                             <tr role="row" data-entity-id="@(item)">
                                                 <td>
@@ -69,7 +71,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="checkbox icheck">
-                                                        @if (Model.RolePermissions[item].Contains(Permission.Admin))
+                                                        @if (Model.PermissionsByRoleAndScope["Security"][item].Contains(Permission.Admin))
                                                         {
                                                             <input type="checkbox" value="admin" class="grant-permission" data-slave-cb="write" checked="checked">
                                                         }
@@ -81,9 +83,9 @@
                                                 </td>
                                                 <td>
                                                     <div class="checkbox icheck">
-                                                        @if (Model.RolePermissions[item].Contains(Permission.Write))
+                                                        @if (Model.PermissionsByRoleAndScope["Security"][item].Contains(Permission.Write))
                                                         {
-                                                            if (Model.RolePermissions[item].Contains(Permission.Admin))
+                                                            if (Model.PermissionsByRoleAndScope["Security"][item].Contains(Permission.Admin))
                                                             {
                                                                 checkboxState = "disabled";
                                                             }
@@ -98,9 +100,9 @@
                                                 </td>
                                                 <td>
                                                     <div class="checkbox icheck">
-                                                        @if (Model.RolePermissions[item].Contains(Permission.Read))
+                                                        @if (Model.PermissionsByRoleAndScope["Security"][item].Contains(Permission.Read))
                                                         {
-                                                            if (Model.RolePermissions[item].Contains(Permission.Write))
+                                                            if (Model.PermissionsByRoleAndScope["Security"][item].Contains(Permission.Write))
                                                             {
                                                                 checkboxState = "disabled";
                                                             }
@@ -115,7 +117,7 @@
                                                 </td>
                                             </tr>
                                             counter++;
-                                            checkboxState="";
+                                            checkboxState = "";
                                         }
                                     }
                                 </tbody>
@@ -142,17 +144,16 @@
                 increaseArea: '20%' // optional
             });
 
-            $('#add-role').click(function(event){
+            $('#add-role').click(function (event) {
                 if ($("#add-role-field").hasClass("hidden"))
                     $("#add-role-field").removeClass("hidden");
                 else
                     $("#add-role-field").addClass("hidden");
             });
 
-            $('#save-role-btn').click(function(event){
+            $('#save-role-btn').click(function (event) {
                 console.log($("#role_name_input").val());
-                if (!$("#role_name_input").val())
-                {
+                if (!$("#role_name_input").val()) {
                     toastr.error('No role given.', 'Role not saved!');
                     return;
                 }
