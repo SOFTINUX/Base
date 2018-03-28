@@ -1,4 +1,4 @@
-Extension1\bin\Debug\netcoreapp2.0\Extension1.dll
+Chinook\bin\Debug\netcoreapp2.0\Chinook.dll
 Extension2\bin\Debug\netcoreapp2.0\Extension2.dll
 SeedDatabase\bin\Debug\netcoreapp2.0\SeedDatabase.dll
 Chinook.Data.EntityFramework.Sqlite\bin\Debug\netcoreapp2.0\Chinook_Sqlite_AutoIncrementPKs.sql
