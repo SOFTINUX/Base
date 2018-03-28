@@ -1,7 +1,6 @@
 // Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
 
-
 using System.IO;
 using System.Reflection;
 using Chinook.ViewModels.Chinook;
@@ -42,9 +41,9 @@ namespace Chinook.Controllers
         {
             string result = new SqlHelper(Storage).ExecuteSqlFile(
                 Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                    "Chinook_Sqlite_AutoIncrementPKs.sql"));
-            this.ViewBag.InitDone = true;
-            this.ViewBag.InitResult = result;
+                "Chinook_Sqlite_AutoIncrementPKs.sql"));
+            ViewBag.InitDone = true;
+            ViewBag.InitResult = result;
             return View("Protected");
         }
     }

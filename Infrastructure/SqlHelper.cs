@@ -1,14 +1,16 @@
-﻿using System;
+﻿// Copyright © 2017 SOFTINUX. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for license information.
+
+using System;
 using System.IO;
 using ExtCore.Data.Abstractions;
-using ExtCore.Data.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
     public class SqlHelper
     {
-        private IStorage _storage;
+        private readonly IStorage _storage;
 
         public SqlHelper(IStorage storage_)
         {
