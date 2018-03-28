@@ -20,7 +20,7 @@ using ControllerBase = Infrastructure.ControllerBase;
 
 namespace Security.Controllers
 {
-    [PermissionRequirement(Common.Enums.Permission.Admin, "Security")]
+    [PermissionRequirement(Common.Enums.Permission.Admin)]
     public class GrantPermissionsController : ControllerBase
     {
         private readonly RoleManager<IdentityRole<string>> _roleManager;

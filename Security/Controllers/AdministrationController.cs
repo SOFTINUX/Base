@@ -10,7 +10,7 @@ using ControllerBase = Infrastructure.ControllerBase;
 
 namespace Security.Controllers
 {
-    [PermissionRequirement(Permission.Admin, "Security")]
+    [PermissionRequirement(Permission.Admin)]
     public class AdministrationController : ControllerBase
     {
         private ILogger _logger;

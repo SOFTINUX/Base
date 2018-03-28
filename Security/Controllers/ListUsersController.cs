@@ -16,7 +16,7 @@ using Permission = Security.Common.Enums.Permission;
 
 namespace Security.Controllers
 {
-    [PermissionRequirement(Permission.Admin, "Security")]
+    [PermissionRequirement(Permission.Admin)]
     public class ListUsersController : ControllerBase
     {
         //private readonly ILogger _logger;

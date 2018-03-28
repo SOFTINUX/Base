@@ -27,7 +27,7 @@ namespace Security
                     new[]
                     {
                         new MenuItem("/administration", "Main", 100, null,
-                            new List<PermissionRequirementAttribute>(new[] { new PermissionRequirementAttribute(Permission.Admin, "Security"), }))
+                            new List<PermissionRequirementAttribute>(new[] { new PermissionRequirementAttribute(Permission.Admin), }))
                     },
                     "fa-wrench"
                 )

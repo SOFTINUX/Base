@@ -25,8 +25,9 @@ namespace Security.Common.Attributes
         /// Allows access when the user has the permission : a claim of type "Permission" with value
         /// defined by its level (Admin, Write, Read...) and its scope (Security, ExtensionX...).
         /// Or the user has a permission with same scope but higher level (Admin when Write is the minimum requested to be granted access).
+        /// Default scope (assembly simple name) is global scope ("Security").
         /// </summary>
-        public PermissionRequirementAttribute(Permission permissionName_, string extensionAssemblySimpleName_)
+        public PermissionRequirementAttribute(Permission permissionName_, string extensionAssemblySimpleName_ = "Security")
         {
             _permissionName = permissionName_;
             _scope = extensionAssemblySimpleName_;
