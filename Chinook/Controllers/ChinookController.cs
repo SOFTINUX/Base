@@ -7,6 +7,7 @@ using Chinook.ViewModels.Chinook;
 using ExtCore.Data.Abstractions;
 using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Security.Common.Attributes;
 using Security.Common.Enums;
 
@@ -14,7 +15,7 @@ namespace Chinook.Controllers
 {
     public class ChinookController : Infrastructure.ControllerBase
     {
-        public ChinookController(IStorage storage_) : base(storage_)
+        public ChinookController(IStorage storage_, ILoggerFactory loggerFactory_) : base(storage_, loggerFactory_)
         {
 
         }
@@ -24,7 +25,7 @@ namespace Chinook.Controllers
             return View(new IndexViexModelFactory().Create());
         }
 
-        [PermissionRequirement(Permission.Admin, "Chinook")]
+        [PermissionRequirement(Permission.Admin)]
         public ActionResult Admin()
         {
             return View();
@@ -36,10 +37,10 @@ namespace Chinook.Controllers
             return View();
         }
 
-        [PermissionRequirement(Permission.Admin, "Chinook")]
+        [PermissionRequirement(Permission.Admin)]
         public ActionResult Init()
         {
-            string result = new SqlHelper(Storage).ExecuteSqlFile(
+            string result = new SqlHelper(Storage, _loggerFactory).ExecuteSqlFileWithTransaction(
                 Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                 "Chinook_Sqlite_AutoIncrementPKs.sql"));
             ViewBag.InitDone = true;

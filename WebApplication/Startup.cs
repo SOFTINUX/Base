@@ -34,7 +34,7 @@ namespace WebApplication
 
         public void ConfigureServices(IServiceCollection services_)
         {
-            services_.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
+            services_.AddLogging(loggingBuilder_ => loggingBuilder_.AddSerilog(dispose: true));
 
             // Note: AddScoped : for services based on EF (once per request),
             // other values : AddTransient (stateless), AddSingleton (avoids to implement singleton pattern ourselves)
@@ -49,20 +49,20 @@ namespace WebApplication
             ); */
 
             // Configure Identity
-            services_.AddIdentity<Security.Data.Entities.User, IdentityRole<string>>(options =>
+            services_.AddIdentity<User, IdentityRole<string>>(options_ =>
                 {
                     // Configure identity options here.
-                    options.Password.RequireDigit = true;
-                    options.Password.RequiredLength = 8;
-                    options.Password.RequireLowercase = true;
-                    options.Password.RequireNonAlphanumeric = true;
-                    options.Password.RequireUppercase = true;
+                    options_.Password.RequireDigit = true;
+                    options_.Password.RequiredLength = 8;
+                    options_.Password.RequireLowercase = true;
+                    options_.Password.RequireNonAlphanumeric = true;
+                    options_.Password.RequireUppercase = true;
                 })
                .AddEntityFrameworkStores<ApplicationStorageContext>()
                .AddDefaultTokenProviders(); // Tell Identity which EF DbContext to use
 
                // configure the application cookie
-            services_.ConfigureApplicationCookie( options =>
+            services_.ConfigureApplicationCookie(options_ =>
             {
                 // override the default event
                /*  options.Events = new CookieAuthenticationEvents
@@ -72,21 +72,20 @@ namespace WebApplication
                 }; */
 
                 // customize other stuff as needed
-                options.LoginPath = Configuration["ConfigureApplicationCookie:LoginPath"];
-                options.LogoutPath = Configuration["ConfigureApplicationCookie:LogoutPath"];
-                options.Cookie.Name = Configuration["ConfigureApplicationCookie:Cookie.Name"] + Configuration["Corporate:Name"];
-                options.Cookie.HttpOnly = true; //this must be true to prevent XSS
-                options.Cookie.SameSite = (SameSiteMode)Enum.Parse(typeof(SameSiteMode), Configuration["ConfigureApplicationCookie:Cookie.SameSite"], false);
-                options.Cookie.SecurePolicy = (CookieSecurePolicy)Enum.Parse(typeof(CookieSecurePolicy), Configuration["ConfigureApplicationCookie:Cookie.SecurePolicy"], false); //should ideally be "Always"
+                options_.LoginPath = Configuration["ConfigureApplicationCookie:LoginPath"];
+                options_.LogoutPath = Configuration["ConfigureApplicationCookie:LogoutPath"];
+                options_.Cookie.Name = Configuration["ConfigureApplicationCookie:Cookie.Name"] + Configuration["Corporate:Name"];
+                options_.Cookie.HttpOnly = true; //this must be true to prevent XSS
+                options_.Cookie.SameSite = (SameSiteMode)Enum.Parse(typeof(SameSiteMode), Configuration["ConfigureApplicationCookie:Cookie.SameSite"], false);
+                options_.Cookie.SecurePolicy = (CookieSecurePolicy)Enum.Parse(typeof(CookieSecurePolicy), Configuration["ConfigureApplicationCookie:Cookie.SecurePolicy"], false); //should ideally be "Always"
 
-                options.SlidingExpiration = true;
+                options_.SlidingExpiration = true;
             });
 
-            services_.AddDbContext<ApplicationStorageContext>(options =>
+            services_.AddDbContext<ApplicationStorageContext>(options_ =>
                 {
-                    options.UseSqlite(Configuration["ConnectionStrings:Default"]);
-                },
-                ServiceLifetime.Scoped
+                    options_.UseSqlite(Configuration["ConnectionStrings:Default"]);
+                }
             );
 
             services_.Configure<CorporateConfiguration>(options_ =>
@@ -106,7 +105,6 @@ namespace WebApplication
 
             // register for DI to for in REST controller
             services_.AddScoped<IServiceCollection, ServiceCollection>();
-
         }
 
         public void Configure(IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_, IConfiguration configuration_)
@@ -135,7 +133,7 @@ namespace WebApplication
 
             // More configuration like "applicationBuilder_.Use..." in Security.ServiceConfiguration.*
 
-            System.Console.WriteLine("PID= " + System.Diagnostics.Process.GetCurrentProcess().Id);
+            Console.WriteLine("PID= " + System.Diagnostics.Process.GetCurrentProcess().Id);
         }
     }
 }
