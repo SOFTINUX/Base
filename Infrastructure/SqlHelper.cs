@@ -3,9 +3,12 @@
 
 using System;
 using System.IO;
+using System.IO.Compression;
 using ExtCore.Data.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Data.SqlClient;
+using Microsoft.Data.Sqlite;
 
 namespace Infrastructure
 {
@@ -13,12 +16,16 @@ namespace Infrastructure
     {
         private readonly IStorage _storage;
         private readonly ILogger _logger;
-        private string _provider;
+        private string _providerCode;
+
+        private string _connexionString;
 
         public SqlHelper(IStorage storage_, ILoggerFactory loggerFactory_)
         {
             _storage = storage_;
             _logger = loggerFactory_.CreateLogger(GetType().FullName);
+            _connexionString = ((DbContext) _storage.StorageContext).Database.GetDbConnection().ConnectionString;
+            GetProviderName();
         }
 
         /// <summary>
@@ -59,44 +66,77 @@ namespace Infrastructure
             return null;
         }
 
-        private string GetProviderName()
+        /// <summary>
+        /// Get the Entity Framework provider
+        /// </summary>
+        private void GetProviderName()
         {
             // list of provider: https://docs.microsoft.com/en-us/ef/core/providers/
             switch (((DbContext) _storage.StorageContext).Database.ProviderName)
             {
                 case "Microsoft.EntityFrameworkCore.Sqlite" :
-                    _provider = "SQLITE";
+                    _providerCode = "SQLITE";
                     break;
                 case "Microsoft.EntityFrameworkCore.SqlServer" :
-                    _provider = "MSSQL";
+                    _providerCode = "MSSQL";
                     break;
                 case "Npgsql.EntityFrameworkCore.PostgreSQL" :
-                    _provider = "POSTGRESQL";
+                    _providerCode = "POSTGRESQL";
                     break;
                 case "Pomelo.EntityFrameworkCore.MySql" :
-                    _provider = "MYSQL";
+                    _providerCode = "MYSQL";
                     break;
                 case "EntityFrameworkCore.SqlServerCompact40" :
-                    _provider = "SQLCOMPACT4";
+                    _providerCode = "SQLCOMPACT4";
                     break;
                 case "EntityFrameworkCore.SqlServerCompact35" :
-                    _provider = "SQLCOMPACT35";
+                    _providerCode = "SQLCOMPACT35";
                     break;
                 case "MySql.Data.EntityFrameworkCore" :
-                    _provider = "MYSQL";
+                    _providerCode = "MYSQL";
                     break;
                 case "EntityFrameworkCore.Jet" :
-                    _provider = "MSACCESS";
+                    _providerCode = "MSACCESS";
                     break;
                 default:
                     throw new Exception("Unsuported provider: " + ((DbContext) _storage.StorageContext).Database.ProviderName);
             }
-            return _provider;
         }
 
-        private void TestDbConnection(string provider_, string connecString_)
+        /// <summary>
+        /// Test database connection
+        /// </summary>
+        /// <param name="connecString_"></param>
+        /// <returns></returns>
+        private string TestDbConnection(string connecString_)
         {
-            GetProviderName();
+            if (string.Equals(_providerCode, "SQLITE", StringComparison.OrdinalIgnoreCase))
+            {
+                return TestSqliteConnexion(_providerCode);
+            }
+
+            throw new Exception("Default return value test db connexion not yet implemented");
+        }
+
+        /// <summary>
+        /// Test sqlite database connection
+        /// </summary>
+        /// <param name="providerCode_"></param>
+        /// <returns></returns>
+        private string TestSqliteConnexion(string providerCode_)
+        {
+            try
+            {
+                SqliteConnection connection = new SqliteConnection(providerCode_);
+
+                connection.Open();
+                connection.Close();
+                return "true";
+            }
+            catch
+            {
+                return "false";
+            }
         }
     }
 }
