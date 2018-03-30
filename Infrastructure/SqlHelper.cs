@@ -20,6 +20,18 @@ namespace Infrastructure
 
         private string _connexionString;
 
+        #region provider codes
+        private const string SQLITE = "SQLITE";
+        private const string MSSQL = "MSSQL";
+        private const string POSTGRESQL = "POSTGRESQL";
+        private const string MYSQL = "MYSQL";
+        private const string MYSQL_ORACLE = "MYSQL_ORACLE";
+        private const string SQLCOMPACT4 = "SQLCOMPACT4";
+        private const string SQLCOMPACT35 = "SQLCOMPACT35";
+        private const string MSACCESS = "MSACCESS";
+
+        #endregion
+
         public SqlHelper(IStorage storage_, ILoggerFactory loggerFactory_)
         {
             _storage = storage_;
@@ -53,11 +65,11 @@ namespace Infrastructure
 
             try
             {
-                _logger.LogInformation("####### START CHINOOK SEED #######");
+                _logger.LogInformation("####### ExecuteSqlFileWithTransaction - begin transaction #######");
                 ((DbContext)_storage.StorageContext).Database.BeginTransaction();
                 ((DbContext)_storage.StorageContext).Database.ExecuteSqlCommand(File.ReadAllText(filePath_));
                 ((DbContext)_storage.StorageContext).Database.CommitTransaction();
-                _logger.LogInformation("####### END CHINOOK SEED #######");
+                _logger.LogInformation("####### ExecuteSqlFileWithTransaction - end transaction #######");
             }
             catch (Exception e)
             {
@@ -75,28 +87,28 @@ namespace Infrastructure
             switch (((DbContext) _storage.StorageContext).Database.ProviderName)
             {
                 case "Microsoft.EntityFrameworkCore.Sqlite" :
-                    _providerCode = "SQLITE";
+                    _providerCode = SQLITE;
                     break;
                 case "Microsoft.EntityFrameworkCore.SqlServer" :
-                    _providerCode = "MSSQL";
+                    _providerCode = MSSQL;
                     break;
                 case "Npgsql.EntityFrameworkCore.PostgreSQL" :
-                    _providerCode = "POSTGRESQL";
+                    _providerCode = POSTGRESQL;
                     break;
                 case "Pomelo.EntityFrameworkCore.MySql" :
-                    _providerCode = "MYSQL";
+                    _providerCode = MYSQL;
                     break;
                 case "EntityFrameworkCore.SqlServerCompact40" :
-                    _providerCode = "SQLCOMPACT4";
+                    _providerCode = SQLCOMPACT4;
                     break;
                 case "EntityFrameworkCore.SqlServerCompact35" :
-                    _providerCode = "SQLCOMPACT35";
+                    _providerCode = SQLCOMPACT35;
                     break;
                 case "MySql.Data.EntityFrameworkCore" :
-                    _providerCode = "MYSQL";
+                    _providerCode = MYSQL_ORACLE;
                     break;
                 case "EntityFrameworkCore.Jet" :
-                    _providerCode = "MSACCESS";
+                    _providerCode = MSACCESS;
                     break;
                 default:
                     throw new Exception("Unsuported provider: " + ((DbContext) _storage.StorageContext).Database.ProviderName);
@@ -110,7 +122,7 @@ namespace Infrastructure
         /// <returns></returns>
         private string TestDbConnection(string connecString_)
         {
-            if (string.Equals(_providerCode, "SQLITE", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(_providerCode, SQLITE, StringComparison.OrdinalIgnoreCase))
             {
                 return TestSqliteConnexion(_providerCode);
             }
