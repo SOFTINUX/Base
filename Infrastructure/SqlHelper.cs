@@ -124,7 +124,7 @@ namespace Infrastructure
         {
             if (string.Equals(_providerCode, SQLITE, StringComparison.OrdinalIgnoreCase))
             {
-                return TestSqliteConnexion(_providerCode);
+                return TestSqliteConnexion(connecString_);
             }
 
             throw new Exception("Default return value test db connexion not yet implemented");
@@ -133,13 +133,13 @@ namespace Infrastructure
         /// <summary>
         /// Test sqlite database connection
         /// </summary>
-        /// <param name="providerCode_"></param>
+        /// <param name="connecString_"></param>
         /// <returns></returns>
-        private string TestSqliteConnexion(string providerCode_)
+        private string TestSqliteConnexion(string connecString_)
         {
             try
             {
-                SqliteConnection connection = new SqliteConnection(providerCode_);
+                SqliteConnection connection = new SqliteConnection(connecString_);
 
                 connection.Open();
                 connection.Close();
