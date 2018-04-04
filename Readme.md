@@ -18,6 +18,15 @@ It is completely modular and extendable. Using the features of the underlying Ex
 *Base* manages the common stuff so that the developer can focus on its extension and business logic, just having to provide what we call metadata to know how to display and authorize access to content, and use our version of Authorize attribute.
 
 Read [this wiki page](https://github.com/SOFTINUX/Base/wiki/Writing-extensions) to learn more about this.
+
+Some screenshots of features:
+
+![Main menu and administration](https://github.com/SOFTINUX/Base/blob/master/screenshots/menu_and_administration.png "Main menu and administration")
+
+![Edit user profile](https://github.com/SOFTINUX/Base/blob/master/screenshots/user_profile.png "Edit user profile")
+
+![Grant permissions to roles](https://github.com/SOFTINUX/Base/blob/master/screenshots/grant_global_permissions_wip.png "Grant permissions to roles")
+
 # License
 Licensed under the Apache License, Version 2.0.<br />
 See LICENSE file for license information.
