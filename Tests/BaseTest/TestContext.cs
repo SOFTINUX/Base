@@ -12,9 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Security.Data.EntityFramework.Util;
-using SecurityTest.Util;
 
-namespace SecurityTest
+namespace BaseTest
 {
     /// <summary>
     /// Context for unit tests that gives access to storage layer and later to fake http context.

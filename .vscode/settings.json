@@ -1,6 +1,6 @@
 {
     "editor.formatOnSave": false,
-    "dotnet-test-explorer.testProjectPath": ".\\Tests\\SecurityTest",
+    "dotnet-test-explorer.testProjectPath": ".\\Tests\\BaseTest",
     "dotnet-test-explorer.build": false,
     "editor.showFoldingControls": "always",
     "editor.fontLigatures": true,

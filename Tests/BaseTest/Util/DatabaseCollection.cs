@@ -3,7 +3,7 @@
 
 using Xunit;
 
-namespace SecurityTest.Util
+namespace BaseTest.Util
 {
     /// <summary>
     /// "Markup" class that allow to use class decoration to apply an xUnit collection fixture, i.e. some code that runs

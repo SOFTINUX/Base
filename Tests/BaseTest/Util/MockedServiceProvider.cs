@@ -4,7 +4,7 @@
 using System;
 using ExtCore.Data.Abstractions;
 
-namespace SecurityTest.Util
+namespace BaseTest.Util
 {
     /// <summary>
     /// A class that mimics System.IServiceProvider but provides access only to

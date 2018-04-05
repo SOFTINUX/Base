@@ -15,7 +15,7 @@ namespace Infrastructure
 {
     public class SqlHelper
     {
-        private enum ProviderCode
+        public enum ProviderCode
         {
             Sqlite,
             Mssql,
@@ -38,7 +38,7 @@ namespace Infrastructure
             _storage = storage_;
             _logger = loggerFactory_.CreateLogger(GetType().FullName);
             _connexionString = ((DbContext) _storage.StorageContext).Database.GetDbConnection().ConnectionString;
-            GetProviderName();
+            GetProvider();
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace Infrastructure
         /// <summary>
         /// Get the Entity Framework provider
         /// </summary>
-        private void GetProviderName()
+        public ProviderCode GetProvider()
         {
             // list of provider: https://docs.microsoft.com/en-us/ef/core/providers/
             switch (((DbContext) _storage.StorageContext).Database.ProviderName)
@@ -114,6 +114,8 @@ namespace Infrastructure
                 default:
                     throw new Exception("Unsuported provider: " + ((DbContext) _storage.StorageContext).Database.ProviderName);
             }
+
+            return _providerCode;
         }
 
         /// <summary>

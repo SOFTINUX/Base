@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Security.Data.EntityFramework.Util;
 
-namespace SecurityTest.Util
+namespace BaseTest.Util
 {
     /// <summary>
     /// Management of shared context that provides an Entity Framework connection and an IStorage implementation.

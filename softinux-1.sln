@@ -20,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Security.Data.EntityFramewo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Security.Data.EntityFramework", "Security.Data.EntityFramework\Security.Data.EntityFramework.csproj", "{820BEABD-13B9-427B-AF57-611DFD595969}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecurityTest", "Tests\SecurityTest\SecurityTest.csproj", "{F9AC9321-FD31-49EF-9939-ACE601BA6B5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaseTest", "Tests\BaseTest\BaseTest.csproj", "{F9AC9321-FD31-49EF-9939-ACE601BA6B5D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedDatabase", "SeedDatabase\SeedDatabase.csproj", "{2B0CE783-D89A-452A-A210-E54032512DF9}"
 EndProject

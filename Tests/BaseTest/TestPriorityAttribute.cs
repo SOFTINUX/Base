@@ -3,7 +3,7 @@
 
 using System;
 
-namespace SecurityTest
+namespace BaseTest
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class TestPriorityAttribute : Attribute

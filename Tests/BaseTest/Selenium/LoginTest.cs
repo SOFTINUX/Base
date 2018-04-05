@@ -4,7 +4,7 @@ using OpenQA.Selenium.Chrome;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace SecurityTest
+namespace BaseTest.Selenium
 {
     public class LoginTest : IDisposable
     {
