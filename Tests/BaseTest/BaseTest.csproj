@@ -28,5 +28,6 @@
     <ProjectReference Include="..\..\Security.Data.EntityFramework.Sqlite\Security.Data.EntityFramework.Sqlite.csproj" />
     <ProjectReference Include="..\..\Security.Data.EntityFramework\Security.Data.EntityFramework.csproj" />
     <ProjectReference Include="..\..\Security\Security.csproj" />
+    <ProjectReference Include="..\..\Chinook.Data.Abstractions\Chinook.Data.Abstractions.csproj" />
   </ItemGroup>
 </Project>
