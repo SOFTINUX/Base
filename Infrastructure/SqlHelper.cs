@@ -3,34 +3,35 @@
 
 using System;
 using System.IO;
-using System.IO.Compression;
 using ExtCore.Data.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System.Data.SqlClient;
 using Microsoft.Data.Sqlite;
+using System.Data.SqlClient;
+using Npgsql;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 
 namespace Infrastructure
 {
     public class SqlHelper
     {
+        private enum ProviderCode
+        {
+            Sqlite,
+            Mssql,
+            Postgresql,
+            MysqlMariadb,
+            MysqlOracle,
+            Sqlcompact4,
+            Sqlcompact35,
+            Msaccess,
+        }
+
         private readonly IStorage _storage;
         private readonly ILogger _logger;
-        private string _providerCode;
+        private ProviderCode _providerCode;
 
         private string _connexionString;
-
-        #region provider codes
-        private const string SQLITE = "SQLITE";
-        private const string MSSQL = "MSSQL";
-        private const string POSTGRESQL = "POSTGRESQL";
-        private const string MYSQL = "MYSQL";
-        private const string MYSQL_ORACLE = "MYSQL_ORACLE";
-        private const string SQLCOMPACT4 = "SQLCOMPACT4";
-        private const string SQLCOMPACT35 = "SQLCOMPACT35";
-        private const string MSACCESS = "MSACCESS";
-
-        #endregion
 
         public SqlHelper(IStorage storage_, ILoggerFactory loggerFactory_)
         {
@@ -87,28 +88,28 @@ namespace Infrastructure
             switch (((DbContext) _storage.StorageContext).Database.ProviderName)
             {
                 case "Microsoft.EntityFrameworkCore.Sqlite" :
-                    _providerCode = SQLITE;
+                    _providerCode = ProviderCode.Sqlite;
                     break;
                 case "Microsoft.EntityFrameworkCore.SqlServer" :
-                    _providerCode = MSSQL;
+                    _providerCode = ProviderCode.Mssql;
                     break;
                 case "Npgsql.EntityFrameworkCore.PostgreSQL" :
-                    _providerCode = POSTGRESQL;
+                    _providerCode = ProviderCode.Postgresql;
                     break;
                 case "Pomelo.EntityFrameworkCore.MySql" :
-                    _providerCode = MYSQL;
+                    _providerCode = ProviderCode.MysqlMariadb;
                     break;
                 case "EntityFrameworkCore.SqlServerCompact40" :
-                    _providerCode = SQLCOMPACT4;
+                    _providerCode = ProviderCode.Sqlcompact4;
                     break;
                 case "EntityFrameworkCore.SqlServerCompact35" :
-                    _providerCode = SQLCOMPACT35;
+                    _providerCode = ProviderCode.Sqlcompact35;
                     break;
                 case "MySql.Data.EntityFrameworkCore" :
-                    _providerCode = MYSQL_ORACLE;
+                    _providerCode = ProviderCode.MysqlOracle;
                     break;
                 case "EntityFrameworkCore.Jet" :
-                    _providerCode = MSACCESS;
+                    _providerCode = ProviderCode.Msaccess;
                     break;
                 default:
                     throw new Exception("Unsuported provider: " + ((DbContext) _storage.StorageContext).Database.ProviderName);
@@ -120,34 +121,82 @@ namespace Infrastructure
         /// </summary>
         /// <param name="connecString_"></param>
         /// <returns></returns>
-        private string TestDbConnection(string connecString_)
+        private bool TestDbConnection(string connecString_)
         {
-            if (string.Equals(_providerCode, SQLITE, StringComparison.OrdinalIgnoreCase))
+            switch (_providerCode)
             {
-                return TestSqliteConnexion(connecString_);
+                case ProviderCode.Sqlite:
+                    return TestSqliteConnexion(connecString_);
+                case ProviderCode.Mssql:
+                    return TestMsSqlConnexion(connecString_);
+                case ProviderCode.Postgresql:
+                    return TestPostgresqlConnexion(connecString_);
+                default:
+                    throw new Exception("Default return value test db connexion not yet implemented");
             }
 
-            throw new Exception("Default return value test db connexion not yet implemented");
         }
 
         /// <summary>
         /// Test sqlite database connection
         /// </summary>
-        /// <param name="connecString_"></param>
+        /// /// <param name="connexionString_"></param>
         /// <returns></returns>
-        private string TestSqliteConnexion(string connecString_)
+        private bool TestSqliteConnexion(string connexionString_)
         {
             try
             {
-                SqliteConnection connection = new SqliteConnection(connecString_);
+                SqliteConnection connection = new SqliteConnection(connexionString_);
 
                 connection.Open();
                 connection.Close();
-                return "true";
+                return true;
             }
             catch
             {
-                return "false";
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Test mssql database connection
+        /// </summary>
+        /// <param name="connexionString_"></param>
+        /// <returns></returns>
+        private bool TestMsSqlConnexion(string connexionString_)
+        {
+            try
+            {
+                SqlConnection connection = new SqlConnection(connexionString_);
+
+                connection.Open();
+                connection.Close();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Test PostgreSql database connection
+        /// </summary>
+        /// <param name="connexionString_"></param>
+        /// <returns></returns>
+        private bool TestPostgresqlConnexion(string connexionString_)
+        {
+            try
+            {
+                NpgsqlConnection connection = new NpgsqlConnection(connexionString_);
+
+                connection.Open();
+                connection.Close();
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
     }
