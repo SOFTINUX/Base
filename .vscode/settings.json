@@ -2,6 +2,8 @@
     "editor.formatOnSave": false,
     "dotnet-test-explorer.testProjectPath": ".\\Tests\\BaseTest",
     "dotnet-test-explorer.build": false,
+    "dotnet-test-explorer.enableTelemetry": false,
+    "dotnet-test-explorer.pathForResultFile": "C:/",
     "editor.showFoldingControls": "always",
     "editor.fontLigatures": true,
     "editor.renderControlCharacters": false,
