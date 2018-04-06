@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Copyright © 2017 SOFTINUX. All rights reserved.
-# Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+# Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 
 #These two lines is to set correct directory position if you build from JetBrain Rider
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
