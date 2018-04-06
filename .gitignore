@@ -207,7 +207,7 @@ orleans.codegen.cs
 
 # Since there are multiple workflows, uncomment next line to ignore bower_components
 # (https://github.com/github/gitignore/pull/1529#issuecomment-104372622)
-#bower_components/
+bower_components/
 
 # RIA/Silverlight projects
 Generated_Code/
@@ -294,6 +294,12 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 
+#### SOFTINUX Base Customization
+
+# visual studio code local history extension
+.history
+
+# Visual Studio Code Workspace configuration
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -301,13 +307,9 @@ __pycache__/
 !.vscode/extensions.json
 !.vscode/solution-explorer/
 
-.idea
-
 *.orig
 
-WebApplication/Extensions
-bower_components
-
+# Unit Test
 [Tt]ests/[Aa]rtefacts/basedb.sqlite
 [Tt]ests/[Ww]orkDir/*
 ![Tt]ests/[Ww]orkDir/.workdir
@@ -318,13 +320,14 @@ bower_components
 # serilog log file
 log-[0-9]*.txt
 
-# visual studio code local history extension
-.history
+# App Extensions
+[Ww]ebApplication/Extensions
 
 # App EF Migration
 [Ww]ebApplication/[Mm]igrations/
 
 #App EF Database
 [Ww]ebApplication/basedb.sqlite
+
 #Visual Studio localhistory addon
 .localhistory
