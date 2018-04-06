@@ -28,7 +28,7 @@ Some screenshots of features:
 ![Grant permissions to roles](https://github.com/SOFTINUX/Base/blob/master/screenshots/grant_global_permissions_wip.png "Grant permissions to roles")
 
 # License
-Licensed under the Apache License, Version 2.0.<br />
+Licensed under the MIT License.<br />
 See LICENSE file for license information.
 
 # Getting started
