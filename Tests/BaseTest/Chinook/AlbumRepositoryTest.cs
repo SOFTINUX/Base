@@ -2,6 +2,7 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
+using System.Linq;
 using BaseTest.Util;
 using Chinook.Data.Abstractions;
 using Xunit;
@@ -24,9 +25,9 @@ namespace BaseTest.Chinook
         [Fact, TestPriority(1)]
         public void TestAll()
         {
-            // FIXME: null reference
-            var test = _fixture.GetRepository<IAlbumRepository>().All();
-            Assert.NotEmpty(_fixture.GetRepository<IAlbumRepository>().All());
+            var albumList = _fixture.GetRepository<IAlbumRepository>().All();
+            Assert.NotEmpty(albumList);
+            Assert.NotNull(albumList.FirstOrDefault(a_ => a_.Title == "Chemical Wedding"));
         }
     }
 }

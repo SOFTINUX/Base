@@ -30,5 +30,6 @@
     <ProjectReference Include="..\..\Security.Data.EntityFramework\Security.Data.EntityFramework.csproj" />
     <ProjectReference Include="..\..\Security\Security.csproj" />
     <ProjectReference Include="..\..\Chinook.Data.Abstractions\Chinook.Data.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Chinook.Data.EntityFramework\Chinook.Data.EntityFramework.csproj" />
   </ItemGroup>
 </Project>
