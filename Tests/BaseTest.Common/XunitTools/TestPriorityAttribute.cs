@@ -3,7 +3,7 @@
 
 using System;
 
-namespace BaseTest
+namespace BaseTest.Common.XunitTools
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class TestPriorityAttribute : Attribute

@@ -1,7 +1,7 @@
 ﻿// Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
-namespace BaseTest.Util
+namespace BaseTest.Common
 {
     /// <summary>
     /// Another database fixture that copies another database to run tests with.

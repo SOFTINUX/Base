@@ -7,7 +7,7 @@ using System.Linq;
 using Xunit.Abstractions;
 using Xunit.Sdk;
 
-namespace BaseTest
+namespace BaseTest.Common.XunitTools
 {
     public class PriorityOrderer : ITestCaseOrderer
     {

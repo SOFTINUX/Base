@@ -1,9 +1,8 @@
 // Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
-using System;
 using System.Linq;
-using BaseTest.Util;
+using BaseTest.Common.XunitTools;
 using Chinook.Data.Abstractions;
 using Xunit;
 using Xunit.Abstractions;
@@ -11,7 +10,7 @@ using Xunit.Abstractions;
 namespace BaseTest.Chinook
 {
     [Collection("Database collection")]
-    public class AlbumRepositoryTest : BaseTest
+    public class AlbumRepositoryTest : Common.BaseTest
     {
         public AlbumRepositoryTest(DatabaseFixture fixture_, ITestOutputHelper outputHandler_)
         {

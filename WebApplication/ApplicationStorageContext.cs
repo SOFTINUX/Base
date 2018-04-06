@@ -1,11 +1,11 @@
 ﻿using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
+using Infrastructure.Util;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Security.Data.Entities;
-using Security.Data.EntityFramework.Util;
 
 namespace WebApplication
 {

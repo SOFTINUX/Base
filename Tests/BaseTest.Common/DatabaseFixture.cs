@@ -10,17 +10,19 @@ using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
 using ExtCore.Infrastructure;
 using Infrastructure.Interfaces;
+using Infrastructure.Util;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using Security.Data.EntityFramework.Util;
 
-namespace BaseTest.Util
+namespace BaseTest.Common
 {
     /// <summary>
     /// Management of shared context that provides an Entity Framework connection and an IStorage implementation.
     ///
     /// This is used to create a single test context and share it among tests in several test classes,
     /// and have it cleaned up after all the tests in the test classes have finished, by use of ICollectionFixture&lt;DatabaseFixture&gt;.
+    ///
+    /// The test context class dependds on your entity framework provider so you have to subclass this class and implement GetTestContext().
     /// </summary>
     public class DatabaseFixture : IDisposable
     {
@@ -29,6 +31,12 @@ namespace BaseTest.Util
         protected virtual string ConnectionStringPath => "ConnectionStrings:Default";
 
         public IRequestHandler DatabaseContext { get; }
+
+        public virtual ITestContext GetTestContext()
+        {
+            throw new Exception(
+                "Please provide an implementation of TestContext accepting ConnectionStringPath as parameter");
+        }
 
         public DatabaseFixture()
         {
@@ -39,8 +47,11 @@ namespace BaseTest.Util
             // ReSharper disable VirtualMemberCallInConstructor
             File.Copy($"../../../../Artefacts/{DatabaseToCopyFromBaseName}.sqlite", $"../../../../WorkDir/{DatabaseToCopyToBaseName}.sqlite", true);
 
-            DatabaseContext = new TestContext(ConnectionStringPath);
+            DatabaseContext = GetTestContext() as IRequestHandler;
             // ReSharper enable VirtualMemberCallInConstructor
+
+            if(DatabaseContext == null)
+                throw new Exception("Your ITestContext implementation should also inherit from IRequestHandler");
 
             List<Assembly> loadedAssemblies = new List<Assembly>();
 

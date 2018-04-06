@@ -38,6 +38,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chinook.Data.EntityFramewor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chinook.Data.Abstractions", "Chinook.Data.Abstractions\Chinook.Data.Abstractions.csproj", "{3F55F8EA-0EE8-4FAC-BEDC-EE3A18F90A12}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaseTest.Common", "Tests\BaseTest.Common\BaseTest.Common.csproj", "{04105002-7000-4ECB-8071-A1F565B6BBA3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -264,6 +266,18 @@ Global
 		{3F55F8EA-0EE8-4FAC-BEDC-EE3A18F90A12}.Release|x64.Build.0 = Release|Any CPU
 		{3F55F8EA-0EE8-4FAC-BEDC-EE3A18F90A12}.Release|x86.ActiveCfg = Release|Any CPU
 		{3F55F8EA-0EE8-4FAC-BEDC-EE3A18F90A12}.Release|x86.Build.0 = Release|Any CPU
+		{04105002-7000-4ECB-8071-A1F565B6BBA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04105002-7000-4ECB-8071-A1F565B6BBA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04105002-7000-4ECB-8071-A1F565B6BBA3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{04105002-7000-4ECB-8071-A1F565B6BBA3}.Debug|x64.Build.0 = Debug|Any CPU
+		{04105002-7000-4ECB-8071-A1F565B6BBA3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{04105002-7000-4ECB-8071-A1F565B6BBA3}.Debug|x86.Build.0 = Debug|Any CPU
+		{04105002-7000-4ECB-8071-A1F565B6BBA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04105002-7000-4ECB-8071-A1F565B6BBA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04105002-7000-4ECB-8071-A1F565B6BBA3}.Release|x64.ActiveCfg = Release|Any CPU
+		{04105002-7000-4ECB-8071-A1F565B6BBA3}.Release|x64.Build.0 = Release|Any CPU
+		{04105002-7000-4ECB-8071-A1F565B6BBA3}.Release|x86.ActiveCfg = Release|Any CPU
+		{04105002-7000-4ECB-8071-A1F565B6BBA3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

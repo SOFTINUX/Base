@@ -1,7 +1,7 @@
 ﻿// Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
-using BaseTest.Util;
+using BaseTest.Common.XunitTools;
 using Infrastructure;
 using Xunit;
 using Xunit.Abstractions;
@@ -9,7 +9,7 @@ using Xunit.Abstractions;
 namespace BaseTest.Infrastructure
 {
     [Collection("Database collection")]
-    public  class SqlHelperTest : BaseTest
+    public  class SqlHelperTest : Common.BaseTest
     {
         public SqlHelperTest(DatabaseFixture fixture_, ITestOutputHelper outputHandler_)
         {
