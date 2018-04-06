@@ -308,8 +308,9 @@ __pycache__/
 WebApplication/Extensions
 bower_components
 
-Tests/WorkDir/*
-!Tests/WorkDir/.workdir
+[Tt]ests/[Aa]rtefacts/basedb.sqlite
+[Tt]ests/[Ww]orkDir/*
+![Tt]ests/[Ww]orkDir/.workdir
 
 # Directory is named "Debug" because it contains code defined in debug mode...
 !Security/Enums/Debug

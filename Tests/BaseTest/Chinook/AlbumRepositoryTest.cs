@@ -25,6 +25,7 @@ namespace BaseTest.Chinook
         public void TestAll()
         {
             // FIXME: null reference
+            var test = _fixture.GetRepository<IAlbumRepository>().All();
             Assert.NotEmpty(_fixture.GetRepository<IAlbumRepository>().All());
         }
     }
