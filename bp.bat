@@ -36,7 +36,7 @@ echo ###################
 set dst_folder=.\WebApplication\bin\Debug\netcoreapp2.0\
 if not exist "%dst_folder%" GOTO End
 for /f "tokens=*" %%i in (dependencies.txt) DO (
-    xcopy /S/E/Y "%%i" "%dst_folder%"
+    xcopy "%%i" "%dst_folder%" /E /Y
 )
 xcopy ".\WebApplication\appsettings.json" "%dst_folder%"
 xcopy ".\WebApplication\basedb.sqlite" "%dst_folder%"
@@ -49,7 +49,7 @@ echo ###################
 set dst_folder=.\WebApplication\Extensions\
 if not exist "%dst_folder%" mkdir "%dst_folder%"
 for /f "tokens=*" %%i in (extensions.txt) DO (
-    xcopy /S/E/Y "%%i" "%dst_folder%"
+    xcopy "%%i" "%dst_folder%" /E /Y
 )
 GOTO End
 
@@ -63,19 +63,19 @@ set dst_folder=.\WebApplication\bin\Debug\netcoreapp2.0\publish
 mkdir "%dst_folder%\Extensions"
 if not exist "%dst_folder%" mkdir "%dst_folder%"
 for /f "tokens=*" %%i in (extensions.txt) DO (
-    xcopy /S/E/Y "%%i" "%dst_folder%"
+    xcopy "%%i" "%dst_folder%" /E /Y
 )
 
 for /f "tokens=*" %%i in (extensions.txt) DO (
-    xcopy /S/E/Y "%%i" "%dst_folder%\Extensions"
+    xcopy "%%i" "%dst_folder%\Extensions" /E /Y
 )
 xcopy .\WebApplication\basedb.sqlite %dst_folder% /R
 
-xcopy /S/E/Y .\wwwroot %dst_folder%\wwwroot
+xcopy .\wwwroot %dst_folder%\wwwroot /E /Y
 Goto End
 
 :Help
-echo Avaliable parameter is :
+echo Available parameter is :
 echo     - clean : clean solution
 echo     - build : only build solution
 echo     - copydeps : only copy dependencies (defined in dependencies.txt)
