@@ -164,18 +164,12 @@ Licensed under the MIT License, Version 2.0. See License.txt in the project root
                     $("form").submit();
                 }
             });
-            $(function () {
-                $('input').iCheck({
-                    checkboxClass: 'icheckbox_square-blue',
-                    radioClass: 'iradio_square-blue',
-                    increaseArea: '20%' // optional
-                });
-            });
         </script>
     }
     @if (User.Identity.IsAuthenticated)
     {
         @RenderSection("Scripts", false)
     }
+    @RenderSection("ScriptsUnauthenticated", false)
 </body>
 </html>

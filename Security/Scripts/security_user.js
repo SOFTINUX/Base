@@ -43,7 +43,10 @@ function browseForAvatar() {
 
 /* events handler */
 function listenToPermissionsCheckboxEvents() {
-    $('input').on('ifChanged', function(event){
+    console.log("attaching event handling");
+    $('input').on('change', function(event){
+        console.log("input was changed!");
+        event.preventDefault();
         permissionCheckboxChanged($(this), false);
     });
 }
@@ -53,13 +56,14 @@ function listenToPermissionsCheckboxEvents() {
  - true when cascading, false when entering in this function by a user's click.
 */
 function permissionCheckboxChanged(jCheckBox, cascading) {
-    console.log(jCheckBox.val(), ' - cascading ? ', cascading);
     // is there a slave checkbox ?
+    console.log(jCheckBox.val(), " - ", cascading);
     var slaveCheckBox = jCheckBox.attr("data-slave-cb");
     if(slaveCheckBox) {
         var currentCheckBoxChecked = jCheckBox.is(':checked');
         var slaveCheckBox = jCheckBox.closest("tr").children("td").find("input:checkbox[value='"+slaveCheckBox+"']")[0];
         if (currentCheckBoxChecked) {
+            console.log("current was checked");
             if(!cascading) {
                 // current checkbox value is saved as new permission
                 savePermission(jCheckBox.closest("tr").attr("data-entity-id"),
@@ -67,11 +71,14 @@ function permissionCheckboxChanged(jCheckBox, cascading) {
                 jCheckBox.val());
             }
             // disable and uncheck slave cb
-            $(slaveCheckBox).iCheck('check', function() { permissionCheckboxChanged($(slaveCheckBox), true) }).iCheck('disable');
-            // cascade event
-            //console.log('cascading');
-            //permissionCheckboxChanged($(slaveCheckBox), true);
+            // $(slaveCheckBox).iCheck('check', function() {
+            //     console.log("explicit call of permissionCheckboxChanged");
+            //     permissionCheckboxChanged($(slaveCheckBox), true)
+            //  }).iCheck('disable');
+
+            $(slaveCheckBox).prop('checked', true).prop('disabled', true);
         } else {
+            console.log("current was unchecked");
             if(!cascading) {
                 // slave checkbox value is saved as new permission
                 savePermission(jCheckBox.closest("tr").attr("data-entity-id"),
@@ -79,7 +86,11 @@ function permissionCheckboxChanged(jCheckBox, cascading) {
                 slaveCheckBox.value);
             }
             // enable slave cb
-            $(slaveCheckBox).iCheck('enable', function() { permissionCheckboxChanged($(slaveCheckBox), true) });
+            // $(slaveCheckBox).iCheck('enable', function() {
+            //     console.log("explicit call of permissionCheckboxChanged");
+            //     permissionCheckboxChanged($(slaveCheckBox), true)
+            //  });
+            $(slaveCheckBox).prop('disabled', false);
         }
     }
 }

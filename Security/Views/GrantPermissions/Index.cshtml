@@ -70,7 +70,7 @@
                                                     @item
                                                 </td>
                                                 <td>
-                                                    <div class="checkbox icheck">
+                                                    <div>
                                                         @if (Model.PermissionsByRoleAndScope["Security"][item].Contains(Permission.Admin))
                                                         {
                                                             <input type="checkbox" value="admin" class="grant-permission" data-slave-cb="write" checked="checked">
@@ -82,7 +82,7 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div class="checkbox icheck">
+                                                    <div>
                                                         @if (Model.PermissionsByRoleAndScope["Security"][item].Contains(Permission.Write))
                                                         {
                                                             if (Model.PermissionsByRoleAndScope["Security"][item].Contains(Permission.Admin))
@@ -99,7 +99,7 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div class="checkbox icheck">
+                                                    <div>
                                                         @if (Model.PermissionsByRoleAndScope["Security"][item].Contains(Permission.Read))
                                                         {
                                                             if (Model.PermissionsByRoleAndScope["Security"][item].Contains(Permission.Write))
@@ -132,17 +132,17 @@
 </div>
 
 @section Scripts {
-    <script type="text/javascript" src="/node_modules.icheck.icheck.js"></script>
+    //<script type="text/javascript" src="/node_modules.icheck.icheck.js"></script>
     <script>
 
         $(function () {
             toastr.options.positionClass = 'toast-top-right';
 
-            $('input').iCheck({
-                checkboxClass: 'icheckbox_square-blue',
-                radioClass: 'iradio_square-blue',
-                increaseArea: '20%' // optional
-            });
+            // $('input').iCheck({
+            //     checkboxClass: 'icheckbox_square-blue',
+            //     radioClass: 'iradio_square-blue',
+            //     increaseArea: '20%' // optional
+            // });
 
             $('#add-role').click(function (event) {
                 if ($("#add-role-field").hasClass("hidden"))
