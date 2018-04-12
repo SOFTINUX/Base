@@ -44,35 +44,42 @@ function browseForAvatar() {
 /* events handler */
 function listenToPermissionsCheckboxEvents() {
     $('input').on('ifChanged', function(event){
-        permissionCheckboxChanged($(this));
+        permissionCheckboxChanged($(this), false);
     });
 }
 
-/* Param : checkbox element (jQuery selector) */
-function permissionCheckboxChanged(jCheckBox) {
-    // slave checkbox ?
+/* Params :
+ - checkbox element (DOM element selected by jQuery)
+ - true when cascading, false when entering in this function by a user's click.
+*/
+function permissionCheckboxChanged(jCheckBox, cascading) {
+    console.log(jCheckBox.val(), ' - cascading ? ', cascading);
+    // is there a slave checkbox ?
     var slaveCheckBox = jCheckBox.attr("data-slave-cb");
     if(slaveCheckBox) {
         var currentCheckBoxChecked = jCheckBox.is(':checked');
         var slaveCheckBox = jCheckBox.closest("tr").children("td").find("input:checkbox[value='"+slaveCheckBox+"']")[0];
         if (currentCheckBoxChecked) {
-            // current checkbox value is saved as new permission
-            // FIXME fix code and uncomment function call
-            //savePermission(jCheckBox.closest("tr").attr("data-entity-id"),
-            //    jCheckBox.closest("tbody").attr("data-entity-id"),
-            //    jCheckBox.value());
+            if(!cascading) {
+                // current checkbox value is saved as new permission
+                savePermission(jCheckBox.closest("tr").attr("data-entity-id"),
+                jCheckBox.closest("tbody").attr("data-entity-id"),
+                jCheckBox.val());
+            }
             // disable and uncheck slave cb
-            $(slaveCheckBox).iCheck('check').iCheck('disable');
+            $(slaveCheckBox).iCheck('check', function() { permissionCheckboxChanged($(slaveCheckBox), true) }).iCheck('disable');
             // cascade event
-            permissionCheckboxChanged($(slaveCheckBox));
+            //console.log('cascading');
+            //permissionCheckboxChanged($(slaveCheckBox), true);
         } else {
-            // slave checkbox value is saved as new permission
-            // FIXME fix code and uncomment function call
-            //savePermission(jCheckBox.closest("tr").attr("data-entity-id"),
-            //    jCheckBox.closest("tbody").attr("data-entity-id"),
-            //    slaveCheckBox);
+            if(!cascading) {
+                // slave checkbox value is saved as new permission
+                savePermission(jCheckBox.closest("tr").attr("data-entity-id"),
+                jCheckBox.closest("tbody").attr("data-entity-id"),
+                slaveCheckBox.value);
+            }
             // enable slave cb
-            $(slaveCheckBox).iCheck('enable');
+            $(slaveCheckBox).iCheck('enable', function() { permissionCheckboxChanged($(slaveCheckBox), true) });
         }
     }
 }
