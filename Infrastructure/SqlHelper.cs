@@ -82,6 +82,7 @@ namespace Infrastructure
         /// <summary>
         /// Get the Entity Framework provider
         /// </summary>
+        /// <returns>ProviderCode</returns>
         public ProviderCode GetProvider()
         {
             // list of provider: https://docs.microsoft.com/en-us/ef/core/providers/
@@ -122,7 +123,7 @@ namespace Infrastructure
         /// Test database connection
         /// </summary>
         /// <param name="connecString_"></param>
-        /// <returns></returns>
+        /// <returns>True if call return true, else false</returns>
         private bool TestDbConnection(string connecString_)
         {
             switch (_providerCode)
@@ -134,7 +135,7 @@ namespace Infrastructure
                 case ProviderCode.Postgresql:
                     return TestPostgresqlConnexion(connecString_);
                 default:
-                    throw new Exception("Default return value test db connexion not yet implemented");
+                    throw new Exception("Database provider not yet implemented");
             }
 
         }
@@ -142,8 +143,8 @@ namespace Infrastructure
         /// <summary>
         /// Test sqlite database connection
         /// </summary>
-        /// /// <param name="connexionString_"></param>
-        /// <returns></returns>
+        /// <param name="connexionString_"></param>
+        /// <returns>True if can open and close connexion, else false</returns>
         private bool TestSqliteConnexion(string connexionString_)
         {
             try
@@ -164,7 +165,7 @@ namespace Infrastructure
         /// Test mssql database connection
         /// </summary>
         /// <param name="connexionString_"></param>
-        /// <returns></returns>
+        /// <returns>True if can open and close connexion, else false</returns>
         private bool TestMsSqlConnexion(string connexionString_)
         {
             try
@@ -185,7 +186,7 @@ namespace Infrastructure
         /// Test PostgreSql database connection
         /// </summary>
         /// <param name="connexionString_"></param>
-        /// <returns></returns>
+        /// <returns>True if can open and close connexion, else false</returns>
         private bool TestPostgresqlConnexion(string connexionString_)
         {
             try
