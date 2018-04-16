@@ -57,47 +57,45 @@ function listenToPermissionsCheckboxEvents() {
 */
 function permissionCheckboxChanged(jCheckBox, cascading) {
     // is there a slave checkbox ?
-    console.log(jCheckBox.val(), " - ", cascading);
     var slaveCheckBox = jCheckBox.attr("data-slave-cb");
     if(slaveCheckBox) {
         var currentCheckBoxChecked = jCheckBox.is(':checked');
         var slaveCheckBox = jCheckBox.closest("tr").children("td").find("input:checkbox[value='"+slaveCheckBox+"']")[0];
         if (currentCheckBoxChecked) {
-            console.log("current was checked");
-            if(!cascading) {
+             if(!cascading) {
                 // current checkbox value is saved as new permission
                 savePermission(jCheckBox.closest("tr").attr("data-entity-id"),
                 jCheckBox.closest("tbody").attr("data-entity-id"),
                 jCheckBox.val());
             }
-            // disable and uncheck slave cb
-            // $(slaveCheckBox).iCheck('check', function() {
-            //     console.log("explicit call of permissionCheckboxChanged");
-            //     permissionCheckboxChanged($(slaveCheckBox), true)
-            //  }).iCheck('disable');
-
             $(slaveCheckBox).prop('checked', true).prop('disabled', true);
         } else {
-            console.log("current was unchecked");
             if(!cascading) {
                 // slave checkbox value is saved as new permission
                 savePermission(jCheckBox.closest("tr").attr("data-entity-id"),
                 jCheckBox.closest("tbody").attr("data-entity-id"),
-                slaveCheckBox.value);
+                $(slaveCheckBox).val());
             }
             // enable slave cb
-            // $(slaveCheckBox).iCheck('enable', function() {
-            //     console.log("explicit call of permissionCheckboxChanged");
-            //     permissionCheckboxChanged($(slaveCheckBox), true)
-            //  });
             $(slaveCheckBox).prop('disabled', false);
         }
+    } else {
+        // Remove lowest permission ("Read")
+        savePermission(jCheckBox.closest("tr").attr("data-entity-id"),
+            jCheckBox.closest("tbody").attr("data-entity-id"),
+            null);
     }
 }
 
 function savePermission(role, scope, permission) {
-    console.log("Role: " + role + ", scope: " + scope + ", permission: " + permission);
-    // TODO ajax call to administration/updaterolepermission
+    // string roleId_, string permissionId_, string scope_
+    let params =
+    {
+        "roleId_": role,
+        "permissionId_": permission,
+        "scope_": scope
+    };
+    $.ajax("/administration/updaterolepermission", { data: params });
 }
 
 function edit_state(fieldsetid, editbtnid, event) {

@@ -79,7 +79,9 @@ namespace Security.Controllers
         {
             IRolePermissionRepository repo = Storage.GetRepository<IRolePermissionRepository>();
             repo.Delete(roleId_, scope_);
-            repo.Create(new RolePermission { RoleId = roleId_, PermissionId = permissionId_, Scope = scope_ });
+            if(!string.IsNullOrEmpty(permissionId_))
+                repo.Create(new RolePermission { RoleId = roleId_, PermissionId = permissionId_, Scope = scope_ });
+            Storage.Save();
             return new JsonResult(true);
         }
     }
