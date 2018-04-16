@@ -46,7 +46,4 @@
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="2.6.375" />
   </ItemGroup>
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="xcopy .\Scripts\security_user.js .\Scripts\security_user.min.js /Y" />
-  </Target>
-</Project>
+  </Project>

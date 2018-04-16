@@ -73,11 +73,11 @@
                                                     <div>
                                                         @if (Model.PermissionsByRoleAndScope["Security"][item].Contains(Permission.Admin))
                                                         {
-                                                            <input type="checkbox" value="admin" class="grant-permission" data-slave-cb="write" checked="checked">
+                                                            <input type="checkbox" value="Admin" class="grant-permission" data-slave-cb="Write" checked="checked">
                                                         }
                                                         else
                                                         {
-                                                            <input type="checkbox" value="admin" class="grant-permission" data-slave-cb="write">
+                                                            <input type="checkbox" value="Admin" class="grant-permission" data-slave-cb="Write">
                                                         }
                                                     </div>
                                                 </td>
@@ -90,11 +90,11 @@
                                                                 checkboxState = "disabled";
                                                             }
 
-                                                            <input type="checkbox" value="write" class="grant-permission @Html.Raw(checkboxState)" data-slave-cb="read" checked="checked" @Html.Raw(checkboxState)>
+                                                            <input type="checkbox" value="Write" class="grant-permission @Html.Raw(checkboxState)" data-slave-cb="Read" checked="checked" @Html.Raw(checkboxState)>
                                                         }
                                                         else
                                                         {
-                                                            <input type="checkbox" value="write" class="grant-permission" data-slave-cb="read">
+                                                            <input type="checkbox" value="Write" class="grant-permission" data-slave-cb="Read">
                                                         }
                                                     </div>
                                                 </td>
@@ -107,11 +107,11 @@
                                                                 checkboxState = "disabled";
                                                             }
 
-                                                            <input type="checkbox" value="read" checked="checked" class="@Html.Raw(checkboxState)" @Html.Raw(checkboxState)>
+                                                            <input type="checkbox" value="Read" checked="checked" class="@Html.Raw(checkboxState)" @Html.Raw(checkboxState)>
                                                         }
                                                         else
                                                         {
-                                                            <input type="checkbox" value="read">
+                                                            <input type="checkbox" value="Read">
                                                         }
                                                     </div>
                                                 </td>

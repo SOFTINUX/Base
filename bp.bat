@@ -49,7 +49,7 @@ echo ###################
 set dst_folder=.\WebApplication\Extensions\
 if not exist "%dst_folder%" mkdir "%dst_folder%"
 for /f "tokens=*" %%i in (extensions.txt) DO (
-    xcopy "%%i" "%dst_folder%" /E /Y
+    xcopy "%%i" "%dst_folder%" /E /Y /I
 )
 GOTO End
 
@@ -63,15 +63,15 @@ set dst_folder=.\WebApplication\bin\Debug\netcoreapp2.0\publish
 mkdir "%dst_folder%\Extensions"
 if not exist "%dst_folder%" mkdir "%dst_folder%"
 for /f "tokens=*" %%i in (extensions.txt) DO (
-    xcopy "%%i" "%dst_folder%" /E /Y
+    xcopy "%%i" "%dst_folder%" /E /Y /I
 )
 
 for /f "tokens=*" %%i in (extensions.txt) DO (
-    xcopy "%%i" "%dst_folder%\Extensions" /E /Y
+    xcopy "%%i" "%dst_folder%\Extensions" /E /Y /I
 )
 xcopy .\WebApplication\basedb.sqlite %dst_folder% /R
 
-xcopy .\wwwroot %dst_folder%\wwwroot /E /Y
+xcopy .\wwwroot %dst_folder%\wwwroot /E /Y /I
 Goto End
 
 :Help

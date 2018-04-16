@@ -47,3 +47,9 @@ var url = window.location;
 $('ul.treeview-menu a').filter(function() {
 	 return this.href == url;
 }).parentsUntil(".sidebar-menu > .treeview-menu").addClass('active');
+
+// Global ajax error handler
+$(document).ajaxError(function(event, request, settings, errorMessage) {
+    console.log("Error calling ", settings.url, " ", errorMessage);
+    alert("Ajax error: " + errorMessage);
+  });
