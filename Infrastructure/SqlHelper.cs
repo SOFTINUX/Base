@@ -49,7 +49,20 @@ namespace Infrastructure
         public string ExecuteSqlResource(string resourcePath_)
         {
             // TODO
-            return "not implemented";
+            throw new Exception("Not yet implemented");
+        }
+
+        /// <summary>
+        /// Execute sql script form internal editor.
+        /// </summary>
+        /// <param name="sqlScript_"></param>
+        /// <returns></returns>
+        public string ExecuteSqlScript(string sqlScript_)
+        {
+            if (string.IsNullOrWhiteSpace(sqlScript_) || string.IsNullOrEmpty(sqlScript_))
+                return "you sql script is empty";
+
+            throw new Exception("Not yet implemented");
         }
 
         /// <summary>
