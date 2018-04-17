@@ -16,9 +16,10 @@ Licensed under the MIT License, Version 2.0. See License.txt in the project root
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>@Html.Raw(ViewBag.Title as string)</title>
+    <link rel="stylesheet" type="text/css" data-name="vs/editor/editor.main" href="/node_modules.monaco_editor.min.vs.editor.editor.main.css">
     @await Component.InvokeAsync("StyleSheets")
     @RenderSection("Styles", false)
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 @{
     string authClass="";
