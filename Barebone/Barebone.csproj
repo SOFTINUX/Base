@@ -29,6 +29,7 @@
     <None Remove="node_modules\normalize.css\normalize.css" />
     <None Remove="node_modules\font-awesome\css\font-awesome.min.css" />
     <None Remove="node_modules\wfk-opensans\opensans.css" />
+    <None Remove="node_modules\monaco-editor\min\vs\editor\editor.main.css" />
     <None Remove="node_modules\jquery\dist\jquery.min.js" />
     <None Remove="node_modules\bootstrap\dist\js\bootstrap.min.js" />
     <None Remove="node_modules\jquery-validation\dist\jquery.validate.min.js" />
@@ -42,6 +43,9 @@
     <None Remove="node_modules\inputmask\dist\min\inputmask\phone-codes\phone-ru.min.js" />
     <None Remove="node_modules\inputmask\dist\min\inputmask\phone-codes\phone-uk.min.js" />
     <None Remove="node_modules\toastr\build\toastr.min.js" />
+    <None Remove="node_modules\monaco-editor\min\vs\loader.js" />
+    <None Remove="node_modules\monaco-editor\min\vs\editor\editor.main.nls.js" />
+    <None Remove="node_modules\monaco-editor\min\vs\editor\editor.main.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="node_modules\jquery\dist\jquery.min.js" />
@@ -59,6 +63,9 @@
     <EmbeddedResource Include="node_modules\inputmask\dist\min\inputmask\phone-codes\phone-uk.min.js" />
     <EmbeddedResource Include="node_modules\admin-lte\dist\js\adminlte.min.js" />
     <EmbeddedResource Include="node_modules\toastr\build\toastr.min.js" />
+    <EmbeddedResource Include="node_modules\monaco-editor\min\vs\loader.js" />
+    <EmbeddedResource Include="node_modules\monaco-editor\min\vs\editor\editor.main.nls.js" />
+    <EmbeddedResource Include="node_modules\monaco-editor\min\vs\editor\editor.main.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="node_modules\normalize.css\normalize.css" />
@@ -72,6 +79,7 @@
     <EmbeddedResource Include="node_modules\ionicons\dist\css\ionicons.min.css.map" />
     <EmbeddedResource Include="node_modules\wfk-opensans\opensans.css" />
     <EmbeddedResource Include="node_modules\toastr\build\toastr.min.css" />
+    <EmbeddedResource Include="node_modules\monaco-editor\min\vs\editor\editor.main.css" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.eot" />

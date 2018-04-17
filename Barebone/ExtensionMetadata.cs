@@ -28,9 +28,11 @@ namespace Barebone
             new StyleSheet("/node_modules.icheck.skins.line.blue.css", 418),
             // -- Toastr
             new StyleSheet("/node_modules.toastr.build.toastr.min.css", 417),
+            // -- Monaco Editor
+            new StyleSheet("/node_modules.monaco_editor.min.vs.editor.editor.main.css", 416),
             // --
-            new StyleSheet("/Styles.barebone.css",500),
-            new StyleSheet("/css/Styles.css",600)
+            new StyleSheet("/Styles.barebone.css",600),
+            new StyleSheet("/css/Styles.css",700)
         };
 
         public IEnumerable<Script> Scripts => new[]
@@ -46,6 +48,10 @@ namespace Barebone
             new Script("/node_modules.admin_lte.dist.js.adminlte.min.js",660),
             // -- Roastr
             new Script("/node_modules.toastr.build.toastr.min.js",661),
+            // -- Monaco Editor
+            new Script("/node_modules.monaco_editor.min.vs.loader.js",670),
+            new Script("/node_modules.monaco_editor.min.vs.editor.editor.main.nls.js",671),
+            new Script("/node_modules.monaco_editor.min.vs.editor.editor.main.js",672),
             // --
             new Script("/Scripts.barebone.js",700),
         };

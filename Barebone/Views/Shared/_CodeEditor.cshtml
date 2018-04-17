@@ -1,0 +1,22 @@
+﻿@*
+    Copyright © 2017 SOFTINUX. All rights reserved.
+    Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
+*@
+
+<h2>Code Editor</h2>
+<div id="container" style="width:800px;height:600px;border:1px solid grey"></div>
+
+@section Scripts {
+    <script>var require = { paths: { 'vs': 'node_modules.monaco_editor.min.vs' } };</script>
+
+    <script>
+        var editor = monaco.editor.create(document.getElementById('container'), {
+            value: [
+                'function x() {',
+                '\tconsole.log("Hello world!");',
+                '}'
+            ].join('\n'),
+            language: 'javascript'
+        });
+    </script>
+}
