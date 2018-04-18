@@ -49,10 +49,10 @@ namespace Barebone
             // -- Roastr
             new Script("/node_modules.toastr.build.toastr.min.js",661),
             // -- Monaco Editor
-            new Script("/node_modules.monaco_editor.min.vs.loader.js",670),
-            new Script("/node_modules.monaco_editor.min.vs.editor.editor.main.nls.js",671),
-            new Script("/node_modules.monaco_editor.min.vs.editor.editor.main.js",672),
-            new Script("/Scripts.monaco_editor_hack.js",673),
+            //new Script("/node_modules.monaco_editor.min.vs.loader.js",670),
+            //new Script("/node_modules.monaco_editor.min.vs.editor.editor.main.nls.js",671),
+            //new Script("/node_modules.monaco_editor.min.vs.editor.editor.main.js",672),
+            //new Script("/Scripts.monaco_editor_hack.js",673),
             // --
             new Script("/Scripts.barebone.js",700),
         };

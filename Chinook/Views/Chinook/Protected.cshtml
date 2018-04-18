@@ -7,8 +7,6 @@
 
 @Html.ActionLink("Create and fill database tables", "Init", "Chinook")
 
-@Html.Partial("_CodeEditor")
-
 @{
     if (true == ViewBag.InitDone)
     {
@@ -22,5 +20,7 @@
         }
     }
 }
+
+@Html.Partial("_CodeEditor")
 
 @* TODO : add a box (see adminLTE doc), an "onclick" to the html action link, include infrastructure.js.min and make it work *@

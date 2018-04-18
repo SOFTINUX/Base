@@ -23,6 +23,7 @@
     <EmbeddedResource Include="**\node_modules\icheck\skins\flat\**" />
     <EmbeddedResource Include="**\node_modules\admin-lte\dist\css\skins\**" />
     <EmbeddedResource Include="**\node_modules\admin-lte\dist\css\alt\**" />
+    <EmbeddedResource Include="**\node_modules\monaco-editor\min\**" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="node_modules\bootstrap\dist\css\bootstrap.min.css" />
@@ -43,9 +44,7 @@
     <None Remove="node_modules\inputmask\dist\min\inputmask\phone-codes\phone-ru.min.js" />
     <None Remove="node_modules\inputmask\dist\min\inputmask\phone-codes\phone-uk.min.js" />
     <None Remove="node_modules\toastr\build\toastr.min.js" />
-    <None Remove="node_modules\monaco-editor\min\vs\loader.js" />
-    <None Remove="node_modules\monaco-editor\min\vs\editor\editor.main.nls.js" />
-    <None Remove="node_modules\monaco-editor\min\vs\editor\editor.main.js" />
+    <None Remove="node_modules\monaco-editor\min\**" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="node_modules\jquery\dist\jquery.min.js" />
@@ -63,9 +62,6 @@
     <EmbeddedResource Include="node_modules\inputmask\dist\min\inputmask\phone-codes\phone-uk.min.js" />
     <EmbeddedResource Include="node_modules\admin-lte\dist\js\adminlte.min.js" />
     <EmbeddedResource Include="node_modules\toastr\build\toastr.min.js" />
-    <EmbeddedResource Include="node_modules\monaco-editor\min\vs\loader.js" />
-    <EmbeddedResource Include="node_modules\monaco-editor\min\vs\editor\editor.main.nls.js" />
-    <EmbeddedResource Include="node_modules\monaco-editor\min\vs\editor\editor.main.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="node_modules\normalize.css\normalize.css" />
@@ -79,7 +75,6 @@
     <EmbeddedResource Include="node_modules\ionicons\dist\css\ionicons.min.css.map" />
     <EmbeddedResource Include="node_modules\wfk-opensans\opensans.css" />
     <EmbeddedResource Include="node_modules\toastr\build\toastr.min.css" />
-    <EmbeddedResource Include="node_modules\monaco-editor\min\vs\editor\editor.main.css" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.eot" />
