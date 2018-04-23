@@ -59,6 +59,15 @@
     <EmbeddedResource Include="node_modules\inputmask\dist\min\inputmask\phone-codes\phone-uk.min.js" />
     <EmbeddedResource Include="node_modules\admin-lte\dist\js\adminlte.min.js" />
     <EmbeddedResource Include="node_modules\toastr\build\toastr.min.js" />
+    <EmbeddedResource Include="node_modules\codemirror\lib\codemirror.js" />
+    <EmbeddedResource Include="node_modules\codemirror\mode\sql\sql.js" />
+    <EmbeddedResource Include="node_modules\codemirror\addon\hint\show-hint.js" />
+    <EmbeddedResource Include="node_modules\codemirror\addon\hint\sql-hint.js" />
+    <EmbeddedResource Include="node_modules\codemirror\addon\hint\css-hint.js" />
+    <EmbeddedResource Include="node_modules\codemirror\addon\edit\trailingspace.js" />
+    <EmbeddedResource Include="node_modules\codemirror\addon\edit\matchbrackets.js" />
+    <EmbeddedResource Include="node_modules\codemirror\addon\edit\closebrackets.js" />
+    <EmbeddedResource Include="node_modules\codemirror\addon\display\fullscreen.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="node_modules\normalize.css\normalize.css" />
@@ -72,6 +81,9 @@
     <EmbeddedResource Include="node_modules\ionicons\dist\css\ionicons.min.css.map" />
     <EmbeddedResource Include="node_modules\wfk-opensans\opensans.css" />
     <EmbeddedResource Include="node_modules\toastr\build\toastr.min.css" />
+    <EmbeddedResource Include="node_modules\codemirror\lib\codemirror.css" />
+    <EmbeddedResource Include="node_modules\codemirror\addon\hint\show-hint.css" />
+    <EmbeddedResource Include="node_modules\codemirror\addon\display\fullscreen.css" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.eot" />

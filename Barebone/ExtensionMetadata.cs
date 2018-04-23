@@ -28,6 +28,10 @@ namespace Barebone
             new StyleSheet("/node_modules.icheck.skins.line.blue.css", 418),
             // -- Toastr
             new StyleSheet("/node_modules.toastr.build.toastr.min.css", 417),
+            // -- Codemirror
+            new StyleSheet("/node_modules.codemirror.lib.codemirror.css", 418),
+            new StyleSheet("/node_modules.codemirror.addon.hint.show-hint.css", 418),
+            new StyleSheet("/node_modules.codemirror.addon.display.fullscreen.css", 418),
             // --
             new StyleSheet("/Styles.barebone.css",600),
             new StyleSheet("/css/Styles.css",700)
@@ -46,10 +50,19 @@ namespace Barebone
             new Script("/node_modules.admin_lte.dist.js.adminlte.min.js",660),
             // -- Roastr
             new Script("/node_modules.toastr.build.toastr.min.js",661),
+            // -- Codemirror
+            new Script("/node_modules.codemirror.lib.codemirror.js",662),
+            new Script("/node_modules.codemirror.mode.sql.sql.js",663),
+            new Script("/node_modules.codemirror.addon.hint.show-hint.js",664),
+            new Script("/node_modules.codemirror.addon.hint.sql-hint.js",665),
+            new Script("/node_modules.codemirror.addon.hint.css-hint.js",666),
+            new Script("/node_modules.codemirror.addon.edit.trailingspace.js",667),
+            new Script("/node_modules.codemirror.addon.edit.matchbrackets.js",668),
+            new Script("/node_modules.codemirror.addon.edit.closebrackets.js",669),
+            new Script("/node_modules.codemirror.addon.display.fullscreen.js",670),
             // --
             new Script("/Scripts.barebone.js",700),
         };
-
         public IEnumerable<MenuGroup> MenuGroups => null;
 
     }
