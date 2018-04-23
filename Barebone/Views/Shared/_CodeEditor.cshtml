@@ -3,6 +3,24 @@
     Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 *@
 
-<h2>Code Editor</h2>
-<textarea id="code-editor" style="width:800px;height:600px;border:1px solid grey"></textarea>
+<div class="row">
+    <div class="col-md-12">
+        <h2>Code Editor</h2>
+        <textarea id="code-editor" style="width:800px;height:600px;border:1px solid grey"></textarea>
+        <select onchange="selectTheme()" id="select">
+            <option selected="">default</option>
+            <option>base16-dark</option>
+            <option>base16-light</option>
+            <option>dracula</option>
+            <option>eclipse</option>
+            <option>idea</option>
+            <option>lesser-dark</option>
+            <option>material</option>
+            <option>monokai</option>
+        </select>
+    </div>
+</div>
 
+<div class="row">
+    <div class="col-md-4"><button class="btn-primary">Execute SQL Query</button></div>
+</div>

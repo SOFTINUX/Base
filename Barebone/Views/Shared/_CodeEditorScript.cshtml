@@ -29,8 +29,28 @@
                 document.getElementsByTagName("header")[0].style.display = null;
                 document.getElementsByTagName("aside")[0].style.display = null;
                 if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
-            }
+            },
+            "Alt-F": "findPersistent"
          },
-        showTrailingSpace: true
+        showTrailingSpace: true,
+        styleActiveLine: true
+    });
+
+    var input = document.getElementById("select");
+    function selectTheme() {
+        var theme = input.options[input.selectedIndex].textContent;
+        myCodeMirror.setOption("theme", theme);
+        location.hash = "#" + theme;
+    }
+    var choice = (location.hash && location.hash.slice(1)) ||
+    (document.location.search &&
+        decodeURIComponent(document.location.search.slice(1)));
+    if (choice) {
+        input.value = choice;
+        myCodeMirror.setOption("theme", choice);
+    }
+    CodeMirror.on(window, "hashchange", function() {
+        var theme = location.hash.slice(1);
+        if (theme) { input.value = theme; selectTheme(); }
     });
 </script>

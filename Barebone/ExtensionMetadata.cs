@@ -32,6 +32,16 @@ namespace Barebone
             new StyleSheet("/node_modules.codemirror.lib.codemirror.css", 418),
             new StyleSheet("/node_modules.codemirror.addon.hint.show-hint.css", 418),
             new StyleSheet("/node_modules.codemirror.addon.display.fullscreen.css", 418),
+            new StyleSheet("/node_modules.codemirror.addon.search.matchesonscrollbar.css", 419),
+            new StyleSheet("/node_modules.codemirror.addon.dialog.dialog.css", 419),
+            new StyleSheet("/node_modules.codemirror.theme.dracula.css", 420),
+            new StyleSheet("/node_modules.codemirror.theme.eclipse.css", 421),
+            new StyleSheet("/node_modules.codemirror.theme.idea.css", 422),
+            new StyleSheet("/node_modules.codemirror.theme.lesser-dark.css", 423),
+            new StyleSheet("/node_modules.codemirror.theme.material.css", 424),
+            new StyleSheet("/node_modules.codemirror.theme.monokai.css", 425),
+            new StyleSheet("/node_modules.codemirror.theme.base16-dark.css", 426),
+            new StyleSheet("/node_modules.codemirror.theme.base16-light.css", 427),
             // --
             new StyleSheet("/Styles.barebone.css",600),
             new StyleSheet("/css/Styles.css",700)
@@ -60,6 +70,12 @@ namespace Barebone
             new Script("/node_modules.codemirror.addon.edit.matchbrackets.js",668),
             new Script("/node_modules.codemirror.addon.edit.closebrackets.js",669),
             new Script("/node_modules.codemirror.addon.display.fullscreen.js",670),
+            new Script("/node_modules.codemirror.addon.search.search.js",671),
+            new Script("/node_modules.codemirror.addon.search.searchcursor.js",672),
+            new Script("/node_modules.codemirror.addon.search.matchesonscrollbar.js",673),
+            new Script("/node_modules.codemirror.addon.search.match-highlighter.js",674),
+            new Script("/node_modules.codemirror.addon.selection.active-line.js",675),
+            new Script("/node_modules.codemirror.addon.dialog.dialog.js",676),
             // --
             new Script("/Scripts.barebone.js",700),
         };
