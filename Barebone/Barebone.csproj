@@ -23,14 +23,12 @@
     <EmbeddedResource Include="**\node_modules\icheck\skins\flat\**" />
     <EmbeddedResource Include="**\node_modules\admin-lte\dist\css\skins\**" />
     <EmbeddedResource Include="**\node_modules\admin-lte\dist\css\alt\**" />
-    <EmbeddedResource Include="**\node_modules\monaco-editor\min\**" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="node_modules\bootstrap\dist\css\bootstrap.min.css" />
     <None Remove="node_modules\normalize.css\normalize.css" />
     <None Remove="node_modules\font-awesome\css\font-awesome.min.css" />
     <None Remove="node_modules\wfk-opensans\opensans.css" />
-    <None Remove="node_modules\monaco-editor\min\vs\editor\editor.main.css" />
     <None Remove="node_modules\jquery\dist\jquery.min.js" />
     <None Remove="node_modules\bootstrap\dist\js\bootstrap.min.js" />
     <None Remove="node_modules\jquery-validation\dist\jquery.validate.min.js" />
@@ -44,7 +42,6 @@
     <None Remove="node_modules\inputmask\dist\min\inputmask\phone-codes\phone-ru.min.js" />
     <None Remove="node_modules\inputmask\dist\min\inputmask\phone-codes\phone-uk.min.js" />
     <None Remove="node_modules\toastr\build\toastr.min.js" />
-    <None Remove="node_modules\monaco-editor\min\**" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="node_modules\jquery\dist\jquery.min.js" />
