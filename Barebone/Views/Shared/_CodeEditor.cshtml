@@ -4,9 +4,19 @@
 *@
 
 <h2>Code Editor</h2>
-<div id="container" style="width:800px;height:600px;border:1px solid grey"></div>
+<textarea id="code-editor" style="width:800px;height:600px;border:1px solid grey"></textarea>
 
 
 <script>
-    
+    var mime = 'text/x-mariadb';
+    var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
+        mode: mime,
+        indentWithTabs: true,
+        smartIndent: true,
+        lineNumbers: true,
+        matchBrackets : true,
+        autofocus: true,
+        extraKeys: {"Ctrl-Space": "autocomplete"},
+        showTrailingSpace: true
+    });
 </script>
