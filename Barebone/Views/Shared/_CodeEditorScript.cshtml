@@ -1,0 +1,36 @@
+﻿@*
+    Copyright © 2017 SOFTINUX. All rights reserved.
+    Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
+*@
+
+<script>
+    var mime = 'text/x-mariadb';
+    var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
+        mode: mime,
+        indentWithTabs: true,
+        smartIndent: true,
+        lineNumbers: true,
+        matchBrackets : true,
+        autofocus: true,
+        extraKeys: {
+            "Ctrl-Space": "autocomplete",
+            "F11": function(cm) {
+                if (cm.getOption("fullScreen")) {
+                    document.getElementsByTagName("header")[0].style.display = null;
+                    document.getElementsByTagName("aside")[0].style.display = null;
+                } else {
+                    document.getElementsByTagName("header")[0].style.display = "none";
+                    document.getElementsByTagName("aside")[0].style.display = "none";
+                }
+
+                cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+            },
+            "Esc": function(cm) {
+                document.getElementsByTagName("header")[0].style.display = null;
+                document.getElementsByTagName("aside")[0].style.display = null;
+                if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+            }
+         },
+        showTrailingSpace: true
+    });
+</script>

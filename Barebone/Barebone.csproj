@@ -42,6 +42,7 @@
     <None Remove="node_modules\inputmask\dist\min\inputmask\phone-codes\phone-ru.min.js" />
     <None Remove="node_modules\inputmask\dist\min\inputmask\phone-codes\phone-uk.min.js" />
     <None Remove="node_modules\toastr\build\toastr.min.js" />
+    <None Remove="Views\Shared\_CodeEditorScript.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="node_modules\jquery\dist\jquery.min.js" />

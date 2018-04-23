@@ -1,6 +1,7 @@
 @* Copyright © 2017 SOFTINUX. All rights reserved.
     Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 *@
+
 @section title {
     <h2>Chinook Initialize Data</h2>
 }
@@ -22,5 +23,9 @@
 }
 
 @Html.Partial("_CodeEditor")
+
+@section Scripts {
+    @Html.Partial("_CodeEditorScript")
+}
 
 @* TODO : add a box (see adminLTE doc), an "onclick" to the html action link, include infrastructure.js.min and make it work *@
