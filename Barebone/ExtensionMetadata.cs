@@ -76,6 +76,7 @@ namespace Barebone
             new Script("/node_modules.codemirror.addon.search.match-highlighter.js",674),
             new Script("/node_modules.codemirror.addon.selection.active-line.js",675),
             new Script("/node_modules.codemirror.addon.dialog.dialog.js",676),
+            new Script("/node_modules.codemirror.addon.scroll.annotatescrollbar.js",677),
             // --
             new Script("/Scripts.barebone.js",700),
         };
