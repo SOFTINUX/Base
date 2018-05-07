@@ -42,7 +42,7 @@ namespace Infrastructure
         }
 
         /// <summary>
-        /// Execute SQL code from an embedded resource SQL file.
+        /// Execute SQL code from an embedded resource SQL file
         /// </summary>
         /// <param name="resourcePath_"></param>
         /// <returns></returns>

@@ -44,6 +44,6 @@
     <Folder Include="Scripts" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="BuildBundlerMinifier" Version="2.6.375" />
+    <PackageReference Include="BuildBundlerMinifier" Version="2.7.385" />
   </ItemGroup>
   </Project>
