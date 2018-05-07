@@ -36,10 +36,8 @@ echo ###################
 set dst_folder=.\WebApplication\bin\Debug\netcoreapp2.0\
 if not exist "%dst_folder%" GOTO End
 for /f "tokens=*" %%i in (dependencies.txt) DO (
-    xcopy "%%i" "%dst_folder%" /E /Y
+    echo F| xcopy "%%i" /B /F /Y "%dst_folder%" /K
 )
-xcopy ".\WebApplication\appsettings.json" "%dst_folder%"
-xcopy ".\WebApplication\basedb.sqlite" "%dst_folder%"
 IF "%1" == "copydeps" GOTO End
 
 :CopyExts
@@ -49,7 +47,7 @@ echo ###################
 set dst_folder=.\WebApplication\Extensions\
 if not exist "%dst_folder%" mkdir "%dst_folder%"
 for /f "tokens=*" %%i in (extensions.txt) DO (
-    xcopy "%%i" "%dst_folder%" /E /Y /I
+    xcopy "%%i" /B /F /Y  "%dst_folder%" /K
 )
 GOTO End
 

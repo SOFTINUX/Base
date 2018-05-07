@@ -5,3 +5,5 @@ Security.Data.Abstractions\bin\Debug\netcoreapp2.0\Security.Data.Abstractions.dl
 Security\bin\Debug\netcoreapp2.0\Security.dll
 Infrastructure\bin\Debug\netcoreapp2.0\Infrastructure.dll
 Barebone\bin\Debug\netcoreapp2.0\Barebone.dll
+WebApplication\appsettings.json
+WebApplication\basedb.sqlite
