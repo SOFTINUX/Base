@@ -18,77 +18,99 @@
     interesting for adding sorting/filtering capabilities to columns that will be rendered by a checkbox.
 *@
 
-<h3>Role access</h3>
 <div class="row">
     <div class="col-md-12">
-        @* .box *@
+        @* box roles *@
         <div class="box">
+            <div class="box-header with-border">
+                Manage Roles
+            </div>
+            <div class="box-body">
+                <div class="margin">
+                    <div class="btn-group"><button id="add-role" type="button" class="btn btn-block btn-default">Add role</button></div>
+                    <div class="btn-group"><button id="edit-role" type="button" class="btn btn-block btn-default">Edit role</button></div>
+                    <div class="btn-group"><button id="delete-role" type="button" class="btn btn-block btn-danger">Delete role</button></div>
+                </div>
+
+                <div class="row hidden" id="add-role-field">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                New role:
+                                <div class="input-group margin ">
+                                    <input id="role_name_input" type="text" class="form-control" placeholder="enter role name here" size="80">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="fa fa-caret-down"></span>
+                                            <span>None</span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Read</a></li>
+                                            <li><a href="#">Write</a></li>
+                                            <li role="separator" class="divider"></li>
+                                            <li><a href="#">Admin</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label>Unaffected extension(s)</label>
+                                    <select class="form-control" multiple="">
+                                        @* here options *@
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2 pagination-centered text-center">
+                                <div class="btn-group-vertical ">
+                                    <button class="btn btn-default" type="button"><i class="fa fa-angle-right"></i></button>
+                                    <button class="btn btn-default" type="button"><i class="fa fa-angle-double-right"></i></button>
+                                </div>
+                                <br /><br />
+                                <div class="btn-group-vertical ">
+                                    <button class="btn btn-default" type="button"><i class="fa fa-angle-double-left"></i></button>
+                                    <button class="btn btn-default" type="button"><i class="fa fa-angle-left"></i></button>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label>Affected extension(s)</label>
+                                    <select class="form-control" multiple="">
+                                        @* here selected extensions options *@
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="margin">
+                                <div class="col-md-12">
+                                    @* save btn *@
+                                    <div class="btn-group">
+                                        <button class="btn btn-block btn-success" id="save-role-btn">Save</button>
+                                    </div>
+                                    @* cancel btn *@
+                                    <div class="btn-group">
+                                        <button class="btn btn-block btn-danger" id="cancel-role-btn">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        @* box listing roles *@
+        <div class="box">
+            <div class="box-header">
+                Roles List
+            </div>
             <div class="box-body">
                 <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                     <div class="row">
-                        <div class="col-sm-6">
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-12">
-                            <div class="margin">
-                                <div class="btn-group"><button id="add-role" type="button" class="btn btn-block btn-default">Add role</button></div>
-                                <div class="btn-group"><button id="edit-role" type="button" class="btn btn-block btn-default">Edit role</button></div>
-                                <div class="btn-group"><button id="delete-role" type="button" class="btn btn-block btn-danger">Delete role</button></div>
-                            </div>
-                            
-                            <div class="row hidden" id="add-role-field">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            New role:
-                                            <div class="input-group margin ">
-                                                <input id="role_name_input" type="text" class="form-control" placeholder="enter role name here" size="80">
-                                                <div class="input-group-btn">
-                                                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <span class="fa fa-caret-down"></span>
-                                                        <span>None</span>
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <li>Read</li> 
-                                                        <li>Write</li> 
-                                                        <li>Admin</li> 
-                                                        <li role="separator" class="divider"></li> 
-                                                        <li>Application Admin</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <select multiple="multiple">
-                                                @* here options *@
-                                            </select>
-                                        </div>
-                                        <div class="col-md-1">
-                                            <button class="btn btn-default admin-extensions-list-button" type="button"><i class="fa fa-angle-right"></i></button><br />
-                                            <button class="btn btn-default admin-extensions-list-button" type="button"><i class="fa fa-angle-double-right"></i></button><br />
-                                            <button class="btn btn-default admin-extensions-list-button" type="button"><i class="fa fa-angle-double-left"></i></button><br />
-                                            <button class="btn btn-default admin-extensions-list-button" type="button"><i class="fa fa-angle-left"></i></button>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <select multiple="multiple">
-                                                @* here selected extensions options *@
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-block btn-success" id="save-role-btn">Save</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            
                             <table id="table_grantingsList" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="grantings">
                                 <thead>
                                     <tr role="row">
