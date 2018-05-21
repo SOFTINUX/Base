@@ -1,14 +1,22 @@
 {
     "compilerOptions": {
+        "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums": true,
         "out": "Scripts/CCSEQ.Library.js",
         "module": "amd",
         "sourceMap": true,
         "target": "es5",
-        "allowJs": true,
+        "allowJs": false,
         "typeRoots": [
             "../Barebone/node_modules/@types"
-            ]
-    }
+            ],
+        "lib": [
+            "es2016",
+            "dom"
+        ]
+    },
+    "files": [
+        "./TypeScript/*.ts"
+    ],
 }

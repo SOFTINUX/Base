@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
-    "@types/jquery": "^3.3.1",
+    "@types/jquery": "^3.3.2",
     "admin-lte": "2.4.3",
     "bootstrap": "3.3.7",
     "codemirror": "^5.37.0",
@@ -18,7 +18,7 @@
     "font-awesome": "^4.7.0",
     "icheck": "^1.0.2",
     "inputmask": "^3.3.11",
-    "ionicons": "^3.0.0",
+    "ionicons": "^4.1.1",
     "jquery": "^3.3.1",
     "jquery-validation": "^1.17.0",
     "jquery-validation-unobtrusive": "^3.2.9",
@@ -29,7 +29,8 @@
     "wfk-opensans": "^1.0.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "buildts": "tsc"
   },
   "repository": {
     "type": "git",
