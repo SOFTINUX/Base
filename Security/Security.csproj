@@ -46,7 +46,4 @@
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="2.8.391" />
   </ItemGroup>
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="tsc" />
-  </Target>
 </Project>
