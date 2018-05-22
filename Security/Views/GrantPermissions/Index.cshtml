@@ -114,82 +114,90 @@
                         <div class="col-md-12">
                             <table id="table_grantingsList" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="grantings">
                                 <thead>
-                                    <tr role="row">
-                                        <th rowspan="1" colspan="1">Role</th>
-                                        <th rowspan="1" colspan="1">Admin</th>
-                                        <th rowspan="1" colspan="1">Write</th>
-                                        <th rowspan="1" colspan="1">Read</th>
-                                    </tr>
+                                <tr role="row">
+                                    <th rowspan="1" colspan="1">Role</th>
+                                    <th rowspan="1" colspan="1">Admin</th>
+                                    <th rowspan="1" colspan="1">Write</th>
+                                    <th rowspan="1" colspan="1">Read</th>
+                                </tr>
                                 </thead>
                                 <tbody data-entity-id="Security">
-                                    @{
-                                        string checkboxState = "";
-                                        int counter = 1;
-                                        List<string> roles = Model.PermissionsByRoleAndScope["Security"].Keys.ToList();
-                                        roles.Sort();
-                                        foreach (var item in roles)
-                                        {
-                                            <tr role="row" data-role-id="@(item)">
-                                                <td>
-                                                    @item
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        @if (Model.PermissionsByRoleAndScope["Security"][item].Contains(Permission.Admin))
+                                @{
+                                    string checkboxState = "";
+                                    int counter = 1;
+                                    List<string> roles = Model.PermissionsByRoleAndScope["Security"].Keys.ToList();
+                                    roles.Sort();
+                                    foreach (var item in roles)
+                                    {
+                                        <tr role="row" data-role-id="@(item)">
+                                            <td>
+                                                @item
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    @if (Model.PermissionsByRoleAndScope["Security"][item].Contains(Permission.Admin))
+                                                    {
+                                                        <input type="checkbox" value="Admin" class="grant-permission" data-slave-cb="Write" checked="checked">
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" value="Admin" class="grant-permission" data-slave-cb="Write">
+                                                    }
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    @if (Model.PermissionsByRoleAndScope["Security"][item].Contains(Permission.Write))
+                                                    {
+                                                        if (Model.PermissionsByRoleAndScope["Security"][item].Contains(Permission.Admin))
                                                         {
-                                                            <input type="checkbox" value="Admin" class="grant-permission" data-slave-cb="Write" checked="checked">
+                                                            checkboxState = "disabled";
                                                         }
-                                                        else
-                                                        {
-                                                            <input type="checkbox" value="Admin" class="grant-permission" data-slave-cb="Write">
-                                                        }
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        @if (Model.PermissionsByRoleAndScope["Security"][item].Contains(Permission.Write))
-                                                        {
-                                                            if (Model.PermissionsByRoleAndScope["Security"][item].Contains(Permission.Admin))
-                                                            {
-                                                                checkboxState = "disabled";
-                                                            }
 
-                                                            <input type="checkbox" value="Write" class="grant-permission @Html.Raw(checkboxState)" data-slave-cb="Read" checked="checked" @Html.Raw(checkboxState)>
-                                                        }
-                                                        else
+                                                        <input type="checkbox" value="Write" class="grant-permission @Html.Raw(checkboxState)" data-slave-cb="Read" checked="checked" @Html.Raw(checkboxState)>
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" value="Write" class="grant-permission" data-slave-cb="Read">
+                                                    }
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    @if (Model.PermissionsByRoleAndScope["Security"][item].Contains(Permission.Read))
+                                                    {
+                                                        if (Model.PermissionsByRoleAndScope["Security"][item].Contains(Permission.Write))
                                                         {
-                                                            <input type="checkbox" value="Write" class="grant-permission" data-slave-cb="Read">
+                                                            checkboxState = "disabled";
                                                         }
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        @if (Model.PermissionsByRoleAndScope["Security"][item].Contains(Permission.Read))
-                                                        {
-                                                            if (Model.PermissionsByRoleAndScope["Security"][item].Contains(Permission.Write))
-                                                            {
-                                                                checkboxState = "disabled";
-                                                            }
 
-                                                            <input type="checkbox" value="Read" checked="checked" class="@Html.Raw(checkboxState)" @Html.Raw(checkboxState)>
-                                                        }
-                                                        else
-                                                        {
-                                                            <input type="checkbox" value="Read">
-                                                        }
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            counter++;
-                                            checkboxState = "";
-                                        }
+                                                        <input type="checkbox" value="Read" checked="checked" class="@Html.Raw(checkboxState)" @Html.Raw(checkboxState)>
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" value="Read">
+                                                    }
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        counter++;
+                                        checkboxState = "";
                                     }
+                                }
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        @* DEBUG DATA *@
+        <div>
+            Number of extensions: @Html.Raw(Model.PermissionsByRoleAndScope.Count)
+            <br />
+            Roles number for first extension: @Html.Raw(Model.PermissionsByRoleAndScope.ElementAt(0).Value)
+            <br />
+            First role of extension: @Html.Raw(Model.PermissionsByRoleAndScope.ElementAt(0).Value.ElementAt(0).Key)
         </div>
         @* /.box *@
     </div>
