@@ -43,9 +43,16 @@ namespace Security.Controllers
             // 2. Read data from RolePermission table
             // Names of roles that have permissions attributed
             HashSet<string> rolesWithPerms = new HashSet<string>();
+
+            // Read role/permission/extension settings
             List<RolePermission> allRp = Storage.GetRepository<IRolePermissionRepository>().All();
             foreach(RolePermission rp in allRp)
             {
+                if(!model.PermissionsByRoleAndScope.ContainsKey(rp.Scope)) 
+                {
+                    // A database record related to a not loaded extension (scope). Ignore this.
+                    continue;
+                }
                 if(!model.PermissionsByRoleAndScope[rp.Scope].ContainsKey(rp.RoleId))
                     model.PermissionsByRoleAndScope[rp.Scope].Add(rp.RoleId, new List<Common.Enums.Permission>());
                 // Format the list of Permission enum values according to DB enum value
