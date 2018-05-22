@@ -3,7 +3,7 @@
         "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums": true,
-        "out": "Scripts/Security.js",
+        "out": "Scripts/helper.js",
         "module": "amd",
         "sourceMap": true,
         "target": "es5",
@@ -17,6 +17,6 @@
         ]
     },
     "files": [
-        "./TypeScript/PermissionsCheckbox.ts"
+        "./Scripts/helper.ts"
     ],
 }
