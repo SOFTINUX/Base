@@ -31,6 +31,7 @@
     <EmbeddedResource Include="..\Barebone\node_modules\datatables.net-select\js\dataTables.select.min.js" />
     <EmbeddedResource Include="..\Barebone\node_modules\datatables.net-buttons\js\dataTables.buttons.min.js" />
     <EmbeddedResource Include="..\Barebone\node_modules\datatables.net-buttons-bs\js\buttons.bootstrap.min.js" />
+    <EmbeddedResource Include=".\Scripts\security_user.min.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\Barebone\node_modules\datatables.net-bs\css\dataTables.bootstrap.css" />
