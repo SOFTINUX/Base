@@ -6,10 +6,13 @@
     <LangVersion>7</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="Scripts" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="Styles\**;Scripts\**\*.min.js;Views\**" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Scripts\security_user.js" />
+    <None Remove="Scripts\**\*" />
     <None Remove="Views\Account\AccessDenied.cshtml" />
     <None Remove="Views\Account\SignIn.cshtml" />
     <None Remove="Views\Shared\_ListClaims.cshtml" />
@@ -41,10 +44,10 @@
     <ProjectReference Include="..\Security.Data.EntityFramework\Security.Data.EntityFramework.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Scripts" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="BuildBundlerMinifier" Version="2.8.391" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.8.391" />
   </ItemGroup>
+  <Target Name="PreBuild" AfterTargets="PreBuildEvent">
+    <Exec Command="dotnet bundle" />
+  </Target>
 </Project>
