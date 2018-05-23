@@ -12,7 +12,6 @@
     <EmbeddedResource Include="Styles\**;Scripts\**\*.min.js;Views\**" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Scripts\**\*" />
     <None Remove="Views\Account\AccessDenied.cshtml" />
     <None Remove="Views\Account\SignIn.cshtml" />
     <None Remove="Views\Shared\_ListClaims.cshtml" />
