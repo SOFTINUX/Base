@@ -12,17 +12,17 @@
 }
 
 @font-face {
-  font-family: 'Glyphicons Halflings';
-
-  src: url('node_modules.bootstrap.dist.fonts.glyphicons-halfling-regular.eot');
-  src: url('node_modules.bootstrap.dist.fonts.glyphicons-halflings-regular?#iefix') format('embedded-opentype'), url('node_modules.bootstrap.dist.fonts.glyphicons-halflings-regular.woff2') format('woff2'), url('node_modules.bootstrap.dist.fonts.glyphicons-halflings-regular.woff') format('woff'), url('node_modules.bootstrap.dist.fonts.glyphicons-halflings-regular.ttf') format('truetype'), url('node_modules.bootstrap.dist.fonts.glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+    font-family: 'Glyphicons Halflings';
+    src: url('node_modules.bootstrap.dist.fonts.glyphicons-halfling-regular.eot');
+    src: url('node_modules.bootstrap.dist.fonts.glyphicons-halflings-regular?#iefix') format('embedded-opentype'), url('node_modules.bootstrap.dist.fonts.glyphicons-halflings-regular.woff2') format('woff2'), url('node_modules.bootstrap.dist.fonts.glyphicons-halflings-regular.woff') format('woff'), url('node_modules.bootstrap.dist.fonts.glyphicons-halflings-regular.ttf') format('truetype'), url('node_modules.bootstrap.dist.fonts.glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
 @font-face {
-  font-family: "Ionicons";
-
-  src: url("node_modules.ionicons.dist.fonts.ionicons.eot?v=3.0.0-alpha.3");
-  src: url("node_modules.ionicons.dist.fonts.ionicons.eot?v=3.0.0-alpha.3#iefix") format("embedded-opentype"), url("node_modules.ionicons.dist.fonts.ionicons.woff2?v=3.0.0-alpha.3") format("woff2"), url("node_modules.ionicons.dist.fonts.ionicons.woff?v=3.0.0-alpha.3") format("woff"), url("node_modules.ionicons.dist.fonts.ionicons.ttf?v=3.0.0-alpha.3") format("truetype"), url("node_modules.ionicons.dist.fonts.ionicons.svg?v=3.0.0-alpha.3#Ionicons") format("svg"); font-weight: normal; font-style: normal;
+    font-family: "Ionicons";
+    src: url("node_modules.ionicons.dist.fonts.ionicons.eot?v=3.0.0-alpha.3");
+    src: url("node_modules.ionicons.dist.fonts.ionicons.eot?v=3.0.0-alpha.3#iefix") format("embedded-opentype"), url("node_modules.ionicons.dist.fonts.ionicons.woff2?v=3.0.0-alpha.3") format("woff2"), url("node_modules.ionicons.dist.fonts.ionicons.woff?v=3.0.0-alpha.3") format("woff"), url("node_modules.ionicons.dist.fonts.ionicons.ttf?v=3.0.0-alpha.3") format("truetype"), url("node_modules.ionicons.dist.fonts.ionicons.svg?v=3.0.0-alpha.3#Ionicons") format("svg");
+    font-weight: normal;
+    font-style: normal;
 }
 
 #toast-container > div {
@@ -31,18 +31,18 @@
 }
 
 #notification {
-  visibility: hidden;
-  min-width: 250px;
-  margin-left: -125px;
-  z-index: 1;
-  left: 50%;
-  bottom: 30px;
-  position: fixed;
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    position: fixed;
 }
 
-#notification.show {
-  visibility: visible;
-}
+    #notification.show {
+        visibility: visible;
+    }
 
 #code-editor {
     /*width:800px;
@@ -54,31 +54,102 @@
     border: 1px solid #ddd;
 }
 
+/* Custom Checkbox */
+/* The checkbox container */
+.checkbox-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+    /* Hide the browser's default checkbox */
+    .checkbox-container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox-container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox-container input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox-container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+/*
+    ------------------------------------
+            iCheckBox
+    ------------------------------------
+*/
+
 /* iCheckbox Square */
 .icheckbox_square-orange,
 .iradio_square-orange {
-  background: url(node_modules.icheck.skins.square.orange.png) no-repeat;
+    background: url(node_modules.icheck.skins.square.orange.png) no-repeat;
 }
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_square-orange,
-  .iradio_square-orange {
-      background-image: url(node_modules.icheck.skins.square.orange@2x.png);
-  }
+    .icheckbox_square-orange,
+    .iradio_square-orange {
+        background-image: url(node_modules.icheck.skins.square.orange@2x.png);
+    }
 }
 
 .icheckbox_square-yellow,
 .iradio_square-yellow {
-  background: url(node_modules.icheck.skins.square.yellow.png) no-repeat;
+    background: url(node_modules.icheck.skins.square.yellow.png) no-repeat;
 }
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_square-yellow,
-  .iradio_square-yellow {
-      background-image: url(node_modules.icheck.skins.square.yellow@2x.png);
-  }
+    .icheckbox_square-yellow,
+    .iradio_square-yellow {
+        background-image: url(node_modules.icheck.skins.square.yellow@2x.png);
+    }
 }
 
 .icheckbox_square-pink,
@@ -88,10 +159,10 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_square-pink,
-  .iradio_square-pink {
-      background-image: url(node_modules.icheck.skins.square.pink@2x.png);
-  }
+    .icheckbox_square-pink,
+    .iradio_square-pink {
+        background-image: url(node_modules.icheck.skins.square.pink@2x.png);
+    }
 }
 
 .icheckbox_square-purple,
@@ -101,10 +172,10 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_square-purple,
-  .iradio_square-purple {
-      background-image: url(node_modules.icheck.skins.square.purple@2x.png);
-  }
+    .icheckbox_square-purple,
+    .iradio_square-purple {
+        background-image: url(node_modules.icheck.skins.square.purple@2x.png);
+    }
 }
 
 .icheckbox_square-grey,
@@ -114,10 +185,10 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_square-grey,
-  .iradio_square-grey {
-      background-image: url(node_modules.icheck.skins.square.grey@2x.png);
-  }
+    .icheckbox_square-grey,
+    .iradio_square-grey {
+        background-image: url(node_modules.icheck.skins.square.grey@2x.png);
+    }
 }
 
 .icheckbox_square-aero,
@@ -127,10 +198,10 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_square-aero,
-  .iradio_square-aero {
-      background-image: url(node_modules.icheck.skins.square.aero@2x.png);
-  }
+    .icheckbox_square-aero,
+    .iradio_square-aero {
+        background-image: url(node_modules.icheck.skins.square.aero@2x.png);
+    }
 }
 
 .icheckbox_square-blue,
@@ -140,10 +211,10 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_square-blue,
-  .iradio_square-blue {
-      background-image: url(node_modules.icheck.skins.square.blue@2x.png);
-  }
+    .icheckbox_square-blue,
+    .iradio_square-blue {
+        background-image: url(node_modules.icheck.skins.square.blue@2x.png);
+    }
 }
 
 .icheckbox_square-green,
@@ -153,12 +224,12 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_square-green,
-  .iradio_square-green {
-      background-image: url(node_modules.icheck.skins.square.green@2x.png);
-      -webkit-background-size: 240px 24px;
-      background-size: 240px 24px;
-  }
+    .icheckbox_square-green,
+    .iradio_square-green {
+        background-image: url(node_modules.icheck.skins.square.green@2x.png);
+        -webkit-background-size: 240px 24px;
+        background-size: 240px 24px;
+    }
 }
 
 .icheckbox_square-red,
@@ -168,10 +239,10 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_square-red,
-  .iradio_square-red {
-      background-image: url(node_modules.icheck.skins.square.red@2x.png);
-  }
+    .icheckbox_square-red,
+    .iradio_square-red {
+        background-image: url(node_modules.icheck.skins.square.red@2x.png);
+    }
 }
 
 .icheckbox_square,
@@ -181,39 +252,39 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_square,
-  .iradio_square {
-      background-image: url(node_modules.icheck.skins.square.square@2x.png);
-      -webkit-background-size: 240px 24px;
-      background-size: 240px 24px;
-  }
+    .icheckbox_square,
+    .iradio_square {
+        background-image: url(node_modules.icheck.skins.square.square@2x.png);
+        -webkit-background-size: 240px 24px;
+        background-size: 240px 24px;
+    }
 }
 
 /* iCheckbox Minimal */
 .icheckbox_minimal-orange,
 .iradio_minimal-orange {
-  background: url(node_modules.icheck.skins.minimal.orange.png) no-repeat;
+    background: url(node_modules.icheck.skins.minimal.orange.png) no-repeat;
 }
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_minimal-orange,
-  .iradio_minimal-orange {
-      background-image: url(node_modules.icheck.skins.minimal.orange@2x.png);
-  }
+    .icheckbox_minimal-orange,
+    .iradio_minimal-orange {
+        background-image: url(node_modules.icheck.skins.minimal.orange@2x.png);
+    }
 }
 
 .icheckbox_minimal-yellow,
 .iradio_minimal-yellow {
-  background: url(node_modules.icheck.skins.minimal.yellow.png) no-repeat;
+    background: url(node_modules.icheck.skins.minimal.yellow.png) no-repeat;
 }
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_minimal-yellow,
-  .iradio_minimal-yellow {
-      background-image: url(node_modules.icheck.skins.minimal.yellow@2x.png);
-  }
+    .icheckbox_minimal-yellow,
+    .iradio_minimal-yellow {
+        background-image: url(node_modules.icheck.skins.minimal.yellow@2x.png);
+    }
 }
 
 .icheckbox_minimal-pink,
@@ -223,10 +294,10 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_minimal-pink,
-  .iradio_minimal-pink {
-      background-image: url(node_modules.icheck.skins.minimal.pink@2x.png);
-  }
+    .icheckbox_minimal-pink,
+    .iradio_minimal-pink {
+        background-image: url(node_modules.icheck.skins.minimal.pink@2x.png);
+    }
 }
 
 .icheckbox_minimal-purple,
@@ -236,10 +307,10 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_minimal-purple,
-  .iradio_minimal-purple {
-      background-image: url(node_modules.icheck.skins.minimal.purple@2x.png);
-  }
+    .icheckbox_minimal-purple,
+    .iradio_minimal-purple {
+        background-image: url(node_modules.icheck.skins.minimal.purple@2x.png);
+    }
 }
 
 .icheckbox_minimal-grey,
@@ -249,10 +320,10 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_minimal-grey,
-  .iradio_minimal-grey {
-      background-image: url(node_modules.icheck.skins.minimal.grey@2x.png);
-  }
+    .icheckbox_minimal-grey,
+    .iradio_minimal-grey {
+        background-image: url(node_modules.icheck.skins.minimal.grey@2x.png);
+    }
 }
 
 .icheckbox_minimal-aero,
@@ -262,10 +333,10 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_minimal-aero,
-  .iradio_minimal-aero {
-      background-image: url(node_modules.icheck.skins.minimal.aero@2x.png);
-  }
+    .icheckbox_minimal-aero,
+    .iradio_minimal-aero {
+        background-image: url(node_modules.icheck.skins.minimal.aero@2x.png);
+    }
 }
 
 .icheckbox_minimal-blue,
@@ -275,10 +346,10 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_minimal-blue,
-  .iradio_minimal-blue {
-      background-image: url(node_modules.icheck.skins.minimal.blue@2x.png);
-  }
+    .icheckbox_minimal-blue,
+    .iradio_minimal-blue {
+        background-image: url(node_modules.icheck.skins.minimal.blue@2x.png);
+    }
 }
 
 .icheckbox_minimal-green,
@@ -288,12 +359,12 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_minimal-green,
-  .iradio_minimal-green {
-      background-image: url(node_modules.icheck.skins.minimal.green@2x.png);
-      -webkit-background-size: 240px 24px;
-      background-size: 240px 24px;
-  }
+    .icheckbox_minimal-green,
+    .iradio_minimal-green {
+        background-image: url(node_modules.icheck.skins.minimal.green@2x.png);
+        -webkit-background-size: 240px 24px;
+        background-size: 240px 24px;
+    }
 }
 
 .icheckbox_minimal-red,
@@ -303,10 +374,10 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_minimal-red,
-  .iradio_minimal-red {
-      background-image: url(node_modules.icheck.skins.minimal.red@2x.png);
-  }
+    .icheckbox_minimal-red,
+    .iradio_minimal-red {
+        background-image: url(node_modules.icheck.skins.minimal.red@2x.png);
+    }
 }
 
 .icheckbox_minimal,
@@ -316,39 +387,39 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_minimal,
-  .iradio_minimal {
-      background-image: url(node_modules.icheck.skins.minimal.minimal@2x.png);
-      -webkit-background-size: 240px 24px;
-      background-size: 240px 24px;
-  }
+    .icheckbox_minimal,
+    .iradio_minimal {
+        background-image: url(node_modules.icheck.skins.minimal.minimal@2x.png);
+        -webkit-background-size: 240px 24px;
+        background-size: 240px 24px;
+    }
 }
 
 /* iCheckbox Flat */
 .icheckbox_flat-orange,
 .iradio_flat-orange {
-  background: url(node_modules.icheck.skins.flat.orange.png) no-repeat;
+    background: url(node_modules.icheck.skins.flat.orange.png) no-repeat;
 }
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_flat-orange,
-  .iradio_flat-orange {
-      background-image: url(node_modules.icheck.skins.flat.orange@2x.png);
-  }
+    .icheckbox_flat-orange,
+    .iradio_flat-orange {
+        background-image: url(node_modules.icheck.skins.flat.orange@2x.png);
+    }
 }
 
 .icheckbox_flat-yellow,
 .iradio_flat-yellow {
-  background: url(node_modules.icheck.skins.flat.yellow.png) no-repeat;
+    background: url(node_modules.icheck.skins.flat.yellow.png) no-repeat;
 }
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_flat-yellow,
-  .iradio_flat-yellow {
-      background-image: url(node_modules.icheck.skins.flat.yellow@2x.png);
-  }
+    .icheckbox_flat-yellow,
+    .iradio_flat-yellow {
+        background-image: url(node_modules.icheck.skins.flat.yellow@2x.png);
+    }
 }
 
 .icheckbox_flat-pink,
@@ -358,10 +429,10 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_flat-pink,
-  .iradio_flat-pink {
-      background-image: url(node_modules.icheck.skins.flat.pink@2x.png);
-  }
+    .icheckbox_flat-pink,
+    .iradio_flat-pink {
+        background-image: url(node_modules.icheck.skins.flat.pink@2x.png);
+    }
 }
 
 .icheckbox_flat-purple,
@@ -371,10 +442,10 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_flat-purple,
-  .iradio_flat-purple {
-      background-image: url(node_modules.icheck.skins.flat.purple@2x.png);
-  }
+    .icheckbox_flat-purple,
+    .iradio_flat-purple {
+        background-image: url(node_modules.icheck.skins.flat.purple@2x.png);
+    }
 }
 
 .icheckbox_flat-grey,
@@ -384,10 +455,10 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_flat-grey,
-  .iradio_flat-grey {
-      background-image: url(node_modules.icheck.skins.flat.grey@2x.png);
-  }
+    .icheckbox_flat-grey,
+    .iradio_flat-grey {
+        background-image: url(node_modules.icheck.skins.flat.grey@2x.png);
+    }
 }
 
 .icheckbox_flat-aero,
@@ -397,10 +468,10 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_flat-aero,
-  .iradio_flat-aero {
-      background-image: url(node_modules.icheck.skins.flat.aero@2x.png);
-  }
+    .icheckbox_flat-aero,
+    .iradio_flat-aero {
+        background-image: url(node_modules.icheck.skins.flat.aero@2x.png);
+    }
 }
 
 .icheckbox_flat-blue,
@@ -410,10 +481,10 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_flat-blue,
-  .iradio_flat-blue {
-      background-image: url(node_modules.icheck.skins.flat.blue@2x.png);
-  }
+    .icheckbox_flat-blue,
+    .iradio_flat-blue {
+        background-image: url(node_modules.icheck.skins.flat.blue@2x.png);
+    }
 }
 
 .icheckbox_flat-green,
@@ -423,12 +494,12 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_flat-green,
-  .iradio_flat-green {
-      background-image: url(node_modules.icheck.skins.flat.green@2x.png);
-      -webkit-background-size: 240px 24px;
-      background-size: 240px 24px;
-  }
+    .icheckbox_flat-green,
+    .iradio_flat-green {
+        background-image: url(node_modules.icheck.skins.flat.green@2x.png);
+        -webkit-background-size: 240px 24px;
+        background-size: 240px 24px;
+    }
 }
 
 .icheckbox_flat-red,
@@ -438,10 +509,10 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_flat-red,
-  .iradio_flat-red {
-      background-image: url(node_modules.icheck.skins.flat.red@2x.png);
-  }
+    .icheckbox_flat-red,
+    .iradio_flat-red {
+        background-image: url(node_modules.icheck.skins.flat.red@2x.png);
+    }
 }
 
 .icheckbox_flat,
@@ -451,39 +522,39 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_flat,
-  .iradio_flat {
-      background-image: url(node_modules.icheck.skins.flat.flat@2x.png);
-      -webkit-background-size: 240px 24px;
-      background-size: 240px 24px;
-  }
+    .icheckbox_flat,
+    .iradio_flat {
+        background-image: url(node_modules.icheck.skins.flat.flat@2x.png);
+        -webkit-background-size: 240px 24px;
+        background-size: 240px 24px;
+    }
 }
 
 /* iCheckbox Line */
 .icheckbox_line-orange,
 .iradio_line-orange {
-  background: url(node_modules.icheck.skins.line.orange.png) no-repeat;
+    background: url(node_modules.icheck.skins.line.orange.png) no-repeat;
 }
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_line-orange,
-  .iradio_line-orange {
-      background-image: url(node_modules.icheck.skins.line.orange@2x.png);
-  }
+    .icheckbox_line-orange,
+    .iradio_line-orange {
+        background-image: url(node_modules.icheck.skins.line.orange@2x.png);
+    }
 }
 
 .icheckbox_line-yellow,
 .iradio_line-yellow {
-  background: url(node_modules.icheck.skins.line.yellow.png) no-repeat;
+    background: url(node_modules.icheck.skins.line.yellow.png) no-repeat;
 }
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_line-yellow,
-  .iradio_line-yellow {
-      background-image: url(node_modules.icheck.skins.line.yellow@2x.png);
-  }
+    .icheckbox_line-yellow,
+    .iradio_line-yellow {
+        background-image: url(node_modules.icheck.skins.line.yellow@2x.png);
+    }
 }
 
 .icheckbox_line-pink,
@@ -493,10 +564,10 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_line-pink,
-  .iradio_line-pink {
-      background-image: url(node_modules.icheck.skins.line.pink@2x.png);
-  }
+    .icheckbox_line-pink,
+    .iradio_line-pink {
+        background-image: url(node_modules.icheck.skins.line.pink@2x.png);
+    }
 }
 
 .icheckbox_line-purple,
@@ -506,10 +577,10 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_line-purple,
-  .iradio_line-purple {
-      background-image: url(node_modules.icheck.skins.line.purple@2x.png);
-  }
+    .icheckbox_line-purple,
+    .iradio_line-purple {
+        background-image: url(node_modules.icheck.skins.line.purple@2x.png);
+    }
 }
 
 .icheckbox_line-grey,
@@ -519,10 +590,10 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_line-grey,
-  .iradio_line-grey {
-      background-image: url(node_modules.icheck.skins.line.grey@2x.png);
-  }
+    .icheckbox_line-grey,
+    .iradio_line-grey {
+        background-image: url(node_modules.icheck.skins.line.grey@2x.png);
+    }
 }
 
 .icheckbox_line-aero,
@@ -532,10 +603,10 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_line-aero,
-  .iradio_line-aero {
-      background-image: url(node_modules.icheck.skins.line.aero@2x.png);
-  }
+    .icheckbox_line-aero,
+    .iradio_line-aero {
+        background-image: url(node_modules.icheck.skins.line.aero@2x.png);
+    }
 }
 
 .icheckbox_line-blue,
@@ -545,10 +616,10 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_line-blue,
-  .iradio_line-blue {
-      background-image: url(node_modules.icheck.skins.line.blue@2x.png);
-  }
+    .icheckbox_line-blue,
+    .iradio_line-blue {
+        background-image: url(node_modules.icheck.skins.line.blue@2x.png);
+    }
 }
 
 .icheckbox_line-green,
@@ -558,12 +629,12 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_line-green,
-  .iradio_line-green {
-      background-image: url(node_modules.icheck.skins.line.green@2x.png);
-      -webkit-background-size: 240px 24px;
-      background-size: 240px 24px;
-  }
+    .icheckbox_line-green,
+    .iradio_line-green {
+        background-image: url(node_modules.icheck.skins.line.green@2x.png);
+        -webkit-background-size: 240px 24px;
+        background-size: 240px 24px;
+    }
 }
 
 .icheckbox_line-red,
@@ -573,10 +644,10 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_line-red,
-  .iradio_line-red {
-      background-image: url(node_modules.icheck.skins.line.red@2x.png);
-  }
+    .icheckbox_line-red,
+    .iradio_line-red {
+        background-image: url(node_modules.icheck.skins.line.red@2x.png);
+    }
 }
 
 .icheckbox_line,
@@ -586,10 +657,10 @@
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  .icheckbox_line,
-  .iradio_line {
-      background-image: url(node_modules.icheck.skins.line.line@2x.png);
-      -webkit-background-size: 240px 24px;
-      background-size: 240px 24px;
-  }
+    .icheckbox_line,
+    .iradio_line {
+        background-image: url(node_modules.icheck.skins.line.line@2x.png);
+        -webkit-background-size: 240px 24px;
+        background-size: 240px 24px;
+    }
 }

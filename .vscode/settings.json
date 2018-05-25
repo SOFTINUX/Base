@@ -1,4 +1,5 @@
 {
+    "workbench.colorTheme": "Default Dark+",
     "editor.formatOnSave": false,
     "dotnet-test-explorer.testProjectPath": ".\\Tests\\BaseTest",
     "dotnet-test-explorer.build": false,
