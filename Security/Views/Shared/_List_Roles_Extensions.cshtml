@@ -6,7 +6,6 @@
 @using System.Linq
 
 @model Security.ViewModels.Permissions.GrantViewModel
-
 @* HTML Extension list loop *@
 @{
     int i = 1;
@@ -22,14 +21,14 @@
                     <div class="col-md-1 table-extension-header cell-border-bottom">&nbsp;</div>
                     <div class="col-md-1 table-extension-header cell-border-bottom">&nbsp;</div>
                 </div>
-                @* html into roles list loop *@
-                @foreach (var subitem in item.Value)
-                {
-                    <div class="row collapse" id=@Html.Raw("\"extension" + i + "\"") onclick="StopAccordionsPropagation(event);">
-                        <div class="col-md-12">
+                <div class="row collapse" id=@Html.Raw("\"extension" + i + "\"") onclick="StopAccordionsPropagation(event);">
+                    <div class="col-md-12">
+                        @* html into roles list loop *@
+                        @foreach (var subitem in item.Value)
+                        {
                             <div class="row">
                                 <div class="col-md-2 cell-heigth-25" align="right">
-                                    @if (item.Value.ElementAt(0).Key.Equals(subitem.Key)){@Html.Raw("Role name: ")}
+                                    @if (item.Value.ElementAt(0).Key.Equals(subitem.Key)) {@Html.Raw("Role name: ")}
                                 </div>
                                 <div class="col-md-4 cell-heigth-25 cell-border-bottom">@Html.Raw(subitem.Key)</div>
                                 @* admin checkbox *@
@@ -54,9 +53,9 @@
                                     </label>
                                 </div>
                             </div>
-                        </div>
+                        }
                     </div>
-                }
+                </div>
                 @* end loop roles list*@
             </div>
         </div>
