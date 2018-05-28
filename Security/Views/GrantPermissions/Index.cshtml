@@ -119,6 +119,21 @@
                 Roles List
             </div>
             <div class="box-body">
+                <section class="content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row table-header">
+                                <div class="col-md-1 table-header-cell">&nbsp;</div>
+                                <div class="col-md-4 table-header-cell" align="center">Extension name</div>
+                                <div class="col-md-1 table-header-cell">&nbsp;</div>
+                                <div class="col-md-1 table-header-cell">Admin</div>
+                                <div class="col-md-1 table-header-cell">Write</div>
+                                <div class="col-md-1 table-header-cell">Read</div>
+                            </div>
+                        </div>
+                    </div>
+                    @Html.Partial("_List_Roles_Extensions")
+                </section>
                 <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                     <div class="row">
                         <div class="col-md-12">
