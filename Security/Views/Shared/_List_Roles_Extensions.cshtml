@@ -2,48 +2,65 @@
     Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 *@
 
-@* /!\ put this html code into loop on extensions list *@
-<div class="row accordion-toggle" data-toggle="collapse" data-target="#extension1">
-    <div class="col-md-6">
-        <div class="row">
-            <div class="col-md-1 table-extension-header cell-border-bottom">[icon]</div>
-            <div class="col-md-3 table-extension-header cell-border-bottom">@* /!\ here extension name *@</div>
-            <div class="col-md-2 table-extension-header cell-border-bottom">&nbsp;</div>
-            <div class="col-md-1 table-extension-header cell-border-bottom">&nbsp;</div>
-            <div class="col-md-1 table-extension-header cell-border-bottom">&nbsp;</div>
-            <div class="col-md-1 table-extension-header cell-border-bottom">&nbsp;</div>
-        </div>
-        @* /!\ put this html into roles list loop *@
-        <div class="row collapse" id="extension1" onclick="foo(event);">
-            <div class="col-md-12">
+@using Security.Common.Enums
+@using System.Linq
+
+@model Security.ViewModels.Permissions.GrantViewModel
+
+@* HTML Extension list loop *@
+@{
+    int i = 1;
+    foreach (var item in Model.PermissionsByRoleAndScope)
+    {
+        <div class="row accordion-toggle" data-toggle="collapse" data-target=@Html.Raw("\"#extension" + i + "\"")>
+            <div class="col-md-6">
                 <div class="row">
-                    <div class="col-md-2 cell-heigth-25" align="right">@* /!\ here condition if first of list, then display : 'Role Name:' *@</div>
-                    <div class="col-md-4 cell-heigth-25 cell-border-bottom">@* /!\ here the role name *@</div>
-                    @* admin checkbox *@
-                    <div class="col-md-1 cell-heigth-25 cell-border-bottom">
-                        <label class="checkbox-container">
-                            <input type="checkbox" checked="checked">
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-                    @* write checkbox *@
-                    <div class="col-md-1 cell-heigth-25 cell-border-bottom">
-                        <label class="checkbox-container">
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-                    @* read checkbox *@
-                    <div class="col-md-1 cell-heigth-25 cell-border-bottom">
-                        <label class="checkbox-container">
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
+                    <div class="col-md-1 table-extension-header cell-border-bottom">[icon]</div>
+                    <div class="col-md-3 table-extension-header cell-border-bottom">@Html.Raw(item.Key)</div>
+                    <div class="col-md-2 table-extension-header cell-border-bottom">&nbsp;</div>
+                    <div class="col-md-1 table-extension-header cell-border-bottom">&nbsp;</div>
+                    <div class="col-md-1 table-extension-header cell-border-bottom">&nbsp;</div>
+                    <div class="col-md-1 table-extension-header cell-border-bottom">&nbsp;</div>
                 </div>
+                @* html into roles list loop *@
+                @foreach (var subitem in item.Value)
+                {
+                    <div class="row collapse" id=@Html.Raw("\"extension" + i + "\"") onclick="StopAccordionsPropagation(event);">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-2 cell-heigth-25" align="right">
+                                    @if (item.Value.ElementAt(0).Key.Equals(subitem.Key)){@Html.Raw("Role name: ")}
+                                </div>
+                                <div class="col-md-4 cell-heigth-25 cell-border-bottom">@Html.Raw(subitem.Key)</div>
+                                @* admin checkbox *@
+                                <div class="col-md-1 cell-heigth-25 cell-border-bottom">
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" checked="checked">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                @* write checkbox *@
+                                <div class="col-md-1 cell-heigth-25 cell-border-bottom">
+                                    <label class="checkbox-container">
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                @* read checkbox *@
+                                <div class="col-md-1 cell-heigth-25 cell-border-bottom">
+                                    <label class="checkbox-container">
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @* end loop roles list*@
             </div>
         </div>
-        @* end loop roles list*@
-    </div>
-</div>
-@* End extension list loop*@
+        ++i;
+    }
+    @* End extension list loop*@
+}

@@ -132,7 +132,7 @@
                             </div>
                         </div>
                     </div>
-                    @Html.Partial("_List_Roles_Extensions")
+                    @Html.Partial("_List_Roles_Extensions", Model)
                 </section>
                 <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                     <div class="row">
@@ -231,6 +231,10 @@
 @section Scripts {
     @* <script type="text/javascript" src="/node_modules.icheck.icheck.js"></script> *@
     <script>
+
+        window.StopAccordionsPropagation = function(e) {
+            e.stopPropagation();
+        }
 
         $(function () {
             toastr.options.positionClass = 'toast-top-right';
