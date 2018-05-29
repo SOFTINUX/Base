@@ -310,12 +310,9 @@ __pycache__/
 *.orig
 
 # Unit Test
-[Tt]ests/[Aa]rtefacts/basedb.sqlite
+[Tt]ests/[Aa]rtefacts/*.sqlite
 [Tt]ests/[Ww]orkDir/*
 ![Tt]ests/[Ww]orkDir/.workdir
-
-# Directory is named "Debug" because it contains code defined in debug mode...
-!Security/Enums/Debug
 
 # serilog log file
 log-[0-9]*.txt
