@@ -33,4 +33,7 @@
     <ProjectReference Include="..\..\Chinook.Data.EntityFramework\Chinook.Data.EntityFramework.csproj" />
     <ProjectReference Include="..\BaseTest.Common\BaseTest.Common.csproj" />
   </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy $(ProjectDir)..\..\WebApplication\basedb.sqlite $(ProjectDir)..\WorkDir\basedb_tests.sqlite /F /Y" />
+  </Target>
 </Project>

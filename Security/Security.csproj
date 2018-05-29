@@ -47,7 +47,4 @@
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.8.391" />
   </ItemGroup>
-  <Target Name="PreBuild" AfterTargets="PreBuildEvent">
-    <Exec Command="dotnet bundle" />
-  </Target>
 </Project>
