@@ -11,10 +11,10 @@
     int i = 1;
     foreach (var item in Model.PermissionsByRoleAndScope)
     {
-        <div class="row accordion-toggle" data-toggle="collapse" data-target=@Html.Raw("\"#extension" + i + "\"")>
+        <div class="row extension-row accordion-toggle" data-toggle="collapse" data-target=@Html.Raw("\"#extension" + i + "\"")>
             <div class="col-md-6">
                 <div class="row extension-row-height">
-                    <div class="col-md-1 table-extension-header">[icon]</div>
+                    <div class="col-md-1 table-extension-header"><i class="chevron fa fa-fw"></i></div>
                     <div class="col-md-3 table-extension-header">@Html.Raw(item.Key)</div>
                     <div class="col-md-2 table-extension-header">&nbsp;</div>
                     <div class="col-md-1 table-extension-header">&nbsp;</div>
@@ -34,7 +34,7 @@
                                 @* admin checkbox *@
                                 <div class="col-md-1 cell-heigth-25 cell-role-row">
                                     <label class="checkbox-container">
-                                        <input @Html.Raw("id=\"administrator_" + subitem.Key + "_" + item.Key + "\"") type="checkbox" @if(subitem.Key.Equals("administrator", StringComparison.InvariantCultureIgnoreCase)) {@Html.Raw("checked=\"checked\"")}>
+                                        <input @Html.Raw("id=\"administrator_" + subitem.Key + "_" + item.Key + "\"") type="checkbox" @if(subitem.Key.Equals("admin", StringComparison.InvariantCultureIgnoreCase)) {@Html.Raw("checked=\"checked\"")}>
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>

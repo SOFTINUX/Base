@@ -22,3 +22,9 @@
     vertical-align: top;
     border-top: 1px solid #ddd;
 }
+.table-extension-header .chevron:after {
+    content: "\f078";
+}
+.extension-row.collapsed .chevron:after {
+    content: "\f054";
+}
