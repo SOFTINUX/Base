@@ -34,21 +34,21 @@
                                 @* admin checkbox *@
                                 <div class="col-md-1 cell-heigth-25 cell-role-row">
                                     <label class="checkbox-container">
-                                        <input @Html.Raw("id=\"administrator_" + subitem.Key + "_" + item.Key + "\"") type="checkbox" @if(subitem.Key.Equals("admin", StringComparison.InvariantCultureIgnoreCase)) {@Html.Raw("checked=\"checked\"")}>
+                                        <input @Html.Raw("id=\"administrator_" + subitem.Key + "_" + item.Key + "\"") type="checkbox" @if(subitem.Value.Contains(Permission.Admin)) {@Html.Raw("checked=\"checked\"")}>
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
                                 @* write checkbox *@
                                 <div class="col-md-1 cell-heigth-25 cell-role-row">
                                     <label class="checkbox-container">
-                                        <input @Html.Raw("id=\"write_" + subitem.Key + "_" + item.Key + "\"") type="checkbox" @if(subitem.Key.Equals("write", StringComparison.InvariantCultureIgnoreCase)) {@Html.Raw("checked=\"checked\"")}>
+                                        <input @Html.Raw("id=\"write_" + subitem.Key + "_" + item.Key + "\"") type="checkbox" @if(subitem.Value.Contains(Permission.Write)) {@Html.Raw("checked=\"checked\"")}>
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
                                 @* read checkbox *@
                                 <div class="col-md-1 cell-heigth-25 cell-role-row">
                                     <label class="checkbox-container">
-                                        <input @Html.Raw("id=\"read_" + subitem.Key + "_" + item.Key + "\"") type="checkbox" @if(subitem.Key.Equals("read", StringComparison.InvariantCultureIgnoreCase)) {@Html.Raw("checked=\"checked\"")}>
+                                        <input @Html.Raw("id=\"read_" + subitem.Key + "_" + item.Key + "\"") type="checkbox" @if(subitem.Value.Contains(Permission.Read)) {@Html.Raw("checked=\"checked\"")}>
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
