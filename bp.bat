@@ -11,6 +11,7 @@ IF "%1" == "build" GOTO Build
 IF "%1" == "copyexts" GOTO CopyExts
 IF "%1" == "copydeps" GOTO CopyDeps
 IF "%1" == "publish" GOTO Publish
+IF "%1" == "bundles" GOTO Bundles
 
 GOTO Clean
 
@@ -20,6 +21,17 @@ echo CLEAN SOLUTION
 echo ###################
 dotnet clean
 IF "%1" == "clean" GOTO End
+
+:Bundles
+echo ###################
+echo Updating bundles
+echo ###################
+for /f "tokens=*" %%i in (bundles.txt) DO (
+    pushd ".\%%i"
+    dotnet bundle
+    popd
+)
+IF "%1" == "bundles" GOTO End
 
 :Build
 echo ###################
@@ -78,10 +90,12 @@ echo     - clean : clean solution
 echo     - build : only build solution
 echo     - copydeps : only copy dependencies (defined in dependencies.txt)
 echo     - copyexts : only copy extensions (defined in extensions.txt)
+echo     - bundles : only update bundles (projects defined in bundles.txt)
 echo     - publish : not yet implemented
 echo.
 echo with no parameter or unsupported parameter, build proccess is:
 echo     - clean solution
+echo     - update bundles
 echo     - build solution
 echo     - copy dependencies
 echo     - copy extensions
