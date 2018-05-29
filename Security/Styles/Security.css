@@ -1,3 +1,24 @@
 ﻿/* Copyright © 2017 SOFTINUX. All rights reserved.
  Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 */
+.cell-heigth-25 {
+    height: 35px;
+    padding-top: 5px;
+}
+.cell-border-bottom {
+    border-bottom: solid 1px;
+}
+.cell-border-bottom-color-gray {
+    border-color: gray;
+}
+.cell-role-row {
+    border-bottom: 1px dashed #d2d2d2;
+}
+.permission-label-position {
+    width: auto;
+}
+.extension-row-height {
+    line-height: 2.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}

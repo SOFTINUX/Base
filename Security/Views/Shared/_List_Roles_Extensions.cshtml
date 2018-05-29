@@ -13,13 +13,13 @@
     {
         <div class="row accordion-toggle" data-toggle="collapse" data-target=@Html.Raw("\"#extension" + i + "\"")>
             <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-1 table-extension-header cell-border-bottom">[icon]</div>
-                    <div class="col-md-3 table-extension-header cell-border-bottom">@Html.Raw(item.Key)</div>
-                    <div class="col-md-2 table-extension-header cell-border-bottom">&nbsp;</div>
-                    <div class="col-md-1 table-extension-header cell-border-bottom">&nbsp;</div>
-                    <div class="col-md-1 table-extension-header cell-border-bottom">&nbsp;</div>
-                    <div class="col-md-1 table-extension-header cell-border-bottom">&nbsp;</div>
+                <div class="row extension-row-height">
+                    <div class="col-md-1 table-extension-header">[icon]</div>
+                    <div class="col-md-3 table-extension-header">@Html.Raw(item.Key)</div>
+                    <div class="col-md-2 table-extension-header">&nbsp;</div>
+                    <div class="col-md-1 table-extension-header">&nbsp;</div>
+                    <div class="col-md-1 table-extension-header">&nbsp;</div>
+                    <div class="col-md-1 table-extension-header">&nbsp;</div>
                 </div>
                 <div class="row collapse" id=@Html.Raw("\"extension" + i + "\"") onclick="StopAccordionsPropagation(event);">
                     <div class="col-md-12">
@@ -30,25 +30,25 @@
                                 <div class="col-md-2 cell-heigth-25" align="right">
                                     @if (item.Value.ElementAt(0).Key.Equals(subitem.Key)) {@Html.Raw("Role name: ")}
                                 </div>
-                                <div class="col-md-4 cell-heigth-25 cell-border-bottom">@Html.Raw(subitem.Key)</div>
+                                <div class="col-md-4 cell-heigth-25 cell-role-row">@Html.Raw(subitem.Key)</div>
                                 @* admin checkbox *@
-                                <div class="col-md-1 cell-heigth-25 cell-border-bottom">
+                                <div class="col-md-1 cell-heigth-25 cell-role-row">
                                     <label class="checkbox-container">
-                                        <input type="checkbox" checked="checked">
+                                        <input @Html.Raw("id=\"administrator_" + subitem.Key + "_" + item.Key + "\"") type="checkbox" @if(subitem.Key.Equals("administrator", StringComparison.InvariantCultureIgnoreCase)) {@Html.Raw("checked=\"checked\"")}>
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
                                 @* write checkbox *@
-                                <div class="col-md-1 cell-heigth-25 cell-border-bottom">
+                                <div class="col-md-1 cell-heigth-25 cell-role-row">
                                     <label class="checkbox-container">
-                                        <input type="checkbox">
+                                        <input @Html.Raw("id=\"write_" + subitem.Key + "_" + item.Key + "\"") type="checkbox" @if(subitem.Key.Equals("write", StringComparison.InvariantCultureIgnoreCase)) {@Html.Raw("checked=\"checked\"")}>
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
                                 @* read checkbox *@
-                                <div class="col-md-1 cell-heigth-25 cell-border-bottom">
+                                <div class="col-md-1 cell-heigth-25 cell-role-row">
                                     <label class="checkbox-container">
-                                        <input type="checkbox">
+                                        <input @Html.Raw("id=\"read_" + subitem.Key + "_" + item.Key + "\"") type="checkbox" @if(subitem.Key.Equals("read", StringComparison.InvariantCultureIgnoreCase)) {@Html.Raw("checked=\"checked\"")}>
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>

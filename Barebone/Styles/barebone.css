@@ -40,9 +40,9 @@
     position: fixed;
 }
 
-    #notification.show {
-        visibility: visible;
-    }
+#notification.show {
+    visibility: visible;
+}
 
 #code-editor {
     /*width:800px;
@@ -68,12 +68,13 @@
     -ms-user-select: none;
     user-select: none;
 }
-    /* Hide the browser's default checkbox */
-    .checkbox-container input {
-        position: absolute;
-        opacity: 0;
-        cursor: pointer;
-    }
+
+/* Hide the browser's default checkbox */
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
 
 /* Create a custom checkbox */
 .checkmark {
