@@ -28,3 +28,9 @@
 .extension-row.collapsed .chevron:after {
     content: "\f054";
 }
+.table-header .chevron-double:after {
+    content: "\f103";
+}
+.table-header.collapsed .chevron-double:after {
+    content: "\f101";
+}

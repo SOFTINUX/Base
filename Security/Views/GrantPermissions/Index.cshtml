@@ -122,8 +122,8 @@
                 <section class="content">
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="row table-header">
-                                <div class="col-md-1 table-header-cell">&nbsp;</div>
+                            <div class="row table-header collapsed">
+                                <div class="col-md-1 table-header-cell"><i class="chevron-double fa fa-fw"></i></div>
                                 <div class="col-md-4 table-header-cell" align="center">Extension name</div>
                                 <div class="col-md-1 table-header-cell">&nbsp;</div>
                                 <div class="col-md-1 table-header-cell">Admin</div>
@@ -260,6 +260,11 @@
                 }
                 toastr.success('role saved.');
             });
+
+            // TODO uncomment for collapse/uncollapse all extention permissions
+            //$('#accordion .panel-default').on('click', function () {
+            //    $('#accordion .panel-collapse').collapse('toggle');
+            //});
         });
 
         $(document).ready(function () {
