@@ -48,16 +48,26 @@ function copydeps
     cat dependencies.txt | sed 's/\\/\//g' | xargs -I % bash -c "cp % $SET_DEST; echo cp % $SET_DEST"
 }
 
+function bundles
+{
+    echo "###################"
+    echo "Updating bundles"
+    echo "###################"
+    cat bundles.txt | sed 's/\\/\//g' | xargs -I % bash -c "cd %; dotnet bundle; cd $OLDPWD"
+}
+
 function help
 {
-    echo "Avaliable parameter is :"
+    echo "Available parameter is :"
     echo "    - clean : clean solution"
     echo "    - build : only build solution"
     echo "    - copydeps : only copy dependencies (defined in dependencies.txt)"
     echo "    - copyexts : only copy extensions (defined in extensions.txt)"
+    echo "    - bundles : only update bundles (projects defined in bundles.txt)"
     echo -ne "\n"
     echo "with no parameter or unsupported parameters, build proccess is:"
     echo "    - clean solution"
+    echo "    - update bundles"
     echo "    - build solution"
     echo "    - copy dependencies"
     echo "    - copy extensions"
@@ -77,11 +87,15 @@ case $1 in
     copydeps)
         copydeps
         ;;
+    bundles)
+        bundles
+        ;;
     -h|--help)
         help
         ;;
     *)
         clean
+        bundles
         build
         copydeps
         copyexts
