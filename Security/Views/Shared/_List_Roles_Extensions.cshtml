@@ -11,7 +11,7 @@
     int i = 1;
     foreach (var item in Model.PermissionsByRoleAndScope)
     {
-        <div class="row extension-row accordion-toggle collapsed" data-toggle="collapse" data-target=@Html.Raw("\"#extension" + i + "\"")>
+        <div class="row extension-row accordion-toggle collapsed" data-entity-id="@Html.Raw(item.Key)" data-toggle="collapse" data-target=@Html.Raw("\"#extension" + i + "\"")>
             <div class="col-md-6">
                 <div class="row extension-row-height">
                     <div class="col-md-1 table-extension-header"><i class="chevron fa fa-fw"></i></div>
@@ -26,16 +26,17 @@
                         @* html into roles list loop *@
                         @foreach (var subitem in item.Value)
                         {
-                            <div class="row">
+                            <div class="row" data-entity-role-id="@Html.Raw(item.Key+ "_" + subitem.Key)">
                                 <div class="col-md-2 cell-heigth-25" align="right">
                                     @if (item.Value.ElementAt(0).Key.Equals(subitem.Key)) {@Html.Raw("Role name: ")}
                                 </div>
+                                @* Role name *@
                                 <div class="col-md-4 cell-heigth-25 cell-role-row">@Html.Raw(subitem.Key)</div>
                                 @* admin checkbox *@
                                 <div class="col-md-1 cell-heigth-25 cell-role-row">
                                     <label class="checkbox-container">
                                         <input @Html.Raw("id=\"administrator_" + subitem.Key + "_" + item.Key + "\"") type="checkbox"
-                                         @if(subitem.Value.Contains(Permission.Admin)) {@Html.Raw("checked=\"checked\"")}>
+                                         @if(subitem.Value.Contains(Permission.Admin)) {@Html.Raw("checked")}>
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
@@ -43,7 +44,7 @@
                                 <div class="col-md-1 cell-heigth-25 cell-role-row">
                                     <label class="checkbox-container">
                                         <input @Html.Raw("id=\"write_" + subitem.Key + "_" + item.Key + "\"") type="checkbox"
-                                         @if(subitem.Value.Contains(Permission.Write)) {@Html.Raw("checked=\"checked\"")}
+                                         @if(subitem.Value.Contains(Permission.Write)) {@Html.Raw("checked")}
                                          @if(subitem.Value.Contains(Permission.Admin)) {@Html.Raw("disabled=\"true\"")}>
                                         <span class="checkmark"></span>
                                     </label>
@@ -52,7 +53,7 @@
                                 <div class="col-md-1 cell-heigth-25 cell-role-row">
                                     <label class="checkbox-container">
                                         <input @Html.Raw("id=\"read_" + subitem.Key + "_" + item.Key + "\"") type="checkbox"
-                                         @if(subitem.Value.Contains(Permission.Read)) {@Html.Raw("checked=\"checked\"")}
+                                         @if(subitem.Value.Contains(Permission.Read)) {@Html.Raw("checked")}
                                          @if(subitem.Value.Contains(Permission.Write)) {@Html.Raw("disabled=\"true\"")}>
                                         <span class="checkmark"></span>
                                     </label>
