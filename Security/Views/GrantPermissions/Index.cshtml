@@ -265,7 +265,7 @@
         });
 
         function checkClick() {
-            alert($(this).attr("data-entity-role-id"));
+            console.log($(event.target).closest('[data-entity-role-id]').data());
         }
 
     </script>
