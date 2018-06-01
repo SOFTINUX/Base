@@ -37,6 +37,6 @@
     <Exec Command="xcopy $(ProjectDir)..\..\WebApplication\basedb.sqlite $(ProjectDir)..\WorkDir\ /F /Y &#xD;&#xA;del $(ProjectDir)..\WorkDir\basedb_tests.sqlite&#xD;&#xA;ren $(ProjectDir)..\WorkDir\basedb.sqlite basedb_tests.sqlite" />
 </Target>
 <Target Name="PostBuild_Linux" AfterTargets="PostBuildEvent" Condition="'$(OS)'!='Windows_NT'">
-    <Exec Command="cp ../../WebApplication/basedb.sqlite ../WorkDir/basedb_tests.sqlite" />
+    <Exec Command="cp $PWD/../../WebApplication/basedb.sqlite $PWD/../WorkDir/basedb_tests.sqlite" />
 </Target>
 </Project>
