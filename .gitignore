@@ -320,9 +320,6 @@ log-[0-9]*.txt
 # App Extensions
 [Ww]ebApplication/Extensions
 
-# App EF Migration
-[Ww]ebApplication/[Mm]igrations/
-
 #App EF Database
 [Ww]ebApplication/basedb.sqlite
 
