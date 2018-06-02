@@ -32,6 +32,7 @@
     <ProjectReference Include="..\..\Chinook.Data.Abstractions\Chinook.Data.Abstractions.csproj" />
     <ProjectReference Include="..\..\Chinook.Data.EntityFramework\Chinook.Data.EntityFramework.csproj" />
     <ProjectReference Include="..\BaseTest.Common\BaseTest.Common.csproj" />
+    <ProjectReference Include="..\..\Security.Data.Abstractions\Security.Data.Abstractions.csproj" />
   </ItemGroup>
 <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(OS)'=='Windows_NT'">
     <Exec Command="xcopy $(ProjectDir)..\..\WebApplication\basedb.sqlite $(ProjectDir)..\WorkDir\ /F /Y &#xD;&#xA;del $(ProjectDir)..\WorkDir\basedb_tests.sqlite&#xD;&#xA;ren $(ProjectDir)..\WorkDir\basedb.sqlite basedb_tests.sqlite" />

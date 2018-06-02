@@ -39,6 +39,10 @@ namespace Security.Data.EntityFramework
             if (entity != null)
                 dbSet.Remove(entity);
         }
+        public void DeleteAll()
+        {
+            dbSet.RemoveRange(dbSet.ToArray());
+        }
 
       }
 }

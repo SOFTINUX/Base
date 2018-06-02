@@ -15,5 +15,6 @@ namespace Security.Data.Abstractions
         void Create(RolePermission entity_);
         void Edit(RolePermission entity_);
         void Delete(string roleId_, string scope_);
+        void DeleteAll();
     }
 }

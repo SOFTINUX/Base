@@ -14,5 +14,6 @@ namespace Security.Data.Abstractions
         void Create(UserPermission entity_);
         void Edit(UserPermission entity_);
         void Delete(string userId_, string permissionId_);
+        void DeleteAll();
     }
 }
