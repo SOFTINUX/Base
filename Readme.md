@@ -35,18 +35,21 @@ See LICENSE file for license information.
 
 ## Installation
 #### 1. Restore dependencies
-Go to *Barebone* folder and run `npm i --save-dev` command so that dependencies packages are installed.
+Go to *Barebone* folder and run `npm i --save-dev` command so that dependencies packages are installed and settings updated.
+
 #### 2. Restore nuget packages
 Restore the nuGet packages is now an implicit command executed at application build.
-#### 3. Generate database migration.
-Go to *WebApplication* folder and run `dotnet ef migrations add InitialCreate`.<br />
 
-#### 4. Update database with migration
+#### 3. Update database with migration
 Go to *Webapplication* folder and run `dotnet ef database update`.<br />
-This will create the database. (See application.json for database. By default is a Sqlite file)
-#### 5. Build the appplication
-Go to the root folder and run `bp.bat` under Windows or `bp.sh` under Linux/Macos. (use -h for help)
-#### 6. Run the app
+This will create the database.<br />
+See *appsettings.json* for database path. The Entity Framework database context is defined in web application's *Startup.cs*.<br />
+We use Sqlite but you can change this easily.
+
+#### 4. Build the appplication
+Go to the root folder and run `bp.bat` under Windows or `bp.sh` under Linux/Macos. (use -h for help).
+
+#### 5. Run the app
 Go to *WebApplication* folder and type `dotnet run`.<br/>
 (If you want, you can also execute from root solution folder with this command `dotnet run --project WebApplication\WebApplication.csproj`)<br /><br />
 After that, the application is available on http://localhost:5000/ <br />
@@ -59,12 +62,12 @@ After, the default port used by *dotnet run* is the port defined in *WebApplicat
 Rider 2017.3 cannot execute the PostBuildEvent declared into WebApplication.csproj
 You need to execute `./bp.sh copyexts` and `./bp.sh copydeps` after build the solution or project.
 
-#### 7. Add the first user (demo user)
+#### 6. Add the first user (demo user)
 With Postman (or the program of your choice) make a POST request to this url: http://localhost:5000/dev/seed/CreateUser<br />
 (with curl: `curl -i -X POST http://localhost:5000/dev/seed/CreateUser`)<br />
 This will create the demo user with general permissions.
 
-#### 8. Login with demo user
+#### 7. Login with demo user
 user: johndoe@softinux.com<br />
 password: 123_Password<br />
 (password is case sensitive)
