@@ -26,7 +26,7 @@ namespace BaseTest.Common
     /// </summary>
     public class DatabaseFixture : IDisposable
     {
-        protected virtual string DatabaseToCopyFromBaseName => "basedb";
+        protected virtual string DatabaseToCopyFromBaseName => "basedb_tests";
         protected virtual string DatabaseToCopyToBaseName => "basedb_tests";
         protected virtual string ConnectionStringPath => "ConnectionStrings:Default";
 
@@ -34,8 +34,9 @@ namespace BaseTest.Common
 
         public virtual ITestContext GetTestContext()
         {
-            throw new Exception(
-                "Please provide an implementation of TestContext accepting ConnectionStringPath as parameter");
+            Console.WriteLine("Please provide an implementation of TestContext accepting ConnectionStringPath as parameter.");
+            Console.WriteLine("You should see this message only because of dependency injection used by test class constructor.");
+            return null;
         }
 
         public DatabaseFixture()
@@ -51,7 +52,10 @@ namespace BaseTest.Common
             // ReSharper enable VirtualMemberCallInConstructor
 
             if(DatabaseContext == null)
-                throw new Exception("Your ITestContext implementation should also inherit from IRequestHandler");
+            {
+                Console.WriteLine("Your ITestContext implementation should also inherit from IRequestHandler");
+                Console.WriteLine("You should see this message only because of dependency injection used by test class constructor.");
+            }
 
             List<Assembly> loadedAssemblies = new List<Assembly>();
 

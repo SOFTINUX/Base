@@ -14,6 +14,7 @@
     <ProjectReference Include="..\..\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\..\Security.Data.Abstractions\Security.Data.Abstractions.csproj" />
     <ProjectReference Include="..\..\Security.Data.Entities\Security.Data.Entities.csproj" />
+    <ProjectReference Include="..\..\SeedDatabase\SeedDatabase.csproj" />
   </ItemGroup>
 
 </Project>

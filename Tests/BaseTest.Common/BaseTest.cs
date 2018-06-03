@@ -3,6 +3,7 @@
 
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
+using Xunit;
 using Xunit.Abstractions;
 
 namespace BaseTest.Common
@@ -10,7 +11,7 @@ namespace BaseTest.Common
     /// <summary>
     /// Base class for test classes.
     /// </summary>
-    public abstract class BaseTest
+    public abstract class BaseTest : IClassFixture<DatabaseFixture>
     {
         /// <summary>
         /// Storage of injected object that represents a test context and that holds the DB connection.
