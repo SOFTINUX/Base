@@ -1,6 +1,7 @@
 // Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System;
 using BaseTest.Common;
 using BaseTest.Common.XunitTools;
 using ExtCore.Data.Abstractions;
@@ -13,14 +14,10 @@ namespace BaseTest.Security
     [Collection("Database collection")]
     public class GrantPermissionsTest : Common.BaseTest
     {
-        public GrantPermissionsTest(DatabaseFixture fixture_, ITestOutputHelper outputHandler_, IStorage storage_, UserManager<global::Security.Data.Entities.User> userManager_, RoleManager<IdentityRole<string>> roleManager_)
+        public GrantPermissionsTest(DatabaseFixture fixture_, ITestOutputHelper outputHandler_)
         {
             _fixture = fixture_;
             _outputHandler = outputHandler_;
-            _storage = storage_;
-            _userManager = userManager_;
-            _roleManager = roleManager_;
-
         }
 
         /// <summary>
@@ -30,12 +27,13 @@ namespace BaseTest.Security
         [Fact]
         public void TestFillGrantPermissionViewModelForRoles()
         {
+            // TODO find how to get access to initialized UserManager
             // 1. Delete some data: role-permission, role-user, user-permission links.
-            DataSetupTools.DeleteAllLinks(_storage, _userManager, _roleManager);
+            // DataSetupTools.DeleteAllLinks(Storage, _userManager, _roleManager);
 
             // 2. Create base roles and permissions, if needed
             // TODO
-            
+
             // 3. Create "SpecialUser" additional role
             // TODO
 
@@ -45,7 +43,7 @@ namespace BaseTest.Security
             // 5. Build GrantPermissionsViewModel and perform assertions
             // TODO
 
-
+            throw new NotImplementedException("Needs work");
 
         }
     }

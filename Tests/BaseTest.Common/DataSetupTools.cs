@@ -11,6 +11,9 @@ using SeedDatabase;
 
 namespace BaseTest.Common
 {
+    /// <summary>
+    /// Utility class to quickly manage base data to create/delete.
+    /// </summary>
     public static class DataSetupTools
     {
         /// <summary>
@@ -64,6 +67,7 @@ namespace BaseTest.Common
         public static void CreatePermissionsIfNeeded(IStorage storage_)
         {
             Permission[] permissions = (Permission[])Enum.GetValues(typeof(Permission));
+            var repository = storage_.GetRepository<IPermissionRepository>();
 
             foreach (var p in permissions)
             {
@@ -74,7 +78,11 @@ namespace BaseTest.Common
                     Name = p.GetPermissionName()
                 };
 
-                storage_.GetRepository<IPermissionRepository>().Create(permission);
+                // test if it already exists
+                if (repository.All().Where(p_ => p_.Id == permission.Id).FirstOrDefault() != null)
+                    continue;
+
+                repository.Create(permission);
                 storage_.Save();
             }
         }

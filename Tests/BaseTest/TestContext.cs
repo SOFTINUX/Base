@@ -1,4 +1,7 @@
+using BaseTest.Common;
+using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace BaseTest
@@ -13,9 +16,19 @@ namespace BaseTest
 
         }
 
-        public override StorageContextBase GetProviderStorageContext(IOptions<StorageContextOptions> options_)
+        public override IStorageContext GetProviderStorageContext(DbContextOptions<BaseTestDbContext> options_)
         {
-            return new TestStorageContextBase(options_);
+            return new BaseTestDbContext(options_);
+        }
+        /// <summary>
+        /// Configure a builder to use Sqlite provider.
+        /// </summary>
+        /// <returns></returns>
+        public override DbContextOptionsBuilder<BaseTestDbContext> GetDbContextOptionsBuilder()
+        {
+            var builder = new DbContextOptionsBuilder<BaseTestDbContext>();
+            builder.UseSqlite(_connectionString);
+            return builder;
         }
     }
 }

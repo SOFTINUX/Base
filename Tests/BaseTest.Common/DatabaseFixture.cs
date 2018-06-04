@@ -28,6 +28,9 @@ namespace BaseTest.Common
     {
         protected virtual string DatabaseToCopyFromBaseName => "basedb_tests";
         protected virtual string DatabaseToCopyToBaseName => "basedb_tests";
+        /// <summary>
+        /// Named connection string (path of connection string value in appsettings.json).
+        /// </summary>
         protected virtual string ConnectionStringPath => "ConnectionStrings:Default";
 
         public IRequestHandler DatabaseContext { get; }

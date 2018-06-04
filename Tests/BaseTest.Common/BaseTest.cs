@@ -23,17 +23,9 @@ namespace BaseTest.Common
         /// </summary>
         protected ITestOutputHelper _outputHandler;
         /// <summary>
-        /// Storage of injected IStorage, if the derived class get some injected
+        /// Shortcut to IStorage provided by fixture's database context.
         /// </summary>
-        protected IStorage _storage;
-        /// <summary>
-        /// Storage of injected Identity UserManager, if the derived class get some injected
-        /// </summary>
-        protected UserManager<Security.Data.Entities.User> _userManager;
+        protected IStorage Storage { get { return _fixture.DatabaseContext.Storage; }}
 
-        /// <summary>
-        /// Storage of injected Identity role manager, if the derived class get some injected
-        /// </summary>
-        protected RoleManager<IdentityRole<string>> _roleManager;
     }
 }

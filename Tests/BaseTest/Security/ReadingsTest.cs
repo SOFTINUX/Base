@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using BaseTest.Common;
 using ExtCore.Data.Abstractions;
@@ -11,14 +12,10 @@ namespace BaseTest.Security
     [Collection("Database collection")]
     public class ReadingsTest : Common.BaseTest
     {
-        public ReadingsTest(DatabaseFixture fixture_, ITestOutputHelper outputHandler_, IStorage storage_, UserManager<global::Security.Data.Entities.User> userManager_, RoleManager<IdentityRole<string>> roleManager_)
+        public ReadingsTest(DatabaseFixture fixture_, ITestOutputHelper outputHandler_)
         {
             _fixture = fixture_;
             _outputHandler = outputHandler_;
-            _storage = storage_;
-            _userManager = userManager_;
-            _roleManager = roleManager_;
-
         }
 
         /// <summary>
@@ -27,9 +24,11 @@ namespace BaseTest.Security
         [Fact]
         public void TestReadCreateRoles()
         {
-            Assert.True(_roleManager.Roles.Count() >= 0, "Expected 0 or more roles");
-            DataSetupTools.CreateBaseRolesIfNeeded(_roleManager);
-            Assert.True(_roleManager.Roles.Count() > 0, "Expected some roles");
+            // TODO find how to get access to initialized UserManager
+            // Assert.True(_roleManager.Roles.Count() >= 0, "Expected 0 or more roles");
+            // DataSetupTools.CreateBaseRolesIfNeeded(_roleManager);
+            // Assert.True(_roleManager.Roles.Count() > 0, "Expected some roles");
+            throw new NotImplementedException("Needs work");
         }
 
         /// <summary>
@@ -38,9 +37,9 @@ namespace BaseTest.Security
         [Fact]
         public void TestReadCreatePermissions()
         {
-            var repository = _storage.GetRepository<IPermissionRepository>();
+            var repository = Storage.GetRepository<IPermissionRepository>();
             Assert.True(repository.All().Count() >= 0, "Expected 0 or more permissions");
-            DataSetupTools.CreatePermissionsIfNeeded(_storage);
+            DataSetupTools.CreatePermissionsIfNeeded(Storage);
             Assert.True(repository.All().Count() > 0, "Expected some permissions");
         }
     }
