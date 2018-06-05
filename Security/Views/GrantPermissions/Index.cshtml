@@ -288,7 +288,8 @@
                 } else if (splitted[2] == "write") {
                     $("#" + base + "_read").prop("checked", true).prop("disabled", true);
                 }
-              } else {
+            }
+            else {
                 // when unchecking, first next checkbox becomes enabled
                 if(splitted[2] == "admin") {
                     $("#" + base + "_write").prop("disabled", false);
