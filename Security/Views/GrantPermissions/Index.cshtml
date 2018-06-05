@@ -278,55 +278,22 @@
         });
 
         function checkClick() {
-            console.log('role data:');
-            // console.log($(event.target).closest('[data-role-id]').data());
-            console.log($(event.target).closest('[data-role-id]').data().roleId);
-            console.log('extension data:');
-            // console.log($(event.target).closest('[data-extension-id]').data());
-            console.log($(event.target).closest('[data-extension-id]').data('extensionId'));
-            console.log("Event target: ", $(event.target)[0].id);
-            console.log(event.currentTarget.type);
-
-            //$(this).next('input:checkbox').attr('checked', 'checked');
-
-            var impacted_cb = [];
-            // $('#' + $(event.target).closest('[data-role-id]').data().roleId + ' input[type=checkbox]').each(function () {
-            //     if ($(this).is(':checked')) {
-            //         array_values_borne.push($(this).val());
-            //     }
-            // });
-            //console.log(array_values_borne);
-
-            var role_id = $(event.target).closest('[data-role-id]').data().roleId,
-            permission_id = $(event.target)[0].id;
-
-            //$(event.target).closest('[data-role-id]').siblings('#' + role_id).each();
-
             var splitted = $(event.target)[0].id.split('_');
-            var perm = splitted[2];
             var base = splitted[0] + "_" + splitted[1];
-            console.log(perm);
-            if(perm == "admin") {
-                impacted_cb.push(base + "_write");
-                impacted_cb.push(base + "_read");
-            } else if(perm == "write") {
-                impacted_cb.push(base + "_read");
-            }
 
-            console.log("impacted checkboxes:")
-            console.log(impacted_cb);
-
-            
             if(event.target.checked) {
                 // when checking, impacted checkboxes become checked and disabled
-                impacted_cb.forEach(function(val) {
-                    console.log(val);
-                    $("#" + val).prop("checked", true).prop("disabled", true);
-                })
-            } else {
+                if(splitted[2] == "admin") {
+                    $("#" + base + "_write, #" + base + "_read").prop("checked", true).prop("disabled", true);
+                } else if (splitted[2] == "write") {
+                    $("#" + base + "_read").prop("checked", true).prop("disabled", true);
+                }
+              } else {
                 // when unchecking, first next checkbox becomes enabled
-                if(impacted_cb.length) {
-                    $("#"+impacted_cb[0]).prop("disabled", false);
+                if(splitted[2] == "admin") {
+                    $("#" + base + "_write").prop("disabled", false);
+                } else if (splitted[2] == "write") {
+                    $("#" + base + "_read").prop("disabled", false);
                 }
             }
         }
