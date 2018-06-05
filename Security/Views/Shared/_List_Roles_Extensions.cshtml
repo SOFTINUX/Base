@@ -11,7 +11,7 @@
     int i = 1;
     foreach (var item in Model.PermissionsByRoleAndScope)
     {
-        <div class="row extension-row accordion-toggle collapsed" data-entity-id="@Html.Raw(item.Key)" data-toggle="collapse" data-target=@Html.Raw("\"#extension" + i + "\"")>
+        <div class="row extension-row accordion-toggle collapsed" data-extension-id="@Html.Raw(item.Key)" data-toggle="collapse" data-target=@Html.Raw("\"#extension" + i + "\"")>
             <div class="col-md-6">
                 <div class="row extension-row-height">
                     <div class="col-md-1 table-extension-header"><i class="chevron fa fa-fw"></i></div>
@@ -26,7 +26,7 @@
                         @* html into roles list loop *@
                         @foreach (var subitem in item.Value)
                         {
-                            <div class="row" data-entity-role-id="@Html.Raw(item.Key+ "_" + subitem.Key)">
+                            <div class="row" data-role-id="@Html.Raw(item.Key+ "_" + subitem.Key)">
                                 <div class="col-md-2 cell-heigth-25" align="right">
                                     @if (item.Value.ElementAt(0).Key.Equals(subitem.Key)) {@Html.Raw("Role name: ")}
                                 </div>
