@@ -7,6 +7,7 @@
 
 @model Security.ViewModels.Permissions.GrantViewModel
 @* HTML Extension list loop *@
+@Html.AntiForgeryToken()
 @{
     int i = 1;
     foreach (var item in Model.PermissionsByRoleAndScope)
@@ -28,33 +29,34 @@
                         {
                             <div class="row" data-role-id="@Html.Raw(item.Key+ "_" + subitem.Key)">
                                 <div class="col-md-2 cell-heigth-25" align="right">
-                                    @if (item.Value.ElementAt(0).Key.Equals(subitem.Key)) {@Html.Raw("Role name: ")}
+                                    @if (item.Value.ElementAt(0).Key.Equals(subitem.Key))
+                                    {@Html.Raw("Role name: ")}
                                 </div>
                                 @* Role name *@
                                 <div class="col-md-4 cell-heigth-25 cell-role-row">@Html.Raw(subitem.Key)</div>
                                 @* admin checkbox *@
                                 <div class="col-md-1 cell-heigth-25 cell-role-row">
                                     <label class="checkbox-container">
-                                        <input id="@Html.Raw(item.Key + "_" + subitem.Key + "_" + "admin")" type="checkbox"
-                                         @if(subitem.Value.Contains(Permission.Admin)) {@Html.Raw("checked")} onclick="checkClick()">
+                                        <input id="@Html.Raw(item.Key + "_" + subitem.Key + "_" + "ADMIN")" type="checkbox"
+                                               @if (subitem.Value.Contains(Permission.Admin)) { @Html.Raw("checked") } onclick="checkClick()">
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
                                 @* write checkbox *@
                                 <div class="col-md-1 cell-heigth-25 cell-role-row">
                                     <label class="checkbox-container">
-                                        <input id="@Html.Raw(item.Key + "_" + subitem.Key + "_" + "write")" type="checkbox"
-                                         @if(subitem.Value.Contains(Permission.Write)) {@Html.Raw("checked")}
-                                         @if(subitem.Value.Contains(Permission.Admin)) {@Html.Raw("disabled=\"true\"")} onclick="checkClick()">
+                                        <input id="@Html.Raw(item.Key + "_" + subitem.Key + "_" + "WRITE")" type="checkbox"
+                                               @if (subitem.Value.Contains(Permission.Write)) { @Html.Raw("checked") }
+                                               @if (subitem.Value.Contains(Permission.Admin)) { @Html.Raw("disabled=\"true\"") } onclick="checkClick()">
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
                                 @* read checkbox *@
                                 <div class="col-md-1 cell-heigth-25 cell-role-row">
                                     <label class="checkbox-container">
-                                        <input id="@Html.Raw(item.Key + "_" + subitem.Key + "_" + "read")" type="checkbox"
-                                         @if(subitem.Value.Contains(Permission.Read)) {@Html.Raw("checked")}
-                                         @if(subitem.Value.Contains(Permission.Write)) {@Html.Raw("disabled=\"true\"")} onclick="checkClick()">
+                                        <input id="@Html.Raw(item.Key + "_" + subitem.Key + "_" + "READ")" type="checkbox"
+                                               @if (subitem.Value.Contains(Permission.Read)) { @Html.Raw("checked") }
+                                               @if (subitem.Value.Contains(Permission.Write)) { @Html.Raw("disabled=\"true\"") } onclick="checkClick()">
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>

@@ -1,39 +1,3 @@
-
-/*
-{
-	"Barebone": {},
-	"Chinook": {
-		"Administrator": [0, 1, 2, 4],
-		"User": [0, 1]
-	},
-	"Security": {
-		"User": [0, 1, 2],
-		"Administrator": [0, 1, 2, 4],
-		"Anonymous": [0]
-	},
-	"Extension1": {},
-	"Extension2": {},
-	"SeedDatabase": {}
-}
-*/
-
-/*
-{"id": "2",
-                        "extension_name": "Extension de la tarte à poils",
-                        "extension_admin": " ",
-                        "extension_write": " ",
-                        "extension_read": " ",
-                        "roles_list": {
-                           "Security": {
-                                "User": [0, 1, 2],
-                                "Administrator": [0, 1, 2, 4],
-                                "Anonymous": [0]
-                            }
-                        }
-                    }
-                    */
-
-
 class Formatter {
     id: number;
     extension_name: String = " ";

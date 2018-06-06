@@ -15,6 +15,7 @@ using Security.Data.Abstractions;
 using Security.Data.Entities;
 using Security.ViewModels.Permissions;
 using ControllerBase = Infrastructure.ControllerBase;
+using Permission = Security.Common.Enums.Permission;
 
 namespace Security.Controllers
 {
@@ -29,6 +30,7 @@ namespace Security.Controllers
         }
 
          // GET
+        [PermissionRequirement(Permission.Admin)]
         [Route("administration/grantpermissions")]
         public IActionResult Index()
         {
@@ -48,7 +50,7 @@ namespace Security.Controllers
             List<RolePermission> allRp = Storage.GetRepository<IRolePermissionRepository>().All();
             foreach(RolePermission rp in allRp)
             {
-                if(!model.PermissionsByRoleAndScope.ContainsKey(rp.Scope)) 
+                if(!model.PermissionsByRoleAndScope.ContainsKey(rp.Scope))
                 {
                     // A database record related to a not loaded extension (scope). Ignore this.
                     continue;
@@ -81,15 +83,32 @@ namespace Security.Controllers
         /// <param name="scope_">Scope</param>
         /// <returns>JSON with "true" when it succeeded</returns>
         // GET
+        [PermissionRequirement(Permission.Admin)]
         [Route("administration/updaterolepermission")]
         public IActionResult UpdateRole(string roleId_, string permissionId_, string scope_)
         {
             IRolePermissionRepository repo = Storage.GetRepository<IRolePermissionRepository>();
             repo.Delete(roleId_, scope_);
-            if(!string.IsNullOrEmpty(permissionId_))
-                repo.Create(new RolePermission { RoleId = roleId_, PermissionId = permissionId_, Scope = scope_ });
+            if(!string.IsNullOrEmpty(permissionId_.ToLowerInvariant()))
+                repo.Create(new RolePermission { RoleId = roleId_, PermissionId = UppercaseFirst(permissionId_.ToLowerInvariant()), Scope = scope_ });
             Storage.Save();
             return new JsonResult(true);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="s_"></param>
+        /// <returns></returns>
+        static string UppercaseFirst(string s_)
+        {
+            if (string.IsNullOrEmpty(s_))
+            {
+                return string.Empty;
+            }
+            char[] a = s_.ToCharArray();
+            a[0] = char.ToUpper(a[0]);
+            return new string(a);
         }
     }
 }

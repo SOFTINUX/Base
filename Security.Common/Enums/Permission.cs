@@ -10,7 +10,4 @@ namespace Security.Common.Enums
         Write = 2,
         Admin = 4
     }
-
-    
-
 }

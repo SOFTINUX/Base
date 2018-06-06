@@ -47,47 +47,10 @@ function listenToPermissionsCheckboxEvents() {
     $('input').on('change', function(event){
         console.log("input was changed!");
         event.preventDefault();
-        permissionCheckboxChanged($(this), false);
     });
 }
 
-/* Params :
- - checkbox element (DOM element selected by jQuery)
- - true when cascading, false when entering in this function by a user's click.
-*/
-function permissionCheckboxChanged(jCheckBox, cascading) {
-    // is there a slave checkbox ?
-    var slaveCheckBox = jCheckBox.attr("data-slave-cb");
-    if(slaveCheckBox) {
-        var currentCheckBoxChecked = jCheckBox.is(':checked');
-        var slaveCheckBox = jCheckBox.closest("tr").children("td").find("input:checkbox[value='"+slaveCheckBox+"']")[0];
-        if (currentCheckBoxChecked) {
-             if(!cascading) {
-                // current checkbox value is saved as new permission
-                savePermission(jCheckBox.closest("tr").attr("data-entity-id"),
-                jCheckBox.closest("tbody").attr("data-entity-id"),
-                jCheckBox.val());
-            }
-            $(slaveCheckBox).prop('checked', true).prop('disabled', true);
-        } else {
-            if(!cascading) {
-                // slave checkbox value is saved as new permission
-                savePermission(jCheckBox.closest("tr").attr("data-entity-id"),
-                jCheckBox.closest("tbody").attr("data-entity-id"),
-                $(slaveCheckBox).val());
-            }
-            // enable slave cb
-            $(slaveCheckBox).prop('disabled', false);
-        }
-    } else {
-        // Remove lowest permission ("Read")
-        savePermission(jCheckBox.closest("tr").attr("data-entity-id"),
-            jCheckBox.closest("tbody").attr("data-entity-id"),
-            null);
-    }
-}
-
-function savePermission(role, scope, permission) {
+function savePermission(scope, role, permission) {
     // string roleId_, string permissionId_, string scope_
     let params =
     {
@@ -95,7 +58,7 @@ function savePermission(role, scope, permission) {
         "permissionId_": permission,
         "scope_": scope
     };
-    $.ajax("/administration/updaterolepermission", { data: params });
+    $.ajax("/administration/updaterolepermission", { data: params }, );
 }
 
 function edit_state(fieldsetid, editbtnid, event) {
