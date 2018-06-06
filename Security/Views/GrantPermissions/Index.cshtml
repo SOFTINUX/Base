@@ -216,11 +216,11 @@
                 switch (splitted[2]) {
                     case "ADMIN":
                         $("#" + base + "_WRITE").prop("disabled", false);
-                        savePermission(splitted[0], splitted[1], splitted[2]);
+                        savePermission(splitted[0], splitted[1], "WRITE");
                         break;
                     case "WRITE":
                         $("#" + base + "_READ").prop("disabled", false);
-                        savePermission(splitted[0], splitted[1], splitted[2]);
+                        savePermission(splitted[0], splitted[1], "READ");
                         break;
                     case "READ":
                         savePermission(splitted[0], splitted[1], "NEVER");
