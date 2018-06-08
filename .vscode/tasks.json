@@ -19,8 +19,9 @@
         },
         {
             "label": "build",
-            "command": "dotnet build",
+            "command": "dotnet",
             "args": [
+                "build",
                 "/property:GenerateFullPaths=true"
             ],
             "type": "shell",
