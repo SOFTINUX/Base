@@ -56,6 +56,11 @@ function bundles
     cat bundles.txt | sed 's/\\/\//g' | xargs -I % bash -c "cd %; dotnet bundle; cd $OLDPWD"
 }
 
+function cleanbuildfolders
+{
+    find . -iname "bin" -o -iname "obj" | xargs rm -rf
+}
+
 function help
 {
     echo "Available parameter is :"

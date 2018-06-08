@@ -12,6 +12,7 @@ IF "%1" == "copyexts" GOTO CopyExts
 IF "%1" == "copydeps" GOTO CopyDeps
 IF "%1" == "publish" GOTO Publish
 IF "%1" == "bundles" GOTO Bundles
+IF "%1" == "cleanbin" GOTO CleanBuildFolder
 
 GOTO Clean
 
@@ -84,6 +85,11 @@ xcopy .\WebApplication\basedb.sqlite %dst_folder% /R
 xcopy .\wwwroot %dst_folder%\wwwroot /E /Y /I
 Goto End
 
+:CleanBuildFolder
+FOR /F "tokens=*" %%G IN ('DIR /B /AD /S bin') DO RMDIR /S /Q "%%G"
+FOR /F "tokens=*" %%G IN ('DIR /B /AD /S obj') DO RMDIR /S /Q "%%G"
+Goto End
+
 :Help
 echo Available parameter is :
 echo     - clean : clean solution
@@ -91,6 +97,7 @@ echo     - build : only build solution
 echo     - copydeps : only copy dependencies (defined in dependencies.txt)
 echo     - copyexts : only copy extensions (defined in extensions.txt)
 echo     - bundles : only update bundles (projects defined in bundles.txt)
+echo     - cleanbin : remove bin & obj folders recursively
 echo     - publish : not yet implemented
 echo.
 echo with no parameter or unsupported parameter, build proccess is:
