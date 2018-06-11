@@ -196,15 +196,15 @@
                         $(this).removeClass('collapsed');
                         $(this).data('aria-expended', 'true');
                         $('.row.collapse').each(function() {
-                            $(this).toggleClass('in')
-                        })
+                            $(this).toggleClass('in');
+                        });
                     }
                     else{
                         $(this).toggleClass('collapsed');
                         $(this).data('aria-expended', 'false');
                         $('.row.collapse').each(function() {
-                            $(this).removeClass('in')
-                        })
+                            $(this).removeClass('in');
+                        });
                     }
                 });
             });
@@ -246,6 +246,12 @@
                 }
                 savePermission(splitted[0], splitted[1], activeCheckedPermissions);
             }
+        }
+
+        function removeRole() {
+            console.log("Role name: ", $(event.target).parent().data("roleId"));
+            var splitted = $(event.target).parent().data().roleId.split('_');
+            console.log("Extension name: ", splitted[0], " Role name: ", splitted[1]);
         }
 
     </script>

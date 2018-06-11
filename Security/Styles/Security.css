@@ -35,7 +35,9 @@
     content: "\f101";
 }
 
-.delete-role {
+.delete-role:after {
+    font-family: "FontAwesome";
+    font-size: 18px;
     content: "\f014";
 }
 
