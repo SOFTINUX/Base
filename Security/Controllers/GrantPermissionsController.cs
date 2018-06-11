@@ -95,7 +95,13 @@ namespace Security.Controllers
             return new JsonResult(true);
         }
 
-        public IActionResult DeleteRole(string roleId_, string scope_)
+        /// <summary>
+        /// Delete a link between a role and an extension.
+        /// </summary>
+        /// <param name="roleId_"></param>
+        /// <param name="scope_"></param>
+        /// <returns></returns>
+        public IActionResult DeleteRoleLink(string roleId_, string scope_)
         {
             IRolePermissionRepository repo = Storage.GetRepository<IRolePermissionRepository>();
             if (repo.FindBy(roleId_, scope_) != null)

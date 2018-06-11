@@ -79,14 +79,14 @@
                                     <label>Available extension(s)</label>
                                     <select class="form-control" multiple="">
                                         @* here options *@
-                                        @{ 
+                                        @{
                                             foreach (Infrastructure.Interfaces.IExtensionMetadata extensionMetadata in ExtCore.Infrastructure.ExtensionManager.GetInstances<Infrastructure.Interfaces.IExtensionMetadata>())
                                             {
+                                                var scope = Infrastructure.Extensions.TypeExtensions.GetScope(extensionMetadata);
                                                 if (extensionMetadata.IsAvailableForPermissions)
                                                 {
-                                        <option value="@Html.Raw(Infrastructure.Extensions.TypeExtensions.GetScope(extensionMetadata))">@Html.Raw(Infrastructure.Extensions.TypeExtensions.GetScope(extensionMetadata))</option>
+                                                    <option value="@Html.Raw(scope)">@Html.Raw(scope)</option>
                                                 }
-                                                
                                             }
                                         }
                                     </select>
@@ -248,7 +248,7 @@
             }
         }
 
-        function removeRole() {
+        function removeRoleLink() {
             console.log("Role name: ", $(event.target).parent().data("roleId"));
             var splitted = $(event.target).parent().data().roleId.split('_');
             console.log("Extension name: ", splitted[0], " Role name: ", splitted[1]);
