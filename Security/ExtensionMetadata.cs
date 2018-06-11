@@ -11,7 +11,7 @@ namespace Security
 {
     public class ExtensionMetadata : IExtensionMetadata
     {
-        bool IExtensionMetadata.IsAvaliableForPermissions => true;
+        bool IExtensionMetadata.IsAvailableForPermissions => true;
         public IEnumerable<StyleSheet> StyleSheets => new[] {
                 new StyleSheet("/Styles.Security.css",510),
              };
