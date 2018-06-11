@@ -52,14 +52,17 @@
                                     </label>
                                 </div>
                                 @* read checkbox *@
-                                <div class="col-md-1 cell-heigth-25 cell-role-row">
-                                    <label class="checkbox-container">
-                                        <input id="@Html.Raw(item.Key + "_" + subitem.Key + "_" + "READ")" type="checkbox"
-                                               @if (subitem.Value.Contains(Permission.Read)) { @Html.Raw("checked") }
-                                               @if (subitem.Value.Contains(Permission.Write)) { @Html.Raw("disabled=\"true\"") } onclick="checkClick()">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
+                                 <div class="col-md-1 cell-heigth-25 cell-role-row">
+                                     <label class="checkbox-container">
+                                         <input id="@Html.Raw(item.Key + "_" + subitem.Key + "_" + "READ")" type="checkbox"
+                                                @if (subitem.Value.Contains(Permission.Read)) { @Html.Raw("checked") }
+                                                @if (subitem.Value.Contains(Permission.Write)) { @Html.Raw("disabled=\"true\"") } onclick="checkClick()">
+                                         <span class="checkmark"></span>
+                                     </label>
+                                 </div>
+                                 <div class="col-md-1 cell-heigth-25 cell-role-row">&nbsp;</div>
+                                 <div class="col-md-1 cell-heigth-25 cell-role-row">&nbsp;</div>
+                                 <div class="col-md-1 cell-heigth-25 cell-role-row delete-role"></div>
                             </div>
                         }
                     </div>

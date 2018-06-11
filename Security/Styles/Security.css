@@ -34,3 +34,11 @@
 .table-header.collapsed .chevron-double:after {
     content: "\f101";
 }
+
+.delete-role {
+    content: "\f014";
+}
+
+.delete-role:hover {
+    cursor: pointer;
+}
