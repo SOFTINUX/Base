@@ -9,6 +9,7 @@ namespace Extension2
 {
     public class ExtensionMetadata : IExtensionMetadata
     {
+        bool IExtensionMetadata.IsAvaliableForPermissions => false;
         public IEnumerable<StyleSheet> StyleSheets => new StyleSheet[] {};
         public IEnumerable<Script> Scripts => new Script[] {};
         public IEnumerable<MenuGroup> MenuGroups => new []

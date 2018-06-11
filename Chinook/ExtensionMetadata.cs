@@ -9,6 +9,7 @@ namespace Chinook
 {
     public class ExtensionMetadata : IExtensionMetadata
     {
+        bool IExtensionMetadata.IsAvaliableForPermissions => true;
         public IEnumerable<StyleSheet> StyleSheets => new StyleSheet[] {};
         public IEnumerable<Script> Scripts => new Script[] {};
         public IEnumerable<MenuGroup> MenuGroups => new[]

@@ -9,6 +9,8 @@ namespace Barebone
 {
     public class ExtensionMetadata : IExtensionMetadata
     {
+        bool IExtensionMetadata.IsAvaliableForPermissions => true;
+
         public IEnumerable<StyleSheet> StyleSheets => new[]
         {
             new StyleSheet("/node_modules.wfk_opensans.opensans.css", 100),

@@ -14,5 +14,6 @@ namespace Infrastructure.Interfaces
         IEnumerable<StyleSheet> StyleSheets { get; }
         IEnumerable<Script> Scripts { get; }
         IEnumerable<MenuGroup> MenuGroups { get; }
+        bool IsAvaliableForPermissions { get; }
     }
 }

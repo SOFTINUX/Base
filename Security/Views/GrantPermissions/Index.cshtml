@@ -79,6 +79,16 @@
                                     <label>Available extension(s)</label>
                                     <select class="form-control" multiple="">
                                         @* here options *@
+                                        @{ 
+                                            foreach (Infrastructure.Interfaces.IExtensionMetadata extensionMetadata in ExtCore.Infrastructure.ExtensionManager.GetInstances<Infrastructure.Interfaces.IExtensionMetadata>())
+                                            {
+                                                if (extensionMetadata.IsAvaliableForPermissions)
+                                                {
+                                        <option value="@Html.Raw(Infrastructure.Extensions.TypeExtensions.GetScope(extensionMetadata))">@Html.Raw(Infrastructure.Extensions.TypeExtensions.GetScope(extensionMetadata))</option>
+                                                }
+                                                
+                                            }
+                                        }
                                     </select>
                                 </div>
                             </div>
@@ -208,7 +218,7 @@
         function checkClick() {
             var splitted = $(event.target)[0].id.split('_');
             var base = splitted[0] + "_" + splitted[1];
-            var uncheckedPermission = "NEVER";
+            var activeCheckedPermissions = "NEVER";
 
             if(event.target.checked) {
                 // when checking, impacted checkboxes become checked and disabled
@@ -227,14 +237,14 @@
                 switch (splitted[2]) {
                     case "ADMIN":
                         $("#" + base + "_WRITE").prop("disabled", false);
-                        uncheckedPermission = "WRITE";
+                        activeCheckedPermissions = "WRITE";
                         break;
                     case "WRITE":
                         $("#" + base + "_READ").prop("disabled", false);
-                        uncheckedPermission = "READ";
+                        activeCheckedPermissions = "READ";
                         break;
                 }
-                savePermission(splitted[0], splitted[1], uncheckedPermission);
+                savePermission(splitted[0], splitted[1], activeCheckedPermissions);
             }
         }
 
