@@ -325,3 +325,6 @@ log-[0-9]*.txt
 
 #Visual Studio localhistory addon
 .localhistory
+
+#KDE Dolphin
+.directory
