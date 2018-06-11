@@ -95,6 +95,14 @@ namespace Security.Controllers
             return new JsonResult(true);
         }
 
+        public IActionResult DeleteRole(string roleId_, string scope_)
+        {
+            IRolePermissionRepository repo = Storage.GetRepository<IRolePermissionRepository>();
+            repo.Delete(roleId_, scope_);
+            Storage.Save();
+            return new JsonResult(true);
+        }
+
         /// <summary>
         ///
         /// </summary>
