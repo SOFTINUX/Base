@@ -35,7 +35,7 @@ See LICENSE file for license information.
 
 ## Installation
 #### 1. Restore dependencies
-Go to *Barebone* folder and run `npm i --save-dev` command so that dependencies packages are installed and settings updated.
+Go to *Barebone* folder and run `npm ci --save-dev` command so that dependencies packages are installed and settings updated.
 
 #### 2. Restore nuget packages
 Restore the nuGet packages is now an implicit command executed at application build.
@@ -53,12 +53,14 @@ Go to the root folder and run `bp.bat` under Windows or `bp.sh` under Linux/Maco
 Go to *WebApplication* folder and type `dotnet run`.  
 (If you want, you can also execute from root solution folder with this command `dotnet run --project WebApplication\WebApplication.csproj`)
 
-After that, the application is available on <http://localhost:5000/>  
+After that, the application is available on <http://localhost:5000/>
+
 ##### Information About Visual Studio 2017
 If you launched application from Visual Studio, this port will change,  
 being randomly defined, and value is stored in *WebApplication/Properties/launchSettings.json*  
 You can edit this value in Visual Studio: WebApplication's properties > Debug tab > Web Server Settings/App URL or directly in launchSettings file.  
 After, the default port used by *dotnet run* is the port defined in *WebApplication/Properties/launchSettings.json*.
+
 #### Information About Rider 2017.3
 Rider 2017.3 cannot execute the PostBuildEvent declared into WebApplication.csproj
 You need to execute `./bp.sh copyexts` and `./bp.sh copydeps` after build the solution or project.
@@ -74,7 +76,6 @@ password: 123_Password
 (password is case sensitive)
 
 ## Implement your own extension
-
 :warning: You cannot place your Extentions folder to another drive. See [#2981](https://github.com/dotnet/core-setup/issues/2981#issuecomment-322572374)  
   
 You can use [Visual Studio 2017](https://www.visualstudio.com/fr/downloads/), [Visual Studio Code](https://code.visualstudio.com/) or [JetBrains Rider](https://www.jetbrains.com/rider/) to make your own extension.  
@@ -83,6 +84,7 @@ If you decide to use Visual Studio, be aware **that projects are not compatible 
 Using command-line (easy and cross-platform):
 
 `dotnet new classlib -o <you_new_project>`
+
 ### Add project reference to the solution
 Go to solution folder and type:
 
@@ -128,4 +130,4 @@ At your discretion:
 - [Python](https://marketplace.visualstudio.com/items?itemName=donjayamanne.python)
 - [Quokka.js](https://marketplace.visualstudio.com/items?itemName=WallabyJs.quokka-vscode)
 
-We also provide the lasks.json and launcher.json configuration for Visual studio Code.
+We also provide the `tasks.json` and `launch.json` configuration for Visual studio Code.
