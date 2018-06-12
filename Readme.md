@@ -1,18 +1,14 @@
 # Project overview
 [![Build status](https://ci.appveyor.com/api/projects/status/mktm6ae3csndb9ma?svg=true)](https://ci.appveyor.com/project/Xarkam/base)
 
-*SOFTINUX Base* is a free, open source and cross-platform based on [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/) and [ExtCore](http://extcore.net/) framework.
-
-It is built using the best and the most modern tools and languages.
-
+*SOFTINUX Base* is a free, open source and cross-platform based on [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/) and [ExtCore](http://extcore.net/) framework.  
+It is built using the best and the most modern tools and languages.  
 Join our team!
 
 ## Few Facts About SOFTINUX Base
 
-It is free and open source.
-
-It runs on Windows, Mac and Linux.
-
+It is free and open source.  
+It runs on Windows, Mac and Linux.  
 It is completely modular and extendable. Using the features of the underlying ExtCore framework you can easily create your own extensions to extend its functionality.
 
 ## Basic Concepts
@@ -32,73 +28,56 @@ Some screenshots of features:
 ![Grant permissions to roles](https://github.com/SOFTINUX/Base/blob/master/screenshots/grant_global_permissions_wip.png "Grant permissions to roles")
 
 # License
-Licensed under the MIT License.
-
+Licensed under the MIT License.  
 See LICENSE file for license information.
 
 # Getting started
 
 ## Installation
-
 #### 1. Restore dependencies
-
 Go to *Barebone* folder and run `npm i --save-dev` command so that dependencies packages are installed and settings updated.
 
 #### 2. Restore nuget packages
 Restore the nuGet packages is now an implicit command executed at application build.
 
 #### 3. Update database with migration
-Go to *Webapplication* folder and run `dotnet ef database update`.
-
-This will create the database.
-
-See *appsettings.json* for database path. The Entity Framework database context is defined in web application's *Startup.cs*.
-
+Go to *Webapplication* folder and run `dotnet ef database update`.  
+This will create the database.  
+See *appsettings.json* for database path. The Entity Framework database context is defined in web application's *Startup.cs*.  
 We use Sqlite but you can change this easily.
 
 #### 4. Build the appplication
 Go to the root folder and run `bp.bat` under Windows or `bp.sh` under Linux/Macos. (use -h for help).
 
 #### 5. Run the app
-Go to *WebApplication* folder and type `dotnet run`.
-
+Go to *WebApplication* folder and type `dotnet run`.  
 (If you want, you can also execute from root solution folder with this command `dotnet run --project WebApplication\WebApplication.csproj`)
 
-After that, the application is available on <http://localhost:5000/>
-
+After that, the application is available on <http://localhost:5000/>  
 ##### Information About Visual Studio 2017
-If you launched application from Visual Studio, this port will change,
-
-being randomly defined, and value is stored in *WebApplication/Properties/launchSettings.json*
-
-You can edit this value in Visual Studio: WebApplication's properties > Debug tab > Web Server Settings/App URL or directly in launchSettings file.
-
+If you launched application from Visual Studio, this port will change,  
+being randomly defined, and value is stored in *WebApplication/Properties/launchSettings.json*  
+You can edit this value in Visual Studio: WebApplication's properties > Debug tab > Web Server Settings/App URL or directly in launchSettings file.  
 After, the default port used by *dotnet run* is the port defined in *WebApplication/Properties/launchSettings.json*.
 #### Information About Rider 2017.3
 Rider 2017.3 cannot execute the PostBuildEvent declared into WebApplication.csproj
 You need to execute `./bp.sh copyexts` and `./bp.sh copydeps` after build the solution or project.
 
 #### 6. Add the first user (demo user)
-With Postman (or the program of your choice) make a POST request to this url: <http://localhost:5000/dev/seed/CreateUser>
-
-(with curl: `curl -i -X POST http://localhost:5000/dev/seed/CreateUser`)
-
+With Postman (or the program of your choice) make a POST request to this url: <http://localhost:5000/dev/seed/CreateUser>  
+(with curl: `curl -i -X POST http://localhost:5000/dev/seed/CreateUser`)  
 This will create the demo user with general permissions.
 
 #### 7. Login with demo user
-user: johndoe@softinux.com
-
-password: 123_Password
-
+user: johndoe@softinux.com  
+password: 123_Password  
 (password is case sensitive)
 
 ## Implement your own extension
 
-:warning: You cannot place your Extentions folder to another drive. See [#2981](https://github.com/dotnet/core-setup/issues/2981#issuecomment-322572374)
-
-
-You can use [Visual Studio 2017](https://www.visualstudio.com/fr/downloads/), [Visual Studio Code](https://code.visualstudio.com/) or [JetBrains Rider](https://www.jetbrains.com/rider/) to make your own extension.
-
+:warning: You cannot place your Extentions folder to another drive. See [#2981](https://github.com/dotnet/core-setup/issues/2981#issuecomment-322572374)  
+  
+You can use [Visual Studio 2017](https://www.visualstudio.com/fr/downloads/), [Visual Studio Code](https://code.visualstudio.com/) or [JetBrains Rider](https://www.jetbrains.com/rider/) to make your own extension.  
 If you decide to use Visual Studio, be aware **that projects are not compatible with Visual Studio 2015**.
 ### Add a new project
 Using command-line (easy and cross-platform):
@@ -149,4 +128,4 @@ At your discretion:
 - [Python](https://marketplace.visualstudio.com/items?itemName=donjayamanne.python)
 - [Quokka.js](https://marketplace.visualstudio.com/items?itemName=WallabyJs.quokka-vscode)
 
-We also provide the `tasks.json` and `launch.json` configuration for Visual studio Code.
+We also provide the lasks.json and launcher.json configuration for Visual studio Code.
