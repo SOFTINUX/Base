@@ -223,4 +223,9 @@ function removeRoleLink() {
     console.log("Role name: ", $(event.target).parent().data("roleId"));
     var splitted = $(event.target).parent().data().roleId.split('_');
     console.log("Extension name: ", splitted[0], " Role name: ", splitted[1]);
+
+    $("#moduleName").text( splitted[0] );
+    $("#roleName").text( splitted[1] );
+
+    $('#myModal').modal('show');
 }
