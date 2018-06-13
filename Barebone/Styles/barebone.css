@@ -126,6 +126,33 @@
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
+
+.top-buffer { margin-top:20px; }
+
+.equal {
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+}
+
+@media (min-width: 768px) {
+    .row.equal {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.model-header-custom {
+    border-bottom: 4px solid #2e77bc;
+    background-color: #d33724 !important;
+    color: #ffffff;
+}
 /*
     ------------------------------------
             iCheckBox
