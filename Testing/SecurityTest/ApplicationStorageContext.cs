@@ -22,8 +22,6 @@ namespace SecurityTest
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder_)
         {
-            // Configure connection string
-            optionsBuilder_.UseSqlite("Data Source=basedb_tests.sqlite");
 #if DEBUG
             ILoggerFactory loggerFactory = new LoggerFactory();
             loggerFactory.AddProvider(new EfLoggerProvider());
