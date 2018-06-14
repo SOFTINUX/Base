@@ -44,7 +44,7 @@
                             <div class="col-md-12">
                                 New role:
                                 <div class="input-group margin ">
-                                    <input id="role_name_input" type="text" class="form-control" placeholder="enter role name here" size="80">
+                                    <input required id="role_name_input" type="text" class="form-control" placeholder="enter role name here" size="80">
                                     <div class="input-group-btn">
                                         <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="fa fa-caret-down"></span>
@@ -150,7 +150,7 @@
                         </div>
                     </div>
                     @* List extensions and roles *@
-                    @Html.PartialAsync("_List_Roles_Extensions", Model)
+                    @await Html.PartialAsync("_List_Roles_Extensions", Model)
                 </section>
             </div>
         </div>
@@ -158,6 +158,7 @@
     </div>
 </div>
 
+@* Modal for remove role *@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div id="login-overlay" class="modal-dialog">
         <div class="modal-content">
