@@ -1,5 +1,5 @@
 # Project overview
-[![Build status](https://ci.appveyor.com/api/projects/status/mktm6ae3csndb9ma?svg=true)](https://ci.appveyor.com/project/Xarkam/base)
+![](https://ci.appveyor.com/api/projects/status/mktm6ae3csndb9ma?svg=true) ![](https://tokei.rs/b1/github/SOFTINUX/Base)
 
 *SOFTINUX Base* is a free, open source and cross-platform based on [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/) and [ExtCore](http://extcore.net/) framework.  
 It is built using the best and the most modern tools and languages.  
