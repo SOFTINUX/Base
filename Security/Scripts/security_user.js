@@ -2,7 +2,7 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 $(function() {
-    toastr.options.positionClass = 'toast-top-right';
+    window.toastr.options.positionClass = 'toast-top-right';
 
     browseForAvatar();
     //freezePermissionCheckBox();
@@ -15,9 +15,10 @@ $(function() {
         cancel_edit_state("profile_form", "profile_form_fieldset", "save_profile_btn", "Edit", event);
     });
 
-    $("#profile_form :input").bind("keyup change paste", function() {
-        input_changed("save_profile_btn");
-    });
+    $("#profile_form :input").bind("keyup change paste",
+        function() {
+            input_changed("save_profile_btn");
+        });
 
     $("#change_pwd-btn").click(function(event) {
         edit_state("pwd_form_fliedset", "change_pwd-btn", event);
@@ -27,33 +28,45 @@ $(function() {
         cancel_edit_state("pwd_form", "pwd_form_fliedset", "change_pwd-btn", "Change", event);
     });
 
-    $("#pwd_form :input").bind("keyup change paste", function() {
-        input_changed("change_pwd-btn");
-    });
+    $("#pwd_form :input").bind("keyup change paste",
+        function() {
+            input_changed("change_pwd-btn");
+        });
 
-    $('#inputAvatar').change(function(){
+    $('#inputAvatar').change(function() {
         $('#file_path').val($(this).val());
     });
 
-    $('#add-role').click(function () {
+    $('#add-role').click(function() {
         if ($("#add-role-field").hasClass("hidden"))
             $("#add-role-field").removeClass("hidden");
         else
             $("#add-role-field").addClass("hidden");
     });
 
-    $('#save-role-btn').click(function () {
+    $('#save-role-btn').click(function() {
         console.log($("#role_name_input").val());
         if (!$("#role_name_input").val()) {
-            toastr.warning('No role given.', 'Role not saved!');
+            window.toastr.warning('No role given.', 'Role not saved!');
+            input_form_group_validator("#role_name_input");
             return;
         }
 
-        if ($('#selectedExtensions option').length == 0) {
-            toastr.warning('You must select at least one extension from the list of available extensions.', 'No extension selected');
-            return;
-        }
-        toastr.success('role saved.');
+        // normally it's possible to make role with no associated module
+        //if ($('#selectedExtensions option').length == 0) {
+        //    toastr.warning('You must select at least one extension from the list of available extensions.',
+        //        'No extension selected');
+        //    return;
+        //}
+        window.toastr.success('role saved.');
+    });
+
+    $('#role_name_input').focusout(function() {
+        input_form_group_validator("#role_name_input");
+    });
+
+    $('#role_name_input').change(function() {
+        input_form_group_validator("#role_name_input");
     });
 
     $('#collapse').on('click', function () {
@@ -78,8 +91,8 @@ $(function() {
 
     $('#btnRight').click(function(e) {
         var selectedOpts = $('#availableExtensions option:selected');
-        if (selectedOpts.length == 0) {
-            toastr.warning('You must select at least one extension from the list of available extensions.', 'No extension selected');
+        if (selectedOpts.length === 0) {
+            window.toastr.warning('You must select at least one extension from the list of available extensions.', 'No extension selected');
             e.preventDefault();
         }
 
@@ -90,8 +103,8 @@ $(function() {
 
     $('#btnAllRight').click(function (e) {
         var selectedOpts = $('#availableExtensions option');
-        if (selectedOpts.length == 0) {
-            toastr.warning('No extensions are available.', 'No extensions');
+        if (selectedOpts.length === 0) {
+            window.toastr.warning('No extensions are available.', 'No extensions');
             e.preventDefault();
         }
 
@@ -102,8 +115,8 @@ $(function() {
 
     $('#btnLeft').click(function (e) {
         var selectedOpts = $('#selectedExtensions option:selected');
-        if (selectedOpts.length == 0) {
-            toastr.warning('You must select at least one extension from the list of selected extensions.', 'No extension selected');
+        if (selectedOpts.length === 0) {
+            window.toastr.warning('You must select at least one extension from the list of selected extensions.', 'No extension selected');
             e.preventDefault();
         }
 
@@ -114,8 +127,8 @@ $(function() {
 
     $('#btnAllLeft').click(function (e) {
         var selectedOpts = $('#selectedExtensions option');
-        if (selectedOpts.length == 0) {
-            toastr.warning('Selected extensions list is empty.', 'No extensions');
+        if (selectedOpts.length === 0) {
+            window.toastr.warning('Selected extensions list is empty.', 'No extensions');
             e.preventDefault();
         }
 
@@ -228,4 +241,17 @@ function removeRoleLink() {
     $("#roleName").text( splitted[1] );
 
     $('#myModal').modal('show');
+}
+
+function input_form_group_validator(el) {
+    console.log(el);
+    if (!$(el).is('input')) {
+        return;
+    }
+
+    if ($(el).val()) {
+        $(el).closest('.form-group').removeClass('has-error').removeClass('has-feedback');
+    } else {
+        $(el).closest('.form-group').addClass('has-error').addClass('has-feedback');
+    }
 }

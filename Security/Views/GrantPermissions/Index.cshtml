@@ -9,11 +9,6 @@
     <h2>Roles & Permissions</h2>
 }
 
-@section Styles {
-    <link rel="stylesheet" href="/dataTables.bootstrap.css" type="text/css">
-    <link rel="stylesheet" href="/select.bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="/buttons.bootstrap.min.css" type="text/css">
-}
 @{
     var modelAsJson = JsonConvert.SerializeObject(Model.PermissionsByRoleAndScope);
 }
@@ -42,29 +37,31 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-12">
-                                New role:
-                                <div class="input-group margin ">
-                                    <input required id="role_name_input" type="text" class="form-control" placeholder="enter role name here" size="80">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="fa fa-caret-down"></span>
-                                            <span>Read</span>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <a href="#">None</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Read</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Write</a>
-                                            </li>
-                                            <li role="separator" class="divider"></li>
-                                            <li>
-                                                <a href="#">Admin</a>
-                                            </li>
-                                        </ul>
+                                <div class="form-group">
+                                    New role:
+                                    <div class="input-group margin ">
+                                        <input required id="role_name_input" type="text" class="form-control" placeholder="enter role name here" size="80">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span class="fa fa-caret-down"></span>
+                                                <span>Read</span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a href="#">None</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Read</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Write</a>
+                                                </li>
+                                                <li role="separator" class="divider"></li>
+                                                <li>
+                                                    <a href="#">Admin</a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
