@@ -1,4 +1,4 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 15.0.26124.0
@@ -36,9 +36,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chinook.Data.EntityFramewor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chinook.Data.Abstractions", "Chinook.Data.Abstractions\Chinook.Data.Abstractions.csproj", "{3F55F8EA-0EE8-4FAC-BEDC-EE3A18F90A12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecurityTest", "Testing\SecurityTest\SecurityTest.csproj", "{D19F634A-15EB-40D7-A0F5-0F57B66F8912}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecurityTest", "Testing\Unit\SecurityTest\SecurityTest.csproj", "{D19F634A-15EB-40D7-A0F5-0F57B66F8912}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonTesting", "Testing\CommonTesting\CommonTesting.csproj", "{02E3B66C-8651-4E1D-8D31-0A4AAB696BB7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonTest", "Testing\Unit\CommonTest\CommonTest.csproj", "{773A88D6-15BC-4FB9-AA04-928FF96A21FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -278,6 +278,18 @@ Global
 		{02E3B66C-8651-4E1D-8D31-0A4AAB696BB7}.Release|x64.Build.0 = Release|Any CPU
 		{02E3B66C-8651-4E1D-8D31-0A4AAB696BB7}.Release|x86.ActiveCfg = Release|Any CPU
 		{02E3B66C-8651-4E1D-8D31-0A4AAB696BB7}.Release|x86.Build.0 = Release|Any CPU
+		{773A88D6-15BC-4FB9-AA04-928FF96A21FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{773A88D6-15BC-4FB9-AA04-928FF96A21FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{773A88D6-15BC-4FB9-AA04-928FF96A21FF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{773A88D6-15BC-4FB9-AA04-928FF96A21FF}.Debug|x64.Build.0 = Debug|Any CPU
+		{773A88D6-15BC-4FB9-AA04-928FF96A21FF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{773A88D6-15BC-4FB9-AA04-928FF96A21FF}.Debug|x86.Build.0 = Debug|Any CPU
+		{773A88D6-15BC-4FB9-AA04-928FF96A21FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{773A88D6-15BC-4FB9-AA04-928FF96A21FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{773A88D6-15BC-4FB9-AA04-928FF96A21FF}.Release|x64.ActiveCfg = Release|Any CPU
+		{773A88D6-15BC-4FB9-AA04-928FF96A21FF}.Release|x64.Build.0 = Release|Any CPU
+		{773A88D6-15BC-4FB9-AA04-928FF96A21FF}.Release|x86.ActiveCfg = Release|Any CPU
+		{773A88D6-15BC-4FB9-AA04-928FF96A21FF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
