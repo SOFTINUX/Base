@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Security.Data.Entities;
+using CommonTest;
 
 namespace SecurityTest
 {
@@ -18,6 +19,7 @@ namespace SecurityTest
         public ApplicationStorageContext(DbContextOptions<ApplicationStorageContext> options_)
             : base(options_)
         {
+            Utilities.LoadExtensions();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder_)

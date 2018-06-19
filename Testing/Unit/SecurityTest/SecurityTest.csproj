@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
@@ -19,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Security.Data.Entities\Security.Data.Entities.csproj" />
-    <ProjectReference Include="..\..\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\Security.Data.Entities\Security.Data.Entities.csproj" />
+    <ProjectReference Include="..\CommonTest\CommonTest.csproj" />
   </ItemGroup>
 
 </Project>
