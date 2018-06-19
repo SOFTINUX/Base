@@ -129,6 +129,17 @@
 
 .top-buffer { margin-top:20px; }
 
+.vertical-align-center {
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+.vertical-align-center  .valign-center {
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+}
+
 .equal {
     display: flex;
     display: -webkit-flex;
@@ -149,7 +160,7 @@
 }
 
 .model-header-custom {
-    border-bottom: 4px solid #2e77bc;
+    border-bottom: 4px solid #a52727;
     background-color: #d33724 !important;
     color: #ffffff;
 }
