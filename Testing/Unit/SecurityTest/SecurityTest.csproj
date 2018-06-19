@@ -20,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Security.Data.Entities\Security.Data.Entities.csproj" />
     <ProjectReference Include="..\CommonTest\CommonTest.csproj" />
+    <ProjectReference Include="..\..\..\Security.Data.EntityFramework\Security.Data.EntityFramework.csproj" />
   </ItemGroup>
 
 </Project>
