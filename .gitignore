@@ -320,8 +320,9 @@ log-[0-9]*.txt
 # App Extensions
 [Ww]ebApplication/Extensions
 
-#App EF Database
+#App/tests EF Database
 [Ww]ebApplication/basedb.sqlite
+**/basedb_tests.sqlite
 
 #Visual Studio localhistory addon
 .localhistory

@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="ExtCore.Data.EntityFramework" Version="3.3.0-beta2" />
-    <PackageReference Include="ExtCore.Data.EntityFramework.Sqlite" Version="3.2.0" />
+    <PackageReference Include="ExtCore.Data.EntityFramework.Sqlite" Version="3.3.0-beta2" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="2.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.0" />
@@ -20,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Security.Data.Entities\Security.Data.Entities.csproj" />
     <ProjectReference Include="..\CommonTest\CommonTest.csproj" />
+    <ProjectReference Include="..\..\..\Security.Data.EntityFramework\Security.Data.EntityFramework.csproj" />
   </ItemGroup>
 
 </Project>
