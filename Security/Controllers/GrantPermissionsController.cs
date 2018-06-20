@@ -1,8 +1,10 @@
 // Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using ExtCore.Infrastructure;
 using Infrastructure.Extensions;
@@ -111,6 +113,33 @@ namespace Security.Controllers
                 return new JsonResult(true);
             }
             return new JsonResult(false);
+        }
+
+        [HttpPost]
+        public async Task<ObjectResult> SaveNewRole(SaveNewRoleViewModel model_)
+        {
+            if(!ModelState.IsValid)
+            {
+                return StatusCode(400, ModelState["Role"]);
+            }
+            // Convert the string to the enum
+            var permissionEnum = Enum.Parse<Security.Common.Enums.Permission>(model_.Permission, true);
+
+            // Save the Role
+            IdentityRole<string> identityRole = new IdentityRole<string>
+                {
+                    Id = model_.Role,
+                    Name = model_.Role
+                };
+            await _roleManager.CreateAsync(identityRole);
+
+            // Save the role-extension-permission link
+            IRolePermissionRepository repo = Storage.GetRepository<IRolePermissionRepository>();
+            foreach(string extension in model_.Extensions)
+            {
+                repo.Create(new RolePermission{RoleId = model_.Role, PermissionId = permissionEnum.ToString(), Scope = extension});
+            }
+            return StatusCode(201, string.Empty);
         }
 
         /// <summary>
