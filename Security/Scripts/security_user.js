@@ -15,10 +15,9 @@ $(function() {
         cancel_edit_state("profile_form", "profile_form_fieldset", "save_profile_btn", "Edit", event);
     });
 
-    $("#profile_form :input").bind("keyup change paste",
-        function() {
-            input_changed("save_profile_btn");
-        });
+    $("#profile_form :input").bind("keyup change paste", function() {
+        input_changed("save_profile_btn");
+    });
 
     $("#change_pwd-btn").click(function(event) {
         edit_state("pwd_form_fliedset", "change_pwd-btn", event);
@@ -28,20 +27,30 @@ $(function() {
         cancel_edit_state("pwd_form", "pwd_form_fliedset", "change_pwd-btn", "Change", event);
     });
 
-    $("#pwd_form :input").bind("keyup change paste",
-        function() {
-            input_changed("change_pwd-btn");
-        });
+    $("#pwd_form :input").bind("keyup change paste", function() {
+        input_changed("change_pwd-btn");
+    });
 
     $('#inputAvatar').change(function() {
         $('#file_path').val($(this).val());
     });
 
     $('#add-role').click(function() {
-        if ($("#add-role-field").hasClass("hidden"))
-            $("#add-role-field").removeClass("hidden");
+        $("#edit-role-area").addClass("hidden");
+
+        if ($("#add-role-area").hasClass("hidden"))
+            $("#add-role-area").removeClass("hidden");
         else
-            $("#add-role-field").addClass("hidden");
+            $("#add-role-area").addClass("hidden");
+    });
+
+    $('#edit-role').click(function() {
+        $("#add-role-area").addClass("hidden");
+
+        if ($("#edit-role-area").hasClass("hidden"))
+            $("#edit-role-area").removeClass("hidden");
+        else
+            $("#edit-role-area").addClass("hidden");
     });
 
     $('#save-role-btn').click(function() {
@@ -156,7 +165,7 @@ function listenToPermissionsCheckboxEvents() {
 
 function savePermission(scope, role, permission) {
     // string roleId_, string permissionId_, string scope_
-    let params =
+    var params =
     {
         "roleId_": role,
         "permissionId_": permission,

@@ -41,7 +41,7 @@
                     </div>
                 </div>
 
-                <div class="row hidden" id="add-role-field">
+                <div class="row hidden" id="add-role-area">
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-12">
@@ -131,6 +131,21 @@
                     </div>
 
                 </div>
+                <div class="row hidden" id="edit-role-area">
+                    <div class="col-md-12">
+                            Edit role:
+                            <div class="row">
+                                <div class="col-md-5">
+                                <div class="form-group">
+                                    <label>Available role(s)</label>
+                                    <select class="form-control" multiple="" id="availableRoles">
+                                        @* here roles list *@
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         @* box listing roles *@
@@ -168,7 +183,7 @@
     <div id="login-overlay" class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header model-header-custom">
-                <button type="button" class="btn btn-xs pull-right" data-dismiss="modal"><strong>Close</strong></button>
+                <button type="button" class="btn btn-xs pull-right alert-default alert-danger-default" data-dismiss="modal"><strong>Close</strong></button>
                 <h4 class="modal-title" id="myModalLabel" style="font-size: 12pt;"><i class="fa fa-warning"></i>&nbsp;&nbsp;<strong>CONFIRM REMOVE ROLE</strong></h4>
             </div>
             @*<div style="margin-top: 1px; background-color: #2e77bc; height: 1px; width: 100%;"></div>*@
