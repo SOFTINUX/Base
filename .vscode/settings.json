@@ -1,7 +1,7 @@
 {
     "workbench.colorTheme": "Default Dark+",
     "editor.formatOnSave": false,
-    "dotnet-test-explorer.testProjectPath": ".\\Tests\\BaseTest",
+    "dotnet-test-explorer.testProjectPath": ".\\Testing\\Unit\\SecurityTest",
     "dotnet-test-explorer.build": false,
     "dotnet-test-explorer.enableTelemetry": false,
     "dotnet-test-explorer.pathForResultFile": "C:/",
