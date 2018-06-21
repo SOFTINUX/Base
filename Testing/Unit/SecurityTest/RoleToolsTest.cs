@@ -7,7 +7,7 @@ using Xunit;
 namespace SecurityTest
 {
     [Collection("Database collection")]
-    public class RoleToolsTest : TestWithDatabase
+    public class RoleToolsTest : CommonTestWithDatabase
     {
         public RoleToolsTest(DatabaseFixture databaseFixture_) : base(databaseFixture_)
         {

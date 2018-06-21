@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using Security.Data.Entities;
 using CommonTest;
 
-namespace SecurityTest
+namespace CommonTest
 {
     public partial class ApplicationStorageContext : IdentityDbContext<User, IdentityRole<string>, string>, IStorageContext
     {
