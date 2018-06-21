@@ -1,5 +1,5 @@
 # Project overview
-![Build status](https://ci.appveyor.com/api/projects/status/mktm6ae3csndb9ma?svg=true) ![Line of code](https://tokei.rs/b1/github/SOFTINUX/Base) ![Gitter chat](https://badges.gitter.im/SOFTINUX/Base/repo.png)
+![Build status](//ci.appveyor.com/api/projects/status/mktm6ae3csndb9ma?svg=true) ![Line of code](//tokei.rs/b1/github/SOFTINUX/Base) ![Documentation Status](//readthedocs.org/projects/softinux-base/badge/?version=latest) ![Gitter chat](//badges.gitter.im/SOFTINUX/Base/repo.png)
 
 *SOFTINUX Base* is a free, open source and cross-platform based on [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/) and [ExtCore](http://extcore.net/) framework.  
 It is built using the best and the most modern tools and languages.  
@@ -17,15 +17,15 @@ It is completely modular and extendable. Using the features of the underlying Ex
 
 *Base* manages the common stuff so that the developer can focus on its extension and business logic, just having to provide what we call metadata to know how to display and authorize access to content, and use our version of Authorize attribute.
 
-Read [this wiki page](https://github.com/SOFTINUX/Base/wiki/Writing-extensions) to learn more about this.
+Read [documentation](//softinux-base.readthedocs.io/en/latest/?) to learn more about this.
 
 Some screenshots of features:
 
-![Main menu and administration](https://github.com/SOFTINUX/Base/blob/master/screenshots/menu_and_administration.png "Main menu and administration")
+![Main menu and administration](//github.com/SOFTINUX/Base/blob/master/screenshots/menu_and_administration.png "Main menu and administration")
 
-![Edit user profile](https://github.com/SOFTINUX/Base/blob/master/screenshots/user_profile.png "Edit user profile")
+![Edit user profile](//github.com/SOFTINUX/Base/blob/master/screenshots/user_profile.png "Edit user profile")
 
-![Grant permissions to roles](https://github.com/SOFTINUX/Base/blob/master/screenshots/grant_global_permissions_wip.png "Grant permissions to roles")
+![Grant permissions to roles](//github.com/SOFTINUX/Base/blob/master/screenshots/grant_global_permissions_wip.png "Grant permissions to roles")
 
 # License
 Licensed under the MIT License.  
