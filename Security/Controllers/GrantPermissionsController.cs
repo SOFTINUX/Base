@@ -15,6 +15,7 @@ using Security.Common;
 using Security.Common.Attributes;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
+using Security.Extensions;
 using Security.ViewModels.Permissions;
 using ControllerBase = Infrastructure.ControllerBase;
 using Permission = Security.Common.Enums.Permission;
@@ -36,6 +37,7 @@ namespace Security.Controllers
         [Route("administration/grantpermissions")]
         public IActionResult Index()
         {
+            // TODO move all this code to Tools.PermissionTools (new static class)
             GrantViewModel model = new GrantViewModel();
 
             // 1. Get all scopes from available extensions, create initial dictionaries
@@ -92,7 +94,7 @@ namespace Security.Controllers
             IRolePermissionRepository repo = Storage.GetRepository<IRolePermissionRepository>();
             repo.Delete(roleId_, scope_);
             if(!string.IsNullOrEmpty(permissionId_.ToLowerInvariant()))
-                repo.Create(new RolePermission { RoleId = roleId_, PermissionId = UppercaseFirst(permissionId_.ToLowerInvariant()), Scope = scope_ });
+                repo.Create(new RolePermission { RoleId = roleId_, PermissionId = permissionId_.UppercaseFirst(), Scope = scope_ });
             Storage.Save();
             return new JsonResult(true);
         }
@@ -116,46 +118,10 @@ namespace Security.Controllers
         }
 
         [HttpPost]
-        public async Task<ObjectResult> SaveNewRole(SaveNewRoleViewModel model_)
+        public ObjectResult SaveNewRole(SaveNewRoleViewModel model_)
         {
-            if(!ModelState.IsValid)
-            {
-                return StatusCode(400, ModelState["Role"]);
-            }
-            // Convert the string to the enum
-            var permissionEnum = Enum.Parse<Security.Common.Enums.Permission>(model_.Permission, true);
-
-            // Save the Role
-            IdentityRole<string> identityRole = new IdentityRole<string>
-                {
-                    Id = model_.Role,
-                    Name = model_.Role
-                };
-            await _roleManager.CreateAsync(identityRole);
-
-            // Save the role-extension-permission link
-            IRolePermissionRepository repo = Storage.GetRepository<IRolePermissionRepository>();
-            foreach(string extension in model_.Extensions)
-            {
-                repo.Create(new RolePermission{RoleId = model_.Role, PermissionId = permissionEnum.ToString(), Scope = extension});
-            }
-            return StatusCode(201, string.Empty);
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="s_"></param>
-        /// <returns></returns>
-        static string UppercaseFirst(string s_)
-        {
-            if (string.IsNullOrEmpty(s_))
-            {
-                return string.Empty;
-            }
-            char[] a = s_.ToCharArray();
-            a[0] = char.ToUpper(a[0]);
-            return new string(a);
+            string error = Tools.RoleTools.CheckAndSaveNewRole(model_, _roleManager, Storage).Result;
+            return StatusCode(string.IsNullOrEmpty(error) ? 201 : 400, error);
         }
     }
 }
