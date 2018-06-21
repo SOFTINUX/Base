@@ -5,6 +5,7 @@
   <ItemGroup>
     <PackageReference Include="ExtCore.Data.EntityFramework.Sqlite" Version="3.3.0-beta2" />
     <PackageReference Include="ExtCore.Infrastructure" Version="3.3.0-beta2" />
+    <PackageReference Include="xunit" Version="2.3.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="ExtCore.Data.EntityFramework, Version=3.3.0.0, Culture=neutral, PublicKeyToken=null">
