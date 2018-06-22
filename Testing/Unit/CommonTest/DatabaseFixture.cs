@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
 using ExtCore.WebApplication.Extensions;
@@ -21,11 +22,14 @@ namespace CommonTest
         public IStorage Storage { get; private set; }
         public ILoggerFactory LoggerFactory { get; private set; }
 
+        public UserManager<User> UserManager { get; private set; }
+        public RoleManager<IdentityRole<string>> RoleManager { get; private set;}
+
         public DatabaseFixture()
         {
             var services = new ServiceCollection();
-            ConfigureServices(services);
             _serviceProvider = services.BuildServiceProvider();
+            ConfigureServices(services);
         }
 
         private void ConfigureServices(IServiceCollection services)
@@ -50,10 +54,17 @@ namespace CommonTest
             services.AddScoped<IStorageContext, ApplicationStorageContext>();
             services.AddScoped<IStorage, Storage>();
 
-            services.AddExtCore(string.Empty);
+            services.AddExtCore("");
 
             // Assign shortcuts accessors to registered components
-            Storage = _serviceProvider.GetRequiredService<IStorage>();
+            //Storage = _serviceProvider.GetRequiredService<IStorage>();
+
+            var test = services.FirstOrDefault(s => s.ServiceType == typeof(IStorage));
+            var test2 = services.FirstOrDefault(s => s.ServiceType == typeof(UserManager<User>));
+            var test3 = services.FirstOrDefault(s => s.ServiceType == typeof(RoleManager<IdentityRole<string>>));
+
+            //UserManager = _serviceProvider.GetRequiredService<UserManager<User>>();
+            //RoleManager = _serviceProvider.GetRequiredService<RoleManager<IdentityRole<string>>>();
         }
 
         private static IConfiguration LoadConfiguration()

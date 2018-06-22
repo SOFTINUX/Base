@@ -26,10 +26,9 @@ namespace SecurityTest
                 Extensions = new System.Collections.Generic.List<string> { "Security" },
                 Permission = Security.Common.Enums.Permission.Write.ToString()
             };
-            // TODO get RoleManager into test system and use it below instead of "null"
 
             // Execute
-            var result = RoleTools.CheckAndSaveNewRole(model, null, DatabaseFixture.Storage).Result;
+            var result = RoleTools.CheckAndSaveNewRole(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage).Result;
             Assert.Equal(string.Empty, result);
         }
     }
