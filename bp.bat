@@ -3,6 +3,9 @@
 
 @echo off
 
+:: set .NET output folder name
+set netVersion="netcoreapp2.1"
+
 cd %~dp0
 IF "%1" == "/?" GOTO Help
 IF "%1" == "-h" GOTO Help
@@ -46,7 +49,7 @@ IF "%1" == "build" GOTO End
 echo ###################
 echo Copy Dependencies
 echo ###################
-set dst_folder=.\WebApplication\bin\Debug\netcoreapp2.0\
+set dst_folder=.\WebApplication\bin\Debug\%netVersion%\
 if not exist "%dst_folder%" GOTO End
 for /f "tokens=*" %%i in (dependencies.txt) DO (
     echo F| xcopy "%%i" /B /F /Y "%dst_folder%" /K
@@ -70,7 +73,7 @@ echo Publish Application
 echo ###################
 Goto End
 dotnet publish %~dp0\Published
-set dst_folder=.\WebApplication\bin\Debug\netcoreapp2.0\publish
+set dst_folder=.\WebApplication\bin\Debug\%netVersion%\publish
 mkdir "%dst_folder%\Extensions"
 if not exist "%dst_folder%" mkdir "%dst_folder%"
 for /f "tokens=*" %%i in (extensions.txt) DO (
@@ -86,6 +89,9 @@ xcopy .\wwwroot %dst_folder%\wwwroot /E /Y /I
 Goto End
 
 :CleanBuildFolder
+echo #########################
+echo Clean obj and bin folders
+echo #########################
 FOR /F "tokens=*" %%G IN ('DIR /B /AD /S bin') DO RMDIR /S /Q "%%G"
 FOR /F "tokens=*" %%G IN ('DIR /B /AD /S obj') DO RMDIR /S /Q "%%G"
 Goto End
@@ -101,7 +107,7 @@ echo     - cleanbin : remove bin & obj folders recursively
 echo     - publish : not yet implemented
 echo.
 echo with no parameter or unsupported parameter, build proccess is:
-echo     - clean solution
+echo     - clean solution (not cleanbin)
 echo     - update bundles
 echo     - build solution
 echo     - copy dependencies

@@ -5,6 +5,7 @@
 
 #These two lines is to set correct directory position if you build from JetBrain Rider
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+NETVERSION="netcoreapp2.1"
 cd "$DIR"
 
 function clean
@@ -13,6 +14,14 @@ function clean
     echo "CLEAN SOLUTION"
     echo "###################"
     dotnet clean
+}
+
+function bundles
+{
+    echo "###################"
+    echo "Updating bundles"
+    echo "###################"
+    cat bundles.txt | sed 's/\\/\//g' | xargs -I % bash -c "cd %; dotnet bundle; cd $OLDPWD"
 }
 
 function build
@@ -40,7 +49,7 @@ function copydeps
     echo "###################"
     echo "Copy Dependencies"
     echo "###################"
-    SET_DEST="./WebApplication/bin/Debug/netcoreapp2.0/"
+    SET_DEST="./WebApplication/bin/Debug/$NETVERSION/"
     if [ ! -d "$SET_DEST" ]; then
         echo "The dependencies destination folder does not exist."
         exit 1
@@ -48,16 +57,11 @@ function copydeps
     cat dependencies.txt | sed 's/\\/\//g' | xargs -I % bash -c "cp % $SET_DEST; echo cp % $SET_DEST"
 }
 
-function bundles
-{
-    echo "###################"
-    echo "Updating bundles"
-    echo "###################"
-    cat bundles.txt | sed 's/\\/\//g' | xargs -I % bash -c "cd %; dotnet bundle; cd $OLDPWD"
-}
-
 function cleanbuildfolders
 {
+    echo "#########################"
+    echo "Clean obj and bin folders"
+    echo "#########################"
     find . -iname "bin" -o -iname "obj" | xargs rm -rf
 }
 
@@ -71,7 +75,7 @@ function help
     echo "    - bundles : only update bundles (projects defined in bundles.txt)"
     echo -ne "\n"
     echo "with no parameter or unsupported parameters, build proccess is:"
-    echo "    - clean solution"
+    echo "    - clean solution (not cleanbin)"
     echo "    - update bundles"
     echo "    - build solution"
     echo "    - copy dependencies"
