@@ -18,18 +18,24 @@ namespace CommonTest
     public class DatabaseFixture : IDisposable
     {
         private readonly IServiceProvider _serviceProvider;
-        public IConfiguration Configuration {get; private set;}
+        public IConfiguration Configuration { get; private set; }
         public IStorage Storage { get; private set; }
         public ILoggerFactory LoggerFactory { get; private set; }
 
         public UserManager<User> UserManager { get; private set; }
-        public RoleManager<IdentityRole<string>> RoleManager { get; private set;}
+        public RoleManager<IdentityRole<string>> RoleManager { get; private set; }
 
         public DatabaseFixture()
         {
             var services = new ServiceCollection();
-            _serviceProvider = services.BuildServiceProvider();
             ConfigureServices(services);
+            _serviceProvider = services.BuildServiceProvider();
+
+            // Assign shortcuts accessors to registered components
+            Storage = _serviceProvider.GetRequiredService<IStorage>();
+            UserManager = _serviceProvider.GetRequiredService<UserManager<User>>();
+            RoleManager = _serviceProvider.GetRequiredService<RoleManager<IdentityRole<string>>>();
+
         }
 
         private void ConfigureServices(IServiceCollection services)
@@ -55,16 +61,6 @@ namespace CommonTest
             services.AddScoped<IStorage, Storage>();
 
             services.AddExtCore("");
-
-            // Assign shortcuts accessors to registered components
-            //Storage = _serviceProvider.GetRequiredService<IStorage>();
-
-            var test = services.FirstOrDefault(s => s.ServiceType == typeof(IStorage));
-            var test2 = services.FirstOrDefault(s => s.ServiceType == typeof(UserManager<User>));
-            var test3 = services.FirstOrDefault(s => s.ServiceType == typeof(RoleManager<IdentityRole<string>>));
-
-            //UserManager = _serviceProvider.GetRequiredService<UserManager<User>>();
-            //RoleManager = _serviceProvider.GetRequiredService<RoleManager<IdentityRole<string>>>();
         }
 
         private static IConfiguration LoadConfiguration()
@@ -81,10 +77,10 @@ namespace CommonTest
             // ... clean up test data from the database ...
         }
 
-/// <summary>
-/// For use by DbContextFactory.
-/// </summary>
-/// <returns></returns>
+        /// <summary>
+        /// For use by DbContextFactory.
+        /// </summary>
+        /// <returns></returns>
         public static DbContextOptionsBuilder<ApplicationStorageContext> GetDbContextOptionsBuilder()
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationStorageContext>();

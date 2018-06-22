@@ -13,9 +13,9 @@
     <Reference Include="ExtCore.Data.EntityFramework, Version=3.3.0.0, Culture=neutral, PublicKeyToken=null" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="$(SolutionDir)Infrastructure\Infrastructure.csproj" />
-    <ProjectReference Include="$(SolutionDir)Security.Data.Entities\Security.Data.Entities.csproj" />
-    <ProjectReference Include="$(SolutionDir)Security.Data.EntityFramework\Security.Data.EntityFramework.csproj" />
+    <ProjectReference Include="../../../Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="../../../Security.Data.Entities\Security.Data.Entities.csproj" />
+    <ProjectReference Include="../../../Security.Data.EntityFramework\Security.Data.EntityFramework.csproj" />
   </ItemGroup>
 
     <ItemGroup>
