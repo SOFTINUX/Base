@@ -2,8 +2,10 @@ using System;
 using System.IO;
 using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
+using ExtCore.WebApplication.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -14,35 +16,21 @@ namespace CommonTest
 {
     public class DatabaseFixture : IDisposable
     {
-        private IConfiguration Configuration { get; set; }
         private readonly IServiceProvider _serviceProvider;
+        public IConfiguration Configuration {get; private set;}
+        public IStorage Storage { get; private set; }
+        public ILoggerFactory LoggerFactory { get; private set; }
 
         public DatabaseFixture()
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
-
-            Configuration = builder.Build();
-
-            string connectionString = Configuration["ConnectionStrings:Default"];
-
-            StorageContextOptions storageOptions =
-                new StorageContextOptions { ConnectionString = connectionString };
-
-            Storage = new Storage(GetProviderSpecificStorageContext(new TestStorageContextOptions(storageOptions)));
-
             var services = new ServiceCollection();
             ConfigureServices(services);
             _serviceProvider = services.BuildServiceProvider();
         }
 
-        protected virtual void ConfigureServices(IServiceCollection services)
+        private void ConfigureServices(IServiceCollection services)
         {
-            // services.AddEntityFramework()
-            //     .AddSqlServer()
-            //     .AddDbContext<ApplicationDbContext>(options =>
-            //         options.UseSqlServer(connectionString));
+            Configuration = LoadConfiguration();
 
             // Register UserManager & RoleManager
             services.AddIdentity<User, IdentityRole<string>>()
@@ -52,16 +40,29 @@ namespace CommonTest
             // UserManager & RoleManager require logging and HttpContext dependencies
             services.AddLogging();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddDbContext<ApplicationStorageContext>(options_ =>
+                {
+                    options_.UseSqlite(Configuration["ConnectionStrings:Default"]);
+                });
+
+            // Register database-specific storage context implementation.
+            services.AddScoped<IStorageContext, ApplicationStorageContext>();
+            services.AddScoped<IStorage, Storage>();
+
+            services.AddExtCore(string.Empty);
+
+            // Assign shortcuts accessors to registered components
+            Storage = _serviceProvider.GetRequiredService<IStorage>();
         }
 
-        /// <summary>
-        /// Instantiate the provider-specific storage context. Override this to use another storage context than the Sqlite's one.
-        /// </summary>
-        /// <param name="options_"></param>
-        /// <returns></returns>
-        public virtual IStorageContext GetProviderSpecificStorageContext(IOptions<StorageContextOptions> options_)
+        private static IConfiguration LoadConfiguration()
         {
-            return new SqliteStorageContext(options_);
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json");
+
+            return builder.Build();
         }
 
         public void Dispose()
@@ -69,21 +70,18 @@ namespace CommonTest
             // ... clean up test data from the database ...
         }
 
-        public IStorage Storage { get; }
-        public ILoggerFactory LoggerFactory { get; }
-
-        /// <summary>
-        /// Utility class to use the IOptions pattern as required by IStorage implementations constructors.
-        /// </summary>
-        /// <typeparam name="StorageContextOptions"></typeparam>
-        private class TestStorageContextOptions : IOptions<StorageContextOptions>
+/// <summary>
+/// For use by DbContextFactory.
+/// </summary>
+/// <returns></returns>
+        public static DbContextOptionsBuilder<ApplicationStorageContext> GetDbContextOptionsBuilder()
         {
-            public TestStorageContextOptions(StorageContextOptions value_)
-            {
-                Value = value_;
-            }
-
-            public StorageContextOptions Value { get; }
+            var optionsBuilder = new DbContextOptionsBuilder<ApplicationStorageContext>();
+            // Configure connection string
+            var configuration = LoadConfiguration();
+            optionsBuilder.UseSqlite(configuration["ConnectionStrings:Default"]);
+            return optionsBuilder;
         }
+
     }
 }

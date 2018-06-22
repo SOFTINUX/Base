@@ -103,7 +103,7 @@ namespace WebApplication
 
             services_.AddExtCore(_extensionsPath);
 
-            // register for DI to for in REST controller
+            // register for DI to work with Security.ServiceConfiguration.ConfigureAuthentication
             services_.AddScoped<IServiceCollection, ServiceCollection>();
         }
 

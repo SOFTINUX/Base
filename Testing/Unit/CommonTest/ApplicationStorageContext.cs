@@ -20,13 +20,11 @@ namespace CommonTest
         public ApplicationStorageContext(DbContextOptions<ApplicationStorageContext> options_)
             : base(options_)
         {
-            Console.WriteLine("ApplicationStorageContext: Constructor");
             Utilities.LoadExtensions();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder_)
         {
-            Console.WriteLine("ApplicationStorageContext: OnConfiguring");
 #if DEBUG
             ILoggerFactory loggerFactory = new LoggerFactory();
             loggerFactory.AddProvider(new EfLoggerProvider());
@@ -36,7 +34,6 @@ namespace CommonTest
 
         protected override void OnModelCreating(ModelBuilder modelBuilder_)
         {
-            Console.WriteLine("ApplicationStorageContext: OnModelCreating");
             base.OnModelCreating(modelBuilder_);
             this.RegisterEntities(modelBuilder_);
         }
