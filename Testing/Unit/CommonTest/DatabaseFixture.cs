@@ -32,10 +32,11 @@ namespace CommonTest
             _serviceProvider = services.BuildServiceProvider();
 
             // Assign shortcuts accessors to registered components
-            Storage = _serviceProvider.GetRequiredService<IStorage>();
             UserManager = _serviceProvider.GetRequiredService<UserManager<User>>();
             RoleManager = _serviceProvider.GetRequiredService<RoleManager<IdentityRole<string>>>();
 
+            // Storage: create using registered db context / storage context
+            Storage = new Storage(_serviceProvider.GetRequiredService<IStorageContext>());
         }
 
         private void ConfigureServices(IServiceCollection services)
@@ -51,6 +52,7 @@ namespace CommonTest
             services.AddLogging();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            // DbContext/IStorageContext
             services.AddDbContext<ApplicationStorageContext>(options_ =>
                 {
                     options_.UseSqlite(Configuration["ConnectionStrings:Default"]);
@@ -58,9 +60,6 @@ namespace CommonTest
 
             // Register database-specific storage context implementation.
             services.AddScoped<IStorageContext, ApplicationStorageContext>();
-            services.AddScoped<IStorage, Storage>();
-
-            services.AddExtCore("");
         }
 
         private static IConfiguration LoadConfiguration()
@@ -71,7 +70,6 @@ namespace CommonTest
 
             return builder.Build();
         }
-
         public void Dispose()
         {
             // ... clean up test data from the database ...
@@ -88,6 +86,20 @@ namespace CommonTest
             var configuration = LoadConfiguration();
             optionsBuilder.UseSqlite(configuration["ConnectionStrings:Default"]);
             return optionsBuilder;
+        }
+
+        /// <summary>
+        /// Utility class to use the IOptions pattern as required by IStorage implementations constructors.
+        /// </summary>
+        /// <typeparam name="StorageContextOptions"></typeparam>
+        private class TestStorageContextOptions : IOptions<StorageContextOptions>
+        {
+            public TestStorageContextOptions(StorageContextOptions value_)
+            {
+                Value = value_;
+            }
+
+            public StorageContextOptions Value { get; }
         }
 
     }
