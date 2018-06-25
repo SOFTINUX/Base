@@ -3,8 +3,14 @@
 
 @echo off
 
-:: set .NET output folder name
+:: set .NET output folder name (use .NET Core version defined into csproj files)
 set netVersion="netcoreapp2.1"
+:: Extensions folder
+set ext_folder=".\WebApplication\Extensions\"
+:: Dependencies folder
+set dep_folder=".\WebApplication\bin\Debug\%netVersion%\"
+:: Publish folder
+set pub_folder=".\WebApplication\bin\Debug\%netVersion%\publish"
 
 cd %~dp0
 IF "%1" == "/?" GOTO Help
@@ -49,10 +55,9 @@ IF "%1" == "build" GOTO End
 echo ###################
 echo Copy Dependencies
 echo ###################
-set dst_folder=.\WebApplication\bin\Debug\%netVersion%\
-if not exist "%dst_folder%" GOTO End
+if not exist "%dep_folder%" GOTO End
 for /f "tokens=*" %%i in (dependencies.txt) DO (
-    echo F| xcopy "%%i" /B /F /Y "%dst_folder%" /K
+    echo F| xcopy "%%i" /B /F /Y "%dep_folder%" /K
 )
 IF "%1" == "copydeps" GOTO End
 
@@ -60,10 +65,9 @@ IF "%1" == "copydeps" GOTO End
 echo ###################
 echo Copy extensions
 echo ###################
-set dst_folder=.\WebApplication\Extensions\
-if not exist "%dst_folder%" mkdir "%dst_folder%"
+if not exist "%ext_folder%" mkdir "%ext_folder%"
 for /f "tokens=*" %%i in (extensions.txt) DO (
-    xcopy "%%i" /B /F /Y  "%dst_folder%" /K
+    xcopy "%%i" /B /F /Y  "%ext_folder%" /K
 )
 GOTO End
 
@@ -73,19 +77,19 @@ echo Publish Application
 echo ###################
 Goto End
 dotnet publish %~dp0\Published
-set dst_folder=.\WebApplication\bin\Debug\%netVersion%\publish
-mkdir "%dst_folder%\Extensions"
-if not exist "%dst_folder%" mkdir "%dst_folder%"
+mkdir "%pub_folder%\Extensions"
+if not exist "%pub_folder%" mkdir "%pub_folder%"
 for /f "tokens=*" %%i in (extensions.txt) DO (
-    xcopy "%%i" "%dst_folder%" /E /Y /I
+    xcopy "%%i" "%pub_folder%" /E /Y /I
 )
 
 for /f "tokens=*" %%i in (extensions.txt) DO (
-    xcopy "%%i" "%dst_folder%\Extensions" /E /Y /I
+    xcopy "%%i" "%pub_folder%\Extensions" /E /Y /I
 )
-xcopy .\WebApplication\basedb.sqlite %dst_folder% /R
+xcopy .\WebApplication\basedb.sqlite %pub_folder% /R
 
-xcopy .\wwwroot %dst_folder%\wwwroot /E /Y /I
+if not exist "%pub_folder%\wwwroot" mkdir "%pub_folder%\wwwroot"
+xcopy .\wwwroot %pub_folder%\wwwroot /E /Y /I
 Goto End
 
 :CleanBuildFolder

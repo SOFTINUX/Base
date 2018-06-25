@@ -5,7 +5,14 @@
 
 #These two lines is to set correct directory position if you build from JetBrain Rider
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+#.NET Core version (defined into csproj)
 NETVERSION="netcoreapp2.1"
+#Extension destination folder
+EXT_FOLDER="./WebApplication/Extensions"
+#Dependencies destination folder
+DEP_FOLDER="./WebApplication/bin/Debug/$NETVERSION/"
+#Publish folder
+PUB_FOLDER=".\WebApplication\bin\Debug\%netVersion%\publish"
 cd "$DIR"
 
 function clean
@@ -37,11 +44,10 @@ function copyexts
     echo "###################"
     echo "Copy extensions"
     echo "###################"
-    SET_DEST="./WebApplication/Extensions"
-    if [ ! -d "$SET_DEST" ]; then
-        mkdir -p $SET_DEST
+    if [ ! -d "$EXT_FOLDER" ]; then
+        mkdir -p $EXT_FOLDER
     fi
-    cat extensions.txt | sed 's/\\/\//g' | xargs -I % bash -c "cp % $SET_DEST; echo cp % $SET_DEST"
+    cat extensions.txt | sed 's/\\/\//g' | xargs -I % bash -c "cp % $EXT_FOLDER; echo cp % $EXT_FOLDER"
 }
 
 function copydeps
@@ -49,12 +55,11 @@ function copydeps
     echo "###################"
     echo "Copy Dependencies"
     echo "###################"
-    SET_DEST="./WebApplication/bin/Debug/$NETVERSION/"
-    if [ ! -d "$SET_DEST" ]; then
+    if [ ! -d "$DEP_FOLDER" ]; then
         echo "The dependencies destination folder does not exist."
         exit 1
     fi
-    cat dependencies.txt | sed 's/\\/\//g' | xargs -I % bash -c "cp % $SET_DEST; echo cp % $SET_DEST"
+    cat dependencies.txt | sed 's/\\/\//g' | xargs -I % bash -c "cp % $DEP_FOLDER; echo cp % $DEP_FOLDER"
 }
 
 function cleanbuildfolders
