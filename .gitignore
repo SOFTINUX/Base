@@ -318,7 +318,8 @@ __pycache__/
 log-[0-9]*.txt
 
 # App Extensions
-[Ww]ebApplication/Extensions
+[Ww]ebApplication/Extensions/*
+![Ww]ebApplication/Extensions/.gitkeep
 
 #App/tests EF Database
 [Ww]ebApplication/basedb.sqlite

@@ -21,5 +21,32 @@
         "strings": false
     },
     // Controls if suggestions should automatically show up when typing trigger characters
-    "editor.suggestOnTriggerCharacters": true
+    "editor.suggestOnTriggerCharacters": true,
+    "cSpell.enabledLanguageIds": [
+        "asciidoc",
+        "c",
+        "cpp",
+        "csharp",
+        "css",
+        "go",
+        "handlebars",
+        "html",
+        "jade",
+        "javascript",
+        "javascriptreact",
+        "latex",
+        "less",
+        "markdown",
+        "php",
+        "plaintext",
+        "pub",
+        "python",
+        "restructuredtext",
+        "rust",
+        "scss",
+        "text",
+        "typescript",
+        "typescriptreact",
+        "yml"
+    ]
 }
