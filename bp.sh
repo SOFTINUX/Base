@@ -6,13 +6,14 @@
 #These two lines is to set correct directory position if you build from JetBrain Rider
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 #.NET Core version (defined into csproj)
-NETVERSION="netcoreapp2.*"
+NETVERSION="netcoreapp2.1"
 #Extension destination folder
 EXT_FOLDER="./WebApplication/Extensions"
 #Dependencies destination folder
 DEP_FOLDER="./WebApplication/bin/Debug/$NETVERSION/"
 #Publish folder
 PUB_FOLDER=".\WebApplication\bin\Debug\%netVersion%\publish"
+
 cd "$DIR"
 
 function clean
