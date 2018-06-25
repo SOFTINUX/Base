@@ -103,7 +103,7 @@ echo     - build : only build solution
 echo     - copydeps : only copy dependencies (defined in dependencies.txt)
 echo     - copyexts : only copy extensions (defined in extensions.txt)
 echo     - bundles : only update bundles (projects defined in bundles.txt)
-echo     - cleanbin : remove bin & obj folders recursively
+echo     - cleanbin : remove bin ^& obj folders recursively
 echo     - publish : not yet implemented
 echo.
 echo with no parameter or unsupported parameter, build proccess is:
