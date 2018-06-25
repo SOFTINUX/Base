@@ -6,7 +6,7 @@
 #These two lines is to set correct directory position if you build from JetBrain Rider
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 #.NET Core version (defined into csproj)
-NETVERSION="netcoreapp2.1"
+NETVERSION="netcoreapp2.*"
 #Extension destination folder
 EXT_FOLDER="./WebApplication/Extensions"
 #Dependencies destination folder
@@ -103,6 +103,9 @@ case $1 in
         ;;
     bundles)
         bundles
+        ;;
+    cleanbin)
+        cleanbuildfolders
         ;;
     -h|--help)
         help
