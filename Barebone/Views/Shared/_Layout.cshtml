@@ -105,42 +105,6 @@ Licensed under the MIT License, Version 2.0. See License.txt in the project root
             </div>
         }
 
-        @* Page container *@
-        @*<div class="page-content d-flex align-items-stretch">
-            @if (Model != null && !String.IsNullOrEmpty(Model.ErrorMessage))
-            {
-                <div id="notification" class="show">
-                    <div class="alert alert-danger" role="alert">
-                        <strong>LOGIN ERROR:</strong>&nbsp;@Html.Raw(Model.ErrorMessage)
-                    </div>
-                </div>
-            }
-            @if (User.Identity.IsAuthenticated)
-            {
-                <nav class="side-navbar">
-                    <div class="sidebar-header d-flex align-items-center">
-                        @* user badge *@
-        @*
-                @Html.Partial("_UserBadge")
-            </div>
-            <span class="heading">Main</span>
-            @* Menu Navigation *@
-        @*
-                        @await Component.InvokeAsync("Menu")
-                    </nav>
-                }
-                <div class="inner-content">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <header class="page-header">
-                            <div class="container-fluid">
-                                @RenderSection("title", false)
-                            </div>
-                        </header>
-                    }
-                    @RenderBody()
-                </div>
-            </div>*@
         @if (User.Identity.IsAuthenticated)
         {
             @* Main Footer *@

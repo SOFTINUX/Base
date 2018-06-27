@@ -40,6 +40,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecurityTest", "Testing\Uni
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonTest", "Testing\Unit\CommonTest\CommonTest.csproj", "{773A88D6-15BC-4FB9-AA04-928FF96A21FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security.Identity", "Security.Identity\Security.Identity.csproj", "{F23993C5-3715-4537-835B-C74776D52B23}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -290,6 +292,18 @@ Global
 		{773A88D6-15BC-4FB9-AA04-928FF96A21FF}.Release|x64.Build.0 = Release|Any CPU
 		{773A88D6-15BC-4FB9-AA04-928FF96A21FF}.Release|x86.ActiveCfg = Release|Any CPU
 		{773A88D6-15BC-4FB9-AA04-928FF96A21FF}.Release|x86.Build.0 = Release|Any CPU
+		{F23993C5-3715-4537-835B-C74776D52B23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F23993C5-3715-4537-835B-C74776D52B23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F23993C5-3715-4537-835B-C74776D52B23}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F23993C5-3715-4537-835B-C74776D52B23}.Debug|x64.Build.0 = Debug|Any CPU
+		{F23993C5-3715-4537-835B-C74776D52B23}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F23993C5-3715-4537-835B-C74776D52B23}.Debug|x86.Build.0 = Debug|Any CPU
+		{F23993C5-3715-4537-835B-C74776D52B23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F23993C5-3715-4537-835B-C74776D52B23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F23993C5-3715-4537-835B-C74776D52B23}.Release|x64.ActiveCfg = Release|Any CPU
+		{F23993C5-3715-4537-835B-C74776D52B23}.Release|x64.Build.0 = Release|Any CPU
+		{F23993C5-3715-4537-835B-C74776D52B23}.Release|x86.ActiveCfg = Release|Any CPU
+		{F23993C5-3715-4537-835B-C74776D52B23}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
