@@ -6,11 +6,11 @@ namespace Security.Identity
 {
     public class ExtensionMetadata : IExtensionMetadata
     {
-        public IEnumerable<MenuGroup> MenuGroups => null;
+        public IEnumerable<MenuGroup> MenuGroups => new MenuGroup[] {};
 
-        public IEnumerable<Script> Scripts => null;
+        public IEnumerable<Script> Scripts => new Script[] {};
 
-        public IEnumerable<StyleSheet> StyleSheets => null;
+        public IEnumerable<StyleSheet> StyleSheets => new StyleSheet[] {};
 
         bool IExtensionMetadata.IsAvailableForPermissions => true;
 
