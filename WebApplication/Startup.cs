@@ -59,7 +59,6 @@ namespace WebApplication
                     options_.Password.RequireUppercase = true;
                 })
                .AddEntityFrameworkStores<ApplicationStorageContext>()
-               //.AddDefaultUI() // Enable UI from Security.Identity
                .AddDefaultTokenProviders(); // Tell Identity which EF DbContext to use
 
                // configure the application cookie

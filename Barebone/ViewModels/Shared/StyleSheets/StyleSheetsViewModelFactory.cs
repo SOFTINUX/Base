@@ -16,7 +16,8 @@ namespace Barebone.ViewModels.Shared.StyleSheet
             List<Infrastructure.StyleSheet> styleSheets = new List<Infrastructure.StyleSheet>();
 
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
-                styleSheets.AddRange(extensionMetadata.StyleSheets);
+                if(extensionMetadata.StyleSheets != null)
+                    styleSheets.AddRange(extensionMetadata.StyleSheets);
 
             return new StyleSheetsViewModel()
             {

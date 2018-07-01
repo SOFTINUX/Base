@@ -16,7 +16,8 @@ namespace Barebone.ViewModels.Shared.Scripts
             List<Infrastructure.Script> scripts = new List<Infrastructure.Script>();
 
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
-                scripts.AddRange(extensionMetadata.Scripts);
+                if(extensionMetadata.Scripts != null)
+                    scripts.AddRange(extensionMetadata.Scripts);
 
             return new ScriptsViewModel()
             {

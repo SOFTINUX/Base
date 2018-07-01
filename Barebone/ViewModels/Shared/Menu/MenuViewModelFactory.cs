@@ -28,7 +28,8 @@ namespace Barebone.ViewModels.Shared.Menu
                     $"Looking for menu groups for extension metadata {extensionMetadata.GetType().FullName}");
 #endif
 
-                if (extensionMetadata.MenuGroups == null) continue;
+                if (extensionMetadata.MenuGroups == null)
+                    continue;
 
                 foreach (Infrastructure.MenuGroup menuGroup in extensionMetadata.MenuGroups)
                 {
