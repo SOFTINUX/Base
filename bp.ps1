@@ -39,6 +39,7 @@ $extensionsListFiles=Get-Content -Path extensions.txt -Raw
 $dependenciesListFiles=Get-Content -Path dependencies.txt -Raw
 
 $echo_title="###################"
+$ESC = [char]27
 
 Filter timestamp
 {
@@ -50,7 +51,8 @@ Filter timestamp
     $_
 }
 
-echo "Running build core ps1 with parameters: $parameters" | timestamp
+# colorize prompt: https://superuser.com/questions/1259900/how-to-colorize-the-powershell-prompt
+echo "Running build core ps1 with parameters: $ESC[33m$parameters$ESC[!p" | timestamp
 
 # Print current PowerShell environment version
 echo "Current PowerShell environment version: $($PSVersionTable.PSVersion.ToString())" | timestamp
