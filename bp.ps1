@@ -65,13 +65,13 @@ if ($PSVersionTable.PSVersion.Major -lt 4)
 
 Function ConsoleErrorAndExit([string]$message, [int]$exitCode)
 {
-    Write-Host -ForegroundColor Red $message "with error code: " $exitCode
+    Write-Host -ForegroundColor Red $message "Exiting with error code: " $exitCode
     # return $exitCode
 }
 
 Function ConsoleSafeAndExit([string]$message, [int]$exitCode)
 {
-    Write-Host -ForegroundColor Green $message "with code: " $exitCode
+    Write-Host -ForegroundColor Green $message "Exiting with code: " $exitCode
     #return $exitCode
 }
 
@@ -109,6 +109,7 @@ Function CopyFiles([string]$dest_, [string]$fileList_)
 
         if ($filepath){
             Copy-Item -Path $itemToCopy -Destination $dest_ -Force
+            Write-Host $filepath -Destination $dest_ -Force
         }
     }
 }
@@ -116,7 +117,7 @@ Function CopyFiles([string]$dest_, [string]$fileList_)
 # main
 Function Help
 {
-    echo "Available parameter is :"
+    echo "Available parameters is :"
     echo "    - clean : clean solution"
     echo "    - build : only build solution"
     echo "    - copydeps : only copy dependencies (defined in dependencies.txt)"
@@ -139,7 +140,7 @@ Function Clean
     dotnet clean
     EchoMessage("End Cleaning")
 
-    ConsoleSafeAndExit("Script end") (0)
+    ConsoleSafeAndExit("Function end") (0)
 }
 
 Function Build
@@ -148,28 +149,34 @@ Function Build
     dotnet build /property:GenerateFullPaths=true
     EchoMessage("End Build")
 
-    ConsoleSafeAndExit("Script end") (0)
+    ConsoleSafeAndExit("Function end") (0)
 }
 
 Function CreateBundles
 {
-    Write-Host "Not yet implemented."
+    ConsoleErrorAndExit("Not yet implemented.") (3)
 }
 
 Function Copyexts()
 {
+    EchoMessage("Start Copy Extenions")
     CopyFiles($ext_folder) ($extensionsListFiles)
+    EchoMessage("End Copy Extenions")
 }
 
 Function Copydeps()
 {
+    EchoMessage("Start Copy Dependencies")
     CopyFiles($dep_folder) ($dependenciesListFiles)
+    EchoMessage("End Copy Dependencies")
 }
 
 Function NoParam
 {
-    Help
-    ConsoleSafeAndExit("Script end") (0)
+    Clean
+    Build
+    Copydeps
+    Copyexts
 }
 
 switch ($parameters.ToUpper()) {
