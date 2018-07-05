@@ -37,6 +37,8 @@ $pub_folder=".\WebApplication\bin\Debug\$netVersion\publish"
 $extensionsListFiles=Get-Content -Path extensions.txt -Raw
 # Dependencies list
 $dependenciesListFiles=Get-Content -Path dependencies.txt -Raw
+# Bundle directory list
+$bundle_Dirs=Get-Content -Path bundles.txt -Raw
 
 $echo_title="###################"
 $ESC = [char]27
@@ -52,10 +54,10 @@ Filter timestamp
 }
 
 # colorize prompt: https://superuser.com/questions/1259900/how-to-colorize-the-powershell-prompt
-echo "Running build core ps1 with parameters: $ESC[33m$parameters$ESC[!p" | timestamp
+Write-Output "Running build core ps1 with parameters: $ESC[33m$parameters$ESC[!p" | timestamp
 
 # Print current PowerShell environment version
-echo "Current PowerShell environment version: $($PSVersionTable.PSVersion.ToString())" | timestamp
+Write-Output "Current PowerShell environment version: $($PSVersionTable.PSVersion.ToString())" | timestamp
 
 # Check PowerShell version, exit when below 4.0
 if ($PSVersionTable.PSVersion.Major -lt 4)
@@ -90,9 +92,9 @@ Function CreateFolderIfNotExists([string]$folder)
 
 Function EchoMessage([string]$msg_)
 {
-    echo $echo_title | timestamp
-    echo $msg_ | timestamp
-    echo $echo_title | timestamp
+    Write-Output $echo_title | timestamp
+    Write-Output $msg_ | timestamp
+    Write-Output $echo_title | timestamp
 }
 
 Function CopyFiles([string]$dest_, [string]$fileList_)
@@ -117,21 +119,21 @@ Function CopyFiles([string]$dest_, [string]$fileList_)
 # main
 Function Help
 {
-    echo "Available parameters is :"
-    echo "    - clean : clean solution"
-    echo "    - build : only build solution"
-    echo "    - copydeps : only copy dependencies (defined in dependencies.txt)"
-    echo "    - copyexts : only copy extensions (defined in extensions.txt)"
-    echo "    - bundles : only update bundles (projects defined in bundles.txt)"
-    echo "    - cleanbin : remove bin & obj folders recursively"
-    echo "    - publish : not yet implemented"
-    echo ""
-    echo "with no parameter or unsupported parameter, build proccess is:"
-    echo "    - clean solution (not cleanbin)"
-    echo "    - update bundles"
-    echo "    - build solution"
-    echo "    - copy dependencies"
-    echo "    - copy extensions"
+    Write-Output "Available parameters is :"
+    Write-Output "    - clean : clean solution"
+    Write-Output "    - build : only build solution"
+    Write-Output "    - copydeps : only copy dependencies (defined in dependencies.txt)"
+    Write-Output "    - copyexts : only copy extensions (defined in extensions.txt)"
+    Write-Output "    - bundles : only update bundles (projects defined in bundles.txt)"
+    Write-Output "    - cleanbin : remove bin & obj folders recursively"
+    Write-Output "    - publish : not yet implemented"
+    Write-Output ""
+    Write-Output "with no parameter or unsupported parameter, build proccess is:"
+    Write-Output "    - clean solution (not cleanbin)"
+    Write-Output "    - update bundles"
+    Write-Output "    - build solution"
+    Write-Output "    - copy dependencies"
+    Write-Output "    - copy extensions"
 }
 
 Function Clean
@@ -139,8 +141,19 @@ Function Clean
     EchoMessage("Start Cleaning")
     dotnet clean
     EchoMessage("End Cleaning")
+}
 
-    ConsoleSafeAndExit("Function end") (0)
+Function CreateBundles
+{
+    EchoMessage("Start Bundles")
+    ForEach ($itemToCopy in $($bundle_Dirs -split "`r`n"))
+    {
+        Push-Location $itemToCopy
+        Write-Output @("Goto: " + (Get-Location).tostring()) | timestamp
+        dotnet bundle
+        Pop-Location
+    }
+    EchoMessage("End Bundles")
 }
 
 Function Build
@@ -150,11 +163,6 @@ Function Build
     EchoMessage("End Build")
 
     ConsoleSafeAndExit("Function end") (0)
-}
-
-Function CreateBundles
-{
-    ConsoleErrorAndExit("Not yet implemented.") (3)
 }
 
 Function Copyexts()
@@ -171,9 +179,15 @@ Function Copydeps()
     EchoMessage("End Copy Dependencies")
 }
 
+Function CleanBin
+{
+    ConsoleErrorAndExit("Not yet implemented!") (3)
+}
+
 Function NoParam
 {
     Clean
+    Bundles
     Build
     Copydeps
     Copyexts
@@ -188,7 +202,7 @@ switch ($parameters.ToUpper()) {
     'COPYDEPS' { Copydeps; break }
     'COPYEXTS' { Copyexts; break }
     'BUNDLES' { CreateBundles; break }
-    'CLEANBIN' { Clean; break }
+    'CLEANBIN' { CleanBin; break }
     #'PUBLISH' { Clean; break }
     Default { NoParam; break }
 }
