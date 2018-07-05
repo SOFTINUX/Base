@@ -40,15 +40,26 @@ namespace Security.Controllers
         /// </summary>
         /// <param name="signUp_"></param>
         /// <returns></returns>
-        public IActionResult SignUp(SignInViewModel signUp_)
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult SignUp(SignUpViewModel signUp_)
         {
-            // Check required fields, if any empty return to login page
+            // Check required fields, if any empty return to signup page
             if (!ModelState.IsValid)
             {
                 signUp_.ErrorMessage = "Required data missing";
-                ModelState.AddModelError("Form not complete.", signUp_.ErrorMessage);
+                ModelState.AddModelError("IncompleteForm", signUp_.ErrorMessage);
                 return View(signUp_);
             }
+
+            if (!signUp_.Password.Equals(signUp_.RetypePassword))
+            {
+                signUp_.ErrorMessage = "Passwords don't match";
+                ModelState.AddModelError("PasswordMismatch", signUp_.ErrorMessage);
+                return View(signUp_);
+            }
+            // Create a new User object with data from signUp_
+            // TODO
 
             return View("Index");
         }

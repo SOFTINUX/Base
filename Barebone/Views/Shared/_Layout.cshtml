@@ -95,12 +95,12 @@ Licensed under the MIT License, Version 2.0. See License.txt in the project root
             @RenderBody()
         }
 
-        @* Error Message On SignIn Fail *@
+        @* Error Message On SignIn or other action Fail *@
         @if (Model != null && hasModelWithErrorMessageProperty && !String.IsNullOrEmpty(Model.ErrorMessage))
         {
             <div id="notification" class="show">
                 <div class="alert alert-danger" role="alert">
-                    <i class="icon fa fa-ban"></i><strong>LOGIN ERROR:</strong>&nbsp;@Html.Raw(Model.ErrorMessage)
+                    <i class="icon fa fa-ban"></i><strong>ERROR:</strong>&nbsp;@Html.Raw(Model.ErrorMessage)
                 </div>
             </div>
         }
