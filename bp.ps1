@@ -181,7 +181,13 @@ Function Copydeps()
 
 Function CleanBin
 {
-    ConsoleErrorAndExit("Not yet implemented!") (3)
+    EchoMessage("Start Clean bin & obj folders")
+    ForEach ($itemToRemove in $($(Get-ChildItem .\ -include bin,obj -Recurse) -split"`r`n"))
+    {
+        remove-item $itemToRemove -Force -Recurse
+        Write-Host "$itemToRemove $ESC[31mDELETED"
+    }
+    EchoMessage("End Clean bin & obj folders")
 }
 
 Function NoParam
