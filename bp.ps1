@@ -161,8 +161,6 @@ Function Build
     EchoMessage("Start Build")
     dotnet build /property:GenerateFullPaths=true
     EchoMessage("End Build")
-
-    ConsoleSafeAndExit("Function end") (0)
 }
 
 Function Copyexts()
@@ -193,7 +191,7 @@ Function CleanBin
 Function NoParam
 {
     Clean
-    Bundles
+    CreateBundles
     Build
     Copydeps
     Copyexts
@@ -202,13 +200,13 @@ Function NoParam
 switch ($parameters.ToUpper()) {
     '/?' { Help; break }
     '-h' { Help; break }
-    'HELP' { Help; break }
-    'CLEAN' { Clean; break }
-    'BUILD' { Build; break }
-    'COPYDEPS' { Copydeps; break }
-    'COPYEXTS' { Copyexts; break }
-    'BUNDLES' { CreateBundles; break }
-    'CLEANBIN' { CleanBin; break }
+    'HELP' { Help; ConsoleSafeAndExit("Finished.")(0); break }
+    'CLEAN' { Clean; ConsoleSafeAndExit("Finished.")(0); break }
+    'BUILD' { Build; ConsoleSafeAndExit("Finished.")(0); break }
+    'COPYDEPS' { Copydeps; ConsoleSafeAndExit("Finished.")(0); break }
+    'COPYEXTS' { Copyexts; ConsoleSafeAndExit("Finished.")(0); break }
+    'BUNDLES' { CreateBundles; ConsoleSafeAndExit("Finished.")(0); break }
+    'CLEANBIN' { CleanBin; ConsoleSafeAndExit("Finished.")(0); break }
     #'PUBLISH' { Clean; break }
     Default { NoParam; break }
 }
