@@ -28,7 +28,7 @@ namespace Security.Tools
         /// Second, save new data into database.
         /// </summary>
         /// <param name="model_"></param>
-        /// <returns>Not empty when something failed</returns>
+        /// <returns>Not null when something failed, else null when save went ok</returns>
         public async static Task<string> CheckAndSaveNewRole(SaveNewRoleViewModel model_, RoleManager<IdentityRole<string>> roleManager_, IStorage storage_)
         {
             if (CheckThatRoleWithCloseNameExists(model_.Role))
