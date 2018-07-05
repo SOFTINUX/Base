@@ -36,6 +36,24 @@ namespace Security.Controllers
         }
 
         /// <summary>
+        /// SignUp action request
+        /// </summary>
+        /// <param name="signUp_"></param>
+        /// <returns></returns>
+        public IActionResult SignUp(SignInViewModel signUp_)
+        {
+            // Check required fields, if any empty return to login page
+            if (!ModelState.IsValid)
+            {
+                signUp_.ErrorMessage = "Required data missing";
+                ModelState.AddModelError("Form not complete.", signUp_.ErrorMessage);
+                return View(signUp_);
+            }
+
+            return View("Index");
+        }
+
+        /// <summary>
         /// Access to the login page with GET method, and allowed when not authenticated (of course ^^).
         /// </summary>
         /// <returns>SignIn view</returns>
