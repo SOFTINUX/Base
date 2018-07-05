@@ -25,6 +25,17 @@ namespace Security.Controllers
         }
 
         /// <summary>
+        /// Access to the register page with GET method, and allowed when not authenticated (of course ^^).
+        /// </summary>
+        /// <returns>SignUp view</returns>
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult SignUp()
+        {
+            return View();
+        }
+
+        /// <summary>
         /// Access to the login page with GET method, and allowed when not authenticated (of course ^^).
         /// </summary>
         /// <returns>SignIn view</returns>
@@ -32,17 +43,6 @@ namespace Security.Controllers
         //[ImportModelStateFromTempData]
         [AllowAnonymous]
         public IActionResult SignIn()
-        {
-            return View();
-        }
-
-        /// <summary>
-        /// Access to the register page with GET method, and allowed when not authenticated (of course ^^).
-        /// </summary>
-        /// <returns>SignUp view</returns>
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult SignUp()
         {
             return View();
         }
