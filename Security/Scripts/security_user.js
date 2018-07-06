@@ -1,41 +1,41 @@
 // Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
-$(function() {
+$(function () {
     window.toastr.options.positionClass = 'toast-top-right';
 
     browseForAvatar();
     //freezePermissionCheckBox();
 
-    $("#save_profile_btn").click(function(event) {
+    $("#save_profile_btn").click(function (event) {
         edit_state("profile_form_fieldset", "save_profile_btn", event);
     });
 
-    $("#cancel_save_profile_btn").click(function(event) {
+    $("#cancel_save_profile_btn").click(function (event) {
         cancel_edit_state("profile_form", "profile_form_fieldset", "save_profile_btn", "Edit", event);
     });
 
-    $("#profile_form :input").bind("keyup change paste", function() {
+    $("#profile_form :input").bind("keyup change paste", function () {
         input_changed("save_profile_btn");
     });
 
-    $("#change_pwd-btn").click(function(event) {
+    $("#change_pwd-btn").click(function (event) {
         edit_state("pwd_form_fliedset", "change_pwd-btn", event);
     });
 
-    $("#cancel_change_pwd-btn").click(function(event) {
+    $("#cancel_change_pwd-btn").click(function (event) {
         cancel_edit_state("pwd_form", "pwd_form_fliedset", "change_pwd-btn", "Change", event);
     });
 
-    $("#pwd_form :input").bind("keyup change paste", function() {
+    $("#pwd_form :input").bind("keyup change paste", function () {
         input_changed("change_pwd-btn");
     });
 
-    $('#inputAvatar').change(function() {
+    $('#inputAvatar').change(function () {
         $('#file_path').val($(this).val());
     });
 
-    $('#add-role').click(function() {
+    $('#add-role').click(function () {
         $("#edit-role-area").addClass("hidden");
 
         if ($("#add-role-area").hasClass("hidden"))
@@ -44,7 +44,7 @@ $(function() {
             $("#add-role-area").addClass("hidden");
     });
 
-    $('#edit-role').click(function() {
+    $('#edit-role').click(function () {
         $("#add-role-area").addClass("hidden");
 
         if ($("#edit-role-area").hasClass("hidden"))
@@ -53,7 +53,7 @@ $(function() {
             $("#edit-role-area").addClass("hidden");
     });
 
-    $('#save-role-btn').click(function() {
+    $('#save-role-btn').click(function () {
         console.log($("#role_name_input").val());
         if (!$("#role_name_input").val()) {
             window.toastr.warning('No role given.', 'Role not saved!');
@@ -70,35 +70,50 @@ $(function() {
         window.toastr.success('role saved.');
     });
 
-    $('#role_name_input').focusout(function() {
+    $('#role_name_input').focusout(function () {
         input_form_group_validator("#role_name_input");
     });
 
-    $('#role_name_input').change(function() {
+    $('#role_name_input').change(function () {
         input_form_group_validator("#role_name_input");
     });
 
     $('#collapse').on('click', function () {
-        $('.extension-row').each(function() {
-            if ($(this).hasClass('collapsed'))
-            {
+        var state = $(this).data('state');
+        if (state == 'closed') {
+            $(this).data('state', 'open');
+            // TODO change icon to open double chevron
+
+            // open all the collapsed children
+            $('.extension-row.collapsed').each(function () {
                 $(this).removeClass('collapsed');
-                $(this).data('aria-expended', 'true');
-                $('.row.collapse').each(function() {
-                    $(this).toggleClass('in');
+                $(this).data('aria-expanded', 'true');
+                $('.row.collapse').each(function () {
+                    $(this).addClass('in');
                 });
-            }
-            else{
-                $(this).toggleClass('collapsed');
-                $(this).data('aria-expended', 'false');
-                $('.row.collapse').each(function() {
-                    $(this).removeClass('in');
-                });
-            }
-        });
+            });
+
+        } else {
+            $(this).data('state', 'closed');
+            // TODO change icon to closed double chevron
+
+            // collapse all the children
+            $('.extension-row').each(function () {
+                if (!$(this).hasClass('collapsed')) {
+                    $(this).addClass('collapsed');
+                    $(this).data('aria-expanded', 'false');
+                    $('.row.collapse').each(function () {
+                        $(this).removeClass('in');
+                    });
+                }
+            });
+
+
+        }
+
     });
 
-    $('#btnRight').click(function(e) {
+    $('#btnRight').click(function (e) {
         var selectedOpts = $('#availableExtensions option:selected');
         if (selectedOpts.length === 0) {
             window.toastr.warning('You must select at least one extension from the list of available extensions.', 'No extension selected');
@@ -148,7 +163,7 @@ $(function() {
 });
 
 function browseForAvatar() {
-    $('#file_browser').click(function(event){
+    $('#file_browser').click(function (event) {
         event.preventDefault();
         $('#inputAvatar').click();
     });
@@ -157,7 +172,7 @@ function browseForAvatar() {
 /* events handler */
 function listenToPermissionsCheckboxEvents() {
     console.log("attaching event handling");
-    $('input').on('change', function(event){
+    $('input').on('change', function (event) {
         console.log("input was changed!");
         event.preventDefault();
     });
@@ -171,7 +186,7 @@ function savePermission(scope, role, permission) {
         "permissionId_": permission,
         "scope_": scope
     };
-    $.ajax("/administration/updaterolepermission", { data: params } );
+    $.ajax("/administration/updaterolepermission", { data: params });
 }
 
 function edit_state(fieldsetid, editbtnid, event) {
@@ -213,29 +228,29 @@ function checkClick() {
     var base = splitted[0] + "_" + splitted[1];
     var activeCheckedPermissions = "NEVER";
 
-    if(event.target.checked) {
+    if (event.target.checked) {
         // when checking, impacted checkboxes become checked and disabled
         switch (splitted[2]) {
-        case "ADMIN":
-            $("#" + base + "_WRITE, #" + base + "_READ").prop("checked", true).prop("disabled", true);
-            break;
-        case "WRITE":
-            $("#" + base + "_READ").prop("checked", true).prop("disabled", true);
-            break;
+            case "ADMIN":
+                $("#" + base + "_WRITE, #" + base + "_READ").prop("checked", true).prop("disabled", true);
+                break;
+            case "WRITE":
+                $("#" + base + "_READ").prop("checked", true).prop("disabled", true);
+                break;
         }
         savePermission(splitted[0], splitted[1], splitted[2]);
     }
     else {
         // when unchecking, first next checkbox becomes enabled
         switch (splitted[2]) {
-        case "ADMIN":
-            $("#" + base + "_WRITE").prop("disabled", false);
-            activeCheckedPermissions = "WRITE";
-            break;
-        case "WRITE":
-            $("#" + base + "_READ").prop("disabled", false);
-            activeCheckedPermissions = "READ";
-            break;
+            case "ADMIN":
+                $("#" + base + "_WRITE").prop("disabled", false);
+                activeCheckedPermissions = "WRITE";
+                break;
+            case "WRITE":
+                $("#" + base + "_READ").prop("disabled", false);
+                activeCheckedPermissions = "READ";
+                break;
         }
         savePermission(splitted[0], splitted[1], activeCheckedPermissions);
     }
@@ -246,8 +261,8 @@ function removeRoleLink() {
     var splitted = $(event.target).parent().data().roleId.split('_');
     console.log("Extension name: ", splitted[0], " Role name: ", splitted[1]);
 
-    $("#moduleName").text( splitted[0] );
-    $("#roleName").text( splitted[1] );
+    $("#moduleName").text(splitted[0]);
+    $("#roleName").text(splitted[1]);
 
     $('#myModal').modal('show');
 }
