@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using Security.Data.Abstractions;
 using Microsoft.Extensions.Logging;
 using Security.Common.Enums;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SeedDatabase.Controllers
 {
@@ -20,6 +22,8 @@ namespace SeedDatabase.Controllers
         private readonly RoleManager<IdentityRole<string>> _roleManager;
         private readonly IStorage _storage;
         protected ILogger _logger;
+
+        private List<IdentityRole<string>> _createdRoles = new List<IdentityRole<string>>();
 
         public SeedDatabaseController(UserManager<Security.Data.Entities.User> userManager_,
             RoleManager<IdentityRole<string>> roleManager_, ILoggerFactory loggerFactory_,
@@ -44,15 +48,16 @@ namespace SeedDatabase.Controllers
         {
             // Get the list of the role from the enum
             Role[] roles = (Role[])Enum.GetValues(typeof(Role));
-
+ 
             foreach(var r in roles)
             {
                 // create an identity role object out of the enum value
                 IdentityRole<string> identityRole = new IdentityRole<string>
                 {
-                    Id = r.GetRoleName(),
+                    // Automatic ID
                     Name = r.GetRoleName()
                 };
+                _createdRoles.Add(identityRole);
 
                 if(!await _roleManager.RoleExistsAsync(roleName: identityRole.Name))
                 {
@@ -138,24 +143,27 @@ namespace SeedDatabase.Controllers
                 return saveResult;
 
             // Save ROLE-PERMISSION
-
+            var adminRoleId = _createdRoles.FirstOrDefault(r => r.Name == Role.Administrator.ToString()).Id;
+            var userRoleId = _createdRoles.FirstOrDefault(r => r.Name == Role.User.ToString()).Id;
+            var anonymousRoleId = _createdRoles.FirstOrDefault(r => r.Name == Role.Anonymous.ToString()).Id;
+           
             // 1. Admin role: admin (globally)
-            saveResult = SaveRolePermission(Role.Administrator.ToString(), Permission.Admin.ToString());
+            saveResult = SaveRolePermission(adminRoleId, Permission.Admin.ToString());
             if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
                 return saveResult;
 
             // 2. Admin role: admin (Chinook)
-            saveResult = SaveRolePermission(Role.Administrator.ToString(), Permission.Admin.ToString(), "Chinook");
+            saveResult = SaveRolePermission(adminRoleId, Permission.Admin.ToString(), "Chinook");
             if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
                 return saveResult;
 
             // 3. User role: write (globally)
-            saveResult = SaveRolePermission(Role.User.ToString(), Permission.Write.ToString());
+            saveResult = SaveRolePermission(userRoleId, Permission.Write.ToString());
             if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
                 return saveResult;
 
             // 4. Anonymous role: read (globally)
-            saveResult = SaveRolePermission(Role.Anonymous.ToString(), Permission.Read.ToString());
+            saveResult = SaveRolePermission(anonymousRoleId, Permission.Read.ToString());
             if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
                 return saveResult;
 
@@ -197,7 +205,7 @@ namespace SeedDatabase.Controllers
             catch (Exception e)
             {
                 _logger.LogCritical("\"Error saving permission (@permission): {@message}, \n\rInnerException: {@innerException} \n\rStackTrace: {@stackTrace} \"", permission1.Name, e.Message, e.InnerException, e.StackTrace );
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Cannot saving permissions. Error: {e.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Cannot save permissions. Error: {e.Message}");
             }
         }
 
@@ -225,7 +233,7 @@ namespace SeedDatabase.Controllers
             catch (Exception e)
             {
                 _logger.LogCritical("\"Error saving user-permission (@userPermission): {@message}, \n\rInnerException: {@innerException} \n\rStackTrace: {@stackTrace} \"", permissionId_, e.Message, e.InnerException, e.StackTrace );
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Cannot saving user-permission. Error: {e.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Cannot save user-permission. Error: {e.Message}");
             }
         }
 
@@ -256,7 +264,7 @@ namespace SeedDatabase.Controllers
             catch (Exception e)
             {
                 _logger.LogCritical("\"Error saving role-permission (@rolePermission, @permissionId): {@message}, \n\rInnerException: {@innerException} \n\rStackTrace: {@stackTrace} \"", roleId_, permission_, e.Message, e.InnerException, e.StackTrace );
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Cannot saving role-permission. Error: {e.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Cannot save role-permission. Error: {e.Message}");
             }
         }
 
