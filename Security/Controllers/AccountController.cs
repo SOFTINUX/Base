@@ -154,7 +154,7 @@ namespace Security.Controllers
             return View("User");
         }
 
-        [HttpGet]
+        [HttpPost]
         [AllowAnonymous]
         public IActionResult CheckUserNameExist(string userName_)
         {
@@ -163,7 +163,7 @@ namespace Security.Controllers
             //     _logger.LogWarning($"User {userName_} already taken");
             //     ModelState.AddModelError("UserName",$"User {userName_} already taken.");
             // }
-            return Json(RegisterUser.IsUserExist(Storage, userName_));
+            return Json(!RegisterUser.IsUserExist(Storage, userName_));
         }
     }
 }
