@@ -2,6 +2,7 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Security.ViewModels.Account
 {
@@ -12,14 +13,17 @@ namespace Security.ViewModels.Account
         /// </summary>
         /// <returns></returns>
         [Required]
-        [StringLength(64)]
-        [Display(Name = "First Name")]
+        [Display(Name = "User Name")]
+        [StringLength(12, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = 4)]
+        [Remote("CheckUserNameExist", "Account", HttpMethod = "POST", ErrorMessage = "User name already taken.")]
         public string UserName { get; set; }
 
         /// <summary>
         /// E-mail field
         /// </summary>
         [Display(Name = "Email")]
+        [DataType(DataType.EmailAddress)]
+        [RegularExpression("^[0-9a-z-A-Z]+([0-9a-z-A-Z]*[-._+])*[0-9a-z-A-Z]+@[0-9a-z-A-Z]+([-.][0-9a-z-A-Z]+)*([0-9a-z-A-Z]*[.])[a-zA-Z]{2,6}$", ErrorMessage = "Incorrect Email format!")]
         [Required]
         [StringLength(64)]
         public string Email { get; set; }
