@@ -1,4 +1,8 @@
+// Copyright © 2017 SOFTINUX. All rights reserved.
+// Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
+
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Xunit;
 
 namespace CommonTest
@@ -14,30 +18,6 @@ namespace CommonTest
             this.DatabaseFixture = databaseFixture_;
         }
         protected DatabaseFixture DatabaseFixture { get; set; }
-
-        /// <summary>
-        /// Utility method to start an EF Core transaction
-        /// </summary>
-        public void BeginTransaction()
-        {
-            ((DbContext)DatabaseFixture.Storage.StorageContext).Database.BeginTransaction();
-        }
-
-        /// <summary>
-        /// Utility method to commit an EF Core transaction
-        /// </summary>
-        public void CommitTransaction()
-        {
-            ((DbContext)DatabaseFixture.Storage.StorageContext).Database.CommitTransaction();
-        }
-
-        /// <summary>
-        /// Utility method to rollback an EF Core transaction
-        /// </summary>
-        public void RollbackTransaction()
-        {
-            ((DbContext)DatabaseFixture.Storage.StorageContext).Database.RollbackTransaction();
-        }
 
     }
 }
