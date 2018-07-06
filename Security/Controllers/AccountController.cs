@@ -1,6 +1,7 @@
 ﻿// Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Authorization;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Security.Data.Entities;
 using Security.ViewModels.Account;
+using Security.Tools;
 using ControllerBase = Infrastructure.ControllerBase;
 
 namespace Security.Controllers
@@ -150,6 +152,18 @@ namespace Security.Controllers
         public IActionResult EditProfile(string userId_)
         {
             return View("User");
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult CheckUserNameExist(string userName_)
+        {
+            // if (!RegisterUser.IsUserExist(Storage, userName_))
+            // {
+            //     _logger.LogWarning($"User {userName_} already taken");
+            //     ModelState.AddModelError("UserName",$"User {userName_} already taken.");
+            // }
+            return Json(RegisterUser.IsUserExist(Storage, userName_));
         }
     }
 }
