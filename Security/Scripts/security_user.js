@@ -164,10 +164,10 @@ function listenToPermissionsCheckboxEvents() {
 }
 
 function savePermission(scope, role, permission) {
-    // string roleId_, string permissionId_, string scope_
+    // string roleName_, string permissionId_, string scope_
     var params =
     {
-        "roleId_": role,
+        "roleName_": role,
         "permissionId_": permission,
         "scope_": scope
     };

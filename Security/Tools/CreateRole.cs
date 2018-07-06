@@ -34,7 +34,7 @@ namespace Security.Tools
                 // Save the Role
                 IdentityRole<string> identityRole = new IdentityRole<string>
                 {
-                    Id = model_.Role,
+                    // Auto-incremented ID
                     Name = model_.Role
                 };
                 await roleManager_.CreateAsync(identityRole);

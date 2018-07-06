@@ -40,6 +40,15 @@ namespace Security.Controllers
             // TODO move all this code to Tools.PermissionTools (new static class)
             GrantViewModel model = new GrantViewModel();
 
+            // Create a dictionary with role id and name, since we will use role name in GrantViewModel
+            // and we have role id in RolePermission table.
+            Dictionary<string, string> roleNameByRoleId = new Dictionary<string, string>();
+            var roles = _roleManager.Roles.ToList();
+            foreach(var role in roles)
+            {
+                roleNameByRoleId.Add(role.Id, role.Name);
+            }
+
             // 1. Get all scopes from available extensions, create initial dictionaries
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
             {
@@ -59,11 +68,12 @@ namespace Security.Controllers
                     // A database record related to a not loaded extension (scope). Ignore this.
                     continue;
                 }
-                if(!model.PermissionsByRoleAndScope[rp.Scope].ContainsKey(rp.RoleId))
-                    model.PermissionsByRoleAndScope[rp.Scope].Add(rp.RoleId, new List<Common.Enums.Permission>());
+                string roleName = roleNameByRoleId.ContainsKey(rp.RoleId) ? roleNameByRoleId[rp.RoleId] : null;
+                if(!model.PermissionsByRoleAndScope[rp.Scope].ContainsKey(roleName))
+                    model.PermissionsByRoleAndScope[rp.Scope].Add(roleName, new List<Common.Enums.Permission>());
                 // Format the list of Permission enum values according to DB enum value
-                model.PermissionsByRoleAndScope[rp.Scope][rp.RoleId] = PermissionHelper.GetLowerOrEqual(PermissionHelper.FromId(rp.PermissionId));
-                rolesWithPerms.Add(rp.RoleId);
+                model.PermissionsByRoleAndScope[rp.Scope][roleName] = PermissionHelper.GetLowerOrEqual(PermissionHelper.FromId(rp.PermissionId));
+                rolesWithPerms.Add(roleName);
             }
 
             // 3. Also read roles for which no permissions were set
@@ -82,19 +92,20 @@ namespace Security.Controllers
         /// <summary>
         /// Update scoped role-permission.
         /// </summary>
-        /// <param name="roleId_">Role</param>
+        /// <param name="roleName_">Role name</param>
         /// <param name="permissionId_">New permission level to save</param>
         /// <param name="scope_">Scope</param>
         /// <returns>JSON with "true" when it succeeded</returns>
         // GET
         [PermissionRequirement(Permission.Admin)]
         [Route("administration/updaterolepermission")]
-        public IActionResult UpdateRole(string roleId_, string permissionId_, string scope_)
+        public async Task<IActionResult> UpdateRole(string roleName_, string permissionId_, string scope_)
         {
+            string roleId = (await _roleManager.FindByNameAsync(roleName_)).Id;
             IRolePermissionRepository repo = Storage.GetRepository<IRolePermissionRepository>();
-            repo.Delete(roleId_, scope_);
+            repo.Delete(roleId, scope_);
             if(!string.IsNullOrEmpty(permissionId_.ToLowerInvariant()))
-                repo.Create(new RolePermission { RoleId = roleId_, PermissionId = permissionId_.UppercaseFirst(), Scope = scope_ });
+                repo.Create(new RolePermission { RoleId = roleId, PermissionId = permissionId_.UppercaseFirst(), Scope = scope_ });
             Storage.Save();
             return new JsonResult(true);
         }
@@ -102,15 +113,16 @@ namespace Security.Controllers
         /// <summary>
         /// Delete a link between a role and an extension.
         /// </summary>
-        /// <param name="roleId_"></param>
+        /// <param name="roleName_"></param>
         /// <param name="scope_"></param>
         /// <returns></returns>
-        public IActionResult DeleteRoleLink(string roleId_, string scope_)
+        public async Task<IActionResult> DeleteRoleLink(string roleName_, string scope_)
         {
+            string roleId = (await _roleManager.FindByNameAsync(roleName_)).Id;
             IRolePermissionRepository repo = Storage.GetRepository<IRolePermissionRepository>();
-            if (repo.FindBy(roleId_, scope_) != null)
+            if (repo.FindBy(roleId, scope_) != null)
             {
-                repo.Delete(roleId_, scope_);
+                repo.Delete(roleId, scope_);
                 Storage.Save();
                 return new JsonResult(true);
             }
