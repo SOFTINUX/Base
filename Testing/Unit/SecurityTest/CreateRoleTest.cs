@@ -59,6 +59,44 @@ namespace SecurityTest
             }
         }
 
-        // TODO test with a role name that is already taken
+        [Fact]
+        public async void TestCheckAndSaveNewRole_NameAlreadyTaken()
+        {
+            string roleName = "New Role 1 " + DateTime.Now.Ticks;
+            var permRepo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
+
+            try
+            {
+                // Arrange
+                SaveNewRoleViewModel model = new SaveNewRoleViewModel
+                {
+                    // Really unique value
+                    Role = roleName,
+                    Extensions = new System.Collections.Generic.List<string> { "Security" },
+                    Permission = Security.Common.Enums.Permission.Write.ToString()
+                };
+
+                // Execute
+                var result = CreateRole.CheckAndSaveNewRole(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage).Result;
+                Console.WriteLine(result);
+                Assert.Null(result);
+
+                //CleanTrackedEntities();
+
+                result = CreateRole.CheckAndSaveNewRole(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage).Result;
+                Console.WriteLine(result);
+                Assert.NotNull(result);
+                Assert.Equal("A role with this name already exists", result);
+            }
+            finally
+            {
+                // Cleanup created data
+                foreach(var rolePermission in permRepo.FilteredByRoleId(roleName))
+                    permRepo.Delete(rolePermission.RoleId, rolePermission.Scope);
+
+                await DatabaseFixture.RoleManager.DeleteAsync(await DatabaseFixture.RoleManager.FindByNameAsync(roleName));
+            }
+        }
+
     }
 }
