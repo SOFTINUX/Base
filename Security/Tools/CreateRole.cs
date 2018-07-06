@@ -45,6 +45,8 @@ namespace Security.Tools
                 {
                     repo.Create(new RolePermission { RoleId = model_.Role, PermissionId = permissionEnum.ToString(), Scope = extension });
                 }
+                storage_.Save();
+                
                 return null;
 
             }
