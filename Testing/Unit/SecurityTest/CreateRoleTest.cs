@@ -3,6 +3,7 @@
 
 using System;
 using CommonTest;
+using Microsoft.AspNetCore.Identity;
 using Security.Data.Abstractions;
 using Security.Tools;
 using Security.ViewModels.Permissions;
@@ -23,7 +24,6 @@ namespace SecurityTest
         {
             string roleName = "New Role 1 " + DateTime.Now.Ticks;
             var permRepo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
-
             try
             {
                 // Arrange
@@ -42,20 +42,21 @@ namespace SecurityTest
 
                 // Read back and assert that we have the expected data
                 // 1. Expect to find the Role record for the new role
-                var recordedRole = await DatabaseFixture.RoleManager.FindByNameAsync(model.Role);
-                Assert.NotNull(recordedRole);
+                var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(model.Role);
+                Assert.NotNull(createdRole);
 
                 // 2. Expect to have a single record in RolePermission table for the new role
-                var rolePermissionRecords = permRepo.FilteredByRoleId(model.Role);
+                var rolePermissionRecords = permRepo.FilteredByRoleId(createdRole.Id);
                 Assert.Single(rolePermissionRecords);
             }
             finally
             {
                 // Cleanup created data
-                foreach(var rolePermission in permRepo.FilteredByRoleId(roleName))
+                var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(roleName);
+                foreach (var rolePermission in permRepo.FilteredByRoleId(createdRole.Id))
                     permRepo.Delete(rolePermission.RoleId, rolePermission.Scope);
 
-                await DatabaseFixture.RoleManager.DeleteAsync(await DatabaseFixture.RoleManager.FindByNameAsync(roleName));
+                await DatabaseFixture.RoleManager.DeleteAsync(createdRole);
             }
         }
 
@@ -81,7 +82,9 @@ namespace SecurityTest
                 Console.WriteLine(result);
                 Assert.Null(result);
 
-                //CleanTrackedEntities();
+                // Read back and expect to find the Role record for the new role
+                var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(model.Role);
+                Assert.NotNull(createdRole);
 
                 result = CreateRole.CheckAndSaveNewRole(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage).Result;
                 Console.WriteLine(result);
@@ -91,12 +94,14 @@ namespace SecurityTest
             finally
             {
                 // Cleanup created data
-                foreach(var rolePermission in permRepo.FilteredByRoleId(roleName))
+                var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(roleName);
+                foreach (var rolePermission in permRepo.FilteredByRoleId(createdRole.Id))
                     permRepo.Delete(rolePermission.RoleId, rolePermission.Scope);
 
-                await DatabaseFixture.RoleManager.DeleteAsync(await DatabaseFixture.RoleManager.FindByNameAsync(roleName));
+                await DatabaseFixture.RoleManager.DeleteAsync(createdRole);
             }
         }
-
     }
+
 }
+

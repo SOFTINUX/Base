@@ -21,7 +21,7 @@ namespace Security.Tools
         /// <returns>Not null when something failed, else null when save went ok</returns>
         public async static Task<string> CheckAndSaveNewRole(SaveNewRoleViewModel model_, RoleManager<IdentityRole<string>> roleManager_, IStorage storage_)
         {
-            if (UpdateRole.CheckThatRoleOfThisNameExists(model_.Role))
+            if (await UpdateRole.CheckThatRoleOfThisNameExists(roleManager_, model_.Role))
             {
                 return "A role with this name already exists";
             }
@@ -43,7 +43,7 @@ namespace Security.Tools
                 IRolePermissionRepository repo = storage_.GetRepository<IRolePermissionRepository>();
                 foreach (string extension in model_.Extensions)
                 {
-                    repo.Create(new RolePermission { RoleId = model_.Role, PermissionId = permissionEnum.ToString(), Scope = extension });
+                    repo.Create(new RolePermission { RoleId = identityRole.Id, PermissionId = permissionEnum.ToString(), Scope = extension });
                 }
                 storage_.Save();
                 
