@@ -1,3 +1,6 @@
+// Copyright © 2017 SOFTINUX. All rights reserved.
+// Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
+
 using System;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
@@ -8,21 +11,8 @@ using Security.ViewModels.Permissions;
 
 namespace Security.Tools
 {
-    public static class RoleTools
+    public static class CreateRole
     {
-        /// <summary>
-        /// Check that a role with a close name exists.
-        /// Compare role names ignoring case and spaces, so that
-        /// "Role 1" and "role1" are considered homonyms (too close).
-        /// </summary>
-        /// <param name="roleName_"></param>
-        /// <returns>true when a role with a close name is found</returns>
-        public static bool CheckThatRoleWithCloseNameExists(string roleName_)
-        {
-            // TODO
-            return false;
-        }
-
         /// <summary>
         /// First, check that a role with a close name doesn't already exist.
         /// Second, save new data into database.
@@ -31,7 +21,7 @@ namespace Security.Tools
         /// <returns>Not null when something failed, else null when save went ok</returns>
         public async static Task<string> CheckAndSaveNewRole(SaveNewRoleViewModel model_, RoleManager<IdentityRole<string>> roleManager_, IStorage storage_)
         {
-            if (CheckThatRoleWithCloseNameExists(model_.Role))
+            if (UpdateRole.CheckThatRoleWithCloseNameExists(model_.Role))
             {
                 return "A role with a close name already exists";
             }
