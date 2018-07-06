@@ -54,5 +54,18 @@ namespace CommonTest
             DatabaseFixture.Storage.Save();
 
         }
+
+        protected void CleanTrackedEntities()
+        {
+            var changedEntriesCopy = ((DbContext)DatabaseFixture.Storage.StorageContext).ChangeTracker.Entries()	
+                //.Where(e => e.State == EntityState.Added ||	
+                //            e.State == EntityState.Modified ||	
+                //            e.State == EntityState.Deleted)	
+                .ToList();	
+            foreach (var entity in changedEntriesCopy)	
+            {	
+                ((DbContext)DatabaseFixture.Storage.StorageContext).Entry(entity.Entity).State = EntityState.Detached;	
+            }
+        }
     }
 }

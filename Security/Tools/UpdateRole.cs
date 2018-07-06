@@ -6,13 +6,11 @@ namespace Security.Tools
     public static class UpdateRole
     {
         /// <summary>
-        /// Check that a role with a close name exists.
-        /// Compare role names ignoring case and spaces, so that
-        /// "Role 1" and "role1" are considered homonyms (too close).
+        /// Check that a role with this name exists.
         /// </summary>
         /// <param name="roleName_"></param>
         /// <returns>true when a role with a close name is found</returns>
-        public static bool CheckThatRoleWithCloseNameExists(string roleName_)
+        public static bool CheckThatRoleOfThisNameExists(string roleName_)
         {
             // TODO
             return false;
