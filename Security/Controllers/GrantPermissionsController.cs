@@ -120,7 +120,7 @@ namespace Security.Controllers
         [HttpPost]
         public ObjectResult SaveNewRole(SaveNewRoleViewModel model_)
         {
-            string error = Tools.RoleTools.CheckAndSaveNewRole(model_, _roleManager, Storage).Result;
+            string error = Tools.CreateRole.CheckAndSaveNewRole(model_, _roleManager, Storage).Result;
             return StatusCode(string.IsNullOrEmpty(error) ? 201 : 400, error);
         }
     }

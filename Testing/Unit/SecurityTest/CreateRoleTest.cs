@@ -11,9 +11,9 @@ using Xunit;
 namespace SecurityTest
 {
     [Collection("Database collection")]
-    public class RoleToolsTest : CommonTestWithDatabase
+    public class CreateRoleTest : CommonTestWithDatabase
     {
-        public RoleToolsTest(DatabaseFixture databaseFixture_) : base(databaseFixture_)
+        public CreateRoleTest(DatabaseFixture databaseFixture_) : base(databaseFixture_)
         {
 
         }
@@ -31,7 +31,7 @@ namespace SecurityTest
             };
 
             // Execute
-            var result = RoleTools.CheckAndSaveNewRole(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage).Result;
+            var result = CreateRole.CheckAndSaveNewRole(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage).Result;
             Console.WriteLine(result);
             Assert.Null(result);
 
