@@ -14,16 +14,7 @@ namespace Security.ViewModels.Account
         [Required]
         [StringLength(64)]
         [Display(Name = "First Name")]
-        public string FirstName { get; set; }
-
-        /// <summary>
-        /// Last name field
-        /// </summary>
-        /// <returns></returns>
-        [Required]
-        [StringLength(64)]
-        [Display(Name = "Last Name")]
-        public string LastName { get; set; }
+        public string UserName { get; set; }
 
         /// <summary>
         /// E-mail field
@@ -40,14 +31,6 @@ namespace Security.ViewModels.Account
         [Required]
         [StringLength(64)]
         public string Password { get; set; }
-
-        /// <summary>
-        /// Retype Password field
-        /// </summary>
-        [Display(Name = "Retype Password")]
-        [Required]
-        [StringLength(64)]
-        public string RetypePassword { get; set; }
 
         public string ErrorMessage { get; set; }
     }

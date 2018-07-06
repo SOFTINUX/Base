@@ -51,13 +51,6 @@ namespace Security.Controllers
                 ModelState.AddModelError("IncompleteForm", signUp_.ErrorMessage);
                 return View(signUp_);
             }
-
-            if (!signUp_.Password.Equals(signUp_.RetypePassword))
-            {
-                signUp_.ErrorMessage = "Passwords don't match";
-                ModelState.AddModelError("PasswordMismatch", signUp_.ErrorMessage);
-                return View(signUp_);
-            }
             // Create a new User object with data from signUp_
             // TODO
 

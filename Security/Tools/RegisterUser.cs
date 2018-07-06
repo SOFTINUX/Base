@@ -32,15 +32,15 @@ namespace Security.Tools
         /// <returns>true if create, false if fail</returns>
         public async static Task<bool> CreateNewUser(IStorage storage_,SignUpViewModel viewModel_)
         {
-            if (IsUserExist(storage_, viewModel_.FirstName))
+            if (IsUserExist(storage_, viewModel_.UserName))
             {
-                return true;
+                return false;
             }
             if (IsUserExist(storage_, viewModel_.Email))
             {
-                return true;
+                return false;
             }
-            throw new NotImplementedException();
+            return true;
         }
     }
 }
