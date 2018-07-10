@@ -32,8 +32,10 @@ namespace Security.ViewModels.Account
         /// Password field
         /// </summary>
         [Display(Name = "Password")]
+        [DataType(DataType.Password)]
+        [CustomValidation(typeof(Security.Common.Attributes.PasswordAttributes),"PasswordStrongTest")]
         [Required]
-        [StringLength(64)]
+        [StringLength(10, MinimumLength = 6)]
         public string Password { get; set; }
 
         public string ErrorMessage { get; set; }
