@@ -6,6 +6,7 @@ using Barebone.ViewModels.Barebone;
 using ExtCore.Data.Abstractions;
 using ControllerBase = Infrastructure.ControllerBase;
 using Microsoft.Extensions.Configuration;
+using System.Diagnostics;
 
 namespace Barebone.Controllers
 {
@@ -26,5 +27,10 @@ namespace Barebone.Controllers
             return View(new IndexViewModelFactory().Create());
         }
 
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new Barebone.ViewModels.ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
     }
 }

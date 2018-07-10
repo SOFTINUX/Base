@@ -39,11 +39,13 @@ namespace Security.Controllers
 
         /// <summary>
         /// SignUp action request
+        /// POST: /Account/SignUp
         /// </summary>
         /// <param name="signUp_"></param>
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public IActionResult SignUp(SignUpViewModel signUp_)
         {
             // Check required fields, if any empty return to signup page
@@ -53,8 +55,18 @@ namespace Security.Controllers
                 ModelState.AddModelError("IncompleteForm", signUp_.ErrorMessage);
                 return View(signUp_);
             }
+
             // Create a new User object with data from signUp_
-            // TODO
+            //var user = new ApplicationUser { UserName = signUp_.UserName, Email = signUp_.Email };
+            //var result = await UserManager.CreateAsync(user, model.Password);
+            /*
+            if (result.Succeeded)
+            {
+                await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                return RedirectToAction("Index", "Home");
+            }
+            AddErrors(result);
+            */
 
             return View("Index");
         }

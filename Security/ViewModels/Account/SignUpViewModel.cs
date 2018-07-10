@@ -14,7 +14,7 @@ namespace Security.ViewModels.Account
         /// <returns></returns>
         [Required]
         [Display(Name = "User Name")]
-        [StringLength(12, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = 4)]
+        [StringLength(256, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = 4)]
         [Remote("CheckUserNameExist", "Account", HttpMethod = "POST", ErrorMessage = "User name already taken.")]
         public string UserName { get; set; }
 
@@ -25,7 +25,7 @@ namespace Security.ViewModels.Account
         [DataType(DataType.EmailAddress)]
         [RegularExpression("^[0-9a-z-A-Z]+([0-9a-z-A-Z]*[-._+])*[0-9a-z-A-Z]+@[0-9a-z-A-Z]+([-.][0-9a-z-A-Z]+)*([0-9a-z-A-Z]*[.])[a-zA-Z]{2,6}$", ErrorMessage = "Incorrect Email format!")]
         [Required]
-        [StringLength(64)]
+        [StringLength(256)]
         public string Email { get; set; }
 
         /// <summary>
@@ -33,9 +33,9 @@ namespace Security.ViewModels.Account
         /// </summary>
         [Display(Name = "Password")]
         [DataType(DataType.Password)]
-        [CustomValidation(typeof(Security.Common.Attributes.PasswordAttributes),"PasswordStrongTest")]
+        //[CustomValidation(typeof(Security.Common.Attributes.PasswordAttributes),"PasswordStrongTest")]
         [Required]
-        [StringLength(10, MinimumLength = 6)]
+        [StringLength(10, MinimumLength = 8)]
         public string Password { get; set; }
 
         public string ErrorMessage { get; set; }
