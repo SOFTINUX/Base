@@ -1,17 +1,15 @@
 {
-    "workbench.colorTheme": "Default Dark+",
     "editor.formatOnSave": false,
     "dotnet-test-explorer.testProjectPath": ".\\Testing\\Unit\\SecurityTest",
-    "dotnet-test-explorer.build": false,
     "dotnet-test-explorer.enableTelemetry": false,
-    "dotnet-test-explorer.pathForResultFile": "C:/",
+    "dotnet-test-explorer.pathForResultFile": "${workspaceFolder}",
     "editor.showFoldingControls": "always",
     "editor.fontLigatures": true,
     "editor.renderControlCharacters": false,
     "workbench.sideBar.location": "left",
     "workbench.activityBar.visible": true,
     "workbench.colorCustomizations": {
-        "editorGutter.background": "#1e1e1e",
+        //"editorGutter.background": "#1e1e1e",
         "tab.activeBorder": "#FFA500",
     },
     // Controls if quick suggestions should show up while typing
