@@ -51,7 +51,7 @@ namespace Security.Controllers
             // Check required fields, if any empty return to signup page
             if (!ModelState.IsValid)
             {
-                signUp_.ErrorMessage = "Form as error(s)";
+                signUp_.ErrorMessage = "Form has error(s)";
                 ModelState.AddModelError("IncompleteForm", signUp_.ErrorMessage);
                 return View(signUp_);
             }

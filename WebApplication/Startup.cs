@@ -125,7 +125,7 @@ namespace WebApplication
                 //applicationBuilder_.UseBrowserLink();
             }
             else{
-                applicationBuilder_.UseExceptionHandler("/Error");
+                applicationBuilder_.UseExceptionHandler("/Barebone/Error");
                 applicationBuilder_.UseHsts();
             }
 
