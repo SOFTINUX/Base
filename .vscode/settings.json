@@ -1,6 +1,6 @@
 {
     "editor.formatOnSave": false,
-    "dotnet-test-explorer.testProjectPath": ".\\Testing\\Unit\\SecurityTest",
+    "dotnet-test-explorer.testProjectPath": "./Testing/Unit/SecurityTest",
     "dotnet-test-explorer.enableTelemetry": false,
     "dotnet-test-explorer.pathForResultFile": "${workspaceFolder}",
     "editor.showFoldingControls": "always",
