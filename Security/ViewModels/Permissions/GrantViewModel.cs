@@ -24,8 +24,6 @@ namespace Security.ViewModels.Permissions
         /// <returns></returns>
         public Dictionary<string, Dictionary<string, List<Permission>>> PermissionsByUserAndScope {get; set;}
 
-        public List<IdentityRole<string>> RolesManager { get; set; }
-
         public GrantViewModel()
         {
             PermissionsByRoleAndScope = new Dictionary<string, Dictionary<string, List<Permission>>>();

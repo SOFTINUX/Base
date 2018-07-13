@@ -44,7 +44,6 @@ namespace Security.Controllers
             // and we have role id in RolePermission table.
             Dictionary<string, string> roleNameByRoleId = new Dictionary<string, string>();
             var roles = _roleManager.Roles.ToList();
-            model.RolesManager = roles;
             foreach(var role in roles)
             {
                 roleNameByRoleId.Add(role.Id, role.Name);
