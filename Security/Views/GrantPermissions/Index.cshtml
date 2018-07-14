@@ -1,9 +1,11 @@
 @* Copyright © 2017 SOFTINUX. All rights reserved.
     Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 *@
+@using Microsoft.AspNetCore.Identity
 @using Security.Common.Enums
 @using Newtonsoft.Json
 @model Security.ViewModels.Permissions.GrantViewModel
+@inject RoleManager<IdentityRole<string>> rolesManager
 
 @section title {
     <h2>Roles & Permissions</h2>
@@ -140,6 +142,10 @@
                                     <label>Available role(s)</label>
                                     <select class="form-control" multiple="" id="availableRoles">
                                         @* here roles list *@
+                                        @foreach (var role in rolesManager.Roles)
+                                        {
+                                            <option>@Html.Raw(role.Name)</option>
+                                        }
                                     </select>
                                 </div>
                             </div>
