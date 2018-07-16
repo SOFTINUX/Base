@@ -18,10 +18,12 @@ namespace Security.Controllers
     public class AccountController : ControllerBase
     {
         private SignInManager<User> _signInManager;
+        private UserManager<User> _userManager;
         private ILogger _logger;
 
-        public AccountController(IStorage storage_, ILoggerFactory loggerFactory_, SignInManager<User> signInManager_) : base(storage_, loggerFactory_)
+        public AccountController(IStorage storage_, ILoggerFactory loggerFactory_, UserManager<User> userManager_, SignInManager<User> signInManager_) : base(storage_, loggerFactory_)
         {
+            _userManager = userManager_;
             _signInManager = signInManager_;
             _logger = _loggerFactory.CreateLogger(GetType().FullName);
         }
@@ -46,7 +48,7 @@ namespace Security.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public IActionResult SignUp(SignUpViewModel signUp_)
+        public async Task<IActionResult> SignUp(SignUpViewModel signUp_)
         {
             // Check required fields, if any empty return to signup page
             if (!ModelState.IsValid)
@@ -57,16 +59,16 @@ namespace Security.Controllers
             }
 
             // Create a new User object with data from signUp_
-            //var user = new ApplicationUser { UserName = signUp_.UserName, Email = signUp_.Email };
-            //var result = await UserManager.CreateAsync(user, model.Password);
-            /*
+            /* var user = new User { UserName = signUp_.UserName, Email = signUp_.Email };
+            var result = await _userManager.CreateAsync(user, signUp_.Password);
+
             if (result.Succeeded)
             {
-                await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                await _signInManager.SignInAsync(user, isPersistent:false);
                 return RedirectToAction("Index", "Home");
-            }
-            AddErrors(result);
-            */
+            } */
+            //AddErrors(result);
+
 
             return View("Index");
         }

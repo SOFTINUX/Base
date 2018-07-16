@@ -32,7 +32,7 @@ namespace Security.Controllers
             _roleManager = roleManager_;
         }
 
-         // GET
+        // GET
         [PermissionRequirement(Permission.Admin)]
         [Route("administration/grantpermissions")]
         public IActionResult Index()
@@ -40,14 +40,20 @@ namespace Security.Controllers
             // TODO move all this code to Tools.PermissionTools (new static class)
             GrantViewModel model = new GrantViewModel();
 
+            // Create a dictionary with all roles for inject as json into grant permission page
+            Dictionary<string, IdentityRole<string>> rolesList = new Dictionary<string, IdentityRole<string>>();
+
             // Create a dictionary with role id and name, since we will use role name in GrantViewModel
             // and we have role id in RolePermission table.
             Dictionary<string, string> roleNameByRoleId = new Dictionary<string, string>();
-            var roles = _roleManager.Roles.ToList();
-            foreach(var role in roles)
+
+            foreach(var role in _roleManager.Roles)
             {
                 roleNameByRoleId.Add(role.Id, role.Name);
+                rolesList.Add(role.ConcurrencyStamp, role);
             }
+
+            ViewBag.RolesList = rolesList;
 
             // 1. Get all scopes from available extensions, create initial dictionaries
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
@@ -89,6 +95,7 @@ namespace Security.Controllers
             }
             return View(model);
         }
+
         /// <summary>
         /// Update scoped role-permission.
         /// </summary>
