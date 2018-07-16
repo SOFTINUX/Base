@@ -140,7 +140,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Available role(s)</label>
-                                    <select class="form-control" multiple="" id="availableRoles">
+                                    <select class="form-control" multiple="" id="availableRoles" onclick="passSelectedRoleOnEdition(this.options[this.selectedIndex].value);">
                                         @* here roles list *@
                                         @foreach (var role in RolesManager.Roles)
                                         {
@@ -236,7 +236,16 @@
 @section Scripts {
     <script src="/Scripts/jquery.pressAndHold.min.js"></script>
     <script>
-        roleslist_ = @Html.Raw(JsonConvert.SerializeObject(ViewBag.RolesList, Formatting.Indented));
+        _roleslist = @Html.Raw(JsonConvert.SerializeObject(ViewBag.RolesList, Formatting.Indented));
+
+        // TODO move into external js
+        function passSelectedRoleOnEdition(roleId_){
+
+            $("#roleName").val(_roleslist[roleId_].Name);
+            $("#roleId").val(_roleslist[roleId_].Id);
+            $("#roleNormalized").val(_roleslist[roleId_].NormalizedName);
+            $("#roleStamp").val(_roleslist[roleId_].ConcurrencyStamp);
+        }
 
         window.StopAccordionsPropagation = function (e) {
             console.log('StopAccordionsPropagation');
