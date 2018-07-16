@@ -10,16 +10,16 @@ using Security.Data.Entities;
 
 namespace Security.Data.EntityFramework
 {
-    public class AspNetUsersRepository: RepositoryBase<User>, IAspNetUsersRepository
+    public class AspNetRolesRepository: RepositoryBase<User>, IAspNetRolesRepository
     {
         /// <summary>
         /// Return true if found, else false.
         /// </summary>
-        /// <param name="value_">string to find</param>
+        /// <param name="normalizedValue_">string to find</param>
         /// <returns>bool</returns>
-        public bool FindByUserNameOrEmail(string value_)
+        public bool FindByNormalizedName(string normalizedValue_)
         {
-            return dbSet.FirstOrDefault(e_ => e_.UserName == value_ || e_.Email == value_) != null;
+            return dbSet.FirstOrDefault(e_ => e_.NormalizedUserName == normalizedValue_) != null;
         }
     }
 }
