@@ -16,13 +16,13 @@ namespace Security.Tools
     public static class RegisterUser
     {
         /// <summary>
-        /// Check is user exist before create
+        /// Check if user exists by this name or e-mail.
         /// </summary>
         /// <returns>true if exist, false if not exist</returns>
-        public static bool IsUserExist(IStorage storage_, string validate)
+        public static bool IsUserExist(IStorage storage_, string value_)
         {
-            IAspNetUsersRepository repo = storage_.GetRepository<IAspNetUsersRepository>();
-            return repo.FindByUserNameOrEmail(validate);
+            // TODO @xarkam in the repository, upperCase value_ (use UserManager.NormalizeKey()) and compare it to NormalizedName and NormalizedEmail.
+            return storage_.GetRepository<IAspNetUsersRepository>().FindByUserNameOrEmail(value_);
         }
 
         /// <summary>
