@@ -135,9 +135,9 @@
                 </div>
                 <div class="row hidden" id="edit-role-area">
                     <div class="col-md-12">
-                            Edit role:
-                            <div class="row">
-                                <div class="col-md-5">
+                        Edit role:
+                        <div class="row">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Available role(s)</label>
                                     <select class="form-control" multiple="" id="availableRoles">
@@ -147,6 +147,26 @@
                                             <option value="@Html.Raw(role.ConcurrencyStamp)">@Html.Raw(role.Name)</option>
                                         }
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Role Name:</label>
+                                    <input id="roleName" type="text" class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Role Id:</label>
+                                    <input id="roleId" type="text" class="form-control" disabled="disabled"/>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Role Normalized:</label>
+                                    <input id="roleNormalized" type="text" class="form-control" disabled="disabled"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Role ConcurrencyStamp:</label>
+                                    <input id="roleStamp" type="text" class="form-control" disabled="disabled"/>
                                 </div>
                             </div>
                         </div>
@@ -195,7 +215,7 @@
             @*<div style="margin-top: 1px; background-color: #2e77bc; height: 1px; width: 100%;"></div>*@
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-12">You are about to remove the <strong><span id="roleName"></span></strong> role for :</div>
+                    <div class="col-md-12">You are about to remove the <strong><span id="selectedRoleName"></span></strong> role for :</div>
                 </div>
                 <div class="row top-buffer">
                     <div class="col-md-12 vertical-align-center"><span class="valign-center">&#9679; module: <strong><span id="moduleName"></span></strong></span>
@@ -238,6 +258,23 @@
                 $('#myModal').modal('hide');
             });
         });
+        
+        $('#roleName').keypress(function(event){
+            //get envent value       
+            var inputValue = event.which;
+            @* check whitespaces only. *@
+            @*if(inputValue == 32){
+                return true;    
+            }*@
+            // check number only.
+            if(inputValue == 48 || inputValue == 49 || inputValue == 50 || inputValue == 51 || inputValue == 52 || inputValue == 53 ||  inputValue ==  54 ||  inputValue == 55 || inputValue == 56 || inputValue == 57){
+                return true;
+            }
+            // check special char.
+            if(!(inputValue >= 65 && inputValue <= 120) && (inputValue != 32 && inputValue != 0)) { 
+                event.preventDefault(); 
+            }
+        })
 
     </script>
 }
