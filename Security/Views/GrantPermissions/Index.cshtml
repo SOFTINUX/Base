@@ -144,7 +144,7 @@
                                         @* here roles list *@
                                         @foreach (var role in RolesManager.Roles)
                                         {
-                                            <option value="@Html.Raw(role.ConcurrencyStamp)">@Html.Raw(role.Name)</option>
+                                            <option value="@Html.Raw(role.Id)">@Html.Raw(role.Name)</option>
                                         }
                                     </select>
                                 </div>
@@ -258,21 +258,21 @@
                 $('#myModal').modal('hide');
             });
         });
-        
+
         $('#roleName').keypress(function(event){
-            //get envent value       
+            //get envent value
             var inputValue = event.which;
             @* check whitespaces only. *@
             @*if(inputValue == 32){
-                return true;    
+                return true;
             }*@
             // check number only.
             if(inputValue == 48 || inputValue == 49 || inputValue == 50 || inputValue == 51 || inputValue == 52 || inputValue == 53 ||  inputValue ==  54 ||  inputValue == 55 || inputValue == 56 || inputValue == 57){
                 return true;
             }
             // check special char.
-            if(!(inputValue >= 65 && inputValue <= 120) && (inputValue != 32 && inputValue != 0)) { 
-                event.preventDefault(); 
+            if(!(inputValue >= 65 && inputValue <= 120) && (inputValue != 32 && inputValue != 0)) {
+                event.preventDefault();
             }
         })
 

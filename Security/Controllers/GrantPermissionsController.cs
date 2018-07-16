@@ -50,7 +50,7 @@ namespace Security.Controllers
             foreach(var role in _roleManager.Roles)
             {
                 roleNameByRoleId.Add(role.Id, role.Name);
-                rolesList.Add(role.ConcurrencyStamp, role);
+                rolesList.Add(role.Id, role);
             }
 
             ViewBag.RolesList = rolesList;
