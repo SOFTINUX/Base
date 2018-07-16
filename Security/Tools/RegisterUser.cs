@@ -21,7 +21,7 @@ namespace Security.Tools
         /// <returns>true if exist, false if not exist</returns>
         public static bool IsUserExist(IStorage storage_, string value_)
         {
-            // TODO @xarkam in the repository, upperCase value_ (use UserManager.NormalizeKey()) and compare it to NormalizedName and NormalizedEmail.
+            // TODO @xarkam normalize value_ (use UserManager.NormalizeKey()) and compare it, in the repository, to NormalizedName and NormalizedEmail.
             return storage_.GetRepository<IAspNetUsersRepository>().FindByUserNameOrEmail(value_);
         }
 

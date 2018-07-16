@@ -9,6 +9,7 @@ using ExtCore.Data.Abstractions;
 using ExtCore.Infrastructure;
 using Infrastructure.Extensions;
 using Infrastructure.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Security.Common;
@@ -16,6 +17,7 @@ using Security.Common.Attributes;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
 using Security.Extensions;
+using Security.Tools;
 using Security.ViewModels.Permissions;
 using ControllerBase = Infrastructure.ControllerBase;
 using Permission = Security.Common.Enums.Permission;
@@ -47,7 +49,7 @@ namespace Security.Controllers
             // and we have role id in RolePermission table.
             Dictionary<string, string> roleNameByRoleId = new Dictionary<string, string>();
 
-            foreach(var role in _roleManager.Roles)
+            foreach (var role in _roleManager.Roles)
             {
                 roleNameByRoleId.Add(role.Id, role.Name);
                 rolesList.Add(role.Id, role);
@@ -67,15 +69,15 @@ namespace Security.Controllers
 
             // Read role/permission/extension settings
             List<RolePermission> allRp = Storage.GetRepository<IRolePermissionRepository>().All();
-            foreach(RolePermission rp in allRp)
+            foreach (RolePermission rp in allRp)
             {
-                if(!model.PermissionsByRoleAndScope.ContainsKey(rp.Scope))
+                if (!model.PermissionsByRoleAndScope.ContainsKey(rp.Scope))
                 {
                     // A database record related to a not loaded extension (scope). Ignore this.
                     continue;
                 }
                 string roleName = roleNameByRoleId.ContainsKey(rp.RoleId) ? roleNameByRoleId[rp.RoleId] : null;
-                if(!model.PermissionsByRoleAndScope[rp.Scope].ContainsKey(roleName))
+                if (!model.PermissionsByRoleAndScope[rp.Scope].ContainsKey(roleName))
                     model.PermissionsByRoleAndScope[rp.Scope].Add(roleName, new List<Common.Enums.Permission>());
                 // Format the list of Permission enum values according to DB enum value
                 model.PermissionsByRoleAndScope[rp.Scope][roleName] = PermissionHelper.GetLowerOrEqual(PermissionHelper.FromId(rp.PermissionId));
@@ -86,9 +88,9 @@ namespace Security.Controllers
             IList<string> roleNames = _roleManager.Roles.Select(r_ => r_.Name).ToList();
             foreach (string role in roleNames)
             {
-                if(rolesWithPerms.Contains(role))
+                if (rolesWithPerms.Contains(role))
                     continue;
-                foreach(string scope in model.PermissionsByRoleAndScope.Keys)
+                foreach (string scope in model.PermissionsByRoleAndScope.Keys)
                 {
                     model.PermissionsByRoleAndScope[scope].Add(role, new List<Common.Enums.Permission>());
                 }
@@ -111,7 +113,7 @@ namespace Security.Controllers
             string roleId = (await _roleManager.FindByNameAsync(roleName_)).Id;
             IRolePermissionRepository repo = Storage.GetRepository<IRolePermissionRepository>();
             repo.Delete(roleId, scope_);
-            if(!string.IsNullOrEmpty(permissionId_.ToLowerInvariant()))
+            if (!string.IsNullOrEmpty(permissionId_.ToLowerInvariant()))
                 repo.Create(new RolePermission { RoleId = roleId, PermissionId = permissionId_.UppercaseFirst(), Scope = scope_ });
             Storage.Save();
             return new JsonResult(true);
@@ -136,11 +138,11 @@ namespace Security.Controllers
             return new JsonResult(false);
         }
 
-/// <summary>
-/// Create a role. Then create a set of records indicating to which extensions with which permission this role is linked to.
-/// </summary>
-/// <param name="model_"></param>
-/// <returns></returns>
+        /// <summary>
+        /// Create a role. Then create a set of records indicating to which extensions with which permission this role is linked to.
+        /// </summary>
+        /// <param name="model_"></param>
+        /// <returns></returns>
         [HttpPost]
         public ObjectResult SaveNewRoleAndItsPermissions(SaveNewRoleViewModel model_)
         {
@@ -148,9 +150,16 @@ namespace Security.Controllers
             return StatusCode(string.IsNullOrEmpty(error) ? 201 : 400, error);
         }
 
+        /// <summary>
+        /// Return true when role name isn't in use.
+        /// </summary>
+        /// <param name="userName_"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> CheckRoleNameExist(string roleName_)
         {
-            return Json(false); // TODO
+            return Json(!UpdateRole.CheckThatRoleOfThisNameExists(_roleManager, roleName_, Storage));
         }
     }
 }

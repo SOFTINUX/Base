@@ -168,15 +168,15 @@ namespace Security.Controllers
             return View("User");
         }
 
+        /// <summary>
+        /// Return true when user name isn't in use.
+        /// </summary>
+        /// <param name="userName_"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         public IActionResult CheckUserNameExist(string userName_)
         {
-            // if (!RegisterUser.IsUserExist(Storage, userName_))
-            // {
-            //     _logger.LogWarning($"User {userName_} already taken");
-            //     ModelState.AddModelError("UserName",$"User {userName_} already taken.");
-            // }
             return Json(!RegisterUser.IsUserExist(Storage, userName_));
         }
     }
