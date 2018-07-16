@@ -21,7 +21,7 @@ namespace Security.Tools
         /// <returns>Not null when something failed, else null when save went ok</returns>
         public async static Task<string> CheckAndSaveNewRole(SaveNewRoleViewModel model_, RoleManager<IdentityRole<string>> roleManager_, IStorage storage_)
         {
-            if (await UpdateRole.CheckThatRoleOfThisNameExists(roleManager_, model_.Role))
+            if (await UpdateRole.CheckThatRoleOfThisNameExists(roleManager_, model_.RoleName))
             {
                 return "A role with this name already exists";
             }
@@ -35,7 +35,7 @@ namespace Security.Tools
                 IdentityRole<string> identityRole = new IdentityRole<string>
                 {
                     // Auto-incremented ID
-                    Name = model_.Role
+                    Name = model_.RoleName
                 };
                 await roleManager_.CreateAsync(identityRole);
 

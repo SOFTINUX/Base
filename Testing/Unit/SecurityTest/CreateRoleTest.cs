@@ -30,7 +30,7 @@ namespace SecurityTest
                 SaveNewRoleViewModel model = new SaveNewRoleViewModel
                 {
                     // Really unique value
-                    Role = roleName,
+                    RoleName = roleName,
                     Extensions = new System.Collections.Generic.List<string> { "Security" },
                     Permission = Security.Common.Enums.Permission.Write.ToString()
                 };
@@ -42,7 +42,7 @@ namespace SecurityTest
 
                 // Read back and assert that we have the expected data
                 // 1. Expect to find the Role record for the new role
-                var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(model.Role);
+                var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(model.RoleName);
                 Assert.NotNull(createdRole);
 
                 // 2. Expect to have a single record in RolePermission table for the new role
@@ -72,7 +72,7 @@ namespace SecurityTest
                 SaveNewRoleViewModel model = new SaveNewRoleViewModel
                 {
                     // Really unique value
-                    Role = roleName,
+                    RoleName = roleName,
                     Extensions = new System.Collections.Generic.List<string> { "Security" },
                     Permission = Security.Common.Enums.Permission.Write.ToString()
                 };
@@ -83,7 +83,7 @@ namespace SecurityTest
                 Assert.Null(result);
 
                 // Read back and expect to find the Role record for the new role
-                var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(model.Role);
+                var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(model.RoleName);
                 Assert.NotNull(createdRole);
 
                 result = CreateRole.CheckAndSaveNewRole(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage).Result;

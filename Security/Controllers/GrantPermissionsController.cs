@@ -97,7 +97,7 @@ namespace Security.Controllers
         }
 
         /// <summary>
-        /// Update scoped role-permission.
+        /// Update a record indicating with which permission this role is linked to an extension.
         /// </summary>
         /// <param name="roleName_">Role name</param>
         /// <param name="permissionId_">New permission level to save</param>
@@ -106,7 +106,7 @@ namespace Security.Controllers
         // GET
         [PermissionRequirement(Permission.Admin)]
         [Route("administration/updaterolepermission")]
-        public async Task<IActionResult> UpdateRole(string roleName_, string permissionId_, string scope_)
+        public async Task<IActionResult> UpdateRoleAndItsPermissions(string roleName_, string permissionId_, string scope_)
         {
             string roleId = (await _roleManager.FindByNameAsync(roleName_)).Id;
             IRolePermissionRepository repo = Storage.GetRepository<IRolePermissionRepository>();
@@ -118,12 +118,12 @@ namespace Security.Controllers
         }
 
         /// <summary>
-        /// Delete a link between a role and an extension.
+        /// Delete the record indicating that a role is linked to an extension.
         /// </summary>
         /// <param name="roleName_"></param>
         /// <param name="scope_"></param>
         /// <returns></returns>
-        public async Task<IActionResult> DeleteRoleLink(string roleName_, string scope_)
+        public async Task<IActionResult> DeleteRoleExtensionLink(string roleName_, string scope_)
         {
             string roleId = (await _roleManager.FindByNameAsync(roleName_)).Id;
             IRolePermissionRepository repo = Storage.GetRepository<IRolePermissionRepository>();
@@ -136,11 +136,21 @@ namespace Security.Controllers
             return new JsonResult(false);
         }
 
+/// <summary>
+/// Create a role. Then create a set of records indicating to which extensions with which permission this role is linked to.
+/// </summary>
+/// <param name="model_"></param>
+/// <returns></returns>
         [HttpPost]
-        public ObjectResult SaveNewRole(SaveNewRoleViewModel model_)
+        public ObjectResult SaveNewRoleAndItsPermissions(SaveNewRoleViewModel model_)
         {
             string error = Tools.CreateRole.CheckAndSaveNewRole(model_, _roleManager, Storage).Result;
             return StatusCode(string.IsNullOrEmpty(error) ? 201 : 400, error);
+        }
+
+        public async Task<IActionResult> CheckRoleNameExist(string roleName_)
+        {
+            return Json(false); // TODO
         }
     }
 }
