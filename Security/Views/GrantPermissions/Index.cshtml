@@ -5,7 +5,7 @@
 @using Security.Common.Enums
 @using Newtonsoft.Json
 @model Security.ViewModels.Permissions.GrantViewModel
-@inject RoleManager<IdentityRole<string>> rolesManager
+@inject RoleManager<IdentityRole<string>> RolesManager
 
 @section title {
     <h2>Roles & Permissions</h2>
@@ -142,9 +142,9 @@
                                     <label>Available role(s)</label>
                                     <select class="form-control" multiple="" id="availableRoles">
                                         @* here roles list *@
-                                        @foreach (var role in rolesManager.Roles)
+                                        @foreach (var role in RolesManager.Roles)
                                         {
-                                            <option>@Html.Raw(role.Name)</option>
+                                            <option value="@Html.Raw(role.ConcurrencyStamp)">@Html.Raw(role.Name)</option>
                                         }
                                     </select>
                                 </div>
@@ -216,6 +216,7 @@
 @section Scripts {
     <script src="/Scripts/jquery.pressAndHold.min.js"></script>
     <script>
+        roleslist_ = @Html.Raw(JsonConvert.SerializeObject(ViewBag.RolesList, Formatting.Indented));
 
         window.StopAccordionsPropagation = function (e) {
             console.log('StopAccordionsPropagation');

@@ -40,14 +40,20 @@ namespace Security.Controllers
             // TODO move all this code to Tools.PermissionTools (new static class)
             GrantViewModel model = new GrantViewModel();
 
+            // create a dictionary with all roles for inject as json into grant permission page
+            Dictionary<string, IdentityRole<string>> roleList = new Dictionary<string, IdentityRole<string>>();
+
             // Create a dictionary with role id and name, since we will use role name in GrantViewModel
             // and we have role id in RolePermission table.
             Dictionary<string, string> roleNameByRoleId = new Dictionary<string, string>();
-            var roles = _roleManager.Roles.ToList();
-            foreach(var role in roles)
+
+            foreach(var role in _roleManager.Roles)
             {
                 roleNameByRoleId.Add(role.Id, role.Name);
+                roleList.Add(role.ConcurrencyStamp, role);
             }
+
+            ViewBag.RolesList = roleList;
 
             // 1. Get all scopes from available extensions, create initial dictionaries
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
