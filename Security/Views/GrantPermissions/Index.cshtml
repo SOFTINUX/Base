@@ -246,8 +246,15 @@
             $("#roleNormalized").val(_roleslist[roleId_].NormalizedName);
             $("#roleStamp").val(_roleslist[roleId_].ConcurrencyStamp); *@
 
-            console.log("Ajax: ", {"roleId": roleId_});
-            $.ajax("/administration/findrole", {data: {"roleId": roleId_}});
+            $.ajax("/administration/findrole", {data: {"roleId_": roleId_}}).done(function(data){
+                console.log("data: ", data);
+                console.log("data A: ", data.value[Name]);
+                console.log("data B: ", data.value[Name].value);
+                @*$("#roleName").val(data.value[Name]);
+                $("#roleId").val(data[Id].value);
+                $("#roleNormalized").val(data[NormalizedName].value);
+                $("#roleStamp").val(data[ConcurrencyStamp].value);*@
+            });
         }
 
         window.StopAccordionsPropagation = function (e) {

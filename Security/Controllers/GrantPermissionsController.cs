@@ -180,7 +180,7 @@ namespace Security.Controllers
             if (_role == null)
                 return StatusCode(400, Json("No such role for edit."));
 
-            return StatusCode(200, Json(""));
+            return StatusCode(200, Json(_role));
         }
     }
 }
