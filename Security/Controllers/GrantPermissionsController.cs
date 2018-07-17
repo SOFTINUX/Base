@@ -161,5 +161,26 @@ namespace Security.Controllers
         {
             return Json(!UpdateRole.CheckThatRoleOfThisNameExists(_roleManager, roleName_, Storage));
         }
+
+        /// <summary>
+        /// return role for modify
+        /// </summary>
+        /// <param name="roleID_"></param>
+        /// <returns>JSON role object</returns>
+        /// GET
+        [PermissionRequirement(Permission.Admin)]
+        [Route("administration/findrole")]
+        public async Task<IActionResult> GetRole(string roleId_)
+        {
+            if (string.IsNullOrWhiteSpace(roleId_) || string.IsNullOrEmpty(roleId_))
+                return StatusCode(400, Json("No given role for edition."));
+
+            object _role = await _roleManager.FindByIdAsync(roleId_);
+
+            if (_role == null)
+                return StatusCode(400, Json("No such role for edit."));
+
+            return StatusCode(200, Json(""));
+        }
     }
 }

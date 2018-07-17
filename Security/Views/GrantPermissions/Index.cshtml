@@ -241,10 +241,13 @@
         // TODO move into external js
         function passSelectedRoleOnEdition(roleId_){
 
-            $("#roleName").val(_roleslist[roleId_].Name);
+            @* $("#roleName").val(_roleslist[roleId_].Name);
             $("#roleId").val(_roleslist[roleId_].Id);
             $("#roleNormalized").val(_roleslist[roleId_].NormalizedName);
-            $("#roleStamp").val(_roleslist[roleId_].ConcurrencyStamp);
+            $("#roleStamp").val(_roleslist[roleId_].ConcurrencyStamp); *@
+
+            console.log("Ajax: ", {"roleId": roleId_});
+            $.ajax("/administration/findrole", {data: {"roleId": roleId_}});
         }
 
         window.StopAccordionsPropagation = function (e) {
