@@ -240,20 +240,11 @@
 
         // TODO move into external js
         function passSelectedRoleOnEdition(roleId_){
-
-            @* $("#roleName").val(_roleslist[roleId_].Name);
-            $("#roleId").val(_roleslist[roleId_].Id);
-            $("#roleNormalized").val(_roleslist[roleId_].NormalizedName);
-            $("#roleStamp").val(_roleslist[roleId_].ConcurrencyStamp); *@
-
             $.ajax("/administration/findrole", {data: {"roleId_": roleId_}}).done(function(data){
-                console.log("data: ", data);
-                console.log("data A: ", data.value[Name]);
-                console.log("data B: ", data.value[Name].value);
-                @*$("#roleName").val(data.value[Name]);
-                $("#roleId").val(data[Id].value);
-                $("#roleNormalized").val(data[NormalizedName].value);
-                $("#roleStamp").val(data[ConcurrencyStamp].value);*@
+                $("#roleName").val(data.value.name);
+                $("#roleId").val(data.value.id);
+                $("#roleNormalized").val(data.value.normalizedName);
+                $("#roleStamp").val(data.value.concurrencyStamp);
             });
         }
 
