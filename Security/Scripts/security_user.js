@@ -53,7 +53,7 @@ $(function () {
             $("#edit-role-area").addClass("hidden");
     });
 
-    $('#save-role-btn').click(function () {
+    $('#save-add-role-btn').click(function () {
         console.log($("#role_name_input").val());
         if (!$("#role_name_input").val()) {
             window.toastr.warning('No role given.', 'Role not saved!');
@@ -70,12 +70,22 @@ $(function () {
         window.toastr.success('role saved.');
     });
 
+    $('#cancel-add-role-btn').click(function () {
+        $("#edit-role-area").addClass("hidden");
+        $("#add-role-area").addClass("hidden");
+    });
+
     $('#role_name_input').focusout(function () {
         input_form_group_validator("#role_name_input");
     });
 
     $('#role_name_input').change(function () {
         input_form_group_validator("#role_name_input");
+    });
+
+    $('#cancel-edit-role-btn').click(function () {
+        $("#edit-role-area").addClass("hidden");
+        $("#add-role-area").addClass("hidden");
     });
 
     $('#collapse').on('click', function () {
@@ -278,4 +288,13 @@ function input_form_group_validator(el) {
     } else {
         $(el).closest('.form-group').addClass('has-error').addClass('has-feedback');
     }
+}
+
+function passSelectedRoleOnEdition(roleId_){
+    $.ajax("/administration/findrole", {data: {"roleId_": roleId_}}).done(function(data){
+        for (key in data.value)
+        {
+            $("#" + key).val(data.value[key]);
+        }
+    });
 }

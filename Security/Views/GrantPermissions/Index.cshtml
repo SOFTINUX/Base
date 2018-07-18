@@ -13,6 +13,7 @@
 
 @{
     var modelAsJson = JsonConvert.SerializeObject(Model.PermissionsByRoleAndScope);
+    string inputExtendAttributes = "onCopy=\"return false;\" onDrag=\"return false;\" onDrop=\"return false;\" onPaste=\"return false;\" autocomplete=off";
 }
 
 @section Styles {
@@ -50,7 +51,7 @@
                                 <div class="form-group">
                                     <h3>New role</h3>
                                     <div class="input-group margin ">
-                                        <input required id="role_name_input" type="text" class="form-control" placeholder="enter role name here" size="80">
+                                        <input required id="role_name_input" type="text" class="form-control" placeholder="enter role name here" size="80" @Html.Raw(inputExtendAttributes)>
                                         <div class="input-group-btn">
                                             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <span class="fa fa-caret-down"></span>
@@ -121,11 +122,11 @@
                                 <div class="col-md-12">
                                     @* save btn *@
                                     <div class="btn-group">
-                                        <button class="btn btn-block btn-success" id="save-role-btn">Save</button>
+                                        <button class="btn btn-block btn-success" id="save-add-role-btn">Save</button>
                                     </div>
                                     @* cancel btn *@
                                     <div class="btn-group">
-                                        <button class="btn btn-block btn-danger" id="cancel-role-btn">Cancel</button>
+                                        <button class="btn btn-block btn-danger" id="cancel-add-role-btn">Cancel</button>
                                     </div>
                                 </div>
                             </div>
@@ -152,7 +153,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Role Name:</label>
-                                    <input id="name" type="text" class="form-control"/>
+                                    <input id="name" type="text" class="form-control" @Html.Raw(inputExtendAttributes)/>
                                 </div>
                                 <div class="form-group">
                                     <label>Role Id:</label>
@@ -167,6 +168,20 @@
                                 <div class="form-group">
                                     <label>Role ConcurrencyStamp:</label>
                                     <input id="concurrencyStamp" type="text" class="form-control" disabled="disabled"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="margin">
+                                <div class="col-md-12">
+                                    @* save btn *@
+                                    <div class="btn-group">
+                                        <button class="btn btn-block btn-success" id="save-edit-role-btn">Save</button>
+                                    </div>
+                                    @* cancel btn *@
+                                    <div class="btn-group">
+                                        <button class="btn btn-block btn-danger" id="cancel-edit-role-btn">Cancel</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -236,52 +251,48 @@
 @section Scripts {
     <script src="/Scripts/jquery.pressAndHold.min.js"></script>
     <script>
-        _roleslist = @Html.Raw(JsonConvert.SerializeObject(ViewBag.RolesList, Formatting.Indented));
-
-        // TODO move into external js
-        function passSelectedRoleOnEdition(roleId_){
-            $.ajax("/administration/findrole", {data: {"roleId_": roleId_}}).done(function(data){
-                for (key in data.value)
-                {
-                    $("#" + key).val(data.value[key]);
-                }
-            });
-        }
-
         window.StopAccordionsPropagation = function (e) {
             console.log('StopAccordionsPropagation');
             e.stopPropagation();
         }
 
-        $(document).ready(function () {
-            // nothing yet
-            $(".removeAllRoles").pressAndHold({
-                holdTime: 1000,
-                progressIndicatorRemoveDelay: 900,
-                progressIndicatorColor: "#FFFFFF;",
-                progressIndicatorOpacity: 1,
-                progressIndicatorPosition: "bottom"
-            });
-
-            $(".removeAllRoles").on('complete.pressAndHold', function(event) {
-                console.log("complete");
-                $('#myModal').modal('hide');
-            });
+        @*
+            cannot move into security.js otherwise error :
+            Uncaught TypeError: $(...).pressAndHold is not a function
+            is present.
+        *@
+        @* begin pressAndHold block *@
+        $(".removeAllRoles").pressAndHold({
+            holdTime: 1000,
+            progressIndicatorRemoveDelay: 900,
+            progressIndicatorColor: "#FFFFFF;",
+            progressIndicatorOpacity: 1,
+            progressIndicatorPosition: "bottom"
         });
 
-        $('#roleName').keypress(function(event){
-            //get envent value
+        $(".removeAllRoles").on('complete.pressAndHold', function(event) {
+            console.log("complete");
+            $('#myModal').modal('hide');
+        });
+        @* end pressAndHold block *@
+
+        $("#name").keypress(function(event){
+            @* get envent value *@
             var inputValue = event.which;
-            @* check whitespaces only. *@
-            @*if(inputValue == 32){
-                return true;
-            }*@
-            // check number only.
-            if(inputValue == 48 || inputValue == 49 || inputValue == 50 || inputValue == 51 || inputValue == 52 || inputValue == 53 ||  inputValue ==  54 ||  inputValue == 55 || inputValue == 56 || inputValue == 57){
+            @*
+                48-57 - (0-9)Numbers
+                65-90 - (A-Z)
+                97-122 - (a-z)
+                8 - (backspace)
+                32 - (space)
+                189 (minus/underscore) not used here
+            *@
+            @* check number only. *@
+            if(inputValue >= 48 && inputValue <= 57){
                 return true;
             }
-            // check special char.
-            if(!(inputValue >= 65 && inputValue <= 120) && (inputValue != 32 && inputValue != 0)) {
+            @* check special char. *@
+            if ((inputValue >=1 && inputValue <= 64) || (inputValue >=121) && inputValue !=32) {
                 event.preventDefault();
             }
         })
