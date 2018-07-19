@@ -18,6 +18,7 @@ using Microsoft.Extensions.Logging;
 using Security;
 using Security.Data.Entities;
 using Serilog;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace WebApplication
 {
@@ -74,11 +75,11 @@ namespace WebApplication
             services_.ConfigureApplicationCookie(options_ =>
             {
                 // override the default event
-               /*  options.Events = new CookieAuthenticationEvents
-                {
-                    OnRedirectToAccessDenied = ReplaceRedirectorWithStatusCode(HttpStatusCode.Forbidden),
-                    OnRedirectToLogin = ReplaceRedirectorWithStatusCode(HttpStatusCode.Unauthorized)
-                }; */
+                /*  options.Events = new CookieAuthenticationEvents
+                 {
+                     OnRedirectToAccessDenied = ReplaceRedirectorWithStatusCode(HttpStatusCode.Forbidden),
+                     OnRedirectToLogin = ReplaceRedirectorWithStatusCode(HttpStatusCode.Unauthorized)
+                 }; */
 
                 // customize other stuff as needed
                 options_.LoginPath = Configuration["ConfigureApplicationCookie:LoginPath"];
@@ -114,6 +115,12 @@ namespace WebApplication
 
             // register for DI to work with Security.ServiceConfiguration.ConfigureAuthentication
             services_.AddScoped<IServiceCollection, ServiceCollection>();
+
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services_.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Softinux Base API", Version = "v1" });
+            });
         }
 
         public void Configure(IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_, IConfiguration configuration_)
@@ -124,7 +131,8 @@ namespace WebApplication
                 applicationBuilder_.UseDatabaseErrorPage();
                 //applicationBuilder_.UseBrowserLink();
             }
-            else{
+            else
+            {
                 applicationBuilder_.UseExceptionHandler("/Barebone/Error");
                 applicationBuilder_.UseHsts();
             }
@@ -141,12 +149,23 @@ namespace WebApplication
             Log.Information("#######################################################");
 #endif
 
+           // Enable middleware to serve generated Swagger as a JSON endpoint.
+            applicationBuilder_.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+            // specifying the Swagger JSON endpoint.
+            applicationBuilder_.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Softinux Base API V1");
+            });
+
             applicationBuilder_.UseExtCore();
             applicationBuilder_.UseStaticFiles();
 
             // More configuration like "applicationBuilder_.Use..." in Security.ServiceConfiguration.*
 
             Console.WriteLine("PID= " + System.Diagnostics.Process.GetCurrentProcess().Id);
-        }
+
+         }
     }
 }

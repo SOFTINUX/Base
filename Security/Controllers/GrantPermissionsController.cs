@@ -34,9 +34,9 @@ namespace Security.Controllers
             _roleManager = roleManager_;
         }
 
-        // GET
         [PermissionRequirement(Permission.Admin)]
         [Route("administration/grantpermissions")]
+        [HttpGet]
         public IActionResult Index()
         {
             // TODO move all this code to Tools.PermissionTools (new static class)
@@ -105,9 +105,9 @@ namespace Security.Controllers
         /// <param name="permissionId_">New permission level to save</param>
         /// <param name="scope_">Scope</param>
         /// <returns>JSON with "true" when it succeeded</returns>
-        // GET
         [PermissionRequirement(Permission.Admin)]
         [Route("administration/updaterolepermission")]
+        [HttpGet] // TODO change to POST
         public async Task<IActionResult> UpdateRoleAndItsPermissions(string roleName_, string permissionId_, string scope_)
         {
             string roleId = (await _roleManager.FindByNameAsync(roleName_)).Id;
@@ -125,6 +125,7 @@ namespace Security.Controllers
         /// <param name="roleName_"></param>
         /// <param name="scope_"></param>
         /// <returns></returns>
+        [HttpPost]
         public async Task<IActionResult> DeleteRoleExtensionLink(string roleName_, string scope_)
         {
             string roleId = (await _roleManager.FindByNameAsync(roleName_)).Id;
@@ -163,13 +164,13 @@ namespace Security.Controllers
         }
 
         /// <summary>
-        /// return role for modify
+        /// Return role for edition.
         /// </summary>
         /// <param name="roleID_"></param>
         /// <returns>JSON role object</returns>
-        /// GET
-        [PermissionRequirement(Permission.Admin)]
+         [PermissionRequirement(Permission.Admin)]
         [Route("administration/findrole")]
+        [HttpGet]
         public async Task<IActionResult> GetRole(string roleId_)
         {
             if (string.IsNullOrWhiteSpace(roleId_) || string.IsNullOrEmpty(roleId_))
@@ -193,7 +194,7 @@ namespace Security.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateRoleName(string roleId_){
-            return Ok("Role Successfull updated");
+            return Ok("Role successfully updated");
         }
     }
 }
