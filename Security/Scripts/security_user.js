@@ -320,4 +320,6 @@ function saveEditRole(formId_){
         window.toastr.error(testStatus, 'ERROR)');
         console.log(jqXHR, testStatus);
     });
+
+    // TODO add header to ajax call https://stackoverflow.com/questions/48038980/why-antiforgerytoken-validation-keeps-failing#
 }

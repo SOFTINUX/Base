@@ -7,6 +7,7 @@ using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
 using ExtCore.WebApplication.Extensions;
 using Infrastructure;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -118,12 +119,19 @@ namespace WebApplication
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services_.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Info { Title = "Softinux Base API", Version = "v1" });
-            });
+                {
+                    c.SwaggerDoc("v1", new Info { Title = "Softinux Base API", Version = "v1" });
+                });
+
+            services_.AddAntiforgery(options =>
+                {
+                    options.HeaderName = "X-CSRF-TOKEN";
+                    options.SuppressXFrameOptionsHeader = false;
+                });
         }
 
-        public void Configure(IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_, IConfiguration configuration_)
+        public void Configure(IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_,
+         IConfiguration configuration_, IAntiforgery antiForgery_)
         {
             if (hostingEnvironment_.IsDevelopment())
             {
@@ -149,15 +157,33 @@ namespace WebApplication
             Log.Information("#######################################################");
 #endif
 
-           // Enable middleware to serve generated Swagger as a JSON endpoint.
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
             applicationBuilder_.UseSwagger();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
             // specifying the Swagger JSON endpoint.
             applicationBuilder_.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Softinux Base API V1");
-            });
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Softinux Base API V1");
+                });
+
+            applicationBuilder_.Use(next => context =>
+               {
+                   string path = context.Request.Path.Value;
+
+                   if (
+                       string.Equals(path, "/", StringComparison.OrdinalIgnoreCase) ||
+                       string.Equals(path, "/index.html", StringComparison.OrdinalIgnoreCase))
+                   {
+                        // The request token can be sent as a JavaScript-readable cookie, 
+                        // and Angular uses it by default.
+                        var tokens = antiForgery_.GetAndStoreTokens(context);
+                       context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken,
+                           new CookieOptions() { HttpOnly = false });
+                   }
+
+                   return next(context);
+               });
 
             applicationBuilder_.UseExtCore();
             applicationBuilder_.UseStaticFiles();
@@ -166,6 +192,6 @@ namespace WebApplication
 
             Console.WriteLine("PID= " + System.Diagnostics.Process.GetCurrentProcess().Id);
 
-         }
+        }
     }
 }

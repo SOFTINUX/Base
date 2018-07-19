@@ -194,7 +194,7 @@ namespace Security.Controllers
         //[HttpPost]
         [HttpGet] // testing form submit
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateRoleName(string name, string id, string __RequestVerificationToken){
+        public async Task<IActionResult> UpdateRoleName(string name, string id){
             return Ok($"Role {name} ({id}) successfully updated");
         }
     }
