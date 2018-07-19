@@ -88,6 +88,16 @@ $(function () {
         $("#add-role-area").addClass("hidden");
     });
 
+    $('#save-edit-role-btn').click(function () {
+        if (!$("#name").val()) {
+            window.toastr.warning('No new role name given.', 'Role not updated!');
+            input_form_group_validator("#name");
+            return;
+        }
+
+        saveEditRole($("#id").value);
+    });
+
     $('#collapse').on('click', function () {
         var state = $(this).data('state');
         if (state == 'closed') {
@@ -117,10 +127,7 @@ $(function () {
                     });
                 }
             });
-
-
         }
-
     });
 
     $('#btnRight').click(function (e) {
@@ -291,10 +298,23 @@ function input_form_group_validator(el) {
 }
 
 function passSelectedRoleOnEdition(roleId_){
+    $("#edit-role-group").removeClass("has-error");
     $.ajax("/administration/findrole", {data: {"roleId_": roleId_}}).done(function(data){
         for (key in data.value)
         {
             $("#" + key).val(data.value[key]);
         }
+    });
+}
+
+function saveEditRole(roleId_){
+    $.ajax("/administration/updaterolename", {data: {"roleId_": roleId_}})
+    .done(function(data){
+        window.toastr.success(data, 'Role updated :)');
+        console.log(data);
+    })
+    .fail(function(jqXHR, testStatus){
+        window.toastr.error(testStatus, 'ERROR)');
+        console.log(jqXHR, testStatus);
     });
 }

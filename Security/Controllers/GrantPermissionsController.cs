@@ -182,5 +182,16 @@ namespace Security.Controllers
 
             return StatusCode(200, Json(_role));
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [PermissionRequirement(Permission.Admin)]
+        [Route("administration/updaterolename")]
+        public async Task<IActionResult> UpdateRoleName(string roleId_){
+            return Ok("Role Successfull updated");
+        }
     }
 }
