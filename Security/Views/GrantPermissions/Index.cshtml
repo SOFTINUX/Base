@@ -150,26 +150,29 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group" id="edit-role-group">
-                                    <label>Role Name:</label>
-                                    <input id="name" type="text" class="form-control" @Html.Raw(inputExtendAttributes)/>
+                            <form id="edit-role-form" action="/administration/updaterolename">
+                            @Html.AntiForgeryToken()
+                                <div class="col-md-4">
+                                    <div class="form-group" id="edit-role-group">
+                                        <label>Role Name:</label>
+                                        <input id="name" type="text" class="form-control" @Html.Raw(inputExtendAttributes)/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Role Id:</label>
+                                        <input id="id" type="text" class="form-control" disabled="disabled"/>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>Role Id:</label>
-                                    <input id="id" type="text" class="form-control" disabled="disabled"/>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Role Normalized:</label>
+                                        <input id="normalizedName" type="text" class="form-control" disabled="disabled"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Role ConcurrencyStamp:</label>
+                                        <input id="concurrencyStamp" type="text" class="form-control" disabled="disabled"/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Role Normalized:</label>
-                                    <input id="normalizedName" type="text" class="form-control" disabled="disabled"/>
-                                </div>
-                                <div class="form-group">
-                                    <label>Role ConcurrencyStamp:</label>
-                                    <input id="concurrencyStamp" type="text" class="form-control" disabled="disabled"/>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                         <div class="row">
                             <div class="margin">

@@ -95,7 +95,8 @@ $(function () {
             return;
         }
 
-        saveEditRole($("#id").value);
+        //saveEditRole($("#id").value);
+        $("#edit-role-form").submit();
     });
 
     $('#collapse').on('click', function () {
