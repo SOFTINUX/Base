@@ -151,15 +151,14 @@
                                 </div>
                             </div>
                             <form id="edit-role-form" action="/administration/updaterolename">
-                            @Html.AntiForgeryToken()
                                 <div class="col-md-4">
                                     <div class="form-group" id="edit-role-group">
                                         <label>Role Name:</label>
-                                        <input id="name" type="text" class="form-control" @Html.Raw(inputExtendAttributes)/>
+                                        <input id="name" name="name" type="text" class="form-control" @Html.Raw(inputExtendAttributes)/>
                                     </div>
                                     <div class="form-group">
                                         <label>Role Id:</label>
-                                        <input id="id" type="text" class="form-control" disabled="disabled"/>
+                                        <input id="id" name="id" type="text" class="form-control" disabled="disabled"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">

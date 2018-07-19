@@ -191,10 +191,11 @@ namespace Security.Controllers
         /// <returns></returns>
         [PermissionRequirement(Permission.Admin)]
         [Route("administration/updaterolename")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateRoleName(string roleId_){
-            return Ok("Role successfully updated");
+        //[HttpPost]
+        [HttpGet] // testing form submit
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateRoleName(string name){
+            return Ok($"Role {name} successfully updated");
         }
     }
 }

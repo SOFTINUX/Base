@@ -95,7 +95,7 @@ $(function () {
             return;
         }
 
-        //saveEditRole($("#id").value);
+        //saveEditRole("edit-role-form");
         $("#edit-role-form").submit();
     });
 
@@ -308,8 +308,10 @@ function passSelectedRoleOnEdition(roleId_){
     });
 }
 
-function saveEditRole(roleId_){
-    $.ajax("/administration/updaterolename", {data: {"roleId_": roleId_}})
+function saveEditRole(formId_){
+    let data = JSON.stringify($("#"+formId_).serialize());
+    console.log(data);
+    $.ajax("/administration/updaterolename", {method: 'POST', data: data})
     .done(function(data){
         window.toastr.success(data, 'Role updated :)');
         console.log(data);
