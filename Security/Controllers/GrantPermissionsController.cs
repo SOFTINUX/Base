@@ -193,9 +193,9 @@ namespace Security.Controllers
         [Route("administration/updaterolename")]
         //[HttpPost]
         [HttpGet] // testing form submit
-        //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateRoleName(string name){
-            return Ok($"Role {name} successfully updated");
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateRoleName(string name, string id, string __RequestVerificationToken){
+            return Ok($"Role {name} ({id}) successfully updated");
         }
     }
 }

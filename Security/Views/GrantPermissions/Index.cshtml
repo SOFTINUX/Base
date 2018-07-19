@@ -151,6 +151,7 @@
                                 </div>
                             </div>
                             <form id="edit-role-form" action="/administration/updaterolename">
+                            @Html.AntiForgeryToken()
                                 <div class="col-md-4">
                                     <div class="form-group" id="edit-role-group">
                                         <label>Role Name:</label>
@@ -158,7 +159,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Role Id:</label>
-                                        <input id="id" name="id" type="text" class="form-control" disabled="disabled"/>
+                                        <input type="hidden" name="id" value="test"/>
+                                        <input id="id" name="id-dis" type="text" class="form-control" disabled="disabled"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
