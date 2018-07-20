@@ -50,25 +50,25 @@ namespace WebApplication
 
             // Configure Identity
             services_.AddIdentity<User, IdentityRole<string>>(options_ =>
-                {
-                    // Configure identity options here.
-                    options_.Password.RequireDigit = Configuration.GetValue<bool>("PasswordStrategy:Password.RequireDigit");
-                    options_.Password.RequiredLength = Configuration.GetValue<int>("PasswordStrategy:Password.RequiredLength");
-                    options_.Password.RequireLowercase = Configuration.GetValue<bool>("PasswordStrategy:Password.RequireLowercase");
-                    options_.Password.RequireNonAlphanumeric = Configuration.GetValue<bool>("PasswordStrategy:Password.RequireNonAlphanumeric");
-                    options_.Password.RequireUppercase = Configuration.GetValue<bool>("PasswordStrategy:Password.RequireUppercase");
+            {
+                // Configure identity options here.
+                options_.Password.RequireDigit = Configuration.GetValue<bool>("PasswordStrategy:Password.RequireDigit");
+                options_.Password.RequiredLength = Configuration.GetValue<int>("PasswordStrategy:Password.RequiredLength");
+                options_.Password.RequireLowercase = Configuration.GetValue<bool>("PasswordStrategy:Password.RequireLowercase");
+                options_.Password.RequireNonAlphanumeric = Configuration.GetValue<bool>("PasswordStrategy:Password.RequireNonAlphanumeric");
+                options_.Password.RequireUppercase = Configuration.GetValue<bool>("PasswordStrategy:Password.RequireUppercase");
 
-                    options_.Lockout.AllowedForNewUsers = Configuration.GetValue<bool>("LockoutUser:Lockout.AllowedForNewUsers");
-                    options_.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(Configuration.GetValue<int>("LockoutUser:Lockout.DefaultLockoutTimeSpan"));
-                    options_.Lockout.MaxFailedAccessAttempts = Configuration.GetValue<int>("LockoutUser:Lockout.MaxFailedAccessAttempts");
+                options_.Lockout.AllowedForNewUsers = Configuration.GetValue<bool>("LockoutUser:Lockout.AllowedForNewUsers");
+                options_.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(Configuration.GetValue<int>("LockoutUser:Lockout.DefaultLockoutTimeSpan"));
+                options_.Lockout.MaxFailedAccessAttempts = Configuration.GetValue<int>("LockoutUser:Lockout.MaxFailedAccessAttempts");
 
-                    options_.SignIn.RequireConfirmedEmail = Configuration.GetValue<bool>("SignIn:RequireConfirmedEmail");
-                    options_.SignIn.RequireConfirmedPhoneNumber = Configuration.GetValue<bool>("SignIn:RequireConfirmedPhoneNumber");
+                options_.SignIn.RequireConfirmedEmail = Configuration.GetValue<bool>("SignIn:RequireConfirmedEmail");
+                options_.SignIn.RequireConfirmedPhoneNumber = Configuration.GetValue<bool>("SignIn:RequireConfirmedPhoneNumber");
 
-                    options_.User.RequireUniqueEmail = Configuration.GetValue<bool>("ValidateUser:options.User.RequireUniqueEmail");
-                })
-               .AddEntityFrameworkStores<ApplicationStorageContext>()
-               .AddDefaultTokenProviders(); // Tell Identity which EF DbContext to use
+                options_.User.RequireUniqueEmail = Configuration.GetValue<bool>("ValidateUser:options.User.RequireUniqueEmail");
+            })
+            .AddEntityFrameworkStores<ApplicationStorageContext>()
+            .AddDefaultTokenProviders(); // Tell Identity which EF DbContext to use
 
             // configure the application cookie
             services_.ConfigureApplicationCookie(options_ =>
@@ -92,17 +92,15 @@ namespace WebApplication
             });
 
             services_.AddDbContext<ApplicationStorageContext>(options_ =>
-                {
-                    options_.UseSqlite(Configuration["ConnectionStrings:Default"]);
-                }
-            );
+            {
+                options_.UseSqlite(Configuration["ConnectionStrings:Default"]);
+            });
 
             services_.Configure<CorporateConfiguration>(options_ =>
-                {
-                    options_.Name = Configuration.GetValue<string>("Corporate:Name");
-                    options_.BrandLogo = Configuration.GetValue<string>("Corporate:BrandLogo");
-                }
-            );
+            {
+                options_.Name = Configuration.GetValue<string>("Corporate:Name");
+                options_.BrandLogo = Configuration.GetValue<string>("Corporate:BrandLogo");
+            });
 
             services_.AddScoped<IUserClaimsPrincipalFactory<User>, ClaimsPrincipalFactory>();
 
