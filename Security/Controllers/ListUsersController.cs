@@ -29,16 +29,16 @@ namespace Security.Controllers
             _usersmanager = users_;
         }
 
-        // GET
         [Route("administration/listusers")]
+        [HttpGet]
         public IActionResult Index()
         {
             ViewBag.userList = _usersmanager.Users.Select(u => new SelectListItem { Text = u.UserName, Value = u.Id }).ToList();
             return View("ListUsers");
         }
 
-        // GET
         [Route("administration/listusers/edituser")]
+        [HttpGet]
         public IActionResult EditUser(string userId_)
         {
             var user = _usersmanager.Users.FirstOrDefault(u_ => u_.Id == userId_);

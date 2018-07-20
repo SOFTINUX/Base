@@ -20,6 +20,7 @@ namespace Barebone.Controllers
             corporateLogo = configuration_["Corporate:BrandLogo"];
         }
 
+        [HttpGet]
         public ActionResult Index()
         {
             ViewBag.CorporateName = corporateName;
@@ -28,6 +29,7 @@ namespace Barebone.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [HttpGet]
         public IActionResult Error()
         {
             return View(new Barebone.ViewModels.ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

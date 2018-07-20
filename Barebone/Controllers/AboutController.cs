@@ -8,6 +8,7 @@ namespace Barebone.Controllers
 {
     public class AboutController : Controller
     {
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
