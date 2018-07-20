@@ -51,8 +51,14 @@
                                 <div class="form-group" id="add-role-group">
                                     <h3>New role</h3>
                                     <div class="input-group margin ">
-                                        <input required id="role_name_input" type="text" class="form-control" placeholder="enter role name here" size="80" @Html.Raw(inputExtendAttributes)>
-                                        <div class="input-group-btn">
+                                        <input required id="role_name_input" name="role_name_input" type="text" class="form-control" placeholder="enter role name here" size="80" @Html.Raw(inputExtendAttributes)>
+                                        <select class="form-control" name="newRolePermission" id="newRolePermission">
+                                            <option value="None">None</option>
+                                            <option value="Read" selected>Read</option>
+                                            <option value="Write">Write</option>
+                                            <option value="Admin">Admin</option>
+                                        </select>
+                                        <!-- <div class="input-group-btn">
                                             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <span class="fa fa-caret-down"></span>
                                                 <span>Read</span>
@@ -72,7 +78,7 @@
                                                     <a href="#">Admin</a>
                                                 </li>
                                             </ul>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -111,7 +117,7 @@
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label>Selected extension(s)</label>
-                                    <select class="form-control" multiple="" id="selectedExtensions">
+                                    <select class="form-control" multiple="" id="selectedExtensions" name="selectedExtensions">
                                         @* here selected extensions options *@
                                     </select>
                                 </div>

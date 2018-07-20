@@ -144,6 +144,7 @@ namespace Security.Controllers
         /// </summary>
         /// <param name="model_"></param>
         /// <returns></returns>
+        [Route("administration/savenewrole")]
         [HttpPost]
         public ObjectResult SaveNewRoleAndItsPermissions(SaveNewRoleViewModel model_)
         {

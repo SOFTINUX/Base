@@ -54,12 +54,33 @@ $(function () {
     });
 
     $('#save-add-role-btn').click(function () {
-        console.log($("#role_name_input").val());
-        if (!$("#role_name_input").val()) {
+        var roleNameInputElt = $("#role_name_input");
+         if (!roleNameInputElt.val()) {
             window.toastr.warning('No role given.', 'Role not saved!');
             input_form_group_validator("#role_name_input");
             return;
         }
+        var selectedExtensions = [];
+        $("#selectedExtensions>option").each(function() {
+            selectedExtensions.push(this.value);
+        });
+        var postData = { 
+            RoleName: roleNameInputElt.val(),
+            Extensions: selectedExtensions,
+            Permission: $("#newRolePermission").val()
+        };
+
+        console.log(postData);
+
+        // $.ajax("/administration/savenewrole", {method: 'POST', data: postData})
+        // .done(function(data){
+        //     window.toastr.success(data, 'New role created)');
+        //     console.log(data);
+        // })
+        // .fail(function(jqXHR, testStatus){
+        //     window.toastr.error(testStatus, 'ERROR)');
+        //     console.log(jqXHR, testStatus);
+        // });
 
         // normally it's possible to make role with no associated module
         //if ($('#selectedExtensions option').length == 0) {
