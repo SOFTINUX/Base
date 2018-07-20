@@ -72,15 +72,16 @@ $(function () {
 
         console.log(postData);
 
-        // $.ajax("/administration/savenewrole", {method: 'POST', data: postData})
-        // .done(function(data){
-        //     window.toastr.success(data, 'New role created)');
-        //     console.log(data);
-        // })
-        // .fail(function(jqXHR, testStatus){
-        //     window.toastr.error(testStatus, 'ERROR)');
-        //     console.log(jqXHR, testStatus);
-        // });
+        $.ajax("/administration/savenewrole", {method: 'POST', data: postData})
+        .done(function(data){
+            window.toastr.success(data, 'New role created)');
+            console.log(data);
+        })
+        .fail(function(jqXHR, testStatus){
+            window.toastr.error(testStatus, 'ERROR');
+            console.log(jqXHR, testStatus);
+            console.log(jqXHR.responseText);
+        });
 
         // normally it's possible to make role with no associated module
         //if ($('#selectedExtensions option').length == 0) {
