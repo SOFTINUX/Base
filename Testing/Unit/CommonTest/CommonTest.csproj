@@ -3,11 +3,11 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ExtCore.Data.EntityFramework.Sqlite" Version="3.3.0-beta3" />
-    <PackageReference Include="ExtCore.Infrastructure" Version="3.3.0-beta3" />
-    <PackageReference Include="ExtCore.WebApplication" Version="3.2.0" />
+    <PackageReference Include="ExtCore.Data.EntityFramework.Sqlite" Version="3.3.0" />
+    <PackageReference Include="ExtCore.Infrastructure" Version="3.3.0" />
+    <PackageReference Include="ExtCore.WebApplication" Version="3.3.0" />
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="2.1.2" />
-    <PackageReference Include="xunit" Version="2.3.1" />
+    <PackageReference Include="xunit" Version="2.4.0" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="ExtCore.Data.EntityFramework, Version=3.3.0.0, Culture=neutral, PublicKeyToken=null" />

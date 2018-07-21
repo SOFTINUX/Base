@@ -3,7 +3,7 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ExtCore.Data.EntityFramework" Version="3.3.0-beta3" />
+    <PackageReference Include="ExtCore.Data.EntityFramework" Version="3.3.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Security.Common\Security.Common.csproj" />
