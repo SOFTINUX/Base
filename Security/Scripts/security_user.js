@@ -331,28 +331,22 @@ function passSelectedRoleOnEdition(roleId_){
 }
 
 function saveEditRole(formId_){
-    var $form = $("#"+formId_);
-    var token = $('input[name="__RequestVerificationToken"]', $form).val();
-    var data = JSON.stringify($form.serialize());
-    var dataWithAntiforgeryToken = $.extend(data, { '__RequestVerificationToken': token });
+    var $form =$("#"+formId_);
+    var data = $form.serialize();
     $.ajax("/administration/updaterolename",
     {
         method: 'POST',
-        data: dataWithAntiforgeryToken,
-        /*headers:
-        {
-            "RequestVerificationToken": $form.find("input[name='__RequestVerificationToken']").val()
-        }*/
+        data: data,
+        headers: {
+            "RequestVerificationToken": $('input:hidden[name="__RequestVerificationToken"]', $form).val()
+        }
     })
     .done(function(data){
-        //window.toastr.success(data, 'Role updated :)');
-        window.toastr.success(SuccessMessage);
+        window.toastr.success(data, "Saved");
         console.log(data);
     })
     .fail(function(jqXHR, testStatus){
         window.toastr.error(testStatus, 'ERROR)');
         console.log(jqXHR, testStatus);
     });
-
-    // TODO add header to ajax call https://stackoverflow.com/questions/48038980/why-antiforgerytoken-validation-keeps-failing#
 }

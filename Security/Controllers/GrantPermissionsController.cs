@@ -187,7 +187,7 @@ namespace Security.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Update role name into database.
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
