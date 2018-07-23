@@ -169,7 +169,7 @@ namespace Security.Controllers
         /// </summary>
         /// <param name="roleID_"></param>
         /// <returns>JSON role object</returns>
-         [PermissionRequirement(Permission.Admin)]
+        [PermissionRequirement(Permission.Admin)]
         [Route("administration/findrole")]
         [HttpGet]
         public async Task<IActionResult> GetRole(string roleId_)
@@ -192,11 +192,14 @@ namespace Security.Controllers
         /// <returns></returns>
         [PermissionRequirement(Permission.Admin)]
         [Route("administration/updaterolename")]
-        //[HttpPost]
-        [HttpGet] // testing form submit
+        [HttpPost]
+        //[HttpGet] // testing form submit
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateRoleName(string name, string id){
-            return Ok($"Role {name} ({id}) successfully updated");
+            //return Ok($"Role {name} ({id}) successfully updated");
+            //ViewBag.SuccessMessage = "Not yet implemented ;)";
+            //return View("administration/grantpermissions");
+            return Redirect("~/administration/grantpermissions");
         }
     }
 }

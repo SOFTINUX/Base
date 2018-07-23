@@ -123,7 +123,7 @@ namespace WebApplication
 
             services_.AddAntiforgery(options =>
                 {
-                    options.HeaderName = "X-CSRF-TOKEN";
+                    options.HeaderName = "X-XSRF-TOKEN";
                     options.SuppressXFrameOptionsHeader = false;
                 });
         }
@@ -153,35 +153,35 @@ namespace WebApplication
             Log.Information("#######################################################");
             Log.Information("webroot path: " + hostingEnvironment_.WebRootPath + "\n" + "Content Root path: " + hostingEnvironment_.ContentRootPath);
             Log.Information("#######################################################");
-#endif
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             applicationBuilder_.UseSwagger();
 
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.
             applicationBuilder_.UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Softinux Base API V1");
-                });
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Softinux Base API V1");
+            });
+#endif
 
             applicationBuilder_.Use(next => context =>
-               {
-                   string path = context.Request.Path.Value;
+            {
+                string path = context.Request.Path.Value;
 
-                   if (
-                       string.Equals(path, "/", StringComparison.OrdinalIgnoreCase) ||
-                       string.Equals(path, "/index.html", StringComparison.OrdinalIgnoreCase))
-                   {
-                        // The request token can be sent as a JavaScript-readable cookie, 
-                        // and Angular uses it by default.
-                        var tokens = antiForgery_.GetAndStoreTokens(context);
-                       context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken,
-                           new CookieOptions() { HttpOnly = false });
-                   }
+                if (
+                    string.Equals(path, "/", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(path, "/signin", StringComparison.OrdinalIgnoreCase))
+                {
+                    // The request token can be sent as a JavaScript-readable cookie,
+                    // and Angular uses it by default.
+                    var tokens = antiForgery_.GetAndStoreTokens(context);
+                    context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken,
+                        new CookieOptions() { HttpOnly = false });
+                }
 
-                   return next(context);
-               });
+                return next(context);
+            });
 
             applicationBuilder_.UseExtCore();
             applicationBuilder_.UseStaticFiles();

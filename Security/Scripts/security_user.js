@@ -64,7 +64,7 @@ $(function () {
         $("#selectedExtensions>option").each(function() {
             selectedExtensions.push(this.value);
         });
-        var postData = { 
+        var postData = {
             RoleName: roleNameInputElt.val(),
             Extensions: selectedExtensions,
             Permission: $("#newRolePermission").val()
@@ -333,9 +333,18 @@ function passSelectedRoleOnEdition(roleId_){
 function saveEditRole(formId_){
     let data = JSON.stringify($("#"+formId_).serialize());
     console.log(data);
-    $.ajax("/administration/updaterolename", {method: 'POST', data: data})
+    $.ajax("/administration/updaterolename",
+    {
+        method: 'POST',
+        data: data
+        /*headers:
+        {
+            "RequestVerificationToken": $form.find("input[name='__RequestVerificationToken']").val()
+        }*/
+    })
     .done(function(data){
-        window.toastr.success(data, 'Role updated :)');
+        //window.toastr.success(data, 'Role updated :)');
+        window.toastr.success(SuccessMessage);
         console.log(data);
     })
     .fail(function(jqXHR, testStatus){
