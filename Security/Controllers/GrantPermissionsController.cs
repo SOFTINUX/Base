@@ -12,6 +12,7 @@ using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Security.Common;
 using Security.Common.Attributes;
 using Security.Data.Abstractions;
@@ -193,13 +194,9 @@ namespace Security.Controllers
         [PermissionRequirement(Permission.Admin)]
         [Route("administration/updaterolename")]
         [HttpPost]
-        //[HttpGet] // testing form submit
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateRoleName(string name, string id){
-            //return Ok($"Role {name} ({id}) successfully updated");
-            //ViewBag.SuccessMessage = "Not yet implemented ;)";
-            //return View("administration/grantpermissions");
-            return Redirect("~/administration/grantpermissions");
+            return Json("Not yet implemented");
         }
     }
 }

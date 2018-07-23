@@ -117,13 +117,13 @@ $(function () {
             return;
         }
 
-        //saveEditRole("edit-role-form");
-        $("#edit-role-form").submit();
+        saveEditRole("edit-role-form");
+        //$("#edit-role-form").submit();
     });
 
     $('#collapse').on('click', function () {
         var state = $(this).data('state');
-        if (state == 'closed') {
+        if (state === 'closed') {
             $(this).data('state', 'open');
             // TODO change icon to open double chevron
 
@@ -331,12 +331,14 @@ function passSelectedRoleOnEdition(roleId_){
 }
 
 function saveEditRole(formId_){
-    let data = JSON.stringify($("#"+formId_).serialize());
-    console.log(data);
+    var $form = $("#"+formId_);
+    var token = $('input[name="__RequestVerificationToken"]', $form).val();
+    var data = JSON.stringify($form.serialize());
+    var dataWithAntiforgeryToken = $.extend(data, { '__RequestVerificationToken': token });
     $.ajax("/administration/updaterolename",
     {
         method: 'POST',
-        data: data
+        data: dataWithAntiforgeryToken,
         /*headers:
         {
             "RequestVerificationToken": $form.find("input[name='__RequestVerificationToken']").val()

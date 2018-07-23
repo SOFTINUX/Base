@@ -156,7 +156,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <form id="edit-role-form" asp-controller="GrantPermissions" asp-action="updaterolename" method="POST">
+                            <form id="edit-role-form" action="administration/updaterolename">
                             @Html.AntiForgeryToken()
                                 <div class="col-md-4">
                                     <div class="form-group" id="edit-role-group">
@@ -261,7 +261,7 @@
 @section Scripts {
     <script src="/Scripts/jquery.pressAndHold.min.js"></script>
     <script>
-        var SuccessMessage = @ViewBag.SuccessMessage;
+        var SuccessMessage = "@(ViewBag.SuccessMessage)";
         window.StopAccordionsPropagation = function (e) {
             console.log('StopAccordionsPropagation');
             e.stopPropagation();
@@ -306,7 +306,7 @@
             if ((inputValue >=1 && inputValue <= 64) || (inputValue >=121) && inputValue !=32) {
                 event.preventDefault();
             }
-        })
+        });
 
     </script>
 }
