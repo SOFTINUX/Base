@@ -47,45 +47,33 @@
                 <div class="row hidden" id="add-role-area">
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group" id="add-role-group">
                                     <h3>New role</h3>
-                                    <div class="input-group margin ">
+                                    <div class="input-group margin">
                                         <input required id="role_name_input" name="role_name_input" type="text" class="form-control" placeholder="enter role name here" size="80" @Html.Raw(inputExtendAttributes)>
-                                        <select class="form-control" name="newRolePermission" id="newRolePermission">
-                                            <option value="None">None</option>
-                                            <option value="Read" selected>Read</option>
-                                            <option value="Write">Write</option>
-                                            <option value="Admin">Admin</option>
-                                        </select>
-                                        <!-- <div class="input-group-btn">
-                                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <span class="fa fa-caret-down"></span>
-                                                <span>Read</span>
+                                        <div class="input-group-btn bs-dropdown-to-select-acl-group">
+                                            <button class="btn btn-default dropdown-toggle bs-dropdown-to-select-acl" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span data-bind="bs-drp-sel-acl-label">Select...</span>
+                                                <input type="hidden" name="acl-selected_value" data-bind="bs-drp-sel-acl-value" value="">
+                                                <span class="caret"></span>
+                                                <span class="sr-only">Toggle Dropdown</span>
                                             </button>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a href="#">None</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Read</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Write</a>
-                                                </li>
+                                            <ul id="acl-sel" class="dropdown-menu" role="menu">
+                                                <li data-value="1"><a href="#">None</a></li>
+                                                <li data-value="2"><a href="#">Read</a></li>
+                                                <li data-value="3"><a href="#">Write</a></li>
                                                 <li role="separator" class="divider"></li>
-                                                <li>
-                                                    <a href="#">Admin</a>
-                                                </li>
+                                                <li data-value="4"><a href="#">Admin</a></li>
                                             </ul>
-                                        </div> -->
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-5">
-                                <div class="form-group">
+                                <div class="form-group margin">
                                     <label>Available extension(s)</label>
                                     <select class="form-control" multiple="" id="availableExtensions">
                                         @* here options *@
@@ -103,19 +91,19 @@
                                 </div>
                             </div>
                             <div class="col-md-2 pagination-centered text-center">
-                                <div class="btn-group-vertical ">
+                                <div class="btn-group-vertical">
                                     <button class="btn btn-default" type="button" id="btnRight"><i class="fa fa-angle-right"></i></button>
                                     <button class="btn btn-default" type="button" id="btnAllRight"><i class="fa fa-angle-double-right"></i></button>
                                 </div>
                                 <br />
                                 <br />
-                                <div class="btn-group-vertical ">
+                                <div class="btn-group-vertical">
                                     <button class="btn btn-default" type="button" id="btnAllLeft"><i class="fa fa-angle-double-left"></i></button>
                                     <button class="btn btn-default" type="button" id="btnLeft"><i class="fa fa-angle-left"></i></button>
                                 </div>
                             </div>
                             <div class="col-md-5">
-                                <div class="form-group">
+                                <div class="form-group margin">
                                     <label>Selected extension(s)</label>
                                     <select class="form-control" multiple="" id="selectedExtensions" name="selectedExtensions">
                                         @* here selected extensions options *@
@@ -307,6 +295,5 @@
                 event.preventDefault();
             }
         });
-
     </script>
 }
