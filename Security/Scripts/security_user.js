@@ -7,17 +7,6 @@ $(function () {
     browseForAvatar();
     //freezePermissionCheckBox();
 
-    /*$( document ).on( 'click', '.bs-dropdown-to-select-acl-group .dropdown-menu li', function( event ) {
-    	var $target = $( event.currentTarget );
-		$target.closest('.bs-dropdown-to-select-acl-group')
-			.find('[data-bind="bs-drp-sel-acl-value"]').val($target.attr('data-value'))
-			.end()
-			.children('.dropdown-toggle').dropdown('toggle');
-		$target.closest('.bs-dropdown-to-select-acl-group')
-    		.find('[data-bind="bs-drp-sel-acl-label"]').text($target.context.textContent);
-		return false;
-    });*/
-
     $("#save_profile_btn").click(function (event) {
         edit_state("profile_form_fieldset", "save_profile_btn", event);
     });
