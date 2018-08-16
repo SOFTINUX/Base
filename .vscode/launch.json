@@ -25,6 +25,7 @@
             "launchBrowser": {
                 "enabled": true,
                 "args": "${auto-detect-url}",
+                "runtimeArgs": "--incognito",
                 "windows": {
                     "command": "cmd.exe",
                     "args": "/C start ${auto-detect-url}"
@@ -44,7 +45,17 @@
             }
         },
         {
-            "name": "Build & Run",
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrome",
+            "runtimeArgs": [
+                "--incognito"
+            ],
+            "url": "http://localhost:5000",
+            "webRoot": "${workspaceFolder}",
+        },
+        {
+            "name": "Build only & Run",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
@@ -79,6 +90,15 @@
             "type": "coreclr",
             "request": "attach",
             "processId": "${command:pickProcess}"
+        },
+    ],
+    "compounds": [
+        {
+            "name": "Launch & Debug",
+            "configurations": [
+                ".NET Core Launch (console)",
+                "Launch Chrome"
+            ]
         }
     ]
 }
