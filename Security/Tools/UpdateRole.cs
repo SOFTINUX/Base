@@ -16,7 +16,7 @@ namespace Security.Tools
         /// <returns>true when a role with this normalized name is found</returns>
         public static async Task<bool> CheckThatRoleOfThisNameExists(RoleManager<IdentityRole<string>> roleManager_, string roleName_)
         {
-            return (await roleManager_.FindByNameAsync(roleName_)) == null;
+            return (await roleManager_.FindByNameAsync(roleName_)) != null;
         }
     }
 }
