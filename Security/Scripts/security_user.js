@@ -56,7 +56,7 @@ $(function () {
     $('#save-add-role-btn').click(function () {
         var roleNameInputElt = $("#role_name_input");
          if (!roleNameInputElt.val()) {
-            window.toastr.warning('No role given.', 'Role not saved!');
+            window.toastr.warning('No role name given.', 'Role not saved!');
             input_form_group_validator("#role_name_input");
             return;
         }
@@ -70,11 +70,11 @@ $(function () {
             Permission: $("#newRolePermission").val()
         };
 
-        console.log(postData);
+        // console.log(postData);
 
         $.ajax("/administration/savenewrole", {method: 'POST', data: postData})
         .done(function(data){
-            window.toastr.success(data, 'New role created)');
+            window.toastr.success(data, 'New role created');
             console.log(data);
         })
         .fail(function(jqXHR, testStatus){
@@ -82,14 +82,6 @@ $(function () {
             console.log(jqXHR, testStatus);
             console.log(jqXHR.responseText);
         });
-
-        // normally it's possible to make role with no associated module
-        //if ($('#selectedExtensions option').length == 0) {
-        //    toastr.warning('You must select at least one extension from the list of available extensions.',
-        //        'No extension selected');
-        //    return;
-        //}
-        window.toastr.success('role saved.');
     });
 
     $('#cancel-add-role-btn').click(function () {
@@ -205,7 +197,7 @@ $(function () {
         var $target = $( e.currentTarget );
         $target.closest('.bs-dropdown-to-select-acl-group')
             .find('[data-bind="bs-drp-sel-acl-label"]').text( $(this).text() );
-        $("input[name*='acl-selected_value']" ).val( $(this).attr('data-value') );
+        $("input[name='acl-selected_value']" ).val( $(this).attr('data-value') );
     });
 });
 
