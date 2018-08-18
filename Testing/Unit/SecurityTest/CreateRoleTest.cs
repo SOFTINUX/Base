@@ -36,8 +36,7 @@ namespace SecurityTest
                 };
 
                 // Execute
-                var result = CreateRole.CheckAndSaveNewRole(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage).Result;
-                Console.WriteLine(result);
+                var result = await CreateRole.CheckAndSaveNewRole(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage);
                 Assert.Null(result);
 
                 // Read back and assert that we have the expected data
@@ -48,11 +47,13 @@ namespace SecurityTest
                 // 2. Expect to have a single record in RolePermission table for the new role
                 var rolePermissionRecords = permRepo.FilteredByRoleId(createdRole.Id);
                 Assert.Single(rolePermissionRecords);
+                
             }
             finally
             {
                 // Cleanup created data
                 var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(roleName);
+                Assert.NotNull(createdRole);
                 foreach (var rolePermission in permRepo.FilteredByRoleId(createdRole.Id))
                     permRepo.Delete(rolePermission.RoleId, rolePermission.Scope);
 
@@ -78,16 +79,14 @@ namespace SecurityTest
                 };
 
                 // Execute
-                var result = CreateRole.CheckAndSaveNewRole(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage).Result;
-                Console.WriteLine(result);
+                var result = await CreateRole.CheckAndSaveNewRole(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage);
                 Assert.Null(result);
 
                 // Read back and expect to find the Role record for the new role
                 var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(model.RoleName);
                 Assert.NotNull(createdRole);
 
-                result = CreateRole.CheckAndSaveNewRole(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage).Result;
-                Console.WriteLine(result);
+                result = await CreateRole.CheckAndSaveNewRole(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage);
                 Assert.NotNull(result);
                 Assert.Equal("A role with this name already exists", result);
             }
@@ -95,6 +94,7 @@ namespace SecurityTest
             {
                 // Cleanup created data
                 var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(roleName);
+                Assert.NotNull(createdRole);
                 foreach (var rolePermission in permRepo.FilteredByRoleId(createdRole.Id))
                     permRepo.Delete(rolePermission.RoleId, rolePermission.Scope);
 

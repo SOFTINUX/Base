@@ -147,9 +147,9 @@ namespace Security.Controllers
         /// <returns></returns>
         [Route("administration/savenewrole")]
         [HttpPost]
-        public ObjectResult SaveNewRoleAndItsPermissions(SaveNewRoleViewModel model_)
+        public async Task<ObjectResult> SaveNewRoleAndItsPermissions(SaveNewRoleViewModel model_)
         {
-            string error = Tools.CreateRole.CheckAndSaveNewRole(model_, _roleManager, Storage).Result;
+            string error = await CreateRole.CheckAndSaveNewRole(model_, _roleManager, Storage);
             return StatusCode(string.IsNullOrEmpty(error) ? 201 : 400, error);
         }
 
