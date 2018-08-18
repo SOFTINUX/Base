@@ -7,6 +7,6 @@ namespace Security.Data.Abstractions
 {
     public interface IAspNetUsersRepository: IRepository
     {
-        bool FindByUserNameOrEmail(string value_);
+        bool FindByNormalizedUserNameOrEmail(string value_);
     }
 }

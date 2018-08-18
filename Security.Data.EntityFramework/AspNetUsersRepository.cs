@@ -15,11 +15,11 @@ namespace Security.Data.EntityFramework
         /// <summary>
         /// Return true if found, else false.
         /// </summary>
-        /// <param name="value_">string to find</param>
+        /// <param name="value_">normalized string to find</param>
         /// <returns>bool</returns>
-        public bool FindByUserNameOrEmail(string value_)
+        public bool FindByNormalizedUserNameOrEmail(string value_)
         {
-            return dbSet.FirstOrDefault(e_ => e_.UserName == value_ || e_.Email == value_) != null;
+            return dbSet.FirstOrDefault(e_ => e_.NormalizedUserName == value_ || e_.NormalizedEmail == value_) != null;
         }
     }
 }

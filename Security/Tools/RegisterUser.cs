@@ -19,10 +19,9 @@ namespace Security.Tools
         /// Check if user exists by this name or e-mail.
         /// </summary>
         /// <returns>true if exist, false if not exist</returns>
-        public static bool IsUserExist(IStorage storage_, string value_)
+        public static bool IsUserExist(IStorage storage_, string value_, UserManager<User> userManager_)
         {
-            // TODO @xarkam normalize value_ (use UserManager.NormalizeKey()) and compare it, in the repository, to NormalizedName and NormalizedEmail.
-            return storage_.GetRepository<IAspNetUsersRepository>().FindByUserNameOrEmail(value_);
+            return storage_.GetRepository<IAspNetUsersRepository>().FindByNormalizedUserNameOrEmail(userManager_.NormalizeKey(value_));
         }
 
         /// <summary>
@@ -30,13 +29,13 @@ namespace Security.Tools
         /// </summary>
         /// <param name="viewModel_">user object from view</param>
         /// <returns>true if create, false if fail</returns>
-        public async static Task<bool> CreateNewUser(IStorage storage_,SignUpViewModel viewModel_)
+        public async static Task<bool> CreateNewUser(IStorage storage_,SignUpViewModel viewModel_, UserManager<User> userManager_)
         {
-            if (IsUserExist(storage_, viewModel_.UserName))
+            if (IsUserExist(storage_, viewModel_.UserName, userManager_))
             {
                 return false;
             }
-            if (IsUserExist(storage_, viewModel_.Email))
+            if (IsUserExist(storage_, viewModel_.Email, userManager_))
             {
                 return false;
             }

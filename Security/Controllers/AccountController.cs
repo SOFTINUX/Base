@@ -177,7 +177,7 @@ namespace Security.Controllers
         [AllowAnonymous]
         public IActionResult CheckUserNameExist(string userName_)
         {
-            return Json(!RegisterUser.IsUserExist(Storage, userName_));
+            return Json(!RegisterUser.IsUserExist(Storage, userName_, _userManager));
         }
     }
 }

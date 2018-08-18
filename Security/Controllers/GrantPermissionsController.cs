@@ -156,13 +156,13 @@ namespace Security.Controllers
         /// <summary>
         /// Return true when role name isn't in use.
         /// </summary>
-        /// <param name="userName_"></param>
+        /// <param name="roleName_"></param>
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> CheckRoleNameExist(string roleName_)
         {
-            return Json(!UpdateRole.CheckThatRoleOfThisNameExists(_roleManager, roleName_, Storage));
+            return Json(! (await UpdateRole.CheckThatRoleOfThisNameExists(_roleManager, roleName_)));
         }
 
         /// <summary>

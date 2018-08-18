@@ -4,7 +4,6 @@
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
-using Security.Data.Abstractions;
 
 namespace Security.Tools
 {
@@ -15,10 +14,9 @@ namespace Security.Tools
         /// </summary>
         /// <param name="roleName_"></param>
         /// <returns>true when a role with this normalized name is found</returns>
-        public static bool CheckThatRoleOfThisNameExists(RoleManager<IdentityRole<string>> roleManager_, string roleName_, IStorage storage_)
+        public static async Task<bool> CheckThatRoleOfThisNameExists(RoleManager<IdentityRole<string>> roleManager_, string roleName_)
         {
-            // I wish we had roleManager_.FindByNormalizedNameAsync(roleName_) 
-            return storage_.GetRepository<IAspNetRolesRepository>().FindByNormalizedName(roleManager_.NormalizeKey(roleName_));
+            return (await roleManager_.FindByNameAsync(roleName_)) == null;
         }
     }
 }
