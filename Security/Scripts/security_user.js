@@ -78,8 +78,7 @@ $(function () {
             console.log(data);
         })
         .fail(function(jqXHR, testStatus){
-            window.toastr.error(testStatus, 'ERROR');
-            console.log(jqXHR, testStatus);
+            window.toastr.error(jqXHR.responseText ? jqXHR.responseText : testStatus, 'ERROR');
             console.log(jqXHR.responseText);
         });
     });

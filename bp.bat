@@ -15,6 +15,7 @@ set pub_folder=".\WebApplication\bin\Debug\%netVersion%\publish"
 cd %~dp0
 IF "%1" == "/?" GOTO Help
 IF "%1" == "-h" GOTO Help
+IF "%1" == "help" GOTO Help
 IF "%1" == "clean" GOTO Clean
 IF "%1" == "build" GOTO Build
 IF "%1" == "copyexts" GOTO CopyExts
