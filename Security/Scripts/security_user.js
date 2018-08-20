@@ -75,11 +75,13 @@ $(function () {
         $.ajax("/administration/savenewrole", {method: 'POST', data: postData})
         .done(function(data){
             window.toastr.success(data, 'New role created');
-            console.log(data);
+            input_form_group_set_error("#role_name_input", null);
         })
         .fail(function(jqXHR, testStatus){
-            window.toastr.error(jqXHR.responseText ? jqXHR.responseText : testStatus, 'ERROR');
+            var errMsg = jqXHR.responseText ? jqXHR.responseText : testStatus;
+            window.toastr.error(errMsg, 'ERROR');
             console.log(jqXHR.responseText);
+            input_form_group_set_error("#role_name_input", errMsg);
         });
     });
 
@@ -305,6 +307,9 @@ function removeRoleLink() {
     $('#myModal').modal('show');
 }
 
+/// Set error style to input when its value is empty.
+/// Params:
+/// el: jQuery selector string.
 function input_form_group_validator(el) {
     console.log(el);
     if (!$(el).is('input')) {
@@ -315,6 +320,24 @@ function input_form_group_validator(el) {
         $(el).closest('.form-group').removeClass('has-error').removeClass('has-feedback');
     } else {
         $(el).closest('.form-group').addClass('has-error').addClass('has-feedback');
+    }
+}
+
+/// Set error style to an input and error message below.
+/// Params:
+/// el: jQuery selector string.
+/// errMsg: error message if any error, else null to remove error style and message.
+function input_form_group_set_error(el, errMsg) {
+    if (!$(el).is('input')) {
+        return;
+    }
+    var formGroupEl = $(el).closest('.form-group');
+    if (!errMsg) {
+        formGroupEl.removeClass('has-error').removeClass('has-feedback');
+        formGroupEl.find('span.help-block').html('');
+    } else {
+        formGroupEl.addClass('has-error').addClass('has-feedback');
+        formGroupEl.find('span.help-block').html(errMsg);
     }
 }
 

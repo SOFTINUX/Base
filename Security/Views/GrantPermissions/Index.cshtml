@@ -52,7 +52,8 @@
                                     <h3>New role</h3>
                                     <div class="input-group margin">
                                         <input required id="role_name_input" name="role_name_input" type="text" class="form-control" placeholder="enter role name here" size="80" @Html.Raw(inputExtendAttributes)>
-                                        <div class="input-group-btn bs-dropdown-to-select-acl-group">
+                                        <span class="help-block"></span>
+                                        <div class="input-group-btn bs-dropdown-to-select-acl-group" style="vertical-align: top;">
                                             <button class="btn btn-default dropdown-toggle bs-dropdown-to-select-acl" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <span data-bind="bs-drp-sel-acl-label">Read</span>
                                                 <input type="hidden" name="acl-selected_value" id="newRolePermission" data-bind="bs-drp-sel-acl-value" value="2">
