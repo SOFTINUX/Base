@@ -79,8 +79,6 @@ $(function () {
         })
         .fail(function(jqXHR, testStatus){
             var errMsg = jqXHR.responseText ? jqXHR.responseText : testStatus;
-            window.toastr.error(errMsg, 'ERROR');
-            console.log(jqXHR.responseText);
             input_form_group_set_error("#role_name_input", errMsg);
         });
     });

@@ -49,7 +49,8 @@ $('ul.treeview-menu a').filter(function() {
 }).parentsUntil(".sidebar-menu > .treeview-menu").addClass('active');
 
 // Global ajax error handler
-$(document).ajaxError(function(event, request, settings, errorMessage) {
-    console.log("Error calling ", settings.url, " ", errorMessage);
-    alert("Ajax error: " + errorMessage);
+$(document).ajaxError(function(event, jqXhr, settings, errorMessage) {
+    var errMsg = jqXhr.responseText ? jqXhr.responseText : errorMessage;
+    window.toastr.error(errMsg, 'ERROR');
+    console.log("Error calling ", settings.url, " ", errMsg);
   });
