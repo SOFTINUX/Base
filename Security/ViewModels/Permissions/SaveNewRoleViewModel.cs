@@ -11,7 +11,6 @@ namespace Security.ViewModels.Permissions
     /// </summary>
     public class SaveNewRoleViewModel
     {
-        [Remote("CheckRoleNameExist", "GrantPermission", HttpMethod = "POST", ErrorMessage = "Role name already taken.")]
         public string RoleName {get; set;}
 
         public List<string> Extensions {get; set;}
