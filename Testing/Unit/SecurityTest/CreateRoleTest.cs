@@ -70,7 +70,7 @@ namespace SecurityTest
                 await DatabaseFixture.RoleManager.DeleteAsync(createdRole);
             }
         }
-
+        
         [Fact]
         public async void TestCheckAndSaveNewRole_NameAlreadyTaken()
         {

@@ -16,14 +16,20 @@ namespace CommonTest
     /// Base class for all test classes that should use a database.
     /// A derived class should be decorated with "[Collection("Database collection")]", using the DatabaseCollection class defined in its assembly.
     /// </summary>
-    public class CommonTestWithDatabase
+    public class CommonTestWithDatabase : IDisposable
     {
+        protected DatabaseFixture DatabaseFixture { get; set; }
+        
         public CommonTestWithDatabase(DatabaseFixture databaseFixture_)
         {
             this.DatabaseFixture = databaseFixture_;
             CreatePermissionsIfNeeded();
         }
-        protected DatabaseFixture DatabaseFixture { get; set; }
+
+        public void Dispose()
+        {
+            CleanTrackedEntities();
+        }
 
         /// <summary>
         /// Create the standard records in Permission table, if they don't exist.
