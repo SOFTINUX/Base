@@ -79,8 +79,6 @@ $(function () {
         })
         .fail(function(jqXHR, testStatus){
             var errMsg = jqXHR.responseText ? jqXHR.responseText : testStatus;
-            window.toastr.error(errMsg, 'ERROR');
-            console.log(jqXHR.responseText);
             input_form_group_set_error("#role_name_input", errMsg);
         });
     });
@@ -311,7 +309,7 @@ function removeRoleLink() {
 /// Params:
 /// el: jQuery selector string.
 function input_form_group_validator(el) {
-    console.log(el);
+    // console.log(el);
     if (!$(el).is('input')) {
         return;
     }

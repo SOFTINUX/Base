@@ -40,11 +40,16 @@ namespace Security.Tools
                 await roleManager_.CreateAsync(identityRole);
 
                 // Save the role-extension-permission link
-                IRolePermissionRepository repo = storage_.GetRepository<IRolePermissionRepository>();
-                foreach (string extension in model_.Extensions)
+                if (model_.Extensions != null)
                 {
-                    repo.Create(new RolePermission { RoleId = identityRole.Id, PermissionId = permissionEnum.ToString(), Scope = extension });
+                    IRolePermissionRepository repo = storage_.GetRepository<IRolePermissionRepository>();
+                    foreach (string extension in model_.Extensions)
+                    {
+                        repo.Create(new RolePermission
+                            {RoleId = identityRole.Id, PermissionId = permissionEnum.ToString(), Scope = extension});
+                    }
                 }
+
                 storage_.Save();
                 
                 return null;
@@ -52,7 +57,7 @@ namespace Security.Tools
             }
             catch (Exception e)
             {
-                return e.Message;
+                return $"{e.Message} {e.StackTrace}";
             }
         }
     }
