@@ -77,7 +77,7 @@ namespace SeedDatabase.Controllers
                 FirstName = "John",
                 LastName = "Doe",
                 Email = "johndoe@softinux.com",
-                UserName = "johndoe@softinux.com",
+                UserName = "johndoe",
                 LockoutEnabled = false
             };
 
@@ -86,7 +86,7 @@ namespace SeedDatabase.Controllers
                 FirstName = "Jane",
                 LastName = "Fonda",
                 Email = "janefonda@softinux.com",
-                UserName = "janefonda@softinux.com",
+                UserName = "janefonda",
                 LockoutEnabled = false
             };
 
@@ -95,7 +95,7 @@ namespace SeedDatabase.Controllers
                 FirstName = "Paul",
                 LastName = "Keller",
                 Email = "paulkeller@softinux.com",
-                UserName = "paulkeller@softinux.com",
+                UserName = "paulkeller",
                 LockoutEnabled = false
             };
 

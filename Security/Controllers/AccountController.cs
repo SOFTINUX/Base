@@ -104,9 +104,19 @@ namespace Security.Controllers
                 return View(signIn_);
             }
 
+            // find user by nickname or email 
+            if (signIn_.Username.Contains("@"))
+            {
+                var userForEmail = await _userManager.FindByEmailAsync(signIn_.Username);
+                if (userForEmail != null)
+                {
+                    signIn_.Username = userForEmail.UserName;
+                }
+            }
+            
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-            var result = await _signInManager.PasswordSignInAsync(signIn_.Email, signIn_.Password, signIn_.RememberMe, lockoutOnFailure: false);
+            var result = await _signInManager.PasswordSignInAsync(signIn_.Username, signIn_.Password, signIn_.RememberMe, lockoutOnFailure: false);
             if (result.Succeeded)
             {
                 _logger.LogInformation("User logged in");

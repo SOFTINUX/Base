@@ -13,12 +13,12 @@ namespace Security.ViewModels.Account
         public int? Id { get; set; }
 
         /// <summary>
-        /// E-mail field
+        /// user name or e-mail field
         /// </summary>
-        [Display(Name = "Email")]
+        [Display(Name = "Username or e-mail")]
         [Required]
         [StringLength(64)]
-        public string Email { get; set; }
+        public string Username { get; set; }
 
         /// <summary>
         /// Password field
