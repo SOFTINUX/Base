@@ -2,6 +2,8 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using CommonTest;
 using Microsoft.AspNetCore.Identity;
 using Security.Data.Abstractions;
@@ -19,19 +21,27 @@ namespace SecurityTest
 
         }
 
-        [Fact]
-        public async void TestCheckAndSaveNewRole_Ok()
+        /// <summary>
+        /// Test the creation of role with 0, 1 or 2 associated extensions.
+        /// </summary>
+        /// <param name="extensionNames_"></param>
+        [Theory]
+        [InlineData("")]
+        [InlineData("Security,Chinook")]
+        [InlineData("Security")]
+        public async void TestCheckAndSaveNewRole_Ok(string extensionNames_)
         {
             string roleName = "New Role 1 " + DateTime.Now.Ticks;
             var permRepo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
             try
             {
                 // Arrange
+                string[] extensions = extensionNames_.Split(',');
                 SaveNewRoleViewModel model = new SaveNewRoleViewModel
                 {
                     // Really unique value
                     RoleName = roleName,
-                    Extensions = new System.Collections.Generic.List<string> { "Security" },
+                    Extensions = new System.Collections.Generic.List<string> (extensions),
                     Permission = Security.Common.Enums.Permission.Write.ToString()
                 };
 
@@ -44,9 +54,9 @@ namespace SecurityTest
                 var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(model.RoleName);
                 Assert.NotNull(createdRole);
 
-                // 2. Expect to have a single record in RolePermission table for the new role
+                // 2. Expect to have an expected number of records in RolePermission table for the new role
                 var rolePermissionRecords = permRepo.FilteredByRoleId(createdRole.Id);
-                Assert.Single(rolePermissionRecords);
+                Assert.Equal(extensions.Count(), rolePermissionRecords.Count());
                 
             }
             finally
@@ -60,7 +70,7 @@ namespace SecurityTest
                 await DatabaseFixture.RoleManager.DeleteAsync(createdRole);
             }
         }
-
+        
         [Fact]
         public async void TestCheckAndSaveNewRole_NameAlreadyTaken()
         {
