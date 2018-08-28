@@ -9,11 +9,11 @@
 @{
      var firstName = "";
      var lastName = "";
-     var  loggedInUser = User != null ? @UserManager.GetUserAsync(User) : null;
+     var  loggedInUser = User != null ? await @UserManager.GetUserAsync(User) : null;
      if(loggedInUser != null)
      {
-         firstName = loggedInUser.Result.FirstName;
-         lastName = loggedInUser.Result.LastName;
+         firstName = loggedInUser.FirstName;
+         lastName = loggedInUser.LastName;
      }
  }
 
