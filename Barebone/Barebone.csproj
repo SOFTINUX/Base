@@ -9,7 +9,7 @@
     <PackageReference Include="ExtCore.Mvc.Infrastructure" Version="3.3.0" />
     <PackageReference Include="ExtCore.Data.Abstractions" Version="3.3.0" />
     <PackageReference Include="FontAwesome" Version="4.7.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
