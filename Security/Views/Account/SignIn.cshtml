@@ -48,19 +48,19 @@
 
             </form>
 
-            @*@if (RegisterIsActive)*@
-            @*<div class="register">
-            New to Base? <a href="SignUp">Create an account</a>
-        </div>*@
         </div>
         @* /.login-box-body *@
     </div>
-
-    <div class="register-box2">
-        <div class="register-box-body">
-            New to Base? <a href="SignUp">Create an account</a>
+    
+    @if (OptionsApplicationConfiguration.Value.RegisterNewUsers)
+    {
+        <div class="register-box2">
+            <div class="register-box-body">
+                New to Base? <a href="SignUp">Create an account</a>
+            </div>
         </div>
-    </div>
+    }
+     
 
 </div>
 

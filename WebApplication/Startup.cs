@@ -103,6 +103,7 @@ namespace WebApplication
                 options_.Name = Configuration.GetValue<string>("Corporate:Name");
                 options_.BrandLogo = Configuration.GetValue<string>("Corporate:BrandLogo");
                 options_.LoginBackgroundImage = Configuration.GetValue<string>(@"Corporate:LoginBackgroundImage");
+                options_.RegisterNewUsers = Configuration.GetValue<bool>("Corporate:RegisterNewUsers");
             });
 
             services_.AddScoped<IUserClaimsPrincipalFactory<User>, ClaimsPrincipalFactory>();
