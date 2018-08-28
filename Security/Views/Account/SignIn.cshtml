@@ -9,48 +9,61 @@
 
 @inject IOptions<CorporateConfiguration> OptionsApplicationConfiguration
 
-<div class="login-box">
-    <div class="login-logo">
-        <a href="#"><img src="/img/@Html.Raw(OptionsApplicationConfiguration.Value.BrandLogo)" class="brandlogo-image singin-brandlogo-image" alt="User Image">
-            <br/><strong>SOFTINUX</strong></a>
-    </div>
-    @* /.login-logo *@
-    <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+<div class="bgpicture">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="#"><img src="/img/@Html.Raw(OptionsApplicationConfiguration.Value.BrandLogo)" class="brandlogo-image singin-brandlogo-image" alt="User Image">
+                <br/><strong>SOFTINUX</strong></a>
+        </div>
+        @* /.login-logo *@
+        <div class="login-box-body">
 
-        <form method="post" id="loginform">
-            @Html.AntiForgeryToken()
-            <div class="form-group has-feedback">
-                <input id="username" type="text" class="form-control" placeholder="Email" asp-for="Username">
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-            </div>
-            @Html.AntiForgeryToken()
-            <div class="form-group has-feedback">
-                <input id="password" type="password" class="form-control" placeholder="Password" asp-for="Password">
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
-            <div class="row">
-                <div class="col-xs-8">
-                    <div class="checkbox icheck">
-                        <label>
-                            <input type="checkbox">Remember Me
-                        </label>
+            <form method="post" id="loginform">
+                @Html.AntiForgeryToken()
+                <div class="form-group has-feedback">
+                    <label for="username">Username or email address</label>
+                    <input id="username" type="text" class="form-control" asp-for="Username" tabindex="1" autocapitalize="off" autocorrect="off" autofocus="autofocus">
+                </div>
+                @Html.AntiForgeryToken()
+                <div class="form-group has-feedback">
+                    <label for="password" class="label-password">Password
+                        <a class="label-link" href="/password_reset">Forgot password?</a>
+                    </label>
+                    <input id="password" type="password" class="form-control" asp-for="Password" tabindex="2">
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="checkbox icheck">
+                            <label>
+                                <input type="checkbox">&nbsp;Remember Me
+                            </label>
+                        </div>
                     </div>
+                    @* /.col *@
+                    <div class="col-xs-4">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                    </div>
+                    @* /.col *@
                 </div>
-                @* /.col *@
-                <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
-                </div>
-                @* /.col *@
-            </div>
-        </form>
 
-        <a href="#">I forgot my password</a><br>
-        @*@if (RegisterIsActive)*@
-            <a href="SignUp">Register a new membership</a><br>
+            </form>
+
+            @*@if (RegisterIsActive)*@
+            @*<div class="register">
+            New to Base? <a href="SignUp">Create an account</a>
+        </div>*@
+        </div>
+        @* /.login-box-body *@
     </div>
-    @* /.login-box-body *@
+
+    <div class="register-box2">
+        <div class="register-box-body">
+            New to Base? <a href="SignUp">Create an account</a>
+        </div>
+    </div>
+
 </div>
+
 @section ScriptsUnauthenticated {
  <script type="text/javascript">
     $(function () {

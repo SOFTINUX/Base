@@ -56,3 +56,30 @@ select.input-validation-error
     background: #FEF1EC;
     border: 1px solid #CD0A0A;
 }
+
+.label-password {
+    display: block;
+}
+
+.label-link {
+    float: right;
+}
+
+.register-box2 {
+    width: 360px;
+    margin: 0% auto; !important
+}
+
+.register {
+    border: 1px solid #d8dee2;
+    border-radius: 5px;
+    padding: 5px 5px 5px 5px;    
+}
+
+.login-box {
+    margin: 7% auto 2% auto !important;
+}
+
+.login-page {
+    height: 100% !important;
+}

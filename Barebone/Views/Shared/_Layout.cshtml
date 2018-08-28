@@ -5,11 +5,12 @@ Licensed under the MIT License, Version 2.0. See License.txt in the project root
 
 @using Microsoft.Extensions.Options;
 @using Infrastructure;
+@using Microsoft.EntityFrameworkCore.Storage.ValueConversion
 @using Security.Data.Entities
 @inject IOptions<CorporateConfiguration> OptionsApplicationConfiguration
 
 <!DOCTYPE html>
-<html>
+<html @if (!User.Identity.IsAuthenticated) { @Html.Raw("class=\"login-page\"")}>
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,7 +29,7 @@ Licensed under the MIT License, Version 2.0. See License.txt in the project root
     bool hasModelWithErrorMessageProperty = properties != null && properties.Where(p => p.Name.Equals("ErrorMessage")).Any();
 }
 <body class="@authClass">
-    <div class="wrapper">
+    <div class="wrapper" @if (!User.Identity.IsAuthenticated){ @Html.Raw("style=\"background-image: url('" + OptionsApplicationConfiguration.Value.LoginBackgroundImage + "');\"")}>
         @if (User.Identity.IsAuthenticated)
         {
             @* Main Header *@
