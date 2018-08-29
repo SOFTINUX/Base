@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace Security.ViewModels.Permissions
 {
     /// <summary>
-    /// The posted data when adding a new role.
+    /// The posted data when adding a new role:
+    /// - role name
+    /// - extensions to associate to role
+    /// - permission level.
     /// </summary>
-    public class SaveNewRoleViewModel
+    public class SaveNewRoleAndGrantsViewModel
     {
         public string RoleName {get; set;}
 

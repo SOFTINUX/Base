@@ -11,15 +11,17 @@ using Security.ViewModels.Permissions;
 
 namespace Security.Tools
 {
-    public static class CreateRole
+    public static class CreateRoleAndGrants
     {
         /// <summary>
-        /// First, check that a role with a close name doesn't already exist.
+        /// First, check that a role with this name doesn't already exist.
         /// Second, save new data into database.
         /// </summary>
-        /// <param name="model_"></param>
+        /// <param name="model_">Model with role name and grant data (extensions and permission level)</param>
+        /// <param name="roleManager_"></param>
+        /// <param name="storage_"></param>
         /// <returns>Not null when something failed, else null when save went ok</returns>
-        public static async Task<string> CheckAndSaveNewRole(SaveNewRoleViewModel model_, RoleManager<IdentityRole<string>> roleManager_, IStorage storage_)
+        public static async Task<string> CheckAndSaveNewRoleAndGrants(SaveNewRoleAndGrantsViewModel model_, RoleManager<IdentityRole<string>> roleManager_, IStorage storage_)
         {
             if (await UpdateRole.CheckThatRoleOfThisNameExists(roleManager_, model_.RoleName))
             {

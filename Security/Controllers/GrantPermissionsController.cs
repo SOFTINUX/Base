@@ -40,10 +40,8 @@ namespace Security.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            // TODO move all this code to Tools.PermissionTools (new static class)
-            GrantViewModel model = new GrantViewModel();
-
-            // Create a dictionary with all roles for inject as json into grant permission page
+           
+            // Create a dictionary with all roles for injecting as json into grant permission page
             Dictionary<string, IdentityRole<string>> rolesList = new Dictionary<string, IdentityRole<string>>();
 
             // Create a dictionary with role id and name, since we will use role name in GrantViewModel
@@ -58,44 +56,7 @@ namespace Security.Controllers
 
             ViewBag.RolesList = rolesList;
 
-            // 1. Get all scopes from available extensions, create initial dictionaries
-            foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
-            {
-                model.PermissionsByRoleAndScope.Add(extensionMetadata.GetScope(), new Dictionary<string, List<Common.Enums.Permission>>());
-            }
-
-            // 2. Read data from RolePermission table
-            // Names of roles that have permissions attributed
-            HashSet<string> rolesWithPerms = new HashSet<string>();
-
-            // Read role/permission/extension settings
-            List<RolePermission> allRp = Storage.GetRepository<IRolePermissionRepository>().All();
-            foreach (RolePermission rp in allRp)
-            {
-                if (!model.PermissionsByRoleAndScope.ContainsKey(rp.Scope))
-                {
-                    // A database record related to a not loaded extension (scope). Ignore this.
-                    continue;
-                }
-                string roleName = roleNameByRoleId.ContainsKey(rp.RoleId) ? roleNameByRoleId[rp.RoleId] : null;
-                if (!model.PermissionsByRoleAndScope[rp.Scope].ContainsKey(roleName))
-                    model.PermissionsByRoleAndScope[rp.Scope].Add(roleName, new List<Common.Enums.Permission>());
-                // Format the list of Permission enum values according to DB enum value
-                model.PermissionsByRoleAndScope[rp.Scope][roleName] = PermissionHelper.GetLowerOrEqual(PermissionHelper.FromId(rp.PermissionId));
-                rolesWithPerms.Add(roleName);
-            }
-
-            // 3. Also read roles for which no permissions were set
-            IList<string> roleNames = _roleManager.Roles.Select(r_ => r_.Name).ToList();
-            foreach (string role in roleNames)
-            {
-                if (rolesWithPerms.Contains(role))
-                    continue;
-                foreach (string scope in model.PermissionsByRoleAndScope.Keys)
-                {
-                    model.PermissionsByRoleAndScope[scope].Add(role, new List<Common.Enums.Permission>());
-                }
-            }
+            var model = ReadGrants.ReadAll(_roleManager, Storage, roleNameByRoleId);
             return View(model);
         }
 
@@ -109,7 +70,7 @@ namespace Security.Controllers
         [PermissionRequirement(Permission.Admin)]
         [Route("administration/updaterolepermission")]
         [HttpGet] // TODO change to POST
-        public async Task<IActionResult> UpdateRoleAndItsPermissions(string roleName_, string permissionId_, string scope_)
+        public async Task<IActionResult> UpdateRolePermission(string roleName_, string permissionId_, string scope_)
         {
             string roleId = (await _roleManager.FindByNameAsync(roleName_)).Id;
             IRolePermissionRepository repo = Storage.GetRepository<IRolePermissionRepository>();
@@ -147,9 +108,9 @@ namespace Security.Controllers
         /// <returns></returns>
         [Route("administration/savenewrole")]
         [HttpPost]
-        public async Task<ObjectResult> SaveNewRoleAndItsPermissions(SaveNewRoleViewModel model_)
+        public async Task<ObjectResult> SaveNewRoleAndItsPermissions(SaveNewRoleAndGrantsViewModel model_)
         {
-            string error = await CreateRole.CheckAndSaveNewRole(model_, _roleManager, Storage);
+            string error = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(model_, _roleManager, Storage);
             return StatusCode(string.IsNullOrEmpty(error) ? 201 : 400, error);
         }
 

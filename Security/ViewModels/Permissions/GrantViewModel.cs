@@ -8,7 +8,7 @@ using Security.Common.Enums;
 namespace Security.ViewModels.Permissions
 {
     /// <summary>
-    /// The view model for permissions granting: for a role or a user, what kind of permissions is granted, for every scope.
+    /// The view model is used to have a global view of permissions granting: for a role or a user, what kind of permission is granted, for every scope (extension).
     /// </summary>
     public class GrantViewModel
     {

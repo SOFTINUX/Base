@@ -37,7 +37,7 @@ namespace SecurityTest
             {
                 // Arrange
                 string[] extensions = extensionNames_.Split(',');
-                SaveNewRoleViewModel model = new SaveNewRoleViewModel
+                SaveNewRoleAndGrantsViewModel model = new SaveNewRoleAndGrantsViewModel
                 {
                     // Really unique value
                     RoleName = roleName,
@@ -46,7 +46,7 @@ namespace SecurityTest
                 };
 
                 // Execute
-                var result = await CreateRole.CheckAndSaveNewRole(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage);
+                var result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage);
                 Assert.Null(result);
 
                 // Read back and assert that we have the expected data
@@ -80,7 +80,7 @@ namespace SecurityTest
             try
             {
                 // Arrange
-                SaveNewRoleViewModel model = new SaveNewRoleViewModel
+                SaveNewRoleAndGrantsViewModel model = new SaveNewRoleAndGrantsViewModel
                 {
                     // Really unique value
                     RoleName = roleName,
@@ -89,14 +89,14 @@ namespace SecurityTest
                 };
 
                 // Execute
-                var result = await CreateRole.CheckAndSaveNewRole(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage);
+                var result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage);
                 Assert.Null(result);
 
                 // Read back and expect to find the Role record for the new role
                 var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(model.RoleName);
                 Assert.NotNull(createdRole);
 
-                result = await CreateRole.CheckAndSaveNewRole(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage);
+                result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage);
                 Assert.NotNull(result);
                 Assert.Equal("A role with this name already exists", result);
             }
