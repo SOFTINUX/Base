@@ -5,7 +5,7 @@
 It is built using the best and the most modern tools and languages.  
 Join our team!
 
-:warning: During the pre-alpha development phase, the issues are managed in on our [bug tracker](https://issues.osames.org/projects/SOFB/issues) :warning:
+:warning: During the pre-alpha development phase, the issues are managed in our [bug tracker](https://issues.osames.org/projects/SOFB/issues) :warning:
 
 ## Few Facts About SOFTINUX Base
 
@@ -46,7 +46,7 @@ Restore the nuGet packages is now an implicit command executed at application bu
 Go to *Webapplication* folder and run `dotnet ef database update`.  
 This will create the database. See *appsettings.json* for database path.  
 The Entity Framework database context is defined in web application's *Startup.cs*.  
-We use Sqlite for developpment, but you can change this easily for another sgdb.
+We use Sqlite for developpment, but you can change this easily for another SGBD.
 
 #### 4. Build the appplication
 Go to the root folder and run `bp.bat` under Windows or `bp.sh` under Linux/Macos. (use -h for help).
@@ -80,7 +80,7 @@ password: **123_Password**
 (password is case sensitive)
 
 ## Implement your own extension
-:warning: You cannot place your Extentions folder to another drive. See [#2981](https://github.com/dotnet/core-setup/issues/2981#issuecomment-322572374)  
+:warning: You cannot place your Extensions folder to another drive. See [#2981](https://github.com/dotnet/core-setup/issues/2981#issuecomment-322572374)  
   
 You can use [Visual Studio 2017](https://www.visualstudio.com/fr/downloads/), [Visual Studio Code](https://code.visualstudio.com/) or [JetBrains Rider](https://www.jetbrains.com/rider/) to make your own extension.  
 If you decide to use Visual Studio, be aware **that projects are not compatible with Visual Studio 2015**.
