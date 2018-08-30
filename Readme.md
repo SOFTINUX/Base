@@ -42,6 +42,8 @@ Read [documentation](https://softinux-base.readthedocs.io/en/latest/?) to learn 
 
 Some screenshots of features:
 
+![Login](https://github.com/SOFTINUX/Base/blob/master/screenshots/login.png "Login")
+
 ![Main menu and administration](https://github.com/SOFTINUX/Base/blob/master/screenshots/menu_and_administration.png "Main menu and administration")
 
 ![Edit user profile](https://github.com/SOFTINUX/Base/blob/master/screenshots/user_profile.png "Edit user profile")
