@@ -21,12 +21,12 @@ It is completely modular and extendable. Using the features of the underlying Ex
         - [2. Restore nuget packages](#2-restore-nuget-packages)
         - [3. Update database with migration](#3-update-database-with-migration)
         - [4. Build the appplication](#4-build-the-appplication)
-        - [5. Run the app](#5-run-the-app)
-            - [Information About Visual Studio 2017](#information_source-information-about-visual-studio-2017-information_source)
-            - [Information About Rider 2017.3](#information_source-information-about-rider-20173-information_source)
+        - [5. Run the app](#5-run-the-app)            
         - [6. Add the first user (demo user)](#6-add-the-first-user-demo-user)
         - [7. Login with demo user](#7-login-with-demo-user)
     - [Implement your own extension](#implement-your-own-extension)
+        - [Information About Visual Studio 2017](#information_source-information-about-visual-studio-2017-information_source)
+        - [Information About Rider 2017.3](#information_source-information-about-rider-20173-information_source)
         - [Add a new project](#add-a-new-project)
         - [Add project reference to the solution](#add-project-reference-to-the-solution)
         - [Write your code](#write-your-code)
@@ -75,17 +75,6 @@ Go to *WebApplication* folder and type `dotnet run`.
 
 After that, the application is available on <http://localhost:5000/>
 
-##### :information_source: Information About Visual Studio 2017 :information_source:
-If you launched application from Visual Studio, this port will change,  
-being randomly defined, and value is stored in *WebApplication/Properties/launchSettings.json*  
-You can edit this value in Visual Studio: WebApplication's properties > Debug tab > Web Server Settings/App URL or directly in launchSettings file.  
-After, the default port used by *dotnet run* is the port defined in *WebApplication/Properties/launchSettings.json*.
-
-##### :information_source: Information About Rider 2017.3 :information_source:
-Rider 2017.3 cannot execute the PostBuildEvent declared into WebApplication.csproj  
-You need to execute `./bp.sh copyexts` and `./bp.sh copydeps` after build the solution or project.  
-Or refer to our [documentation](https://softinux-base.readthedocs.io/en/latest/howto/configure_rider.html) to see how configure external tools for post and build events.
-
 #### 6. Add the first user (demo user)
 With Postman (or the program of your choice) make a POST request to this url: <http://localhost:5000/dev/seed/CreateUser>  
 With command line:
@@ -105,6 +94,18 @@ password: **123_Password**
   
 You can use [Visual Studio 2017](https://www.visualstudio.com/fr/downloads/), [Visual Studio Code](https://code.visualstudio.com/) or [JetBrains Rider](https://www.jetbrains.com/rider/) to make your own extension.  
 If you decide to use Visual Studio, be aware **that projects are not compatible with Visual Studio 2015**.
+
+##### :information_source: Information About Visual Studio 2017 :information_source:
+If you launched application from Visual Studio, this port will change,  
+being randomly defined, and value is stored in *WebApplication/Properties/launchSettings.json*  
+You can edit this value in Visual Studio: WebApplication's properties > Debug tab > Web Server Settings/App URL or directly in launchSettings file.  
+After, the default port used by *dotnet run* is the port defined in *WebApplication/Properties/launchSettings.json*.
+
+##### :information_source: Information About Rider 2017.3 :information_source:
+Rider 2017.3 cannot execute the PostBuildEvent declared into WebApplication.csproj  
+You need to execute `./bp.sh copyexts` and `./bp.sh copydeps` after build the solution or project.  
+Or refer to our [documentation](https://softinux-base.readthedocs.io/en/latest/howto/configure_rider.html) to see how configure external tools for post and build events.
+
 ### Add a new project
 Using command-line (easy and cross-platform):
 
