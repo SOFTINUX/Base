@@ -13,6 +13,25 @@ It is free and open source.
 It runs on Windows, Mac and Linux.  
 It is completely modular and extendable. Using the features of the underlying ExtCore framework you can easily create your own extensions to extend its functionality.
 
+- [Basic Concepts](#basic-concepts)
+- [License](#license)
+- [Getting started](#getting-started)
+    - [Installation](#installation)
+        - [1. Restore dependencies](#1-restore-dependencies)
+        - [2. Restore nuget packages](#2-restore-nuget-packages)
+        - [3. Update database with migration](#3-update-database-with-migration)
+        - [4. Build the appplication](#4-build-the-appplication)
+        - [5. Run the app](#5-run-the-app)
+            - [Information About Visual Studio 2017](#informationsource-information-about-visual-studio-2017-informationsource)
+            - [Information About Rider 2017.3](#informationsource-information-about-rider-20173-informationsource)
+        - [6. Add the first user (demo user)](#6-add-the-first-user-demo-user)
+        - [7. Login with demo user](#7-login-with-demo-user)
+    - [Implement your own extension](#implement-your-own-extension)
+        - [Add a new project](#add-a-new-project)
+        - [Add project reference to the solution](#add-project-reference-to-the-solution)
+        - [Write your code](#write-your-code)
+- [Using Visual Studio Code For Developing](#using-visual-studio-code-for-developing)
+
 ## Basic Concepts
 
 *Softinux Base* is a framework that looks like a .NET Core web application, but is intended to host mini web applications called extensions. Every extension will plug its content (pages, menu items) as well as security and authentication related items (permissions, roles, links...).
