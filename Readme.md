@@ -5,7 +5,7 @@
 It is built using the best and the most modern tools and languages.  
 Join our team!
 
-⚠️ During the pre-alpha development phase, the issues are managed in on our [bug tracker](https://issues.osames.org/projects/SOFB/issues) ⚠️
+:warning: During the pre-alpha development phase, the issues are managed in on our [bug tracker](https://issues.osames.org/projects/SOFB/issues) :warning:
 
 ## Few Facts About SOFTINUX Base
 
@@ -37,16 +37,16 @@ See LICENSE file for license information.
 
 ## Installation
 #### 1. Restore dependencies
-Go to *Barebone* folder and run `npm ci --save-dev` command so that dependencies packages are installed and settings updated.
+Go to *Barebone* folder and run `npm i --save-dev` command so that dependencies packages are installed and settings updated.
 
 #### 2. Restore nuget packages
 Restore the nuGet packages is now an implicit command executed at application build.
 
 #### 3. Update database with migration
 Go to *Webapplication* folder and run `dotnet ef database update`.  
-This will create the database.  
-See *appsettings.json* for database path. The Entity Framework database context is defined in web application's *Startup.cs*.  
-We use Sqlite but you can change this easily.
+This will create the database. See *appsettings.json* for database path.  
+The Entity Framework database context is defined in web application's *Startup.cs*.  
+We use Sqlite for developpment, but you can change this easily for another sgdb.
 
 #### 4. Build the appplication
 Go to the root folder and run `bp.bat` under Windows or `bp.sh` under Linux/Macos. (use -h for help).
@@ -64,8 +64,9 @@ You can edit this value in Visual Studio: WebApplication's properties > Debug ta
 After, the default port used by *dotnet run* is the port defined in *WebApplication/Properties/launchSettings.json*.
 
 #### Information About Rider 2017.3
-Rider 2017.3 cannot execute the PostBuildEvent declared into WebApplication.csproj
-You need to execute `./bp.sh copyexts` and `./bp.sh copydeps` after build the solution or project.
+Rider 2017.3 cannot execute the PostBuildEvent declared into WebApplication.csproj  
+You need to execute `./bp.sh copyexts` and `./bp.sh copydeps` after build the solution or project.  
+Or refer to our [documentation](https://softinux-base.readthedocs.io/en/latest/howto/configure_rider.html) to see how configure external tools for post and build events.
 
 #### 6. Add the first user (demo user)
 With Postman (or the program of your choice) make a POST request to this url: <http://localhost:5000/dev/seed/CreateUser>  
@@ -73,8 +74,9 @@ With Postman (or the program of your choice) make a POST request to this url: <h
 This will create the demo user with general permissions.
 
 #### 7. Login with demo user
-user: johndoe@softinux.com  
-password: 123_Password  
+user: **johndoe@softinux.com**  
+(or johndoe)  
+password: **123_Password**  
 (password is case sensitive)
 
 ## Implement your own extension
