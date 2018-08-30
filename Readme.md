@@ -57,13 +57,13 @@ Go to *WebApplication* folder and type `dotnet run`.
 
 After that, the application is available on <http://localhost:5000/>
 
-##### Information About Visual Studio 2017
+##### :information_source: Information About Visual Studio 2017 :information_source:
 If you launched application from Visual Studio, this port will change,  
 being randomly defined, and value is stored in *WebApplication/Properties/launchSettings.json*  
 You can edit this value in Visual Studio: WebApplication's properties > Debug tab > Web Server Settings/App URL or directly in launchSettings file.  
 After, the default port used by *dotnet run* is the port defined in *WebApplication/Properties/launchSettings.json*.
 
-#### Information About Rider 2017.3
+#### :information_source: Information About Rider 2017.3 :information_source:
 Rider 2017.3 cannot execute the PostBuildEvent declared into WebApplication.csproj  
 You need to execute `./bp.sh copyexts` and `./bp.sh copydeps` after build the solution or project.  
 Or refer to our [documentation](https://softinux-base.readthedocs.io/en/latest/howto/configure_rider.html) to see how configure external tools for post and build events.
