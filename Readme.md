@@ -42,13 +42,13 @@ Read [documentation](https://softinux-base.readthedocs.io/en/latest/?) to learn 
 
 Some screenshots of features:
 
-![Login](https://github.com/SOFTINUX/Base/blob/master/screenshots/login.png "Login")
+<img src="https://raw.githubusercontent.com/SOFTINUX/Base/master/screenshots/login.png" title="Login" width="300" heigth="200">
 
-![Main menu and administration](https://github.com/SOFTINUX/Base/blob/master/screenshots/menu_and_administration.png "Main menu and administration")
+<img src="https://raw.githubusercontent.com/SOFTINUX/Base/master/screenshots/menu_and_administration.png" title="Administration" width="600" heigth="400">
 
-![Edit user profile](https://github.com/SOFTINUX/Base/blob/master/screenshots/user_profile.png "Edit user profile")
+<img src="https://raw.githubusercontent.com/SOFTINUX/Base/master/screenshots/user_profile.png" title="Administrator editing user profile" width="600" heigth="400">
 
-![Grant permissions to roles](https://github.com/SOFTINUX/Base/blob/master/screenshots/grant_global_permissions_wip.png "Grant permissions to roles")
+<img src="https://raw.githubusercontent.com/SOFTINUX/Base/master/screenshots/grant_global_permissions_wip.png" title="Set permissions" width="600" heigth="400">
 
 # License
 Licensed under the MIT License.  
