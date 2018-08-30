@@ -5,6 +5,8 @@
 It is built using the best and the most modern tools and languages.  
 Join our team!
 
+⚠️ During the pre-alpha development phase, the issues are managed in on our [bug tracker](https://issues.osames.org/projects/SOFB/issues) ⚠️
+
 ## Few Facts About SOFTINUX Base
 
 It is free and open source.  
