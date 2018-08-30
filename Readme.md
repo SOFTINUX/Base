@@ -42,12 +42,9 @@ Read [documentation](https://softinux-base.readthedocs.io/en/latest/?) to learn 
 
 Some screenshots of features:
 
-<img src="https://raw.githubusercontent.com/SOFTINUX/Base/master/screenshots/login.png" title="Login" width="300" heigth="200">
-
-<img src="https://raw.githubusercontent.com/SOFTINUX/Base/master/screenshots/menu_and_administration.png" title="Administration" width="600" heigth="400">
-
-<img src="https://raw.githubusercontent.com/SOFTINUX/Base/master/screenshots/user_profile.png" title="Administrator editing user profile" width="600" heigth="400">
-
+<img src="https://raw.githubusercontent.com/SOFTINUX/Base/master/screenshots/login.png" title="Login" width="300" heigth="200"><br />
+<img src="https://raw.githubusercontent.com/SOFTINUX/Base/master/screenshots/menu_and_administration.png" title="Administration" width="600" heigth="400"><br />
+<img src="https://raw.githubusercontent.com/SOFTINUX/Base/master/screenshots/user_profile.png" title="Administrator editing user profile" width="600" heigth="400"><br />
 <img src="https://raw.githubusercontent.com/SOFTINUX/Base/master/screenshots/grant_global_permissions_wip.png" title="Set permissions" width="600" heigth="400">
 
 # License
@@ -91,7 +88,10 @@ Or refer to our [documentation](https://softinux-base.readthedocs.io/en/latest/h
 
 #### 6. Add the first user (demo user)
 With Postman (or the program of your choice) make a POST request to this url: <http://localhost:5000/dev/seed/CreateUser>  
-(with curl: `curl -i -X POST http://localhost:5000/dev/seed/CreateUser`)  
+With command line:
+ - using curl: `curl -i -X POST http://localhost:5000/dev/seed/CreateUser`
+ - using powsershell: `Invoke-WebRequest -Uri http://localhost:5000/dev/seed/CreateUser -Method POST`
+   
 This will create the demo user with general permissions.
 
 #### 7. Login with demo user
