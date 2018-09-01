@@ -10,10 +10,11 @@ Join our team!
 
 ## Few Facts About SOFTINUX Base
 
-It is free and open source.  
-It runs on Windows, Mac and Linux.  
-It is completely modular and extendable. Using the features of the underlying ExtCore framework you can easily create your own extensions to extend its functionality.
+- It's free and open source.
+- It runs on Windows, Mac and Linux.
+- It's completely modular and extendable. Using the features of the underlying ExtCore framework you can easily create your own extensions to extend its functionality.
 
+## Table of content
 - [Basic Concepts](#basic-concepts)
 - [License](#license)
 - [Getting started](#getting-started)
