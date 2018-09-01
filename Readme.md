@@ -1,8 +1,9 @@
 # Project overview
 ![Build status](https://ci.appveyor.com/api/projects/status/mktm6ae3csndb9ma?svg=true) ![Line of code](https://tokei.rs/b1/github/SOFTINUX/Base) ![Documentation Status](https://readthedocs.org/projects/softinux-base/badge/?version=latest) [![Gitter chat](https://badges.gitter.im/SOFTINUX/Base/repo.png)](https://gitter.im/softinux-base/Lobby) ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 
-*SOFTINUX Base* is a free, open source and cross-platform based on [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/) and [ExtCore](http://extcore.net/) framework.  
-It is built using the best and the most modern tools and languages.  
+*SOFTINUX Base* is a free, open source, and cross-platform framework with built-in security access support and management for creating modular and extendable [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/) Core web applications.
+
+It is built using [ExtCore](http://extcore.net/) framework and the most modern tools and languages.  
 Join our team!
 
 :warning: During the pre-alpha development phase, the issues are managed in our [bug tracker](https://issues.osames.org/projects/SOFB/issues) :warning:
@@ -16,12 +17,15 @@ It is completely modular and extendable. Using the features of the underlying Ex
 - [Basic Concepts](#basic-concepts)
 - [License](#license)
 - [Getting started](#getting-started)
+    - [Prerequisites](#prerequisites)
     - [Installation](#installation)
         - [1. Restore dependencies](#1-restore-dependencies)
         - [2. Restore nuget packages](#2-restore-nuget-packages)
         - [3. Update database with migration](#3-update-database-with-migration)
         - [4. Build the appplication](#4-build-the-appplication)
-        - [5. Run the app](#5-run-the-app)            
+        - [5. Run the app](#5-run-the-app)
+            - [Information About Visual Studio 2017](#informationsource-information-about-visual-studio-2017-informationsource)
+            - [Information About Rider 2017.3](#informationsource-information-about-rider-20173-informationsource)
         - [6. Add the first user (demo user)](#6-add-the-first-user-demo-user)
         - [7. Login with demo user](#7-login-with-demo-user)
     - [Implement your own extension](#implement-your-own-extension)
@@ -53,6 +57,11 @@ See LICENSE file for license information.
 
 # Getting started
 
+## Prerequisites
+In order you must have installed:  
+- [.NET Core SDK](https://www.microsoft.com/net/download)
+- [Node JS](https://nodejs.org/en/)
+
 ## Installation
 #### 1. Restore dependencies
 Go to *Barebone* folder and run `npm i --save-dev` command so that dependencies packages are installed and settings updated.
@@ -75,12 +84,23 @@ Go to *WebApplication* folder and type `dotnet run`.
 
 After that, the application is available on <http://localhost:5000/>
 
+##### :information_source: Information About Visual Studio 2017 :information_source:
+If you launched application from Visual Studio, this port will change,  
+being randomly defined, and value is stored in *WebApplication/Properties/launchSettings.json*  
+You can edit this value in Visual Studio: WebApplication's properties > Debug tab > Web Server Settings/App URL or directly in launchSettings file.  
+After, the default port used by *dotnet run* is the port defined in *WebApplication/Properties/launchSettings.json*.
+
+##### :information_source: Information About Rider 2017.3 :information_source:
+Rider 2017.3 cannot execute the PostBuildEvent declared into WebApplication.csproj  
+You need to execute `./bp.sh copyexts` and `./bp.sh copydeps` after build the solution or project.  
+Or refer to our [documentation](https://softinux-base.readthedocs.io/en/latest/howto/configure_rider.html) to see how configure external tools for post and build events.
+
 #### 6. Add the first user (demo user)
 With Postman (or the program of your choice) make a POST request to this url: <http://localhost:5000/dev/seed/CreateUser>  
 With command line:
  - using curl: `curl -i -X POST http://localhost:5000/dev/seed/CreateUser`
  - using powsershell: `Invoke-WebRequest -Uri http://localhost:5000/dev/seed/CreateUser -Method POST`
-   
+
 This will create the demo user with general permissions.
 
 #### 7. Login with demo user
@@ -94,17 +114,6 @@ password: **123_Password**
   
 You can use [Visual Studio 2017](https://www.visualstudio.com/fr/downloads/), [Visual Studio Code](https://code.visualstudio.com/) or [JetBrains Rider](https://www.jetbrains.com/rider/) to make your own extension.  
 If you decide to use Visual Studio, be aware **that projects are not compatible with Visual Studio 2015**.
-
-##### :information_source: Information About Visual Studio 2017 :information_source:
-If you launched application from Visual Studio, this port will change,  
-being randomly defined, and value is stored in *WebApplication/Properties/launchSettings.json*  
-You can edit this value in Visual Studio: WebApplication's properties > Debug tab > Web Server Settings/App URL or directly in launchSettings file.  
-After, the default port used by *dotnet run* is the port defined in *WebApplication/Properties/launchSettings.json*.
-
-##### :information_source: Information About Rider 2017.3 :information_source:
-Rider 2017.3 cannot execute the PostBuildEvent declared into WebApplication.csproj  
-You need to execute `./bp.sh copyexts` and `./bp.sh copydeps` after build the solution or project.  
-Or refer to our [documentation](https://softinux-base.readthedocs.io/en/latest/howto/configure_rider.html) to see how configure external tools for post and build events.
 
 ### Add a new project
 Using command-line (easy and cross-platform):
