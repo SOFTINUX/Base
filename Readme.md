@@ -23,7 +23,7 @@ Join our team!
         - [1. Restore dependencies](#1-restore-dependencies)
         - [2. Restore nuget packages](#2-restore-nuget-packages)
         - [3. Update database with migration](#3-update-database-with-migration)
-        - [4. Build the appplication](#4-build-the-appplication)
+        - [4. Build the application](#4-build-the-appplication)
         - [5. Run the app](#5-run-the-app)
             - [Information About Visual Studio 2017](#informationsource-information-about-visual-studio-2017-informationsource)
             - [Information About Rider 2017.3](#informationsource-information-about-rider-20173-informationsource)
@@ -75,9 +75,9 @@ But you can still restore packages without building the application with the com
 Go to *Webapplication* folder and run `dotnet ef database update`.  
 This will create the database. See *appsettings.json* for database path.  
 The Entity Framework database context is defined in web application's *Startup.cs*.  
-We use Sqlite for developpment, but you can change this easily for another SGDB (see *appsettings.json* file).
+We use Sqlite for development, but you can change this easily for another SGDB (see *appsettings.json* file).
 
-#### 4. Build the appplication
+#### 4. Build the application
 Go to the solution root folder and run `bp.bat` under Windows or `bp.sh` under Linux/Macos. (use -h for help).
 
 #### 5. Run the app
@@ -101,8 +101,9 @@ Or refer to our [documentation](https://softinux-base.readthedocs.io/en/latest/h
 #### 6. Add the first user (demo user)
 With Postman (or the program of your choice) make a POST request to this url: <http://localhost:5000/dev/seed/CreateUser>  
 With command line:
- - using curl: `curl -i -X POST http://localhost:5000/dev/seed/CreateUser`
- - using powsershell: `Invoke-WebRequest -Uri http://localhost:5000/dev/seed/CreateUser -Method POST`
+
+- using curl: `curl -i -X POST http://localhost:5000/dev/seed/CreateUser`
+- using powershell: `Invoke-WebRequest -Uri http://localhost:5000/dev/seed/CreateUser -Method POST`
 
 This will create the demo user with general permissions.
 
