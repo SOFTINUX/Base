@@ -78,7 +78,7 @@ The Entity Framework database context is defined in web application's *Startup.c
 We use Sqlite for developpment, but you can change this easily for another SGDB (see *appsettings.json* file).
 
 #### 4. Build the appplication
-Go to the root folder and run `bp.bat` under Windows or `bp.sh` under Linux/Macos. (use -h for help).
+Go to the solution root folder and run `bp.bat` under Windows or `bp.sh` under Linux/Macos. (use -h for help).
 
 #### 5. Run the app
 Go to *WebApplication* folder and type `dotnet run`.  
