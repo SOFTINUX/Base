@@ -75,7 +75,7 @@ But you can still restore packages without building the application with the com
 Go to *Webapplication* folder and run `dotnet ef database update`.  
 This will create the database. See *appsettings.json* for database path.  
 The Entity Framework database context is defined in web application's *Startup.cs*.  
-We use Sqlite for developpment, but you can change this easily for another SGDB.
+We use Sqlite for developpment, but you can change this easily for another SGDB (see *appsettings.json* file).
 
 #### 4. Build the appplication
 Go to the root folder and run `bp.bat` under Windows or `bp.sh` under Linux/Macos. (use -h for help).
