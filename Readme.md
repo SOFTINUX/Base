@@ -68,7 +68,8 @@ In order you must have installed:
 Go to *Barebone* folder and run `npm i --save-dev` command so that dependencies packages are installed and settings updated.
 
 #### 2. Restore nuget packages
-Restore the nuGet packages is now an implicit command executed at application build.
+Restore the nuGet packages is now an implicit command executed at application build.  
+But you can still restore packages without building the application with the command `dotnet restore` in solution root folder.
 
 #### 3. Update database with migration
 Go to *Webapplication* folder and run `dotnet ef database update`.  
