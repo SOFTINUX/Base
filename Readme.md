@@ -11,7 +11,7 @@ Join our team!
 ## Few Facts About SOFTINUX Base
 
 - It's free and open source.
-- It runs on Windows, Mac and Linux.
+- It runs on Windows, MacOS and Linux.
 - It's completely modular and extendable. Using the features of the underlying ExtCore framework you can easily create your own extensions to extend its functionality.
 
 ## Table of content
@@ -78,12 +78,12 @@ The Entity Framework database context is defined in web application's *Startup.c
 We use Sqlite for development, but you can change this easily for another SGDB (see *appsettings.json* file).
 
 #### 4. Build the application
-Go to the solution root folder and run `bp.bat` under Windows or `bp.sh` under Linux/Macos. (use -h for help).
+Go to the solution root folder and run `bp.bat` under Windows or `bp.sh` under Linux/MacOS. (use -h for help).
 
 #### 5. Run the app
 Go to *WebApplication* folder and type `dotnet run`.  
-If you want, you can also execute from solution root folder with this command `dotnet run --project WebApplication\WebApplication.csproj`  
-(Beware of the path if you are on linux/macos)
+If you prefer, you can also execute this command from solution root folder: `dotnet run --project WebApplication\WebApplication.csproj`  
+(Beware of the path if you are on Linux/MacOS).
 
 After that, the application is available on <http://localhost:5000/> or <https://localhost:5000/>
 
@@ -95,8 +95,8 @@ After, the default port used by *dotnet run* is the port defined in *WebApplicat
 
 ##### :information_source: Information About Rider 2017.3 :information_source:
 Rider 2017.3 cannot execute the PostBuildEvent declared into WebApplication.csproj  
-You need to execute `./bp.sh copyexts` and `./bp.sh copydeps` after build the solution or project.  
-Or refer to our [documentation](https://softinux-base.readthedocs.io/en/latest/howto/configure_rider.html) to see how configure external tools for post and build events.
+You need to execute `./bp.sh copyexts` and `./bp.sh copydeps` after building the solution or project.  
+Or refer to our [documentation](https://softinux-base.readthedocs.io/en/latest/howto/configure_rider.html) to see how to configure external tools that will be launched by build process.
 
 #### 6. Add the first user (demo user)
 With Postman (or the program of your choice) make a POST request to this url: <http://localhost:5000/dev/seed/CreateUser>  
