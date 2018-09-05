@@ -144,6 +144,10 @@ namespace SecurityTest
                 Assert.Equal(2, model.PermissionsByRoleAndScope["Chinook"].Keys.Count);
 
                 // No need to check the details for this extension
+
+                //  8. SeedDatabase extension was found, no permissions should be found
+                Assert.True((model.PermissionsByRoleAndScope.ContainsKey("SeedDatabase")));
+                Assert.Equal(0, model.PermissionsByRoleAndScope["SeedDatabase"].Keys.Count);
             }
             finally
             {
