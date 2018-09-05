@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using CommonTest;
 using Microsoft.AspNetCore.Identity;
 using Security.Data.Abstractions;
@@ -29,7 +30,7 @@ namespace SecurityTest
         [InlineData("")]
         [InlineData("Security,Chinook")]
         [InlineData("Security")]
-        public async void TestCheckAndSaveNewRole_Ok(string extensionNames_)
+        public async Task TestCheckAndSaveNewRole_Ok(string extensionNames_)
         {
             string roleName = "New Role 1 " + DateTime.Now.Ticks;
             var permRepo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
@@ -47,6 +48,8 @@ namespace SecurityTest
 
                 // Execute
                 var result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage);
+                
+                // Assert
                 Assert.Null(result);
 
                 // Read back and assert that we have the expected data
@@ -72,7 +75,7 @@ namespace SecurityTest
         }
         
         [Fact]
-        public async void TestCheckAndSaveNewRole_NameAlreadyTaken()
+        public async Task TestCheckAndSaveNewRole_NameAlreadyTaken()
         {
             string roleName = "New Role 1 " + DateTime.Now.Ticks;
             var permRepo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
@@ -90,6 +93,8 @@ namespace SecurityTest
 
                 // Execute
                 var result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage);
+                
+                // Assert
                 Assert.Null(result);
 
                 // Read back and expect to find the Role record for the new role

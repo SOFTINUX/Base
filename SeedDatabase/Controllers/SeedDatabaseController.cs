@@ -59,14 +59,14 @@ namespace SeedDatabase.Controllers
                 };
                 _createdRoles.Add(identityRole);
 
-                if(!await _roleManager.RoleExistsAsync(roleName: identityRole.Name))
+                if(!await _roleManager.RoleExistsAsync(identityRole.Name))
                 {
                     var result = await _roleManager.CreateAsync(identityRole);
 
                     //return 500 if fail
                     if(!result.Succeeded)
                     {
-                        _logger.LogCritical("\"Error to get rolemanager async role: { @Name }\"", identityRole.Name);
+                        _logger.LogCritical("\"(CreateAsync) Error creating role: { @Name }\"", identityRole.Name);
                         return  StatusCode(StatusCodes.Status500InternalServerError);
                     }
                 }
@@ -110,7 +110,7 @@ namespace SeedDatabase.Controllers
 
                     if (!result.Succeeded) //return 500 if it fails
                     {
-                        _logger.LogCritical("\"Error to CreateAsync user: { @userEmail }\"", user.Email);
+                        _logger.LogCritical("\"(CreateAsync) Error creating user: { @userEmail }\"", user.Email);
                         return StatusCode(StatusCodes.Status500InternalServerError);
                     }
 
@@ -119,7 +119,7 @@ namespace SeedDatabase.Controllers
 
                     if (!result.Succeeded) // return 500 if fails
                     {
-                        _logger.LogCritical("\"Error to AddToRolesAsync user: { @userEmail }, role: Administrator\"", user.Email );
+                        _logger.LogCritical("\"(AddToRolesAsync) Error adding user to role, user: { @userEmail }, role: Administrator\"", user.Email );
                         return StatusCode(StatusCodes.Status500InternalServerError);
                     }
                 }

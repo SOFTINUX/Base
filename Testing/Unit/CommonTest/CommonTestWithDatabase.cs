@@ -3,17 +3,24 @@
 
 using System;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Security.Common;
 using Security.Common.Enums;
 using Security.Data.Abstractions;
+using SeedDatabase;
 using Xunit;
 
 namespace CommonTest
 {
     /// <summary>
     /// Base class for all test classes that should use a database.
+    /// This class ensures that permissions exist in database.
+    ///
+    /// For base roles to exist, you must call "await CreateBaseRolesIfNeeded()".
+    /// 
     /// A derived class should be decorated with "[Collection("Database collection")]", using the DatabaseCollection class defined in its assembly.
     /// </summary>
     public class CommonTestWithDatabase : IDisposable
@@ -33,6 +40,7 @@ namespace CommonTest
 
         /// <summary>
         /// Create the standard records in Permission table, if they don't exist.
+        /// Similar to SeedDatabase extension's job.
         /// </summary>
         private void CreatePermissionsIfNeeded()
         {
@@ -58,7 +66,37 @@ namespace CommonTest
             }
 
             DatabaseFixture.Storage.Save();
+        }
 
+        /// <summary>
+        /// Create the standard base roles, if they don't exist.
+        /// Similar to SeedDatabase extension's job.
+        /// </summary>
+        /// <returns></returns>
+        protected async Task CreateBaseRolesIfNeeded()
+        {
+            // Get the list of the role from the enum
+            Role[] roles = (Role[])Enum.GetValues(typeof(Role));
+ 
+            foreach(var r in roles)
+            {
+                // create an identity role object out of the enum value
+                IdentityRole<string> identityRole = new IdentityRole<string>
+                {
+                    // Automatic ID
+                    Name = r.GetRoleName()
+                };
+
+                if(!await DatabaseFixture.RoleManager.RoleExistsAsync(identityRole.Name))
+                {
+                    var result = await DatabaseFixture.RoleManager.CreateAsync(identityRole);
+
+                    if(!result.Succeeded)
+                    {
+                       throw new Exception($"Could not create missing role: {identityRole.Name}");
+                    }
+                }
+            }
         }
 
         protected void CleanTrackedEntities()

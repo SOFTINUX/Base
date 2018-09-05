@@ -18,6 +18,7 @@
     <ProjectReference Include="../../../Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="../../../Security.Data.Entities\Security.Data.Entities.csproj" />
     <ProjectReference Include="../../../Security.Data.EntityFramework\Security.Data.EntityFramework.csproj" />
+    <ProjectReference Include="..\..\..\SeedDatabase\SeedDatabase.csproj" />
   </ItemGroup>
 
     <ItemGroup>
