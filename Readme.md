@@ -130,7 +130,7 @@ Go to solution folder and type:
 `dotnet add reference <path_to_your_new_project>`
 
 ### Write your code
-In your new project, create a class that implements `Infrastructure.IExtensionMetadata`. You may also implement `Infrastructure.IExtensionDatabaseMetadata`.
+In your new project, create a class that implements `Infrastructure.IExtensionMetadata`.
 
 Your extension will depend on `Infrastructure`.
 
