@@ -20,6 +20,7 @@
     <ProjectReference Include="..\CommonTest\CommonTest.csproj" />
     <ProjectReference Include="..\..\..\Security.Data.EntityFramework\Security.Data.EntityFramework.csproj" />
     <ProjectReference Include="..\..\..\Security\Security.csproj" />
+    <ProjectReference Include="..\..\..\Chinook\Chinook.csproj" />
   </ItemGroup>
 
 </Project>

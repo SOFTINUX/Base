@@ -80,21 +80,32 @@ namespace CommonTest
  
             foreach(var r in roles)
             {
-                // create an identity role object out of the enum value
-                IdentityRole<string> identityRole = new IdentityRole<string>
-                {
-                    // Automatic ID
-                    Name = r.GetRoleName()
-                };
+                await CreateRoleIfNotExisting(r.GetRoleName());
+            }
+        }
 
-                if(!await DatabaseFixture.RoleManager.RoleExistsAsync(identityRole.Name))
-                {
-                    var result = await DatabaseFixture.RoleManager.CreateAsync(identityRole);
+        /// <summary>
+        /// Create a roles, if it doesn't exist
+        /// Similar to SeedDatabase extension's job.
+        /// </summary>
+        /// <param name="roleName_"></param>
+        /// <returns></returns>
+        protected async Task CreateRoleIfNotExisting(string roleName_)
+        {
+            // create an identity role object out of the enum value
+            IdentityRole<string> identityRole = new IdentityRole<string>
+            {
+                // Automatic ID
+                Name = roleName_
+            };
 
-                    if(!result.Succeeded)
-                    {
-                       throw new Exception($"Could not create missing role: {identityRole.Name}");
-                    }
+            if(!await DatabaseFixture.RoleManager.RoleExistsAsync(identityRole.Name))
+            {
+                var result = await DatabaseFixture.RoleManager.CreateAsync(identityRole);
+
+                if(!result.Succeeded)
+                {
+                    throw new Exception($"Could not create missing role: {identityRole.Name}");
                 }
             }
         }

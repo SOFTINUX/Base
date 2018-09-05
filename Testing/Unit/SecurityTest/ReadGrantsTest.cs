@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using CommonTest;
+using ExtCore.Infrastructure;
+using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Security.Data.Abstractions;
 using Security.Data.Entities;
@@ -12,6 +15,11 @@ using Permission = Security.Common.Enums.Permission;
 
 namespace SecurityTest
 {
+    /// <summary>
+    /// Note: the extensions we want to work with must be added to this project's references so that the extension is found
+    /// at runtime in unit test working directory (using ExtCore's ExtensionManager and custom path).
+    /// So we did for the Chinook extension. Security was already referenced.
+    /// </summary>
     [Collection("Database collection")]
     public class ReadGrantsTest : CommonTestWithDatabase
     {
@@ -48,11 +56,7 @@ namespace SecurityTest
                 await CreateBaseRolesIfNeeded();
 
                 // 2. Create "Special User" role
-                await DatabaseFixture.RoleManager.CreateAsync(new IdentityRole<string>
-                {
-                    // Automatic ID
-                    Name = "Special User"
-                });
+                await CreateRoleIfNotExisting("Special User");
 
                 // 3. Read roles to get their IDs
                 var adminRole = await DatabaseFixture.RoleManager.FindByNameAsync(Role.Administrator.GetRoleName());
@@ -98,7 +102,7 @@ namespace SecurityTest
 
                 // Assert
                 // 1. Number of keys: extensions
-                Assert.Equal(2, model.PermissionsByRoleAndScope.Keys.Count);
+                Assert.Equal(ExtensionManager.GetInstances<IExtensionMetadata>().Count(), model.PermissionsByRoleAndScope.Keys.Count);
 
                 // 2. Number of roles for "Security" extension
                 Assert.True((model.PermissionsByRoleAndScope.ContainsKey("Security")));
