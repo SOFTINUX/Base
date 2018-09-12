@@ -196,6 +196,7 @@ $(function () {
         .done(function(data){
             window.toastr.success(data, 'New role created');
             input_form_group_set_error("#role_name_input", null);
+            location.reload();
         })
         .fail(function(jqXHR, testStatus){
             var errMsg = jqXHR.responseText ? jqXHR.responseText : testStatus;
