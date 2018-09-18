@@ -318,11 +318,11 @@ __pycache__/
 log-[0-9]*.txt
 
 # App Extensions
-[Ww]ebApplication/Extensions/*
-![Ww]ebApplication/Extensions/.gitkeep
+src/SoftinuxBase.WebApplication/Extensions/*
+!src/SoftinuxBase.WebApplication/Extensions/.gitkeep
 
 #App/tests EF Database
-[Ww]ebApplication/basedb.sqlite
+src/SoftinuxBase.WebApplication/basedb.sqlite
 **/basedb_tests.sqlite
 
 #Visual Studio localhistory addon

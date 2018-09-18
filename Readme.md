@@ -15,23 +15,24 @@ Join our team!
 - It's completely modular and extendable. Using the features of the underlying ExtCore framework you can easily create your own extensions to extend its functionality.
 
 ## Table of content
-- [Basic Concepts](#basic-concepts)
+- [Project overview](#project-overview)
+    - [Few Facts About SOFTINUX Base](#few-facts-about-softinux-base)
+    - [Table of content](#table-of-content)
+    - [Basic Concepts](#basic-concepts)
 - [License](#license)
 - [Getting started](#getting-started)
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
-        - [1. Restore dependencies](#1-restore-dependencies)
-        - [2. Restore nuget packages](#2-restore-nuget-packages)
-        - [3. Update database with migration](#3-update-database-with-migration)
-        - [4. Build the application](#4-build-the-appplication)
-        - [5. Run the app](#5-run-the-app)
-            - [Information About Visual Studio 2017](#informationsource-information-about-visual-studio-2017-informationsource)
-            - [Information About Rider 2017.3](#informationsource-information-about-rider-20173-informationsource)
-        - [6. Add the first user (demo user)](#6-add-the-first-user-demo-user)
-        - [7. Login with demo user](#7-login-with-demo-user)
+            - [1. Restore dependencies](#1-restore-dependencies)
+            - [2. Restore nuget packages](#2-restore-nuget-packages)
+            - [3. Update database with migration](#3-update-database-with-migration)
+            - [4. Build the application](#4-build-the-application)
+            - [5. Run the app](#5-run-the-app)
+                - [:information_source: Information About Visual Studio 2017 :information_source:](#informationsource-information-about-visual-studio-2017-informationsource)
+                - [:information_source: Information About Rider 2017.3 :information_source:](#informationsource-information-about-rider-20173-informationsource)
+            - [6. Add the first user (demo user)](#6-add-the-first-user-demo-user)
+            - [7. Login with demo user](#7-login-with-demo-user)
     - [Implement your own extension](#implement-your-own-extension)
-        - [Information About Visual Studio 2017](#information_source-information-about-visual-studio-2017-information_source)
-        - [Information About Rider 2017.3](#information_source-information-about-rider-20173-information_source)
         - [Add a new project](#add-a-new-project)
         - [Add project reference to the solution](#add-project-reference-to-the-solution)
         - [Write your code](#write-your-code)
@@ -130,9 +131,9 @@ Go to solution folder and type:
 `dotnet add reference <path_to_your_new_project>`
 
 ### Write your code
-In your new project, create a class that implements `Infrastructure.IExtensionMetadata`.
+In your new project, create a class that implements `SoftinuxBase.Infrastructure.IExtensionMetadata`.
 
-Your extension will depend on `Infrastructure`.
+Your extension will depend on `SoftinuxBase.Infrastructure`.
 
 Have a look at sample extensions, [wiki](https://github.com/SOFTINUX/Base/wiki), feel free to open issues for questions.
 

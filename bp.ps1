@@ -28,11 +28,11 @@ param(
 # set .NET output folder name (use .NET Core version defined into csproj files)
 $netVersion="netcoreapp2.1"
 # Extensions folder
-$ext_folder=".\WebApplication\Extensions\"
+$ext_folder=".\src\SoftinuxBase.WebApplication\Extensions\"
 # Dependencies folder
-$dep_folder=".\WebApplication\bin\Debug\$netVersion\"
+$dep_folder=".\src\SoftinuxBase.WebApplication\bin\Debug\$netVersion\"
 # Publish folder
-$pub_folder=".\WebApplication\bin\Debug\$netVersion\publish"
+$pub_folder=".\src\SoftinuxBase.WebApplication\bin\Debug\$netVersion\publish"
 # List extensions
 $extensionsListFiles=Get-Content -Path extensions.txt -Raw
 # Dependencies list
