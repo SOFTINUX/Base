@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>7</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="ExtCore.Data.Entities.Abstractions" Version="3.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SoftinuxBase.Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.Common\Security.Common.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.Data.Entities\Security.Data.Entities.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.Data.Abstractions\Security.Data.Abstractions.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security\Security.csproj" />
+  </ItemGroup>
+</Project>

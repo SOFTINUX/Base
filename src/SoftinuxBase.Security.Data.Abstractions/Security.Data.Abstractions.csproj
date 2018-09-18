@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AssemblyName>SoftinuxBase.Security.Data.Abstractions</AssemblyName>
+    <RootNamespace>SoftinuxBase.Security.Data.Abstractions</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="ExtCore.Data.Abstractions" Version="3.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SoftinuxBase.Security.Common\Security.Common.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.Data.Entities\Security.Data.Entities.csproj" />
+  </ItemGroup>
+</Project>

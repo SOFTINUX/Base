@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AssemblyName>SoftinuxBase.Security.Data.EntityFramework</AssemblyName>
+    <RootNamespace>SoftinuxBase.Security.Data.EntityFramework</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="ExtCore.Data.EntityFramework" Version="3.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SoftinuxBase.Security.Common\Security.Common.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.Data.Abstractions\Security.Data.Abstractions.csproj" />
+  </ItemGroup>
+</Project>

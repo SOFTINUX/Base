@@ -8,11 +8,11 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 #.NET Core version (defined into csproj)
 NETVERSION="netcoreapp2.1"
 #Extension destination folder
-EXT_FOLDER="./WebApplication/Extensions"
+EXT_FOLDER="./src/SoftinuxBase.WebApplication/Extensions"
 #Dependencies destination folder
-DEP_FOLDER="./WebApplication/bin/Debug/$NETVERSION/"
+DEP_FOLDER="./src/SoftinuxBase.WebApplication/bin/Debug/$NETVERSION/"
 #Publish folder
-PUB_FOLDER=".\WebApplication\bin\Debug\%netVersion%\publish"
+PUB_FOLDER=".\src\SoftinuxBase.WebApplication\bin\Debug\%netVersion%\publish"
 
 cd "$DIR"
 

@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AssemblyName>SoftinuxBase.Security.Data.EntityFramework.Sqlite</AssemblyName>
+    <RootNamespace>SoftinuxBase.Security.Data.EntityFramework.Sqlite</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>7</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="ExtCore.Data.EntityFramework.Sqlite" Version="3.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SoftinuxBase.Security.Data.Abstractions\Security.Data.Abstractions.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.Data.EntityFramework\Security.Data.EntityFramework.csproj" />
+  </ItemGroup>
+</Project>
