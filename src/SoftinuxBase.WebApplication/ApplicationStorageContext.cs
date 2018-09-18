@@ -1,13 +1,13 @@
 ﻿using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
-using Infrastructure.Util;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Security.Data.Entities;
+using SoftinuxBase.Infrastructure.Util;
+using SoftinuxBase.Security.Data.Entities;
 
-namespace WebApplication
+namespace SoftinuxBase.WebApplication
 {
     public partial class ApplicationStorageContext : IdentityDbContext<User, IdentityRole<string>, string>, IStorageContext
     {

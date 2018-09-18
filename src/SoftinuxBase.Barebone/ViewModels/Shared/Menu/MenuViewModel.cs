@@ -2,9 +2,9 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.Collections.Generic;
-using Barebone.ViewModels.Shared.MenuGroup;
+using SoftinuxBase.Barebone.ViewModels.Shared.MenuGroup;
 
-namespace Barebone.ViewModels.Shared.Menu
+namespace SoftinuxBase.Barebone.ViewModels.Shared.Menu
 {
     public class MenuViewModel
     {

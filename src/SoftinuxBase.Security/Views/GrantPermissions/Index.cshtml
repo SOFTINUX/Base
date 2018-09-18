@@ -3,6 +3,8 @@
 *@
 @using Microsoft.AspNetCore.Identity
 @using Newtonsoft.Json
+@using SoftinuxBase.Infrastructure.Extensions
+@using SoftinuxBase.Infrastructure.Interfaces
 @model SoftinuxBase.Security.ViewModels.Permissions.GrantViewModel
 @inject RoleManager<IdentityRole<string>> RolesManager
 
@@ -78,9 +80,9 @@
                                     <select class="form-control" multiple="" id="availableExtensions">
                                         @* here options *@
                                         @{
-                                            foreach (Infrastructure.Interfaces.IExtensionMetadata extensionMetadata in ExtCore.Infrastructure.ExtensionManager.GetInstances<Infrastructure.Interfaces.IExtensionMetadata>())
+                                            foreach (IExtensionMetadata extensionMetadata in ExtCore.Infrastructure.ExtensionManager.GetInstances<IExtensionMetadata>())
                                             {
-                                                var scope = Infrastructure.Extensions.TypeExtensions.GetScope(extensionMetadata);
+                                                var scope = TypeExtensions.GetScope(extensionMetadata);
                                                 if (extensionMetadata.IsAvailableForPermissions)
                                                 {
                                                     <option value="@Html.Raw(scope)">@Html.Raw(scope)</option>

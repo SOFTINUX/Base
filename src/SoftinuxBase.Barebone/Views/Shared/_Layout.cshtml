@@ -4,9 +4,9 @@ Licensed under the MIT License, Version 2.0. See License.txt in the project root
 *@
 
 @using Microsoft.Extensions.Options;
-@using Infrastructure;
 @using Microsoft.EntityFrameworkCore.Storage.ValueConversion
 @using Security.Data.Entities
+@using SoftinuxBase.Infrastructure
 @inject IOptions<CorporateConfiguration> OptionsApplicationConfiguration
 
 <!DOCTYPE html>
@@ -119,8 +119,8 @@ Licensed under the MIT License, Version 2.0. See License.txt in the project root
             </footer>
         }
     </div>
-    @await Component.InvokeAsync("Scripts")
-    @if (!User.Identity.IsAuthenticated)
+                                                               @await Component.InvokeAsync("Scripts")
+                                                               @if (!User.Identity.IsAuthenticated)
     {
         <script type="text/javascript">
             $("input").keypress(function (event) {

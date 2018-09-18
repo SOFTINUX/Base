@@ -4,7 +4,7 @@
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Http;
 
-namespace Infrastructure.Interfaces
+namespace SoftinuxBase.Infrastructure.Interfaces
 {
     /// <summary>
     /// Interface to allow access to things we need to access from anywhere in application such as http context and storage context,

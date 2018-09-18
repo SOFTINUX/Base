@@ -2,11 +2,11 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
+using ExtCore.Mvc.Infrastructure.Actions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
-using ExtCore.Mvc.Infrastructure.Actions;
 
-namespace Barebone.Actions
+namespace SoftinuxBase.Barebone.Actions
 {
     public class UseMvcActions : IUseMvcAction
     {

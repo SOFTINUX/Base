@@ -3,9 +3,9 @@
 
 using System.Collections.Generic;
 using ExtCore.Data.Abstractions;
-using Security.Data.Entities;
+using SoftinuxBase.Security.Data.Entities;
 
-namespace Security.Data.Abstractions
+namespace SoftinuxBase.Security.Data.Abstractions
 {
     public interface IRolePermissionRepository : IRepository
     {

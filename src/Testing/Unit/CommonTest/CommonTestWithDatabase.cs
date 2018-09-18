@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using Security.Data.Abstractions;
 using SeedDatabase;
 using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Common.Enums;
+using SoftinuxBase.Security.Data.Abstractions;
 using Xunit;
 
 namespace CommonTest
@@ -56,7 +56,7 @@ namespace CommonTest
             foreach (var p in permissions)
             {
                 // create a permission object out of the enum value
-                Security.Data.Entities.Permission permission = new Security.Data.Entities.Permission()
+                SoftinuxBase.Security.Data.Entities.Permission permission = new SoftinuxBase.Security.Data.Entities.Permission()
                 {
                     Id = PermissionHelper.GetPermissionName(p),
                     Name = PermissionHelper.GetPermissionName(p)

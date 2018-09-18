@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Barebone
+﻿namespace SoftinuxBase.Barebone
 {
     public static class ToolBox
     {

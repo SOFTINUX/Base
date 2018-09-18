@@ -4,7 +4,7 @@
 using System;
 using System.Linq;
 using CommonTest;
-using Security.Data.Abstractions;
+using SoftinuxBase.Security.Data.Abstractions;
 using Xunit;
 
 namespace SecurityTest

@@ -1,16 +1,16 @@
 // Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
-using Microsoft.AspNetCore.Mvc;
-using Barebone.ViewModels.Barebone;
-using ExtCore.Data.Abstractions;
-using ControllerBase = Infrastructure.ControllerBase;
-using Microsoft.Extensions.Configuration;
 using System.Diagnostics;
+using ExtCore.Data.Abstractions;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using SoftinuxBase.Barebone.ViewModels.Barebone;
+using ControllerBase = SoftinuxBase.Infrastructure.ControllerBase;
 
-namespace Barebone.Controllers
+namespace SoftinuxBase.Barebone.Controllers
 {
-    public class BareboneController : ControllerBase
+    public class BareboneController : Infrastructure.ControllerBase
     {
         private readonly string corporateName, corporateLogo;
 

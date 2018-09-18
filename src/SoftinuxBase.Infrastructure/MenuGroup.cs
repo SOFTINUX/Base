@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace Infrastructure
+namespace SoftinuxBase.Infrastructure
 {
     public class MenuGroup
     {

@@ -5,8 +5,8 @@ using System;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
-using Security.Data.Abstractions;
-using Security.Data.Entities;
+using SoftinuxBase.Security.Data.Abstractions;
+using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.ViewModels.Permissions;
 
 namespace SoftinuxBase.Security.Tools

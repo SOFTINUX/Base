@@ -3,9 +3,9 @@
 
 using ExtCore.Data.EntityFramework;
 using Microsoft.EntityFrameworkCore;
-using Security.Data.Entities;
+using SoftinuxBase.Security.Data.Entities;
 
-namespace Security.Data.EntityFramework
+namespace SoftinuxBase.Security.Data.EntityFramework
 {
     public class EntityRegistrar : IEntityRegistrar
     {

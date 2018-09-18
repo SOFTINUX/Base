@@ -4,12 +4,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using ExtCore.Infrastructure;
-using Infrastructure.Interfaces;
-using Barebone.ViewModels.Shared.MenuItem;
-using Barebone.ViewModels.Shared.MenuGroup;
 using Microsoft.Extensions.Logging;
+using SoftinuxBase.Barebone.ViewModels.Shared.MenuGroup;
+using SoftinuxBase.Barebone.ViewModels.Shared.MenuItem;
+using SoftinuxBase.Infrastructure.Interfaces;
 
-namespace Barebone.ViewModels.Shared.Menu
+namespace SoftinuxBase.Barebone.ViewModels.Shared.Menu
 {
     public class MenuViewModelFactory : ViewModelFactoryBase
     {

@@ -2,11 +2,11 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using ExtCore.Data.Abstractions;
-using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SoftinuxBase.Infrastructure.Interfaces;
 
-namespace Barebone.ViewComponents
+namespace SoftinuxBase.Barebone.ViewComponents
 {
     public abstract class ViewComponentBase : ViewComponent, IRequestHandler
     {

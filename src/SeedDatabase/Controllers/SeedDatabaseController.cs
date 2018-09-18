@@ -7,25 +7,26 @@ using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Security.Data.Abstractions;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
-using SoftinuxBase.Security.Common.Enums;
+using SoftinuxBase.Security.Data.Abstractions;
+using SoftinuxBase.Security.Data.Entities;
+using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 
 namespace SeedDatabase.Controllers
 {
     [Route("dev/seed")]
     public class SeedDatabaseController : Controller
     {
-        private readonly UserManager<Security.Data.Entities.User> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole<string>> _roleManager;
         private readonly IStorage _storage;
         protected ILogger _logger;
 
         private List<IdentityRole<string>> _createdRoles = new List<IdentityRole<string>>();
 
-        public SeedDatabaseController(UserManager<Security.Data.Entities.User> userManager_,
+        public SeedDatabaseController(UserManager<User> userManager_,
             RoleManager<IdentityRole<string>> roleManager_, ILoggerFactory loggerFactory_,
             IStorage storage_)
         {
@@ -73,7 +74,7 @@ namespace SeedDatabase.Controllers
             }
 
             // our default user
-            Security.Data.Entities.User johnUser = new Security.Data.Entities.User {
+            User johnUser = new User {
                 FirstName = "John",
                 LastName = "Doe",
                 Email = "johndoe@softinux.com",
@@ -82,7 +83,7 @@ namespace SeedDatabase.Controllers
             };
 
             // second user
-            Security.Data.Entities.User janeUser = new Security.Data.Entities.User {
+            User janeUser = new User {
                 FirstName = "Jane",
                 LastName = "Fonda",
                 Email = "janefonda@softinux.com",
@@ -91,7 +92,7 @@ namespace SeedDatabase.Controllers
             };
 
             // third user
-            Security.Data.Entities.User paulUser = new Security.Data.Entities.User {
+            User paulUser = new User {
                 FirstName = "Paul",
                 LastName = "Keller",
                 Email = "paulkeller@softinux.com",
@@ -177,7 +178,7 @@ namespace SeedDatabase.Controllers
             foreach(var p in permissions)
             {
                 // create a permission object out of the enum value
-                Security.Data.Entities.Permission permission = new Security.Data.Entities.Permission()
+                SoftinuxBase.Security.Data.Entities.Permission permission = new SoftinuxBase.Security.Data.Entities.Permission()
                 {
                     Id = p.GetPermissionName(),
                     Name = p.GetPermissionName()
@@ -187,7 +188,7 @@ namespace SeedDatabase.Controllers
             }
 
             // Permission for Chinook administration
-            Security.Data.Entities.Permission permission1 = new Security.Data.Entities.Permission()
+            SoftinuxBase.Security.Data.Entities.Permission permission1 = new SoftinuxBase.Security.Data.Entities.Permission()
             {
                 Id = "Chinook.Admin", // OriginExtension + Name
                 Name = "Admin"
@@ -209,11 +210,11 @@ namespace SeedDatabase.Controllers
             }
         }
 
-        private IActionResult SaveUserPermission(string permissionId_, Security.Data.Entities.User user_, string scope_ = null)
+        private IActionResult SaveUserPermission(string permissionId_, User user_, string scope_ = null)
         {
             if (!string.IsNullOrWhiteSpace(permissionId_) && user_ != null)
             {
-                Security.Data.Entities.UserPermission userPermission = new Security.Data.Entities.UserPermission()
+                UserPermission userPermission = new UserPermission()
                 {
                     UserId = user_.Id,
                     PermissionId = permissionId_
@@ -244,7 +245,7 @@ namespace SeedDatabase.Controllers
                 (!string.IsNullOrWhiteSpace(roleId_))
                 )
             {
-                Security.Data.Entities.RolePermission rolePermission = new Security.Data.Entities.RolePermission()
+                RolePermission rolePermission = new RolePermission()
                 {
                     RoleId = roleId_,
                     PermissionId = permission_,

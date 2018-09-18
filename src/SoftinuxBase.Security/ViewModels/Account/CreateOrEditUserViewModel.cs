@@ -5,7 +5,7 @@ namespace SoftinuxBase.Security.ViewModels.Account
 {
     public class CreateOrEditUserViewModel
     {
-        public global::Security.Data.Entities.User User {get; set; }
+        public global::SoftinuxBase.Security.Data.Entities.User User {get; set; }
 
     }
 }

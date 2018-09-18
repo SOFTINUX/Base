@@ -2,13 +2,13 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Barebone.ViewModels.Shared.Menu;
 using ExtCore.Data.Abstractions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SoftinuxBase.Barebone.ViewModels.Shared.Menu;
 
-namespace Barebone.ViewComponents
+namespace SoftinuxBase.Barebone.ViewComponents
 {
     public class MenuViewComponent : ViewComponentBase
     {

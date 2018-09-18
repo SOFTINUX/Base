@@ -3,11 +3,11 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Barebone.ViewModels.Shared.Script;
 using ExtCore.Infrastructure;
-using Infrastructure.Interfaces;
+using SoftinuxBase.Barebone.ViewModels.Shared.Script;
+using SoftinuxBase.Infrastructure.Interfaces;
 
-namespace Barebone.ViewModels.Shared.Scripts
+namespace SoftinuxBase.Barebone.ViewModels.Shared.Scripts
 {
     public class ScriptsViewModelFactory
     {

@@ -4,7 +4,7 @@
 using ExtCore.Data.Entities.Abstractions;
 using Microsoft.AspNetCore.Identity;
 
-namespace Security.Data.Entities
+namespace SoftinuxBase.Security.Data.Entities
 {
     /// <summary>
     /// Links between roles and permissions: permissions assigned to the role.

@@ -2,10 +2,10 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.Collections.Generic;
-using Barebone.ViewModels.Shared.MenuItem;
-using Infrastructure.Interfaces;
+using SoftinuxBase.Barebone.ViewModels.Shared.MenuItem;
+using SoftinuxBase.Infrastructure.Interfaces;
 
-namespace Barebone.ViewModels.Shared.MenuGroup
+namespace SoftinuxBase.Barebone.ViewModels.Shared.MenuGroup
 {
     public class MenuGroupViewModelFactory : ViewModelFactoryBase
     {

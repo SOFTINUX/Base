@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using ExtCore.Data.Abstractions;
 using ExtCore.Infrastructure;
-using Infrastructure.Extensions;
-using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using Security.Data.Abstractions;
-using Security.Data.Entities;
+using SoftinuxBase.Infrastructure.Extensions;
+using SoftinuxBase.Infrastructure.Interfaces;
 using SoftinuxBase.Security.Common;
+using SoftinuxBase.Security.Data.Abstractions;
+using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.ViewModels.Permissions;
 
 namespace SoftinuxBase.Security.Tools

@@ -4,10 +4,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using ExtCore.Infrastructure;
-using Infrastructure.Interfaces;
-using Barebone.ViewModels.Shared.StyleSheets;
+using SoftinuxBase.Barebone.ViewModels.Shared.StyleSheet;
+using SoftinuxBase.Infrastructure.Interfaces;
 
-namespace Barebone.ViewModels.Shared.StyleSheet
+namespace SoftinuxBase.Barebone.ViewModels.Shared.StyleSheets
 {
     public class StyleSheetsViewModelFactory
     {

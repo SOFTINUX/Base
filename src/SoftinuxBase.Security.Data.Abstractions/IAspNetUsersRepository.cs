@@ -3,7 +3,7 @@
 
 using ExtCore.Data.Abstractions;
 
-namespace Security.Data.Abstractions
+namespace SoftinuxBase.Security.Data.Abstractions
 {
     public interface IAspNetUsersRepository: IRepository
     {

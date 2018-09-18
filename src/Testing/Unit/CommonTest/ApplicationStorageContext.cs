@@ -4,13 +4,13 @@
 using System;
 using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
-using Infrastructure.Util;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Security.Data.Entities;
 using CommonTest;
+using SoftinuxBase.Infrastructure.Util;
+using SoftinuxBase.Security.Data.Entities;
 
 namespace CommonTest
 {

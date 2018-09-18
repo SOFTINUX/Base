@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Security.Data.Abstractions;
-using Security.Data.Entities;
 using SoftinuxBase.Security.Common.Attributes;
+using SoftinuxBase.Security.Data.Abstractions;
+using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.Extensions;
 using SoftinuxBase.Security.Tools;
 using SoftinuxBase.Security.ViewModels.Permissions;
-using ControllerBase = Infrastructure.ControllerBase;
+using ControllerBase = SoftinuxBase.Infrastructure.ControllerBase;
 using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 
 namespace SoftinuxBase.Security.Controllers
 {
     [PermissionRequirement(Permission.Admin)]
-    public class GrantPermissionsController : ControllerBase
+    public class GrantPermissionsController : Infrastructure.ControllerBase
     {
         private readonly RoleManager<IdentityRole<string>> _roleManager;
 

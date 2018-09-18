@@ -2,8 +2,8 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.Collections.Generic;
-using Infrastructure;
-using Infrastructure.Interfaces;
+using SoftinuxBase.Infrastructure;
+using SoftinuxBase.Infrastructure.Interfaces;
 
 namespace Chinook
 {

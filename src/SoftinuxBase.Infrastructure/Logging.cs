@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Serilog;
 
-namespace Infrastructure
+namespace SoftinuxBase.Infrastructure
 {
     public class Logging
     {

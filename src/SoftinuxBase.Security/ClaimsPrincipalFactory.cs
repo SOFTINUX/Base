@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
-using Security.Data.Entities;
+using SoftinuxBase.Security.Data.Entities;
 
 namespace SoftinuxBase.Security
 {

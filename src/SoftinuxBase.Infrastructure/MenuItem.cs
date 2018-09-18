@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using SoftinuxBase.Security.Common.Attributes;
 
-namespace Infrastructure
+namespace SoftinuxBase.Infrastructure
 {
     public class MenuItem
     {

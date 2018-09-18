@@ -5,9 +5,9 @@ using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Infrastructure.Interfaces;
+using SoftinuxBase.Infrastructure.Interfaces;
 
-namespace Infrastructure
+namespace SoftinuxBase.Infrastructure
 {
     /// <summary>
     /// Abstract controller parent of all controllers, that enforces IStorage dependency injection and authenticated access

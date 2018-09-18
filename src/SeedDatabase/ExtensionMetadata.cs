@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Infrastructure;
-using Infrastructure.Interfaces;
+using SoftinuxBase.Infrastructure;
+using SoftinuxBase.Infrastructure.Interfaces;
 
 namespace SeedDatabase
 {

@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using ExtCore.Data.EntityFramework;
 using Microsoft.EntityFrameworkCore;
-using Security.Data.Abstractions;
-using Security.Data.Entities;
+using SoftinuxBase.Security.Data.Abstractions;
+using SoftinuxBase.Security.Data.Entities;
 
-namespace Security.Data.EntityFramework
+namespace SoftinuxBase.Security.Data.EntityFramework
 {
     public class RolePermissionRepository : RepositoryBase<RolePermission>, IRolePermissionRepository
     {

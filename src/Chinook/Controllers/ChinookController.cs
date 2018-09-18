@@ -5,15 +5,16 @@ using System.IO;
 using System.Reflection;
 using Chinook.ViewModels.Chinook;
 using ExtCore.Data.Abstractions;
-using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SoftinuxBase.Infrastructure;
 using SoftinuxBase.Security.Common.Attributes;
 using SoftinuxBase.Security.Common.Enums;
+using ControllerBase = SoftinuxBase.Infrastructure.ControllerBase;
 
 namespace Chinook.Controllers
 {
-    public class ChinookController : Infrastructure.ControllerBase
+    public class ChinookController : ControllerBase
     {
         public ChinookController(IStorage storage_, ILoggerFactory loggerFactory_) : base(storage_, loggerFactory_)
         {

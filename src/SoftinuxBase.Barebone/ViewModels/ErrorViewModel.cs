@@ -1,4 +1,4 @@
-namespace Barebone.ViewModels
+namespace SoftinuxBase.Barebone.ViewModels
 {
     public class ErrorViewModel
     {

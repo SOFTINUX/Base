@@ -2,13 +2,12 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Barebone.ViewModels.Shared.StyleSheet;
-using Barebone.ViewModels.Shared.StyleSheets;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SoftinuxBase.Barebone.ViewModels.Shared.StyleSheets;
 
-namespace Barebone.ViewComponents
+namespace SoftinuxBase.Barebone.ViewComponents
 {
     public class StyleSheetsViewComponent : ViewComponentBase
     {

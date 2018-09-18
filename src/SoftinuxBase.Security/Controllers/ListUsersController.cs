@@ -7,15 +7,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-using Security.Data.Entities;
 using SoftinuxBase.Security.Common.Attributes;
-using ControllerBase = Infrastructure.ControllerBase;
+using SoftinuxBase.Security.Data.Entities;
+using ControllerBase = SoftinuxBase.Infrastructure.ControllerBase;
 using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 
 namespace SoftinuxBase.Security.Controllers
 {
     [PermissionRequirement(Permission.Admin)]
-    public class ListUsersController : ControllerBase
+    public class ListUsersController : Infrastructure.ControllerBase
     {
         //private readonly ILogger _logger;
         private readonly UserManager<User> _usersmanager;

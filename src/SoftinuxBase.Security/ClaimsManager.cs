@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
-using Security.Data.Abstractions;
-using Security.Data.Entities;
 using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Common.Enums;
+using SoftinuxBase.Security.Data.Abstractions;
+using SoftinuxBase.Security.Data.Entities;
 using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 
 namespace SoftinuxBase.Security

@@ -6,7 +6,6 @@ using System.IO;
 using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
 using ExtCore.WebApplication.Extensions;
-using Infrastructure;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,13 +15,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Security;
-using Security.Data.Entities;
 using Serilog;
+using SoftinuxBase.Infrastructure;
 using SoftinuxBase.Security;
+using SoftinuxBase.Security.Data.Entities;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace WebApplication
+namespace SoftinuxBase.WebApplication
 {
     public class Startup
     {

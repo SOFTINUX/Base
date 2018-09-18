@@ -7,14 +7,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Security.Data.Entities;
+using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.Tools;
 using SoftinuxBase.Security.ViewModels.Account;
-using ControllerBase = Infrastructure.ControllerBase;
+using ControllerBase = SoftinuxBase.Infrastructure.ControllerBase;
 
 namespace SoftinuxBase.Security.Controllers
 {
-    public class AccountController : ControllerBase
+    public class AccountController : Infrastructure.ControllerBase
     {
         private SignInManager<User> _signInManager;
         private UserManager<User> _userManager;

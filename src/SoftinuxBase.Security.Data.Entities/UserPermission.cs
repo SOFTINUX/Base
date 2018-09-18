@@ -3,7 +3,7 @@
 
 using ExtCore.Data.Entities.Abstractions;
 
-namespace Security.Data.Entities
+namespace SoftinuxBase.Security.Data.Entities
 {
     /// <summary>
     /// Links between users and permissions: permissions assigned to the user.
