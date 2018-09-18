@@ -70,16 +70,16 @@ namespace SecurityTest
                 DatabaseFixture.Storage.Save();
                 
                 repo.Create(new RolePermission
-                    {RoleId = adminRole.Id, Scope = "Security", PermissionId = Permission.Admin.GetPermissionName()});
+                    {RoleId = adminRole.Id, Scope = "SoftinuxBase.Security", PermissionId = Permission.Admin.GetPermissionName()});
                 repo.Create(new RolePermission
-                    {RoleId = userRole.Id, Scope = "Security", PermissionId = Permission.Read.GetPermissionName()});
+                    {RoleId = userRole.Id, Scope = "SoftinuxBase.Security", PermissionId = Permission.Read.GetPermissionName()});
                 repo.Create(new RolePermission
                 {
-                    RoleId = anonymousRole.Id, Scope = "Security", PermissionId = Permission.Never.GetPermissionName()
+                    RoleId = anonymousRole.Id, Scope = "SoftinuxBase.Security", PermissionId = Permission.Never.GetPermissionName()
                 });
                 repo.Create(new RolePermission
                 {
-                    RoleId = specialUserRole.Id, Scope = "Security", PermissionId = Permission.Write.GetPermissionName()
+                    RoleId = specialUserRole.Id, Scope = "SoftinuxBase.Security", PermissionId = Permission.Write.GetPermissionName()
                 });
 
                 repo.Create(new RolePermission
@@ -105,39 +105,39 @@ namespace SecurityTest
                 Assert.Equal(ExtensionManager.GetInstances<IExtensionMetadata>().Count(), model.PermissionsByRoleAndScope.Keys.Count);
 
                 // 2. Number of roles for "Security" extension
-                Assert.True((model.PermissionsByRoleAndScope.ContainsKey("Security")));
-                Assert.Equal(4, model.PermissionsByRoleAndScope["Security"].Keys.Count);
+                Assert.True((model.PermissionsByRoleAndScope.ContainsKey("SoftinuxBase.Security")));
+                Assert.Equal(4, model.PermissionsByRoleAndScope["SoftinuxBase.Security"].Keys.Count);
 
                 // 3. Admin role
-                Assert.True(model.PermissionsByRoleAndScope["Security"].ContainsKey(adminRole.Name));
+                Assert.True(model.PermissionsByRoleAndScope["SoftinuxBase.Security"].ContainsKey(adminRole.Name));
                 // Admin -> Admin, Write, Read, Never
-                Assert.Equal(4, model.PermissionsByRoleAndScope["Security"][adminRole.Name].Count);
-                Assert.Contains(Permission.Admin, model.PermissionsByRoleAndScope["Security"][adminRole.Name]);
-                Assert.Contains(Permission.Write, model.PermissionsByRoleAndScope["Security"][adminRole.Name]);
-                Assert.Contains(Permission.Read, model.PermissionsByRoleAndScope["Security"][adminRole.Name]);
-                Assert.Contains(Permission.Never, model.PermissionsByRoleAndScope["Security"][adminRole.Name]);
+                Assert.Equal(4, model.PermissionsByRoleAndScope["SoftinuxBase.Security"][adminRole.Name].Count);
+                Assert.Contains(Permission.Admin, model.PermissionsByRoleAndScope["SoftinuxBase.Security"][adminRole.Name]);
+                Assert.Contains(Permission.Write, model.PermissionsByRoleAndScope["SoftinuxBase.Security"][adminRole.Name]);
+                Assert.Contains(Permission.Read, model.PermissionsByRoleAndScope["SoftinuxBase.Security"][adminRole.Name]);
+                Assert.Contains(Permission.Never, model.PermissionsByRoleAndScope["SoftinuxBase.Security"][adminRole.Name]);
 
                 // 4. Special User role
-                Assert.True(model.PermissionsByRoleAndScope["Security"].ContainsKey(specialUserRole.Name));
+                Assert.True(model.PermissionsByRoleAndScope["SoftinuxBase.Security"].ContainsKey(specialUserRole.Name));
                 // Write -> Write, Read, Never
-                Assert.Equal(3, model.PermissionsByRoleAndScope["Security"][specialUserRole.Name].Count);
-                Assert.Contains(Permission.Write, model.PermissionsByRoleAndScope["Security"][specialUserRole.Name]);
-                Assert.Contains(Permission.Read, model.PermissionsByRoleAndScope["Security"][specialUserRole.Name]);
-                Assert.Contains(Permission.Never, model.PermissionsByRoleAndScope["Security"][specialUserRole.Name]);
+                Assert.Equal(3, model.PermissionsByRoleAndScope["SoftinuxBase.Security"][specialUserRole.Name].Count);
+                Assert.Contains(Permission.Write, model.PermissionsByRoleAndScope["SoftinuxBase.Security"][specialUserRole.Name]);
+                Assert.Contains(Permission.Read, model.PermissionsByRoleAndScope["SoftinuxBase.Security"][specialUserRole.Name]);
+                Assert.Contains(Permission.Never, model.PermissionsByRoleAndScope["SoftinuxBase.Security"][specialUserRole.Name]);
 
                 // 5. User role
-                Assert.True(model.PermissionsByRoleAndScope["Security"].ContainsKey(userRole.Name));
+                Assert.True(model.PermissionsByRoleAndScope["SoftinuxBase.Security"].ContainsKey(userRole.Name));
 
                 // Read -> Read, Never
-                Assert.Equal(2, model.PermissionsByRoleAndScope["Security"][userRole.Name].Count);
-                Assert.Contains(Permission.Read, model.PermissionsByRoleAndScope["Security"][userRole.Name]);
-                Assert.Contains(Permission.Never, model.PermissionsByRoleAndScope["Security"][userRole.Name]);
+                Assert.Equal(2, model.PermissionsByRoleAndScope["SoftinuxBase.Security"][userRole.Name].Count);
+                Assert.Contains(Permission.Read, model.PermissionsByRoleAndScope["SoftinuxBase.Security"][userRole.Name]);
+                Assert.Contains(Permission.Never, model.PermissionsByRoleAndScope["SoftinuxBase.Security"][userRole.Name]);
 
                 // 6. Anonymous role
-                Assert.True(model.PermissionsByRoleAndScope["Security"].ContainsKey(anonymousRole.Name));
+                Assert.True(model.PermissionsByRoleAndScope["SoftinuxBase.Security"].ContainsKey(anonymousRole.Name));
                 // Never -> Never
-                Assert.Single(model.PermissionsByRoleAndScope["Security"][anonymousRole.Name]);
-                Assert.Contains(Permission.Never, model.PermissionsByRoleAndScope["Security"][anonymousRole.Name]);
+                Assert.Single(model.PermissionsByRoleAndScope["SoftinuxBase.Security"][anonymousRole.Name]);
+                Assert.Contains(Permission.Never, model.PermissionsByRoleAndScope["SoftinuxBase.Security"][anonymousRole.Name]);
 
                 // 7. Number of roles for Chinook extension
                 Assert.True((model.PermissionsByRoleAndScope.ContainsKey("Chinook")));
