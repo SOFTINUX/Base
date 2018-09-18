@@ -82,7 +82,7 @@ Go to the solution root folder and run `bp.bat` under Windows or `bp.sh` under L
 
 #### 5. Run the app
 Go to *WebApplication* folder and type `dotnet run`.  
-If you prefer, you can also execute this command from solution root folder: `dotnet run --project WebApplication\WebApplication.csproj`  
+If you prefer, you can also execute this command from solution root folder: `dotnet run --project WebApplication\SoftinuxBase.WebApplication.csproj`  
 (Beware of the path if you are on Linux/MacOS).
 
 After that, the application is available on <http://localhost:5000/> or <https://localhost:5000/>
@@ -94,7 +94,7 @@ You can edit this value in Visual Studio: WebApplication's properties > Debug ta
 After, the default port used by *dotnet run* is the port defined in *WebApplication/Properties/launchSettings.json*.
 
 ##### :information_source: Information About Rider 2017.3 :information_source:
-Rider 2017.3 cannot execute the PostBuildEvent declared into WebApplication.csproj  
+Rider 2017.3 cannot execute the PostBuildEvent declared into SoftinuxBase.WebApplication.csproj  
 You need to execute `./bp.sh copyexts` and `./bp.sh copydeps` after building the solution or project.  
 Or refer to our [documentation](https://softinux-base.readthedocs.io/en/latest/howto/configure_rider.html) to see how to configure external tools that will be launched by build process.
 

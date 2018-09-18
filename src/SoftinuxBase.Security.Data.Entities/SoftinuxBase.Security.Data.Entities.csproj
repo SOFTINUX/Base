@@ -8,6 +8,6 @@
     <PackageReference Include="ExtCore.Data.Entities.Abstractions" Version="3.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SoftinuxBase.Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
   </ItemGroup>
 </Project>

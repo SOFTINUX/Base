@@ -2,29 +2,29 @@
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Infrastructure", "src\SoftinuxBase.Infrastructure\Infrastructure.csproj", "{C2AE1CC4-1171-4C29-AA5B-88A540A109B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Infrastructure", "src\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj", "{C2AE1CC4-1171-4C29-AA5B-88A540A109B6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Barebone", "src\SoftinuxBase.Barebone\Barebone.csproj", "{154A466B-690A-4B4A-BD09-D933FFE6C158}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Barebone", "src\SoftinuxBase.Barebone\SoftinuxBase.Barebone.csproj", "{154A466B-690A-4B4A-BD09-D933FFE6C158}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.WebApplication", "src\SoftinuxBase.WebApplication\WebApplication.csproj", "{832F02D1-3E32-49F7-93D2-F5D9868ABCE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.WebApplication", "src\SoftinuxBase.WebApplication\SoftinuxBase.WebApplication.csproj", "{832F02D1-3E32-49F7-93D2-F5D9868ABCE4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extension2", "src\Extension2\Extension2.csproj", "{E29C1D94-9A07-4A76-A479-A45673FFFE73}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security", "src\SoftinuxBase.Security\Security.csproj", "{53F9E0E6-F63A-4086-8F5D-C600D36E31B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security", "src\SoftinuxBase.Security\SoftinuxBase.Security.csproj", "{53F9E0E6-F63A-4086-8F5D-C600D36E31B9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.Data.Abstractions", "src\SoftinuxBase.Security.Data.Abstractions\Security.Data.Abstractions.csproj", "{6FDAFAFF-5C10-41E6-B13E-3434FE4F9D59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.Data.Abstractions", "src\SoftinuxBase.Security.Data.Abstractions\SoftinuxBase.Security.Data.Abstractions.csproj", "{6FDAFAFF-5C10-41E6-B13E-3434FE4F9D59}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.Data.Entities", "src\SoftinuxBase.Security.Data.Entities\Security.Data.Entities.csproj", "{B2E725AA-C134-40F0-8DF6-6928DA5C2F66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.Data.Entities", "src\SoftinuxBase.Security.Data.Entities\SoftinuxBase.Security.Data.Entities.csproj", "{B2E725AA-C134-40F0-8DF6-6928DA5C2F66}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.Data.EntityFramework.Sqlite", "src\SoftinuxBase.Security.Data.EntityFramework.Sqlite\Security.Data.EntityFramework.Sqlite.csproj", "{7805C09C-277C-4A5F-AC7A-AF34FE898939}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.Data.EntityFramework.Sqlite", "src\SoftinuxBase.Security.Data.EntityFramework.Sqlite\SoftinuxBase.Security.Data.EntityFramework.Sqlite.csproj", "{7805C09C-277C-4A5F-AC7A-AF34FE898939}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.Data.EntityFramework", "src\SoftinuxBase.Security.Data.EntityFramework\Security.Data.EntityFramework.csproj", "{820BEABD-13B9-427B-AF57-611DFD595969}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.Data.EntityFramework", "src\SoftinuxBase.Security.Data.EntityFramework\SoftinuxBase.Security.Data.EntityFramework.csproj", "{820BEABD-13B9-427B-AF57-611DFD595969}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedDatabase", "src\SeedDatabase\SeedDatabase.csproj", "{2B0CE783-D89A-452A-A210-E54032512DF9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Globalisation", "src\Globalisation\Globalisation.csproj", "{A6EC4E82-29DC-483A-BB74-5B355C6530CD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.Common", "src\SoftinuxBase.Security.Common\Security.Common.csproj", "{B5EA485E-D829-458F-AA4F-7E2004A11E24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.Common", "src\SoftinuxBase.Security.Common\SoftinuxBase.Security.Common.csproj", "{B5EA485E-D829-458F-AA4F-7E2004A11E24}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chinook.Data.Entities", "src\Chinook.Data.Entities\Chinook.Data.Entities.csproj", "{BEFC6213-16ED-4E47-A89A-9E9F7CEC7DE0}"
 EndProject

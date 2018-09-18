@@ -9,6 +9,6 @@
     <EmbeddedResource Include="Views\**" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SoftinuxBase.Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
   </ItemGroup>
 </Project>

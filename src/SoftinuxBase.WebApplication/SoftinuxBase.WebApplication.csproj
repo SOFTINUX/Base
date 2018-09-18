@@ -29,14 +29,14 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SoftinuxBase.Barebone\Barebone.csproj" />
-    <ProjectReference Include="..\SoftinuxBase.Infrastructure\Infrastructure.csproj" />
-    <ProjectReference Include="..\SoftinuxBase.Security\Security.csproj" />
-    <ProjectReference Include="..\SoftinuxBase.Security.Common\Security.Common.csproj" />
-    <ProjectReference Include="..\SoftinuxBase.Security.Data.Abstractions\Security.Data.Abstractions.csproj" />
-    <ProjectReference Include="..\SoftinuxBase.Security.Data.Entities\Security.Data.Entities.csproj" />
-    <ProjectReference Include="..\SoftinuxBase.Security.Data.EntityFramework\Security.Data.EntityFramework.csproj" />
-    <ProjectReference Include="..\SoftinuxBase.Security.Data.EntityFramework.Sqlite\Security.Data.EntityFramework.Sqlite.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Barebone\SoftinuxBase.Barebone.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security\SoftinuxBase.Security.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.Common\SoftinuxBase.Security.Common.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.Data.Abstractions\SoftinuxBase.Security.Data.Abstractions.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.Data.Entities\SoftinuxBase.Security.Data.Entities.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.Data.EntityFramework\SoftinuxBase.Security.Data.EntityFramework.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.Data.EntityFramework.Sqlite\SoftinuxBase.Security.Data.EntityFramework.Sqlite.csproj" />
     <ProjectReference Include="..\Chinook\Chinook.csproj" />
     <ProjectReference Include="..\Chinook.Data.EntityFramework.Sqlite\Chinook.Data.EntityFramework.Sqlite.csproj" />
   </ItemGroup>

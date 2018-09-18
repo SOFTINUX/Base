@@ -40,9 +40,9 @@
     <EmbeddedResource Include="..\SoftinuxBase.Barebone\node_modules\datatables.net-buttons-bs\css\buttons.bootstrap.min.css" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SoftinuxBase.Infrastructure\Infrastructure.csproj" />
-    <ProjectReference Include="..\SoftinuxBase.Security.Data.EntityFramework.Sqlite\Security.Data.EntityFramework.Sqlite.csproj" />
-    <ProjectReference Include="..\SoftinuxBase.Security.Data.EntityFramework\Security.Data.EntityFramework.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.Data.EntityFramework.Sqlite\SoftinuxBase.Security.Data.EntityFramework.Sqlite.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.Data.EntityFramework\SoftinuxBase.Security.Data.EntityFramework.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />

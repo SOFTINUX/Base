@@ -12,7 +12,7 @@
     <None Remove="Views\Chinook\Protected.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SoftinuxBase.Infrastructure\Infrastructure.csproj" />
-    <ProjectReference Include="..\SoftinuxBase.Security\Security.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security\SoftinuxBase.Security.csproj" />
   </ItemGroup>
 </Project>
