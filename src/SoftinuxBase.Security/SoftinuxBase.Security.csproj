@@ -41,7 +41,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
-    <ProjectReference Include="..\SoftinuxBase.Security.Data.EntityFramework.Sqlite\SoftinuxBase.Security.Data.EntityFramework.Sqlite.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.Data.EntityFramework\SoftinuxBase.Security.Data.EntityFramework.csproj" />
   </ItemGroup>
   <ItemGroup>
