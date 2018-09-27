@@ -1,7 +1,7 @@
 # Project overview
 ![Build status](https://ci.appveyor.com/api/projects/status/mktm6ae3csndb9ma?svg=true) ![Line of code](https://tokei.rs/b1/github/SOFTINUX/Base) ![Documentation Status](https://readthedocs.org/projects/softinux-base/badge/?version=latest) [![Gitter chat](https://badges.gitter.im/SOFTINUX/Base/repo.png)](https://gitter.im/softinux-base/Lobby) ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 
-*SOFTINUX Base* is a free, open source, and cross-platform framework with built-in security access support and management for creating modular and extendable [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/) Core web applications.
+*SoftinuxBase* is a free, open source, and cross-platform framework with built-in security access support and management for creating modular and extendable [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/) Core web applications.
 
 It is built using [ExtCore](http://extcore.net/) framework and the most modern tools and languages.  
 Join our team!
@@ -23,15 +23,15 @@ Join our team!
 - [Getting started](#getting-started)
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
-        - [1. Restore dependencies](#1-restore-dependencies)
-        - [2. Restore nuget packages](#2-restore-nuget-packages)
-        - [3. Update database with migration](#3-update-database-with-migration)
-        - [4. Build the application](#4-build-the-application)
-        - [5. Run the app](#5-run-the-app)
-            - [:information_source: Information About Visual Studio 2017 :information_source:](#informationsource-information-about-visual-studio-2017-informationsource)
-            - [:information_source: Information About Rider 2017.3 :information_source:](#informationsource-information-about-rider-20173-informationsource)
-        - [6. Add the first user (demo user)](#6-add-the-first-user-demo-user)
-        - [7. Login with demo user](#7-login-with-demo-user)
+            - [1. Restore dependencies](#1-restore-dependencies)
+            - [2. Restore nuget packages](#2-restore-nuget-packages)
+            - [3. Update database with migration](#3-update-database-with-migration)
+            - [4. Build the application](#4-build-the-application)
+            - [5. Run the app](#5-run-the-app)
+                - [:information_source: Information About Visual Studio 2017 :information_source:](#informationsource-information-about-visual-studio-2017-informationsource)
+                - [:information_source: Information About Rider 2017.3 :information_source:](#informationsource-information-about-rider-20173-informationsource)
+            - [6. Add the first user (demo user)](#6-add-the-first-user-demo-user)
+            - [7. Login with demo user](#7-login-with-demo-user)
     - [Implement your own extension](#implement-your-own-extension)
         - [Add a new project](#add-a-new-project)
         - [Add project reference to the solution](#add-project-reference-to-the-solution)
@@ -40,9 +40,9 @@ Join our team!
 
 ## Basic Concepts
 
-*Softinux Base* is a framework that looks like a .NET Core web application, but is intended to host mini web applications called extensions. Every extension will plug its content (pages, menu items) as well as security and authentication related items (permissions, roles, links...).
+*SoftinuxBase* is a framework that looks like a .NET Core web application, but is intended to host mini web applications called extensions. Every extension will plug its content (pages, menu items) as well as security and authentication related items (permissions, roles, links...).
 
-*Base* manages the common stuff so that the developer can focus on its extension and business logic, just having to provide what we call metadata to know how to display and authorize access to content, and use our version of Authorize attribute.
+*SoftinuxBase* manages the common stuff so that the developer can focus on its extension and business logic, just having to provide what we call metadata to know how to display and authorize access to content, and use our version of Authorize attribute.
 
 Read [documentation](https://softinux-base.readthedocs.io/en/latest/?) to learn more about this.
 
@@ -66,14 +66,14 @@ In order you must have installed:
 
 ## Installation
 #### 1. Restore dependencies
-Go to *Barebone* folder and run `npm i --save-dev` command so that dependencies packages are installed and settings updated.
+Go to *SoftinuxBase.Barebone* folder and run `npm i --save-dev` command so that dependencies packages are installed and settings updated.
 
 #### 2. Restore nuget packages
 Restore the nuGet packages is now an implicit command executed at application build.  
 But you can still restore packages without building the application with the command `dotnet restore` in solution root folder.
 
 #### 3. Update database with migration
-Go to *Webapplication* folder and run `dotnet ef database update`.  
+Go to *SoftinuxBase.Webapplication* folder and run `dotnet ef database update`.  
 This will create the database. See *appsettings.json* for database path.  
 The Entity Framework database context is defined in web application's *Startup.cs*.  
 We use Sqlite for development, but you can change this easily for another SGDB (see *appsettings.json* file).
@@ -82,20 +82,20 @@ We use Sqlite for development, but you can change this easily for another SGDB (
 Go to the solution root folder and run `bp.bat` under Windows or `bp.sh` under Linux/MacOS. (use -h for help).
 
 #### 5. Run the app
-Go to *WebApplication* folder and type `dotnet run`.  
-If you prefer, you can also execute this command from solution root folder: `dotnet run --project WebApplication\SoftinuxBase.WebApplication.csproj`  
+Go to *SoftinuxBase.WebApplication* folder and type `dotnet run`.  
+If you prefer, you can also execute this command from solution root folder: `dotnet run --project SoftinuxBase.WebApplication\SoftinuxBase.WebApplication.csproj`  
 (Beware of the path if you are on Linux/MacOS).
 
 After that, the application is available on <http://localhost:5000/> or <https://localhost:5000/>
 
 ##### :information_source: Information About Visual Studio 2017 :information_source:
 If you launched application from Visual Studio, this port will change,  
-being randomly defined, and value is stored in *WebApplication/Properties/launchSettings.json*  
+being randomly defined, and value is stored in *SoftinuxBase.WebApplication/Properties/launchSettings.json*  
 You can edit this value in Visual Studio: WebApplication's properties > Debug tab > Web Server Settings/App URL or directly in launchSettings file.  
-After, the default port used by *dotnet run* is the port defined in *WebApplication/Properties/launchSettings.json*.
+After, the default port used by *dotnet run* is the port defined in *SoftinuxBase.WebApplication/Properties/launchSettings.json*.
 
 ##### :information_source: Information About Rider 2017.3 :information_source:
-Rider 2017.3 cannot execute the PostBuildEvent declared into SoftinuxBase.WebApplication.csproj  
+Rider 2017.3 cannot execute the PostBuildEvent declared in *SoftinuxBase.WebApplication.csproj*.  
 You need to execute `./bp.sh copyexts` and `./bp.sh copydeps` after building the solution or project.  
 Or refer to our [documentation](https://softinux-base.readthedocs.io/en/latest/howto/configure_rider.html) to see how to configure external tools that will be launched by build process.
 
