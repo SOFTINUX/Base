@@ -4,6 +4,10 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssemblyName>SoftinuxBase.Security.Common</AssemblyName>
     <RootNamespace>SoftinuxBase.Security.Common</RootNamespace>
+    <PackageId>SoftinuxBase.Security.Common</PackageId>
+    <Version>0.0.1</Version>
+    <Authors>Benjamin Nolmans</Authors>
+    <Company>SOFTINUX</Company>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>7</LangVersion>

@@ -1,9 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssemblyName>SoftinuxBase.WebApplication</AssemblyName>
     <RootNamespace>SoftinuxBase.WebApplication</RootNamespace>
+    <PackageId>SoftinuxBase.WebApplication</PackageId>
+    <Version>0.0.1</Version>
+    <Authors>Benjamin Nolmans</Authors>
+    <Company>SOFTINUX</Company>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>7</LangVersion>
@@ -37,8 +41,6 @@
     <ProjectReference Include="..\SoftinuxBase.Security.Data.Entities\SoftinuxBase.Security.Data.Entities.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.Data.EntityFramework\SoftinuxBase.Security.Data.EntityFramework.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.Data.EntityFramework.Sqlite\SoftinuxBase.Security.Data.EntityFramework.Sqlite.csproj" />
-    <ProjectReference Include="..\Chinook\Chinook.csproj" />
-    <ProjectReference Include="..\Chinook.Data.EntityFramework.Sqlite\Chinook.Data.EntityFramework.Sqlite.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Extensions\" />

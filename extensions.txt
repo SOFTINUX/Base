@@ -1,4 +1,1 @@
-src\Chinook\bin\Debug\netcoreapp2.1\Chinook.dll
-src\Extension2\bin\Debug\netcoreapp2.1\Extension2.dll
 src\SeedDatabase\bin\Debug\netcoreapp2.1\SeedDatabase.dll
-src\Chinook.Data.EntityFramework.Sqlite\bin\Debug\netcoreapp2.1\Chinook_Sqlite_AutoIncrementPKs.sql

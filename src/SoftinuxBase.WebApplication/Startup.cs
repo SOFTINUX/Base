@@ -23,7 +23,7 @@ using Swashbuckle.AspNetCore.Swagger;
 
 namespace SoftinuxBase.WebApplication
 {
-    public class Startup
+    public abstract class Startup
     {
         private IConfiguration Configuration { get; }
         private readonly string _extensionsPath;
@@ -34,7 +34,7 @@ namespace SoftinuxBase.WebApplication
             _extensionsPath = hostingEnvironment_.ContentRootPath + Configuration["Extensions:Path"].Replace('/', Path.DirectorySeparatorChar).Replace('\\', Path.DirectorySeparatorChar);
         }
 
-        public void ConfigureServices(IServiceCollection services_)
+        public virtual void ConfigureServices(IServiceCollection services_)
         {
             services_.AddLogging(loggingBuilder_ => loggingBuilder_.AddSerilog(dispose: true));
 
@@ -130,7 +130,7 @@ namespace SoftinuxBase.WebApplication
                 });
         }
 
-        public void Configure(IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_,
+        public virtual void Configure(IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_,
          IConfiguration configuration_, IAntiforgery antiForgery_)
         {
             if (hostingEnvironment_.IsDevelopment())
