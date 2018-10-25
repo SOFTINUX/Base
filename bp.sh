@@ -90,8 +90,20 @@ function help
 
 
 case $1 in
-    clean | build | copyexts | copydeps | bundles)
-        $1
+    clean)
+        clean
+        ;;
+    build)
+        build
+        ;;
+    copyexts)
+        copyexts
+        ;;
+    copydeps)
+        copydeps
+        ;;
+    bundles)
+        bundles
         ;;
     cleanbin)
         cleanbuildfolders
