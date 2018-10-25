@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using SeedDatabase;
+using SoftinuxBase.SeedDatabase;
 using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Common.Enums;
 using SoftinuxBase.Security.Data.Abstractions;
@@ -40,7 +40,7 @@ namespace CommonTest
 
         /// <summary>
         /// Create the standard records in Permission table, if they don't exist.
-        /// Similar to SeedDatabase extension's job.
+        /// Similar to SoftinuxBase.SeedDatabase extension's job.
         /// </summary>
         private void CreatePermissionsIfNeeded()
         {
@@ -70,7 +70,7 @@ namespace CommonTest
 
         /// <summary>
         /// Create the standard base roles, if they don't exist.
-        /// Similar to SeedDatabase extension's job.
+        /// Similar to SoftinuxBase.SeedDatabase extension's job.
         /// </summary>
         /// <returns></returns>
         protected async Task CreateBaseRolesIfNeeded()
@@ -86,7 +86,7 @@ namespace CommonTest
 
         /// <summary>
         /// Create a roles, if it doesn't exist
-        /// Similar to SeedDatabase extension's job.
+        /// Similar to SoftinuxBase.SeedDatabase extension's job.
         /// </summary>
         /// <param name="roleName_"></param>
         /// <returns></returns>

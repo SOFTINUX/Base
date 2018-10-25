@@ -86,7 +86,7 @@ namespace SoftinuxBase.Security.Controllers
         /// <returns></returns>
         [Route("administration/savenewrole")]
         [HttpPost]
-        public async Task<ObjectResult> SaveNewRoleAndItsPermissions(SaveNewRoleAndGrantsViewModel model_)
+        public async Task<IActionResult> SaveNewRoleAndItsPermissions(SaveNewRoleAndGrantsViewModel model_)
         {
             string error = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(model_, _roleManager, Storage);
             return StatusCode(string.IsNullOrEmpty(error) ? 201 : 400, error);
@@ -118,16 +118,22 @@ namespace SoftinuxBase.Security.Controllers
         }
 
         /// <summary>
-        /// Update role name into database.
+        /// Update role name and linked extensions with permission level.
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
         [PermissionRequirement(Permission.Admin)]
-        [Route("administration/updaterolename")]
+        [Route("administration/update-role")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateRoleName(string name, string id)
+        public async Task<IActionResult> UpdateRoleAndItsPermissions(UpdateRoleAndGrantsViewModel model_)
         {
+            // 1. Check that new role name is free either return status 400
+            // use Tools.UpdateRoleAndGrants
+
+            // 2. Update role-permission links
+
+            // Return status code 200
             return Json("Not yet implemented");
         }
 

@@ -212,7 +212,6 @@ $(function () {
         }
 
         saveEditRole("edit-role-form");
-        //$("#edit-role-form").submit();
     });
 
 });
@@ -328,6 +327,7 @@ function passSelectedRoleOnEdition(roleId_){
         {
             $("#" + key).val(data.value[key]);
         }
+        $("#editRoleId").val(roleId_);
     });
 }
 
@@ -379,15 +379,26 @@ function savePermission(scope, role, permission) {
 
 // Ajax call to update data: role with its related data update. Ajax POST.
 function saveEditRole(formId_){
-    var $form =$("#"+formId_);
-    var data = $form.serialize();
-    $.ajax("/administration/updaterolename",
+    var selectedExtensions = [];
+        $("#selectedExtensions>option").each(function() {
+            selectedExtensions.push(this.value);
+        });
+    var postData = {
+        RoleId: $("#editRoleId").val(),
+        RoleName: $("#role_name_input").val(),
+        Extensions: selectedExtensions,
+        Permission: $("#newRolePermission").val()
+    };
+
+    console.log(postData);
+
+    $.ajax("/administration/update-role",
     {
         method: 'POST',
-        data: data,
-        headers: {
-            "RequestVerificationToken": $('input:hidden[name="__RequestVerificationToken"]', $form).val()
-        }
+        data: postData,
+        // headers: {
+        //     "RequestVerificationToken": $('input:hidden[name="__RequestVerificationToken"]', $form).val()
+        // }
     })
     .done(function(data){
         window.toastr.success(data, "Saved");

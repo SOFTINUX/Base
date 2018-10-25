@@ -3,6 +3,10 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssemblyName>SoftinuxBase.Security.Data.Abstractions</AssemblyName>
     <RootNamespace>SoftinuxBase.Security.Data.Abstractions</RootNamespace>
+    <PackageId>SoftinuxBase.Security.Data.Abstractions</PackageId>
+    <Version>0.0.1</Version>
+    <Authors>Benjamin Nolmans</Authors>
+    <Company>SOFTINUX</Company>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ExtCore.Data.Abstractions" Version="3.3.0" />

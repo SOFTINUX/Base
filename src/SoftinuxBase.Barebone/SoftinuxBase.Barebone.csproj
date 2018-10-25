@@ -3,6 +3,10 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssemblyName>SoftinuxBase.Barebone</AssemblyName>
     <RootNamespace>SoftinuxBase.Barebone</RootNamespace>
+    <PackageId>SoftinuxBase.Barebone</PackageId>
+    <Version>0.0.1</Version>
+    <Authors>Benjamin Nolmans</Authors>
+    <Company>SOFTINUX</Company>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>7</LangVersion>
@@ -11,7 +15,7 @@
     <PackageReference Include="ExtCore.Mvc.Infrastructure" Version="3.3.0" />
     <PackageReference Include="ExtCore.Data.Abstractions" Version="3.3.0" />
     <PackageReference Include="FontAwesome" Version="4.7.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />

@@ -43,13 +43,13 @@ namespace SecurityTest
                 {
                     // Really unique value
                     RoleName = roleName,
-                    Extensions = new System.Collections.Generic.List<string> (extensions),
+                    Extensions = new System.Collections.Generic.List<string>(extensions),
                     Permission = Permission.Write.ToString()
                 };
 
                 // Execute
                 var result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage);
-                
+
                 // Assert
                 Assert.Null(result);
 
@@ -61,20 +61,22 @@ namespace SecurityTest
                 // 2. Expect to have an expected number of records in RolePermission table for the new role
                 var rolePermissionRecords = permRepo.FilteredByRoleId(createdRole.Id);
                 Assert.Equal(extensions.Count(), rolePermissionRecords.Count());
-                
+
             }
             finally
             {
                 // Cleanup created data
                 var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(roleName);
-                Assert.NotNull(createdRole);
-                foreach (var rolePermission in permRepo.FilteredByRoleId(createdRole.Id))
-                    permRepo.Delete(rolePermission.RoleId, rolePermission.Scope);
+                if (createdRole != null)
+                {
+                    foreach (var rolePermission in permRepo.FilteredByRoleId(createdRole.Id))
+                        permRepo.Delete(rolePermission.RoleId, rolePermission.Scope);
 
-                await DatabaseFixture.RoleManager.DeleteAsync(createdRole);
+                    await DatabaseFixture.RoleManager.DeleteAsync(createdRole);
+                }
             }
         }
-        
+
         [Fact]
         public async Task TestCheckAndSaveNewRole_NameAlreadyTaken()
         {
@@ -94,7 +96,7 @@ namespace SecurityTest
 
                 // Execute
                 var result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage);
-                
+
                 // Assert
                 Assert.Null(result);
 
@@ -110,11 +112,13 @@ namespace SecurityTest
             {
                 // Cleanup created data
                 var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(roleName);
-                Assert.NotNull(createdRole);
-                foreach (var rolePermission in permRepo.FilteredByRoleId(createdRole.Id))
-                    permRepo.Delete(rolePermission.RoleId, rolePermission.Scope);
+                if (createdRole != null)
+                {
+                    foreach (var rolePermission in permRepo.FilteredByRoleId(createdRole.Id))
+                        permRepo.Delete(rolePermission.RoleId, rolePermission.Scope);
 
-                await DatabaseFixture.RoleManager.DeleteAsync(createdRole);
+                    await DatabaseFixture.RoleManager.DeleteAsync(createdRole);
+                }
             }
         }
     }

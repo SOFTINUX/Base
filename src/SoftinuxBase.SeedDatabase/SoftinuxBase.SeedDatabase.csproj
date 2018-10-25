@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+  <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AssemblyName>SoftinuxBase.SeedDatabase</AssemblyName>
+    <RootNamespace>SoftinuxBase.SeedDatabase</RootNamespace>
+    <PackageId>SoftinuxBase.SeedDatabase</PackageId>
+    <Version>0.0.1</Version>
+    <Authors>Benjamin Nolmans</Authors>
+    <Company>SOFTINUX</Company>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>7</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="ExtCore.Data.Entities.Abstractions" Version="3.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.Common\SoftinuxBase.Security.Common.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.Data.Entities\SoftinuxBase.Security.Data.Entities.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.Data.Abstractions\SoftinuxBase.Security.Data.Abstractions.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security\SoftinuxBase.Security.csproj" />
+  </ItemGroup>
+</Project>

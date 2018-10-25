@@ -3,6 +3,10 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssemblyName>SoftinuxBase.Security.Data.EntityFramework</AssemblyName>
     <RootNamespace>SoftinuxBase.Security.Data.EntityFramework</RootNamespace>
+    <PackageId>SoftinuxBase.Security.Data.EntityFramework</PackageId>
+    <Version>0.0.1</Version>
+    <Authors>Benjamin Nolmans</Authors>
+    <Company>SOFTINUX</Company>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ExtCore.Data.EntityFramework" Version="3.3.0" />

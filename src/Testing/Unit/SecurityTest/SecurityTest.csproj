@@ -20,7 +20,6 @@
     <ProjectReference Include="..\CommonTest\CommonTest.csproj" />
     <ProjectReference Include="..\..\..\SoftinuxBase.Security.Data.EntityFramework\SoftinuxBase.Security.Data.EntityFramework.csproj" />
     <ProjectReference Include="..\..\..\SoftinuxBase.Security\SoftinuxBase.Security.csproj" />
-    <ProjectReference Include="..\..\..\Chinook\Chinook.csproj" />
   </ItemGroup>
 
 </Project>

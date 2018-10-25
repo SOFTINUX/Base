@@ -23,11 +23,11 @@ namespace SoftinuxBase.Security.Common.Attributes
 
         /// <summary>
         /// Allows access when the user has the permission : a claim of type "Permission" with value
-        /// defined by its level (Admin, Write, Read...) and its scope (Security, ExtensionX...).
+        /// defined by its level (Admin, Write, Read...) and its scope (SoftinuxBase.Security, ExtensionX...).
         /// Or the user has a permission with same scope but higher level (Admin when Write is the minimum requested to be granted access).
-        /// Default scope (assembly simple name) is global scope ("Security").
+        /// Default scope (assembly simple name) is global scope ("SoftinuxBase.Security").
         /// </summary>
-        public PermissionRequirementAttribute(Permission permissionName_, string extensionAssemblySimpleName_ = "Security")
+        public PermissionRequirementAttribute(Permission permissionName_, string extensionAssemblySimpleName_ = "SoftinuxBase.Security")
         {
             _permissionName = permissionName_;
             _scope = extensionAssemblySimpleName_;

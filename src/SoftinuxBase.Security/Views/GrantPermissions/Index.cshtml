@@ -155,7 +155,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Role Id:</label>
-                                        <input type="hidden" name="id" value="test"/>
+                                        <input type="hidden" name="id" id="editRoleId"/>
                                         <input id="id" name="id-dis" type="text" class="form-control" disabled="disabled"/>
                                     </div>
                                 </div>
@@ -197,20 +197,24 @@
             <div class="box-body">
                 <section class="content">
                     <div class="row">
-                        <div class="col-md-6">
+                        <!-- header -->
+                        <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
                             <div class="row table-header collapsed">
-                                <div class="col-md-1 table-header-cell" id="collapse" data-state="closed">
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 table-header-cell" id="collapse" data-state="closed">
                                     <i class="chevron-double fa fa-fw"></i>
                                 </div>
-                                <div class="col-md-4 table-header-cell" align="center">Extension name</div>
-                                <div class="col-md-1 table-header-cell">&nbsp;</div>
-                                <div class="col-md-1 table-header-cell">Admin</div>
-                                <div class="col-md-1 table-header-cell">Write</div>
-                                <div class="col-md-1 table-header-cell">Read</div>
+                                <div class="col-lg-4 col-md-5 col-sm-5 col-xs-4 table-header-cell" align="center">Extension name</div>
+                                @*<div class="col-md-1 col-xs-1 table-header-cell">&nbsp;</div>*@
+                                <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2 table-header-cell">Admin</div>
+                                <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2 table-header-cell">Write</div>
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 table-header-cell">Read</div>
+                                @* empty row for trash icon in role row *@
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 table-header-cell">&nbsp;</div>
                             </div>
                         </div>
                     </div>
                     @* List extensions and roles *@
+                    <!-- list roles extensions -->
                     @await Html.PartialAsync("_List_Roles_Extensions", Model)
                 </section>
             </div>

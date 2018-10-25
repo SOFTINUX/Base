@@ -23,7 +23,7 @@ namespace SoftinuxBase.Security.Tools
         /// <returns>Not null when something failed, else null when save went ok</returns>
         public static async Task<string> CheckAndSaveNewRoleAndGrants(SaveNewRoleAndGrantsViewModel model_, RoleManager<IdentityRole<string>> roleManager_, IStorage storage_)
         {
-            if (await UpdateRole.CheckThatRoleOfThisNameExists(roleManager_, model_.RoleName))
+            if (await UpdateRoleAndGrants.CheckThatRoleOfThisNameExists(roleManager_, model_.RoleName))
             {
                 return "A role with this name already exists";
             }
@@ -48,12 +48,12 @@ namespace SoftinuxBase.Security.Tools
                     foreach (string extension in model_.Extensions)
                     {
                         repo.Create(new RolePermission
-                            {RoleId = identityRole.Id, PermissionId = permissionEnum.ToString(), Scope = extension});
+                        { RoleId = identityRole.Id, PermissionId = permissionEnum.ToString(), Scope = extension });
                     }
                 }
 
                 storage_.Save();
-                
+
                 return null;
 
             }
@@ -62,5 +62,6 @@ namespace SoftinuxBase.Security.Tools
                 return $"{e.Message} {e.StackTrace}";
             }
         }
+  
     }
 }
