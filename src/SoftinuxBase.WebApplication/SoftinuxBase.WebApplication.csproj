@@ -16,7 +16,7 @@
     <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security\SoftinuxBase.Security.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.Data.Entities\SoftinuxBase.Security.Data.Entities.csproj" />
-   </ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ExtCore.WebApplication" Version="3.3.0" />
   </ItemGroup>
