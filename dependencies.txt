@@ -5,5 +5,5 @@ src\SoftinuxBase.Security.Data.Abstractions\bin\Debug\netcoreapp2.1\SoftinuxBase
 src\SoftinuxBase.Security\bin\Debug\netcoreapp2.1\SoftinuxBase.Security.dll
 src\SoftinuxBase.Infrastructure\bin\Debug\netcoreapp2.1\SoftinuxBase.Infrastructure.dll
 src\SoftinuxBase.Barebone\bin\Debug\netcoreapp2.1\SoftinuxBase.Barebone.dll
-src\SoftinuxBase.WebApplication\appsettings.json
-src\SoftinuxBase.WebApplication\basedb.sqlite
+src\SoftinuxBase.Web\appsettings.json
+src\SoftinuxBase.Web\basedb.sqlite

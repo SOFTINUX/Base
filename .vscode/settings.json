@@ -46,5 +46,6 @@
         "typescript",
         "typescriptreact",
         "yml"
-    ]
+    ],
+    "cSpell.enabled": false
 }
