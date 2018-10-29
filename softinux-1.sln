@@ -33,11 +33,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftinuxBase.WebApplication
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication", "src\WebApplication\WebApplication.csproj", "{C468EFDF-A870-475E-BFEB-A82F8DC6FC68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftinuxBase.Security.Data.EntityFramework.Mssql", "SoftinuxBase.Security.Data.EntityFramework.Mssql\SoftinuxBase.Security.Data.EntityFramework.Mssql.csproj", "{7DC386E9-0AD3-4DBF-ACC6-294FFD5E4EE8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftinuxBase.Security.Data.EntityFramework.Mssql", "src\SoftinuxBase.Security.Data.EntityFramework.Mssql\SoftinuxBase.Security.Data.EntityFramework.Mssql.csproj", "{7DC386E9-0AD3-4DBF-ACC6-294FFD5E4EE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftinuxBase.Security.Data.EntityFramework.Mysql", "SoftinuxBase.Security.Data.EntityFramework.Mysql\SoftinuxBase.Security.Data.EntityFramework.Mysql.csproj", "{CDF8434F-06EB-40BE-BA7D-C8C8F91C4954}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftinuxBase.Security.Data.EntityFramework.Mysql", "src\SoftinuxBase.Security.Data.EntityFramework.Mysql\SoftinuxBase.Security.Data.EntityFramework.Mysql.csproj", "{CDF8434F-06EB-40BE-BA7D-C8C8F91C4954}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftinuxBase.Security.Data.EntityFramework.Npgsql", "SoftinuxBase.Security.Data.EntityFramework.Npgsql\SoftinuxBase.Security.Data.EntityFramework.Npgsql.csproj", "{FBEA202C-3C30-4EDB-9F7E-36495672AD9E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftinuxBase.Security.Data.EntityFramework.Npgsql", "src\SoftinuxBase.Security.Data.EntityFramework.Npgsql\SoftinuxBase.Security.Data.EntityFramework.Npgsql.csproj", "{FBEA202C-3C30-4EDB-9F7E-36495672AD9E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
