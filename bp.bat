@@ -6,11 +6,11 @@
 :: set .NET output folder name (use .NET Core version defined into csproj files)
 set netVersion="netcoreapp2.1"
 :: Extensions folder
-set ext_folder=".\src\SoftinuxBase.WebApplication\Extensions\"
+set ext_folder=".\src\WebApplication\Extensions\"
 :: Dependencies folder
-set dep_folder=".\src\SoftinuxBase.WebApplication\bin\Debug\%netVersion%\"
+set dep_folder=".\src\WebApplication\bin\Debug\%netVersion%\"
 :: Publish folder
-set pub_folder=".\src\SoftinuxBase.WebApplication\bin\Debug\%netVersion%\publish"
+set pub_folder=".\src\WebApplication\bin\Debug\%netVersion%\publish"
 
 cd %~dp0
 IF "%1" == "/?" GOTO Help
