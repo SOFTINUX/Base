@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Data.Sqlite", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftinuxBase.WebApplication", "src\SoftinuxBase.WebApplication\SoftinuxBase.WebApplication.csproj", "{14B6D29E-11CA-4499-9213-6A1A4554D855}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftinuxBase.WebApp", "src\SoftinuxBase.WebApp\SoftinuxBase.WebApp.csproj", "{C468EFDF-A870-475E-BFEB-A82F8DC6FC68}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication", "src\WebApplication\WebApplication.csproj", "{C468EFDF-A870-475E-BFEB-A82F8DC6FC68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
