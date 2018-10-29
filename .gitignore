@@ -318,8 +318,8 @@ __pycache__/
 log-[0-9]*.txt
 
 # App Extensions
-src/SoftinuxBase.WebApplication/Extensions/*
-!src/SoftinuxBase.WebApplication/Extensions/.gitkeep
+src/WebApplication/Extensions/*
+!src/WebApplication/Extensions/.gitkeep
 
 #App/tests EF Database
 src/SoftinuxBase.WebApplication/basedb.sqlite
