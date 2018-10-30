@@ -323,11 +323,19 @@ function input_form_group_set_error(el, errMsg) {
 function passSelectedRoleOnEdition(roleId_){
     $("#edit-role-group").removeClass("has-error");
     $.ajax("/administration/findrole", {data: {"roleId_": roleId_}}).done(function(data){
-        for (key in data.value)
-        {
-            $("#" + key).val(data.value[key]);
-        }
-        $("#editRoleId").val(roleId_);
+        // for (key in data.value)
+        // {
+        //     $("#" + key).val(data.value[key]);
+        // }
+        // $("#editRoleId").val(roleId_);
+        
+        // Role name
+        $("#edited_role_name_input").val(data.value.name);
+        
+        // Role ID
+        $("#edited_role_id").val(roleId_);
+        
+        // Selected extensions TODO make the ajax call read the linked extensions, then dispatch them between the two lists
     });
 }
 

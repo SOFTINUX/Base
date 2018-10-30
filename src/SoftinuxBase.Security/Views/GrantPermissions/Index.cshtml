@@ -147,31 +147,99 @@
                                     </select>
                                 </div>
                             </div>
-                            <form id="edit-role-form" action="administration/updaterolename">
-                            @Html.AntiForgeryToken()
-                                <div class="col-md-4">
-                                    <div class="form-group" id="edit-role-group">
-                                        <label>Role Name:</label>
-                                        <input id="name" name="name" type="text" class="form-control" @Html.Raw(inputExtendAttributes)/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Role Id:</label>
-                                        <input type="hidden" name="id" id="editRoleId"/>
-                                        <input id="id" name="id-dis" type="text" class="form-control" disabled="disabled"/>
+                            
+                            <div class="col-md-6">
+                                <div class="form-group" id="edit-role-group">
+                                    <h3>Role name</h3>
+                                    <div class="input-group margin">
+                                        <input type="hidden" id="edited_role_id" />
+                                        <input required id="edited_role_name_input" name="edited_role_name_input" type="text" class="form-control" size="80" @Html.Raw(inputExtendAttributes)>
+                                        <span class="help-block"></span>
+                                        <div class="input-group-btn bs-dropdown-to-select-acl-group" style="vertical-align: top;">
+                                            <button class="btn btn-default dropdown-toggle bs-dropdown-to-select-acl" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span data-bind="bs-drp-sel-acl-label">Read</span>
+                                                <input type="hidden" name="acl-selected_value" id="newRolePermission" data-bind="bs-drp-sel-acl-value" value="1">
+                                                <span class="caret"></span>
+                                                <span class="sr-only">Toggle Dropdown</span>
+                                            </button>
+                                            <ul id="acl-sel" class="dropdown-menu" role="menu">
+                                                <li data-value="0"><a href="#">None</a></li>
+                                                <li data-value="1"><a href="#">Read</a></li>
+                                                <li data-value="2"><a href="#">Write</a></li>
+                                                <li role="separator" class="divider"></li>
+                                                <li data-value="4"><a href="#">Admin</a></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Role Normalized:</label>
-                                        <input id="normalizedName" type="text" class="form-control" disabled="disabled"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Role ConcurrencyStamp:</label>
-                                        <input id="concurrencyStamp" type="text" class="form-control" disabled="disabled"/>
-                                    </div>
-                                </div>
-                            </form>
+                            </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group margin">
+                                    <label>Available extension(s)</label>
+                                    <select class="form-control" multiple="" id="availableExtensions">
+                                        @* here options *@
+                                        @{
+                                            foreach (IExtensionMetadata extensionMetadata in ExtCore.Infrastructure.ExtensionManager.GetInstances<IExtensionMetadata>())
+                                            {
+                                                var scope = TypeExtensions.GetScope(extensionMetadata);
+                                                if (extensionMetadata.IsAvailableForPermissions)
+                                                {
+                                                    <option value="@Html.Raw(scope)">@Html.Raw(scope)</option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2 pagination-centered text-center">
+                                <div class="btn-group-vertical">
+                                    <button class="btn btn-default" type="button" id="btnRight"><i class="fa fa-angle-right"></i></button>
+                                    <button class="btn btn-default" type="button" id="btnAllRight"><i class="fa fa-angle-double-right"></i></button>
+                                </div>
+                                <br />
+                                <br />
+                                <div class="btn-group-vertical">
+                                    <button class="btn btn-default" type="button" id="btnAllLeft"><i class="fa fa-angle-double-left"></i></button>
+                                    <button class="btn btn-default" type="button" id="btnLeft"><i class="fa fa-angle-left"></i></button>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group margin">
+                                    <label>Selected extension(s)</label>
+                                    <select class="form-control" multiple="" id="selectedExtensions" name="selectedExtensions">
+                                        @* here selected extensions options *@
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+    
+                            
+                            @* <form id="edit-role-form" action="administration/updaterolename"> *@
+                            @* @Html.AntiForgeryToken() *@
+                            @*     <div class="col-md-4"> *@
+                            @*         <div class="form-group" id="edit-role-group"> *@
+                            @*             <label>Role Name:</label> *@
+                            @*             <input id="name" name="name" type="text" class="form-control" @Html.Raw(inputExtendAttributes)/> *@
+                            @*         </div> *@
+                            @*         <div class="form-group"> *@
+                            @*             <label>Role Id:</label> *@
+                            @*             <input type="hidden" name="id" id="editRoleId"/> *@
+                            @*             <input id="id" name="id-dis" type="text" class="form-control" disabled="disabled"/> *@
+                            @*         </div> *@
+                            @*     </div> *@
+                            @*     <div class="col-md-4"> *@
+                            @*         <div class="form-group"> *@
+                            @*             <label>Role Normalized:</label> *@
+                            @*             <input id="normalizedName" type="text" class="form-control" disabled="disabled"/> *@
+                            @*         </div> *@
+                            @*         <div class="form-group"> *@
+                            @*             <label>Role ConcurrencyStamp:</label> *@
+                            @*             <input id="concurrencyStamp" type="text" class="form-control" disabled="disabled"/> *@
+                            @*         </div> *@
+                            @*     </div> *@
+                            @* </form> *@
                         <div class="row">
                             <div class="margin">
                                 <div class="col-md-12">
