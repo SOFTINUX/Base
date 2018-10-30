@@ -2,6 +2,7 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
@@ -26,6 +27,11 @@ namespace SoftinuxBase.Security.Tools
             if (await UpdateRoleAndGrants.CheckThatRoleOfThisNameExists(roleManager_, model_.RoleName))
             {
                 return "A role with this name already exists";
+            }
+
+            if (model_.Extensions == null || !model_.Extensions.Any())
+            {
+                return "At least one extension must be selected";
             }
 
             try

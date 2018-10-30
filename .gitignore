@@ -322,8 +322,7 @@ src/WebApplication/Extensions/*
 !src/WebApplication/Extensions/.gitkeep
 
 #App/tests EF Database
-src/SoftinuxBase.WebApplication/basedb.sqlite
-**/basedb_tests.sqlite
+basedb*.sqlite
 
 #Visual Studio localhistory addon
 .localhistory

@@ -28,7 +28,7 @@ namespace SecurityTest
         /// </summary>
         /// <returns></returns>
         [Fact]
-        public async Task TestCheckAndUpdateRole_NameAlreadyTaken()
+        public async Task TestCheckAndUpdateRole_Error_NameAlreadyTaken()
         {
             string firstRoleName = "New Role 1 " + DateTime.Now.Ticks;
             string secondRoleName = "New Role 2 " + DateTime.Now.Ticks;
