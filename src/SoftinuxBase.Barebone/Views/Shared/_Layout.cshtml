@@ -29,7 +29,7 @@ Licensed under the MIT License, Version 2.0. See License.txt in the project root
     bool hasModelWithErrorMessageProperty = properties != null && properties.Where(p => p.Name.Equals("ErrorMessage")).Any();
 }
 <body class="@authClass">
-    <div class="wrapper" @if (!User.Identity.IsAuthenticated){ @Html.Raw("style=\"background-image: url('" + OptionsApplicationConfiguration.Value.LoginBackgroundImage + "');\"")}>
+    <div class="wrapper" @if (!User.Identity.IsAuthenticated){ @Html.Raw("style=\"background-image: url('" + OptionsApplicationConfiguration.Value.LoginBackgroundImage + "'); background-size: cover;\"")}>
         @if (User.Identity.IsAuthenticated)
         {
             @* Main Header *@

@@ -88,7 +88,7 @@ namespace SoftinuxBase.Security.Controllers
         /// Sign in action request.
         /// </summary>
         /// <param name="signIn_"></param>
-        /// <returns></returns>
+        /// <returns>View</returns>
         [HttpPost]
         //[ExportModelStateToTempData]
         [AllowAnonymous]
@@ -145,6 +145,10 @@ namespace SoftinuxBase.Security.Controllers
 
         }
 
+        /// <summary>
+        /// SignOut action request
+        /// </summary>
+        /// <returns>View SignIn</returns>
         [HttpGet]
         public async Task<IActionResult> SignOut()
         {
@@ -159,9 +163,15 @@ namespace SoftinuxBase.Security.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Create user action request
+        /// </summary>
+        /// <param name="userId_"></param>
+        /// <returns>view for creating new user</returns>
         [HttpGet]
-        public IActionResult CreateOrEditUser(string userId_)
-        {
+        public IActionResult CreateUser()
+        {           
+            // return user creation view
             return null;
         }
 
@@ -171,8 +181,13 @@ namespace SoftinuxBase.Security.Controllers
             return null;
         }
 
+        /// <summary>
+        /// Update user profile action request
+        /// </summary>
+        /// <param name="userId_"></param>
+        /// <returns>view user</returns>
         [HttpGet]
-        public IActionResult EditProfile(string userId_)
+        public IActionResult UpdateProfile(string userId_)
         {
             return View("User");
         }
@@ -181,7 +196,7 @@ namespace SoftinuxBase.Security.Controllers
         /// Return true when user name isn't in use.
         /// </summary>
         /// <param name="userName_"></param>
-        /// <returns></returns>
+        /// <returns>json</returns>
         [HttpPost]
         [AllowAnonymous]
         public IActionResult CheckUserNameExist(string userName_)
