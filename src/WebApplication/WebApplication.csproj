@@ -2,8 +2,8 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <AssemblyName>SoftinuxBase.WebApp</AssemblyName>
-    <RootNamespace>SoftinuxBase.WebApp</RootNamespace>
+    <AssemblyName>WebApplication</AssemblyName>
+    <RootNamespace>WebApplication</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>7</LangVersion>
