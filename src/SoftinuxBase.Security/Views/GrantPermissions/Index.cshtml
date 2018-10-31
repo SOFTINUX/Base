@@ -1,12 +1,9 @@
 @* Copyright © 2017 SOFTINUX. All rights reserved.
     Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 *@
-@using Microsoft.AspNetCore.Identity
 @using Newtonsoft.Json
-@using SoftinuxBase.Infrastructure.Extensions
-@using SoftinuxBase.Infrastructure.Interfaces
 @model SoftinuxBase.Security.ViewModels.Permissions.GrantViewModel
-@inject RoleManager<IdentityRole<string>> RolesManager
+
 
 @section title {
     <h2>Roles & Permissions</h2>
@@ -14,7 +11,8 @@
 
 @{
     var modelAsJson = JsonConvert.SerializeObject(Model.PermissionsByRoleAndScope);
-    string inputExtendAttributes = "onCopy=\"return false;\" onDrag=\"return false;\" onDrop=\"return false;\" onPaste=\"return false;\" autocomplete=off";
+    ViewData["inputExtendAttributes"] = "onCopy=\"return false;\" onDrag=\"return false;\" onDrop=\"return false;\" onPaste=\"return false;\" autocomplete=off";
+    ViewData["isEditRole"] = false;
 }
 
 @section Styles {
@@ -45,217 +43,14 @@
                     </div>
                 </div>
                 @* START Controls for addition of a role *@
-                <div class="row hidden" id="add-role-area">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group" id="add-role-group">
-                                    <h3>New role</h3>
-                                    <div class="input-group margin">
-                                        <input required id="role_name_input" name="role_name_input" type="text" class="form-control" placeholder="enter role name here" size="80" @Html.Raw(inputExtendAttributes)>
-                                        <span class="help-block"></span>
-                                        <div class="input-group-btn bs-dropdown-to-select-acl-group" style="vertical-align: top;">
-                                            <button class="btn btn-default dropdown-toggle bs-dropdown-to-select-acl" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <span data-bind="bs-drp-sel-acl-label">Read</span>
-                                                <input type="hidden" name="acl-selected_value" id="newRolePermission" data-bind="bs-drp-sel-acl-value" value="1">
-                                                <span class="caret"></span>
-                                                <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
-                                            <ul id="acl-sel" class="dropdown-menu" role="menu">
-                                                <li data-value="0"><a href="#">None</a></li>
-                                                <li data-value="1"><a href="#">Read</a></li>
-                                                <li data-value="2"><a href="#">Write</a></li>
-                                                <li role="separator" class="divider"></li>
-                                                <li data-value="4"><a href="#">Admin</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group margin">
-                                    <label>Available extension(s)</label>
-                                    <select class="form-control" multiple="" id="availableExtensions">
-                                        @* here options *@
-                                        @{
-                                            foreach (IExtensionMetadata extensionMetadata in ExtCore.Infrastructure.ExtensionManager.GetInstances<IExtensionMetadata>())
-                                            {
-                                                var scope = TypeExtensions.GetScope(extensionMetadata);
-                                                if (extensionMetadata.IsAvailableForPermissions)
-                                                {
-                                                    <option value="@Html.Raw(scope)">@Html.Raw(scope)</option>
-                                                }
-                                            }
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2 pagination-centered text-center">
-                                <div class="btn-group-vertical">
-                                    <button class="btn btn-default" type="button" id="btnRight"><i class="fa fa-angle-right"></i></button>
-                                    <button class="btn btn-default" type="button" id="btnAllRight"><i class="fa fa-angle-double-right"></i></button>
-                                </div>
-                                <br />
-                                <br />
-                                <div class="btn-group-vertical">
-                                    <button class="btn btn-default" type="button" id="btnAllLeft"><i class="fa fa-angle-double-left"></i></button>
-                                    <button class="btn btn-default" type="button" id="btnLeft"><i class="fa fa-angle-left"></i></button>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="form-group margin">
-                                    <label>Selected extension(s)</label>
-                                    <select class="form-control" multiple="" id="selectedExtensions" name="selectedExtensions">
-                                        @* here selected extensions options *@
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="margin">
-                                <div class="col-md-12">
-                                    @* save btn *@
-                                    <div class="btn-group">
-                                        <button class="btn btn-block btn-success" id="save-add-role-btn">Save</button>
-                                    </div>
-                                    @* cancel btn *@
-                                    <div class="btn-group">
-                                        <button class="btn btn-block btn-danger" id="cancel-add-role-btn">Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <partial name="_Add_Edit_Role" model="Model" />
                 @* END Controls for addition of a role *@
                 @* START Controls for edition of a role *@
-                <div class="row hidden" id="edit-role-area">
-                    <div class="col-md-12">
-                        <h3>Edit role</h3>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Available role(s)</label>
-                                    <select class="form-control" multiple="" id="availableRoles" onclick="passSelectedRoleOnEdition(this.options[this.selectedIndex].value);">
-                                        @* here roles list *@
-                                        @foreach (var role in RolesManager.Roles)
-                                        {
-                                            <option value="@Html.Raw(role.Id)">@Html.Raw(role.Name)</option>
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <div class="form-group" id="edit-role-group">
-                                    <h3>Role name</h3>
-                                    <div class="input-group margin">
-                                        <input type="hidden" id="edited_role_id" />
-                                        <input required id="edited_role_name_input" name="edited_role_name_input" type="text" class="form-control" size="80" @Html.Raw(inputExtendAttributes)>
-                                        <span class="help-block"></span>
-                                        <div class="input-group-btn bs-dropdown-to-select-acl-group" style="vertical-align: top;">
-                                            <button class="btn btn-default dropdown-toggle bs-dropdown-to-select-acl" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <span data-bind="bs-drp-sel-acl-label">Read</span>
-                                                <input type="hidden" name="acl-selected_value" id="newRolePermission" data-bind="bs-drp-sel-acl-value" value="1">
-                                                <span class="caret"></span>
-                                                <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
-                                            <ul id="acl-sel" class="dropdown-menu" role="menu">
-                                                <li data-value="0"><a href="#">None</a></li>
-                                                <li data-value="1"><a href="#">Read</a></li>
-                                                <li data-value="2"><a href="#">Write</a></li>
-                                                <li role="separator" class="divider"></li>
-                                                <li data-value="4"><a href="#">Admin</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group margin">
-                                    <label>Available extension(s)</label>
-                                    <select class="form-control" multiple="" id="availableExtensions">
-                                        @* here options *@
-                                        @{
-                                            foreach (IExtensionMetadata extensionMetadata in ExtCore.Infrastructure.ExtensionManager.GetInstances<IExtensionMetadata>())
-                                            {
-                                                var scope = TypeExtensions.GetScope(extensionMetadata);
-                                                if (extensionMetadata.IsAvailableForPermissions)
-                                                {
-                                                    <option value="@Html.Raw(scope)">@Html.Raw(scope)</option>
-                                                }
-                                            }
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2 pagination-centered text-center">
-                                <div class="btn-group-vertical">
-                                    <button class="btn btn-default" type="button" id="btnRight"><i class="fa fa-angle-right"></i></button>
-                                    <button class="btn btn-default" type="button" id="btnAllRight"><i class="fa fa-angle-double-right"></i></button>
-                                </div>
-                                <br />
-                                <br />
-                                <div class="btn-group-vertical">
-                                    <button class="btn btn-default" type="button" id="btnAllLeft"><i class="fa fa-angle-double-left"></i></button>
-                                    <button class="btn btn-default" type="button" id="btnLeft"><i class="fa fa-angle-left"></i></button>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="form-group margin">
-                                    <label>Selected extension(s)</label>
-                                    <select class="form-control" multiple="" id="selectedExtensions" name="selectedExtensions">
-                                        @* here selected extensions options *@
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-    
-                            
-                            @* <form id="edit-role-form" action="administration/updaterolename"> *@
-                            @* @Html.AntiForgeryToken() *@
-                            @*     <div class="col-md-4"> *@
-                            @*         <div class="form-group" id="edit-role-group"> *@
-                            @*             <label>Role Name:</label> *@
-                            @*             <input id="name" name="name" type="text" class="form-control" @Html.Raw(inputExtendAttributes)/> *@
-                            @*         </div> *@
-                            @*         <div class="form-group"> *@
-                            @*             <label>Role Id:</label> *@
-                            @*             <input type="hidden" name="id" id="editRoleId"/> *@
-                            @*             <input id="id" name="id-dis" type="text" class="form-control" disabled="disabled"/> *@
-                            @*         </div> *@
-                            @*     </div> *@
-                            @*     <div class="col-md-4"> *@
-                            @*         <div class="form-group"> *@
-                            @*             <label>Role Normalized:</label> *@
-                            @*             <input id="normalizedName" type="text" class="form-control" disabled="disabled"/> *@
-                            @*         </div> *@
-                            @*         <div class="form-group"> *@
-                            @*             <label>Role ConcurrencyStamp:</label> *@
-                            @*             <input id="concurrencyStamp" type="text" class="form-control" disabled="disabled"/> *@
-                            @*         </div> *@
-                            @*     </div> *@
-                            @* </form> *@
-                        <div class="row">
-                            <div class="margin">
-                                <div class="col-md-12">
-                                    @* save btn *@
-                                    <div class="btn-group">
-                                        <button class="btn btn-block btn-success" id="save-edit-role-btn">Save</button>
-                                    </div>
-                                    @* cancel btn *@
-                                    <div class="btn-group">
-                                        <button class="btn btn-block btn-danger" id="cancel-edit-role-btn">Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @{
+                    // set recall partial page value for edit role now
+                    ViewData["isEditRole"] = true;
+                }
+                <partial name="_Add_Edit_Role" model="Model" />
                 @* END Controls for edition of a role *@
             </div>
         </div>
@@ -307,15 +102,19 @@
                     <div class="col-md-12">You are about to remove the <strong><span id="selectedRoleName"></span></strong> role for :</div>
                 </div>
                 <div class="row top-buffer">
-                    <div class="col-md-12 vertical-align-center"><span class="valign-center">&#9679; module: <strong><span id="moduleName"></span></strong></span>
-                    <button class="btn btn-default pull-right"><span aria-hidden="true"><i class="fa fa-trash-o"></i></span>&nbsp; Remove for this module</button></div>
+                    <div class="col-md-12 vertical-align-center">
+                        <span class="valign-center">&#9679; module: <strong><span id="moduleName"></span></strong></span>
+                        <button class="btn btn-default pull-right"><span aria-hidden="true"><i class="fa fa-trash-o"></i></span>&nbsp; Remove for this module</button>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12"><hr /></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12 vertical-align-center"><span class="valign-center">&#9679; all modules!</span>
-                    <button class="btn btn-danger pull-right removeAllRoles"><span aria-hidden="true"><i class="fa fa-trash-o" style="color: #ffffff;"></i></span>&nbsp; Remove on all modules</button></div>
+                    <div class="col-md-12 vertical-align-center">
+                        <span class="valign-center">&#9679; all modules!</span>
+                        <button class="btn btn-danger pull-right removeAllRoles"><span aria-hidden="true"><i class="fa fa-trash-o" style="color: #ffffff;"></i></span>&nbsp; Remove on all modules</button>
+                    </div>
                 </div>
             </div>
         </div>

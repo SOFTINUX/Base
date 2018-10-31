@@ -1,0 +1,129 @@
+﻿
+@using Microsoft.AspNetCore.Identity
+@using SoftinuxBase.Infrastructure.Extensions
+@using SoftinuxBase.Infrastructure.Interfaces
+
+@inject RoleManager<IdentityRole<string>> RolesManager
+
+@{
+    bool isEditRole = (bool) ViewData["isEditRole"];
+    string title = "New role";
+    string roleAreaId = "add-role-area";
+    string formGroupId = "add-role-group";
+    string saveBtnId = "save-add-role-btn";
+    string cancelBtnId = "cancel-add-role-btn";
+
+    if (isEditRole)
+    {
+        title = "Edit Role";
+        roleAreaId = "edit-role-area";
+        formGroupId = "edit-role-group";
+        saveBtnId = "save-edit-role-btn";
+        cancelBtnId = "cancel-edit-role-btn";
+    }
+}
+
+
+<div class="row hidden" id="@Html.Raw(roleAreaId)">
+    <div class="col-md-12">
+        <h3>@Html.Raw(title)</h3>
+        <div class="row">
+            @if (isEditRole)
+            {
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Available role(s)</label>
+                        <select class="form-control" multiple="" id="availableRoles" onclick="passSelectedRoleOnEdition(this.options[this.selectedIndex].value);">
+                            @* here roles list *@
+                            @foreach (var role in RolesManager.Roles)
+                            {
+                                <option value="@Html.Raw(role.Id)">@Html.Raw(role.Name)</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            }
+            <div class="col-md-6">
+                <div class="form-group" id="@Html.Raw(formGroupId)">
+                    <h3>Role name</h3>
+                    <div class="input-group margin">
+                        @if ((ViewData["editRole"] == (object)1))
+                        {
+                            @Html.Raw(@"<input type=""hidden"" id=""edited_role_id"" />")
+                        }
+                        <input required id="edited_role_name_input" name="edited_role_name_input" type="text" class="form-control" size="80" @Html.Raw(ViewData["inputExtendAttributes"])>
+                        <span class="help-block"></span>
+                        <div class="input-group-btn bs-dropdown-to-select-acl-group" style="vertical-align: top;">
+                            <button class="btn btn-default dropdown-toggle bs-dropdown-to-select-acl" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span data-bind="bs-drp-sel-acl-label">Read</span>
+                                <input type="hidden" name="acl-selected_value" id="newRolePermission" data-bind="bs-drp-sel-acl-value" value="1">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul id="acl-sel" class="dropdown-menu" role="menu">
+                                <li data-value="0"><a href="#">None</a></li>
+                                <li data-value="1"><a href="#">Read</a></li>
+                                <li data-value="2"><a href="#">Write</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li data-value="4"><a href="#">Admin</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group margin">
+                    <label>Available extension(s)</label>
+                    <select class="form-control" multiple="" id="availableExtensions">
+                        @{
+                            foreach (IExtensionMetadata extensionMetadata in ExtCore.Infrastructure.ExtensionManager.GetInstances<IExtensionMetadata>())
+                            {
+                                var scope = TypeExtensions.GetScope(extensionMetadata);
+                                if (extensionMetadata.IsAvailableForPermissions)
+                                {
+                                    <option value="@Html.Raw(scope)">@Html.Raw(scope)</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2 pagination-centered text-center">
+                <div class="btn-group-vertical">
+                    <button class="btn btn-default" type="button" id="btnRight"><i class="fa fa-angle-right"></i></button>
+                    <button class="btn btn-default" type="button" id="btnAllRight"><i class="fa fa-angle-double-right"></i></button>
+                </div>
+                <br />
+                <br />
+                <div class="btn-group-vertical">
+                    <button class="btn btn-default" type="button" id="btnAllLeft"><i class="fa fa-angle-double-left"></i></button>
+                    <button class="btn btn-default" type="button" id="btnLeft"><i class="fa fa-angle-left"></i></button>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group margin">
+                    <label>Selected extension(s)</label>
+                    <select class="form-control" multiple="" id="selectedExtensions" name="selectedExtensions">
+                        @* here selected extensions options *@
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="margin">
+                <div class="col-md-12">
+                    @* save btn *@
+                    <div class="btn-group">
+                        <button class="btn btn-block btn-success" id="@Html.Raw(saveBtnId)">Save</button>
+                    </div>
+                    @* cancel btn *@
+                    <div class="btn-group">
+                        <button class="btn btn-block btn-danger" id="@Html.Raw(cancelBtnId)">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
