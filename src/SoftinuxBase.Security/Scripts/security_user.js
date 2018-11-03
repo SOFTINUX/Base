@@ -334,13 +334,23 @@ function passSelectedRoleOnEdition(roleId_){
         
         // Role ID
         $("#editRoleId").val(roleId_);
+
+        // Available extensions
+        // Clear
+        $("#edit_role_availableExtensions option").remove();
+        var options = $("#edit_role_availableExtensions").prop("options");
+        // Fill
+        data.value.availableExtensions.forEach(function(extension) {
+            options[options.length] = new Option(extension, extension);
+        });
         
         // Selected extensions
         // Clear
         $("#edit_role_selectedExtensions option").remove();
-        var options = $("#edit_role_selectedExtensions").prop("options");
+        options = $("#edit_role_selectedExtensions").prop("options");
         // Fill
-        data.value.extensions.forEach(function(extension) {
+        console.log(data.value);
+        data.value.selectedExtensions.forEach(function(extension) {
             options[options.length] = new Option(extension, extension);
         });
     });

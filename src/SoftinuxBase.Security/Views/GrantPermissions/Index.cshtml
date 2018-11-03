@@ -83,7 +83,7 @@
                                         @{
                                             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
                                             {
-                                                var scope = extensionMetadata.GetScope();
+                                                var scope = extensionMetadata.GetExtensionName();
                                                 if (extensionMetadata.IsAvailableForPermissions)
                                                 {
                                                     <option value="@Html.Raw(scope)">@Html.Raw(scope)</option>
@@ -178,16 +178,7 @@
                                 <div class="form-group margin">
                                     <label>Available extension(s)</label>
                                     <select class="form-control" multiple="" id="edit_role_availableExtensions">
-@*                                         @{ *@
-@*                                             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>()) *@
-@*                                             { *@
-@*                                                 var scope = extensionMetadata.GetScope(); *@
-@*                                                 if (extensionMetadata.IsAvailableForPermissions) *@
-@*                                                 { *@
-@*                                                     <option value="@Html.Raw(scope)">@Html.Raw(scope)</option> *@
-@*                                                 } *@
-@*                                             } *@
-@*                                         } *@
+                                        @* here available extensions options *@
                                     </select>
                                 </div>
                             </div>

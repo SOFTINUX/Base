@@ -8,11 +8,11 @@ namespace SoftinuxBase.Infrastructure.Extensions
     public static class TypeExtensions
     {
         /// <summary>
-        /// Return the string used for the "scope".
+        /// Return the unique string that qualifies the extension.
         /// </summary>
         /// <param name="extensionMetadata_"></param>
-        /// <returns>The scope, equal to assembly name, given by Assembly.GetName().Name</returns>
-        public static string GetScope(this IExtensionMetadata extensionMetadata_)
+        /// <returns>Fully qualified assembly name, given by Assembly.GetName().Name</returns>
+        public static string GetExtensionName(this IExtensionMetadata extensionMetadata_)
         {
             return extensionMetadata_.GetType().Assembly.GetName().Name;
         }

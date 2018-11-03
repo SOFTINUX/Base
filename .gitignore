@@ -329,3 +329,8 @@ basedb*.sqlite
 
 #KDE Dolphin
 .directory
+
+#Minified files and maps
+*.min.js
+*.min.css
+*.min.js.map

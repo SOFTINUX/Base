@@ -80,7 +80,7 @@
                         @{
                             foreach (IExtensionMetadata extensionMetadata in ExtCore.Infrastructure.ExtensionManager.GetInstances<IExtensionMetadata>())
                             {
-                                var scope = TypeExtensions.GetScope(extensionMetadata);
+                                var scope = TypeExtensions.GetExtensionName(extensionMetadata);
                                 if (extensionMetadata.IsAvailableForPermissions)
                                 {
                                     <option value="@Html.Raw(scope)">@Html.Raw(scope)</option>

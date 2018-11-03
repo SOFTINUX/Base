@@ -29,7 +29,7 @@ namespace SoftinuxBase.Security.Tools
              // 1. Get all scopes from available extensions, create initial dictionaries
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
             {
-                model.PermissionsByRoleAndScope.Add(extensionMetadata.GetScope(), new Dictionary<string, List<global::SoftinuxBase.Security.Common.Enums.Permission>>());
+                model.PermissionsByRoleAndScope.Add(extensionMetadata.GetExtensionName(), new Dictionary<string, List<global::SoftinuxBase.Security.Common.Enums.Permission>>());
             }
 
             // 2. Read data from RolePermission table
@@ -69,16 +69,23 @@ namespace SoftinuxBase.Security.Tools
         }
 
         /// <summary>
-        /// Get the name of all the extensions linked to a role.
+        /// Get the name of all the extensions linked to a role, with a boolean indicating that they're associated to the role.
         /// </summary>
         /// <param name="roleId_">Id of a role</param>
         /// <param name="storage_"></param>
         /// <returns></returns>
-        public static List<string> GetExtensions(string roleId_, IStorage storage_)
+        public static Dictionary<string, bool> GetExtensions(string roleId_, IStorage storage_)
         {
-            return storage_.GetRepository<IRolePermissionRepository>().FilteredByRoleId(roleId_).Select(rp_ => rp_.Scope)
+            List<string> associatedExtensions = storage_.GetRepository<IRolePermissionRepository>().FilteredByRoleId(roleId_).Select(rp_ => rp_.Scope)
                 .ToList();
-
+            
+            Dictionary<string, bool> extensions = new Dictionary<string, bool>();
+            foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
+            {
+                var extensionName = extensionMetadata.GetExtensionName();
+                extensions.Add(extensionName, associatedExtensions.Contains(extensionName));
+            }
+            return extensions;
         }
     }
 }

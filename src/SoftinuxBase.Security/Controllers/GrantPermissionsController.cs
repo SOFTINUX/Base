@@ -2,6 +2,7 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
@@ -53,28 +54,7 @@ namespace SoftinuxBase.Security.Controllers
             var model = ReadGrants.ReadAll(_roleManager, Storage, roleNameByRoleId);
             return View(model);
         }
-
-//        /// <summary>
-//        /// Return role for edition.
-//        /// </summary>
-//        /// <param name="roleID_"></param>
-//        /// <returns>JSON role object</returns>
-//        [PermissionRequirement(Permission.Admin)]
-//        [Route("administration/findrole")]
-//        [HttpGet]
-//        public async Task<IActionResult> GetRole(string roleId_)
-//        {
-//            if (string.IsNullOrWhiteSpace(roleId_) || string.IsNullOrEmpty(roleId_))
-//                return StatusCode(400, Json("No given role for edition."));
-//
-//            object _role = await _roleManager.FindByIdAsync(roleId_);
-//
-//            if (_role == null)
-//                return StatusCode(400, Json("No such role for edit."));
-//
-//            return StatusCode(200, Json(_role));
-//        }
-        
+       
         /// <summary>
         /// Return role for edition: role information and associated extensions list.
         /// </summary>
@@ -96,7 +76,8 @@ namespace SoftinuxBase.Security.Controllers
             ReadRoleViewModel result = new ReadRoleViewModel
             {
                 Role = role,
-                Extensions = ReadGrants.GetExtensions(roleId_, Storage)
+                SelectedExtensions = ReadGrants.GetExtensions(roleId_, Storage).Where(e => e.Value).Select(e => e.Key).ToList(),
+                AvailableExtensions = ReadGrants.GetExtensions(roleId_, Storage).Where(e => !e.Value).Select(e => e.Key).ToList()
             };
             return StatusCode(200, Json(result));
         }
