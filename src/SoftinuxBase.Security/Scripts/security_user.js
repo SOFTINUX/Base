@@ -322,19 +322,27 @@ function input_form_group_set_error(el, errMsg) {
 // Update the UI with selected role information. Ajax GET.
 function passSelectedRoleOnEdition(roleId_){
     $("#edit-role-group").removeClass("has-error");
-    $.ajax("/administration/findrole", {data: {"roleId_": roleId_}}).done(function(data){
-        for (key in data.value)
+    $.ajax("/administration/read-role", {data: {"roleId_": roleId_}}).done(function(data){
+        var role = data.value.role;
+        for (var key in role)
         {
-            $("#edit_role_" + key).val(data.value[key]);
+            $("#edit_role_" + key).val(role[key]);
         }
                 
         // Role name
-        $("#edit_role_name_input").val(data.value.name);
+        $("#edit_role_name_input").val(role.name);
         
         // Role ID
         $("#editRoleId").val(roleId_);
         
-        // Selected extensions TODO make the ajax call read the linked extensions, then dispatch them between the two lists
+        // Selected extensions
+        // Clear
+        $("#edit_role_selectedExtensions option").remove();
+        var options = $("#edit_role_selectedExtensions").prop("options");
+        // Fill
+        data.value.extensions.forEach(function(extension) {
+            options[options.length] = new Option(extension, extension);
+        });
     });
 }
 

@@ -67,5 +67,18 @@ namespace SoftinuxBase.Security.Tools
 
             return model;
         }
+
+        /// <summary>
+        /// Get the name of all the extensions linked to a role.
+        /// </summary>
+        /// <param name="roleId_">Id of a role</param>
+        /// <param name="storage_"></param>
+        /// <returns></returns>
+        public static List<string> GetExtensions(string roleId_, IStorage storage_)
+        {
+            return storage_.GetRepository<IRolePermissionRepository>().FilteredByRoleId(roleId_).Select(rp_ => rp_.Scope)
+                .ToList();
+
+        }
     }
 }

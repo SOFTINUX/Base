@@ -54,25 +54,51 @@ namespace SoftinuxBase.Security.Controllers
             return View(model);
         }
 
+//        /// <summary>
+//        /// Return role for edition.
+//        /// </summary>
+//        /// <param name="roleID_"></param>
+//        /// <returns>JSON role object</returns>
+//        [PermissionRequirement(Permission.Admin)]
+//        [Route("administration/findrole")]
+//        [HttpGet]
+//        public async Task<IActionResult> GetRole(string roleId_)
+//        {
+//            if (string.IsNullOrWhiteSpace(roleId_) || string.IsNullOrEmpty(roleId_))
+//                return StatusCode(400, Json("No given role for edition."));
+//
+//            object _role = await _roleManager.FindByIdAsync(roleId_);
+//
+//            if (_role == null)
+//                return StatusCode(400, Json("No such role for edit."));
+//
+//            return StatusCode(200, Json(_role));
+//        }
+        
         /// <summary>
-        /// Return role for edition.
+        /// Return role for edition: role information and associated extensions list.
         /// </summary>
-        /// <param name="roleID_"></param>
+        /// <param name="roleId_"></param>
         /// <returns>JSON role object</returns>
         [PermissionRequirement(Permission.Admin)]
-        [Route("administration/findrole")]
+        [Route("administration/read-role")]
         [HttpGet]
-        public async Task<IActionResult> GetRole(string roleId_)
+        public async Task<IActionResult> GetRoleForEdition(string roleId_)
         {
             if (string.IsNullOrWhiteSpace(roleId_) || string.IsNullOrEmpty(roleId_))
-                return StatusCode(400, Json("No given role for edition."));
+                return StatusCode(400, Json("No role id given"));
 
-            object _role = await _roleManager.FindByIdAsync(roleId_);
+            var role = await _roleManager.FindByIdAsync(roleId_);
 
-            if (_role == null)
-                return StatusCode(400, Json("No such role for edit."));
+            if (role == null)
+                return StatusCode(400, Json("No such role for edition"));
 
-            return StatusCode(200, Json(_role));
+            ReadRoleViewModel result = new ReadRoleViewModel
+            {
+                Role = role,
+                Extensions = ReadGrants.GetExtensions(roleId_, Storage)
+            };
+            return StatusCode(200, Json(result));
         }
 
         #endregion
