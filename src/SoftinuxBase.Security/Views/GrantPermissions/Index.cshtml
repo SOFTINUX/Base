@@ -2,7 +2,6 @@
     Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 *@
 @using Microsoft.AspNetCore.Identity
-@using Newtonsoft.Json
 @using ExtCore.Infrastructure
 @using SoftinuxBase.Infrastructure.Extensions
 @using SoftinuxBase.Infrastructure.Interfaces
@@ -15,7 +14,6 @@
 }
 
 @{
-    var modelAsJson = JsonConvert.SerializeObject(Model.PermissionsByRoleAndScope);
     string inputExtendAttributes = "onCopy=\"return false;\" onDrag=\"return false;\" onDrop=\"return false;\" onPaste=\"return false;\" autocomplete=off";
 }
 
@@ -206,7 +204,6 @@
                                     <i class="chevron-double fa fa-fw"></i>
                                 </div>
                                 <div class="col-lg-4 col-md-5 col-sm-5 col-xs-4 table-header-cell" align="center">Extension name</div>
-                                @*<div class="col-md-1 col-xs-1 table-header-cell">&nbsp;</div>*@
                                 <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2 table-header-cell">Admin</div>
                                 <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2 table-header-cell">Write</div>
                                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 table-header-cell">Read</div>
@@ -233,7 +230,6 @@
                 <button type="button" class="btn btn-xs pull-right alert-default alert-danger-default" data-dismiss="modal"><strong>Close</strong></button>
                 <h4 class="modal-title" id="myModalLabel" style="font-size: 12pt;"><i class="fa fa-warning"></i>&nbsp;&nbsp;<strong>CONFIRM REMOVE ROLE</strong></h4>
             </div>
-            @*<div style="margin-top: 1px; background-color: #2e77bc; height: 1px; width: 100%;"></div>*@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">You are about to remove the <strong><span id="selectedRoleName"></span></strong> role for :</div>
