@@ -20,7 +20,6 @@
   <ItemGroup>
     <None Remove="Views\Account\AccessDenied.cshtml" />
     <None Remove="Views\Account\SignIn.cshtml" />
-    <None Remove="Views\Shared\_Add_Edit_Role.cshtml" />
     <None Remove="Views\Shared\_ListClaims.cshtml" />
     <None Remove="Views\Shared\_User_Profile_Details.cshtml" />
     <None Remove="Views\_ViewImports.cshtml" />
