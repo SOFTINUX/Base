@@ -228,14 +228,14 @@ function browseForAvatar() {
 }
 
 /* events handler */
-function listenToPermissionsCheckboxEvents() {
-    // TODO not referenced, check whether it is called
-    console.log("attaching event handling");
-    $('input').on('change', function (event) {
-        console.log("input was changed!");
-        event.preventDefault();
-    });
-}
+// function listenToPermissionsCheckboxEvents() {
+//     // TODO not referenced, check whether it is called
+//     console.log("attaching event handling");
+//     $('input').on('change', function (event) {
+//         console.log("input was changed!");
+//         event.preventDefault();
+//     });
+// }
 
 function edit_state(fieldsetid, editbtnid, event) {
     event.preventDefault();
@@ -323,17 +323,16 @@ function input_form_group_set_error(el, errMsg) {
 function passSelectedRoleOnEdition(roleId_){
     $("#edit-role-group").removeClass("has-error");
     $.ajax("/administration/findrole", {data: {"roleId_": roleId_}}).done(function(data){
-        // for (key in data.value)
-        // {
-        //     $("#" + key).val(data.value[key]);
-        // }
-        // $("#editRoleId").val(roleId_);
-        
+        for (key in data.value)
+        {
+            $("#edit_role_" + key).val(data.value[key]);
+        }
+                
         // Role name
-        $("#edited_role_name_input").val(data.value.name);
+        $("#edit_role_name_input").val(data.value.name);
         
         // Role ID
-        $("#edited_role_id").val(roleId_);
+        $("#editRoleId").val(roleId_);
         
         // Selected extensions TODO make the ajax call read the linked extensions, then dispatch them between the two lists
     });
