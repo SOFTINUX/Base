@@ -3,8 +3,10 @@
 *@
 @using Microsoft.AspNetCore.Identity
 @using Newtonsoft.Json
+@using ExtCore.Infrastructure
 @using SoftinuxBase.Infrastructure.Extensions
 @using SoftinuxBase.Infrastructure.Interfaces
+
 @model SoftinuxBase.Security.ViewModels.Permissions.GrantViewModel
 @inject RoleManager<IdentityRole<string>> RolesManager
 
@@ -78,11 +80,10 @@
                                 <div class="form-group margin">
                                     <label>Available extension(s)</label>
                                     <select class="form-control" multiple="" id="availableExtensions">
-                                        @* here options *@
                                         @{
-                                            foreach (IExtensionMetadata extensionMetadata in ExtCore.Infrastructure.ExtensionManager.GetInstances<IExtensionMetadata>())
+                                            foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
                                             {
-                                                var scope = TypeExtensions.GetScope(extensionMetadata);
+                                                var scope = extensionMetadata.GetScope();
                                                 if (extensionMetadata.IsAvailableForPermissions)
                                                 {
                                                     <option value="@Html.Raw(scope)">@Html.Raw(scope)</option>
@@ -130,6 +131,7 @@
                     </div>
 
                 </div>
+
                 <div class="row hidden" id="edit-role-area">
                     <div class="col-md-12">
                         <h3>Edit role</h3>

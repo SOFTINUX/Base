@@ -41,11 +41,6 @@
     <None Remove="node_modules\js-cookie\src\js.cookie.js" />
     <None Remove="node_modules\admin-lte\dist\js\adminlte.min.js" />
     <None Remove="node_modules\inputmask\dist\min\jquery.inputmask.bundle.min.js" />
-    <None Remove="node_modules\inputmask\dist\min\inputmask\phone-codes\phone.min.js" />
-    <None Remove="node_modules\inputmask\dist\min\inputmask\phone-codes\phone-be.min.js" />
-    <None Remove="node_modules\inputmask\dist\min\inputmask\phone-codes\phone-nl.min.js" />
-    <None Remove="node_modules\inputmask\dist\min\inputmask\phone-codes\phone-ru.min.js" />
-    <!--<None Remove="node_modules\inputmask\dist\min\inputmask\phone-codes\phone-uk.min.js" />-->
     <None Remove="node_modules\toastr\build\toastr.min.js" />
   </ItemGroup>
   <ItemGroup>
@@ -57,11 +52,6 @@
     <EmbeddedResource Include="node_modules\js-cookie\src\js.cookie.js" />
     <EmbeddedResource Include="node_modules\icheck\icheck.js" />
     <EmbeddedResource Include="node_modules\inputmask\dist\min\jquery.inputmask.bundle.min.js" />
-    <EmbeddedResource Include="node_modules\inputmask\dist\min\inputmask\phone-codes\phone.min.js" />
-    <EmbeddedResource Include="node_modules\inputmask\dist\min\inputmask\phone-codes\phone-be.min.js" />
-    <EmbeddedResource Include="node_modules\inputmask\dist\min\inputmask\phone-codes\phone-nl.min.js" />
-    <EmbeddedResource Include="node_modules\inputmask\dist\min\inputmask\phone-codes\phone-ru.min.js" />
-    <!--<EmbeddedResource Include="node_modules\inputmask\dist\min\inputmask\phone-codes\phone-uk.min.js" />-->
     <EmbeddedResource Include="node_modules\admin-lte\dist\js\adminlte.min.js" />
     <EmbeddedResource Include="node_modules\toastr\build\toastr.min.js" />
     <EmbeddedResource Include="node_modules\codemirror\lib\codemirror.js" />
