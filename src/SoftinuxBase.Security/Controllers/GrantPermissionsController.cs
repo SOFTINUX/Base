@@ -73,11 +73,13 @@ namespace SoftinuxBase.Security.Controllers
             if (role == null)
                 return StatusCode(400, Json("No such role for edition"));
 
+            ReadGrants.GetExtensions(roleId_, Storage, out var availableExtensions, out var selectedExtensions);
+
             ReadRoleViewModel result = new ReadRoleViewModel
             {
                 Role = role,
-                SelectedExtensions = ReadGrants.GetExtensions(roleId_, Storage).Where(e => e.Value).Select(e => e.Key).ToList(),
-                AvailableExtensions = ReadGrants.GetExtensions(roleId_, Storage).Where(e => !e.Value).Select(e => e.Key).ToList()
+                SelectedExtensions = selectedExtensions,
+                AvailableExtensions = availableExtensions
             };
             return StatusCode(200, Json(result));
         }

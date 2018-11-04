@@ -351,7 +351,7 @@ function passSelectedRoleOnEdition(roleId_){
         // Fill
         console.log(data.value);
         data.value.selectedExtensions.forEach(function(extension) {
-            options[options.length] = new Option(extension, extension);
+            options[options.length] = new Option(extension.name + " (" + extension.permission + ")", extension);
         });
     });
 }
