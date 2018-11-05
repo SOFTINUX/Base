@@ -209,14 +209,6 @@ function browseForAvatar() {
 }
 
 /* events handler */
-// function listenToPermissionsCheckboxEvents() {
-//     // TODO not referenced, check whether it is called
-//     console.log("attaching event handling");
-//     $('input').on('change', function (event) {
-//         console.log("input was changed!");
-//         event.preventDefault();
-//     });
-// }
 
 /**
  * Copy selected item(s) from left listbox to right listbox
@@ -226,15 +218,15 @@ function browseForAvatar() {
  * @param bulk
  */
 function addBtnRight(rolesListBoxLeft, rolesListBoxRight, bulk) {
-    console.log(bulk);
+    //console.log(bulk);
     bulk = !!bulk;
-    console.log(bulk);
+    //console.log(bulk);
 
     var extensionsAvailable = 'You must select at least one extension from the list of available extensions.';
     var extensionsNotAvailableTitle = 'No extensions are available.';
     var noExtensionsTitle = 'No extensions';
     var emptyExtensionList = 'Selected extensions list is empty.';
-    var selectedOpts = $('#' + rolesListBoxLeft + bulk ? ' option' : ' option:selected');
+    var selectedOpts = $('#' + rolesListBoxLeft + (bulk ? ' option' : ' option:selected'));
 
     if (selectedOpts.length === 0) {
         window.toastr.warning(bulk ? extensionsAvailable : emptyExtensionList, bulk ? extensionsNotAvailableTitle : noExtensionsTitle);
