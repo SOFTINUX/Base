@@ -1,0 +1,13 @@
+[
+  {
+    "outputFileName": "Scripts/security_user.min.js",
+    "inputFiles": [
+      "Scripts/berabone.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": true
+  }
+]
