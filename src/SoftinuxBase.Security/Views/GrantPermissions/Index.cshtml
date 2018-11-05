@@ -93,14 +93,14 @@
                             </div>
                             <div class="col-md-2 pagination-centered text-center">
                                 <div class="btn-group-vertical">
-                                    <button class="btn btn-default" type="button" id="btnRight"><i class="fa fa-angle-right"></i></button>
-                                    <button class="btn btn-default" type="button" id="btnAllRight"><i class="fa fa-angle-double-right"></i></button>
+                                    <button class="btn btn-default" type="button" id="addRoleBtnRight"><i class="fa fa-angle-right"></i></button>
+                                    <button class="btn btn-default" type="button" id="addRoleBtnAllRight"><i class="fa fa-angle-double-right"></i></button>
                                 </div>
                                 <br />
                                 <br />
                                 <div class="btn-group-vertical">
-                                    <button class="btn btn-default" type="button" id="btnAllLeft"><i class="fa fa-angle-double-left"></i></button>
-                                    <button class="btn btn-default" type="button" id="btnLeft"><i class="fa fa-angle-left"></i></button>
+                                    <button class="btn btn-default" type="button" id="addRoleBtnAllLeft"><i class="fa fa-angle-double-left"></i></button>
+                                    <button class="btn btn-default" type="button" id="addRoleBtnLeft"><i class="fa fa-angle-left"></i></button>
                                 </div>
                             </div>
                             <div class="col-md-5">
@@ -182,14 +182,14 @@
                             </div>
                             <div class="col-md-2 pagination-centered text-center">
                                 <div class="btn-group-vertical">
-                                    <button class="btn btn-default" type="button" id="btnRight"><i class="fa fa-angle-right"></i></button>
-                                    <button class="btn btn-default" type="button" id="btnAllRight"><i class="fa fa-angle-double-right"></i></button>
+                                    <button class="btn btn-default" type="button" id="delRoleBtnRight"><i class="fa fa-angle-right"></i></button>
+                                    <button class="btn btn-default" type="button" id="delRoleBtnAllRight"><i class="fa fa-angle-double-right"></i></button>
                                 </div>
                                 <br />
                                 <br />
                                 <div class="btn-group-vertical">
-                                    <button class="btn btn-default" type="button" id="btnAllLeft"><i class="fa fa-angle-double-left"></i></button>
-                                    <button class="btn btn-default" type="button" id="btnLeft"><i class="fa fa-angle-left"></i></button>
+                                    <button class="btn btn-default" type="button" id="delRoleBtnAllLeft"><i class="fa fa-angle-double-left"></i></button>
+                                    <button class="btn btn-default" type="button" id="delRoleBtnLeft"><i class="fa fa-angle-left"></i></button>
                                 </div>
                             </div>
                             <div class="col-md-5">
@@ -227,7 +227,7 @@
             <div class="box-body">
                 <section class="content">
                     <div class="row">
-                        <!-- header -->
+                        @* header *@
                         <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
                             <div class="row table-header collapsed">
                                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 table-header-cell" id="collapse" data-state="closed">
@@ -243,7 +243,6 @@
                         </div>
                     </div>
                     @* List extensions and roles *@
-                    <!-- list roles extensions -->
                     @await Html.PartialAsync("_List_Roles_Extensions", Model)
                 </section>
             </div>
@@ -307,7 +306,7 @@
             progressIndicatorPosition: "bottom"
         });
 
-        $(".removeAllRoles").on('complete.pressAndHold', function(event) {
+        $(".removeAllRoles").on('complete.pressAndHold', function() {
             console.log("complete");
             $('#myModal').modal('hide');
         });

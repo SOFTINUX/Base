@@ -89,7 +89,8 @@ $(function () {
 
     // selected/unselected extensions management
     $('#btnRight').click(function (e) {
-        var selectedOpts = $('#availableExtensions option:selected');
+        addBtnRight('#availableExtensions', '#selectedExtensions');
+       /* var selectedOpts = $('#availableExtensions option:selected');
         if (selectedOpts.length === 0) {
             window.toastr.warning('You must select at least one extension from the list of available extensions.', 'No extension selected');
             e.preventDefault();
@@ -97,12 +98,14 @@ $(function () {
 
         $('#selectedExtensions').append($(selectedOpts).clone());
         $(selectedOpts).remove();
-        e.preventDefault();
+        e.preventDefault();*/
+       
     });
 
     // selected/unselected extensions management
     $('#btnAllRight').click(function (e) {
-        var selectedOpts = $('#availableExtensions option');
+        addBtnRight('availableExtensions', 'selectedExtensions', true);
+        /*var selectedOpts = $('#availableExtensions option');
         if (selectedOpts.length === 0) {
             window.toastr.warning('No extensions are available.', 'No extensions');
             e.preventDefault();
@@ -110,12 +113,13 @@ $(function () {
 
         $('#selectedExtensions').append($(selectedOpts).clone());
         $(selectedOpts).remove();
-        e.preventDefault();
+        e.preventDefault();*/
     });
 
     // selected/unselected extensions management
     $('#btnLeft').click(function (e) {
-        var selectedOpts = $('#selectedExtensions option:selected');
+        addBtnRight('selectedExtensions', 'availableExtensions');
+       /* var selectedOpts = $('#selectedExtensions option:selected');
         if (selectedOpts.length === 0) {
             window.toastr.warning('You must select at least one extension from the list of selected extensions.', 'No extension selected');
             e.preventDefault();
@@ -123,12 +127,13 @@ $(function () {
 
         $('#availableExtensions').append($(selectedOpts).clone());
         $(selectedOpts).remove();
-        e.preventDefault();
+        e.preventDefault();*/
     });
 
     // selected/unselected extensions management
     $('#btnAllLeft').click(function (e) {
-        var selectedOpts = $('#selectedExtensions option');
+        addBtnRight('selectedExtensions', 'availableExtensions', true);
+        /*var selectedOpts = $('#selectedExtensions option');
         if (selectedOpts.length === 0) {
             window.toastr.warning('Selected extensions list is empty.', 'No extensions');
             e.preventDefault();
@@ -136,7 +141,7 @@ $(function () {
 
         $('#availableExtensions').append($(selectedOpts).clone());
         $(selectedOpts).remove();
-        e.preventDefault();
+        e.preventDefault();*/
     });
 
     // permission dropdown
@@ -236,6 +241,31 @@ function browseForAvatar() {
 //         event.preventDefault();
 //     });
 // }
+
+/**
+ * Copy selected item(s) from left listbox to right listbox
+ * 
+ * @param rolesListBoxLeft
+ * @param rolesListBoxRight
+ * @param bulk
+ */
+function addBtnRight(rolesListBoxLeft, rolesListBoxRight, bulk)
+{
+    bulk = typeof  bulk !== 'undefined' ? bulk : false;
+
+    var extensionsAvailable  = 'You must select at least one extension from the list of available extensions.';
+    var extensionsNotAvailable = 'No extensions are available.';
+    var selectedOpts = $('#'+ rolesListBoxLeft + bulk ? ' option' : ' option:selected');
+
+    if (selectedOpts.length === 0) {
+        window.toastr.warning(bulk ? extensionsAvailable : extensionsNotAvailable, 'No extension selected');
+        e.preventDefault();
+    }
+
+    $('#' + rolesListBoxRight).append($(selectedOpts).clone());
+    $(selectedOpts).remove();
+    e.preventDefault();
+}
 
 function edit_state(fieldsetid, editbtnid, event) {
     event.preventDefault();
