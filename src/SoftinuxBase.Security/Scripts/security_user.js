@@ -89,7 +89,7 @@ $(function () {
 
     // selected/unselected extensions management
     $('#btnRight').click(function (e) {
-        addBtnRight('#availableExtensions', '#selectedExtensions');
+        addBtnRight('availableExtensions', 'selectedExtensions');
        /* var selectedOpts = $('#availableExtensions option:selected');
         if (selectedOpts.length === 0) {
             window.toastr.warning('You must select at least one extension from the list of available extensions.', 'No extension selected');
@@ -99,7 +99,6 @@ $(function () {
         $('#selectedExtensions').append($(selectedOpts).clone());
         $(selectedOpts).remove();
         e.preventDefault();*/
-       
     });
 
     // selected/unselected extensions management
@@ -156,7 +155,7 @@ $(function () {
     $("#profile_form :input").bind("keyup change paste", function () {
         input_changed("save_profile_btn");
     });
-    
+
     $("#pwd_form :input").bind("keyup change paste", function () {
         input_changed("change_pwd-btn");
     });
@@ -222,7 +221,7 @@ $(function () {
 });
 
 /* Function declared in global namespace
-so that they can be called by inline event handlers (onclick="...") 
+so that they can be called by inline event handlers (onclick="...")
 or by functions declared in anonymous function above */
 
 function browseForAvatar() {
@@ -244,21 +243,22 @@ function browseForAvatar() {
 
 /**
  * Copy selected item(s) from left listbox to right listbox
- * 
+ *
  * @param rolesListBoxLeft
  * @param rolesListBoxRight
  * @param bulk
  */
-function addBtnRight(rolesListBoxLeft, rolesListBoxRight, bulk)
-{
-    bulk = typeof  bulk !== 'undefined' ? bulk : false;
+function addBtnRight(rolesListBoxLeft, rolesListBoxRight, bulk) {
+    bulk = !!bulk;
 
     var extensionsAvailable  = 'You must select at least one extension from the list of available extensions.';
-    var extensionsNotAvailable = 'No extensions are available.';
+    var extensionsNotAvailableTitle = 'No extensions are available.';
+    var noExtensionsTitle = 'No extensions';
+    var emptyExtensionList = 'Selected extensions list is empty.';
     var selectedOpts = $('#'+ rolesListBoxLeft + bulk ? ' option' : ' option:selected');
 
     if (selectedOpts.length === 0) {
-        window.toastr.warning(bulk ? extensionsAvailable : extensionsNotAvailable, 'No extension selected');
+        window.toastr.warning(bulk ? extensionsAvailable : emptyExtensionList, bulk ? extensionsNotAvailableTitle : noExtensionsTitle);
         e.preventDefault();
     }
 
@@ -358,10 +358,10 @@ function passSelectedRoleOnEdition(roleId_){
         {
             $("#edit_role_" + key).val(role[key]);
         }
-                
+
         // Role name
         $("#edit_role_name_input").val(role.name);
-        
+
         // Role ID
         $("#editRoleId").val(roleId_);
 
@@ -373,7 +373,7 @@ function passSelectedRoleOnEdition(roleId_){
         data.value.availableExtensions.forEach(function(extension) {
             options[options.length] = new Option(extension, extension);
         });
-        
+
         // Selected extensions
         // Clear
         $("#edit_role_selectedExtensions option").remove();
