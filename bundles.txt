@@ -1,1 +1,3 @@
+src\SoftinuxBase.Barebone
+src\SoftinuxBase.Infrastructure
 src\SoftinuxBase.Security

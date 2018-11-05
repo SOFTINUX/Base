@@ -2,7 +2,7 @@
   {
     "outputFileName": "Scripts/security_user.min.js",
     "inputFiles": [
-      "Scripts/berabone.js"
+      "Scripts/barebone.js"
     ],
     "minify": {
       "enabled": true,
