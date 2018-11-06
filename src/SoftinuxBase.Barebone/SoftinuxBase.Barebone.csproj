@@ -117,4 +117,7 @@
     <EmbeddedResource Include="node_modules\ionicons\dist\fonts\ionicons.woff" />
     <EmbeddedResource Include="node_modules\ionicons\dist\fonts\ionicons.woff2" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\_references.js" />
+  </ItemGroup>
 </Project>

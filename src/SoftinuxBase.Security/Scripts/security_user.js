@@ -1,6 +1,8 @@
 // Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
+///<reference path = "../../SoftinuxBase.Barebone/node_modules/jquery/dist/jquery.js" />
+
 /* Anonymous function to avoid polluting global namespace */
 $(function () {
     window.toastr.options.positionClass = 'toast-top-right';
@@ -89,35 +91,35 @@ $(function () {
 
     // selected/unselected extensions management
     $('#addRoleBtnRight').click(function (e) {
-        addBtnRight('availableExtensions', 'selectedExtensions');
+        addBtnRight(e, 'availableExtensions', 'selectedExtensions');
     });
     $('#editRoleBtnRight').click(function (e) {
-        addBtnRight('edit_role_availableExtensions', 'edit_role_selectedExtensions');
+        addBtnRight(e, 'edit_role_availableExtensions', 'edit_role_selectedExtensions');
     });
 
     // selected/unselected extensions management
     $('#addRoleBtnAllRight').click(function (e) {
-        addBtnRight('availableExtensions', 'selectedExtensions', true);
+        addBtnRight(e, 'availableExtensions', 'selectedExtensions', true);
     });
     $('#editRoleBtnAllRight').click(function (e) {
-        addBtnRight('edit_role_availableExtensions', 'edit_role_selectedExtensions', true);
+        addBtnRight(e, 'edit_role_availableExtensions', 'edit_role_selectedExtensions', true);
     });
 
     // selected/unselected extensions management
     $('#addRoleBtnLeft').click(function (e) {
-        addBtnRight('selectedExtensions', 'availableExtensions');
+        addBtnRight(e, 'selectedExtensions', 'availableExtensions');
     });
     $('#editRoleBtnLeft').click(function (e) {
-        addBtnRight('edit_role_selectedExtensions', 'edit_role_availableExtensions');
+        addBtnRight(e, 'edit_role_selectedExtensions', 'edit_role_availableExtensions');
     });
 
     // selected/unselected extensions management
     $('#addRoleBtnAllLeft').click(function (e) {
-        addBtnRight('selectedExtensions', 'availableExtensions', true);
+        addBtnRight(e, 'selectedExtensions', 'availableExtensions', true);
     });
 
     $('#editRoleBtnAllLeft').click(function (e) {
-        addBtnRight('edit_role_selectedExtensions', 'edit_role_availableExtensions', true);
+        addBtnRight(e, 'edit_role_selectedExtensions', 'edit_role_availableExtensions', true);
     });
 
     // permission dropdown
@@ -213,14 +215,14 @@ function browseForAvatar() {
 /**
  * Copy selected item(s) from left listbox to right listbox
  *
+ * @param event_
  * @param rolesListBoxLeft
  * @param rolesListBoxRight
  * @param bulk
  */
-function addBtnRight(rolesListBoxLeft, rolesListBoxRight, bulk) {
-    //console.log(bulk);
+function addBtnRight(event_, rolesListBoxLeft, rolesListBoxRight, bulk) {
+
     bulk = !!bulk;
-    //console.log(bulk);
 
     var extensionsAvailable = 'You must select at least one extension from the list of available extensions.';
     var extensionsNotAvailableTitle = 'No extensions are available.';
@@ -230,12 +232,12 @@ function addBtnRight(rolesListBoxLeft, rolesListBoxRight, bulk) {
 
     if (selectedOpts.length === 0) {
         window.toastr.warning(bulk ? extensionsAvailable : emptyExtensionList, bulk ? extensionsNotAvailableTitle : noExtensionsTitle);
-        e.preventDefault();
+        event_.preventDefault();
     }
 
     $('#' + rolesListBoxRight).append($(selectedOpts).clone());
     $(selectedOpts).remove();
-    e.preventDefault();
+    event_.preventDefault();
 }
 
 function edit_state(fieldsetid, editbtnid, event) {
