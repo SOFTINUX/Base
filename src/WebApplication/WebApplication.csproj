@@ -50,7 +50,7 @@
     <Folder Include="Extensions\" />
   </ItemGroup>
   <PropertyGroup>
-    <SolutionDir Condition=" '$(SolutionDir)' == '' ">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), softinux-1.sln))\</SolutionDir>
+    <SolutionDir Condition=" '$(SolutionDir)' == '' ">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), SoftinuxBase.sln))\</SolutionDir>
   </PropertyGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="$(SolutionDir)bp.bat copydeps| $(SolutionDir)bp.bat copyexts" Condition="'$(OS)' == 'Windows_NT'" />
