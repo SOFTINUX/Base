@@ -204,31 +204,23 @@ function browseForAvatar() {
  * Copy selected item(s) from left listbox to right listbox
  *
  * @param {object} event_ - dom event
- * @param {string} rolesListBoxLeft_ - left html listbox (select tag)
- * @param {string}rolesListBoxRight_ - right html listbox (select tag)
- * @param {boolean} bulk_ - bulk move
  */
 function btnChevronMoveExtention(event_) {
 
     var _target = event_.target;
+
     if (_target.tagName === 'I')
         _target = _target.parentNode;
 
-    console.log($(_target));
-    console.log('data: ',$(_target).data('bulk-move'));
-    console.log('value', !!$(_target).data('bulk-move'));
+    const bulk = _target.hasAttribute('data-bulk-move');
+    const selectedOpts = $(`#${$(_target).attr('data-fromlist')}` + (bulk ? ' option' : ' option:selected'));
 
-
-    console.log(event_);
-
-    const selectedOpts = $(`#${$(_target).attr('data-fromlist')}` + ($(_target).is('[bulk-move]') ? ' option' : ' option:selected'));
-
-    if (selectedOpts.length === 0 && !$(_target).is('[bulk-move]')) {
+    if (selectedOpts.length === 0 && !bulk) {
         const emptyExtensionList = 'Selected extensions list is empty.';
         const noExtensionsTitle = 'No extensions';
         const extensionsNotAvailableTitle = 'No extensions are available.';
         const extensionsAvailable = 'You must select at least one extension from the list of available extensions.';
-        window.toastr.warning($(_target).is('[bulk-move]') ? extensionsAvailable : emptyExtensionList, $(_target).is('[bulk-move]') ? extensionsNotAvailableTitle : noExtensionsTitle);
+        window.toastr.warning(bulk ? extensionsAvailable : emptyExtensionList, bulk ? extensionsNotAvailableTitle : noExtensionsTitle);
         event_.preventDefault();
     }
 
