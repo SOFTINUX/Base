@@ -77,7 +77,7 @@
                             <div class="col-md-5">
                                 <div class="form-group margin">
                                     <label>Available extension(s)</label>
-                                    <select class="form-control" multiple="" id="availableExtensions">
+                                    <select class="form-control" multiple="" id="addRoleLeftExtensionsList">
                                         @{
                                             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
                                             {
@@ -93,20 +93,20 @@
                             </div>
                             <div class="col-md-2 pagination-centered text-center">
                                 <div class="btn-group-vertical">
-                                    <button class="btn btn-default" type="button" id="addRoleBtnRight"><i class="fa fa-angle-right"></i></button>
-                                    <button class="btn btn-default" type="button" id="addRoleBtnAllRight"><i class="fa fa-angle-double-right"></i></button>
+                                    <button class="btn btn-default" type="button" id="addRoleBtnRight" data-fromlist="addRoleLeftExtensionsList" data-tolist="addRoleRightExtensionsList"><i class="fa fa-angle-right"></i></button>
+                                    <button class="btn btn-default" type="button" id="addRoleBtnAllRight" data-fromlist="addRoleLeftExtensionsList" data-tolist="addRoleRightExtensionsList" data-bulk-move><i class="fa fa-angle-double-right"></i></button>
                                 </div>
                                 <br />
                                 <br />
                                 <div class="btn-group-vertical">
-                                    <button class="btn btn-default" type="button" id="addRoleBtnAllLeft"><i class="fa fa-angle-double-left"></i></button>
-                                    <button class="btn btn-default" type="button" id="addRoleBtnLeft"><i class="fa fa-angle-left"></i></button>
+                                    <button class="btn btn-default" type="button" id="addRoleBtnAllLeft" data-fromlist="addRoleRightExtensionsList" data-tolist="addRoleLeftExtensionsList" data-bulk-move><i class="fa fa-angle-double-left"></i></button>
+                                    <button class="btn btn-default" type="button" id="addRoleBtnLeft" data-fromlist="addRoleRightExtensionsList" data-tolist="addRoleLeftExtensionsList"><i class="fa fa-angle-left"></i></button>
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="form-group margin">
                                     <label>Selected extension(s)</label>
-                                    <select class="form-control" multiple="" id="selectedExtensions" name="selectedExtensions">
+                                    <select class="form-control" multiple="" id="addRoleRightExtensionsList" name="selectedExtensions">
                                         @* here selected extensions options *@
                                     </select>
                                 </div>
@@ -175,27 +175,27 @@
                             <div class="col-md-5">
                                 <div class="form-group margin">
                                     <label>Available extension(s)</label>
-                                    <select class="form-control" multiple="" id="edit_role_availableExtensions">
+                                    <select class="form-control" multiple="" id="editRoleLeftExtensionsList">
                                         @* here available extensions options *@
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-2 pagination-centered text-center">
                                 <div class="btn-group-vertical">
-                                    <button class="btn btn-default" type="button" id="editRoleBtnRight"><i class="fa fa-angle-right"></i></button>
-                                    <button class="btn btn-default" type="button" id="editRoleBtnAllRight"><i class="fa fa-angle-double-right"></i></button>
+                                    <button class="btn btn-default" type="button" id="editRoleBtnRight" data-fromlist="editRoleLeftExtensionsList" data-tolist="editRoleRightExtensionsList"><i class="fa fa-angle-right"></i></button>
+                                    <button class="btn btn-default" type="button" id="editRoleBtnAllRight" data-fromlist="editRoleLeftExtensionsList" data-tolist="editRoleRightExtensionsList" data-bulk-move="true"><i class="fa fa-angle-double-right"></i></button>
                                 </div>
                                 <br />
                                 <br />
                                 <div class="btn-group-vertical">
-                                    <button class="btn btn-default" type="button" id="editRoleBtnAllLeft"><i class="fa fa-angle-double-left"></i></button>
-                                    <button class="btn btn-default" type="button" id="editRoleBtnLeft"><i class="fa fa-angle-left"></i></button>
+                                    <button class="btn btn-default" type="button" id="editRoleBtnAllLeft" data-fromlist="editRoleRightExtensionsList" data-tolist="editRoleLeftExtensionsList"><i class="fa fa-angle-double-left"></i></button>
+                                    <button class="btn btn-default" type="button" id="editRoleBtnLeft" data-fromlist="editRoleRightExtensionsList" data-tolist="editRoleLeftExtensionsList" data-bulk-move="true"><i class="fa fa-angle-left"></i></button>
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="form-group margin">
                                     <label>Selected extension(s)</label>
-                                    <select class="form-control" multiple="" id="edit_role_selectedExtensions" name="edit_role_selectedExtensions">
+                                    <select class="form-control" multiple="" id="editRoleRightExtensionsList" name="edit_role_selectedExtensions">
                                         @* here selected extensions options *@
                                     </select>
                                 </div>

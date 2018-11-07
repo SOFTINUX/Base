@@ -47,29 +47,29 @@ $(function () {
                 break;
             // Add selected/unselected extensions management
             case 'addRoleBtnRight':
-                btnChevronMoveExtention(event_, 'availableExtensions', 'selectedExtensions');
+                btnChevronMoveExtention(event_);
                 break;
             case 'addRoleBtnAllRight':
-                btnChevronMoveExtention(event_, 'availableExtensions', 'selectedExtensions', true);
+                btnChevronMoveExtention(event_);
                 break;
             case 'addRoleBtnLeft':
-                btnChevronMoveExtention(event_, 'selectedExtensions', 'availableExtensions');
+                btnChevronMoveExtention(event_);
                 break;
             case 'addRoleBtnAllLeft':
-                btnChevronMoveExtention(event_, 'selectedExtensions', 'availableExtensions', true);
+                btnChevronMoveExtention(event_);
                 break;
             // Edit selected/unselected extensions management
             case 'editRoleBtnRight':
-                btnChevronMoveExtention(event_, 'edit_role_availableExtensions', 'edit_role_selectedExtensions');
+                btnChevronMoveExtention(event_);
                 break;
             case 'editRoleBtnAllRight':
-                btnChevronMoveExtention(event_, 'edit_role_availableExtensions', 'edit_role_selectedExtensions', true);
+                btnChevronMoveExtention(event_);
                 break;
             case 'editRoleBtnLeft':
-                btnChevronMoveExtention(event_, 'edit_role_selectedExtensions', 'edit_role_availableExtensions');
+                btnChevronMoveExtention(event_);
                 break;
             case 'editRoleBtnAllLeft':
-                btnChevronMoveExtention(event_, 'edit_role_selectedExtensions', 'edit_role_availableExtensions', true);
+                btnChevronMoveExtention(event_);
                 break;
             default:
                 break;
@@ -208,22 +208,31 @@ function browseForAvatar() {
  * @param {string}rolesListBoxRight_ - right html listbox (select tag)
  * @param {boolean} bulk_ - bulk move
  */
-function btnChevronMoveExtention(event_, rolesListBoxLeft_, rolesListBoxRight_, bulk_) {
+function btnChevronMoveExtention(event_) {
 
-    bulk_ = !!bulk_;
+    var _target = event_.target;
+    if (_target.tagName === 'I')
+        _target = _target.parentNode;
 
-    const selectedOpts = $(`#${rolesListBoxLeft_}` + (bulk_ ? ' option' : ' option:selected'));
+    console.log($(_target));
+    console.log('data: ',$(_target).data('bulk-move'));
+    console.log('value', !!$(_target).data('bulk-move'));
 
-    if (selectedOpts.length === 0) {
+
+    console.log(event_);
+
+    const selectedOpts = $(`#${$(_target).attr('data-fromlist')}` + ($(_target).is('[bulk-move]') ? ' option' : ' option:selected'));
+
+    if (selectedOpts.length === 0 && !$(_target).is('[bulk-move]')) {
         const emptyExtensionList = 'Selected extensions list is empty.';
         const noExtensionsTitle = 'No extensions';
         const extensionsNotAvailableTitle = 'No extensions are available.';
         const extensionsAvailable = 'You must select at least one extension from the list of available extensions.';
-        window.toastr.warning(bulk_ ? extensionsAvailable : emptyExtensionList, bulk_ ? extensionsNotAvailableTitle : noExtensionsTitle);
+        window.toastr.warning($(_target).is('[bulk-move]') ? extensionsAvailable : emptyExtensionList, $(_target).is('[bulk-move]') ? extensionsNotAvailableTitle : noExtensionsTitle);
         event_.preventDefault();
     }
 
-    $(`#${rolesListBoxRight_}`).append($(selectedOpts).clone());
+    $(`#${$(_target).attr('data-tolist')}`).append($(selectedOpts).clone());
     $(selectedOpts).remove();
     event_.preventDefault();
 }
