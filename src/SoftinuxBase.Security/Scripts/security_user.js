@@ -87,33 +87,33 @@ $(function () {
 
     // Right selected/unselected extensions management
     $('#addRoleBtnRight').click(function (e_) {
-        addBtnRight(e_, 'availableExtensions', 'selectedExtensions');
+        btnChevronMoveExtention(e_, 'availableExtensions', 'selectedExtensions');
     });
     $('#editRoleBtnRight').click(function (e_) {
-        addBtnRight(e_, 'edit_role_availableExtensions', 'edit_role_selectedExtensions');
+        btnChevronMoveExtention(e_, 'edit_role_availableExtensions', 'edit_role_selectedExtensions');
     });
 
     $('#addRoleBtnAllRight').click(function (e_) {
-        addBtnRight(e_, 'availableExtensions', 'selectedExtensions', true);
+        btnChevronMoveExtention(e_, 'availableExtensions', 'selectedExtensions', true);
     });
     $('#editRoleBtnAllRight').click(function (e_) {
-        addBtnRight(e_, 'edit_role_availableExtensions', 'edit_role_selectedExtensions', true);
+        btnChevronMoveExtention(e_, 'edit_role_availableExtensions', 'edit_role_selectedExtensions', true);
     });
 
     // Left selected/unselected extensions management
     $('#addRoleBtnLeft').click(function (e_) {
-        addBtnRight(e_, 'selectedExtensions', 'availableExtensions');
+        btnChevronMoveExtention(e_, 'selectedExtensions', 'availableExtensions');
     });
     $('#editRoleBtnLeft').click(function (e_) {
-        addBtnRight(e_, 'edit_role_selectedExtensions', 'edit_role_availableExtensions');
+        btnChevronMoveExtention(e_, 'edit_role_selectedExtensions', 'edit_role_availableExtensions');
     });
 
     $('#addRoleBtnAllLeft').click(function (e_) {
-        addBtnRight(e_, 'selectedExtensions', 'availableExtensions', true);
+        btnChevronMoveExtention(e_, 'selectedExtensions', 'availableExtensions', true);
     });
 
     $('#editRoleBtnAllLeft').click(function (e_) {
-        addBtnRight(e_, 'edit_role_selectedExtensions', 'edit_role_availableExtensions', true);
+        btnChevronMoveExtention(e_, 'edit_role_selectedExtensions', 'edit_role_availableExtensions', true);
     });
 
     // permission dropdown
@@ -215,7 +215,7 @@ function browseForAvatar() {
  * @param {string}rolesListBoxRight_ - right html listbox (select tag)
  * @param {boolean} bulk_ - bulk move
  */
-function addBtnRight(event_, rolesListBoxLeft_, rolesListBoxRight_, bulk_) {
+function btnChevronMoveExtention(event_, rolesListBoxLeft_, rolesListBoxRight_, bulk_) {
 
     bulk_ = !!bulk_;
 
