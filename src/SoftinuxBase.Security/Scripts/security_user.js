@@ -47,29 +47,29 @@ $(function () {
                 break;
             // Add selected/unselected extensions management
             case 'addRoleBtnRight':
-                btnChevronMoveExtention(event_);
+                btnChevronMoveExtension(event_);
                 break;
             case 'addRoleBtnAllRight':
-                btnChevronMoveExtention(event_);
+                btnChevronMoveExtension(event_);
                 break;
             case 'addRoleBtnLeft':
-                btnChevronMoveExtention(event_);
+                btnChevronMoveExtension(event_);
                 break;
             case 'addRoleBtnAllLeft':
-                btnChevronMoveExtention(event_);
+                btnChevronMoveExtension(event_);
                 break;
             // Edit selected/unselected extensions management
             case 'editRoleBtnRight':
-                btnChevronMoveExtention(event_);
+                btnChevronMoveExtension(event_);
                 break;
             case 'editRoleBtnAllRight':
-                btnChevronMoveExtention(event_);
+                btnChevronMoveExtension(event_);
                 break;
             case 'editRoleBtnLeft':
-                btnChevronMoveExtention(event_);
+                btnChevronMoveExtension(event_);
                 break;
             case 'editRoleBtnAllLeft':
-                btnChevronMoveExtention(event_);
+                btnChevronMoveExtension(event_);
                 break;
             default:
                 break;
@@ -150,13 +150,13 @@ $(function () {
             input_form_group_validator('#role_name_input');
             return;
         }
-        var selectedExtensions = [];
+        var _selectedExtensions = [];
         $('#selectedExtensions>option').each(function () {
-            selectedExtensions.push(this.value);
+            _selectedExtensions.push(this.value);
         });
         const postData = {
             RoleName: roleNameInputElt.val(),
-            Extensions: selectedExtensions,
+            Extensions: _selectedExtensions,
             Permission: $('#newRolePermission').val()
         };
 
@@ -205,7 +205,7 @@ function browseForAvatar() {
  *
  * @param {object} event_ - dom event
  */
-function btnChevronMoveExtention(event_) {
+function btnChevronMoveExtension(event_) {
 
     var _target = event_.target;
 
@@ -215,12 +215,10 @@ function btnChevronMoveExtention(event_) {
     const bulk = _target.hasAttribute('data-bulk-move');
     const selectedOpts = $(`#${$(_target).attr('data-fromlist')}` + (bulk ? ' option' : ' option:selected'));
 
-    if (selectedOpts.length === 0 && !bulk) {
-        const emptyExtensionList = 'Selected extensions list is empty.';
-        const noExtensionsTitle = 'No extensions';
-        const extensionsNotAvailableTitle = 'No extensions are available.';
-        const extensionsAvailable = 'You must select at least one extension from the list of available extensions.';
-        window.toastr.warning(bulk ? extensionsAvailable : emptyExtensionList, bulk ? extensionsNotAvailableTitle : noExtensionsTitle);
+    if (selectedOpts.length === 0) {
+        const emptyExtensionList = 'You must have at least one extension in the list';
+        const emptyExtensionListTitle = 'No extensions are available.';
+        window.toastr.warning(emptyExtensionList, emptyExtensionListTitle);
         event_.preventDefault();
     }
 
@@ -320,13 +318,13 @@ function input_form_group_set_error(el_, errMsg_) {
     if (!$(el_).is('input')) {
         return;
     }
-    var formGroupEl = $(el_).closest('.form-group');
+    var _formGroupEl = $(el_).closest('.form-group');
     if (!errMsg_) {
-        formGroupEl.removeClass('has-error').removeClass('has-feedback');
-        formGroupEl.find('span.help-block').html('');
+        _formGroupEl.removeClass('has-error').removeClass('has-feedback');
+        _formGroupEl.find('span.help-block').html('');
     } else {
-        formGroupEl.addClass('has-error').addClass('has-feedback');
-        formGroupEl.find('span.help-block').html(errMsg_);
+        _formGroupEl.addClass('has-error').addClass('has-feedback');
+        _formGroupEl.find('span.help-block').html(errMsg_);
     }
 }
 
@@ -353,20 +351,20 @@ function passSelectedRoleOnEdition(roleId_) {
         // Available extensions
         // Clear
         $('#edit_role_availableExtensions option').remove();
-        var options = $('#edit_role_availableExtensions').prop('options');
+        var _options = $('#edit_role_availableExtensions').prop('options');
         // Fill
         data_.value.availableExtensions.forEach(function (extension_) {
-            options[options.length] = new Option(extension_, extension_);
+            _options[_options.length] = new Option(extension_, extension_);
         });
 
         // Selected extensions
         // Clear
         $('#edit_role_selectedExtensions option').remove();
-        options = $('#edit_role_selectedExtensions').prop('options');
+        _options = $('#edit_role_selectedExtensions').prop('options');
         // Fill
         console.log(data_.value);
         data_.value.selectedExtensions.forEach(function (extension_) {
-            options[options.length] = new Option(extension_.name + ' (' + extension_.permission + ')', extension_);
+            _options[_options.length] = new Option(extension_.name + ' (' + extension_.permission + ')', extension_);
         });
     });
 }
@@ -377,7 +375,7 @@ function passSelectedRoleOnEdition(roleId_) {
 function checkClick() {
     const splitted = $(event.target)[0].id.split('_');
     const base = splitted[0] + '_' + splitted[1];
-    var activeCheckedPermissions = 'NEVER';
+    var _activeCheckedPermissions = 'NEVER';
 
     if (event.target.checked) {
         // when checking, impacted checkboxes become checked and disabled
@@ -396,14 +394,14 @@ function checkClick() {
         switch (splitted[2]) {
             case 'ADMIN':
                 $(`#${base}_WRITE`).prop('disabled', false);
-                activeCheckedPermissions = 'WRITE';
+                _activeCheckedPermissions = 'WRITE';
                 break;
             case 'WRITE':
                 $(`#${base}_READ`).prop('disabled', false);
-                activeCheckedPermissions = 'READ';
+                _activeCheckedPermissions = 'READ';
                 break;
         }
-        savePermission(splitted[0], splitted[1], activeCheckedPermissions);
+        savePermission(splitted[0], splitted[1], _activeCheckedPermissions);
     }
 }
 
@@ -427,14 +425,14 @@ function savePermission(scope_, role_, permission_) {
  * Ajax call to update data: role with its related data update. Ajax POST.
  */
 function saveEditRole() {
-    var selectedExtensions = [];
+    var _selectedExtensions = [];
     $('#selectedExtensions>option').each(function () {
-        selectedExtensions.push(this.value);
+        _selectedExtensions.push(this.value);
     });
     const postData = {
         RoleId: $('#editRoleId').val(),
         RoleName: $('#role_name_input').val(),
-        Extensions: selectedExtensions,
+        Extensions: _selectedExtensions,
         Permission: $('#newRolePermission').val()
     };
 
