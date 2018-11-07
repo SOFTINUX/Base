@@ -13,43 +13,67 @@ $(function () {
 
     /* User interactions that trigger UI changes but no ajax call */
 
-    // Click
-    $('#save_profile_btn').click(function (event_) {
-        edit_state('profile_form_fieldset', 'save_profile_btn', event_);
-    });
-
-    $('#cancel_save_profile_btn').click(function (event_) {
-        cancel_edit_state('profile_form', 'profile_form_fieldset', 'save_profile_btn', 'Edit', event_);
-    });
-
-    $('#change_pwd-btn').click(function (event_) {
-        edit_state('pwd_form_fliedset', 'change_pwd-btn', event_);
-    });
-
-    $('#cancel_change_pwd-btn').click(function (event_) {
-        cancel_edit_state('pwd_form', 'pwd_form_fliedset', 'change_pwd-btn', 'Change', event_);
-    });
-
-    $('#add-role').click(function () {
-        $('#edit-role-area').addClass('hidden');
-
-        $('#add-role-area').is(':hidden') ? $('#add-role-area').removeClass('hidden') : $('#add-role-area').addClass('hidden');
-    });
-
-    $('#edit-role').click(function () {
-        $('#add-role-area').addClass('hidden');
-
-        $('#edit-role-area').is(':hidden') ? $('#edit-role-area').removeClass('hidden') : $('#edit-role-area').addClass('hidden');
-    });
-
-    $('#cancel-add-role-btn').click(function () {
-        $('#edit-role-area').addClass('hidden');
-        $('#add-role-area').addClass('hidden');
-    });
-
-    $('#cancel-edit-role-btn').click(function () {
-        $('#edit-role-area').addClass('hidden');
-        $('#add-role-area').addClass('hidden');
+    // Manage click on buttons
+    $('button').click( function(event_) {
+        const id = $(this).attr('id');
+        switch(id){
+            case 'save_profile_btn':
+                edit_state('profile_form_fieldset', 'save_profile_btn', event_);
+                break;
+            case 'cancel_save_profile_btn':
+                cancel_edit_state('profile_form', 'profile_form_fieldset', 'save_profile_btn', 'Edit', event_);
+                break;
+            case 'change_pwd-btn':
+                edit_state('pwd_form_fliedset', 'change_pwd-btn', event_);
+                break;
+            case 'cancel_change_pwd-btn':
+                cancel_edit_state('pwd_form', 'pwd_form_fliedset', 'change_pwd-btn', 'Change', event_);
+                break;
+            case 'add-role-btn':
+                $('#edit-role-area').addClass('hidden');
+                $('#add-role-area').is(':hidden') ? $('#add-role-area').removeClass('hidden') : $('#add-role-area').addClass('hidden');
+                break;
+            case 'edit-role-btn':
+                $('#add-role-area').addClass('hidden');
+                $('#edit-role-area').is(':hidden') ? $('#edit-role-area').removeClass('hidden') : $('#edit-role-area').addClass('hidden');
+                break;
+            case 'cancel-add-role-btn':
+                $('#edit-role-area').addClass('hidden');
+                $('#add-role-area').addClass('hidden');
+                break;
+            case 'cancel-edit-role-btn':
+                $('#edit-role-area').addClass('hidden');
+                $('#add-role-area').addClass('hidden');
+                break;
+            // Add selected/unselected extensions management
+            case 'addRoleBtnRight':
+                btnChevronMoveExtention(event_, 'availableExtensions', 'selectedExtensions');
+                break;
+            case 'addRoleBtnAllRight':
+                btnChevronMoveExtention(event_, 'availableExtensions', 'selectedExtensions', true);
+                break;
+            case 'addRoleBtnLeft':
+                btnChevronMoveExtention(event_, 'selectedExtensions', 'availableExtensions');
+                break;
+            case 'addRoleBtnAllLeft':
+                btnChevronMoveExtention(event_, 'selectedExtensions', 'availableExtensions', true);
+                break;
+            // Edit selected/unselected extensions management
+            case 'editRoleBtnRight':
+                btnChevronMoveExtention(event_, 'edit_role_availableExtensions', 'edit_role_selectedExtensions');
+                break;
+            case 'editRoleBtnAllRight':
+                btnChevronMoveExtention(event_, 'edit_role_availableExtensions', 'edit_role_selectedExtensions', true);
+                break;
+            case 'editRoleBtnLeft':
+                btnChevronMoveExtention(event_, 'edit_role_selectedExtensions', 'edit_role_availableExtensions');
+                break;
+            case 'editRoleBtnAllLeft':
+                btnChevronMoveExtention(event_, 'edit_role_selectedExtensions', 'edit_role_availableExtensions', true);
+                break;
+            default:
+                break;
+        }
     });
 
     // permissions administration: collapsing
@@ -83,37 +107,6 @@ $(function () {
                 }
             });
         }
-    });
-
-    // Right selected/unselected extensions management
-    $('#addRoleBtnRight').click(function (e_) {
-        btnChevronMoveExtention(e_, 'availableExtensions', 'selectedExtensions');
-    });
-    $('#editRoleBtnRight').click(function (e_) {
-        btnChevronMoveExtention(e_, 'edit_role_availableExtensions', 'edit_role_selectedExtensions');
-    });
-
-    $('#addRoleBtnAllRight').click(function (e_) {
-        btnChevronMoveExtention(e_, 'availableExtensions', 'selectedExtensions', true);
-    });
-    $('#editRoleBtnAllRight').click(function (e_) {
-        btnChevronMoveExtention(e_, 'edit_role_availableExtensions', 'edit_role_selectedExtensions', true);
-    });
-
-    // Left selected/unselected extensions management
-    $('#addRoleBtnLeft').click(function (e_) {
-        btnChevronMoveExtention(e_, 'selectedExtensions', 'availableExtensions');
-    });
-    $('#editRoleBtnLeft').click(function (e_) {
-        btnChevronMoveExtention(e_, 'edit_role_selectedExtensions', 'edit_role_availableExtensions');
-    });
-
-    $('#addRoleBtnAllLeft').click(function (e_) {
-        btnChevronMoveExtention(e_, 'selectedExtensions', 'availableExtensions', true);
-    });
-
-    $('#editRoleBtnAllLeft').click(function (e_) {
-        btnChevronMoveExtention(e_, 'edit_role_selectedExtensions', 'edit_role_availableExtensions', true);
     });
 
     // permission dropdown
