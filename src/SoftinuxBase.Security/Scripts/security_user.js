@@ -110,8 +110,8 @@ $(function () {
     });
 
     // permission dropdown
-    $('#acl-sel li').click(function (e_) {
-        const $target = $(e_.currentTarget);
+    $('#acl-sel li').click(function (event_) {
+        const $target = $(event_.currentTarget);
         $target.closest('.bs-dropdown-to-select-acl-group')
             .find('[data-bind="bs-drp-sel-acl-label"]').text($(this).text());
         $('input[name="acl-selected_value"]').val($(this).attr('data-value'));
@@ -189,7 +189,7 @@ so that they can be called by inline event handlers (onclick='...')
 or by functions declared in anonymous function above */
 
 /**
- *
+ * browse for avatar
  */
 function browseForAvatar() {
     $('#file_browser').click(function (event_) {
@@ -198,7 +198,9 @@ function browseForAvatar() {
     });
 }
 
-/* events handler */
+/*----------------------------------------------------------------*/
+/*------------------------ events handler ------------------------*/
+/*----------------------------------------------------------------*/
 
 /**
  * Copy selected item(s) from left listbox to right listbox
@@ -311,24 +313,26 @@ function input_form_group_validator(el_) {
 
 /**
  * Set error style to an input and error message below.
- * @param {string} el_ - jQuery selector string.
+ * @param {string} element_ - jQuery selector string.
  * @param {string} errMsg_ - error message if any error, else null to remove error style and message.
  */
-function input_form_group_set_error(el_, errMsg_) {
-    if (!$(el_).is('input')) {
+function input_form_group_set_error(element_, errMsg_) {
+    if (!$(element_).is('input')) {
         return;
     }
-    var _formGroupEl = $(el_).closest('.form-group');
+    const formGroupEl = $(element_).closest('.form-group');
     if (!errMsg_) {
-        _formGroupEl.removeClass('has-error').removeClass('has-feedback');
-        _formGroupEl.find('span.help-block').html('');
+        formGroupEl.removeClass('has-error').removeClass('has-feedback');
+        formGroupEl.find('span.help-block').html('');
     } else {
-        _formGroupEl.addClass('has-error').addClass('has-feedback');
-        _formGroupEl.find('span.help-block').html(errMsg_);
+        formGroupEl.addClass('has-error').addClass('has-feedback');
+        formGroupEl.find('span.help-block').html(errMsg_);
     }
 }
 
-/* Functions that trigger an ajax call */
+/*-------------------------------------------------------------------------------------*/
+/*------------------------ Functions that trigger an ajax call ------------------------*/
+/*-------------------------------------------------------------------------------------*/
 
 /**
  * Update the UI with selected role information. Ajax GET.
