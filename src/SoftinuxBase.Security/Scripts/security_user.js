@@ -222,6 +222,7 @@ function btnChevronMoveExtension(event_) {
         const emptyExtensionListTitle = 'No extensions are available.';
         window.toastr.warning(emptyExtensionList, emptyExtensionListTitle);
         event_.preventDefault();
+        return;
     }
 
     $(`#${$(_target).attr('data-tolist')}`).append($(selectedOpts).clone());
