@@ -14,8 +14,9 @@ using Serilog;
 using SoftinuxBase.WebApplication;
 using SoftinuxLogger;
 using Swashbuckle.AspNetCore.Swagger;
+using ApplicationStorageContext = SoftinuxBase.WebApp.ApplicationStorageContext;
 
-namespace SoftinuxBase.WebApp
+namespace WebApplication
 {
     public class Startup
     {
