@@ -51,6 +51,27 @@ namespace SoftinuxBase.WebApplication
                 applicationBuilder_.UseHsts();
             }
 
+            // Security header make me happy
+            applicationBuilder_.UseHsts(hsts => hsts.MaxAge(365).IncludeSubdomains());
+            applicationBuilder_.UseXContentTypeOptions();
+            applicationBuilder_.UseReferrerPolicy(option_ => option_.NoReferrer());
+            applicationBuilder_.UseXXssProtection(option_ => option_.EnabledWithBlockMode());
+            applicationBuilder_.UseXfo(option_ => option_.Deny());
+
+            applicationBuilder_.UseCsp(option_ => option_
+                .BlockAllMixedContent()
+                .StyleSources(s => s.Self())
+                .StyleSources(s => s.UnsafeInline())
+                .StyleSources(s => s.Self().CustomSources("data:"))
+                .FontSources(s => s.Self())
+                .FormActions(s => s.Self())
+                .FrameAncestors(s => s.Self())
+                .ImageSources(s => s.Self())
+                .ImageSources(s => s.Self().CustomSources("data:"))
+                .ScriptSources(s => s.Self())
+                .ScriptSources(s => s.UnsafeInline())
+            );
+
             // 2. Anti-forgery
             applicationBuilder_.Use(next => context =>
                 {

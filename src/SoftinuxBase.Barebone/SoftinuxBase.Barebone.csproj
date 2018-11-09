@@ -24,7 +24,7 @@
     <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Styles\**;Scripts\**;Views\**" />
+    <EmbeddedResource Include="Styles\**;Scripts\**;Views\**;Fonts\**" />
     <EmbeddedResource Include="**\node_modules\icheck\skins\square\**" />
     <EmbeddedResource Include="**\node_modules\icheck\skins\minimal\**" />
     <EmbeddedResource Include="**\node_modules\icheck\skins\line\**" />

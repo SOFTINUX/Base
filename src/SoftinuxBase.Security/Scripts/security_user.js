@@ -214,7 +214,7 @@ function btnChevronMoveExtension(event_) {
     if (_target.tagName === 'I')
         _target = _target.parentNode;
 
-    const bulk = _target.hasAttribute('data-bulk-move');
+    const bulk = $(_target).is('[data-bulk-move]');
     const selectedOpts = $(`#${$(_target).attr('data-fromlist')}` + (bulk ? ' option' : ' option:selected'));
 
     if (selectedOpts.length === 0) {
