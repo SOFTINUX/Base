@@ -4,9 +4,8 @@
 using System.IO;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using WebApplication;
 
-namespace SoftinuxBase.WebApp
+namespace WebApplication
 {
     public class Program
     {
