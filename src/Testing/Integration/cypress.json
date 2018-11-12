@@ -1,0 +1,7 @@
+{
+    "supportFile": "src/support/index.ts",
+    "integrationFolder": "src/support/Integration",
+    "fixturesFolder": "cypress/fixtures",
+    "screenshotsFolder": "cypress/screenshots",
+    "videosFolder": "cypress/videos"
+  }

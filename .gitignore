@@ -336,3 +336,10 @@ basedb*.sqlite
 *.min.js.map
 #Not exclude this file
 !**/jquery.pressAndHold.min.js
+
+#Cypress
+src/Testing/Integration/cypress
+src/Testing/Integration/dist
+
+#npm lock packages
+src/Testing/Integration/package-lock.json
