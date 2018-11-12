@@ -53,7 +53,7 @@
     <SolutionDir Condition=" '$(SolutionDir)' == '' ">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), SoftinuxBase.sln))\</SolutionDir>
   </PropertyGroup>
   <Target Name="PreBuild" AfterTargets="BeforeBuild">
-   <Exec Command="$(SolutionDir)bp.bat bundles" Condition="'$(OS)' == 'Windows_NT'" />
+    <Exec Command="$(SolutionDir)bp.bat bundles" Condition="'$(OS)' == 'Windows_NT'" />
     <Exec Command="'$(SolutionDir)'bp.sh bundles" Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'" />
     <Exec Command="'$(SolutionDir)'bp.sh bundles" Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'" />
   </Target>
