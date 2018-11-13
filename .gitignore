@@ -338,8 +338,12 @@ basedb*.sqlite
 !**/jquery.pressAndHold.min.js
 
 #Cypress
-src/Testing/Integration/cypress
-src/Testing/Integration/dist
+src/Testing/Integration/src/Support/*.js
+src/Testing/Integration/src/Support/*.js.map
+src/Testing/Integration/dist/*
+src/Testing/Integration/screenshots/*
+src/Testing/Integration/videos/*
+!.gitkeep
 
 #npm lock packages
-src/Testing/Integration/package-lock.json
+package-lock.json

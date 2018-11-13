@@ -11,6 +11,8 @@ describe('TypeScript', () => {
 
     it('tests our site', () => {
         cy.visit('http://localhost:5000/login')  // change URL to match your dev URL
+        cy.get('#username').type('johndoe')
+        cy.get('#password').type('123_Password{enter}')
     })
 
      // enable once we release updated TypeScript definitions
