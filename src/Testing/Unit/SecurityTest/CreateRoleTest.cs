@@ -77,13 +77,10 @@ namespace SecurityTest
         }
 
         /// <summary>
-        /// Test the creation of role with 1 or 2 associated extensions.
+        /// Test that we cannot create a role without any extension.
         /// </summary>
-        /// <param name="extensionNames_"></param>
-        [Theory]
-        [InlineData("Security,Chinook")]
-        [InlineData("Security")]
-        public async Task TestCheckAndSaveNewRole_Error_NoExtensionSelected(string extensionNames_)
+        [Fact]
+        public async Task TestCheckAndSaveNewRole_Error_NoExtensionSelected()
         {
             string roleName = "New Role 1 " + DateTime.Now.Ticks;
             var permRepo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();

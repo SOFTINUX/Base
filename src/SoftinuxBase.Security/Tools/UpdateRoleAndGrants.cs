@@ -46,15 +46,16 @@ namespace SoftinuxBase.Security.Tools
                 var role = await roleManager_.FindByIdAsync(model_.RoleId);
                 await roleManager_.SetRoleNameAsync(role, model_.RoleName);
 
-                // Clear all the linked extensions, save the new links
-                var permRepo = storage_.GetRepository<IRolePermissionRepository>();
-
-                foreach (var rolePermission in permRepo.FilteredByRoleId(model_.RoleId))
-                    permRepo.Delete(rolePermission.RoleId, rolePermission.Scope);
-
                 // Create the new links
                 if (model_.Extensions != null)
                 {
+                    // Clear all the linked extensions, save the new links
+                    var permRepo = storage_.GetRepository<IRolePermissionRepository>();
+
+                    foreach (var rolePermission in permRepo.FilteredByRoleId(model_.RoleId))
+                        permRepo.Delete(rolePermission.RoleId, rolePermission.Scope);
+
+
                     // Convert the string to the enum
                     var permissionEnum = Enum.Parse<global::SoftinuxBase.Security.Common.Enums.Permission>(model_.Permission, true);
 

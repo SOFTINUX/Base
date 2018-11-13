@@ -229,6 +229,69 @@ namespace SecurityTest
                 }
             }
         }
+
+        /// <summary>
+        /// A null extensions list is passed, there will be no change.
+        /// </summary>
+        /// <returns></returns>
+        [Fact]
+        public async Task TestCheckAndUpdateRole_NoExtensionInList_NoChange()
+        {
+            string firstRoleName = "New Role 1 " + DateTime.Now.Ticks;
+            var permRepo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
+
+            try
+            {
+                // Arrange
+                IdentityRole<string> firstRole = new IdentityRole<string>
+                {
+                    // Auto-incremented ID
+                    Name = firstRoleName
+                };
+                await DatabaseFixture.RoleManager.CreateAsync(firstRole);
+
+                // Create a link to an extension
+                permRepo.Create(new SoftinuxBase.Security.Data.Entities.RolePermission { RoleId = firstRole.Id, PermissionId = Permission.Write.ToString(), Scope = "Security"});
+                DatabaseFixture.Storage.Save();
+
+                UpdateRoleAndGrantsViewModel model = new UpdateRoleAndGrantsViewModel
+                {
+                    RoleId = firstRole.Id,
+                    // Use same role name
+                    RoleName = firstRoleName,
+                    Extensions = null,
+                    Permission = Permission.Write.ToString()
+                };
+
+                // Execute
+                var result = await UpdateRoleAndGrants.CheckAndUpdateRoleAndGrants(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage);
+
+                // Assert
+                Assert.Null(result);
+
+                // We should find one linked extension, "Security", with Write level
+                var record = permRepo.FilteredByRoleId(firstRole.Id).FirstOrDefault();
+                Assert.NotNull(record);
+                Assert.Equal("Security", record.Scope);
+                Assert.Equal(Permission.Write.ToString(), record.PermissionId);
+            }
+            finally
+            {
+                // Cleanup created data
+                string[] roleNames = { firstRoleName };
+                foreach (string roleName in roleNames)
+                {
+                    var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(roleName);
+                    if (createdRole == null)
+                        continue;
+                    foreach (var rolePermission in permRepo.FilteredByRoleId(createdRole.Id))
+                        permRepo.Delete(rolePermission.RoleId, rolePermission.Scope);
+
+                    await DatabaseFixture.RoleManager.DeleteAsync(createdRole);
+                }
+            }
+        }
+
     }
 }
 
