@@ -173,9 +173,9 @@ $(function () {
     });
 
     $('#save-edit-role-btn').click(function () {
-        if (!$('#name').val()) {
+        if (!$('#edit_role_name_input').val()) {
             window.toastr.warning('No new role name given.', 'Role not updated!');
-            input_form_group_validator('#name');
+            input_form_group_validator('#edit_role_name_input');
             return;
         }
 
@@ -353,24 +353,26 @@ function passSelectedRoleOnEdition(roleId_) {
         // Role ID
         $('#editRoleId').val(roleId_);
 
-        // Available extensions
+        // Available extensions (left list)
         // Clear
-        $('#edit_role_availableExtensions option').remove();
-        var _options = $('#edit_role_availableExtensions').prop('options');
+        $('#editRoleLeftExtensionsList option').remove();
+        var _options = $('#editRoleLeftExtensionsList').prop('options');
         // Fill
         data_.value.availableExtensions.forEach(function (extension_) {
             _options[_options.length] = new Option(extension_, extension_);
         });
 
-        // Selected extensions
+        // Selected extensions (right list)
         // Clear
-        $('#edit_role_selectedExtensions option').remove();
-        _options = $('#edit_role_selectedExtensions').prop('options');
+        $('#editRoleRightExtensionsList option').remove();
+        _options = $('#editRoleRightExtensionsList').prop('options');
         // Fill
         console.log(data_.value);
         data_.value.selectedExtensions.forEach(function (extension_) {
             _options[_options.length] = new Option(extension_.name + ' (' + extension_.permission + ')', extension_);
         });
+        // Store the initially selected extensions to hidden field
+        $('#editRoleRightInitialExtensionsList').val($('#editRoleRightExtensionsList option'));
     });
 }
 
@@ -430,7 +432,18 @@ function savePermission(scope_, role_, permission_) {
  * Ajax call to update data: role with its related data update. Ajax POST.
  */
 function saveEditRole() {
-    var _selectedExtensions = [];
+
+    var _selectedExtensions = null;
+    // _selectedExtensions remains null when no change.
+    // Compare current value and initial value to detect changes, else leave null.
+    var initialSelectedExtensions = $('#editRoleInitialRightExtensionsList').val();
+    console.log('initial selection: ', initialSelectedExtensions);
+    var currentSelectedExtensions = $('#selectedExtensions>option').val();
+    console.log('current selection: ', currentSelectedExtensions);
+    alert('Changed?', initialSelectedExtensions == currentSelectedExtensions);
+    return;
+
+    _selectedExtensions = [];
     $('#selectedExtensions>option').each(function () {
         _selectedExtensions.push(this.value);
     });
