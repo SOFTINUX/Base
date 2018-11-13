@@ -43,18 +43,58 @@
             "problemMatcher": "$msCompile"
         },
         {
-        "label": "Copy dependencies",
-        "command": "./bp.bat copydeps",
-        "linux": {
-            "command": "./bp.sh copydeps"
+            "label": "Copy dependencies",
+            "command": "./bp.bat copydeps",
+            "linux": {
+                "command": "./bp.sh copydeps"
+            },
+            "type": "shell",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": "$msCompile"
         },
-        "type": "shell",
-        "group": "build",
-        "presentation": {
-            "reveal": "always",
-            "panel": "shared"
+        {
+            "label": "Open Cypress",
+            "type": "shell",
+            "command": "npm",
+            "args": [
+                "run",
+                "cypress:open",
+                "--prefix",
+                "./src/Testing/Integration"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "clear": true
+            }
         },
-        "problemMatcher": "$msCompile"
-    }
+        {
+            "label": "Run Cypress",
+            "type": "shell",
+            "command": "npm",
+            "args": [
+                "run",
+                "cypress:run",
+                "--prefix",
+                "./src/Testing/Integration"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "clear": true
+            }
+        }
     ]
 }
