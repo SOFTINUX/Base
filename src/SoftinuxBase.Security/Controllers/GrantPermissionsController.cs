@@ -54,12 +54,12 @@ namespace SoftinuxBase.Security.Controllers
             var model = ReadGrants.ReadAll(_roleManager, Storage, roleNameByRoleId);
             return View(model);
         }
-       
+
         /// <summary>
         /// Return role for edition: role information and associated extensions list.
         /// </summary>
         /// <param name="roleId_"></param>
-        /// <returns>JSON role object</returns>
+        /// <returns>Http code and JSON role object</returns>
         [PermissionRequirement(Permission.Admin)]
         [Route("administration/read-role")]
         [HttpGet]
@@ -92,7 +92,7 @@ namespace SoftinuxBase.Security.Controllers
         /// Create a role. Then create a set of records indicating to which extensions with which permission this role is linked to.
         /// </summary>
         /// <param name="model_"></param>
-        /// <returns></returns>
+        /// <returns>Http status code</returns>
         [Route("administration/savenewrole")]
         [HttpPost]
         public async Task<IActionResult> SaveNewRoleAndItsPermissions(SaveNewRoleAndGrantsViewModel model_)
@@ -130,7 +130,7 @@ namespace SoftinuxBase.Security.Controllers
         /// Update role name and linked extensions with permission level.
         /// </summary>
         /// <param name="data"></param>
-        /// <returns></returns>
+        /// <returns>Json string</returns>
         [PermissionRequirement(Permission.Admin)]
         [Route("administration/update-role")]
         [HttpPost]
@@ -155,19 +155,23 @@ namespace SoftinuxBase.Security.Controllers
         /// </summary>
         /// <param name="roleName_"></param>
         /// <param name="scope_"></param>
-        /// <returns></returns>
+        /// <returns>Json boolean</returns>
         [HttpPost]
         public async Task<IActionResult> DeleteRoleExtensionLink(string roleName_, string scope_)
         {
-            string roleId = (await _roleManager.FindByNameAsync(roleName_)).Id;
-            IRolePermissionRepository repo = Storage.GetRepository<IRolePermissionRepository>();
-            if (repo.FindBy(roleId, scope_) != null)
-            {
-                repo.Delete(roleId, scope_);
-                Storage.Save();
-                return new JsonResult(true);
-            }
-            return new JsonResult(false);
+            return new JsonResult(await Tools.DeleteRole.DeleteRoleExtensionLink(roleName_, scope_, _roleManager, this.Storage));
+        }
+
+        /// <summary>
+        /// Delete role with extention link
+        /// </summary>
+        /// <param name="roleName_"></param>
+        /// <returns>Json string</returns>
+        [HttpPost]
+        [Route("administration/delete-role")]
+        public async Task<IActionResult> DeleteRole(string roleName_)
+        {
+            return new JsonResult(await Tools.DeleteRole.DeleteRoleAndGrants(roleName_, _roleManager));
         }
 
         #endregion

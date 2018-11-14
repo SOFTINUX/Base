@@ -440,32 +440,52 @@ function saveEditRole() {
     console.log('initial selection: ', initialSelectedExtensions);
     var currentSelectedExtensions = $('#selectedExtensions>option').val();
     console.log('current selection: ', currentSelectedExtensions);
-    alert('Changed?', initialSelectedExtensions == currentSelectedExtensions);
+    alert('Changed?', initialSelectedExtensions === currentSelectedExtensions);
     return;
 
-    _selectedExtensions = [];
-    $('#selectedExtensions>option').each(function () {
-        _selectedExtensions.push(this.value);
-    });
+    //_selectedExtensions = [];
+    //$('#selectedExtensions>option').each(function () {
+    //    _selectedExtensions.push(this.value);
+    //});
+    //const postData = {
+    //    RoleId: $('#editRoleId').val(),
+    //    RoleName: $('#role_name_input').val(),
+    //    Extensions: _selectedExtensions,
+    //    Permission: $('#newRolePermission').val()
+    //};
+
+    //console.log(postData);
+
+    //$.ajax('/administration/update-role',
+    //    {
+    //        method: 'POST',
+    //        data: postData
+    //        // headers: {
+    //        //     'RequestVerificationToken': $('input:hidden[name='__RequestVerificationToken']', $form).val()
+    //        // }
+    //    })
+    //    .done(function (data_) {
+    //        window.toastr.success(data_, 'Saved');
+    //        console.log(data_);
+    //    })
+    //    .fail(function (jqXhr_, testStatus_) {
+    //        window.toastr.error(testStatus_, 'ERROR)');
+    //        console.log(jqXhr_, testStatus_);
+    //    });
+}
+
+function deleteRole(role_) {
     const postData = {
-        RoleId: $('#editRoleId').val(),
-        RoleName: $('#role_name_input').val(),
-        Extensions: _selectedExtensions,
-        Permission: $('#newRolePermission').val()
+        'roleName_': role_
     };
 
-    console.log(postData);
-
-    $.ajax('/administration/update-role',
+    $.ajax('/administration/delete-role',
         {
             method: 'POST',
             data: postData
-            // headers: {
-            //     'RequestVerificationToken': $('input:hidden[name='__RequestVerificationToken']', $form).val()
-            // }
         })
         .done(function (data_) {
-            window.toastr.success(data_, 'Saved');
+            window.toastr.success(data_, 'Role deleted');
             console.log(data_);
         })
         .fail(function (jqXhr_, testStatus_) {

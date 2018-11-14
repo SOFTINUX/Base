@@ -68,6 +68,6 @@ namespace SoftinuxBase.Security.Tools
                 return $"{e.Message} {e.StackTrace}";
             }
         }
-  
+
     }
 }

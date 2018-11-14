@@ -57,18 +57,6 @@ namespace SoftinuxBase.Security.Controllers
                 return View(signUp_);
             }
 
-            // Create a new User object with data from signUp_
-            /* var user = new User { UserName = signUp_.UserName, Email = signUp_.Email };
-            var result = await _userManager.CreateAsync(user, signUp_.Password);
-
-            if (result.Succeeded)
-            {
-                await _signInManager.SignInAsync(user, isPersistent:false);
-                return RedirectToAction("Index", "Home");
-            } */
-            //AddErrors(result);
-
-
             return View("Index");
         }
 
@@ -103,7 +91,7 @@ namespace SoftinuxBase.Security.Controllers
                 return View(signIn_);
             }
 
-            // find user by nickname or email 
+            // find user by nickname or email
             if (signIn_.Username.Contains("@"))
             {
                 var userForEmail = await _userManager.FindByEmailAsync(signIn_.Username);
@@ -112,7 +100,7 @@ namespace SoftinuxBase.Security.Controllers
                     signIn_.Username = userForEmail.UserName;
                 }
             }
-            
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, set lockoutOnFailure: true
             var result = await _signInManager.PasswordSignInAsync(signIn_.Username, signIn_.Password, signIn_.RememberMe, lockoutOnFailure: false);
@@ -170,7 +158,7 @@ namespace SoftinuxBase.Security.Controllers
         /// <returns>view for creating new user</returns>
         [HttpGet]
         public IActionResult CreateUser()
-        {           
+        {
             // return user creation view
             return null;
         }

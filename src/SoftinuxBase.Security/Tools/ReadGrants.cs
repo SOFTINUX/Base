@@ -26,7 +26,6 @@ namespace SoftinuxBase.Security.Tools
         {
             GrantViewModel model = new GrantViewModel();
 
-              
              // 1. Get all scopes from available extensions, create initial dictionaries
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
             {
@@ -83,19 +82,18 @@ namespace SoftinuxBase.Security.Tools
                 rp_ => new SelectedExtension
                 {
                     Name = rp_.Scope, Permission = rp_.PermissionId
-                        
                 })
                 .ToList();
 
             IEnumerable<string> selectedExtensionsNames = selectedExtensions_.Select(se_ => se_.Name).ToList();
-            
+
             availableExtensions_ = new List<string>();
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
             {
                 var extensionName = extensionMetadata.GetExtensionName();
                 if(!selectedExtensionsNames.Contains(extensionName))
                     availableExtensions_.Add(extensionName);
-            }           
+            }
         }
     }
 }
