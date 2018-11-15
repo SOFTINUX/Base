@@ -16,9 +16,9 @@ namespace SoftinuxBase.Security.Controllers
 {
     public class AccountController : Infrastructure.ControllerBase
     {
-        private SignInManager<User> _signInManager;
-        private UserManager<User> _userManager;
-        private ILogger _logger;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly ILogger _logger;
 
         public AccountController(IStorage storage_, ILoggerFactory loggerFactory_, UserManager<User> userManager_, SignInManager<User> signInManager_) : base(storage_, loggerFactory_)
         {
@@ -54,22 +54,10 @@ namespace SoftinuxBase.Security.Controllers
             {
                 signUp_.ErrorMessage = "Form has error(s)";
                 ModelState.AddModelError("IncompleteForm", signUp_.ErrorMessage);
-                return View(signUp_);
+                return await Task.Run(() => View(signUp_));
             }
 
-            // Create a new User object with data from signUp_
-            /* var user = new User { UserName = signUp_.UserName, Email = signUp_.Email };
-            var result = await _userManager.CreateAsync(user, signUp_.Password);
-
-            if (result.Succeeded)
-            {
-                await _signInManager.SignInAsync(user, isPersistent:false);
-                return RedirectToAction("Index", "Home");
-            } */
-            //AddErrors(result);
-
-
-            return View("Index");
+            return await Task.Run(() => View("Index"));
         }
 
         /// <summary>
@@ -79,16 +67,16 @@ namespace SoftinuxBase.Security.Controllers
         [HttpGet]
         //[ImportModelStateFromTempData]
         [AllowAnonymous]
-        public IActionResult SignIn()
+        public async Task<IActionResult> SignIn()
         {
-            return View();
+            return await Task.Run(() => View());
         }
 
         /// <summary>
         /// Sign in action request.
         /// </summary>
         /// <param name="signIn_"></param>
-        /// <returns></returns>
+        /// <returns>View</returns>
         [HttpPost]
         //[ExportModelStateToTempData]
         [AllowAnonymous]
@@ -100,10 +88,10 @@ namespace SoftinuxBase.Security.Controllers
             {
                 signIn_.ErrorMessage = "Required data missing";
                 ModelState.AddModelError("BadUserPassword", signIn_.ErrorMessage);
-                return View(signIn_);
+                return await Task.Run(() => View(signIn_));
             }
 
-            // find user by nickname or email 
+            // find user by nickname or email
             if (signIn_.Username.Contains("@"))
             {
                 var userForEmail = await _userManager.FindByEmailAsync(signIn_.Username);
@@ -112,7 +100,7 @@ namespace SoftinuxBase.Security.Controllers
                     signIn_.Username = userForEmail.UserName;
                 }
             }
-            
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, set lockoutOnFailure: true
             var result = await _signInManager.PasswordSignInAsync(signIn_.Username, signIn_.Password, signIn_.RememberMe, lockoutOnFailure: false);
@@ -121,7 +109,7 @@ namespace SoftinuxBase.Security.Controllers
                 _logger.LogInformation("User logged in");
 
                 // Go to dashboard, action Index of Barebone's controller
-                return RedirectToAction("Index", "Barebone");
+                return await Task.Run(() => RedirectToAction("Index", "Barebone"));
             }
             //if (result.RequiresTwoFactor)
             //{
@@ -141,52 +129,72 @@ namespace SoftinuxBase.Security.Controllers
                 ModelState.AddModelError("BadUserPassword", signIn_.ErrorMessage);
             }
             // If we got this far, something failed, redisplay form
-            return View(signIn_);
+            return await Task.Run(() => View(signIn_));
 
         }
 
+        /// <summary>
+        /// SignOut action request
+        /// </summary>
+        /// <returns>View SignIn</returns>
         [HttpGet]
         public async Task<IActionResult> SignOut()
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
-            return RedirectToAction("SignIn");
+            return await Task.Run(() => RedirectToAction("SignIn"));
         }
 
+        /// <summary>
+        /// No acces area
+        /// </summary>
+        /// <returns>View</returns>
         [HttpGet]
-        public IActionResult AccessDenied()
+        public async Task<IActionResult> AccessDenied()
         {
-            return View();
+            return await Task.Run(() => View());
         }
 
+        /// <summary>
+        /// Create user action request
+        /// </summary>
+        /// <returns>view for creating new user</returns>
         [HttpGet]
-        public IActionResult CreateOrEditUser(string userId_)
+        public IActionResult CreateUser()
         {
+            // TODO coder: create this as async method
+            // return user creation view
             return null;
         }
 
         [HttpPost]
         public IActionResult SaveUser(string userId_)
         {
+            // TODO coder: create this as async method
             return null;
         }
 
+        /// <summary>
+        /// Update user profile action request
+        /// </summary>
+        /// <param name="userId_"></param>
+        /// <returns>view user</returns>
         [HttpGet]
-        public IActionResult EditProfile(string userId_)
+        public async Task<IActionResult> UpdateProfile(string userId_)
         {
-            return View("User");
+            return await Task.Run(() => View("User"));
         }
 
         /// <summary>
         /// Return true when user name isn't in use.
         /// </summary>
         /// <param name="userName_"></param>
-        /// <returns></returns>
+        /// <returns>json</returns>
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult CheckUserNameExist(string userName_)
+        public async Task<IActionResult> CheckUserNameExist(string userName_)
         {
-            return Json(!RegisterUser.IsUserExist(Storage, userName_, _userManager));
+            return await Task.Run(() => Json(!RegisterUser.IsUserExist(Storage, userName_, _userManager)));
         }
     }
 }

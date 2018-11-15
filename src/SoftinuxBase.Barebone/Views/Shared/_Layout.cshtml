@@ -19,7 +19,6 @@ Licensed under the MIT License, Version 2.0. See License.txt in the project root
     <title>@Html.Raw(ViewBag.Title as string)</title>
     @await Component.InvokeAsync("StyleSheets")
     @RenderSection("Styles", false)
-     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 @{
     string authClass="";
@@ -29,7 +28,7 @@ Licensed under the MIT License, Version 2.0. See License.txt in the project root
     bool hasModelWithErrorMessageProperty = properties != null && properties.Where(p => p.Name.Equals("ErrorMessage")).Any();
 }
 <body class="@authClass">
-    <div class="wrapper" @if (!User.Identity.IsAuthenticated){ @Html.Raw("style=\"background-image: url('" + OptionsApplicationConfiguration.Value.LoginBackgroundImage + "');\"")}>
+    <div class="wrapper" @if (!User.Identity.IsAuthenticated){ @Html.Raw("style=\"background-image: url('" + OptionsApplicationConfiguration.Value.LoginBackgroundImage + "'); background-size: cover;\"")}>
         @if (User.Identity.IsAuthenticated)
         {
             @* Main Header *@

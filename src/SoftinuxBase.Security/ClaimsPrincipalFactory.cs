@@ -18,11 +18,7 @@ namespace SoftinuxBase.Security
     {
         private readonly IStorage _storage;
 
-        public ClaimsPrincipalFactory(
-            UserManager<User> userManager_,
-            RoleManager<IdentityRole<string>> roleManager_,
-            IOptions<IdentityOptions> optionsAccessor_,
-            IStorage storage_)
+        public ClaimsPrincipalFactory(UserManager<User> userManager_, RoleManager<IdentityRole<string>> roleManager_, IOptions<IdentityOptions> optionsAccessor_, IStorage storage_)
             : base(userManager_, roleManager_, optionsAccessor_)
         {
             _storage = storage_;

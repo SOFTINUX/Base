@@ -1,0 +1,14 @@
+[
+  {
+    "outputFileName": "Scripts/barebone.min.js",
+    "inputFiles": [
+      "Scripts/barebone.js",
+      "Scripts/infrastructure.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": true
+  }
+]

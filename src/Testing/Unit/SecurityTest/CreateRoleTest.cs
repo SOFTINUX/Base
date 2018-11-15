@@ -24,11 +24,10 @@ namespace SecurityTest
         }
 
         /// <summary>
-        /// Test the creation of role with 0, 1 or 2 associated extensions.
+        /// Test the creation of role with 1 or 2 associated extensions.
         /// </summary>
         /// <param name="extensionNames_"></param>
         [Theory]
-        [InlineData("")]
         [InlineData("Security,Chinook")]
         [InlineData("Security")]
         public async Task TestCheckAndSaveNewRole_Ok(string extensionNames_)
@@ -43,13 +42,13 @@ namespace SecurityTest
                 {
                     // Really unique value
                     RoleName = roleName,
-                    Extensions = new System.Collections.Generic.List<string> (extensions),
+                    Extensions = new System.Collections.Generic.List<string>(extensions),
                     Permission = Permission.Write.ToString()
                 };
 
                 // Execute
                 var result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage);
-                
+
                 // Assert
                 Assert.Null(result);
 
@@ -61,22 +60,64 @@ namespace SecurityTest
                 // 2. Expect to have an expected number of records in RolePermission table for the new role
                 var rolePermissionRecords = permRepo.FilteredByRoleId(createdRole.Id);
                 Assert.Equal(extensions.Count(), rolePermissionRecords.Count());
-                
+
             }
             finally
             {
                 // Cleanup created data
                 var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(roleName);
-                Assert.NotNull(createdRole);
-                foreach (var rolePermission in permRepo.FilteredByRoleId(createdRole.Id))
-                    permRepo.Delete(rolePermission.RoleId, rolePermission.Scope);
+                if (createdRole != null)
+                {
+                    foreach (var rolePermission in permRepo.FilteredByRoleId(createdRole.Id))
+                        permRepo.Delete(rolePermission.RoleId, rolePermission.Scope);
 
-                await DatabaseFixture.RoleManager.DeleteAsync(createdRole);
+                    await DatabaseFixture.RoleManager.DeleteAsync(createdRole);
+                }
             }
         }
-        
+
+        /// <summary>
+        /// Test that we cannot create a role without any extension.
+        /// </summary>
         [Fact]
-        public async Task TestCheckAndSaveNewRole_NameAlreadyTaken()
+        public async Task TestCheckAndSaveNewRole_Error_NoExtensionSelected()
+        {
+            string roleName = "New Role 1 " + DateTime.Now.Ticks;
+            var permRepo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
+            try
+            {
+                // Arrange
+                SaveNewRoleAndGrantsViewModel model = new SaveNewRoleAndGrantsViewModel
+                {
+                    // Really unique value
+                    RoleName = roleName,
+                    Extensions = null,
+                    Permission = Permission.Write.ToString()
+                };
+
+                // Execute
+                var result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage);
+
+                // Assert
+                Assert.NotNull(result);
+                Assert.Equal("At least one extension must be selected", result);
+            }
+            finally
+            {
+                // Cleanup created data
+                var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(roleName);
+                if (createdRole != null)
+                {
+                    foreach (var rolePermission in permRepo.FilteredByRoleId(createdRole.Id))
+                        permRepo.Delete(rolePermission.RoleId, rolePermission.Scope);
+
+                    await DatabaseFixture.RoleManager.DeleteAsync(createdRole);
+                }
+            }
+        }
+
+        [Fact]
+        public async Task TestCheckAndSaveNewRole_Error_NameAlreadyTaken()
         {
             string roleName = "New Role 1 " + DateTime.Now.Ticks;
             var permRepo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
@@ -94,7 +135,7 @@ namespace SecurityTest
 
                 // Execute
                 var result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage);
-                
+
                 // Assert
                 Assert.Null(result);
 
@@ -110,11 +151,13 @@ namespace SecurityTest
             {
                 // Cleanup created data
                 var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(roleName);
-                Assert.NotNull(createdRole);
-                foreach (var rolePermission in permRepo.FilteredByRoleId(createdRole.Id))
-                    permRepo.Delete(rolePermission.RoleId, rolePermission.Scope);
+                if (createdRole != null)
+                {
+                    foreach (var rolePermission in permRepo.FilteredByRoleId(createdRole.Id))
+                        permRepo.Delete(rolePermission.RoleId, rolePermission.Scope);
 
-                await DatabaseFixture.RoleManager.DeleteAsync(createdRole);
+                    await DatabaseFixture.RoleManager.DeleteAsync(createdRole);
+                }
             }
         }
     }

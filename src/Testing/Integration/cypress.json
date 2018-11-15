@@ -1,0 +1,8 @@
+{
+    "supportFile": "src/Support/index.ts",
+    "integrationFolder": "src/Integration",
+    "fixturesFolder": "src/Fixtures",
+    "pluginsFile": "src/Plugins",
+    "screenshotsFolder": "screenshots",
+    "videosFolder": "videos"
+  }

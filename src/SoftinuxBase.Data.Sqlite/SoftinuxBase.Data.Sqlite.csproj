@@ -1,7 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp2.1</TargetFramework>
-    </PropertyGroup>
+      <Authors>Benjamin Nolmans, Barbara Post</Authors>
+      <Company>SOFTINUX</Company>
+      <Copyright>Copyright © 2017 Softinux</Copyright>
+      <Version>0.0.1</Version>
+      <TargetFramework>netcoreapp2.1</TargetFramework>
+      <AssemblyName>SoftinuxBase.Barebone</AssemblyName>
+      <RootNamespace>SoftinuxBase.Barebone</RootNamespace>
+      <PackageId>SoftinuxBase.Barebone</PackageId>
+      <PackageIconUrl></PackageIconUrl>
+      <PackageProjectUrl>http://www.softinux.com/</PackageProjectUrl>
+  </PropertyGroup>
 
 </Project>

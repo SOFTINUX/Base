@@ -2,6 +2,7 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.Linq;
+using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -29,18 +30,18 @@ namespace SoftinuxBase.Security.Controllers
 
         [Route("administration/listusers")]
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             ViewBag.userList = _usersmanager.Users.Select(u => new SelectListItem { Text = u.UserName, Value = u.Id }).ToList();
-            return View("ListUsers");
+            return await Task.Run(() => View("ListUsers"));
         }
 
         [Route("administration/listusers/edituser")]
         [HttpGet]
-        public IActionResult EditUser(string userId_)
+        public async Task<IActionResult> EditUser(string userId_)
         {
             var user = _usersmanager.Users.FirstOrDefault(u_ => u_.Id == userId_);
-            return View("Admin_Edit_User", user);
+            return await Task.Run(() => View("Admin_Edit_User", user));
         }
     }
 }

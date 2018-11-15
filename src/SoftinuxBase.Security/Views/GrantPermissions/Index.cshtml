@@ -2,27 +2,27 @@
     Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 *@
 @using Microsoft.AspNetCore.Identity
-@using Newtonsoft.Json
+@using ExtCore.Infrastructure
 @using SoftinuxBase.Infrastructure.Extensions
 @using SoftinuxBase.Infrastructure.Interfaces
+
 @model SoftinuxBase.Security.ViewModels.Permissions.GrantViewModel
 @inject RoleManager<IdentityRole<string>> RolesManager
 
 @section title {
-    <h2>Roles & Permissions</h2>
+    Roles & Permissions
 }
 
 @{
-    var modelAsJson = JsonConvert.SerializeObject(Model.PermissionsByRoleAndScope);
     string inputExtendAttributes = "onCopy=\"return false;\" onDrag=\"return false;\" onDrop=\"return false;\" onPaste=\"return false;\" autocomplete=off";
 }
 
 @section Styles {
-    <style>
-        .holdButtonProgress {
-            height: 5px !important;
-        }
-    </style>
+<style>
+    .holdButtonProgress {
+        height: 5px !important;
+    }
+</style>
 }
 
 <div class="row">
@@ -35,13 +35,13 @@
             <div class="box-body">
                 <div class="margin">
                     <div class="btn-group">
-                        <button id="add-role" type="button" class="btn btn-block btn-default">Add role</button>
+                        <button id="add-role-btn" type="button" class="btn btn-block btn-default">Add role</button>
                     </div>
                     <div class="btn-group">
-                        <button id="edit-role" type="button" class="btn btn-block btn-default">Edit role</button>
+                        <button id="edit-role-btn" type="button" class="btn btn-block btn-default">Edit role</button>
                     </div>
                     <div class="btn-group">
-                        <button id="delete-role" type="button" class="btn btn-block btn-danger">Delete role</button>
+                        <button id="delete-role-btn" type="button" class="btn btn-block btn-danger">Delete role</button>
                     </div>
                 </div>
 
@@ -57,7 +57,7 @@
                                         <div class="input-group-btn bs-dropdown-to-select-acl-group" style="vertical-align: top;">
                                             <button class="btn btn-default dropdown-toggle bs-dropdown-to-select-acl" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <span data-bind="bs-drp-sel-acl-label">Read</span>
-                                                <input type="hidden" name="acl-selected_value" id="newRolePermission" data-bind="bs-drp-sel-acl-value" value="2">
+                                                <input type="hidden" name="acl-selected_value" id="newRolePermission" data-bind="bs-drp-sel-acl-value" value="1">
                                                 <span class="caret"></span>
                                                 <span class="sr-only">Toggle Dropdown</span>
                                             </button>
@@ -77,12 +77,11 @@
                             <div class="col-md-5">
                                 <div class="form-group margin">
                                     <label>Available extension(s)</label>
-                                    <select class="form-control" multiple="" id="availableExtensions">
-                                        @* here options *@
+                                    <select class="form-control" multiple="" id="addRoleLeftExtensionsList">
                                         @{
-                                            foreach (IExtensionMetadata extensionMetadata in ExtCore.Infrastructure.ExtensionManager.GetInstances<IExtensionMetadata>())
+                                            foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
                                             {
-                                                var scope = TypeExtensions.GetScope(extensionMetadata);
+                                                var scope = extensionMetadata.GetExtensionName();
                                                 if (extensionMetadata.IsAvailableForPermissions)
                                                 {
                                                     <option value="@Html.Raw(scope)">@Html.Raw(scope)</option>
@@ -94,20 +93,20 @@
                             </div>
                             <div class="col-md-2 pagination-centered text-center">
                                 <div class="btn-group-vertical">
-                                    <button class="btn btn-default" type="button" id="btnRight"><i class="fa fa-angle-right"></i></button>
-                                    <button class="btn btn-default" type="button" id="btnAllRight"><i class="fa fa-angle-double-right"></i></button>
+                                    <button class="btn btn-default" type="button" id="addRoleBtnRight" data-fromlist="addRoleLeftExtensionsList" data-tolist="addRoleRightExtensionsList"><i class="fa fa-angle-right"></i></button>
+                                    <button class="btn btn-default" type="button" id="addRoleBtnAllRight" data-fromlist="addRoleLeftExtensionsList" data-tolist="addRoleRightExtensionsList" data-bulk-move><i class="fa fa-angle-double-right"></i></button>
                                 </div>
                                 <br />
                                 <br />
                                 <div class="btn-group-vertical">
-                                    <button class="btn btn-default" type="button" id="btnAllLeft"><i class="fa fa-angle-double-left"></i></button>
-                                    <button class="btn btn-default" type="button" id="btnLeft"><i class="fa fa-angle-left"></i></button>
+                                    <button class="btn btn-default" type="button" id="addRoleBtnAllLeft" data-fromlist="addRoleRightExtensionsList" data-tolist="addRoleLeftExtensionsList" data-bulk-move><i class="fa fa-angle-double-left"></i></button>
+                                    <button class="btn btn-default" type="button" id="addRoleBtnLeft" data-fromlist="addRoleRightExtensionsList" data-tolist="addRoleLeftExtensionsList"><i class="fa fa-angle-left"></i></button>
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="form-group margin">
                                     <label>Selected extension(s)</label>
-                                    <select class="form-control" multiple="" id="selectedExtensions" name="selectedExtensions">
+                                    <select class="form-control" multiple="" id="addRoleRightExtensionsList" name="selectedExtensions">
                                         @* here selected extensions options *@
                                     </select>
                                 </div>
@@ -130,6 +129,7 @@
                     </div>
 
                 </div>
+
                 <div class="row hidden" id="edit-role-area">
                     <div class="col-md-12">
                         <h3>Edit role</h3>
@@ -147,29 +147,60 @@
                                 </div>
                             </div>
                             <form id="edit-role-form" action="administration/updaterolename">
-                            @Html.AntiForgeryToken()
+                                @Html.AntiForgeryToken()
                                 <div class="col-md-4">
                                     <div class="form-group" id="edit-role-group">
                                         <label>Role Name:</label>
-                                        <input id="name" name="name" type="text" class="form-control" @Html.Raw(inputExtendAttributes)/>
+                                        <input id="edit_role_name_input" name="edit_role_name_input" type="text" class="form-control" @Html.Raw(inputExtendAttributes) />
                                     </div>
                                     <div class="form-group">
                                         <label>Role Id:</label>
-                                        <input type="hidden" name="id" value="test"/>
-                                        <input id="id" name="id-dis" type="text" class="form-control" disabled="disabled"/>
+                                        <input type="hidden" name="editRoleId" id="editRoleId" />
+                                        <input id="edit_role_id" name="edit_role_id" type="text" class="form-control" disabled="disabled" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Role Normalized:</label>
-                                        <input id="normalizedName" type="text" class="form-control" disabled="disabled"/>
+                                        <label>Role Normalized Name:</label>
+                                        <input id="edit_role_normalizedName" type="text" class="form-control" disabled="disabled" />
                                     </div>
                                     <div class="form-group">
-                                        <label>Role ConcurrencyStamp:</label>
-                                        <input id="concurrencyStamp" type="text" class="form-control" disabled="disabled"/>
+                                        <label>Role Concurrency Stamp:</label>
+                                        <input id="edit_role_concurrencyStamp" type="text" class="form-control" disabled="disabled" />
                                     </div>
                                 </div>
                             </form>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group margin">
+                                    <label>Available extension(s)</label>
+                                    <select class="form-control" multiple="" id="editRoleLeftExtensionsList">
+                                        @* here available extensions options *@
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2 pagination-centered text-center">
+                                <div class="btn-group-vertical">
+                                    <button class="btn btn-default" type="button" id="editRoleBtnRight" data-fromlist="editRoleLeftExtensionsList" data-tolist="editRoleRightExtensionsList"><i class="fa fa-angle-right"></i></button>
+                                    <button class="btn btn-default" type="button" id="editRoleBtnAllRight" data-fromlist="editRoleLeftExtensionsList" data-tolist="editRoleRightExtensionsList" data-bulk-move="true"><i class="fa fa-angle-double-right"></i></button>
+                                </div>
+                                <br />
+                                <br />
+                                <div class="btn-group-vertical">
+                                    <button class="btn btn-default" type="button" id="editRoleBtnAllLeft" data-fromlist="editRoleRightExtensionsList" data-tolist="editRoleLeftExtensionsList"><i class="fa fa-angle-double-left"></i></button>
+                                    <button class="btn btn-default" type="button" id="editRoleBtnLeft" data-fromlist="editRoleRightExtensionsList" data-tolist="editRoleLeftExtensionsList" data-bulk-move="true"><i class="fa fa-angle-left"></i></button>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group margin">
+                                    <label>Selected extension(s)</label>
+                                    <input type="hidden" id="editRoleInitialRightExtensionsList" />
+                                    <select class="form-control" multiple="" id="editRoleRightExtensionsList">
+                                        @* here selected extensions options *@
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="margin">
@@ -197,16 +228,18 @@
             <div class="box-body">
                 <section class="content">
                     <div class="row">
-                        <div class="col-md-6">
+                        @* header *@
+                        <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
                             <div class="row table-header collapsed">
-                                <div class="col-md-1 table-header-cell" id="collapse" data-state="closed">
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 table-header-cell" id="collapse" data-state="closed">
                                     <i class="chevron-double fa fa-fw"></i>
                                 </div>
-                                <div class="col-md-4 table-header-cell" align="center">Extension name</div>
-                                <div class="col-md-1 table-header-cell">&nbsp;</div>
-                                <div class="col-md-1 table-header-cell">Admin</div>
-                                <div class="col-md-1 table-header-cell">Write</div>
-                                <div class="col-md-1 table-header-cell">Read</div>
+                                <div class="col-lg-4 col-md-5 col-sm-5 col-xs-4 table-header-cell" align="center">Extension name</div>
+                                <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2 table-header-cell">Admin</div>
+                                <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2 table-header-cell">Write</div>
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 table-header-cell">Read</div>
+                                @* empty row for trash icon in role row *@
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 table-header-cell">&nbsp;</div>
                             </div>
                         </div>
                     </div>
@@ -227,21 +260,24 @@
                 <button type="button" class="btn btn-xs pull-right alert-default alert-danger-default" data-dismiss="modal"><strong>Close</strong></button>
                 <h4 class="modal-title" id="myModalLabel" style="font-size: 12pt;"><i class="fa fa-warning"></i>&nbsp;&nbsp;<strong>CONFIRM REMOVE ROLE</strong></h4>
             </div>
-            @*<div style="margin-top: 1px; background-color: #2e77bc; height: 1px; width: 100%;"></div>*@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">You are about to remove the <strong><span id="selectedRoleName"></span></strong> role for :</div>
                 </div>
                 <div class="row top-buffer">
-                    <div class="col-md-12 vertical-align-center"><span class="valign-center">&#9679; module: <strong><span id="moduleName"></span></strong></span>
-                    <button class="btn btn-default pull-right"><span aria-hidden="true"><i class="fa fa-trash-o"></i></span>&nbsp; Remove for this module</button></div>
+                    <div class="col-md-12 vertical-align-center">
+                        <span class="valign-center">&#9679; module: <strong><span id="moduleName"></span></strong></span>
+                        <button class="btn btn-default pull-right"><span aria-hidden="true"><i class="fa fa-trash-o"></i></span>&nbsp; Remove for this module</button>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12"><hr /></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12 vertical-align-center"><span class="valign-center">&#9679; all modules!</span>
-                    <button class="btn btn-danger pull-right removeAllRoles"><span aria-hidden="true"><i class="fa fa-trash-o" style="color: #ffffff;"></i></span>&nbsp; Remove on all modules</button></div>
+                    <div class="col-md-12 vertical-align-center">
+                        <span class="valign-center">&#9679; all modules!</span>
+                        <button class="btn btn-danger pull-right removeAllRoles"><span aria-hidden="true"><i class="fa fa-trash-o" style="color: #ffffff;"></i></span>&nbsp; Remove on all modules</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -271,7 +307,9 @@
             progressIndicatorPosition: "bottom"
         });
 
-        $(".removeAllRoles").on('complete.pressAndHold', function(event) {
+        $(".removeAllRoles").on('complete.pressAndHold', function() {
+            //deleteRole();
+            console.log("");
             console.log("complete");
             $('#myModal').modal('hide');
         });

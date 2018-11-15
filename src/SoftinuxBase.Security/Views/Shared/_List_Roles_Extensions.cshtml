@@ -14,29 +14,25 @@
         if (item.Value.Any())
         {
             <div class="row extension-row accordion-toggle collapsed" data-extension-id="@Html.Raw(item.Key)" data-toggle="collapse" data-target=@Html.Raw("\"#extension" + i + "\"")>
-                <div class="col-md-6">
-                    <div class="row extension-row-height">
-                        <div class="col-md-1 table-extension-header"><i class="chevron fa fa-fw"></i></div>
-                        <div class="col-md-3 table-extension-header">@Html.Raw(item.Key)</div>
-                        <div class="col-md-2 table-extension-header">&nbsp;</div>
-                        <div class="col-md-1 table-extension-header">&nbsp;</div>
-                        <div class="col-md-1 table-extension-header">&nbsp;</div>
-                        <div class="col-md-1 table-extension-header">&nbsp;</div>
+                <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-md-1 col-xs-1 table-extension-header"><i class="chevron fa fa-fw"></i></div>
+                        <div class="col-md-3 col-xs-3 table-extension-header">@Html.Raw(item.Key)</div>
                     </div>
                     <div class="row collapse" id=@Html.Raw("\"extension" + i + "\"") onclick="StopAccordionsPropagation(event);">
-                        <div class="col-md-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             @* html into roles list loop *@
                             @foreach (var subitem in item.Value)
                             {
                                 <div class="row" data-role-id="@Html.Raw(item.Key+ "_" + subitem.Key)">
-                                    <div class="col-md-2 cell-heigth-25" align="right">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 cell-heigth-25" align="right">
                                         @if (item.Value.ElementAt(0).Key.Equals(subitem.Key))
                                         {@Html.Raw("Role name: ")}
                                     </div>
                                     @* Role name *@
-                                    <div class="col-md-4 cell-heigth-25 cell-role-row">@Html.Raw(subitem.Key)</div>
+                                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 cell-heigth-25 cell-role-row">@Html.Raw(subitem.Key)</div>
                                     @* admin checkbox *@
-                                    <div class="col-md-1 cell-heigth-25 cell-role-row">
+                                    <div class="col-lg-1 col-md-2 col-sm-2 col-xs-1 cell-heigth-25 cell-role-row">
                                         <label class="checkbox-container">
                                             <input id="@Html.Raw(item.Key + "_" + subitem.Key + "_" + "ADMIN")" type="checkbox"
                                                    @if (subitem.Value.Contains(Permission.Admin)) { @Html.Raw("checked") } onclick="checkClick()">
@@ -44,7 +40,7 @@
                                         </label>
                                     </div>
                                     @* write checkbox *@
-                                    <div class="col-md-1 cell-heigth-25 cell-role-row">
+                                    <div class="col-lg-1 col-md-2 col-sm-2 col-xs-1 cell-heigth-25 cell-role-row">
                                         <label class="checkbox-container">
                                             <input id="@Html.Raw(item.Key + "_" + subitem.Key + "_" + "WRITE")" type="checkbox"
                                                    @if (subitem.Value.Contains(Permission.Write)) { @Html.Raw("checked") }
@@ -53,7 +49,7 @@
                                         </label>
                                     </div>
                                     @* read checkbox *@
-                                    <div class="col-md-1 cell-heigth-25 cell-role-row">
+                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 cell-heigth-25 cell-role-row">
                                         <label class="checkbox-container">
                                             <input id="@Html.Raw(item.Key + "_" + subitem.Key + "_" + "READ")" type="checkbox"
                                                    @if (subitem.Value.Contains(Permission.Read)) { @Html.Raw("checked") }
@@ -61,9 +57,7 @@
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
-                                    <div class="col-md-1 cell-heigth-25 cell-role-row">&nbsp;</div>
-                                    <div class="col-md-1 cell-heigth-25 cell-role-row">&nbsp;</div>
-                                    <div class="col-md-1 cell-heigth-25 cell-role-row delete-role" data-toggle="modal" data-target="#myModal" onclick="removeRoleLink()"></div>
+                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 cell-heigth-25 cell-role-row delete-role" data-toggle="modal" data-target="#myModal" onclick="removeRoleLink()"></div>
                                 </div>
                             }
                         </div>

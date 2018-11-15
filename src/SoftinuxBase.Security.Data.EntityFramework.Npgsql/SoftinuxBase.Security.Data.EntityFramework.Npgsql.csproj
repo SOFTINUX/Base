@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Authors>Benjamin Nolmans, Barbara Post</Authors>
+    <Company>SOFTINUX</Company>
+    <Copyright>Copyright © 2017 Softinux</Copyright>
+    <Version>0.0.1</Version>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AssemblyName>SoftinuxBase.Security.Data.EntityFramework.Sqlite</AssemblyName>
+    <RootNamespace>SoftinuxBase.Security.Data.EntityFramework.Sqlite</RootNamespace>
+    <PackageId>SoftinuxBase.Security.Data.EntityFramework.Sqlite</PackageId>
+    <PackageIconUrl></PackageIconUrl>
+    <PackageProjectUrl>http://www.softinux.com/</PackageProjectUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SoftinuxBase.Security.Data.Abstractions\SoftinuxBase.Security.Data.Abstractions.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.Data.EntityFramework\SoftinuxBase.Security.Data.EntityFramework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.2" />
+  </ItemGroup>
+
+</Project>

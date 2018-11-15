@@ -1,26 +1,28 @@
 // Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 
-(function(application) {
-    application.eventHandlers = application.eventHandlers || [];
-    application.registerEventHandler = function(eventHandler) {
-        application.eventHandlers.push(eventHandler);
+(function(application_) {
+    'use strict';
+
+    application_.eventHandlers = application_.eventHandlers || [];
+    application_.registerEventHandler = function(eventHandler_) {
+        application_.eventHandlers.push(eventHandler_);
     };
 
-    application.initializeEventHandlers = function() {
-        $("body").on("click", "button", function() {
-            handleEvent("click", "button", this);
+    application_.initializeEventHandlers = function() {
+        $('body').on('click', 'button', function() {
+            handleEvent('click', 'button', this);
         });
 
-        $("body").on("change", "input", function() {
-            handleEvent("change", "input", this);
+        $('body').on('change', 'input', function() {
+            handleEvent('change', 'input', this);
         });
     };
 
-    function handleEvent(eventName, tagName, element) {
-        for (var i = 0; i < application.eventHandlers.length; i++) {
-            if (application.eventHandlers[i].eventName == eventName && application.eventHandlers[i].tagName == tagName) {
-                application.eventHandlers[i].action(element);
+    function handleEvent(eventName_, tagName_, element_) {
+        for (let i = 0; i < application_.eventHandlers.length; i++) {
+            if (application_.eventHandlers[i].eventName === eventName_ && application_.eventHandlers[i].tagName === tagName_) {
+                application_.eventHandlers[i].action(element_);
             }
         }
     }
@@ -45,12 +47,12 @@ var url = window.location;
 
 // for treeview
 $('ul.treeview-menu a').filter(function() {
-	 return this.href == url;
-}).parentsUntil(".sidebar-menu > .treeview-menu").addClass('active');
+	return this.href === url;
+}).parentsUntil('.sidebar-menu > .treeview-menu').addClass('active');
 
 // Global ajax error handler
-$(document).ajaxError(function(event, jqXhr, settings, errorMessage) {
-    var errMsg = jqXhr.responseText ? jqXhr.responseText : errorMessage;
+$(document).ajaxError(function(jqXhr_, settings_, errorMessage_) {
+    const errMsg = jqXhr_.responseText ? jqXhr_.responseText : errorMessage_;
     window.toastr.error(errMsg, 'ERROR');
-    console.log("Error calling ", settings.url, " ", errMsg);
+    console.log('Error calling ', settings_.url, ' ', errMsg);
   });

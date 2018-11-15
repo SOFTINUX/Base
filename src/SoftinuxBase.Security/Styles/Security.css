@@ -17,10 +17,13 @@
 .permission-label-position {
     width: auto;
 }
+.table-header-cell{
+    border-bottom: 1px solid #ddd;
+}
 .extension-row-height {
     line-height: 2.42857143;
     vertical-align: top;
-    border-top: 1px solid #ddd;
+
 }
 .extension-row .chevron:after {
     content: "\f078";

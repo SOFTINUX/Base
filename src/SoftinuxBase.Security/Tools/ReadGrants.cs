@@ -1,6 +1,7 @@
 // Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ExtCore.Data.Abstractions;
@@ -25,11 +26,10 @@ namespace SoftinuxBase.Security.Tools
         {
             GrantViewModel model = new GrantViewModel();
 
-              
              // 1. Get all scopes from available extensions, create initial dictionaries
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
             {
-                model.PermissionsByRoleAndScope.Add(extensionMetadata.GetScope(), new Dictionary<string, List<global::SoftinuxBase.Security.Common.Enums.Permission>>());
+                model.PermissionsByRoleAndScope.Add(extensionMetadata.GetExtensionName(), new Dictionary<string, List<global::SoftinuxBase.Security.Common.Enums.Permission>>());
             }
 
             // 2. Read data from RolePermission table
@@ -66,6 +66,34 @@ namespace SoftinuxBase.Security.Tools
             }
 
             return model;
+        }
+
+        /// <summary>
+        /// Get the list of extensions associated to a role, with corresponding permission, and also the list of extensions not linked to the role.
+        /// </summary>
+        /// <param name="roleId_">Id of a role</param>
+        /// <param name="storage_"></param>
+        /// <param name="availableExtensions_"></param>
+        /// <param name="selectedExtensions_"></param>
+        /// <returns></returns>
+        public static void GetExtensions(string roleId_, IStorage storage_, out IList<string> availableExtensions_, out IList<SelectedExtension> selectedExtensions_)
+        {
+            selectedExtensions_ = storage_.GetRepository<IRolePermissionRepository>().FilteredByRoleId(roleId_).Select(
+                rp_ => new SelectedExtension
+                {
+                    Name = rp_.Scope, Permission = rp_.PermissionId
+                })
+                .ToList();
+
+            IEnumerable<string> selectedExtensionsNames = selectedExtensions_.Select(se_ => se_.Name).ToList();
+
+            availableExtensions_ = new List<string>();
+            foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
+            {
+                var extensionName = extensionMetadata.GetExtensionName();
+                if(!selectedExtensionsNames.Contains(extensionName))
+                    availableExtensions_.Add(extensionName);
+            }
         }
     }
 }

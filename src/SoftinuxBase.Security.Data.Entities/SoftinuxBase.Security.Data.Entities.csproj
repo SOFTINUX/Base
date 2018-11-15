@@ -1,8 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <Authors>Benjamin Nolmans, Barbara Post</Authors>
+    <Company>SOFTINUX</Company>
+    <Copyright>Copyright © 2017 Softinux</Copyright>
+    <Version>0.0.1</Version>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssemblyName>SoftinuxBase.Security.Data.Entities</AssemblyName>
     <RootNamespace>SoftinuxBase.Security.Data.Entities</RootNamespace>
+    <PackageId>SoftinuxBase.Security.Data.Entities</PackageId>
+    <PackageIconUrl></PackageIconUrl>
+    <PackageProjectUrl>http://www.softinux.com/</PackageProjectUrl>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ExtCore.Data.Entities.Abstractions" Version="3.3.0" />

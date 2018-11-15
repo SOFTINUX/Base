@@ -318,15 +318,32 @@ __pycache__/
 log-[0-9]*.txt
 
 # App Extensions
-src/SoftinuxBase.WebApplication/Extensions/*
-!src/SoftinuxBase.WebApplication/Extensions/.gitkeep
+src/WebApplication/Extensions/*
+!src/WebApplication/Extensions/.gitkeep
 
 #App/tests EF Database
-src/SoftinuxBase.WebApplication/basedb.sqlite
-**/basedb_tests.sqlite
+basedb*.sqlite
 
 #Visual Studio localhistory addon
 .localhistory
 
 #KDE Dolphin
 .directory
+
+#Minified files and maps
+*.min.js
+*.min.css
+*.min.js.map
+#Not exclude this file
+!**/jquery.pressAndHold.min.js
+
+#Cypress
+src/Testing/Integration/src/Support/*.js
+src/Testing/Integration/src/Support/*.js.map
+src/Testing/Integration/dist/*
+src/Testing/Integration/screenshots/*
+src/Testing/Integration/videos/*
+!.gitkeep
+
+#npm lock packages
+package-lock.json

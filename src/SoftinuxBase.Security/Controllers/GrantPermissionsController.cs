@@ -2,6 +2,7 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
@@ -32,7 +33,7 @@ namespace SoftinuxBase.Security.Controllers
         [PermissionRequirement(Permission.Admin)]
         [Route("administration/grantpermissions")]
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
 
             // Create a dictionary with all roles for injecting as json into grant permission page
@@ -51,28 +52,36 @@ namespace SoftinuxBase.Security.Controllers
             ViewBag.RolesList = rolesList;
 
             var model = ReadGrants.ReadAll(_roleManager, Storage, roleNameByRoleId);
-            return View(model);
+            return await Task.Run(() => View(model));
         }
 
         /// <summary>
-        /// Return role for edition.
+        /// Return role for edition: role information and associated extensions list.
         /// </summary>
-        /// <param name="roleID_"></param>
-        /// <returns>JSON role object</returns>
+        /// <param name="roleId_"></param>
+        /// <returns>Http code and JSON role object</returns>
         [PermissionRequirement(Permission.Admin)]
-        [Route("administration/findrole")]
+        [Route("administration/read-role")]
         [HttpGet]
-        public async Task<IActionResult> GetRole(string roleId_)
+        public async Task<IActionResult> GetRoleForEdition(string roleId_)
         {
             if (string.IsNullOrWhiteSpace(roleId_) || string.IsNullOrEmpty(roleId_))
-                return StatusCode(400, Json("No given role for edition."));
+                return StatusCode(400, Json("No role id given"));
 
-            object _role = await _roleManager.FindByIdAsync(roleId_);
+            var role = await _roleManager.FindByIdAsync(roleId_);
 
-            if (_role == null)
-                return StatusCode(400, Json("No such role for edit."));
+            if (role == null)
+                return StatusCode(400, Json("No such role for edition"));
 
-            return StatusCode(200, Json(_role));
+            ReadGrants.GetExtensions(roleId_, Storage, out var availableExtensions, out var selectedExtensions);
+
+            ReadRoleViewModel result = new ReadRoleViewModel
+            {
+                Role = role,
+                SelectedExtensions = selectedExtensions,
+                AvailableExtensions = availableExtensions
+            };
+            return StatusCode(200, Json(result));
         }
 
         #endregion
@@ -83,10 +92,10 @@ namespace SoftinuxBase.Security.Controllers
         /// Create a role. Then create a set of records indicating to which extensions with which permission this role is linked to.
         /// </summary>
         /// <param name="model_"></param>
-        /// <returns></returns>
+        /// <returns>Http status code</returns>
         [Route("administration/savenewrole")]
         [HttpPost]
-        public async Task<ObjectResult> SaveNewRoleAndItsPermissions(SaveNewRoleAndGrantsViewModel model_)
+        public async Task<IActionResult> SaveNewRoleAndItsPermissions(SaveNewRoleAndGrantsViewModel model_)
         {
             string error = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(model_, _roleManager, Storage);
             return StatusCode(string.IsNullOrEmpty(error) ? 201 : 400, error);
@@ -118,17 +127,23 @@ namespace SoftinuxBase.Security.Controllers
         }
 
         /// <summary>
-        /// Update role name into database.
+        /// Update role name and linked extensions with permission level.
         /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        /// <param name="model_"></param>
+        /// <returns>Json string</returns>
         [PermissionRequirement(Permission.Admin)]
-        [Route("administration/updaterolename")]
+        [Route("administration/update-role")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateRoleName(string name, string id)
+        public async Task<IActionResult> UpdateRoleAndItsPermissions(UpdateRoleAndGrantsViewModel model_)
         {
-            return Json("Not yet implemented");
+            // 1. Check that new role name is free either return status 400
+            // use Tools.UpdateRoleAndGrants
+
+            // 2. Update role-permission links
+
+            // Return status code 200
+            return await Task.Run(() => Json("Not yet implemented"));
         }
 
         #endregion
@@ -140,19 +155,23 @@ namespace SoftinuxBase.Security.Controllers
         /// </summary>
         /// <param name="roleName_"></param>
         /// <param name="scope_"></param>
-        /// <returns></returns>
+        /// <returns>Json boolean</returns>
         [HttpPost]
         public async Task<IActionResult> DeleteRoleExtensionLink(string roleName_, string scope_)
         {
-            string roleId = (await _roleManager.FindByNameAsync(roleName_)).Id;
-            IRolePermissionRepository repo = Storage.GetRepository<IRolePermissionRepository>();
-            if (repo.FindBy(roleId, scope_) != null)
-            {
-                repo.Delete(roleId, scope_);
-                Storage.Save();
-                return new JsonResult(true);
-            }
-            return new JsonResult(false);
+            return new JsonResult(await Tools.DeleteRole.DeleteRoleExtensionLink(roleName_, scope_, _roleManager, this.Storage));
+        }
+
+        /// <summary>
+        /// Delete role with extention link
+        /// </summary>
+        /// <param name="roleName_"></param>
+        /// <returns>Json string</returns>
+        [HttpPost]
+        [Route("administration/delete-role")]
+        public async Task<IActionResult> DeleteRole(string roleName_)
+        {
+            return new JsonResult(await Tools.DeleteRole.DeleteRoleAndGrants(roleName_, _roleManager));
         }
 
         #endregion

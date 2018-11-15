@@ -1,8 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <Authors>Benjamin Nolmans, Barbara Post</Authors>
+    <Company>SOFTINUX</Company>
+    <Copyright>Copyright © 2017 Softinux</Copyright>
+    <Version>0.0.1</Version>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssemblyName>SoftinuxBase.Security.Data.EntityFramework.Sqlite</AssemblyName>
     <RootNamespace>SoftinuxBase.Security.Data.EntityFramework.Sqlite</RootNamespace>
+    <PackageId>SoftinuxBase.Security.Data.EntityFramework.Sqlite</PackageId>
+    <PackageIconUrl></PackageIconUrl>
+    <PackageProjectUrl>http://www.softinux.com/</PackageProjectUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>7</LangVersion>

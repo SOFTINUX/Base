@@ -1,4 +1,7 @@
-﻿using ExtCore.Data.Abstractions;
+﻿// Copyright © 2017 SOFTINUX. All rights reserved.
+// Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
+
+using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -9,13 +12,18 @@ using SoftinuxBase.Security.Data.Entities;
 
 namespace SoftinuxBase.WebApplication
 {
-    public partial class ApplicationStorageContext : IdentityDbContext<User, IdentityRole<string>, string>, IStorageContext
+    /// <summary>
+    /// Class that holds the Entity Framework DbContext's DbSets related to some extension
+    /// (entities in XXX.Data.Entities project) and that also inherits from ExtCore's IStorageContext.
+    /// </summary>
+    /// <typeparam name="string"></typeparam>
+    public class ApplicationStorageContext : IdentityDbContext<User, IdentityRole<string>, string>, IStorageContext
     {
         public DbSet<Permission> Permission { get; set; }
         public DbSet<RolePermission> RolePermission { get; set; }
         public DbSet<UserPermission> UserPermission { get; set; }
 
-        public ApplicationStorageContext(DbContextOptions<ApplicationStorageContext> options_)
+        public ApplicationStorageContext(DbContextOptions options_)
             : base(options_)
         {
         }
