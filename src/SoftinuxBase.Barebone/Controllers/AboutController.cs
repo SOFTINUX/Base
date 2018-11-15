@@ -1,6 +1,7 @@
 // Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SoftinuxBase.Barebone.Controllers
@@ -8,9 +9,9 @@ namespace SoftinuxBase.Barebone.Controllers
     public class AboutController : Controller
     {
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            return await Task.Run(() => View());
         }
     }
 }

@@ -1,6 +1,7 @@
-﻿using System;
+﻿// Copyright © 2017 SOFTINUX. All rights reserved.
+// Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
+
 using System.Collections.Generic;
-using System.Text;
 using Microsoft.AspNetCore.Identity;
 using SoftinuxBase.Security.Data.Entities;
 using Permission = SoftinuxBase.Security.Common.Enums.Permission;
@@ -9,40 +10,30 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
 {
     public class RoleObject
     {
-        public RoleObject(IdentityRole<string> role_)
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="role_">Required parameter</param>
+        /// <param name="users_">Optional parameter</param>
+        /// <param name="extensions_">Optional parameter</param>
+        /// <param name="permissions_">Optional parameter</param>
+        public RoleObject(IdentityRole<string> role_, List<User> users_ = null, List<string> extensions_ = null, List<Permission> permissions_ = null)
         {
             RoleNormalizedName = role_.NormalizedName;
             ConcurrencyStamp = role_.ConcurrencyStamp;
-        }
-
-        public RoleObject(IdentityRole<string> role_, List<User> users_)
-        {
-            RoleNormalizedName = role_.NormalizedName;
-            ConcurrencyStamp = role_.ConcurrencyStamp;
-            Users = users_;
-        }
-
-        public RoleObject(IdentityRole<string> role_, List<string> extensions_)
-        {
-            RoleNormalizedName = role_.NormalizedName;
-            ConcurrencyStamp = role_.ConcurrencyStamp;
-            Extensions = extensions_;
-        }
-
-        public RoleObject(IdentityRole<string> role_, List<string> extensions_, List<User> users_)
-        {
-            RoleNormalizedName = role_.NormalizedName;
-            ConcurrencyStamp = role_.ConcurrencyStamp;
+            RoleName = role_.Name;
+            RoleId = role_.Id;
             Extensions = extensions_;
             Users = users_;
+            Permissions = permissions_;
         }
 
         public string RoleId { get; set; }
         public string RoleName { get; set; }
         public string RoleNormalizedName { get; }
         public string ConcurrencyStamp { get; }
-        public List<Permission> Permissions { get; set; }
-        public List<string> Extensions { get; set; }
-        public List<Security.Data.Entities.User> Users { get; }
+        public List<Permission> Permissions { get; private set; }
+        public List<string> Extensions { get; private set; }
+        public List<User> Users { get; }
     }
 }

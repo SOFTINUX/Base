@@ -24,19 +24,13 @@ namespace SoftinuxBase.Security.Tools
         /// <summary>
         /// Create user into application
         /// </summary>
+        /// <param name="storage_"></param>
         /// <param name="viewModel_">user object from view</param>
+        /// <param name="userManager_"></param>
         /// <returns>true if create, false if fail</returns>
-        public async static Task<bool> CreateNewUser(IStorage storage_,SignUpViewModel viewModel_, UserManager<User> userManager_)
+        public static bool CreateNewUser(IStorage storage_,SignUpViewModel viewModel_, UserManager<User> userManager_)
         {
-            if (IsUserExist(storage_, viewModel_.UserName, userManager_))
-            {
-                return false;
-            }
-            if (IsUserExist(storage_, viewModel_.Email, userManager_))
-            {
-                return false;
-            }
-            return true;
+            return !IsUserExist(storage_, viewModel_.UserName, userManager_) && !IsUserExist(storage_, viewModel_.Email, userManager_);
         }
     }
 }

@@ -22,9 +22,9 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole<string>> _roleManager;
         private readonly IStorage _storage;
-        protected ILogger _logger;
+        protected ILogger Logger;
 
-        private List<IdentityRole<string>> _createdRoles = new List<IdentityRole<string>>();
+        private readonly List<IdentityRole<string>> _createdRoles = new List<IdentityRole<string>>();
 
         public SeedDatabaseController(UserManager<User> userManager_,
             RoleManager<IdentityRole<string>> roleManager_, ILoggerFactory loggerFactory_,
@@ -33,13 +33,13 @@ namespace SoftinuxBase.SeedDatabase.Controllers
             _userManager = userManager_;
             _roleManager = roleManager_;
             _storage = storage_;
-            _logger = loggerFactory_?.CreateLogger(GetType().FullName);
+            Logger = loggerFactory_?.CreateLogger(GetType().FullName);
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            _logger.LogInformation("Access REST API \"Hello world!\"");
+            Logger.LogInformation("Access REST API \"Hello world!\"");
             return Ok("Hello world!");
         }
 
@@ -49,7 +49,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         {
             // Get the list of the role from the enum
             Role[] roles = (Role[])Enum.GetValues(typeof(Role));
- 
+
             foreach(var r in roles)
             {
                 // create an identity role object out of the enum value
@@ -67,7 +67,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                     //return 500 if fail
                     if(!result.Succeeded)
                     {
-                        _logger.LogCritical("\"(CreateAsync) Error creating role: { @Name }\"", identityRole.Name);
+                        Logger.LogCritical("\"(CreateAsync) Error creating role: { @Name }\"", identityRole.Name);
                         return  StatusCode(StatusCodes.Status500InternalServerError);
                     }
                 }
@@ -111,7 +111,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
 
                     if (!result.Succeeded) //return 500 if it fails
                     {
-                        _logger.LogCritical("\"(CreateAsync) Error creating user: { @userEmail }\"", user.Email);
+                        Logger.LogCritical("\"(CreateAsync) Error creating user: { @userEmail }\"", user.Email);
                         return StatusCode(StatusCodes.Status500InternalServerError);
                     }
 
@@ -120,7 +120,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
 
                     if (!result.Succeeded) // return 500 if fails
                     {
-                        _logger.LogCritical("\"(AddToRolesAsync) Error adding user to role, user: { @userEmail }, role: Administrator\"", user.Email );
+                        Logger.LogCritical("\"(AddToRolesAsync) Error adding user to role, user: { @userEmail }, role: Administrator\"", user.Email );
                         return StatusCode(StatusCodes.Status500InternalServerError);
                     }
                 }
@@ -144,10 +144,10 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                 return saveResult;
 
             // Save ROLE-PERMISSION
-            var adminRoleId = _createdRoles.FirstOrDefault(r => r.Name == Role.Administrator.ToString()).Id;
-            var userRoleId = _createdRoles.FirstOrDefault(r => r.Name == Role.User.ToString()).Id;
-            var anonymousRoleId = _createdRoles.FirstOrDefault(r => r.Name == Role.Anonymous.ToString()).Id;
-           
+            var adminRoleId = _createdRoles.FirstOrDefault(r_ => r_.Name == Role.Administrator.ToString())?.Id;
+            var userRoleId = _createdRoles.FirstOrDefault(r_ => r_.Name == Role.User.ToString())?.Id;
+            var anonymousRoleId = _createdRoles.FirstOrDefault(r_ => r_.Name == Role.Anonymous.ToString())?.Id;
+
             // 1. Admin role: admin (globally)
             saveResult = SaveRolePermission(adminRoleId, Permission.Admin.ToString());
             if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
@@ -200,12 +200,12 @@ namespace SoftinuxBase.SeedDatabase.Controllers
             {
                 _storage.Save();
 
-                _logger.LogInformation("\"Saving permissions ok.\"");
+                Logger.LogInformation("\"Saving permissions ok.\"");
                 return Ok($"Saving permissions {permission1.Name} ok.");
             }
             catch (Exception e)
             {
-                _logger.LogCritical("\"Error saving permission (@permission): {@message}, \n\rInnerException: {@innerException} \n\rStackTrace: {@stackTrace} \"", permission1.Name, e.Message, e.InnerException, e.StackTrace );
+                Logger.LogCritical("\"Error saving permission (@permission): {@message}, \n\rInnerException: {@innerException} \n\rStackTrace: {@stackTrace} \"", permission1.Name, e.Message, e.InnerException, e.StackTrace );
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Cannot save permissions. Error: {e.Message}");
             }
         }
@@ -228,12 +228,12 @@ namespace SoftinuxBase.SeedDatabase.Controllers
             {
                 _storage.Save();
 
-                _logger.LogInformation($"\"Saving user-permission {permissionId_} ok.\"");
+                Logger.LogInformation($"\"Saving user-permission {permissionId_} ok.\"");
                 return Ok("Saving user-permission ok.");
             }
             catch (Exception e)
             {
-                _logger.LogCritical("\"Error saving user-permission (@userPermission): {@message}, \n\rInnerException: {@innerException} \n\rStackTrace: {@stackTrace} \"", permissionId_, e.Message, e.InnerException, e.StackTrace );
+                Logger.LogCritical("\"Error saving user-permission (@userPermission): {@message}, \n\rInnerException: {@innerException} \n\rStackTrace: {@stackTrace} \"", permissionId_, e.Message, e.InnerException, e.StackTrace );
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Cannot save user-permission. Error: {e.Message}");
             }
         }
@@ -259,12 +259,12 @@ namespace SoftinuxBase.SeedDatabase.Controllers
             try
             {
                 _storage.Save();
-                _logger.LogInformation($"\"Saving role-permission: {permission_}, to role: {roleId_}, with scope: {scope_ ?? "SoftinuxBase.Security"} ok.\"");
+                Logger.LogInformation($"\"Saving role-permission: {permission_}, to role: {roleId_}, with scope: {scope_ ?? "SoftinuxBase.Security"} ok.\"");
                 return Ok("Saving role-permission ok.");
             }
             catch (Exception e)
             {
-                _logger.LogCritical("\"Error saving role-permission (@rolePermission, @permissionId): {@message}, \n\rInnerException: {@innerException} \n\rStackTrace: {@stackTrace} \"", roleId_, permission_, e.Message, e.InnerException, e.StackTrace );
+                Logger.LogCritical("\"Error saving role-permission (@rolePermission, @permissionId): {@message}, \n\rInnerException: {@innerException} \n\rStackTrace: {@stackTrace} \"", roleId_, permission_, e.Message, e.InnerException, e.StackTrace );
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Cannot save role-permission. Error: {e.Message}");
             }
         }

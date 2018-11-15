@@ -33,7 +33,7 @@ namespace SoftinuxBase.Security.Controllers
         [PermissionRequirement(Permission.Admin)]
         [Route("administration/grantpermissions")]
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
 
             // Create a dictionary with all roles for injecting as json into grant permission page
@@ -52,7 +52,7 @@ namespace SoftinuxBase.Security.Controllers
             ViewBag.RolesList = rolesList;
 
             var model = ReadGrants.ReadAll(_roleManager, Storage, roleNameByRoleId);
-            return View(model);
+            return await Task.Run(() => View(model));
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace SoftinuxBase.Security.Controllers
         /// <summary>
         /// Update role name and linked extensions with permission level.
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="model_"></param>
         /// <returns>Json string</returns>
         [PermissionRequirement(Permission.Admin)]
         [Route("administration/update-role")]
@@ -143,7 +143,7 @@ namespace SoftinuxBase.Security.Controllers
             // 2. Update role-permission links
 
             // Return status code 200
-            return Json("Not yet implemented");
+            return await Task.Run(() => Json("Not yet implemented"));
         }
 
         #endregion

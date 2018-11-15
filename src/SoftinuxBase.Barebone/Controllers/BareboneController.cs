@@ -2,6 +2,7 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.Diagnostics;
+using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -12,27 +13,27 @@ namespace SoftinuxBase.Barebone.Controllers
 {
     public class BareboneController : Infrastructure.ControllerBase
     {
-        private readonly string corporateName, corporateLogo;
+        private readonly string _corporateName, _corporateLogo;
 
         public BareboneController(IStorage storage_, IConfiguration configuration_) : base(storage_)
         {
-            corporateName = configuration_["Corporate:Name"];
-            corporateLogo = configuration_["Corporate:BrandLogo"];
+            _corporateName = configuration_["Corporate:Name"];
+            _corporateLogo = configuration_["Corporate:BrandLogo"];
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            ViewBag.CorporateName = corporateName;
-            ViewBag.CorporateLogo = corporateLogo;
-            return View(new IndexViewModelFactory().Create());
+            ViewBag.CorporateName = _corporateName;
+            ViewBag.CorporateLogo = _corporateLogo;
+            return await Task.Run(() => View(new IndexViewModelFactory().Create()));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         [HttpGet]
-        public IActionResult Error()
+        public async Task<IActionResult> Error()
         {
-            return View(new Barebone.ViewModels.ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return await Task.Run(() => View(new Barebone.ViewModels.ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier }));
         }
     }
 }

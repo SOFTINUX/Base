@@ -16,9 +16,9 @@ namespace SoftinuxBase.Security.Controllers
 {
     public class AccountController : Infrastructure.ControllerBase
     {
-        private SignInManager<User> _signInManager;
-        private UserManager<User> _userManager;
-        private ILogger _logger;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly ILogger _logger;
 
         public AccountController(IStorage storage_, ILoggerFactory loggerFactory_, UserManager<User> userManager_, SignInManager<User> signInManager_) : base(storage_, loggerFactory_)
         {
@@ -54,10 +54,10 @@ namespace SoftinuxBase.Security.Controllers
             {
                 signUp_.ErrorMessage = "Form has error(s)";
                 ModelState.AddModelError("IncompleteForm", signUp_.ErrorMessage);
-                return View(signUp_);
+                return await Task.Run(() => View(signUp_));
             }
 
-            return View("Index");
+            return await Task.Run(() => View("Index"));
         }
 
         /// <summary>
@@ -67,9 +67,9 @@ namespace SoftinuxBase.Security.Controllers
         [HttpGet]
         //[ImportModelStateFromTempData]
         [AllowAnonymous]
-        public IActionResult SignIn()
+        public async Task<IActionResult> SignIn()
         {
-            return View();
+            return await Task.Run(() => View());
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace SoftinuxBase.Security.Controllers
             {
                 signIn_.ErrorMessage = "Required data missing";
                 ModelState.AddModelError("BadUserPassword", signIn_.ErrorMessage);
-                return View(signIn_);
+                return await Task.Run(() => View(signIn_));
             }
 
             // find user by nickname or email
@@ -109,7 +109,7 @@ namespace SoftinuxBase.Security.Controllers
                 _logger.LogInformation("User logged in");
 
                 // Go to dashboard, action Index of Barebone's controller
-                return RedirectToAction("Index", "Barebone");
+                return await Task.Run(() => RedirectToAction("Index", "Barebone"));
             }
             //if (result.RequiresTwoFactor)
             //{
@@ -129,7 +129,7 @@ namespace SoftinuxBase.Security.Controllers
                 ModelState.AddModelError("BadUserPassword", signIn_.ErrorMessage);
             }
             // If we got this far, something failed, redisplay form
-            return View(signIn_);
+            return await Task.Run(() => View(signIn_));
 
         }
 
@@ -142,23 +142,27 @@ namespace SoftinuxBase.Security.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
-            return RedirectToAction("SignIn");
+            return await Task.Run(() => RedirectToAction("SignIn"));
         }
 
+        /// <summary>
+        /// No acces area
+        /// </summary>
+        /// <returns>View</returns>
         [HttpGet]
-        public IActionResult AccessDenied()
+        public async Task<IActionResult> AccessDenied()
         {
-            return View();
+            return await Task.Run(() => View());
         }
 
         /// <summary>
         /// Create user action request
         /// </summary>
-        /// <param name="userId_"></param>
         /// <returns>view for creating new user</returns>
         [HttpGet]
         public IActionResult CreateUser()
         {
+            // TODO coder: create this as async method
             // return user creation view
             return null;
         }
@@ -166,6 +170,7 @@ namespace SoftinuxBase.Security.Controllers
         [HttpPost]
         public IActionResult SaveUser(string userId_)
         {
+            // TODO coder: create this as async method
             return null;
         }
 
@@ -175,9 +180,9 @@ namespace SoftinuxBase.Security.Controllers
         /// <param name="userId_"></param>
         /// <returns>view user</returns>
         [HttpGet]
-        public IActionResult UpdateProfile(string userId_)
+        public async Task<IActionResult> UpdateProfile(string userId_)
         {
-            return View("User");
+            return await Task.Run(() => View("User"));
         }
 
         /// <summary>
@@ -187,9 +192,9 @@ namespace SoftinuxBase.Security.Controllers
         /// <returns>json</returns>
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult CheckUserNameExist(string userName_)
+        public async Task<IActionResult> CheckUserNameExist(string userName_)
         {
-            return Json(!RegisterUser.IsUserExist(Storage, userName_, _userManager));
+            return await Task.Run(() => Json(!RegisterUser.IsUserExist(Storage, userName_, _userManager)));
         }
     }
 }
