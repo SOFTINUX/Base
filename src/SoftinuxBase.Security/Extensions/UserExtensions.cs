@@ -37,7 +37,7 @@ namespace SoftinuxBase.Security.Extensions
             /// <returns></returns>
             public static bool HasPermissionClaim(this ClaimsPrincipal claimsPrincipal_, Permission permission_, string extensionAssemblySimpleName_)
             {
-                return HasClaim(claimsPrincipal_, ClaimType.Permission.ToString(), PermissionHelper.GetScopedPermissionIdentifier(permission_, extensionAssemblySimpleName_));
+                return HasClaim(claimsPrincipal_, ClaimType.Permission, PermissionHelper.GetScopedPermissionIdentifier(permission_, extensionAssemblySimpleName_));
             }
     }
 }

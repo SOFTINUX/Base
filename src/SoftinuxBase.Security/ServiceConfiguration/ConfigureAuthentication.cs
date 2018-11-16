@@ -23,7 +23,7 @@ namespace SoftinuxBase.Security.ServiceConfiguration
 
         }
 
-        static Func<RedirectContext<CookieAuthenticationOptions>, Task> ReplaceRedirectorWithStatusCode(
+        private static Func<RedirectContext<CookieAuthenticationOptions>, Task> ReplaceRedirectorWithStatusCode(
             HttpStatusCode statusCode_) => context_ =>
         {
             // Adapted from https://stackoverflow.com/questions/42030137/suppress-redirect-on-api-urls-in-asp-net-core

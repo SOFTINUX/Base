@@ -29,10 +29,6 @@ namespace SoftinuxBase.WebApplication
         /// <param name="services_">
         /// The services collection passed to the ConfigureServices method of the web application's Startup class.
         /// </param>
-        /// <param name="T">
-        /// The ExtCore's storage context/entity framework core db context/identity DB context that SoftinuxBase uses 
-        /// and which declares a DbSet for every SoftinuxBase entity.
-        /// </param>
         /// <param name="configuration_">
         /// </param>
         /// <param name="extensionsPath_">
@@ -105,10 +101,10 @@ namespace SoftinuxBase.WebApplication
             services_.AddScoped<IServiceCollection, ServiceCollection>();
 
             // 5. Anti-forgery
-            services_.AddAntiforgery(options =>
+            services_.AddAntiforgery(options_ =>
             {
-                options.HeaderName = "X-XSRF-TOKEN";
-                options.SuppressXFrameOptionsHeader = false;
+                options_.HeaderName = "X-XSRF-TOKEN";
+                options_.SuppressXFrameOptionsHeader = false;
             });
 
         }

@@ -16,7 +16,6 @@ namespace SoftinuxBase.WebApplication
     /// Class that holds the Entity Framework DbContext's DbSets related to some extension
     /// (entities in XXX.Data.Entities project) and that also inherits from ExtCore's IStorageContext.
     /// </summary>
-    /// <typeparam name="string"></typeparam>
     public class ApplicationStorageContext : IdentityDbContext<User, IdentityRole<string>, string>, IStorageContext
     {
         public DbSet<Permission> Permission { get; set; }

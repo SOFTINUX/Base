@@ -3,7 +3,7 @@
 
 using Microsoft.EntityFrameworkCore;
 
-namespace SoftinuxBase.WebApp
+namespace WebApplication
 {
     /// <summary>
     /// Class that holds the Entity Framework DbContext's DbSets related to some extension

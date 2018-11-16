@@ -9,15 +9,15 @@ namespace WebApplication
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main(string[] args_)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            CreateWebHostBuilder(args_).Build().Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args_) =>
             WebHost.CreateDefaultBuilder(args_)
                 .UseStartup<Startup>()
-                .UseKestrel(c => c.AddServerHeader = false)  // Remove the server headers from the kestrel server, by using the UseKestrel extension method.
+                .UseKestrel(c_ => c_.AddServerHeader = false)  // Remove the server headers from the kestrel server, by using the UseKestrel extension method.
                 // Add the two lines below for SoftinuxBase
                 .UseWebRoot(Path.Combine(Directory.GetCurrentDirectory(), "..", "wwwroot"))
                 .CaptureStartupErrors(true);

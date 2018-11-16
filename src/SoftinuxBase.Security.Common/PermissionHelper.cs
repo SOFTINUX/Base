@@ -53,7 +53,7 @@ namespace SoftinuxBase.Security.Common
         /// <summary>
         /// From the value of a claim which type is Permission, gets the second part of the string that represents the permission level (Admin, Write...).
         /// </summary>
-        /// <param name="claim_"></param>
+        /// <param name="claimValue_"></param>
         /// <returns></returns>
         public static string GetPermissionLevel(string claimValue_)
         {
@@ -67,9 +67,7 @@ namespace SoftinuxBase.Security.Common
         /// <returns></returns>
         public static string GetPermissionScope(Claim claim_)
         {
-            if (claim_.Type != ClaimType.Permission)
-                return null;
-            return GetPermissionScope(claim_.Value);
+            return claim_.Type != ClaimType.Permission ? null : GetPermissionScope(claim_.Value);
         }
 
         /// <summary>

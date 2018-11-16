@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using SoftinuxBase.Security.Common.Attributes;
 using SoftinuxBase.Security.Data.Entities;
-using ControllerBase = SoftinuxBase.Infrastructure.ControllerBase;
 using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 
 namespace SoftinuxBase.Security.Controllers
@@ -32,7 +31,7 @@ namespace SoftinuxBase.Security.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            ViewBag.userList = _usersmanager.Users.Select(u => new SelectListItem { Text = u.UserName, Value = u.Id }).ToList();
+            ViewBag.userList = _usersmanager.Users.Select(u_ => new SelectListItem { Text = u_.UserName, Value = u_.Id }).ToList();
             return await Task.Run(() => View("ListUsers"));
         }
 

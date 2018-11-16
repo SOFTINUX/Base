@@ -21,7 +21,7 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.StyleSheets
 
             return new StyleSheetsViewModel()
             {
-                StyleSheets = styleSheets.OrderBy(ss => ss.Position).Select(ss => new StyleSheetViewModelFactory().Create(ss))
+                StyleSheets = styleSheets.OrderBy(s_ => s_.Position).Select(s_ => new StyleSheetViewModelFactory().Create(s_))
             };
         }
     }

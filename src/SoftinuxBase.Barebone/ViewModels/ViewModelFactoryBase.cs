@@ -10,7 +10,7 @@ namespace SoftinuxBase.Barebone.ViewModels
     {
         protected IRequestHandler RequestHandler { get; set; }
 
-        protected ILogger _logger;
+        protected ILogger Logger;
 
         /// <summary>
         ///
@@ -20,7 +20,7 @@ namespace SoftinuxBase.Barebone.ViewModels
         public ViewModelFactoryBase(IRequestHandler requestHandler_, ILoggerFactory loggerFactory_ = null)
         {
             RequestHandler = requestHandler_;
-            _logger = loggerFactory_?.CreateLogger(GetType().FullName);
+            Logger = loggerFactory_?.CreateLogger(GetType().FullName);
         }
     }
 }

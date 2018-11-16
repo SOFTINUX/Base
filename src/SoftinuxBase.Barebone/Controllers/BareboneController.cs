@@ -7,7 +7,6 @@ using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using SoftinuxBase.Barebone.ViewModels.Barebone;
-using ControllerBase = SoftinuxBase.Infrastructure.ControllerBase;
 
 namespace SoftinuxBase.Barebone.Controllers
 {

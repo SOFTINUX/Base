@@ -18,7 +18,7 @@ namespace SoftinuxBase.Security.Controllers
 
         public AdministrationController(IStorage storage_, ILoggerFactory loggerFactory_) : base(storage_, loggerFactory_)
         {
-            _logger = _loggerFactory.CreateLogger(GetType().FullName);
+            _logger = LoggerFactory.CreateLogger(GetType().FullName);
             _logger.LogInformation("oups");
         }
 

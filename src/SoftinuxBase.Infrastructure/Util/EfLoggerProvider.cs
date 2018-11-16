@@ -10,7 +10,7 @@ namespace SoftinuxBase.Infrastructure.Util
 {
     public class EfLoggerProvider : ILoggerProvider
     {
-        private static readonly object _logFileWriteLock = new object();
+        private static readonly object LogFileWriteLock = new object();
 
         public static string LogFilePath =>
             Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "entityframework.log");
@@ -32,7 +32,7 @@ namespace SoftinuxBase.Infrastructure.Util
 
             public void Log<TState>(LogLevel logLevel_, EventId eventId_, TState state_, Exception exception_, Func<TState, Exception, string> formatter_)
             {
-                lock (_logFileWriteLock)
+                lock (LogFileWriteLock)
                 {
                     File.AppendAllText(LogFilePath, formatter_(state_, exception_));
                 }

@@ -18,7 +18,7 @@ namespace SoftinuxBase.Infrastructure
         // TODO make protected readonly ?
         public IStorage Storage { get; set; }
 
-        protected readonly ILoggerFactory _loggerFactory;
+        protected readonly ILoggerFactory LoggerFactory;
 
         /// <summary>
         ///
@@ -28,7 +28,7 @@ namespace SoftinuxBase.Infrastructure
         protected ControllerBase(IStorage storage_, ILoggerFactory loggerFactory_ = null)
         {
             Storage = storage_;
-            _loggerFactory = loggerFactory_;
+            LoggerFactory = loggerFactory_;
         }
 
         /// <summary>

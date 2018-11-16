@@ -16,13 +16,14 @@ namespace SoftinuxBase.Security.Tools
         /// <summary>
         /// Check that a role with the same normalized name exists.
         /// </summary>
+        /// <param name="roleManager_"></param>
         /// <param name="roleName_">Role name</param>
         /// <param name="roleId_">Role ID. When not null, the found role should not have this id</param>
         /// <returns>true when a role with this normalized name is found</returns>
         public static async Task<bool> CheckThatRoleOfThisNameExists(RoleManager<IdentityRole<string>> roleManager_, string roleName_, string roleId_ = null)
         {
             var role = await roleManager_.FindByNameAsync(roleName_);
-            return roleId_ == null ? (role != null) : (role != null && role?.Id != roleId_);
+            return roleId_ == null ? (role != null) : (role != null && role.Id != roleId_);
         }
 
         /// <summary>
@@ -35,7 +36,7 @@ namespace SoftinuxBase.Security.Tools
         /// <returns>Not null when something failed, else null when save went ok</returns>
         public static async Task<string> CheckAndUpdateRoleAndGrants(UpdateRoleAndGrantsViewModel model_, RoleManager<IdentityRole<string>> roleManager_, IStorage storage_)
         {
-            if (await UpdateRoleAndGrants.CheckThatRoleOfThisNameExists(roleManager_, model_.RoleName, model_.RoleId))
+            if (await CheckThatRoleOfThisNameExists(roleManager_, model_.RoleName, model_.RoleId))
             {
                 return "A role with this name already exists";
             }

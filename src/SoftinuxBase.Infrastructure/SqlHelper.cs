@@ -157,7 +157,7 @@ namespace SoftinuxBase.Infrastructure
         /// </summary>
         /// <param name="connexionString_"></param>
         /// <returns>True if can open and close connexion, else false</returns>
-        private bool TestSqliteConnexion(string connexionString_)
+        private static bool TestSqliteConnexion(string connexionString_)
         {
             try
             {
@@ -178,7 +178,7 @@ namespace SoftinuxBase.Infrastructure
         /// </summary>
         /// <param name="connexionString_"></param>
         /// <returns>True if can open and close connexion, else false</returns>
-        private bool TestMsSqlConnexion(string connexionString_)
+        private static bool TestMsSqlConnexion(string connexionString_)
         {
             try
             {
@@ -199,7 +199,7 @@ namespace SoftinuxBase.Infrastructure
         /// </summary>
         /// <param name="connexionString_"></param>
         /// <returns>True if can open and close connexion, else false</returns>
-        private bool TestPostgresqlConnexion(string connexionString_)
+        private static bool TestPostgresqlConnexion(string connexionString_)
         {
             try
             {

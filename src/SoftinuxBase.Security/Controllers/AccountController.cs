@@ -24,7 +24,7 @@ namespace SoftinuxBase.Security.Controllers
         {
             _userManager = userManager_;
             _signInManager = signInManager_;
-            _logger = _loggerFactory.CreateLogger(GetType().FullName);
+            _logger = LoggerFactory.CreateLogger(GetType().FullName);
         }
 
         /// <summary>

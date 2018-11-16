@@ -10,8 +10,8 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.MenuGroup
     public class MenuGroupViewModelFactory : ViewModelFactoryBase
     {
 
-        public MenuGroupViewModelFactory(IRequestHandler requestHandler)
-            : base(requestHandler)
+        public MenuGroupViewModelFactory(IRequestHandler requestHandler_)
+            : base(requestHandler_)
         {
         }
 

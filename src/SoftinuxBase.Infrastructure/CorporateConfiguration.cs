@@ -8,9 +8,9 @@ namespace SoftinuxBase.Infrastructure
         public string Name { get; set; }
 
         public string BrandLogo { get; set; }
-        
+
         public string LoginBackgroundImage { get; set; }
-        
+
         public bool RegisterNewUsers { get; set; }
     }
 }

@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using SoftinuxBase.Infrastructure;
 
 namespace SoftinuxBase.WebApplication
 {
@@ -29,7 +28,6 @@ namespace SoftinuxBase.WebApplication
         /// <param name="hostingEnvironment_">
         /// </param>
         /// <param name="loggerFactory_">
-        /// </param>
         /// </param>
         /// <param name="configuration_">
         /// </param>
@@ -52,7 +50,7 @@ namespace SoftinuxBase.WebApplication
             }
 
             // Security header make me happy
-            applicationBuilder_.UseHsts(hsts => hsts.MaxAge(365).IncludeSubdomains());
+            applicationBuilder_.UseHsts(hsts_ => hsts_.MaxAge(365).IncludeSubdomains());
             applicationBuilder_.UseXContentTypeOptions();
             applicationBuilder_.UseReferrerPolicy(option_ => option_.NoReferrer());
             applicationBuilder_.UseXXssProtection(option_ => option_.EnabledWithBlockMode());
@@ -60,22 +58,22 @@ namespace SoftinuxBase.WebApplication
 
             applicationBuilder_.UseCsp(option_ => option_
                 .BlockAllMixedContent()
-                .StyleSources(s => s.Self())
-                .StyleSources(s => s.UnsafeInline())
-                .StyleSources(s => s.Self().CustomSources("data:"))
-                .FontSources(s => s.Self())
-                .FormActions(s => s.Self())
-                .FrameAncestors(s => s.Self())
-                .ImageSources(s => s.Self())
-                .ImageSources(s => s.Self().CustomSources("data:"))
-                .ScriptSources(s => s.Self())
-                .ScriptSources(s => s.UnsafeInline())
+                .StyleSources(s_ => s_.Self())
+                .StyleSources(s_ => s_.UnsafeInline())
+                .StyleSources(s_ => s_.Self().CustomSources("data:"))
+                .FontSources(s_ => s_.Self())
+                .FormActions(s_ => s_.Self())
+                .FrameAncestors(s_ => s_.Self())
+                .ImageSources(s_ => s_.Self())
+                .ImageSources(s_ => s_.Self().CustomSources("data:"))
+                .ScriptSources(s_ => s_.Self())
+                .ScriptSources(s_ => s_.UnsafeInline())
             );
 
             // 2. Anti-forgery
-            applicationBuilder_.Use(next => context =>
+            applicationBuilder_.Use(next_ => context_ =>
                 {
-                    string path = context.Request.Path.Value;
+                    string path = context_.Request.Path.Value;
 
                     if (
                         string.Equals(path, "/", StringComparison.OrdinalIgnoreCase) ||
@@ -83,12 +81,12 @@ namespace SoftinuxBase.WebApplication
                     {
                     // The request token can be sent as a JavaScript-readable cookie,
                     // and Angular uses it by default.
-                    var tokens = antiForgery_.GetAndStoreTokens(context);
-                        context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken,
+                    var tokens = antiForgery_.GetAndStoreTokens(context_);
+                        context_.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken,
                             new CookieOptions() { HttpOnly = false });
                     }
 
-                    return next(context);
+                    return next_(context_);
                 });
             // 3. ExtCore
             applicationBuilder_.UseExtCore();

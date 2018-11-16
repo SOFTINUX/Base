@@ -7,8 +7,8 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.MenuItem
 {
     public class MenuItemViewModelFactory : ViewModelFactoryBase
     {
-        public MenuItemViewModelFactory(IRequestHandler requestHandler)
-            : base(requestHandler)
+        public MenuItemViewModelFactory(IRequestHandler requestHandler_)
+            : base(requestHandler_)
         {
         }
         public MenuItemViewModel Create(Infrastructure.MenuItem menuItem_)

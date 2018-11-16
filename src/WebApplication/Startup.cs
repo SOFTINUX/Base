@@ -14,7 +14,6 @@ using Serilog;
 using SoftinuxBase.WebApplication;
 using SoftinuxLogger;
 using Swashbuckle.AspNetCore.Swagger;
-using ApplicationStorageContext = SoftinuxBase.WebApp.ApplicationStorageContext;
 
 namespace WebApplication
 {
@@ -52,9 +51,9 @@ namespace WebApplication
             services_.AddSoftinuxLogger();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
-            services_.AddSwaggerGen(c =>
+            services_.AddSwaggerGen(c_ =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "Softinux Base API", Version = "v1" });
+                c_.SwaggerDoc("v1", new Info { Title = "Softinux Base API", Version = "v1" });
             });
 
         }
@@ -72,9 +71,9 @@ namespace WebApplication
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.
-            applicationBuilder_.UseSwaggerUI(c =>
+            applicationBuilder_.UseSwaggerUI(c_ =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Softinux Base API V1");
+                c_.SwaggerEndpoint("/swagger/v1/swagger.json", "Softinux Base API V1");
             });
 #endif
 

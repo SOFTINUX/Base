@@ -21,7 +21,7 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.Scripts
 
             return new ScriptsViewModel()
             {
-                Scripts = scripts.OrderBy(s => s.Position).Select(s => new ScriptViewModelFactory().Create(s))
+                Scripts = scripts.OrderBy(s_ => s_.Position).Select(s_ => new ScriptViewModelFactory().Create(s_))
             };
         }
     }

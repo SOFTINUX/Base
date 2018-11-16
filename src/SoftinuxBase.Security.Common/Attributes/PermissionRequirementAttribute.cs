@@ -13,13 +13,13 @@ namespace SoftinuxBase.Security.Common.Attributes
 
     public class PermissionRequirementAttribute : ActionFilterAttribute
     {
-        private Permission _permissionName;
-        private string _scope;
+        private readonly Permission _permissionName;
+        private readonly string _scope;
 
         /// <summary>
         /// Permission unique identifier.
         /// </summary>
-        public string PermissionIdentifier { get { return PermissionHelper.GetScopedPermissionIdentifier(_permissionName, _scope); } }
+        public string PermissionIdentifier => PermissionHelper.GetScopedPermissionIdentifier(_permissionName, _scope);
 
         /// <summary>
         /// Allows access when the user has the permission : a claim of type "Permission" with value

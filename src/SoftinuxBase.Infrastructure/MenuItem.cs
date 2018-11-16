@@ -21,14 +21,14 @@ namespace SoftinuxBase.Infrastructure
         /// If not empty, any of these roles is required (access granted if a single role is possessed by current user).
         /// Menu item is decorated with Microsoft.AspNetCore.Authorization.AuthorizeAttribute with Roles.
         /// </summary>
-        private List<string> _anyRequiredRoles = new List<string>();
+        private readonly List<string> _anyRequiredRoles = new List<string>();
 
         /// <summary>
         /// If not empty, all these values are required (access granted if all matching Permission claims are possessed by current user).
         /// Menu item is decorated with either Microsoft.AspNetCore.Authorization.AuthorizeAttribute with Policy
         /// or Infrastructure.Attributes.PermissionRequirementAttribute.
         /// </summary>
-        private List<string> _allRequiredPermissionIdentifiers = new List<string>();
+        private readonly List<string> _allRequiredPermissionIdentifiers = new List<string>();
 
         public MenuItem(string url_, string name_, uint position_, string fontAwesomeClass_ = null,
             List<PermissionRequirementAttribute> infrastructureAuthorizeAttributes_ = null,
