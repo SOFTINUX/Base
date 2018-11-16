@@ -12,7 +12,6 @@ namespace SecurityTest
     /// ICollectionFixture<> interfaces.
     /// /!\ It should be defined in the same assembly than tests that uses it...
     /// </summary>
-    /// <typeparam name="DatabaseFixture"></typeparam>
     [CollectionDefinition("Database collection")]
     public class DatabaseCollection : ICollectionFixture<DatabaseFixture>
     {

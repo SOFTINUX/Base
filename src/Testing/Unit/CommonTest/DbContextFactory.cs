@@ -10,7 +10,7 @@ namespace CommonTest
 {
     public class DbContextFactory : IDesignTimeDbContextFactory<ApplicationStorageContext>
     {
-        public ApplicationStorageContext CreateDbContext(string[] args)
+        public ApplicationStorageContext CreateDbContext(string[] args_)
         {
             return new ApplicationStorageContext(DatabaseFixture.GetDbContextOptionsBuilder().Options);
         }

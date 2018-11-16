@@ -2,11 +2,9 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CommonTest;
-using Microsoft.AspNetCore.Identity;
 using SoftinuxBase.Security.Common.Enums;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Tools;

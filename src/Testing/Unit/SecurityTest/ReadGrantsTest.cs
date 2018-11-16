@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using CommonTest;
 using ExtCore.Infrastructure;
-using Microsoft.AspNetCore.Identity;
 using SoftinuxBase.SeedDatabase;
 using SoftinuxBase.Infrastructure.Interfaces;
 using SoftinuxBase.Security.Data.Abstractions;
@@ -30,19 +28,19 @@ namespace SecurityTest
         /// <summary>
         /// Create base permissions, roles, one additional role "Special User".
         /// Then create role-extension links as following:
-        /// 
+        ///
         /// "Security" extension:
-        /// 
+        ///
         /// Administrator role : Admin permission
         /// User role : Read permission
         /// Anonymous role : Never permission
         /// Special User role : Write permission
-        /// 
+        ///
         /// "Chinook" extension:
-        /// 
+        ///
         /// Administrator role : Admin permission
         /// User role : Write permission
-        /// 
+        ///
         /// </summary>
         [Fact]
         public async void Test()
@@ -68,7 +66,7 @@ namespace SecurityTest
                 // Cleanup first
                 repo.DeleteAll();
                 DatabaseFixture.Storage.Save();
-                
+
                 repo.Create(new RolePermission
                     {RoleId = adminRole.Id, Scope = "SoftinuxBase.Security", PermissionId = Permission.Admin.GetPermissionName()});
                 repo.Create(new RolePermission
@@ -86,7 +84,7 @@ namespace SecurityTest
                     {RoleId = adminRole.Id, Scope = "Chinook", PermissionId = Permission.Admin.GetPermissionName()});
                 repo.Create(new RolePermission
                     {RoleId = userRole.Id, Scope = "Chinook", PermissionId = Permission.Write.GetPermissionName()});
-                
+
                 DatabaseFixture.Storage.Save();
 
                 // 5. Build the dictionary that is used by the tool and created in GrantPermissionsController

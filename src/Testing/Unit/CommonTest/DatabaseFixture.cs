@@ -3,10 +3,8 @@
 
 using System;
 using System.IO;
-using System.Linq;
 using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
-using ExtCore.WebApplication.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -20,26 +18,26 @@ namespace CommonTest
 {
     public class DatabaseFixture : IDisposable
     {
-        private readonly IServiceProvider _serviceProvider;
         public IConfiguration Configuration { get; private set; }
-        public IStorage Storage { get; private set; }
-        public ILoggerFactory LoggerFactory { get; private set; }
+        public IStorage Storage { get; }
+        public ILoggerFactory LoggerFactory { get; }
 
-        public UserManager<User> UserManager { get; private set; }
-        public RoleManager<IdentityRole<string>> RoleManager { get; private set; }
+        public UserManager<User> UserManager { get; }
+        public RoleManager<IdentityRole<string>> RoleManager { get; }
 
-        public DatabaseFixture()
+        public DatabaseFixture(ILoggerFactory loggerFactory_)
         {
+            LoggerFactory = loggerFactory_;
             var services = new ServiceCollection();
             ConfigureServices(services);
-            _serviceProvider = services.BuildServiceProvider();
+            IServiceProvider serviceProvider = services.BuildServiceProvider();
 
             // Assign shortcuts accessors to registered components
-            UserManager = _serviceProvider.GetRequiredService<UserManager<User>>();
-            RoleManager = _serviceProvider.GetRequiredService<RoleManager<IdentityRole<string>>>();
+            UserManager = serviceProvider.GetRequiredService<UserManager<User>>();
+            RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<string>>>();
 
             // Storage: create using registered db context / storage context
-            Storage = new Storage(_serviceProvider.GetRequiredService<IStorageContext>());
+            Storage = new Storage(serviceProvider.GetRequiredService<IStorageContext>());
         }
 
         /// <summary>
@@ -54,28 +52,28 @@ namespace CommonTest
             return Configuration["ConnectionStrings:Default"].Replace("Data Source=", "Data Source=../../../");
         }
 
-        private void ConfigureServices(IServiceCollection services)
+        private void ConfigureServices(IServiceCollection services_)
         {
             Configuration = LoadConfiguration();
 
             // DbContext/IStorageContext
-            services.AddDbContext<ApplicationStorageContext>(options_ =>
+            services_.AddDbContext<ApplicationStorageContext>(options_ =>
                 {
                     options_.UseSqlite(GetConnectionString());
                 });
 
             // Register UserManager & RoleManager
-            services.AddIdentity<User, IdentityRole<string>>()
+            services_.AddIdentity<User, IdentityRole<string>>()
                .AddEntityFrameworkStores<ApplicationStorageContext>()
                .AddDefaultTokenProviders();
 
             // UserManager & RoleManager require logging and HttpContext dependencies
-            services.AddLogging();
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services_.AddLogging();
+            services_.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 
             // Register database-specific storage context implementation.
-            services.AddScoped<IStorageContext, ApplicationStorageContext>();
+            services_.AddScoped<IStorageContext, ApplicationStorageContext>();
         }
 
         private static IConfiguration LoadConfiguration()
@@ -107,7 +105,6 @@ namespace CommonTest
         /// <summary>
         /// Utility class to use the IOptions pattern as required by IStorage implementations constructors.
         /// </summary>
-        /// <typeparam name="StorageContextOptions"></typeparam>
         private class TestStorageContextOptions : IOptions<StorageContextOptions>
         {
             public TestStorageContextOptions(StorageContextOptions value_)

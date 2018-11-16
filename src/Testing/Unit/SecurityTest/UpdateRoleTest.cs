@@ -6,11 +6,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using CommonTest;
 using Microsoft.AspNetCore.Identity;
-using SoftinuxBase.Security.Common.Enums;
 using SoftinuxBase.Security.Data.Abstractions;
+using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.Tools;
 using SoftinuxBase.Security.ViewModels.Permissions;
 using Xunit;
+using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 
 namespace SecurityTest
 {
@@ -186,8 +187,8 @@ namespace SecurityTest
                 string roleId = (await DatabaseFixture.RoleManager.FindByNameAsync(roleName)).Id;
 
                 // Add a link to an extension
-                permRepo.Create(new SoftinuxBase.Security.Data.Entities.RolePermission { PermissionId = Permission.Read.ToString(), RoleId = roleId, Scope = "Security" });
-                permRepo.Create(new SoftinuxBase.Security.Data.Entities.RolePermission { PermissionId = Permission.Read.ToString(), RoleId = roleId, Scope = "Another" });
+                permRepo.Create(new RolePermission { PermissionId = Permission.Read.ToString(), RoleId = roleId, Scope = "Security" });
+                permRepo.Create(new RolePermission { PermissionId = Permission.Read.ToString(), RoleId = roleId, Scope = "Another" });
                 DatabaseFixture.Storage.Save();
 
                 UpdateRoleAndGrantsViewModel model = new UpdateRoleAndGrantsViewModel
@@ -206,12 +207,13 @@ namespace SecurityTest
 
                 // We should find two linked extensions
                 var records = permRepo.FilteredByRoleId(roleId);
-                Assert.Equal(2, records.Count());
-                var record = records.FirstOrDefault(r => r.Scope == "Security");
+                var rolePermissions = records as RolePermission[] ?? records.ToArray();
+                Assert.Equal(2, rolePermissions.Length);
+                var record = rolePermissions.FirstOrDefault(r_ => r_.Scope == "Security");
                 Assert.NotNull(record);
                 Assert.Equal(Permission.Write.ToString(), record.PermissionId);
 
-                record = records.FirstOrDefault(r => r.Scope == "ThirdExtension");
+                record = rolePermissions.FirstOrDefault(r_ => r_.Scope == "ThirdExtension");
                 Assert.NotNull(record);
                 Assert.Equal(Permission.Write.ToString(), record.PermissionId);
             }
@@ -251,7 +253,7 @@ namespace SecurityTest
                 await DatabaseFixture.RoleManager.CreateAsync(firstRole);
 
                 // Create a link to an extension
-                permRepo.Create(new SoftinuxBase.Security.Data.Entities.RolePermission { RoleId = firstRole.Id, PermissionId = Permission.Write.ToString(), Scope = "Security"});
+                permRepo.Create(new RolePermission { RoleId = firstRole.Id, PermissionId = Permission.Write.ToString(), Scope = "Security"});
                 DatabaseFixture.Storage.Save();
 
                 UpdateRoleAndGrantsViewModel model = new UpdateRoleAndGrantsViewModel

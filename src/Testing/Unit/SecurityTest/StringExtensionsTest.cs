@@ -13,9 +13,9 @@ namespace SecurityTest
         [InlineData("ThisIsaTest")]
         [InlineData("Thisisatest")]
         [InlineData("THISISATEST")]
-        public void Test(string value)
+        public void Test(string value_)
         {
-            Assert.Equal("Thisisatest", value.UppercaseFirst());
+            Assert.Equal("Thisisatest", value_.UppercaseFirst());
         }
     }
 }

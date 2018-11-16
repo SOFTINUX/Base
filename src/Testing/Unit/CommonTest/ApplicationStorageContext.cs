@@ -1,20 +1,18 @@
 ﻿// Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
-using System;
 using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using CommonTest;
 using SoftinuxBase.Infrastructure.Util;
 using SoftinuxBase.Security.Data.Entities;
 
 namespace CommonTest
 {
-    public partial class ApplicationStorageContext : IdentityDbContext<User, IdentityRole<string>, string>, IStorageContext
+    public class ApplicationStorageContext : IdentityDbContext<User, IdentityRole<string>, string>, IStorageContext
     {
         public DbSet<Permission> Permission { get; set; }
         public DbSet<RolePermission> RolePermission { get; set; }
