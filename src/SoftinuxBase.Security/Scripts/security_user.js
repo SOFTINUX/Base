@@ -436,11 +436,11 @@ function saveEditRole() {
     var _selectedExtensions = null;
     // _selectedExtensions remains null when no change.
     // Compare current value and initial value to detect changes, else leave null.
-    var initialSelectedExtensions = $('#editRoleInitialRightExtensionsList').val();
-    console.log('initial selection: ', initialSelectedExtensions);
-    var currentSelectedExtensions = $('#selectedExtensions>option').val();
-    console.log('current selection: ', currentSelectedExtensions);
-    alert('Changed?', initialSelectedExtensions === currentSelectedExtensions);
+    var _initialSelectedExtensions = $('#editRoleInitialRightExtensionsList').val();
+    console.log('initial selection: ', _initialSelectedExtensions);
+    var _currentSelectedExtensions = $('#selectedExtensions>option').val();
+    console.log('current selection: ', _currentSelectedExtensions);
+    alert('Changed?', _initialSelectedExtensions === _currentSelectedExtensions);
     return;
 
     //_selectedExtensions = [];
