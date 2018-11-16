@@ -138,7 +138,7 @@ namespace SoftinuxBase.Security.Controllers
             // 1. Check that new role name is free either return status 400
             // use Tools.UpdateRoleAndGrants
 
-            // 2. Update role-permission links
+            // 2. Update role-permission links only if the list of extensions was changed (compare from db and from model_)
 
             // Return status code 200
             return await Task.Run(() => Json("Not yet implemented"));

@@ -367,12 +367,9 @@ function passSelectedRoleOnEdition(roleId_) {
         $('#editRoleRightExtensionsList option').remove();
         _options = $('#editRoleRightExtensionsList').prop('options');
         // Fill
-        console.log(data_.value);
         data_.value.selectedExtensions.forEach(function (extension_) {
-            _options[_options.length] = new Option(extension_.name + ' (' + extension_.permission + ')', extension_);
+            _options[_options.length] = new Option(extension_.name + ' (' + extension_.permission + ')', extension_.name);
         });
-        // Store the initially selected extensions to hidden field
-        $('#editRoleRightInitialExtensionsList').val($('#editRoleRightExtensionsList option'));
     });
 }
 
@@ -433,28 +430,18 @@ function savePermission(scope_, role_, permission_) {
  */
 function saveEditRole() {
 
-    var _selectedExtensions = null;
-    // _selectedExtensions remains null when no change.
-    // Compare current value and initial value to detect changes, else leave null.
-    var _initialSelectedExtensions = $('#editRoleInitialRightExtensionsList').val();
-    console.log('initial selection: ', _initialSelectedExtensions);
-    var _currentSelectedExtensions = $('#selectedExtensions>option').val();
-    console.log('current selection: ', _currentSelectedExtensions);
-    alert('Changed?', _initialSelectedExtensions === _currentSelectedExtensions);
-    return;
+    var _selectedExtensions = [];
+    $('#editRoleRightExtensionsList>option').each(function () {
+       _selectedExtensions.push(this.value);
+    });
+    const postData = {
+       RoleId: $('#editRoleId').val(),
+       RoleName: $('#edit_role_name_input').val(),
+       Extensions: _selectedExtensions,
+       Permission: $('#editRolePermission').val()
+    };
 
-    //_selectedExtensions = [];
-    //$('#selectedExtensions>option').each(function () {
-    //    _selectedExtensions.push(this.value);
-    //});
-    //const postData = {
-    //    RoleId: $('#editRoleId').val(),
-    //    RoleName: $('#role_name_input').val(),
-    //    Extensions: _selectedExtensions,
-    //    Permission: $('#newRolePermission').val()
-    //};
-
-    //console.log(postData);
+    console.log(postData);
 
     //$.ajax('/administration/update-role',
     //    {

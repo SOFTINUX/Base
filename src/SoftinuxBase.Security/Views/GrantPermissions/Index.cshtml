@@ -146,8 +146,6 @@
                                     </select>
                                 </div>
                             </div>
-                            <form id="edit-role-form" action="administration/updaterolename">
-                                @Html.AntiForgeryToken()
                                 <div class="col-md-4">
                                     <div class="form-group" id="edit-role-group">
                                         <label>Role Name:</label>
@@ -169,7 +167,25 @@
                                         <input id="edit_role_concurrencyStamp" type="text" class="form-control" disabled="disabled" />
                                     </div>
                                 </div>
-                            </form>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="input-group-btn bs-dropdown-to-select-acl-group" style="vertical-align: top;">
+                                            <button class="btn btn-default dropdown-toggle bs-dropdown-to-select-acl" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span data-bind="bs-drp-sel-update-acl-label">Read</span>
+                                                <input type="hidden" name="update-acl-selected_value" id="editRolePermission" data-bind="bs-drp-sel-update-acl-value" value="1">
+                                                <span class="caret"></span>
+                                                <span class="sr-only">Toggle Dropdown</span>
+                                            </button>
+                                            <ul id="update-acl-sel" class="dropdown-menu" role="menu">
+                                                <li data-value="0"><a href="#">None</a></li>
+                                                <li data-value="1"><a href="#">Read</a></li>
+                                                <li data-value="2"><a href="#">Write</a></li>
+                                                <li role="separator" class="divider"></li>
+                                                <li data-value="4"><a href="#">Admin</a></li>
+                                            </ul>
+                                        </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-5">
@@ -194,8 +210,7 @@
                             </div>
                             <div class="col-md-5">
                                 <div class="form-group margin">
-                                    <label>Selected extension(s)</label>
-                                    <input type="hidden" id="editRoleInitialRightExtensionsList" />
+                                    <label>Selected extension(s)</label>                                   
                                     <select class="form-control" multiple="" id="editRoleRightExtensionsList">
                                         @* here selected extensions options *@
                                     </select>
