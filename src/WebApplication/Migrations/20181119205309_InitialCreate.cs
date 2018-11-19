@@ -173,15 +173,15 @@ namespace WebApplication.Migrations
                 name: "RolePermission",
                 columns: table => new
                 {
+                    Id = table.Column<string>(nullable: false),
                     RoleId = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
                     Extension = table.Column<string>(nullable: false),
-                    PermissionId = table.Column<string>(nullable: false),
-                    NormalizedName = table.Column<string>(nullable: true)
+                    PermissionId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RolePermission", x => new { x.RoleId, x.PermissionId, x.Extension });
+                    table.UniqueConstraint("AK_RolePermission_Id", x => x.Id);
                     table.ForeignKey(
                         name: "FK_RolePermission_Permission_PermissionId",
                         column: x => x.PermissionId,

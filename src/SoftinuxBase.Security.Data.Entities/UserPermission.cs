@@ -12,7 +12,7 @@ namespace SoftinuxBase.Security.Data.Entities
     {
         public  UserPermission()
         {
-            Extension = "Security";
+            Extension = "SoftinuxBase.Security";
             NormalizedName = Extension.ToUpperInvariant();
         }
 

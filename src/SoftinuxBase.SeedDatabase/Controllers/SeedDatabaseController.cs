@@ -187,11 +187,14 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                 _storage.GetRepository<IPermissionRepository>().Create(permission);
             }
 
+            // TODO vérifier pourquoi j'avais fait ça, une permission custom, je pense que ça n'a pas lieu d'être ???
+            // Normalement on n'a que des rôles custom
+
             // Permission for Chinook administration
             SoftinuxBase.Security.Data.Entities.Permission permission1 = new SoftinuxBase.Security.Data.Entities.Permission()
             {
                 Id = "Chinook.Admin", // OriginExtension + Name
-                Name = "Admin"
+                Name = "Chinook Admin"
             };
 
             _storage.GetRepository<IPermissionRepository>().Create(permission1);
@@ -201,7 +204,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                 _storage.Save();
 
                 Logger.LogInformation("\"Saving permissions ok.\"");
-                return Ok($"Saving permissions {permission1.Name} ok.");
+                return Ok($"Saving permissions ok.");
             }
             catch (Exception e)
             {
@@ -248,7 +251,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                 RolePermission rolePermission = new RolePermission()
                 {
                     RoleId = roleId_,
-                    Name = permission_,
+                    PermissionId = permission_,
                 };
                 if(!string.IsNullOrWhiteSpace(scope_))
                     rolePermission.Extension = scope_;

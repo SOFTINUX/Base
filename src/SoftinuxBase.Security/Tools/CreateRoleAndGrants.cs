@@ -54,7 +54,7 @@ namespace SoftinuxBase.Security.Tools
                     foreach (string extension in model_.Extensions)
                     {
                         repo.Create(new RolePermission
-                        { RoleId = identityRole.Id, Name = permissionEnum.ToString(), Extension = extension });
+                        { RoleId = identityRole.Id, PermissionId = permissionEnum.ToString(), Extension = extension });
                     }
                 }
 

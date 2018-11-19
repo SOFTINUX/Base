@@ -9,7 +9,7 @@ using WebApplication;
 namespace WebApplication.Migrations
 {
     [DbContext(typeof(ApplicationStorageContext))]
-    [Migration("20181119150940_InitialCreate")]
+    [Migration("20181119205309_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -147,11 +147,13 @@ namespace WebApplication.Migrations
 
                     b.Property<string>("Extension");
 
-                    b.Property<string>("Name");
-
-                    b.Property<string>("NormalizedName");
+                    b.Property<string>("Id")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd();
 
                     b.HasKey("RoleId", "PermissionId", "Extension");
+
+                    b.HasAlternateKey("Id");
 
                     b.HasIndex("PermissionId");
 

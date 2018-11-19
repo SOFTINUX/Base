@@ -25,6 +25,8 @@ namespace SoftinuxBase.Security.Data.EntityFramework
             // RolePermission
             modelBuilder_.Entity<RolePermission>(etb_ =>
                 {
+                    etb_.HasKey(e_ => e_.Id);
+                    etb_.Property(e_ => e_.Id).ValueGeneratedOnAdd();
                     etb_.HasKey(e_ => new { e_.RoleId, e_.PermissionId, e_.Extension });
                 }
             );

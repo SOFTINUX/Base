@@ -145,11 +145,13 @@ namespace WebApplication.Migrations
 
                     b.Property<string>("Extension");
 
-                    b.Property<string>("Name");
-
-                    b.Property<string>("NormalizedName");
+                    b.Property<string>("Id")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd();
 
                     b.HasKey("RoleId", "PermissionId", "Extension");
+
+                    b.HasAlternateKey("Id");
 
                     b.HasIndex("PermissionId");
 
