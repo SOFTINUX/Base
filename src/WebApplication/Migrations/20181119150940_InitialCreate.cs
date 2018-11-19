@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace SoftinuxBase.WebApp.Migrations
+namespace WebApplication.Migrations
 {
     public partial class InitialCreate : Migration
     {
@@ -55,7 +55,8 @@ namespace SoftinuxBase.WebApp.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    NormalizedName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -173,12 +174,14 @@ namespace SoftinuxBase.WebApp.Migrations
                 columns: table => new
                 {
                     RoleId = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Extension = table.Column<string>(nullable: false),
                     PermissionId = table.Column<string>(nullable: false),
-                    Scope = table.Column<string>(nullable: false)
+                    NormalizedName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RolePermission", x => new { x.RoleId, x.PermissionId, x.Scope });
+                    table.PrimaryKey("PK_RolePermission", x => new { x.RoleId, x.PermissionId, x.Extension });
                     table.ForeignKey(
                         name: "FK_RolePermission_Permission_PermissionId",
                         column: x => x.PermissionId,
@@ -199,11 +202,12 @@ namespace SoftinuxBase.WebApp.Migrations
                 {
                     UserId = table.Column<string>(nullable: false),
                     PermissionId = table.Column<string>(nullable: false),
-                    Scope = table.Column<string>(nullable: false)
+                    Extension = table.Column<string>(nullable: false),
+                    NormalizedName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserPermission", x => new { x.UserId, x.PermissionId, x.Scope });
+                    table.PrimaryKey("PK_UserPermission", x => new { x.UserId, x.PermissionId, x.Extension });
                     table.ForeignKey(
                         name: "FK_UserPermission_Permission_PermissionId",
                         column: x => x.PermissionId,

@@ -12,12 +12,14 @@ namespace SoftinuxBase.Security.Data.Entities
     {
         public  UserPermission()
         {
-            Scope = "Security";
+            Extension = "Security";
+            NormalizedName = Extension.ToUpperInvariant();
         }
 
         public string UserId { get; set; }
         public string PermissionId { get; set; }
-        public string Scope { get; set; }
+        public string Extension { get; set; }
+        public string NormalizedName { get; private set; }
 
         public virtual User User { get; set; }
         public virtual Permission Permission { get; set; }

@@ -39,16 +39,16 @@ namespace SoftinuxBase.Security.Tools
             List<RolePermission> allRp = storage_.GetRepository<IRolePermissionRepository>().All();
             foreach (RolePermission rp in allRp)
             {
-                if (!model.PermissionsByRoleAndScope.ContainsKey(rp.Scope))
+                if (!model.PermissionsByRoleAndScope.ContainsKey(rp.Extension))
                 {
                     // A database record related to a not loaded extension (scope). Ignore this.
                     continue;
                 }
                 string roleName = roleNameByRoleId_.ContainsKey(rp.RoleId) ? roleNameByRoleId_[rp.RoleId] : null;
-                if (!model.PermissionsByRoleAndScope[rp.Scope].ContainsKey(roleName))
-                    model.PermissionsByRoleAndScope[rp.Scope].Add(roleName, new List<global::SoftinuxBase.Security.Common.Enums.Permission>());
+                if (!model.PermissionsByRoleAndScope[rp.Extension].ContainsKey(roleName))
+                    model.PermissionsByRoleAndScope[rp.Extension].Add(roleName, new List<global::SoftinuxBase.Security.Common.Enums.Permission>());
                 // Format the list of Permission enum values according to DB enum value
-                model.PermissionsByRoleAndScope[rp.Scope][roleName] = PermissionHelper.GetLowerOrEqual(PermissionHelper.FromId(rp.PermissionId));
+                model.PermissionsByRoleAndScope[rp.Extension][roleName] = PermissionHelper.GetLowerOrEqual(PermissionHelper.FromId(rp.PermissionId));
                 rolesWithPerms.Add(roleName);
             }
 
@@ -80,7 +80,7 @@ namespace SoftinuxBase.Security.Tools
             selectedExtensions_ = storage_.GetRepository<IRolePermissionRepository>().FilteredByRoleId(roleId_).Select(
                 rp_ => new SelectedExtension
                 {
-                    Name = rp_.Scope, Permission = rp_.PermissionId
+                    Name = rp_.Extension, Permission = rp_.PermissionId
                 })
                 .ToList();
 

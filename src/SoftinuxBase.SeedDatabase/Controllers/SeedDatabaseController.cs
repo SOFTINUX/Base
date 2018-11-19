@@ -220,7 +220,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                     PermissionId = permissionId_
                 };
                 if(!string.IsNullOrWhiteSpace(scope_))
-                    userPermission.Scope = scope_;
+                    userPermission.Extension = scope_;
 
                 _storage.GetRepository<IUserPermissionRepository>().Create(userPermission);
             }
@@ -248,10 +248,10 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                 RolePermission rolePermission = new RolePermission()
                 {
                     RoleId = roleId_,
-                    PermissionId = permission_,
+                    Name = permission_,
                 };
                 if(!string.IsNullOrWhiteSpace(scope_))
-                    rolePermission.Scope = scope_;
+                    rolePermission.Extension = scope_;
 
                 _storage.GetRepository<IRolePermissionRepository>().Create(rolePermission);
             }

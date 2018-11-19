@@ -19,7 +19,7 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         }
         public RolePermission FindBy(string roleId_, string scope_)
         {
-            return dbSet.FirstOrDefault(e_ => e_.RoleId == roleId_ && e_.Scope == scope_);
+            return dbSet.FirstOrDefault(e_ => e_.RoleId == roleId_ && e_.Extension == scope_);
         }
 
         public IEnumerable<RolePermission> FilteredByRoleId(string roleId_)

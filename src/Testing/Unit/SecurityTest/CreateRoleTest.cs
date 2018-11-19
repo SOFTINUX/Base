@@ -67,7 +67,7 @@ namespace SecurityTest
                 if (createdRole != null)
                 {
                     foreach (var rolePermission in permRepo.FilteredByRoleId(createdRole.Id))
-                        permRepo.Delete(rolePermission.RoleId, rolePermission.Scope);
+                        permRepo.Delete(rolePermission.RoleId, rolePermission.Extension);
 
                     await DatabaseFixture.RoleManager.DeleteAsync(createdRole);
                 }
@@ -107,7 +107,7 @@ namespace SecurityTest
                 if (createdRole != null)
                 {
                     foreach (var rolePermission in permRepo.FilteredByRoleId(createdRole.Id))
-                        permRepo.Delete(rolePermission.RoleId, rolePermission.Scope);
+                        permRepo.Delete(rolePermission.RoleId, rolePermission.Extension);
 
                     await DatabaseFixture.RoleManager.DeleteAsync(createdRole);
                 }
@@ -152,7 +152,7 @@ namespace SecurityTest
                 if (createdRole != null)
                 {
                     foreach (var rolePermission in permRepo.FilteredByRoleId(createdRole.Id))
-                        permRepo.Delete(rolePermission.RoleId, rolePermission.Scope);
+                        permRepo.Delete(rolePermission.RoleId, rolePermission.Extension);
 
                     await DatabaseFixture.RoleManager.DeleteAsync(createdRole);
                 }

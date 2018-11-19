@@ -68,22 +68,22 @@ namespace SecurityTest
                 DatabaseFixture.Storage.Save();
 
                 repo.Create(new RolePermission
-                    {RoleId = adminRole.Id, Scope = "SoftinuxBase.Security", PermissionId = Permission.Admin.GetPermissionName()});
+                    { RoleId = adminRole.Id, Extension = "SoftinuxBase.Security", Name = Permission.Admin.GetPermissionName()});
                 repo.Create(new RolePermission
-                    {RoleId = userRole.Id, Scope = "SoftinuxBase.Security", PermissionId = Permission.Read.GetPermissionName()});
+                    {RoleId = userRole.Id, Extension = "SoftinuxBase.Security", Name = Permission.Read.GetPermissionName()});
                 repo.Create(new RolePermission
                 {
-                    RoleId = anonymousRole.Id, Scope = "SoftinuxBase.Security", PermissionId = Permission.Never.GetPermissionName()
+                    RoleId = anonymousRole.Id, Extension = "SoftinuxBase.Security", Name = Permission.Never.GetPermissionName()
                 });
                 repo.Create(new RolePermission
                 {
-                    RoleId = specialUserRole.Id, Scope = "SoftinuxBase.Security", PermissionId = Permission.Write.GetPermissionName()
+                    RoleId = specialUserRole.Id, Extension = "SoftinuxBase.Security", Name = Permission.Write.GetPermissionName()
                 });
 
                 repo.Create(new RolePermission
-                    {RoleId = adminRole.Id, Scope = "Chinook", PermissionId = Permission.Admin.GetPermissionName()});
+                    {RoleId = adminRole.Id, Extension = "Chinook", Name = Permission.Admin.GetPermissionName()});
                 repo.Create(new RolePermission
-                    {RoleId = userRole.Id, Scope = "Chinook", PermissionId = Permission.Write.GetPermissionName()});
+                    {RoleId = userRole.Id, Extension = "Chinook", Name = Permission.Write.GetPermissionName()});
 
                 DatabaseFixture.Storage.Save();
 

@@ -3,12 +3,13 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication;
 
-namespace SoftinuxBase.WebApp.Migrations
+namespace WebApplication.Migrations
 {
     [DbContext(typeof(ApplicationStorageContext))]
-    [Migration("20181010130018_InitialCreate")]
+    [Migration("20181119150940_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -131,6 +132,8 @@ namespace SoftinuxBase.WebApp.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<string>("NormalizedName");
+
                     b.HasKey("Id");
 
                     b.ToTable("Permission");
@@ -142,9 +145,13 @@ namespace SoftinuxBase.WebApp.Migrations
 
                     b.Property<string>("PermissionId");
 
-                    b.Property<string>("Scope");
+                    b.Property<string>("Extension");
 
-                    b.HasKey("RoleId", "PermissionId", "Scope");
+                    b.Property<string>("Name");
+
+                    b.Property<string>("NormalizedName");
+
+                    b.HasKey("RoleId", "PermissionId", "Extension");
 
                     b.HasIndex("PermissionId");
 
@@ -215,9 +222,11 @@ namespace SoftinuxBase.WebApp.Migrations
 
                     b.Property<string>("PermissionId");
 
-                    b.Property<string>("Scope");
+                    b.Property<string>("Extension");
 
-                    b.HasKey("UserId", "PermissionId", "Scope");
+                    b.Property<string>("NormalizedName");
+
+                    b.HasKey("UserId", "PermissionId", "Extension");
 
                     b.HasIndex("PermissionId");
 

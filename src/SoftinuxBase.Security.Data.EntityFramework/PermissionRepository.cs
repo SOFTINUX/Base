@@ -49,12 +49,12 @@ namespace SoftinuxBase.Security.Data.EntityFramework
                                                                            join r in storageContext.Set<IdentityRole<string>>() on rp.RoleId equals r.Id
                                                                            join ur in storageContext.Set<IdentityUserRole<string>>() on r.Id equals ur.RoleId
                                                                            where ur.UserId == userId_
-                                                                           select new KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>(PermissionHelper.FromId(p.Id), rp.Scope);
+                                                                           select new KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>(PermissionHelper.FromId(p.Id), rp.Extension);
 
             IEnumerable<KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>> permissionsOfUser = from p in storageContext.Set<Permission>()
                                                                           join up in storageContext.Set<UserPermission>() on p.Id equals up.PermissionId
                                                                           where up.UserId == userId_
-                                                                          select new KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>(PermissionHelper.FromId(p.Id), up.Scope);
+                                                                          select new KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>(PermissionHelper.FromId(p.Id), up.Extension);
 
             HashSet<KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>> allPermissions = new HashSet<KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>>();
 

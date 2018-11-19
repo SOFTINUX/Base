@@ -2,6 +2,7 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 ///<reference path = '../../SoftinuxBase.Barebone/node_modules/jquery/dist/jquery.js' />
+///<reference path = '../../SoftinuxBase.Barebone/node_modules/toastr/toastr.js' />
 
 /* Anonymous function to avoid polluting global namespace */
 $(function () {

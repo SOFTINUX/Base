@@ -119,7 +119,7 @@ namespace SoftinuxBase.Security.Controllers
             IRolePermissionRepository repo = Storage.GetRepository<IRolePermissionRepository>();
             repo.Delete(roleId, scope_);
             if (!string.IsNullOrEmpty(permissionId_.ToLowerInvariant()))
-                repo.Create(new RolePermission { RoleId = roleId, PermissionId = permissionId_.UppercaseFirst(), Scope = scope_ });
+                repo.Create(new RolePermission { RoleId = roleId, Name = permissionId_.UppercaseFirst(), Extension = scope_ });
             Storage.Save();
             return new JsonResult(true);
         }
