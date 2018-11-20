@@ -13,7 +13,7 @@ namespace SoftinuxBase.Security.Data.Entities
     /// </summary>
     public class RolePermission : IEntity
     {
-        private string _name;
+        //private string _name;
         public RolePermission()
         {
             Extension = "SoftinuxBase.Security";

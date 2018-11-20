@@ -8,6 +8,10 @@ namespace SoftinuxBase.Security.Data.Entities
     public class Permission : IEntity
     {
         private string _name;
+        /// <summary>
+        /// Primary key: GUID.
+        /// </summary>
+        /// <value></value>
         public string Id { get; set; }
         public string Name
         {
@@ -17,7 +21,7 @@ namespace SoftinuxBase.Security.Data.Entities
             set
             {
                 _name = value;
-                NormalizedName = value.ToLowerInvariant();
+                NormalizedName = value.ToUpperInvariant();
             }
         }
         public string NormalizedName { get; private set; }
