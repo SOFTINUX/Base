@@ -230,12 +230,12 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                     if (!result.Succeeded)
                     {
                         _logger.LogCritical("\"(CreateAsync) Error creating role: { @Name }\"", identityRole.Name);
-                        return true;
+                        return false;
                     }
                 }
             }
 
-            return false;
+            return true;
         }
 
         /// <summary>
