@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 using Permission = SoftinuxBase.Security.Common.Enums.Permission;
@@ -67,83 +68,15 @@ namespace SoftinuxBase.SeedDatabase.Controllers
             }
 
             // Save PERMISSIONS
-            var savePermissionsResult = SavePermissions();
-            if (savePermissionsResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
-                return StatusCode(500, savePermissionsResult);
+            SavePermissions();
 
             // Save USER-PERMISSION
-            var saveUsersPermissionsResult = SaveUserPermission();
-            if (saveUsersPermissionsResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
-                return StatusCode(500, saveUsersPermissionsResult);
+            SaveUserPermission();
 
             // Save ROLE-PERMISSION
-            var saveRolesPermissionsResult = SaveRolePermission();
-            if (saveRolesPermissionsResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
-                return StatusCode(500, saveRolesPermissionsResult);
+            SaveRolePermission();
 
-            return Ok(
-                saveRolesResult.Value.ToString() +
-                saveUsersResult.Value.ToString() +
-                savePermissionsResult +
-                saveUsersPermissionsResult +
-                saveRolesPermissionsResult +
-                "Demo database initialization Ok.");
-        }
-
-        private ObjectResult SaveRolePermission()
-        {
-            var adminRoleId = _createdRoles.FirstOrDefault(r_ => r_.Name == Role.Administrator.ToString())?.Id;
-            var userRoleId = _createdRoles.FirstOrDefault(r_ => r_.Name == Role.User.ToString())?.Id;
-            var anonymousRoleId = _createdRoles.FirstOrDefault(r_ => r_.Name == Role.Anonymous.ToString())?.Id;
-
-            var adminPermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Permission.Admin.ToString())?.Id;
-            var writePermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Permission.Write.ToString())?.Id;
-            var readPermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Permission.Read.ToString())?.Id;
-
-
-            // 1. Admin role: admin (globally)
-            var saveResult = SaveRolePermission(adminRoleId, adminPermissionId);
-            if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
-                return (ObjectResult) saveResult;
-
-            // 2. Admin role: admin (Chinook)
-            saveResult = SaveRolePermission(adminRoleId, adminPermissionId, "Chinook");
-            if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
-                return (ObjectResult) saveResult;
-
-            // 3. User role: write (globally)
-            saveResult = SaveRolePermission(userRoleId, writePermissionId);
-            if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
-                return (ObjectResult) saveResult;
-
-            // 4. Anonymous role: read (globally)
-            saveResult = SaveRolePermission(anonymousRoleId, readPermissionId);
-            if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
-                return (ObjectResult) saveResult;
-
-            return Ok("Save roles permissions OK.");
-        }
-
-        private IActionResult SaveUserPermission()
-        {
-            var adminPermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Permission.Admin.ToString())?.Id;
-
-            // John (admin user): Admin (globally)
-            var saveResult = SaveUserPermission(adminPermissionId, _createdUsers[0]);
-            if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
-            {
-                return saveResult;
-            }
-
-            // Paul : Admin (Chinook)
-            // Note: Chinook is not distributed
-            saveResult = SaveUserPermission(adminPermissionId, _createdUsers[2], "Chinook");
-            if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
-            {
-                return saveResult;
-            }
-
-            return Ok("Save Users Permissions OK.");
+            return Ok("Demo database initialization Ok.");
         }
 
         /// <summary>
@@ -249,10 +182,52 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         }
 
         /// <summary>
+        ///
+        /// </summary>
+        private void SaveUserPermission()
+        {
+            var adminPermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Permission.Admin.ToString())?.Id;
+
+            // John (admin user): Admin (globally)
+            SaveUserPermission(adminPermissionId, _createdUsers[0]);
+
+            // Paul : Admin (Chinook)
+            // Note: Chinook is not distributed
+            SaveUserPermission(adminPermissionId, _createdUsers[2], "Chinook");
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        private void SaveRolePermission()
+        {
+            var adminRoleId = _createdRoles.FirstOrDefault(r_ => r_.Name == Role.Administrator.ToString())?.Id;
+            var userRoleId = _createdRoles.FirstOrDefault(r_ => r_.Name == Role.User.ToString())?.Id;
+            var anonymousRoleId = _createdRoles.FirstOrDefault(r_ => r_.Name == Role.Anonymous.ToString())?.Id;
+
+            var adminPermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Permission.Admin.ToString())?.Id;
+            var writePermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Permission.Write.ToString())?.Id;
+            var readPermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Permission.Read.ToString())?.Id;
+
+
+            // 1. Admin role: admin (globally)
+            SaveRolePermission(adminRoleId, adminPermissionId);
+
+            // 2. Admin role: admin (Chinook)
+            SaveRolePermission(adminRoleId, adminPermissionId, "Chinook");
+
+            // 3. User role: write (globally)
+            SaveRolePermission(userRoleId, writePermissionId);
+
+            // 4. Anonymous role: read (globally)
+            SaveRolePermission(anonymousRoleId, readPermissionId);
+        }
+
+        /// <summary>
         /// Save the roles and populate _createdPermissions class variable.
         /// </summary>
         /// <returns></returns>
-        private IActionResult SavePermissions()
+        private void SavePermissions()
         {
             Permission[] permissions = (Permission[])Enum.GetValues(typeof(Permission));
 
@@ -272,14 +247,12 @@ namespace SoftinuxBase.SeedDatabase.Controllers
              try
             {
                 _storage.Save();
-
                 _logger.LogInformation("\"Saving permissions ok.\"");
-                return Ok($"Saving permissions ok.");
             }
             catch (Exception e)
             {
                 _logger.LogCritical("\"Error saving permission (@permission): {@message}, \n\rInnerException: {@innerException} \n\rStackTrace: {@stackTrace} \"", "", e.Message, e.InnerException, e.StackTrace );
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Cannot save permissions. Error: {e.Message}");
+                throw new Exception( $"Cannot save permissions. Error: {e.Message}");
             }
         }
 
@@ -290,7 +263,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         /// <param name="user_"></param>
         /// <param name="scope_"></param>
         /// <returns></returns>
-        private IActionResult SaveUserPermission(string permissionId_, User user_, string scope_ = null)
+        private void SaveUserPermission(string permissionId_, User user_, string scope_ = null)
         {
             if (!string.IsNullOrWhiteSpace(permissionId_) && user_ != null)
             {
@@ -307,14 +280,12 @@ namespace SoftinuxBase.SeedDatabase.Controllers
             try
             {
                 _storage.Save();
-
                 _logger.LogInformation($"\"Saving user-permission {permissionId_} ok.\"");
-                return Ok("Saving user-permission ok.");
             }
             catch (Exception e)
             {
                 _logger.LogCritical("\"Error saving user-permission (@userPermission): {@message}, \n\rInnerException: {@innerException} \n\rStackTrace: {@stackTrace} \"", permissionId_, e.Message, e.InnerException, e.StackTrace );
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Cannot save user-permission. Error: {e.Message}");
+                throw new Exception($"Cannot save user-permission. Error: {e.Message}");
             }
         }
 
@@ -325,7 +296,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         /// <param name="permissionId_"></param>
         /// <param name="extension_"></param>
         /// <returns></returns>
-        private IActionResult SaveRolePermission(string roleId_, string permissionId_, string extension_ = null)
+        private void SaveRolePermission(string roleId_, string permissionId_, string extension_ = null)
         {
             if (
                 (!string.IsNullOrWhiteSpace(permissionId_)) &&
@@ -347,12 +318,11 @@ namespace SoftinuxBase.SeedDatabase.Controllers
             {
                 _storage.Save();
                 _logger.LogInformation($"\"Saving role-permission: permission: {permissionId_}, to role: {roleId_}, for extension: {extension_ ?? "SoftinuxBase.Security"} ok.\"");
-                return Ok("Saving role-permission ok.");
             }
             catch (Exception e)
             {
                 _logger.LogCritical("\"Error saving role-permission (@rolePermission, @permissionId): {@message}, \n\rInnerException: {@innerException} \n\rStackTrace: {@stackTrace} \"", roleId_, permissionId_, e.Message, e.InnerException, e.StackTrace );
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Cannot save role-permission. Error: {e.Message}");
+                throw new Exception($"Cannot save role-permission. Error: {e.Message}");
             }
         }
 
