@@ -224,8 +224,6 @@ namespace WebApplication.Migrations
 
                     b.Property<string>("Extension");
 
-                    b.Property<string>("NormalizedName");
-
                     b.HasKey("UserId", "PermissionId", "Extension");
 
                     b.HasIndex("PermissionId");

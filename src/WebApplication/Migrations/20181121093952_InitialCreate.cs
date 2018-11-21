@@ -202,8 +202,7 @@ namespace WebApplication.Migrations
                 {
                     UserId = table.Column<string>(nullable: false),
                     PermissionId = table.Column<string>(nullable: false),
-                    Extension = table.Column<string>(nullable: false),
-                    NormalizedName = table.Column<string>(nullable: true)
+                    Extension = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

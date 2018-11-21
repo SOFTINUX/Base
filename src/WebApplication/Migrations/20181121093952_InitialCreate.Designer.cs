@@ -9,7 +9,7 @@ using WebApplication;
 namespace WebApplication.Migrations
 {
     [DbContext(typeof(ApplicationStorageContext))]
-    [Migration("20181120151034_InitialCreate")]
+    [Migration("20181121093952_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -225,8 +225,6 @@ namespace WebApplication.Migrations
                     b.Property<string>("PermissionId");
 
                     b.Property<string>("Extension");
-
-                    b.Property<string>("NormalizedName");
 
                     b.HasKey("UserId", "PermissionId", "Extension");
 

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 using Permission = SoftinuxBase.Security.Common.Enums.Permission;
@@ -29,7 +30,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         private readonly List<Security.Data.Entities.Permission> _createdPermissions = new List<Security.Data.Entities.Permission>();
         // 0: John, 1: Jane, 2: Paul
         private User[] _createdUsers = new User[3];
-        
+
         public SeedDatabaseController(UserManager<User> userManager_,
             RoleManager<IdentityRole<string>> roleManager_, ILoggerFactory loggerFactory_,
             IStorage storage_)
@@ -51,37 +52,45 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         [Route("/dev/seed/CreateUser")]
         public async Task<IActionResult> CreateUser()
         {
-            if (!await SaveRoles())
+            var saveRolesResult = await SaveRoles();
+            if (saveRolesResult.StatusCode != (int) HttpStatusCode.OK)
             {
                 // Failure. Return error 500.
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Cannot save roles.");
+                return saveRolesResult;
             }
 
-            if (!await SaveUsers())
+            var saveUsersResult = await SaveUsers();
+            if (saveUsersResult.StatusCode != (int) HttpStatusCode.OK)
             {
-                // Failure. Return error 500.
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Cannot save users.");
+                // Failure. Return error 500 with message.
+                return saveUsersResult;
             }
 
             // Save PERMISSIONS
-            var saveResult = SavePermissions();
-            if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
-                return saveResult;
+            var savePermissionsResult = SavePermissions();
+            if (savePermissionsResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
+                return StatusCode(500, savePermissionsResult);
 
             // Save USER-PERMISSION
-            saveResult = SaveUserPermission();
-            if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
-                return saveResult;
+            var saveUsersPermissionsResult = SaveUserPermission();
+            if (saveUsersPermissionsResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
+                return StatusCode(500, saveUsersPermissionsResult);
 
             // Save ROLE-PERMISSION
-            saveResult = SaveRolePermission();
-            if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
-                return saveResult;
+            var saveRolesPermissionsResult = SaveRolePermission();
+            if (saveRolesPermissionsResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
+                return StatusCode(500, saveRolesPermissionsResult);
 
-            return Ok("User Creation Ok.");
+            return Ok(
+                saveRolesResult.Value.ToString() +
+                saveUsersResult.Value.ToString() +
+                savePermissionsResult +
+                saveUsersPermissionsResult +
+                saveRolesPermissionsResult +
+                "Demo database initialization Ok.");
         }
 
-        private IActionResult SaveRolePermission()
+        private ObjectResult SaveRolePermission()
         {
             var adminRoleId = _createdRoles.FirstOrDefault(r_ => r_.Name == Role.Administrator.ToString())?.Id;
             var userRoleId = _createdRoles.FirstOrDefault(r_ => r_.Name == Role.User.ToString())?.Id;
@@ -95,29 +104,30 @@ namespace SoftinuxBase.SeedDatabase.Controllers
             // 1. Admin role: admin (globally)
             var saveResult = SaveRolePermission(adminRoleId, adminPermissionId);
             if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
-                return saveResult;
+                return (ObjectResult) saveResult;
 
             // 2. Admin role: admin (Chinook)
             saveResult = SaveRolePermission(adminRoleId, adminPermissionId, "Chinook");
             if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
-                return saveResult;
+                return (ObjectResult) saveResult;
 
             // 3. User role: write (globally)
             saveResult = SaveRolePermission(userRoleId, writePermissionId);
             if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
-                return saveResult;
+                return (ObjectResult) saveResult;
 
             // 4. Anonymous role: read (globally)
             saveResult = SaveRolePermission(anonymousRoleId, readPermissionId);
             if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
-                return saveResult;
-            return Ok();
+                return (ObjectResult) saveResult;
+
+            return Ok("Save roles permissions OK.");
         }
 
         private IActionResult SaveUserPermission()
         {
             var adminPermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Permission.Admin.ToString())?.Id;
- 
+
             // John (admin user): Admin (globally)
             var saveResult = SaveUserPermission(adminPermissionId, _createdUsers[0]);
             if (saveResult.GetType() != typeof(OkObjectResult)) // return 500 if fails
@@ -133,14 +143,14 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                 return saveResult;
             }
 
-            return Ok();
+            return Ok("Save Users Permissions OK.");
         }
 
         /// <summary>
         /// Save users and fill _createdUsers class variable;
         /// </summary>
         /// <returns></returns>
-        private async Task<bool> SaveUsers()
+        private async Task<ObjectResult> SaveUsers()
         {
             // our default user
             User johnUser = new User
@@ -184,7 +194,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                     if (!result.Succeeded) //return 500 if it fails
                     {
                         _logger.LogCritical("\"(CreateAsync) Error creating user: { @userEmail }\"", user.Email);
-                        return false;
+                        return StatusCode(500, ("\"(CreateAsync) Error creating user: { @userEmail }\"", user.Email));
                     }
 
                     // Assign roles to user. John has Admin role, Jane and Paul have User role
@@ -193,21 +203,21 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                     if (!result.Succeeded) // return 500 if fails
                     {
                         _logger.LogCritical("\"(AddToRolesAsync) Error adding user to role, user: { @userEmail }, role: Administrator\"", user.Email);
-                        return false;
+                        StatusCode(500, ("\"(AddToRolesAsync) Error adding user to role, user: { @userEmail }, role: Administrator\"", user.Email));
                     }
                 }
 
                 firstUser = false;
             }
             _createdUsers = new[] { johnUser, janeUser, paulUser};
-            return true;
+            return Ok("Creating users OK.");
         }
 
         /// <summary>
         /// Save the roles and populate _createdRoles class variable.
         /// </summary>
         /// <returns></returns>
-        private async Task<bool> SaveRoles()
+        private async Task<ObjectResult> SaveRoles()
         {
             // Get the list of the role from the enum
             Role[] roles = (Role[]) Enum.GetValues(typeof(Role));
@@ -230,12 +240,12 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                     if (!result.Succeeded)
                     {
                         _logger.LogCritical("\"(CreateAsync) Error creating role: { @Name }\"", identityRole.Name);
-                        return false;
+                        return StatusCode(500, ("\"(CreateAsync) Error creating role: { @Name }\"", identityRole.Name));
                     }
                 }
             }
 
-            return true;
+            return Ok("Creating roles OK.");
         }
 
         /// <summary>
@@ -273,6 +283,13 @@ namespace SoftinuxBase.SeedDatabase.Controllers
             }
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="permissionId_"></param>
+        /// <param name="user_"></param>
+        /// <param name="scope_"></param>
+        /// <returns></returns>
         private IActionResult SaveUserPermission(string permissionId_, User user_, string scope_ = null)
         {
             if (!string.IsNullOrWhiteSpace(permissionId_) && user_ != null)
@@ -301,6 +318,13 @@ namespace SoftinuxBase.SeedDatabase.Controllers
             }
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="roleId_"></param>
+        /// <param name="permissionId_"></param>
+        /// <param name="extension_"></param>
+        /// <returns></returns>
         private IActionResult SaveRolePermission(string roleId_, string permissionId_, string extension_ = null)
         {
             if (

@@ -14,13 +14,11 @@ namespace SoftinuxBase.Security.Data.Entities
         public  UserPermission()
         {
             Extension = "SoftinuxBase.Security";
-            NormalizedName = Extension.ToUpperInvariant();
         }
 
         public string UserId { get; set; }
         public string PermissionId { get; set; }
         public string Extension { get; set; }
-        public string NormalizedName { get; private set; }
 
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
