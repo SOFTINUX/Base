@@ -13,6 +13,9 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="ExtCore.Data.EntityFramework" Version="3.3.0" />
+    <Reference Include="SoftinuxLogger">
+      <HintPath>..\..\..\..\SoftinuxLogger\SoftinuxLogger.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../../../SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />

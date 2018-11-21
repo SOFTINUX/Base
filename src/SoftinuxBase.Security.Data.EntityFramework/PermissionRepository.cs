@@ -6,7 +6,6 @@ using System.Linq;
 using ExtCore.Data.EntityFramework;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 using Permission = SoftinuxBase.Security.Data.Entities.Permission;
@@ -49,12 +48,12 @@ namespace SoftinuxBase.Security.Data.EntityFramework
                                                                            join r in storageContext.Set<IdentityRole<string>>() on rp.RoleId equals r.Id
                                                                            join ur in storageContext.Set<IdentityUserRole<string>>() on r.Id equals ur.RoleId
                                                                            where ur.UserId == userId_
-                                                                           select new KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>(PermissionHelper.FromId(p.Id), rp.Extension);
+                                                                           select new KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>(SoftinuxBase.Security.Common.PermissionHelper.FromName(p.Name), rp.Extension);
 
             IEnumerable<KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>> permissionsOfUser = from p in storageContext.Set<Permission>()
                                                                           join up in storageContext.Set<UserPermission>() on p.Id equals up.PermissionId
                                                                           where up.UserId == userId_
-                                                                          select new KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>(PermissionHelper.FromId(p.Id), up.Extension);
+                                                                          select new KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>(SoftinuxBase.Security.Common.PermissionHelper.FromName(p.Name), up.Extension);
 
             HashSet<KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>> allPermissions = new HashSet<KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>>();
 

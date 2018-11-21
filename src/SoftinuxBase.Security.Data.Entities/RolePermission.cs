@@ -27,23 +27,8 @@ namespace SoftinuxBase.Security.Data.Entities
 
         public string RoleId { get; set; }
 
-        // TODO "Name" : ???
-
-        // public string Name
-        // {
-        //     get
-        //     {
-        //         return _name;
-        //     }
-        //     set
-        //     {
-        //         _name = value;
-        //         NormalizedName = value.ToLowerInvariant();
-        //     }
-        // }
         public string Extension { get; set; }
         public string PermissionId { get; set; }
-    //    public string NormalizedName { get; private set; }
 
         public virtual IdentityRole<string> Role { get; set; }
         public virtual Permission Permission { get; set; }

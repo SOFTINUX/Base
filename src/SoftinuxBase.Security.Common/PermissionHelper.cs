@@ -11,9 +11,16 @@ namespace SoftinuxBase.Security.Common
 {
     public static class PermissionHelper
     {
+        [Obsolete]
         public static Permission FromId(string id_)
         {
             Enum.TryParse(id_, out Permission perm);
+            return perm;
+        }
+
+        public static Permission FromName(string name_)
+        {
+            Enum.TryParse(name_, out Permission perm);
             return perm;
         }
 

@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SoftinuxBase.Security.Data.Entities;
+using SoftinuxLogger;
 
 namespace CommonTest
 {
@@ -74,6 +75,9 @@ namespace CommonTest
 
             // Register database-specific storage context implementation.
             services_.AddScoped<IStorageContext, ApplicationStorageContext>();
+
+            // Softinux logger
+            services_.AddSoftinuxLogger();
         }
 
         private static IConfiguration LoadConfiguration()
