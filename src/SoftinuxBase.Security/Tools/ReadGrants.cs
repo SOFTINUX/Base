@@ -36,7 +36,7 @@ namespace SoftinuxBase.Security.Tools
             HashSet<string> rolesWithPerms = new HashSet<string>();
 
             // Read role/permission/extension settings
-            List<RolePermission> allRp = storage_.GetRepository<IRolePermissionRepository>().All();
+            List<RolePermission> allRp = storage_.GetRepository<IRolePermissionRepository>().All().ToList();
             foreach (RolePermission rp in allRp)
             {
                 if (!model.PermissionsByRoleAndScope.ContainsKey(rp.Extension))
@@ -48,7 +48,7 @@ namespace SoftinuxBase.Security.Tools
                 if (!model.PermissionsByRoleAndScope[rp.Extension].ContainsKey(roleName))
                     model.PermissionsByRoleAndScope[rp.Extension].Add(roleName, new List<global::SoftinuxBase.Security.Common.Enums.Permission>());
                 // Format the list of Permission enum values according to DB enum value
-                model.PermissionsByRoleAndScope[rp.Extension][roleName] = PermissionHelper.GetLowerOrEqual(PermissionHelper.FromId(rp.PermissionId));
+                model.PermissionsByRoleAndScope[rp.Extension][roleName] = PermissionHelper.GetLowerOrEqual(PermissionHelper.FromName(rp.Permission.Name));
                 rolesWithPerms.Add(roleName);
             }
 
