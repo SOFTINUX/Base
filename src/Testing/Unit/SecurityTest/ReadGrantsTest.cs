@@ -46,7 +46,7 @@ namespace SecurityTest
         public async void Test()
         {
             var repo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
-
+            var permRepo = DatabaseFixture.Storage.GetRepository<IPermissionRepository>();
             try
             {
                 // Arrange
@@ -62,32 +62,42 @@ namespace SecurityTest
                 var anonymousRole = await DatabaseFixture.RoleManager.FindByNameAsync(Role.Anonymous.GetRoleName());
                 var specialUserRole = await DatabaseFixture.RoleManager.FindByNameAsync("Special User");
 
-                // 4. Create role-extension links
+                // 4. Read permissions to get their IDs
+                var adminPermissionId = permRepo.All().FirstOrDefault(p_ => p_.Name == Permission.Admin.GetPermissionName())?.Id;
+                var writePermissionId = permRepo.All().FirstOrDefault(p_ => p_.Name == Permission.Write.GetPermissionName())?.Id;
+                var readPermissionId = permRepo.All().FirstOrDefault(p_ => p_.Name == Permission.Read.GetPermissionName())?.Id;
+                var neverPermissionId = permRepo.All().FirstOrDefault(p_ => p_.Name == Permission.Never.GetPermissionName())?.Id;
+                Assert.NotNull(adminPermissionId);
+                Assert.NotNull(writePermissionId);
+                Assert.NotNull(readPermissionId);
+                Assert.NotNull(neverPermissionId);
+                
+                // 5. Create role-extension links
                 // Cleanup first
                 repo.DeleteAll();
                 DatabaseFixture.Storage.Save();
 
                 repo.Create(new RolePermission
-                    { RoleId = adminRole.Id, Extension = "SoftinuxBase.Security", Name = Permission.Admin.GetPermissionName()});
+                    { RoleId = adminRole.Id, Extension = "SoftinuxBase.Security", PermissionId = adminPermissionId});
                 repo.Create(new RolePermission
-                    {RoleId = userRole.Id, Extension = "SoftinuxBase.Security", Name = Permission.Read.GetPermissionName()});
+                    {RoleId = userRole.Id, Extension = "SoftinuxBase.Security", PermissionId = readPermissionId});
                 repo.Create(new RolePermission
                 {
-                    RoleId = anonymousRole.Id, Extension = "SoftinuxBase.Security", Name = Permission.Never.GetPermissionName()
+                    RoleId = anonymousRole.Id, Extension = "SoftinuxBase.Security", PermissionId = neverPermissionId
                 });
                 repo.Create(new RolePermission
                 {
-                    RoleId = specialUserRole.Id, Extension = "SoftinuxBase.Security", Name = Permission.Write.GetPermissionName()
+                    RoleId = specialUserRole.Id, Extension = "SoftinuxBase.Security", PermissionId = writePermissionId
                 });
 
                 repo.Create(new RolePermission
-                    {RoleId = adminRole.Id, Extension = "Chinook", Name = Permission.Admin.GetPermissionName()});
+                    {RoleId = adminRole.Id, Extension = "Chinook", PermissionId = adminPermissionId});
                 repo.Create(new RolePermission
-                    {RoleId = userRole.Id, Extension = "Chinook", Name = Permission.Write.GetPermissionName()});
+                    {RoleId = userRole.Id, Extension = "Chinook", PermissionId = writePermissionId});
 
                 DatabaseFixture.Storage.Save();
 
-                // 5. Build the dictionary that is used by the tool and created in GrantPermissionsController
+                // 6. Build the dictionary that is used by the tool and created in GrantPermissionsController
                 Dictionary<string, string> roleNameByRoleId = new Dictionary<string, string>();
                 roleNameByRoleId.Add(adminRole.Id, adminRole.Name);
                 roleNameByRoleId.Add(userRole.Id, userRole.Name);

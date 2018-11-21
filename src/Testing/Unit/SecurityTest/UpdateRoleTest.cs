@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CommonTest;
 using Microsoft.AspNetCore.Identity;
+using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.Tools;
@@ -171,7 +172,8 @@ namespace SecurityTest
         public async Task TestCheckAndUpdateRole_ChangeAddDeleteExtension()
         {
             string roleName = "New Role 1 " + DateTime.Now.Ticks;
-            var permRepo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
+            var rolePermissionRepository = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
+            var permRepo = DatabaseFixture.Storage.GetRepository<IPermissionRepository>();
 
             try
             {
@@ -186,9 +188,11 @@ namespace SecurityTest
                 // Get back the second role ID
                 string roleId = (await DatabaseFixture.RoleManager.FindByNameAsync(roleName)).Id;
 
+                var readPermissionId = permRepo.All().FirstOrDefault(p_ => p_.Name == Permission.Read.GetPermissionName())?.Id;
+
                 // Add a link to an extension
-                permRepo.Create(new RolePermission { Name = Permission.Read.ToString(), RoleId = roleId, Extension = "Security" });
-                permRepo.Create(new RolePermission { Name = Permission.Read.ToString(), RoleId = roleId, Extension = "Another" });
+                rolePermissionRepository.Create(new RolePermission { PermissionId = readPermissionId, RoleId = roleId, Extension = "Security" });
+                rolePermissionRepository.Create(new RolePermission { PermissionId = readPermissionId, RoleId = roleId, Extension = "Another" });
                 DatabaseFixture.Storage.Save();
 
                 UpdateRoleAndGrantsViewModel model = new UpdateRoleAndGrantsViewModel
@@ -206,7 +210,7 @@ namespace SecurityTest
                 Assert.Null(result);
 
                 // We should find two linked extensions
-                var records = permRepo.FilteredByRoleId(roleId);
+                var records = rolePermissionRepository.FilteredByRoleId(roleId);
                 var rolePermissions = records as RolePermission[] ?? records.ToArray();
                 Assert.Equal(2, rolePermissions.Length);
                 var record = rolePermissions.FirstOrDefault(r_ => r_.Extension == "Security");
@@ -224,8 +228,8 @@ namespace SecurityTest
                 var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(roleName);
                 if (createdRole != null)
                 {
-                    foreach (var rolePermission in permRepo.FilteredByRoleId(createdRole.Id))
-                        permRepo.Delete(rolePermission.RoleId, rolePermission.Extension);
+                    foreach (var rolePermission in rolePermissionRepository.FilteredByRoleId(createdRole.Id))
+                        rolePermissionRepository.Delete(rolePermission.RoleId, rolePermission.Extension);
 
                     await DatabaseFixture.RoleManager.DeleteAsync(createdRole);
                 }
@@ -240,8 +244,9 @@ namespace SecurityTest
         public async Task TestCheckAndUpdateRole_NoExtensionInList_NoChange()
         {
             string firstRoleName = "New Role 1 " + DateTime.Now.Ticks;
-            var permRepo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
-
+            var rolePermissionRepository = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
+            var permRepo = DatabaseFixture.Storage.GetRepository<IPermissionRepository>();
+            
             try
             {
                 // Arrange
@@ -252,8 +257,10 @@ namespace SecurityTest
                 };
                 await DatabaseFixture.RoleManager.CreateAsync(firstRole);
 
+                var writePermissionId = permRepo.All().FirstOrDefault(p_ => p_.Name == Permission.Write.GetPermissionName())?.Id;
+                
                 // Create a link to an extension
-                permRepo.Create(new RolePermission { RoleId = firstRole.Id, Name = Permission.Write.ToString(), Extension = "Security"});
+                rolePermissionRepository.Create(new RolePermission { RoleId = firstRole.Id, PermissionId = writePermissionId, Extension = "Security"});
                 DatabaseFixture.Storage.Save();
 
                 UpdateRoleAndGrantsViewModel model = new UpdateRoleAndGrantsViewModel
@@ -272,7 +279,7 @@ namespace SecurityTest
                 Assert.Null(result);
 
                 // We should find one linked extension, "Security", with Write level
-                var record = permRepo.FilteredByRoleId(firstRole.Id).FirstOrDefault();
+                var record = rolePermissionRepository.FilteredByRoleId(firstRole.Id).FirstOrDefault();
                 Assert.NotNull(record);
                 Assert.Equal("Security", record.Extension);
                 Assert.Equal(Permission.Write.ToString(), record.PermissionId);
@@ -286,8 +293,8 @@ namespace SecurityTest
                     var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(roleName);
                     if (createdRole == null)
                         continue;
-                    foreach (var rolePermission in permRepo.FilteredByRoleId(createdRole.Id))
-                        permRepo.Delete(rolePermission.RoleId, rolePermission.Extension);
+                    foreach (var rolePermission in rolePermissionRepository.FilteredByRoleId(createdRole.Id))
+                        rolePermissionRepository.Delete(rolePermission.RoleId, rolePermission.Extension);
 
                     await DatabaseFixture.RoleManager.DeleteAsync(createdRole);
                 }
