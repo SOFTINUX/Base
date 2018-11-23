@@ -149,9 +149,8 @@ namespace SecurityTest
                 Assert.Contains(Permission.Never, model.PermissionsByRoleAndScope["SoftinuxBase.Security"][anonymousRole.Name]);
 
                 // 7. Number of roles for Chinook extension
-                // We may have additional linked roles left by other tests...
-                Assert.True((model.PermissionsByRoleAndScope.ContainsKey("Chinook")));
-                Assert.True(model.PermissionsByRoleAndScope["Chinook"].Keys.Count >= 2);
+                // When the dll doesn't exist on disk, this is our case, no permissions should be found
+                Assert.False((model.PermissionsByRoleAndScope.ContainsKey("Chinook")));
 
                 // No need to check the details for this extension
 
