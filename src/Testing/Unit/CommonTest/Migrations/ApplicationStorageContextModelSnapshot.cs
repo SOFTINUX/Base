@@ -14,7 +14,7 @@ namespace CommonTest.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.0-rtm-30799");
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<string>", b =>
                 {
@@ -123,34 +123,42 @@ namespace CommonTest.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Security.Data.Entities.Permission", b =>
+            modelBuilder.Entity("SoftinuxBase.Security.Data.Entities.Permission", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
 
+                    b.Property<string>("NormalizedName");
+
                     b.HasKey("Id");
 
                     b.ToTable("Permission");
                 });
 
-            modelBuilder.Entity("Security.Data.Entities.RolePermission", b =>
+            modelBuilder.Entity("SoftinuxBase.Security.Data.Entities.RolePermission", b =>
                 {
                     b.Property<string>("RoleId");
 
                     b.Property<string>("PermissionId");
 
-                    b.Property<string>("Scope");
+                    b.Property<string>("Extension");
 
-                    b.HasKey("RoleId", "PermissionId", "Scope");
+                    b.Property<string>("Id")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd();
+
+                    b.HasKey("RoleId", "PermissionId", "Extension");
+
+                    b.HasAlternateKey("Id");
 
                     b.HasIndex("PermissionId");
 
                     b.ToTable("RolePermission");
                 });
 
-            modelBuilder.Entity("Security.Data.Entities.User", b =>
+            modelBuilder.Entity("SoftinuxBase.Security.Data.Entities.User", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -208,15 +216,15 @@ namespace CommonTest.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Security.Data.Entities.UserPermission", b =>
+            modelBuilder.Entity("SoftinuxBase.Security.Data.Entities.UserPermission", b =>
                 {
                     b.Property<string>("UserId");
 
                     b.Property<string>("PermissionId");
 
-                    b.Property<string>("Scope");
+                    b.Property<string>("Extension");
 
-                    b.HasKey("UserId", "PermissionId", "Scope");
+                    b.HasKey("UserId", "PermissionId", "Extension");
 
                     b.HasIndex("PermissionId");
 
@@ -233,7 +241,7 @@ namespace CommonTest.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Security.Data.Entities.User")
+                    b.HasOne("SoftinuxBase.Security.Data.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -241,7 +249,7 @@ namespace CommonTest.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Security.Data.Entities.User")
+                    b.HasOne("SoftinuxBase.Security.Data.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -254,7 +262,7 @@ namespace CommonTest.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Security.Data.Entities.User")
+                    b.HasOne("SoftinuxBase.Security.Data.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -262,15 +270,15 @@ namespace CommonTest.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Security.Data.Entities.User")
+                    b.HasOne("SoftinuxBase.Security.Data.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Security.Data.Entities.RolePermission", b =>
+            modelBuilder.Entity("SoftinuxBase.Security.Data.Entities.RolePermission", b =>
                 {
-                    b.HasOne("Security.Data.Entities.Permission", "Permission")
+                    b.HasOne("SoftinuxBase.Security.Data.Entities.Permission", "Permission")
                         .WithMany()
                         .HasForeignKey("PermissionId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -281,14 +289,14 @@ namespace CommonTest.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Security.Data.Entities.UserPermission", b =>
+            modelBuilder.Entity("SoftinuxBase.Security.Data.Entities.UserPermission", b =>
                 {
-                    b.HasOne("Security.Data.Entities.Permission", "Permission")
+                    b.HasOne("SoftinuxBase.Security.Data.Entities.Permission", "Permission")
                         .WithMany()
                         .HasForeignKey("PermissionId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Security.Data.Entities.User", "User")
+                    b.HasOne("SoftinuxBase.Security.Data.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
