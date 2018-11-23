@@ -13,7 +13,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SoftinuxBase.Security.Data.Entities;
-using SoftinuxLogger;
 
 namespace CommonTest
 {
@@ -26,9 +25,9 @@ namespace CommonTest
         public UserManager<User> UserManager { get; }
         public RoleManager<IdentityRole<string>> RoleManager { get; }
 
-        public DatabaseFixture(ILoggerFactory loggerFactory_)
+        public DatabaseFixture()
         {
-            LoggerFactory = loggerFactory_;
+            LoggerFactory = new LoggerFactory();
             var services = new ServiceCollection();
             ConfigureServices(services);
             IServiceProvider serviceProvider = services.BuildServiceProvider();
@@ -76,8 +75,8 @@ namespace CommonTest
             // Register database-specific storage context implementation.
             services_.AddScoped<IStorageContext, ApplicationStorageContext>();
 
-            // Softinux logger
-            services_.AddSoftinuxLogger();
+            // Optional: Softinux logger
+            // services_.AddSoftinuxLogger();
         }
 
         private static IConfiguration LoadConfiguration()
