@@ -80,11 +80,11 @@ namespace SoftinuxBase.Security.Tools
             selectedExtensions_ = storage_.GetRepository<IRolePermissionRepository>().FilteredByRoleId(roleId_).Select(
                 rp_ => new SelectedExtension
                 {
-                    Name = rp_.Extension, Permission = rp_.PermissionId
+                    ExtensionName = rp_.Extension, PermissionName = rp_.Permission.Name, PermissionId = rp_.PermissionId
                 })
                 .ToList();
 
-            IEnumerable<string> selectedExtensionsNames = selectedExtensions_.Select(se_ => se_.Name).ToList();
+            IEnumerable<string> selectedExtensionsNames = selectedExtensions_.Select(se_ => se_.ExtensionName).ToList();
 
             availableExtensions_ = new List<string>();
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())

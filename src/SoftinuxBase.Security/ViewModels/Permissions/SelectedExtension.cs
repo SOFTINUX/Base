@@ -8,8 +8,10 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
     /// </summary>
     public class SelectedExtension
     {
-        public string Name { get; set; }
-        // permission name
-        public string Permission { get; set; }
+        public string ExtensionName { get; set; }
+
+        public string PermissionName { get; set; }
+
+        public string PermissionId { get; set; }
     }
 }

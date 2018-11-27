@@ -364,12 +364,25 @@ function passSelectedRoleOnEdition(roleId_) {
         });
 
         // Selected extensions (right list)
+        let rightListElt = $('#editRoleRightExtensionsList');
         // Clear
-        $('#editRoleRightExtensionsList option').remove();
-        _options = $('#editRoleRightExtensionsList').prop('options');
+        rightListElt.html("");
         // Fill
         data_.value.selectedExtensions.forEach(function (extension_) {
-            _options[_options.length] = new Option(extension_.name + ' (' + extension_.permission + ')', extension_.name);
+            let line = `<div class="row">
+                            <div class="col-md-6">
+                                <span name="${extension_.extensionName}">${extension_.extensionName}</span>
+                            </div>
+                            <div class="col-md-6">
+                                <select>
+                                    <option value="${extension_.permissionId}" ${extension_.permissionName === 'None' ? "selected" : ""}>None</option>
+                                    <option value="${extension_.permissionId}" ${extension_.permissionName === 'Read' ? "selected" : ""}>Read</option>
+                                    <option value="${extension_.permissionId}" ${extension_.permissionName === 'Write' ? "selected" : ""}>Write</option>
+                                    <option value="${extension_.permissionId}" ${extension_.permissionName === 'Admin' ? "selected" : ""}>Admin</option>
+                                </select>
+                            </div>
+                        </div>`;
+            rightListElt.append(line);
         });
     });
 }
