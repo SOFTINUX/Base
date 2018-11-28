@@ -6,6 +6,7 @@ using System.Linq;
 using ExtCore.Data.EntityFramework;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 using Permission = SoftinuxBase.Security.Data.Entities.Permission;
@@ -65,6 +66,16 @@ namespace SoftinuxBase.Security.Data.EntityFramework
 
 
             return allPermissions;
+        }
+
+        /// <summary>
+        /// Find a permission by enum value.
+        /// </summary>
+        /// <param name="permissionValue_"></param>
+        /// <returns></returns>
+        public Permission Find(Security.Common.Enums.Permission permissionValue_)
+        {
+            return All().FirstOrDefault(p_ => p_.NormalizedName == permissionValue_.ToString().ToUpperInvariant());
         }
     }
 }

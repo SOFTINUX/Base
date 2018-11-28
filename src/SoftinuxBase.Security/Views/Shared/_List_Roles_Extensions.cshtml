@@ -9,7 +9,7 @@
 @Html.AntiForgeryToken()
 @{
     int i = 1;
-    foreach (var item in Model.PermissionsByRoleAndScope)
+    foreach (var item in Model.PermissionsByRoleAndExtension)
     {
         if (item.Value.Any())
         {

@@ -9,7 +9,7 @@ namespace SoftinuxBase.Security.Data.Entities
 {
     /// <summary>
     /// Links between roles and permissions: permissions assigned to the role.
-    /// Default value for "Scope": "SoftinuxBase.Security".
+    /// Default value for "Extension": "SoftinuxBase.Security".
     /// </summary>
     public class RolePermission : IEntity
     {

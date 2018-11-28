@@ -424,19 +424,18 @@ function checkClick() {
 }
 
 /**
- * Ajax call to update data: role-permission link update. Ajax GET (TODO change to POST).
- * @param {any} scope_ - scope
- * @param {any} role_ - role
- * @param {any} permission_ - permission
+ * Ajax call to update data: role-extension-permission link update. Ajax GET (TODO change to POST).
+ * @param {any} extension_ - extension
+ * @param {any} roleName_ - role name
+ * @param {any} permission_ - permission (enum value)
  */
-function savePermission(scope_, role_, permission_) {
-    // string roleName_, string permissionId_, string scope_
+function savePermission(extension_, roleName_, permission_) {
     const params = {
-        'roleName_': role_,
-        'permissionId_': permission_,
-        'scope_': scope_
+        'roleName_': roleName_,
+        'permissionValue_': permission_,
+        'extension_': extension_
     };
-    $.ajax('/administration/updaterolepermission', { data: params });
+    $.ajax('/administration/update-role-permission', { data: params });
 }
 
 /**

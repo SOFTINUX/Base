@@ -15,18 +15,18 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
         /// For every extension, for every role (role name), the attributed permissions.
         /// </summary>
         /// <returns></returns>
-        public Dictionary<string, Dictionary<string, List<Permission>>> PermissionsByRoleAndScope {get; set;}
+        public Dictionary<string, Dictionary<string, List<Permission>>> PermissionsByRoleAndExtension {get; set;}
 
         /// <summary>
-        /// For every scope, for every user, the attributed permissions.
+        /// For every extension, for every user, the attributed permissions.
         /// </summary>
         /// <returns></returns>
-        public Dictionary<string, Dictionary<string, List<Permission>>> PermissionsByUserAndScope {get; set;}
+        public Dictionary<string, Dictionary<string, List<Permission>>> PermissionsByUserAndExtension {get; set;}
 
         public GrantViewModel()
         {
-            PermissionsByRoleAndScope = new Dictionary<string, Dictionary<string, List<Permission>>>();
-            PermissionsByUserAndScope = new Dictionary<string, Dictionary<string, List<Permission>>>();
+            PermissionsByRoleAndExtension = new Dictionary<string, Dictionary<string, List<Permission>>>();
+            PermissionsByUserAndExtension = new Dictionary<string, Dictionary<string, List<Permission>>>();
         }
     }
 }

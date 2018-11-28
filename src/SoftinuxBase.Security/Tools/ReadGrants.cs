@@ -28,7 +28,7 @@ namespace SoftinuxBase.Security.Tools
              // 1. Get all scopes from available extensions, create initial dictionaries
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
             {
-                model.PermissionsByRoleAndScope.Add(extensionMetadata.GetExtensionName(), new Dictionary<string, List<global::SoftinuxBase.Security.Common.Enums.Permission>>());
+                model.PermissionsByRoleAndExtension.Add(extensionMetadata.GetExtensionName(), new Dictionary<string, List<global::SoftinuxBase.Security.Common.Enums.Permission>>());
             }
 
             // 2. Read data from RolePermission table
@@ -39,16 +39,16 @@ namespace SoftinuxBase.Security.Tools
             List<RolePermission> allRp = storage_.GetRepository<IRolePermissionRepository>().All().ToList();
             foreach (RolePermission rp in allRp)
             {
-                if (!model.PermissionsByRoleAndScope.ContainsKey(rp.Extension))
+                if (!model.PermissionsByRoleAndExtension.ContainsKey(rp.Extension))
                 {
                     // A database record related to a not loaded extension (scope). Ignore this.
                     continue;
                 }
                 string roleName = roleNameByRoleId_.ContainsKey(rp.RoleId) ? roleNameByRoleId_[rp.RoleId] : null;
-                if (!model.PermissionsByRoleAndScope[rp.Extension].ContainsKey(roleName))
-                    model.PermissionsByRoleAndScope[rp.Extension].Add(roleName, new List<global::SoftinuxBase.Security.Common.Enums.Permission>());
+                if (!model.PermissionsByRoleAndExtension[rp.Extension].ContainsKey(roleName))
+                    model.PermissionsByRoleAndExtension[rp.Extension].Add(roleName, new List<global::SoftinuxBase.Security.Common.Enums.Permission>());
                 // Format the list of Permission enum values according to DB enum value
-                model.PermissionsByRoleAndScope[rp.Extension][roleName] = PermissionHelper.GetLowerOrEqual(PermissionHelper.FromName(rp.Permission.Name));
+                model.PermissionsByRoleAndExtension[rp.Extension][roleName] = PermissionHelper.GetLowerOrEqual(PermissionHelper.FromName(rp.Permission.Name));
                 rolesWithPerms.Add(roleName);
             }
 
@@ -58,9 +58,9 @@ namespace SoftinuxBase.Security.Tools
             {
                 if (rolesWithPerms.Contains(role))
                     continue;
-                foreach (string scope in model.PermissionsByRoleAndScope.Keys)
+                foreach (string scope in model.PermissionsByRoleAndExtension.Keys)
                 {
-                    model.PermissionsByRoleAndScope[scope].Add(role, new List<global::SoftinuxBase.Security.Common.Enums.Permission>());
+                    model.PermissionsByRoleAndExtension[scope].Add(role, new List<global::SoftinuxBase.Security.Common.Enums.Permission>());
                 }
             }
 

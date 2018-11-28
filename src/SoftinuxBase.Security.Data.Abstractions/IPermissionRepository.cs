@@ -19,5 +19,7 @@ namespace SoftinuxBase.Security.Data.Abstractions
         /// <param name="userId_"></param>
         /// <returns></returns>
         HashSet<KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>> AllForUser(string userId_);
+
+        Permission Find(Security.Common.Enums.Permission permissionValue_);
     }
 }

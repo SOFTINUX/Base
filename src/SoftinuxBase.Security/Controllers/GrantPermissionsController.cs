@@ -1,6 +1,7 @@
 // Copyright © 2017 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
@@ -107,19 +108,24 @@ namespace SoftinuxBase.Security.Controllers
         /// Update a record indicating with which permission this role is linked to an extension.
         /// </summary>
         /// <param name="roleName_">Role name</param>
-        /// <param name="permissionId_">New permission level to save</param>
-        /// <param name="scope_">Scope</param>
+        /// <param name="permissionValue_">New permission level to save</param>
+        /// <param name="extension_">Extension</param>
         /// <returns>JSON with "true" when it succeeded</returns>
         [PermissionRequirement(Permission.Admin)]
-        [Route("administration/updaterolepermission")]
+        [Route("administration/update-role-permission")]
         [HttpGet] // TODO change to POST
-        public async Task<IActionResult> UpdateRolePermission(string roleName_, string permissionId_, string scope_)
+        public async Task<IActionResult> UpdateRolePermission(string roleName_, string permissionValue_, string extension_)
         {
             string roleId = (await _roleManager.FindByNameAsync(roleName_)).Id;
             IRolePermissionRepository repo = Storage.GetRepository<IRolePermissionRepository>();
-            repo.Delete(roleId, scope_);
-            if (!string.IsNullOrEmpty(permissionId_.ToLowerInvariant()))
-                repo.Create(new RolePermission { RoleId = roleId, PermissionId = permissionId_, Extension = scope_ });
+            repo.Delete(roleId, extension_);
+            
+            if (Enum.TryParse<Permission>(permissionValue_, true, out var permissionEnumValue))
+            {
+                var permissionEntity = Storage.GetRepository<IPermissionRepository>().Find(permissionEnumValue);
+                repo.Create(new RolePermission {RoleId = roleId, PermissionId = permissionEntity.Id, Extension = extension_});
+            }
+
             Storage.Save();
             return new JsonResult(true);
         }
