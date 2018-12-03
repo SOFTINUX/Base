@@ -62,7 +62,7 @@ namespace SecurityTest
                     // Use the first role name
                     RoleName = firstRoleName,
                     Extensions = new System.Collections.Generic.List<string> { "Security" },
-                    Permission = Permission.Write.ToString()
+                    PermissionValue = Permission.Write.ToString()
                 };
 
                 // Execute
@@ -132,7 +132,7 @@ namespace SecurityTest
                     // Use another role name
                     RoleName = thirdRoleName,
                     Extensions = new System.Collections.Generic.List<string> { "Security" },
-                    Permission = Permission.Write.ToString()
+                    PermissionValue = Permission.Write.ToString()
                 };
 
                 // Execute
@@ -200,7 +200,7 @@ namespace SecurityTest
                     RoleId = roleId,
                     RoleName = roleName,
                     Extensions = new System.Collections.Generic.List<string> { "Security", "ThirdExtension" },
-                    Permission = Permission.Write.ToString()
+                    PermissionValue = Permission.Write.ToString()
                 };
 
                 // Execute
@@ -269,7 +269,7 @@ namespace SecurityTest
                     // Use same role name
                     RoleName = firstRoleName,
                     Extensions = null,
-                    Permission = Permission.Write.ToString()
+                    PermissionValue = Permission.Write.ToString()
                 };
 
                 // Execute

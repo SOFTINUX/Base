@@ -56,14 +56,20 @@ namespace SoftinuxBase.Security.Tools
                     foreach (var rolePermission in permRepo.FilteredByRoleId(model_.RoleId))
                         permRepo.Delete(rolePermission.RoleId, rolePermission.Extension);
 
-
                     // Convert the string to the enum
-                    var permissionEnum = Enum.Parse<global::SoftinuxBase.Security.Common.Enums.Permission>(model_.Permission, true);
-
-                    foreach (string extension in model_.Extensions)
+                    if (Enum.TryParse<Common.Enums.Permission>(model_.PermissionValue, true, out var permissionEnumValue))
                     {
-                        permRepo.Create(new RolePermission
-                        { RoleId = model_.RoleId, PermissionId = permissionEnum.ToString(), Extension = extension });
+                        var permissionEntity = storage_.GetRepository<IPermissionRepository>().Find(permissionEnumValue);
+
+                        foreach (string extension in model_.Extensions)
+                        {
+                            permRepo.Create(new RolePermission
+                            {
+                                RoleId = model_.RoleId,
+                                PermissionId = permissionEntity.Id,
+                                Extension = extension
+                            });
+                        }
                     }
                 }
                 storage_.Save();

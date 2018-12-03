@@ -25,6 +25,6 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
         /// When Extensions is not null, permission level to associate to extensions. Else ignored.
         /// </summary>
         /// <value></value>
-        public string Permission { get; set; }
+        public string PermissionValue { get; set; }
     }
 }

@@ -152,16 +152,16 @@ $(function () {
             return;
         }
         var _selectedExtensions = [];
-        $('#selectedExtensions>option').each(function () {
+        $('#addRoleRightExtensionsList > option').each(function () {
             _selectedExtensions.push(this.value);
         });
         const postData = {
             RoleName: roleNameInputElt.val(),
             Extensions: _selectedExtensions,
-            Permission: $('#newRolePermission').val()
+            PermissionValue: $('#newRolePermission').val()
         };
 
-        $.ajax('/administration/savenewrole', { method: 'POST', data: postData })
+        $.ajax('/administration/save-new-role', { method: 'POST', data: postData })
             .done(function (data_) {
                 window.toastr.success(data_, 'New role created');
                 input_form_group_set_error('#role_name_input', null);
@@ -451,7 +451,7 @@ function saveEditRole() {
        RoleId: $('#editRoleId').val(),
        RoleName: $('#edit_role_name_input').val(),
        Extensions: _selectedExtensions,
-       Permission: $('#editRolePermission').val()
+       PermissionValue: $('#editRolePermission').val()
     };
 
     console.log(postData);

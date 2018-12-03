@@ -17,6 +17,6 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
 
         public List<string> Extensions {get; set;}
 
-        public string Permission {get; set;}
+        public string PermissionValue {get; set;}
     }
 }

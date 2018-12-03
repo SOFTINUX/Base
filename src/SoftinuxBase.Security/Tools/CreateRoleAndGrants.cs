@@ -37,24 +37,30 @@ namespace SoftinuxBase.Security.Tools
             try
             {
                 // Convert the string to the enum
-                var permissionEnum = Enum.Parse<global::SoftinuxBase.Security.Common.Enums.Permission>(model_.Permission, true);
-
-                // Save the Role
-                IdentityRole<string> identityRole = new IdentityRole<string>
+                if (Enum.TryParse<Common.Enums.Permission>(model_.PermissionValue, true, out var permissionEnumValue))
                 {
-                    // Auto-incremented ID
-                    Name = model_.RoleName
-                };
-                await roleManager_.CreateAsync(identityRole);
-
-                // Save the role-extension-permission link
-                if (model_.Extensions != null)
-                {
-                    IRolePermissionRepository repo = storage_.GetRepository<IRolePermissionRepository>();
-                    foreach (string extension in model_.Extensions)
+                    var permissionEntity = storage_.GetRepository<IPermissionRepository>().Find(permissionEnumValue);
+                    // Save the Role
+                    IdentityRole<string> identityRole = new IdentityRole<string>
                     {
-                        repo.Create(new RolePermission
-                        { RoleId = identityRole.Id, PermissionId = permissionEnum.ToString(), Extension = extension });
+                        // Auto-incremented ID
+                        Name = model_.RoleName
+                    };
+                    await roleManager_.CreateAsync(identityRole);
+
+                    // Save the role-extension-permission link
+                    if (model_.Extensions != null)
+                    {
+                        IRolePermissionRepository repo = storage_.GetRepository<IRolePermissionRepository>();
+                        foreach (string extension in model_.Extensions)
+                        {
+                            repo.Create(new RolePermission
+                            {
+                                RoleId = identityRole.Id,
+                                PermissionId = permissionEntity.Id,
+                                Extension = extension
+                            });
+                        }
                     }
                 }
 

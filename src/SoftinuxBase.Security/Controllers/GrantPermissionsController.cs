@@ -92,7 +92,7 @@ namespace SoftinuxBase.Security.Controllers
         /// </summary>
         /// <param name="model_"></param>
         /// <returns>Http status code</returns>
-        [Route("administration/savenewrole")]
+        [Route("administration/save-new-role")]
         [HttpPost]
         public async Task<IActionResult> SaveNewRoleAndItsPermissions(SaveNewRoleAndGrantsViewModel model_)
         {

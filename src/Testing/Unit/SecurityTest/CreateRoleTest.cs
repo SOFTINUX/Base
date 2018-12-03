@@ -41,7 +41,7 @@ namespace SecurityTest
                     // Really unique value
                     RoleName = roleName,
                     Extensions = new System.Collections.Generic.List<string>(extensions),
-                    Permission = Permission.Write.ToString()
+                    PermissionValue = Permission.Write.ToString()
                 };
 
                 // Execute
@@ -90,7 +90,7 @@ namespace SecurityTest
                     // Really unique value
                     RoleName = roleName,
                     Extensions = null,
-                    Permission = Permission.Write.ToString()
+                    PermissionValue = Permission.Write.ToString()
                 };
 
                 // Execute
@@ -128,7 +128,7 @@ namespace SecurityTest
                     // Really unique value
                     RoleName = roleName,
                     Extensions = new System.Collections.Generic.List<string> { "Security" },
-                    Permission = Permission.Write.ToString()
+                    PermissionValue = Permission.Write.ToString()
                 };
 
                 // Execute
