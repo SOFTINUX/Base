@@ -61,16 +61,16 @@ $(function () {
                 break;
             // Edit selected/unselected extensions management
             case 'editRoleBtnRight':
-                btnChevronMoveExtension(event_);
+                btnChevronMoveExtension(event_, 'to-html-fragment');
                 break;
             case 'editRoleBtnAllRight':
-                btnChevronMoveExtension(event_);
+                btnChevronMoveExtension(event_, 'to-html-fragment');
                 break;
             case 'editRoleBtnLeft':
-                btnChevronMoveExtension(event_);
+                btnChevronMoveExtension(event_, 'to-option');
                 break;
             case 'editRoleBtnAllLeft':
-                btnChevronMoveExtension(event_);
+                btnChevronMoveExtension(event_, 'to-option');
                 break;
             default:
                 break;
@@ -207,8 +207,12 @@ function browseForAvatar() {
  * Copy selected item(s) from left listbox to right listbox
  *
  * @param {object} event_ - dom event
+ * @param {string} transform_ - how to transform the event target :
+ * - null: just clone the target
+ * - "to-option": transform the html fragment to a html option element
+ * - "to-html-fragment": transform a html option element to an html fragment
  */
-function btnChevronMoveExtension(event_) {
+function btnChevronMoveExtension(event_, transform_) {
 
     var _target = event_.target;
 
@@ -225,10 +229,58 @@ function btnChevronMoveExtension(event_) {
         event_.preventDefault();
         return;
     }
-
-    $(`#${$(_target).attr('data-tolist')}`).append($(selectedOpts).clone());
+    let newElts = "";
+    switch (transform_) {
+        case 'to-option':
+            newElts = selectedOpts.map(createMovedElementFromTableToList);
+            break;
+        case 'to-html-fragment':
+            newElts = selectedOpts.map(createMovedElementFromListToTable);
+            break;
+        default:
+            newElts = selectedOpts.clone();
+            break;
+    }
+    console.log(newElts);
+    $(`#${$(_target).attr('data-tolist')}`).append(newElts);
     $(selectedOpts).remove();
     event_.preventDefault();
+}
+
+/**
+ * Create an html option element from a span + select html fragment
+ * @param {HtmlElement} target_ - html fragment
+ * @return {any} html option element, wrapped by jQuery
+ */
+function createMovedElementFromTableToList(target_) {
+    console.log('move from table to list');
+    console.log(target_);
+    let extension = $(target_).find("span").attr("name");
+    return $(new Option(extension, extension));
+}
+
+/**
+ * Create a span + select html fragment from an html option element
+ * @param {HtmlOption} target_ - html option element
+ * @return {string} html fragment
+ */
+function createMovedElementFromListToTable(target_) {
+    console.log('move from list to table');
+    console.log(target_);
+    let extension = $(target_).attr("value");
+    return `<div class="row">
+                            <div class="col-md-6">
+                                <span name="${extension}">${extension}</span>
+                            </div>
+                            <div class="col-md-6">
+                                <select>
+                                    <option value="None">None</option>
+                                    <option value="Read" selected>Read</option>
+                                    <option value="Write">Write</option>
+                                    <option value="Admin">Admin</option>
+                                </select>
+                            </div>
+                        </div>`;
 }
 
 /**
@@ -375,10 +427,10 @@ function passSelectedRoleOnEdition(roleId_) {
                             </div>
                             <div class="col-md-6">
                                 <select>
-                                    <option value="${extension_.permissionId}" ${extension_.permissionName === 'None' ? "selected" : ""}>None</option>
-                                    <option value="${extension_.permissionId}" ${extension_.permissionName === 'Read' ? "selected" : ""}>Read</option>
-                                    <option value="${extension_.permissionId}" ${extension_.permissionName === 'Write' ? "selected" : ""}>Write</option>
-                                    <option value="${extension_.permissionId}" ${extension_.permissionName === 'Admin' ? "selected" : ""}>Admin</option>
+                                    <option value="None" ${extension_.permissionName === 'None' ? "selected" : ""}>None</option>
+                                    <option value="Read" ${extension_.permissionName === 'Read' ? "selected" : ""}>Read</option>
+                                    <option value="Write" ${extension_.permissionName === 'Write' ? "selected" : ""}>Write</option>
+                                    <option value="Admin" ${extension_.permissionName === 'Admin' ? "selected" : ""}>Admin</option>
                                 </select>
                             </div>
                         </div>`;
