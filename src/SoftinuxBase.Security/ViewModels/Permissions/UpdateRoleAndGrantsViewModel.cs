@@ -8,8 +8,7 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
     /// <summary>
     /// The posted data when modifying a role:
     /// - role new name
-    /// - extensions to associate to role (if null no update)
-    /// - permission level to associate to permissions (if update is performed)
+    /// - extensions/permission level to associate to role
     /// </summary>
     public class UpdateRoleAndGrantsViewModel
     {
@@ -17,14 +16,9 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
         public string RoleName { get; set; }
 
         /// <summary>
-        /// When null, no update, else replace existing associated extensions.
+        /// List of extension name with associated permission enum value.
         /// </summary>
         /// <value></value>
-        public List<string> Extensions { get; set; }
-        /// <summary>
-        /// When Extensions is not null, permission level to associate to extensions. Else ignored.
-        /// </summary>
-        /// <value></value>
-        public string PermissionValue { get; set; }
+        public List<ExtensionPermissionValue> Grants { get; set; }
     }
 }

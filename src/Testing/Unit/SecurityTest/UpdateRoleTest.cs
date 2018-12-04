@@ -2,6 +2,7 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CommonTest;
@@ -61,8 +62,7 @@ namespace SecurityTest
                     RoleId = secondRoleId,
                     // Use the first role name
                     RoleName = firstRoleName,
-                    Extensions = new System.Collections.Generic.List<string> { "Security" },
-                    PermissionValue = Permission.Write.ToString()
+                    Grants = new List<ExtensionPermissionValue> {  new ExtensionPermissionValue { Extension = "Security", PermissionValue = Permission.Write.ToString() } }
                 };
 
                 // Execute
@@ -131,8 +131,7 @@ namespace SecurityTest
                     RoleId = secondRoleId,
                     // Use another role name
                     RoleName = thirdRoleName,
-                    Extensions = new System.Collections.Generic.List<string> { "Security" },
-                    PermissionValue = Permission.Write.ToString()
+                    Grants = new List<ExtensionPermissionValue> { new ExtensionPermissionValue { Extension = "Security", PermissionValue = Permission.Write.ToString() } }
                 };
 
                 // Execute
@@ -199,8 +198,11 @@ namespace SecurityTest
                 {
                     RoleId = roleId,
                     RoleName = roleName,
-                    Extensions = new System.Collections.Generic.List<string> { "Security", "ThirdExtension" },
-                    PermissionValue = Permission.Write.ToString()
+                    Grants = new List<ExtensionPermissionValue>
+                    {
+                        new ExtensionPermissionValue { Extension = "Security", PermissionValue = Permission.Write.ToString() },
+                        new ExtensionPermissionValue { Extension = "ThirdExtension", PermissionValue = Permission.Write.ToString() }
+                    }
                 };
 
                 // Execute
@@ -268,8 +270,7 @@ namespace SecurityTest
                     RoleId = firstRole.Id,
                     // Use same role name
                     RoleName = firstRoleName,
-                    Extensions = null,
-                    PermissionValue = Permission.Write.ToString()
+                    Grants = null
                 };
 
                 // Execute
