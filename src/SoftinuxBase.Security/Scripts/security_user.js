@@ -229,20 +229,28 @@ function btnChevronMoveExtension(event_, transform_) {
         event_.preventDefault();
         return;
     }
-    let newElts = "";
+    console.log(selectedOpts);
+    let newElts = [];
     switch (transform_) {
         case 'to-option':
-            newElts = selectedOpts.map(createMovedElementFromTableToList);
+            newElts = selectedOpts.get().map(elt => createMovedElementFromTableToList(elt));
             break;
         case 'to-html-fragment':
-            newElts = selectedOpts.map(createMovedElementFromListToTable);
+        for(let option of selectedOpts) {
+            console.log(option);
+            newElts.push(createMovedElementFromListToTable(option));
+        }
+            //newElts = selectedOpts.get().map(elt => createMovedElementFromListToTable(elt));
             break;
         default:
             newElts = selectedOpts.clone();
             break;
     }
-    console.log(newElts);
-    $(`#${$(_target).attr('data-tolist')}`).append(newElts);
+    for(let newElt of newElts) {
+        console.log(newElt);
+        // append the html element or string
+        $(`#${$(_target).attr('data-tolist')}`).append(newElt);
+    }
     $(selectedOpts).remove();
     event_.preventDefault();
 }
@@ -250,13 +258,14 @@ function btnChevronMoveExtension(event_, transform_) {
 /**
  * Create an html option element from a span + select html fragment
  * @param {HtmlElement} target_ - html fragment
- * @return {any} html option element, wrapped by jQuery
+ * @return {HtmlElement} html option element
  */
 function createMovedElementFromTableToList(target_) {
     console.log('move from table to list');
     console.log(target_);
-    let extension = $(target_).find("span").attr("name");
-    return $(new Option(extension, extension));
+    console.log($(target_).find("span"));
+    let extension = $(target_).find("span").name;
+    return new Option(extension, extension);
 }
 
 /**
@@ -267,6 +276,7 @@ function createMovedElementFromTableToList(target_) {
 function createMovedElementFromListToTable(target_) {
     console.log('move from list to table');
     console.log(target_);
+    console.log($(target_));
     let extension = $(target_).attr("value");
     return `<div class="row">
                             <div class="col-md-6">
