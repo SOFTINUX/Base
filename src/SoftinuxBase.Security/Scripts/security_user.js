@@ -233,14 +233,14 @@ function btnChevronMoveExtension(event_, transform_) {
     let newElts = [];
     switch (transform_) {
         case 'to-option':
-            newElts = selectedOpts.get().map(elt => createMovedElementFromTableToList(elt));
+            newElts = selectedOpts.map(createMovedElementFromTableToList;
             break;
         case 'to-html-fragment':
-        for(let option of selectedOpts) {
-            console.log(option);
-            newElts.push(createMovedElementFromListToTable(option));
+        for(let selectedOption of selectedOpts) {
+            console.log(selectedOption);
+            newElts.push(createMovedElementFromListToTable(selectedOption));
         }
-            //newElts = selectedOpts.get().map(elt => createMovedElementFromListToTable(elt));
+            //newElts = selectedOpts.map(createMovedElementFromListToTable);
             break;
         default:
             newElts = selectedOpts.clone();
