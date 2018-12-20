@@ -141,6 +141,15 @@ $(function () {
         input_form_group_validator('#role_name_input');
     });
 
+    // Click
+    $('#editRoleRightExtensionsList row').click(function() {
+        if ($(this).hasClass('active')) {
+            $(this).removeClass('active');
+        } else {
+            $(this).addClass('active');
+        }
+    });
+
     /* User interactions that trigger ajax calls */
 
     // save new role with its extensions and permission
