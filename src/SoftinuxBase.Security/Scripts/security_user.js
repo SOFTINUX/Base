@@ -220,7 +220,7 @@ function btnChevronMoveExtension(event_, transform_) {
         _target = _target.parentNode;
 
     const bulk = $(_target).is('[data-bulk-move]');
-    const selectedOpts = $(`#${$(_target).attr('data-fromlist')}` + (bulk ? ' option' : ' option:selected'));
+    const selectedOpts = $(`#${$(_target).attr('data-fromlist')}` + (bulk ? ' option' : ' option:selected')).toArray();
 
     if (selectedOpts.length === 0) {
         const emptyExtensionList = 'You must have at least one extension in the list';
@@ -233,14 +233,10 @@ function btnChevronMoveExtension(event_, transform_) {
     let newElts = [];
     switch (transform_) {
         case 'to-option':
-            newElts = selectedOpts.map(createMovedElementFromTableToList;
+            newElts = selectedOpts.map(createMovedElementFromTableToList);
             break;
         case 'to-html-fragment':
-        for(let selectedOption of selectedOpts) {
-            console.log(selectedOption);
-            newElts.push(createMovedElementFromListToTable(selectedOption));
-        }
-            //newElts = selectedOpts.map(createMovedElementFromListToTable);
+            newElts = selectedOpts.map(createMovedElementFromListToTable);
             break;
         default:
             newElts = selectedOpts.clone();
@@ -275,9 +271,7 @@ function createMovedElementFromTableToList(target_) {
  */
 function createMovedElementFromListToTable(target_) {
     console.log('move from list to table');
-    console.log(target_);
-    console.log($(target_));
-    let extension = $(target_).attr("value");
+    let extension = target_.value;
     return `<div class="row">
                             <div class="col-md-6">
                                 <span name="${extension}">${extension}</span>
