@@ -231,11 +231,12 @@ function btnChevronMoveExtension(event_, transform_) {
     const bulk = $(_target).is('[data-bulk-move]');
 
     // if transform_ is defined, the list items are span element, else select options
+
     const selectedElts = transform_ 
-    ? $(`#${$(_target).attr('data-fromlist')}` + (bulk ? ' span' : ' span:active')).toArray()
+    ? $(`#${$(_target).attr('data-fromlist')}` + (bulk ? ' span' : ' span.active')).toArray()
     : $(`#${$(_target).attr('data-fromlist')}` + (bulk ? ' option' : ' option:selected')).toArray();
 
-    console.log(selectedElts);
+    // console.log(selectedElts);
 
     if (selectedElts.length === 0) {
         const emptyExtensionList = 'You must have at least one extension in the list';
@@ -254,11 +255,11 @@ function btnChevronMoveExtension(event_, transform_) {
             newElts = selectedElts.map(createMovedElementRight);
             break;
         default:
-            newElts = selectedElts.clone();
+            newElts = selectedElts.map(function(elt) { return elt.outerHTML});
             break;
     }
     for(let newElt of newElts) {
-        console.log(newElt);
+        // console.log(newElt);
         // append the html element or string
         $(`#${$(_target).attr('data-tolist')}`).append(newElt);
     }
@@ -269,13 +270,13 @@ function btnChevronMoveExtension(event_, transform_) {
 /**
  * Create an html span element from a html fragment
  * @param {HtmlElement} target_ - html fragment
- * @return {HtmlElement} html span
+ * @return {string} html span
  */
 function createMovedElementLeft(target_) {
     console.log('move from right to left');
     console.log(target_);
     console.log($(target_).find("span"));
-    return $(target_).find("span").clone();
+    return $(target_).find("span").outerHTML;
 }
 
 /**
