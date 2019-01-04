@@ -6,6 +6,7 @@ using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -55,6 +56,8 @@ namespace WebApplication
             {
                 c_.SwaggerDoc("v1", new Info { Title = "Softinux Base API", Version = "v1" });
             });
+
+            services_.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
         }
 
