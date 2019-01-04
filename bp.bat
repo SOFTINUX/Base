@@ -4,7 +4,7 @@
 @echo off
 
 :: set .NET output folder name (use .NET Core version defined into csproj files)
-set netVersion="netcoreapp2.1"
+set netVersion="netcoreapp2.2"
 :: Extensions folder
 set ext_folder=".\src\WebApplication\Extensions\"
 :: Dependencies folder

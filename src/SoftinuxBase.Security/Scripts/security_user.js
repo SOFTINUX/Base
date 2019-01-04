@@ -61,16 +61,16 @@ $(function () {
                 break;
             // Edit selected/unselected extensions management
             case 'editRoleBtnRight':
-                btnChevronMoveExtension(event_, 'to-html-fragment');
+                btnChevronMoveExtension(event_, 'to-right');
                 break;
             case 'editRoleBtnAllRight':
-                btnChevronMoveExtension(event_, 'to-html-fragment');
+                btnChevronMoveExtension(event_, 'to-right');
                 break;
             case 'editRoleBtnLeft':
-                btnChevronMoveExtension(event_, 'to-option');
+                btnChevronMoveExtension(event_, 'to-left');
                 break;
             case 'editRoleBtnAllLeft':
-                btnChevronMoveExtension(event_, 'to-option');
+                btnChevronMoveExtension(event_, 'to-left');
                 break;
             default:
                 break;
@@ -218,8 +218,8 @@ function browseForAvatar() {
  * @param {object} event_ - dom event
  * @param {string} transform_ - how to transform the event target :
  * - null: just clone the target
- * - "to-option": transform the html fragment to a html option element
- * - "to-html-fragment": transform a html option element to an html fragment
+ * - "to-left": transform the html fragment to a html span element
+ * - "to-right": transform a html span element to an html fragment
  */
 function btnChevronMoveExtension(event_, transform_) {
 
@@ -229,26 +229,32 @@ function btnChevronMoveExtension(event_, transform_) {
         _target = _target.parentNode;
 
     const bulk = $(_target).is('[data-bulk-move]');
-    const selectedOpts = $(`#${$(_target).attr('data-fromlist')}` + (bulk ? ' option' : ' option:selected')).toArray();
 
-    if (selectedOpts.length === 0) {
+    // if transform_ is defined, the list items are span element, else select options
+    const selectedElts = transform_ 
+    ? $(`#${$(_target).attr('data-fromlist')}` + (bulk ? ' span' : ' span:active')).toArray()
+    : $(`#${$(_target).attr('data-fromlist')}` + (bulk ? ' option' : ' option:selected')).toArray();
+
+    console.log(selectedElts);
+
+    if (selectedElts.length === 0) {
         const emptyExtensionList = 'You must have at least one extension in the list';
         const emptyExtensionListTitle = 'No extensions are available.';
         window.toastr.warning(emptyExtensionList, emptyExtensionListTitle);
         event_.preventDefault();
         return;
     }
-    console.log(selectedOpts);
+
     let newElts = [];
     switch (transform_) {
-        case 'to-option':
-            newElts = selectedOpts.map(createMovedElementFromTableToList);
+        case 'to-left':
+            newElts = selectedElts.map(createMovedElementLeft);
             break;
-        case 'to-html-fragment':
-            newElts = selectedOpts.map(createMovedElementFromListToTable);
+        case 'to-right':
+            newElts = selectedElts.map(createMovedElementRight);
             break;
         default:
-            newElts = selectedOpts.clone();
+            newElts = selectedElts.clone();
             break;
     }
     for(let newElt of newElts) {
@@ -256,31 +262,30 @@ function btnChevronMoveExtension(event_, transform_) {
         // append the html element or string
         $(`#${$(_target).attr('data-tolist')}`).append(newElt);
     }
-    $(selectedOpts).remove();
+    $(selectedElts).remove();
     event_.preventDefault();
 }
 
 /**
- * Create an html option element from a span + select html fragment
+ * Create an html span element from a html fragment
  * @param {HtmlElement} target_ - html fragment
- * @return {HtmlElement} html option element
+ * @return {HtmlElement} html span
  */
-function createMovedElementFromTableToList(target_) {
-    console.log('move from table to list');
+function createMovedElementLeft(target_) {
+    console.log('move from right to left');
     console.log(target_);
     console.log($(target_).find("span"));
-    let extension = $(target_).find("span").name;
-    return new Option(extension, extension);
+    return $(target_).find("span").clone();
 }
 
 /**
- * Create a span + select html fragment from an html option element
- * @param {HtmlOption} target_ - html option element
+ * Create a span + select html fragment from a span html element
+ * @param {HtmlElement} target_ - html span element
  * @return {string} html fragment
  */
-function createMovedElementFromListToTable(target_) {
-    console.log('move from list to table');
-    let extension = target_.value;
+function createMovedElementRight(target_) {
+    console.log('move from left to right');
+    let extension = target_.name;
     return `<div class="row">
                             <div class="col-md-6">
                                 <span name="${extension}">${extension}</span>
@@ -420,12 +425,12 @@ function passSelectedRoleOnEdition(roleId_) {
         $('#editRoleId').val(roleId_);
 
         // Available extensions (left list)
+        let leftListElt = $('#editRoleLeftExtensionsList');
         // Clear
-        $('#editRoleLeftExtensionsList option').remove();
-        var _options = $('#editRoleLeftExtensionsList').prop('options');
-        // Fill
+        leftListElt.html("");
+         // Fill
         data_.value.availableExtensions.forEach(function (extension_) {
-            _options[_options.length] = new Option(extension_, extension_);
+            leftListElt.append(`<div><span name="${extension_}">${extension_}</span></div>`);
         });
 
         // Selected extensions (right list)
@@ -434,7 +439,7 @@ function passSelectedRoleOnEdition(roleId_) {
         rightListElt.html("");
         // Fill
         data_.value.selectedExtensions.forEach(function (extension_) {
-            let line = `<div class="row">
+            rightListElt.append(`<div class="row">
                             <div class="col-md-6">
                                 <span name="${extension_.extensionName}">${extension_.extensionName}</span>
                             </div>
@@ -446,8 +451,7 @@ function passSelectedRoleOnEdition(roleId_) {
                                     <option value="Admin" ${extension_.permissionName === 'Admin' ? "selected" : ""}>Admin</option>
                                 </select>
                             </div>
-                        </div>`;
-            rightListElt.append(line);
+                        </div>`);
         });
     });
 }

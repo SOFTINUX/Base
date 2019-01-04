@@ -87,15 +87,6 @@ select.input-validation-error
     height: 100% !important;
 }
 
-/* user selection: custom colors.
-   Useful for role edition: selection in left list will look the same as selection in right table.
-   No effect? (removed from CSS3 and reintroduced in CSS 4 it seems).
-*/
-select::selection, option::selection {
-    background-color: #2196F3;
-    color: white;
-}
-
 /* role edition: right table */
 #editRoleRightExtensionsList .row {
     margin-left: 0px;
