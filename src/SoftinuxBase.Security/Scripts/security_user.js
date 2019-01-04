@@ -268,38 +268,38 @@ function btnChevronMoveExtension(event_, transform_) {
 }
 
 /**
- * Create an html span element from a html fragment
+ * Create an html div+span element from a html fragment
  * @param {HtmlElement} target_ - html fragment
- * @return {string} html span
+ * @return {string} html div+span
  */
 function createMovedElementLeft(target_) {
     console.log('move from right to left');
     console.log(target_);
     console.log($(target_).find("span"));
-    return $(target_).find("span").outerHTML;
+    return `<div>${$(target_).find("span").outerHTML}</div>`;
 }
 
 /**
- * Create a span + select html fragment from a span html element
+ * Create a wrapped span + select html fragment from a span html element
  * @param {HtmlElement} target_ - html span element
  * @return {string} html fragment
  */
 function createMovedElementRight(target_) {
     console.log('move from left to right');
-    let extension = target_.name;
+    let extension = $(target_).attr("name");
     return `<div class="row">
-                            <div class="col-md-6">
-                                <span name="${extension}">${extension}</span>
-                            </div>
-                            <div class="col-md-6">
-                                <select>
-                                    <option value="None">None</option>
-                                    <option value="Read" selected>Read</option>
-                                    <option value="Write">Write</option>
-                                    <option value="Admin">Admin</option>
-                                </select>
-                            </div>
-                        </div>`;
+                <div class="col-md-8">
+                    <span name="${extension}">${extension}</span>
+                </div>
+                <div class="col-md-4">
+                    <select>
+                        <option value="None">None</option>
+                        <option value="Read" selected>Read</option>
+                        <option value="Write">Write</option>
+                        <option value="Admin">Admin</option>
+                    </select>
+                </div>
+            </div>`;
 }
 
 /**
