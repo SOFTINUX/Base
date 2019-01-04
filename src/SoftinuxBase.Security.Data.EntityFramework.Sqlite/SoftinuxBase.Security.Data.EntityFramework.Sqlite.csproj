@@ -4,7 +4,7 @@
     <Company>SOFTINUX</Company>
     <Copyright>Copyright © 2017 Softinux</Copyright>
     <Version>0.0.1</Version>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
     <AssemblyName>SoftinuxBase.Security.Data.EntityFramework.Sqlite</AssemblyName>
     <RootNamespace>SoftinuxBase.Security.Data.EntityFramework.Sqlite</RootNamespace>
     <PackageId>SoftinuxBase.Security.Data.EntityFramework.Sqlite</PackageId>
@@ -15,7 +15,7 @@
     <LangVersion>7</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ExtCore.Data.EntityFramework.Sqlite" Version="3.3.0" />
+    <PackageReference Include="ExtCore.Data.EntityFramework.Sqlite" Version="4.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SoftinuxBase.Security.Data.Abstractions\SoftinuxBase.Security.Data.Abstractions.csproj" />

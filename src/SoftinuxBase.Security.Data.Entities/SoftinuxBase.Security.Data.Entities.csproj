@@ -4,7 +4,7 @@
     <Company>SOFTINUX</Company>
     <Copyright>Copyright © 2017 Softinux</Copyright>
     <Version>0.0.1</Version>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
     <AssemblyName>SoftinuxBase.Security.Data.Entities</AssemblyName>
     <RootNamespace>SoftinuxBase.Security.Data.Entities</RootNamespace>
     <PackageId>SoftinuxBase.Security.Data.Entities</PackageId>
@@ -12,7 +12,7 @@
     <PackageProjectUrl>http://www.softinux.com/</PackageProjectUrl>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ExtCore.Data.Entities.Abstractions" Version="3.3.0" />
+    <PackageReference Include="ExtCore.Data.Entities.Abstractions" Version="4.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />

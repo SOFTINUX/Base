@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-  <TargetFramework>netcoreapp2.1</TargetFramework>
+  <TargetFramework>netcoreapp2.2</TargetFramework>
     <AssemblyName>SoftinuxBase.SeedDatabase</AssemblyName>
     <RootNamespace>SoftinuxBase.SeedDatabase</RootNamespace>
     <PackageId>SoftinuxBase.SeedDatabase</PackageId>
@@ -12,7 +12,7 @@
     <LangVersion>7</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ExtCore.Data.Entities.Abstractions" Version="3.3.0" />
+    <PackageReference Include="ExtCore.Data.Entities.Abstractions" Version="4.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />

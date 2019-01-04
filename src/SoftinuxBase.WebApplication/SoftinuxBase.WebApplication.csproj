@@ -5,7 +5,7 @@
     <Company>SOFTINUX</Company>
     <Copyright>Copyright © 2017 Softinux</Copyright>
     <Version>0.0.1</Version>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
     <AssemblyName>SoftinuxBase.WebApplication</AssemblyName>
     <RootNamespace>SoftinuxBase.WebApplication</RootNamespace>
     <PackageId>SoftinuxBase.WebApplication</PackageId>
@@ -21,7 +21,7 @@
     <ProjectReference Include="..\SoftinuxBase.Security.Data.Entities\SoftinuxBase.Security.Data.Entities.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ExtCore.WebApplication" Version="3.3.0" />
+    <PackageReference Include="ExtCore.WebApplication" Version="4.0.0" />
     <PackageReference Include="NWebsec.AspNetCore.Middleware" Version="2.0.0" />
   </ItemGroup>
 </Project>
