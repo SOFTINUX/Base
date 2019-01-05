@@ -1,4 +1,4 @@
-// Copyright © 2017 SOFTINUX. All rights reserved.
+// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.Diagnostics;
@@ -24,7 +24,5 @@ namespace SoftinuxBase.Barebone.ViewComponents
             LoggerFactory.CreateLogger<ScriptsViewComponent>().LogInformation("Time to build scripts list by ScriptsViewModelFactory: " + watch.ElapsedMilliseconds + " ms");
             return Task.FromResult<IViewComponentResult>(View(model));
         }
-
-
     }
 }

@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using CommonTest;
 using ExtCore.Infrastructure;
-using SoftinuxBase.SeedDatabase;
 using SoftinuxBase.Infrastructure.Interfaces;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.Tools;
 using SoftinuxBase.Security.ViewModels.Permissions;
+using SoftinuxBase.SeedDatabase;
 using Xunit;
 using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 
@@ -167,7 +167,6 @@ namespace SecurityTest
                 var specialUserRole = await DatabaseFixture.RoleManager.FindByNameAsync("Special User");
                 await DatabaseFixture.RoleManager.DeleteAsync(specialUserRole);
             }
-
         }
     }
 }

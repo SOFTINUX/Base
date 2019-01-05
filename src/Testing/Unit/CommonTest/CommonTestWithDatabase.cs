@@ -1,4 +1,4 @@
-// Copyright © 2017 SOFTINUX. All rights reserved.
+// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
@@ -6,10 +6,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SoftinuxBase.SeedDatabase;
 using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Common.Enums;
 using SoftinuxBase.Security.Data.Abstractions;
+using SoftinuxBase.SeedDatabase;
 
 namespace CommonTest
 {

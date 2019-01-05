@@ -1,4 +1,4 @@
-﻿// Copyright © 2017 SOFTINUX. All rights reserved.
+﻿// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.IO;
@@ -58,7 +58,6 @@ namespace WebApplication
             });
 
             services_.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
         }
 
         public void Configure(IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_,
@@ -84,7 +83,6 @@ namespace WebApplication
 
             // Logging
             applicationBuilder_.UseSoftinuxLogger(loggerFactory_, configuration_);
-
         }
     }
 }

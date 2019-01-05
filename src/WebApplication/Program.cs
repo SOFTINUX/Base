@@ -1,4 +1,4 @@
-// Copyright © 2017 SOFTINUX. All rights reserved.
+// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.IO;
@@ -17,7 +17,7 @@ namespace WebApplication
         public static IWebHostBuilder CreateWebHostBuilder(string[] args_) =>
             WebHost.CreateDefaultBuilder(args_)
                 .UseStartup<Startup>()
-                .UseKestrel(c_ => c_.AddServerHeader = false)  // Remove the server headers from the kestrel server, by using the UseKestrel extension method.
+                .UseKestrel(c_ => c_.AddServerHeader = false) // Remove the server headers from the kestrel server, by using the UseKestrel extension method.
                 // Add the two lines below for SoftinuxBase
                 .UseWebRoot(Path.Combine(Directory.GetCurrentDirectory(), "..", "wwwroot"))
                 .CaptureStartupErrors(true);

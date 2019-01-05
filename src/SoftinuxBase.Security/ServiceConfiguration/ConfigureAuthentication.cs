@@ -1,4 +1,4 @@
-﻿// Copyright © 2017 SOFTINUX. All rights reserved.
+﻿// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
@@ -20,7 +20,6 @@ namespace SoftinuxBase.Security.ServiceConfiguration
 
         public void Execute(IServiceCollection serviceCollection_, IServiceProvider serviceProvider_)
         {
-
         }
 
         private static Func<RedirectContext<CookieAuthenticationOptions>, Task> ReplaceRedirectorWithStatusCode(

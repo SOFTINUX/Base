@@ -1,4 +1,4 @@
-// Copyright © 2017 SOFTINUX. All rights reserved.
+// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
@@ -22,7 +22,6 @@ namespace SecurityTest
     {
         public UpdateRoleTest(DatabaseFixture databaseFixture_) : base(databaseFixture_)
         {
-
         }
 
         /// <summary>
@@ -62,7 +61,7 @@ namespace SecurityTest
                     RoleId = secondRoleId,
                     // Use the first role name
                     RoleName = firstRoleName,
-                    Grants = new List<ExtensionPermissionValue> {  new ExtensionPermissionValue { Extension = "Security", PermissionValue = Permission.Write.ToString() } }
+                    Grants = new List<ExtensionPermissionValue> { new ExtensionPermissionValue { Extension = "Security", PermissionValue = Permission.Write.ToString() } }
                 };
 
                 // Execute
@@ -75,7 +74,6 @@ namespace SecurityTest
                 // We should not find linked extension
                 var record = permRepo.FilteredByRoleId(secondRoleId).FirstOrDefault();
                 Assert.Null(record);
-
             }
             finally
             {
@@ -301,7 +299,6 @@ namespace SecurityTest
                 }
             }
         }
-
     }
 }
 

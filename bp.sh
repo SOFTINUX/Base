@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright © 2017 SOFTINUX. All rights reserved.
+# Copyright © 2017-2019 SOFTINUX. All rights reserved.
 # Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 
 #These two lines is to set correct directory position if you build from JetBrain Rider

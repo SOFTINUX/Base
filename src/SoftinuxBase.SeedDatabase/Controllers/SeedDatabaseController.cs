@@ -1,4 +1,4 @@
-// Copyright © 2017 SOFTINUX. All rights reserved.
+// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using ExtCore.Data.Abstractions;
@@ -73,7 +73,6 @@ namespace SoftinuxBase.SeedDatabase.Controllers
             {
                 return StatusCode(500, e.Message);
             }
-
         }
 
         /// <summary>
@@ -325,6 +324,5 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                 throw new Exception(msg);
             }
         }
-
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright © 2017 SOFTINUX. All rights reserved.
+﻿// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.Collections;
@@ -27,7 +27,6 @@ namespace SoftinuxBase.Security.Data.EntityFramework
                 item.RolePermission.Permission = item.Permission;
                 yield return item.RolePermission;
             }
-            
         }
         public RolePermission FindBy(string roleId_, string scope_)
         {
@@ -60,6 +59,5 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         {
             dbSet.RemoveRange(dbSet.ToArray());
         }
-
      }
 }

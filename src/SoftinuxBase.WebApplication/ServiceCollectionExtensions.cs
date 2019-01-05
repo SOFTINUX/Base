@@ -1,4 +1,4 @@
-// Copyright © 2017 SOFTINUX. All rights reserved.
+// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SoftinuxBase.Infrastructure;
-using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security;
+using SoftinuxBase.Security.Data.Entities;
 
 namespace SoftinuxBase.WebApplication
 {
@@ -106,7 +106,6 @@ namespace SoftinuxBase.WebApplication
                 options_.HeaderName = "X-XSRF-TOKEN";
                 options_.SuppressXFrameOptionsHeader = false;
             });
-
         }
     }
 }

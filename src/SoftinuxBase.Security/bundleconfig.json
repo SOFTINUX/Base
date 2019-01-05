@@ -2,8 +2,7 @@
   {
     "outputFileName": "Scripts/security_user.min.js",
     "inputFiles": [
-      "Scripts/security_user.js",
-      "Scripts/helper.js"
+      "Scripts/security_user.js"
     ],
     "minify": {
       "enabled": true,

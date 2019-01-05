@@ -1,4 +1,4 @@
-// Copyright © 2017 SOFTINUX. All rights reserved.
+// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
@@ -18,7 +18,6 @@ namespace SecurityTest
     {
         public CreateRoleTest(DatabaseFixture databaseFixture_) : base(databaseFixture_)
         {
-
         }
 
         /// <summary>
@@ -58,7 +57,6 @@ namespace SecurityTest
                 // 2. Expect to have an expected number of records in RolePermission table for the new role
                 var rolePermissionRecords = permRepo.FilteredByRoleId(createdRole.Id);
                 Assert.Equal(extensions.Count(), rolePermissionRecords.Count());
-
             }
             finally
             {
@@ -159,6 +157,5 @@ namespace SecurityTest
             }
         }
     }
-
 }
 
