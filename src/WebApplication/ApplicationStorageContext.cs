@@ -1,5 +1,7 @@
-﻿// Copyright © 2017 SOFTINUX. All rights reserved.
-// Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
+﻿// <copyright file="ApplicationStorageContext.cs" company="SOFTINUX">
+// Copyright © 2017 SOFTINUX. All rights reserved.
+// Licensed under the MIT MIT, Version 2.0. See LICENSE file in the project root for license information.
+// </copyright>
 
 using Microsoft.EntityFrameworkCore;
 
@@ -13,11 +15,14 @@ namespace WebApplication
     {
         // No additional DbSet in this webapp
 
-         public ApplicationStorageContext(DbContextOptions options_)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApplicationStorageContext"/> class.
+        ///
+        /// </summary>
+        /// <param name="options_">DB Context options</param>
+        public ApplicationStorageContext(DbContextOptions options_)
             : base(options_)
         {
         }
     }
-
 }
-

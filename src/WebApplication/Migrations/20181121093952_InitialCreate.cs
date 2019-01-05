@@ -1,4 +1,9 @@
-﻿using System;
+﻿// <copyright file="20181121093952_InitialCreate.cs" company="SOFTINUX">
+// Copyright © 2017 SOFTINUX. All rights reserved.
+// Licensed under the MIT MIT, Version 2.0. See LICENSE file in the project root for license information.
+// </copyright>
+
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebApplication.Migrations
