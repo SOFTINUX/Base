@@ -76,7 +76,7 @@ namespace CommonTest
             // Get the list of the role from the enum
             Role[] roles = (Role[])Enum.GetValues(typeof(Role));
 
-            foreach(var r in roles)
+            foreach (var r in roles)
             {
                 await CreateRoleIfNotExisting(r.GetRoleName());
             }
@@ -97,11 +97,11 @@ namespace CommonTest
                 Name = roleName_
             };
 
-            if(!await DatabaseFixture.RoleManager.RoleExistsAsync(identityRole.Name))
+            if (!await DatabaseFixture.RoleManager.RoleExistsAsync(identityRole.Name))
             {
                 var result = await DatabaseFixture.RoleManager.CreateAsync(identityRole);
 
-                if(!result.Succeeded)
+                if (!result.Succeeded)
                 {
                     throw new Exception($"Could not create missing role: {identityRole.Name}");
                 }
@@ -111,6 +111,7 @@ namespace CommonTest
         protected void CleanTrackedEntities()
         {
             var changedEntriesCopy = ((DbContext)DatabaseFixture.Storage.StorageContext).ChangeTracker.Entries()
+
                 //.Where(e => e.State == EntityState.Added ||
                 //            e.State == EntityState.Modified ||
                 //            e.State == EntityState.Deleted)

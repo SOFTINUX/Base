@@ -65,7 +65,6 @@ namespace SoftinuxBase.Security.Controllers
         /// </summary>
         /// <returns>SignIn view</returns>
         [HttpGet]
-        //[ImportModelStateFromTempData]
         [AllowAnonymous]
         public async Task<IActionResult> SignIn()
         {
@@ -78,7 +77,6 @@ namespace SoftinuxBase.Security.Controllers
         /// <param name="signIn_"></param>
         /// <returns>View</returns>
         [HttpPost]
-        //[ExportModelStateToTempData]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SignIn(SignInViewModel signIn_)
@@ -111,6 +109,7 @@ namespace SoftinuxBase.Security.Controllers
                 // Go to dashboard, action Index of Barebone's controller
                 return await Task.Run(() => RedirectToAction("Index", "Barebone"));
             }
+
             //if (result.RequiresTwoFactor)
             //{
             //    return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
@@ -118,6 +117,7 @@ namespace SoftinuxBase.Security.Controllers
             if (result.IsLockedOut)
             {
                 _logger.LogWarning("User account locked out");
+
                 //return RedirectToAction(nameof(Lockout));
                 signIn_.ErrorMessage = "User account locked out";
                 ModelState.AddModelError("BadUserPassword", signIn_.ErrorMessage);
@@ -128,6 +128,7 @@ namespace SoftinuxBase.Security.Controllers
                 signIn_.ErrorMessage = "Invalid login attempt";
                 ModelState.AddModelError("BadUserPassword", signIn_.ErrorMessage);
             }
+
             // If we got this far, something failed, redisplay form
             return await Task.Run(() => View(signIn_));
         }

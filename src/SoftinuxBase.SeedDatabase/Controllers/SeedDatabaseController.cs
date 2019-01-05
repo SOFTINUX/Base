@@ -24,8 +24,10 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         private readonly ILogger _logger;
 
         private readonly List<IdentityRole<string>> _createdRoles = new List<IdentityRole<string>>();
+
         // 0: Never, 1: Read, 2: Write, 3 : Admin
         private readonly List<Security.Data.Entities.Permission> _createdPermissions = new List<Security.Data.Entities.Permission>();
+
         // 0: John, 1: Jane, 2: Paul
         private User[] _createdUsers = new User[3];
 

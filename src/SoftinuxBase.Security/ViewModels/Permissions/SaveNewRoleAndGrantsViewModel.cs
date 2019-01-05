@@ -13,10 +13,10 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
     /// </summary>
     public class SaveNewRoleAndGrantsViewModel
     {
-        public string RoleName {get; set;}
+        public string RoleName { get; set; }
 
-        public List<string> Extensions {get; set;}
+        public List<string> Extensions { get; set; }
 
-        public string PermissionValue {get; set;}
+        public string PermissionValue { get; set; }
     }
 }

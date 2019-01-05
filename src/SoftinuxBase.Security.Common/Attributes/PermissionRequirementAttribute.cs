@@ -15,12 +15,7 @@ namespace SoftinuxBase.Security.Common.Attributes
     {
         private readonly Permission _permissionName;
         private readonly string _scope;
-
-        /// <summary>
-        /// Permission unique identifier.
-        /// </summary>
-        public string PermissionIdentifier => PermissionHelper.GetScopedPermissionIdentifier(_permissionName, _scope);
-
+        
         /// <summary>
         /// Allows access when the user has the permission : a claim of type "Permission" with value
         /// defined by its level (Admin, Write, Read...) and its scope (SoftinuxBase.Security, ExtensionX...).
@@ -33,16 +28,22 @@ namespace SoftinuxBase.Security.Common.Attributes
             _scope = extensionAssemblySimpleName_;
         }
 
+        /// <summary>
+        /// Permission unique identifier.
+        /// </summary>
+        public string PermissionIdentifier => PermissionHelper.GetScopedPermissionIdentifier(_permissionName, _scope);
+
         public override void OnActionExecuting(ActionExecutingContext context_)
         {
             bool accessGranted = false;
+
             // Get the user claim, if any, matching the scope of interest
             Claim claimOfLookupScope = context_.HttpContext.User.Claims.FirstOrDefault(c_ => c_.Type == ClaimType.Permission.ToString() && c_.Value.ToString().StartsWith($"{_scope}."));
 
-            if(claimOfLookupScope != null)
+            if (claimOfLookupScope != null)
             {
                 Permission currentLevel = Enum.Parse<Permission>(PermissionHelper.GetPermissionLevel(claimOfLookupScope));
-                if((int)currentLevel >= (int)_permissionName)
+                if ((int)currentLevel >= (int)_permissionName)
                 {
                     // access granted
                     accessGranted = true;

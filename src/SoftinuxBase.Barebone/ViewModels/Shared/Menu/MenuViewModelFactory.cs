@@ -40,6 +40,7 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.Menu
                     if (menuGroup.MenuItems == null) continue;
 
                     foreach (Infrastructure.MenuItem menuItem in menuGroup.MenuItems)
+
                         // TODO: here add claims verification for menu items
                         menuItemViewModels.Add(new MenuItemViewModelFactory(RequestHandler).Create(menuItem));
 
@@ -81,6 +82,7 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.Menu
 #if DEBUG
                 logger_.LogInformation($"Menu group {menuGroup_.Name} already exists with position {menuGroup_.Position}");
 #endif
+
                 // If menu group already exist, the position and Font Awesome will be the one of the lowest position menu group
                 if (menuGroup_.Position >= menuGroupViewModel.Position) return menuGroupViewModel;
 #if DEBUG

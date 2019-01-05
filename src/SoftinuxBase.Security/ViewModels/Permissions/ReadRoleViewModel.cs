@@ -12,7 +12,7 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
     public class ReadRoleViewModel
     {
         public IdentityRole<string> Role { get; set; }
-        public IList<SelectedExtension> SelectedExtensions {get; set;}
-        public IList<string> AvailableExtensions {get; set;}
+        public IList<SelectedExtension> SelectedExtensions { get; set; }
+        public IList<string> AvailableExtensions { get; set; }
     }
 }

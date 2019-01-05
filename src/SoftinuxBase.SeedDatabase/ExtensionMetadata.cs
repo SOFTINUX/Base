@@ -10,10 +10,10 @@ namespace SoftinuxBase.SeedDatabase
     public class ExtensionMetadata : IExtensionMetadata
     {
         bool IExtensionMetadata.IsAvailableForPermissions => false;
-        public IEnumerable<StyleSheet> StyleSheets => new StyleSheet [] {};
+        public IEnumerable<StyleSheet> StyleSheets => new StyleSheet [] { };
 
-        public IEnumerable<Script> Scripts => new Script [] {};
+        public IEnumerable<Script> Scripts => new Script [] { };
 
-        public IEnumerable<MenuGroup> MenuGroups => new MenuGroup [] {};
+        public IEnumerable<MenuGroup> MenuGroups => new MenuGroup [] { };
     }
 }

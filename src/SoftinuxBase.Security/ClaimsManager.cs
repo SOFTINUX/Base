@@ -68,12 +68,13 @@ namespace SoftinuxBase.Security
            HashSet<KeyValuePair<Permission, string>> scopedPermissions = _storage.GetRepository<IPermissionRepository>().AllForUser(userId_);
            List<Claim> claims = new List<Claim>();
            Dictionary<string, Permission> permissionByScope = new Dictionary<string, Permission>();
+
            // Take highest level permission for every scope
            foreach (KeyValuePair<Permission, string> kv in scopedPermissions)
            {
-                if(permissionByScope.ContainsKey(kv.Value))
+                if (permissionByScope.ContainsKey(kv.Value))
                 {
-                    if((int) permissionByScope[kv.Value] < (int) kv.Key)
+                    if ((int)permissionByScope[kv.Value] < (int)kv.Key)
                     {
                         permissionByScope[kv.Value] = kv.Key;
                     }
@@ -83,8 +84,9 @@ namespace SoftinuxBase.Security
                     permissionByScope.Add(kv.Value, kv.Key);
                 }
            }
+
             // Now build the claims
-           foreach(KeyValuePair<string, Permission> kv in permissionByScope)
+           foreach (KeyValuePair<string, Permission> kv in permissionByScope)
            {
                claims.Add(new Claim(ClaimType.Permission, PermissionHelper.GetScopedPermissionIdentifier(kv.Value, kv.Key)));
            }

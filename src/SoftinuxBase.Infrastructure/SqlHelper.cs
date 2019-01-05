@@ -36,7 +36,7 @@ namespace SoftinuxBase.Infrastructure
         {
             _storage = storage_;
             _logger = loggerFactory_.CreateLogger(GetType().FullName);
-            _connexionString = ((DbContext) _storage.StorageContext).Database.GetDbConnection().ConnectionString;
+            _connexionString = ((DbContext)_storage.StorageContext).Database.GetDbConnection().ConnectionString;
             GetProvider();
         }
 
@@ -98,7 +98,7 @@ namespace SoftinuxBase.Infrastructure
         public ProviderCode GetProvider()
         {
             // list of provider: https://docs.microsoft.com/en-us/ef/core/providers/
-            switch (((DbContext) _storage.StorageContext).Database.ProviderName)
+            switch (((DbContext)_storage.StorageContext).Database.ProviderName)
             {
                 case "Microsoft.EntityFrameworkCore.Sqlite" :
                     _providerCode = ProviderCode.Sqlite;
@@ -125,7 +125,7 @@ namespace SoftinuxBase.Infrastructure
                     _providerCode = ProviderCode.Msaccess;
                     break;
                 default:
-                    throw new Exception("Unsuported provider: " + ((DbContext) _storage.StorageContext).Database.ProviderName);
+                    throw new Exception("Unsuported provider: " + ((DbContext)_storage.StorageContext).Database.ProviderName);
             }
 
             return _providerCode;

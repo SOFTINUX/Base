@@ -16,14 +16,14 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
         /// Data is sorted by extension name and role name.
         /// </summary>
         /// <returns></returns>
-        public SortedDictionary<string, Dictionary<string, List<Permission>>> PermissionsByRoleAndExtension {get; set;}
+        public SortedDictionary<string, Dictionary<string, List<Permission>>> PermissionsByRoleAndExtension { get; set; }
 
         /// <summary>
         /// For every extension, for every user, the attributed permissions.
         /// Data is sorted by extension name and user name.
         /// </summary>
         /// <returns></returns>
-        public SortedDictionary<string, Dictionary<string, List<Permission>>> PermissionsByUserAndExtension {get; set;}
+        public SortedDictionary<string, Dictionary<string, List<Permission>>> PermissionsByUserAndExtension { get; set; }
 
         public GrantViewModel()
         {

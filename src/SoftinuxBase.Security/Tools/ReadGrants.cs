@@ -47,6 +47,7 @@ namespace SoftinuxBase.Security.Tools
                 string roleName = roleNameByRoleId_.ContainsKey(rp.RoleId) ? roleNameByRoleId_[rp.RoleId] : null;
                 if (!model.PermissionsByRoleAndExtension[rp.Extension].ContainsKey(roleName))
                     model.PermissionsByRoleAndExtension[rp.Extension].Add(roleName, new List<global::SoftinuxBase.Security.Common.Enums.Permission>());
+
                 // Format the list of Permission enum values according to DB enum value
                 model.PermissionsByRoleAndExtension[rp.Extension][roleName] = PermissionHelper.GetLowerOrEqual(PermissionHelper.FromName(rp.Permission.Name));
                 rolesWithPerms.Add(roleName);
@@ -90,7 +91,7 @@ namespace SoftinuxBase.Security.Tools
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
             {
                 var extensionName = extensionMetadata.GetExtensionName();
-                if(!selectedExtensionsNames.Contains(extensionName))
+                if (!selectedExtensionsNames.Contains(extensionName))
                     availableExtensions_.Add(extensionName);
             }
         }

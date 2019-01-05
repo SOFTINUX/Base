@@ -10,7 +10,7 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.MenuGroup
     {
         public string Name { get; set; }
         public uint Position { get; set; }
-        public string FontAwesomeClass {get; set; }
+        public string FontAwesomeClass { get; set; }
         public List<MenuItemViewModel> MenuItems { get; set; }
     }
 }

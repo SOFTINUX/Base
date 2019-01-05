@@ -123,7 +123,7 @@ namespace SoftinuxBase.Security.Controllers
             if (Enum.TryParse<Permission>(permissionValue_, true, out var permissionEnumValue))
             {
                 var permissionEntity = Storage.GetRepository<IPermissionRepository>().Find(permissionEnumValue);
-                repo.Create(new RolePermission {RoleId = roleId, PermissionId = permissionEntity.Id, Extension = extension_});
+                repo.Create(new RolePermission { RoleId = roleId, PermissionId = permissionEntity.Id, Extension = extension_ });
             }
 
             Storage.Save();

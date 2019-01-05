@@ -41,7 +41,6 @@ namespace SoftinuxBase.WebApplication
             {
                 applicationBuilder_.UseDeveloperExceptionPage();
                 applicationBuilder_.UseDatabaseErrorPage();
-                //applicationBuilder_.UseBrowserLink();
             }
             else
             {
@@ -88,6 +87,7 @@ namespace SoftinuxBase.WebApplication
 
                     return next_(context_);
                 });
+
             // 3. ExtCore
             applicationBuilder_.UseExtCore();
 

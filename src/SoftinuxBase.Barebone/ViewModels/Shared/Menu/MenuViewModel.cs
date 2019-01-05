@@ -8,6 +8,6 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.Menu
 {
     public class MenuViewModel
     {
-        public IEnumerable<MenuGroupViewModel> MenuGroups {get; set;}
+        public IEnumerable<MenuGroupViewModel> MenuGroups { get; set; }
     }
 }

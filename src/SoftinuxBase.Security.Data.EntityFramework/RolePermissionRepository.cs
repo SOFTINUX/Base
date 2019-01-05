@@ -20,7 +20,7 @@ namespace SoftinuxBase.Security.Data.EntityFramework
 
             IEnumerable all = from rp in storageContext.Set<RolePermission>()
                 join p in storageContext.Set<Permission>() on rp.PermissionId equals p.Id
-                select new {RolePermission = rp, Permission = p};
+                select new { RolePermission = rp, Permission = p };
 
             foreach (dynamic item in all)
             {

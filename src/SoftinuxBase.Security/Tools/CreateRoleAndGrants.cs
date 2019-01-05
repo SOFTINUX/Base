@@ -40,6 +40,7 @@ namespace SoftinuxBase.Security.Tools
                 if (Enum.TryParse<Common.Enums.Permission>(model_.PermissionValue, true, out var permissionEnumValue))
                 {
                     var permissionEntity = storage_.GetRepository<IPermissionRepository>().Find(permissionEnumValue);
+
                     // Save the Role
                     IdentityRole<string> identityRole = new IdentityRole<string>
                     {

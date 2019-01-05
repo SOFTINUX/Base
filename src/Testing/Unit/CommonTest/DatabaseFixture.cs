@@ -99,6 +99,7 @@ namespace CommonTest
         public static DbContextOptionsBuilder<ApplicationStorageContext> GetDbContextOptionsBuilder()
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationStorageContext>();
+
             // Configure connection string
             var configuration = LoadConfiguration();
             optionsBuilder.UseSqlite(configuration["ConnectionStrings:Default"]);

@@ -37,6 +37,7 @@ namespace SoftinuxBase.Infrastructure
             Url = url_;
             Name = name_;
             Position = position_;
+
             // Always a default icon
             FontAwesomeClass = fontAwesomeClass_ ?? "fa-circle-o";
 

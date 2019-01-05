@@ -19,7 +19,6 @@ namespace SoftinuxBase.Security.Controllers
     {
         //private readonly ILogger _logger;
         private readonly UserManager<User> _usersmanager;
-        //public  List<IdentityUserRole<string>> Roles { get; set; }
 
         public ListUsersController(IStorage storage_, UserManager<User> users_, ILoggerFactory loggerFactory_) : base(storage_, loggerFactory_)
         {

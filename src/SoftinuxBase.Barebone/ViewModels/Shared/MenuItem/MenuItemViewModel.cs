@@ -5,9 +5,9 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.MenuItem
 {
     public class MenuItemViewModel
     {
-        public string Url {get; set;}
-        public string Name {get; set;}
+        public string Url { get; set; }
+        public string Name { get; set; }
         public uint Position { get; set; }
-        public string FontAwesomeClass {get; set; }
+        public string FontAwesomeClass { get; set; }
     }
 }

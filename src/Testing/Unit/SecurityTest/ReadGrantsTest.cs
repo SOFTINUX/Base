@@ -1,3 +1,6 @@
+// Copyright © 2017-2019 SOFTINUX. All rights reserved.
+// Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
+
 using System.Collections.Generic;
 using System.Linq;
 using CommonTest;
@@ -78,9 +81,9 @@ namespace SecurityTest
                 DatabaseFixture.Storage.Save();
 
                 repo.Create(new RolePermission
-                    { RoleId = adminRole.Id, Extension = "SoftinuxBase.Security", PermissionId = adminPermissionId});
+                    { RoleId = adminRole.Id, Extension = "SoftinuxBase.Security", PermissionId = adminPermissionId });
                 repo.Create(new RolePermission
-                    {RoleId = userRole.Id, Extension = "SoftinuxBase.Security", PermissionId = readPermissionId});
+                    { RoleId = userRole.Id, Extension = "SoftinuxBase.Security", PermissionId = readPermissionId });
                 repo.Create(new RolePermission
                 {
                     RoleId = anonymousRole.Id, Extension = "SoftinuxBase.Security", PermissionId = neverPermissionId
@@ -91,9 +94,9 @@ namespace SecurityTest
                 });
 
                 repo.Create(new RolePermission
-                    {RoleId = adminRole.Id, Extension = "Chinook", PermissionId = adminPermissionId});
+                    { RoleId = adminRole.Id, Extension = "Chinook", PermissionId = adminPermissionId });
                 repo.Create(new RolePermission
-                    {RoleId = userRole.Id, Extension = "Chinook", PermissionId = writePermissionId});
+                    { RoleId = userRole.Id, Extension = "Chinook", PermissionId = writePermissionId });
 
                 DatabaseFixture.Storage.Save();
 
@@ -114,11 +117,13 @@ namespace SecurityTest
 
                 // 2. Number of roles for "Security" extension
                 Assert.True((model.PermissionsByRoleAndExtension.ContainsKey("SoftinuxBase.Security")));
+
                 // We may have additional linked roles left by other tests...
                 Assert.True(model.PermissionsByRoleAndExtension["SoftinuxBase.Security"].Keys.Count >= 4);
 
                 // 3. Admin role
                 Assert.True(model.PermissionsByRoleAndExtension["SoftinuxBase.Security"].ContainsKey(adminRole.Name));
+
                 // Admin -> Admin, Write, Read, Never
                 Assert.Equal(4, model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][adminRole.Name].Count);
                 Assert.Contains(Permission.Admin, model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][adminRole.Name]);
@@ -128,6 +133,7 @@ namespace SecurityTest
 
                 // 4. Special User role
                 Assert.True(model.PermissionsByRoleAndExtension["SoftinuxBase.Security"].ContainsKey(specialUserRole.Name));
+
                 // Write -> Write, Read, Never
                 Assert.Equal(3, model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][specialUserRole.Name].Count);
                 Assert.Contains(Permission.Write, model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][specialUserRole.Name]);
@@ -144,6 +150,7 @@ namespace SecurityTest
 
                 // 6. Anonymous role
                 Assert.True(model.PermissionsByRoleAndExtension["SoftinuxBase.Security"].ContainsKey(anonymousRole.Name));
+
                 // Never -> Never
                 Assert.Single(model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][anonymousRole.Name]);
                 Assert.Contains(Permission.Never, model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][anonymousRole.Name]);

@@ -14,7 +14,7 @@ namespace SoftinuxBase.Barebone.Actions
 
         public void Execute(IRouteBuilder routBuilder_, IServiceProvider serviceProvider_)
         {
-            routBuilder_.MapRoute("Default", "{controller}/{action}", new { controller = "Barebone", action = "Index"});
+            routBuilder_.MapRoute("Default", "{controller}/{action}", new { controller = "Barebone", action = "Index" });
         }
     }
 }

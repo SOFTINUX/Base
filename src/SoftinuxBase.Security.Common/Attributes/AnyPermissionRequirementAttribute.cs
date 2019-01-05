@@ -68,7 +68,7 @@ namespace SoftinuxBase.Security.Common.Attributes
                     Permission currentLevel = Enum.Parse<Permission>(PermissionHelper.GetPermissionLevel(claimOfLookupScope));
                     foreach (var permission in _scopedPermissions[scope])
                     {
-                        var minLevel = (int) permission;
+                        var minLevel = (int)permission;
                         if ((int)currentLevel >= minLevel)
                         {
                             // access granted

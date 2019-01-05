@@ -59,6 +59,7 @@ namespace SecurityTest
                 UpdateRoleAndGrantsViewModel model = new UpdateRoleAndGrantsViewModel
                 {
                     RoleId = secondRoleId,
+
                     // Use the first role name
                     RoleName = firstRoleName,
                     Grants = new List<ExtensionPermissionValue> { new ExtensionPermissionValue { Extension = "Security", PermissionValue = Permission.Write.ToString() } }
@@ -127,6 +128,7 @@ namespace SecurityTest
                 UpdateRoleAndGrantsViewModel model = new UpdateRoleAndGrantsViewModel
                 {
                     RoleId = secondRoleId,
+
                     // Use another role name
                     RoleName = thirdRoleName,
                     Grants = new List<ExtensionPermissionValue> { new ExtensionPermissionValue { Extension = "Security", PermissionValue = Permission.Write.ToString() } }
@@ -260,12 +262,13 @@ namespace SecurityTest
                 var writePermissionId = permRepo.All().FirstOrDefault(p_ => p_.Name == Permission.Write.GetPermissionName())?.Id;
                 
                 // Create a link to an extension
-                rolePermissionRepository.Create(new RolePermission { RoleId = firstRole.Id, PermissionId = writePermissionId, Extension = "Security"});
+                rolePermissionRepository.Create(new RolePermission { RoleId = firstRole.Id, PermissionId = writePermissionId, Extension = "Security" });
                 DatabaseFixture.Storage.Save();
 
                 UpdateRoleAndGrantsViewModel model = new UpdateRoleAndGrantsViewModel
                 {
                     RoleId = firstRole.Id,
+
                     // Use same role name
                     RoleName = firstRoleName,
                     Grants = null

@@ -94,7 +94,7 @@ namespace SoftinuxBase.Security.Common
         /// <returns></returns>
         public static List<Permission> GetLowerOrEqual(Permission permission_)
         {
-            return new List<Permission>((Permission[])Enum.GetValues(typeof(Permission))).Where(p_ => (int) p_ <= (int) permission_).ToList();
+            return new List<Permission>((Permission[])Enum.GetValues(typeof(Permission))).Where(p_ => (int)p_ <= (int)permission_).ToList();
         }
     }
 }
