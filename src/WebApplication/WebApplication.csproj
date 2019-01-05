@@ -7,7 +7,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>7</LangVersion>
-    <DocumentationFile>$(SolutionDir)src\WebApplication\WebApplication.xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
     <CodeAnalysisRuleSet>$(SolutionDir)StyleCopRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>

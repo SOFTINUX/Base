@@ -9,12 +9,12 @@
   "settings": {
     "documentationRules": {
       "companyName": "SOFTINUX",
-      "copyrightText":  "Copyright © 2017 {companyName}. All rights reserved.\nLicensed under the MIT {licenseName}, Version 2.0. See {licenseFile} file in the project root for license information." ,
+      "copyrightText":  "Copyright © 2017 {companyName}. All rights reserved.\nLicensed under the {licenseName} License, Version 2.0. See {licenseFile} file in the project root for license information." ,
       "variables": {
         "licenseName": "MIT",
         "licenseFile": "LICENSE"
       },
-      "xmlHeader":  true,
+      "xmlHeader":  false,
       "fileNamingConvention": "metadata"
     },
     "orderingRules": {
@@ -24,6 +24,8 @@
     },
     "layoutRules": {
       "newlineAtEndOfFile": "allow"
+    },
+    "namingRules": {
     }
   }
 }
