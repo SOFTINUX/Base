@@ -5,14 +5,11 @@
     <AssemblyName>WebApplication</AssemblyName>
     <RootNamespace>WebApplication</RootNamespace>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <PropertyGroup>
     <LangVersion>7</LangVersion>
     <DocumentationFile></DocumentationFile>
     <CodeAnalysisRuleSet>..\..\StyleCopRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <ItemGroup>
-    <Content Remove="..\..\stylecop.json" />
-  </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
