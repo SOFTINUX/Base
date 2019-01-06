@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace SoftinuxBase.Security.ServiceConfiguration
 {
     /// <summary>
-    /// Configuration of application services to activate authenticated access
+    /// Configuration of application services to activate authenticated access.
     /// </summary>
     internal class ConfigureAuthentication : IConfigureServicesAction
     {

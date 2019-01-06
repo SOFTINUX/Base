@@ -12,7 +12,6 @@ namespace SoftinuxBase.Security.Data.EntityFramework
 {
     public class UserPermissionRepository : RepositoryBase<UserPermission>, IUserPermissionRepository
     {
-
         public UserPermission FindBy(string userId_, string permissionId_)
         {
             return dbSet.FirstOrDefault(e_ => e_.UserId == userId_ && e_.PermissionId == permissionId_);
@@ -37,8 +36,11 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         {
             var entity = FindBy(userId_, permissionId_);
             if (entity != null)
+            {
                 dbSet.Remove(entity);
+            }
         }
+
         public void DeleteAll()
         {
             dbSet.RemoveRange(dbSet.ToArray());

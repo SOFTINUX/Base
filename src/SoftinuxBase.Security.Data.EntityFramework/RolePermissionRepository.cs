@@ -14,10 +14,8 @@ namespace SoftinuxBase.Security.Data.EntityFramework
 {
     public class RolePermissionRepository : RepositoryBase<RolePermission>, IRolePermissionRepository
     {
-
         public IEnumerable<RolePermission> All()
         {
-
             IEnumerable all = from rp in storageContext.Set<RolePermission>()
                 join p in storageContext.Set<Permission>() on rp.PermissionId equals p.Id
                 select new { RolePermission = rp, Permission = p };
@@ -28,6 +26,7 @@ namespace SoftinuxBase.Security.Data.EntityFramework
                 yield return item.RolePermission;
             }
         }
+
         public RolePermission FindBy(string roleId_, string scope_)
         {
             return All().FirstOrDefault(e_ => e_.RoleId == roleId_ && e_.Extension == scope_);
@@ -52,7 +51,9 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         {
             var entity = FindBy(roleId_, scope_);
             if (entity != null)
+            {
                 dbSet.Remove(entity);
+            }
         }
 
         public void DeleteAll()

@@ -42,7 +42,7 @@ namespace SecurityTest
         /// "Chinook" extension:
         ///
         /// Administrator role : Admin permission
-        /// User role : Write permission
+        /// User role : Write permission.
         ///
         /// </summary>
         [Fact]
@@ -74,7 +74,7 @@ namespace SecurityTest
                 Assert.NotNull(writePermissionId);
                 Assert.NotNull(readPermissionId);
                 Assert.NotNull(neverPermissionId);
-                
+
                 // 5. Create role-extension links
                 // Cleanup first
                 repo.DeleteAll();

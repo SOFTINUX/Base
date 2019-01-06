@@ -37,17 +37,23 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.Menu
                     // Take existing items
                     List<MenuItemViewModel> menuItemViewModels = menuGroupViewModel.MenuItems;
 
-                    if (menuGroup.MenuItems == null) continue;
+                    if (menuGroup.MenuItems == null)
+                    {
+                        continue;
+                    }
 
                     foreach (Infrastructure.MenuItem menuItem in menuGroup.MenuItems)
+                    {
 
                         // TODO: here add claims verification for menu items
                         menuItemViewModels.Add(new MenuItemViewModelFactory(RequestHandler).Create(menuItem));
+                    }
 
                     // Set all the ordered items back to menu group
                     menuGroupViewModel.MenuItems = menuItemViewModels.OrderBy(mi_ => mi_.Position).ToList();
                 }
             }
+
             return new MenuViewModel()
             {
                 // If two menu groups have the same position, they're ordered alphabetically

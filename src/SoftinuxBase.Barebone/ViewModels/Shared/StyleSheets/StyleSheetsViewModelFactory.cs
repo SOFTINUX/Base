@@ -17,7 +17,9 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.StyleSheets
 
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
                 if (extensionMetadata.StyleSheets != null)
+                {
                     styleSheets.AddRange(extensionMetadata.StyleSheets);
+                }
 
             return new StyleSheetsViewModel()
             {

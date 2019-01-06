@@ -20,7 +20,7 @@ namespace SoftinuxBase.Security.Data.Entities
         }
 
         /// <summary>
-        /// Primary key: GUID.
+        /// Gets or sets primary key: GUID.
         /// </summary>
         /// <value></value>
         public string Id { get; set; }

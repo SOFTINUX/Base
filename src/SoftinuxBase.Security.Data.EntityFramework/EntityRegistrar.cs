@@ -11,7 +11,6 @@ namespace SoftinuxBase.Security.Data.EntityFramework
     {
         public void RegisterEntities(ModelBuilder modelBuilder_)
         {
-
             // non-WIF entities
 
             // Permission

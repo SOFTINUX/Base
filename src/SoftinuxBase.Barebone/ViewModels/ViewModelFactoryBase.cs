@@ -16,7 +16,7 @@ namespace SoftinuxBase.Barebone.ViewModels
         ///
         /// </summary>
         /// <param name="requestHandler_"></param>
-        /// <param name="loggerFactory_">Optional</param>
+        /// <param name="loggerFactory_">Optional.</param>
         public ViewModelFactoryBase(IRequestHandler requestHandler_, ILoggerFactory loggerFactory_ = null)
         {
             RequestHandler = requestHandler_;

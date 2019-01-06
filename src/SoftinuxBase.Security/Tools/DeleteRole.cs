@@ -21,7 +21,7 @@ namespace SoftinuxBase.Security.Tools
         /// <param name="scope_"></param>
         /// <param name="roleManager_"></param>
         /// <param name="storage_"></param>
-        /// <returns>boolean</returns>
+        /// <returns>boolean.</returns>
         public static async Task<bool> DeleteRoleExtensionLink(string roleName_, string scope_, RoleManager<IdentityRole<string>> roleManager_, IStorage storage_)
         {
             string roleId = (await roleManager_.FindByNameAsync(roleName_)).Id;
@@ -32,6 +32,7 @@ namespace SoftinuxBase.Security.Tools
                 storage_.Save();
                 return true;
             }
+
             return false;
         }
 

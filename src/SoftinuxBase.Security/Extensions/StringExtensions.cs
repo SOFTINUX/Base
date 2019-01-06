@@ -11,6 +11,7 @@ namespace SoftinuxBase.Security.Extensions
             {
                 return string.Empty;
             }
+
             string s = s_.ToLowerInvariant();
             char[] a = s.ToCharArray();
             a[0] = char.ToUpper(a[0]);

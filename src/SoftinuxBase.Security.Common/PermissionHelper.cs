@@ -38,7 +38,7 @@ namespace SoftinuxBase.Security.Common
         /// Formats the unique identifier that defines a permission and its scope.
         /// </summary>
         /// <param name="permission_"></param>
-        /// <param name="scope_">The scope, equal to assembly name, given by Assembly.GetName().Name</param>
+        /// <param name="scope_">The scope, equal to assembly name, given by Assembly.GetName().Name.</param>
         /// <returns></returns>
         public static string GetScopedPermissionIdentifier(Permission permission_, string scope_)
         {
@@ -53,7 +53,10 @@ namespace SoftinuxBase.Security.Common
         public static string GetPermissionLevel(Claim claim_)
         {
             if (claim_.Type != ClaimType.Permission)
+            {
                 return null;
+            }
+
             return GetPermissionLevel(claim_.Value);
         }
 

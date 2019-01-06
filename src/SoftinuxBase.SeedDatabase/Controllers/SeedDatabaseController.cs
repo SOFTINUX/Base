@@ -78,7 +78,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         }
 
         /// <summary>
-        /// Save users and fill _createdUsers class variable;
+        /// Save users and fill _createdUsers class variable;.
         /// </summary>
         /// <returns></returns>
         private async Task SaveUsers()
@@ -140,8 +140,10 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                         throw new Exception(msg);
                     }
                 }
+
                 firstUser = false;
             }
+
             _createdUsers = new[] { johnUser, janeUser, paulUser };
         }
 
@@ -272,10 +274,13 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                     PermissionId = permissionId_
                 };
                 if (!string.IsNullOrWhiteSpace(scope_))
+                {
                     userPermission.Extension = scope_;
+                }
 
                 _storage.GetRepository<IUserPermissionRepository>().Create(userPermission);
             }
+
             try
             {
                 _storage.Save();
@@ -309,7 +314,9 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                     PermissionId = permissionId_,
                 };
                 if (!string.IsNullOrWhiteSpace(extension_))
+                {
                     rolePermission.Extension = extension_;
+                }
 
                 _storage.GetRepository<IRolePermissionRepository>().Create(rolePermission);
             }

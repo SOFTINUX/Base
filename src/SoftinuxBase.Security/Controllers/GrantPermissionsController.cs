@@ -34,7 +34,6 @@ namespace SoftinuxBase.Security.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-
             // Create a dictionary with all roles for injecting as json into grant permission page
             Dictionary<string, IdentityRole<string>> rolesList = new Dictionary<string, IdentityRole<string>>();
 
@@ -58,19 +57,23 @@ namespace SoftinuxBase.Security.Controllers
         /// Return role for edition: role information and associated extensions list.
         /// </summary>
         /// <param name="roleId_"></param>
-        /// <returns>Http code and JSON role object</returns>
+        /// <returns>Http code and JSON role object.</returns>
         [PermissionRequirement(Permission.Admin)]
         [Route("administration/read-role")]
         [HttpGet]
         public async Task<IActionResult> GetRoleForEdition(string roleId_)
         {
             if (string.IsNullOrWhiteSpace(roleId_) || string.IsNullOrEmpty(roleId_))
+            {
                 return StatusCode(400, Json("No role id given"));
+            }
 
             var role = await _roleManager.FindByIdAsync(roleId_);
 
             if (role == null)
+            {
                 return StatusCode(400, Json("No such role for edition"));
+            }
 
             ReadGrants.GetExtensions(roleId_, Storage, out var availableExtensions, out var selectedExtensions);
 
@@ -91,7 +94,7 @@ namespace SoftinuxBase.Security.Controllers
         /// Create a role. Then create a set of records indicating to which extensions with which permission this role is linked to.
         /// </summary>
         /// <param name="model_"></param>
-        /// <returns>Http status code</returns>
+        /// <returns>Http status code.</returns>
         [Route("administration/save-new-role")]
         [HttpPost]
         public async Task<IActionResult> SaveNewRoleAndItsPermissions(SaveNewRoleAndGrantsViewModel model_)
@@ -107,10 +110,10 @@ namespace SoftinuxBase.Security.Controllers
         /// <summary>
         /// Update a record indicating with which permission this role is linked to an extension.
         /// </summary>
-        /// <param name="roleName_">Role name</param>
-        /// <param name="permissionValue_">New permission level to save</param>
-        /// <param name="extension_">Extension</param>
-        /// <returns>JSON with "true" when it succeeded</returns>
+        /// <param name="roleName_">Role name.</param>
+        /// <param name="permissionValue_">New permission level to save.</param>
+        /// <param name="extension_">Extension.</param>
+        /// <returns>JSON with "true" when it succeeded.</returns>
         [PermissionRequirement(Permission.Admin)]
         [Route("administration/update-role-permission")]
         [HttpGet] // TODO change to POST
@@ -119,7 +122,7 @@ namespace SoftinuxBase.Security.Controllers
             string roleId = (await _roleManager.FindByNameAsync(roleName_)).Id;
             IRolePermissionRepository repo = Storage.GetRepository<IRolePermissionRepository>();
             repo.Delete(roleId, extension_);
-            
+
             if (Enum.TryParse<Permission>(permissionValue_, true, out var permissionEnumValue))
             {
                 var permissionEntity = Storage.GetRepository<IPermissionRepository>().Find(permissionEnumValue);
@@ -134,7 +137,7 @@ namespace SoftinuxBase.Security.Controllers
         /// Update role name and linked extensions with permission level.
         /// </summary>
         /// <param name="model_"></param>
-        /// <returns>Json string</returns>
+        /// <returns>Json string.</returns>
         [PermissionRequirement(Permission.Admin)]
         [Route("administration/update-role")]
         [HttpPost]
@@ -159,7 +162,7 @@ namespace SoftinuxBase.Security.Controllers
         /// </summary>
         /// <param name="roleName_"></param>
         /// <param name="scope_"></param>
-        /// <returns>Json boolean</returns>
+        /// <returns>Json boolean.</returns>
         [HttpPost]
         public async Task<IActionResult> DeleteRoleExtensionLink(string roleName_, string scope_)
         {
@@ -167,10 +170,10 @@ namespace SoftinuxBase.Security.Controllers
         }
 
         /// <summary>
-        /// Delete role with extention link
+        /// Delete role with extention link.
         /// </summary>
         /// <param name="roleName_"></param>
-        /// <returns>Json string</returns>
+        /// <returns>Json string.</returns>
         [HttpPost]
         [Route("administration/delete-role")]
         public async Task<IActionResult> DeleteRole(string roleName_)

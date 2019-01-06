@@ -15,7 +15,7 @@ namespace SoftinuxBase.Security.ServiceConfiguration
 {
     /// <summary>
     /// Action that must be executed inside the ConfigureServices method of a web application's Startup class:
-    /// Configuration of application services for Identity
+    /// Configuration of application services for Identity.
     /// </summary>
     internal class ConfigureServicesAction : IConfigureServicesAction
     {

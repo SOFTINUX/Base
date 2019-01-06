@@ -11,7 +11,7 @@ namespace SoftinuxBase.Infrastructure.Extensions
         /// Return the unique string that qualifies the extension.
         /// </summary>
         /// <param name="extensionMetadata_"></param>
-        /// <returns>Fully qualified assembly name, given by Assembly.GetName().Name</returns>
+        /// <returns>Fully qualified assembly name, given by Assembly.GetName().Name.</returns>
         public static string GetExtensionName(this IExtensionMetadata extensionMetadata_)
         {
             return extensionMetadata_.GetType().Assembly.GetName().Name;

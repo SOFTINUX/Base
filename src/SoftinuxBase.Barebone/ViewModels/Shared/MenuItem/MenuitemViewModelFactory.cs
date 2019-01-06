@@ -11,6 +11,7 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.MenuItem
             : base(requestHandler_)
         {
         }
+
         public MenuItemViewModel Create(Infrastructure.MenuItem menuItem_)
         {
             return new MenuItemViewModel()

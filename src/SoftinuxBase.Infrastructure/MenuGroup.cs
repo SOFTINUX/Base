@@ -7,16 +7,6 @@ namespace SoftinuxBase.Infrastructure
 {
     public class MenuGroup
     {
-        public string Name { get; set; }
-        public uint Position { get; }
-
-        /// <summary>
-        /// The fa-xxx class to render the associated icon
-        /// </summary>
-        public string FontAwesomeClass { get; }
-
-        public IEnumerable<MenuItem> MenuItems { get; }
-
         public MenuGroup(string name_, uint position_, IEnumerable<MenuItem> menuItems_, string fontAwesomeClass_ = "fa-bars")
         {
             Name = name_;
@@ -24,5 +14,18 @@ namespace SoftinuxBase.Infrastructure
             MenuItems = menuItems_;
             FontAwesomeClass = fontAwesomeClass_;
         }
+
+        public string Name { get; set; }
+
+        public uint Position { get; }
+
+        /// <summary>
+        /// Gets the fa-xxx class to render the associated icon.
+        /// </summary>
+        public string FontAwesomeClass { get; }
+
+        public IEnumerable<MenuItem> MenuItems { get; }
+
+
     }
 }

@@ -9,7 +9,7 @@ namespace SoftinuxBase.Security.ViewModels.Account
     public class SignUpViewModel
     {
         /// <summary>
-        /// First name field
+        /// Gets or sets first name field.
         /// </summary>
         /// <returns></returns>
         [Required]
@@ -19,7 +19,7 @@ namespace SoftinuxBase.Security.ViewModels.Account
         public string UserName { get; set; }
 
         /// <summary>
-        /// E-mail field
+        /// Gets or sets e-mail field.
         /// </summary>
         [Display(Name = "Email")]
         [DataType(DataType.EmailAddress)]
@@ -29,7 +29,7 @@ namespace SoftinuxBase.Security.ViewModels.Account
         public string Email { get; set; }
 
         /// <summary>
-        /// Password field
+        /// Gets or sets password field.
         /// </summary>
         [Display(Name = "Password")]
         [DataType(DataType.Password)]

@@ -9,7 +9,7 @@ namespace SoftinuxBase.Security.Data.Entities
     {
         private string _name;
         /// <summary>
-        /// Primary key: GUID.
+        /// Gets or sets primary key: GUID.
         /// </summary>
         /// <value></value>
         public string Id { get; set; }
@@ -24,6 +24,7 @@ namespace SoftinuxBase.Security.Data.Entities
                 NormalizedName = value.ToUpperInvariant();
             }
         }
+
         public string NormalizedName { get; private set; }
     }
 }

@@ -13,8 +13,8 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         /// <summary>
         /// Return true if found, else false.
         /// </summary>
-        /// <param name="value_">normalized string to find</param>
-        /// <returns>bool</returns>
+        /// <param name="value_">normalized string to find.</param>
+        /// <returns>bool.</returns>
         public bool FindByNormalizedUserNameOrEmail(string value_)
         {
             return dbSet.FirstOrDefault(e_ => e_.NormalizedUserName == value_ || e_.NormalizedEmail == value_) != null;

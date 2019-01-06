@@ -41,7 +41,7 @@ namespace SoftinuxBase.Infrastructure
         }
 
         /// <summary>
-        /// Execute SQL code from an embedded resource SQL file
+        /// Execute SQL code from an embedded resource SQL file.
         /// </summary>
         /// <param name="resourcePath_"></param>
         /// <returns></returns>
@@ -59,7 +59,9 @@ namespace SoftinuxBase.Infrastructure
         public string ExecuteSqlScript(string sqlScript_)
         {
             if (string.IsNullOrWhiteSpace(sqlScript_) || string.IsNullOrEmpty(sqlScript_))
+            {
                 return "you sql script is empty";
+            }
 
             throw new Exception("Not yet implemented");
         }
@@ -68,7 +70,7 @@ namespace SoftinuxBase.Infrastructure
         /// Execute SQL code from a plain SQL file.
         /// </summary>
         /// <param name="filePath_"></param>
-        /// <returns>Any error information, else null when no error happened</returns>
+        /// <returns>Any error information, else null when no error happened.</returns>
         public string ExecuteSqlFileWithTransaction(string filePath_)
         {
             if (!File.Exists(filePath_))
@@ -88,13 +90,14 @@ namespace SoftinuxBase.Infrastructure
             {
                 return $"Error executing SQL: {e.Message} - {e.StackTrace}";
             }
+
             return null;
         }
 
         /// <summary>
-        /// Get the Entity Framework provider
+        /// Get the Entity Framework provider.
         /// </summary>
-        /// <returns>ProviderCode</returns>
+        /// <returns>ProviderCode.</returns>
         public ProviderCode GetProvider()
         {
             // list of provider: https://docs.microsoft.com/en-us/ef/core/providers/
@@ -132,10 +135,10 @@ namespace SoftinuxBase.Infrastructure
         }
 
         /// <summary>
-        /// Test database connection
+        /// Test database connection.
         /// </summary>
         /// <param name="connecString_"></param>
-        /// <returns>True if call return true, else false</returns>
+        /// <returns>True if call return true, else false.</returns>
         private bool TestDbConnection(string connecString_)
         {
             switch (_providerCode)
@@ -152,10 +155,10 @@ namespace SoftinuxBase.Infrastructure
         }
 
         /// <summary>
-        /// Test sqlite database connection
+        /// Test sqlite database connection.
         /// </summary>
         /// <param name="connexionString_"></param>
-        /// <returns>True if can open and close connexion, else false</returns>
+        /// <returns>True if can open and close connexion, else false.</returns>
         private static bool TestSqliteConnexion(string connexionString_)
         {
             try
@@ -173,10 +176,10 @@ namespace SoftinuxBase.Infrastructure
         }
 
         /// <summary>
-        /// Test mssql database connection
+        /// Test mssql database connection.
         /// </summary>
         /// <param name="connexionString_"></param>
-        /// <returns>True if can open and close connexion, else false</returns>
+        /// <returns>True if can open and close connexion, else false.</returns>
         private static bool TestMsSqlConnexion(string connexionString_)
         {
             try
@@ -194,10 +197,10 @@ namespace SoftinuxBase.Infrastructure
         }
 
         /// <summary>
-        /// Test PostgreSql database connection
+        /// Test PostgreSql database connection.
         /// </summary>
         /// <param name="connexionString_"></param>
-        /// <returns>True if can open and close connexion, else false</returns>
+        /// <returns>True if can open and close connexion, else false.</returns>
         private static bool TestPostgresqlConnexion(string connexionString_)
         {
             try

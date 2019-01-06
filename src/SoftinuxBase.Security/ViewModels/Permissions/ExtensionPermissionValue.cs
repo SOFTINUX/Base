@@ -8,7 +8,7 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
         public string Extension { get; set; }
 
         /// <summary>
-        /// Value of the Permission enum
+        /// Gets or sets value of the Permission enum.
         /// </summary>
         public string PermissionValue { get; set; }
     }

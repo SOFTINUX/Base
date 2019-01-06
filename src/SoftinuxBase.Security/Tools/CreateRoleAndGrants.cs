@@ -18,10 +18,10 @@ namespace SoftinuxBase.Security.Tools
         /// First, check that a role with this name doesn't already exist.
         /// Second, save new data into database.
         /// </summary>
-        /// <param name="model_">Model with role name and grant data (extensions and permission level)</param>
+        /// <param name="model_">Model with role name and grant data (extensions and permission level).</param>
         /// <param name="roleManager_"></param>
         /// <param name="storage_"></param>
-        /// <returns>Not null when something failed, else null when save went ok</returns>
+        /// <returns>Not null when something failed, else null when save went ok.</returns>
         public static async Task<string> CheckAndSaveNewRoleAndGrants(SaveNewRoleAndGrantsViewModel model_, RoleManager<IdentityRole<string>> roleManager_, IStorage storage_)
         {
             if (await UpdateRoleAndGrants.CheckThatRoleOfThisNameExists(roleManager_, model_.RoleName))

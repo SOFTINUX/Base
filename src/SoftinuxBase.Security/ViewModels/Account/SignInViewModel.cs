@@ -8,12 +8,12 @@ namespace SoftinuxBase.Security.ViewModels.Account
     public class SignInViewModel
     {
         /// <summary>
-        /// The user id, if any match
+        /// Gets or sets the user id, if any match.
         /// </summary>
         public int? Id { get; set; }
 
         /// <summary>
-        /// user name or e-mail field
+        /// Gets or sets user name or e-mail field.
         /// </summary>
         [Display(Name = "Username or e-mail")]
         [Required]
@@ -21,7 +21,7 @@ namespace SoftinuxBase.Security.ViewModels.Account
         public string Username { get; set; }
 
         /// <summary>
-        /// Password field
+        /// Gets or sets password field.
         /// </summary>
         [Display(Name = "Password")]
         [Required]
@@ -29,7 +29,7 @@ namespace SoftinuxBase.Security.ViewModels.Account
         public string Password { get; set; }
 
         /// <summary>
-        /// Use persistent cookie if desired
+        /// Gets or sets a value indicating whether use persistent cookie if desired.
         /// </summary>
         [Display(Name = "Remember me")]
         public bool RememberMe { get; set; }

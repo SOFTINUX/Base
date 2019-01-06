@@ -13,10 +13,10 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
         /// <summary>
         ///
         /// </summary>
-        /// <param name="role_">Required parameter</param>
-        /// <param name="users_">Optional parameter</param>
-        /// <param name="extensions_">Optional parameter</param>
-        /// <param name="permissions_">Optional parameter</param>
+        /// <param name="role_">Required parameter.</param>
+        /// <param name="users_">Optional parameter.</param>
+        /// <param name="extensions_">Optional parameter.</param>
+        /// <param name="permissions_">Optional parameter.</param>
         public RoleObject(IdentityRole<string> role_, List<User> users_ = null, List<string> extensions_ = null, List<Permission> permissions_ = null)
         {
             RoleNormalizedName = role_.NormalizedName;

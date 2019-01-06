@@ -10,12 +10,11 @@ using SoftinuxBase.Security.Common.Enums;
 
 namespace SoftinuxBase.Security.Common.Attributes
 {
-
     public class PermissionRequirementAttribute : ActionFilterAttribute
     {
         private readonly Permission _permissionName;
         private readonly string _scope;
-        
+
         /// <summary>
         /// Allows access when the user has the permission : a claim of type "Permission" with value
         /// defined by its level (Admin, Write, Read...) and its scope (SoftinuxBase.Security, ExtensionX...).
@@ -29,7 +28,7 @@ namespace SoftinuxBase.Security.Common.Attributes
         }
 
         /// <summary>
-        /// Permission unique identifier.
+        /// Gets permission unique identifier.
         /// </summary>
         public string PermissionIdentifier => PermissionHelper.GetScopedPermissionIdentifier(_permissionName, _scope);
 
@@ -50,7 +49,7 @@ namespace SoftinuxBase.Security.Common.Attributes
                 }
             }
 
-             if (!accessGranted)
+            if (!accessGranted)
             {
                 context_.Result = new ForbidResult();
             }

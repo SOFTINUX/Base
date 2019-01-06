@@ -8,7 +8,7 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
     /// <summary>
     /// The posted data when modifying a role:
     /// - role new name
-    /// - extensions/permission level to associate to role
+    /// - extensions/permission level to associate to role.
     /// </summary>
     public class UpdateRoleAndGrantsViewModel
     {
@@ -16,7 +16,7 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
         public string RoleName { get; set; }
 
         /// <summary>
-        /// List of extension name with associated permission enum value.
+        /// Gets or sets list of extension name with associated permission enum value.
         /// </summary>
         /// <value></value>
         public List<ExtensionPermissionValue> Grants { get; set; }

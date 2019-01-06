@@ -17,7 +17,7 @@ namespace WebApplication
         /// Initializes a new instance of the <see cref="ApplicationStorageContext"/> class.
         ///
         /// </summary>
-        /// <param name="options_">DB Context options</param>
+        /// <param name="options_">DB Context options.</param>
         public ApplicationStorageContext(DbContextOptions options_)
             : base(options_)
         {

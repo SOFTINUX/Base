@@ -45,7 +45,9 @@ namespace CommonTest
             var repo = DatabaseFixture.Storage.GetRepository<IPermissionRepository>();
 
             if (repo.All().FirstOrDefault(p_ => p_.Id == Permission.Admin.ToString()) != null)
+            {
                 return;
+            }
 
             // Base permissions not already created
 

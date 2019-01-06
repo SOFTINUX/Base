@@ -17,7 +17,9 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.Scripts
 
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
                 if (extensionMetadata.Scripts != null)
+                {
                     scripts.AddRange(extensionMetadata.Scripts);
+                }
 
             return new ScriptsViewModel()
             {

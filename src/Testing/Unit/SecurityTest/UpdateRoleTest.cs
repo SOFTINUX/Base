@@ -84,9 +84,14 @@ namespace SecurityTest
                 {
                     var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(roleName);
                     if (createdRole == null)
+                    {
                         continue;
+                    }
+
                     foreach (var rolePermission in permRepo.FilteredByRoleId(createdRole.Id))
+                    {
                         permRepo.Delete(rolePermission.RoleId, rolePermission.Extension);
+                    }
 
                     await DatabaseFixture.RoleManager.DeleteAsync(createdRole);
                 }
@@ -154,9 +159,14 @@ namespace SecurityTest
                 {
                     var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(roleName);
                     if (createdRole == null)
+                    {
                         continue;
+                    }
+
                     foreach (var rolePermission in permRepo.FilteredByRoleId(createdRole.Id))
+                    {
                         permRepo.Delete(rolePermission.RoleId, rolePermission.Extension);
+                    }
 
                     await DatabaseFixture.RoleManager.DeleteAsync(createdRole);
                 }
@@ -231,7 +241,9 @@ namespace SecurityTest
                 if (createdRole != null)
                 {
                     foreach (var rolePermission in rolePermissionRepository.FilteredByRoleId(createdRole.Id))
+                    {
                         rolePermissionRepository.Delete(rolePermission.RoleId, rolePermission.Extension);
+                    }
 
                     await DatabaseFixture.RoleManager.DeleteAsync(createdRole);
                 }
@@ -248,7 +260,7 @@ namespace SecurityTest
             string firstRoleName = "New Role 1 " + DateTime.Now.Ticks;
             var rolePermissionRepository = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
             var permRepo = DatabaseFixture.Storage.GetRepository<IPermissionRepository>();
-            
+
             try
             {
                 // Arrange
@@ -260,7 +272,7 @@ namespace SecurityTest
                 await DatabaseFixture.RoleManager.CreateAsync(firstRole);
 
                 var writePermissionId = permRepo.All().FirstOrDefault(p_ => p_.Name == Permission.Write.GetPermissionName())?.Id;
-                
+
                 // Create a link to an extension
                 rolePermissionRepository.Create(new RolePermission { RoleId = firstRole.Id, PermissionId = writePermissionId, Extension = "Security" });
                 DatabaseFixture.Storage.Save();
@@ -294,9 +306,14 @@ namespace SecurityTest
                 {
                     var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(roleName);
                     if (createdRole == null)
+                    {
                         continue;
+                    }
+
                     foreach (var rolePermission in rolePermissionRepository.FilteredByRoleId(createdRole.Id))
+                    {
                         rolePermissionRepository.Delete(rolePermission.RoleId, rolePermission.Extension);
+                    }
 
                     await DatabaseFixture.RoleManager.DeleteAsync(createdRole);
                 }

@@ -30,7 +30,7 @@ namespace SoftinuxBase.Security.Controllers
         /// <summary>
         /// Access to the register page with GET method, and allowed when not authenticated (of course ^^).
         /// </summary>
-        /// <returns>SignUp view</returns>
+        /// <returns>SignUp view.</returns>
         [HttpGet]
         [AllowAnonymous]
         public IActionResult SignUp()
@@ -40,7 +40,7 @@ namespace SoftinuxBase.Security.Controllers
 
         /// <summary>
         /// SignUp action request
-        /// POST: /Account/SignUp
+        /// POST: /Account/SignUp.
         /// </summary>
         /// <param name="signUp_"></param>
         /// <returns></returns>
@@ -63,7 +63,7 @@ namespace SoftinuxBase.Security.Controllers
         /// <summary>
         /// Access to the login page with GET method, and allowed when not authenticated (of course ^^).
         /// </summary>
-        /// <returns>SignIn view</returns>
+        /// <returns>SignIn view.</returns>
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> SignIn()
@@ -75,7 +75,7 @@ namespace SoftinuxBase.Security.Controllers
         /// Sign in action request.
         /// </summary>
         /// <param name="signIn_"></param>
-        /// <returns>View</returns>
+        /// <returns>View.</returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -134,9 +134,9 @@ namespace SoftinuxBase.Security.Controllers
         }
 
         /// <summary>
-        /// SignOut action request
+        /// SignOut action request.
         /// </summary>
-        /// <returns>View SignIn</returns>
+        /// <returns>View SignIn.</returns>
         [HttpGet]
         public async Task<IActionResult> SignOut()
         {
@@ -146,9 +146,9 @@ namespace SoftinuxBase.Security.Controllers
         }
 
         /// <summary>
-        /// No acces area
+        /// No acces area.
         /// </summary>
-        /// <returns>View</returns>
+        /// <returns>View.</returns>
         [HttpGet]
         public async Task<IActionResult> AccessDenied()
         {
@@ -156,9 +156,9 @@ namespace SoftinuxBase.Security.Controllers
         }
 
         /// <summary>
-        /// Create user action request
+        /// Create user action request.
         /// </summary>
-        /// <returns>view for creating new user</returns>
+        /// <returns>view for creating new user.</returns>
         [HttpGet]
         public IActionResult CreateUser()
         {
@@ -175,10 +175,10 @@ namespace SoftinuxBase.Security.Controllers
         }
 
         /// <summary>
-        /// Update user profile action request
+        /// Update user profile action request.
         /// </summary>
         /// <param name="userId_"></param>
-        /// <returns>view user</returns>
+        /// <returns>view user.</returns>
         [HttpGet]
         public async Task<IActionResult> UpdateProfile(string userId_)
         {
@@ -189,7 +189,7 @@ namespace SoftinuxBase.Security.Controllers
         /// Return true when user name isn't in use.
         /// </summary>
         /// <param name="userName_"></param>
-        /// <returns>json</returns>
+        /// <returns>json.</returns>
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> CheckUserNameExist(string userName_)

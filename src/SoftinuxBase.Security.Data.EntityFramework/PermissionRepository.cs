@@ -34,14 +34,16 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         {
             var entity = dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
             if (entity != null)
+            {
                 dbSet.Remove(entity);
+            }
         }
 
         /// <summary>
         /// Every permission with its scope, linked to user and user's roles.
         /// </summary>
         /// <param name="userId_"></param>
-        /// <returns>List of key/value : permission and scope</returns>
+        /// <returns>List of key/value : permission and scope.</returns>
         public HashSet<KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>> AllForUser(string userId_)
         {
             IEnumerable<KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>> permissionsOfRoles = from p in storageContext.Set<Permission>()
@@ -59,11 +61,14 @@ namespace SoftinuxBase.Security.Data.EntityFramework
             HashSet<KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>> allPermissions = new HashSet<KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>>();
 
             foreach (KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string> p in permissionsOfRoles)
+            {
                 allPermissions.Add(p);
+            }
 
             foreach (KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string> p in permissionsOfUser)
+            {
                 allPermissions.Add(p);
-
+            }
 
             return allPermissions;
         }

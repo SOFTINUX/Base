@@ -14,19 +14,19 @@ namespace SoftinuxBase.Security.Tools
         /// <summary>
         /// Check if user exists by this name or e-mail.
         /// </summary>
-        /// <returns>true if exist, false if not exist</returns>
+        /// <returns>true if exist, false if not exist.</returns>
         public static bool IsUserExist(IStorage storage_, string value_, UserManager<User> userManager_)
         {
             return storage_.GetRepository<IAspNetUsersRepository>().FindByNormalizedUserNameOrEmail(userManager_.NormalizeKey(value_));
         }
 
         /// <summary>
-        /// Create user into application
+        /// Create user into application.
         /// </summary>
         /// <param name="storage_"></param>
-        /// <param name="viewModel_">user object from view</param>
+        /// <param name="viewModel_">user object from view.</param>
         /// <param name="userManager_"></param>
-        /// <returns>true if create, false if fail</returns>
+        /// <returns>true if create, false if fail.</returns>
         public static bool CreateNewUser(IStorage storage_,SignUpViewModel viewModel_, UserManager<User> userManager_)
         {
             return !IsUserExist(storage_, viewModel_.UserName, userManager_) && !IsUserExist(storage_, viewModel_.Email, userManager_);

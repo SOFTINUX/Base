@@ -35,7 +35,7 @@ namespace SoftinuxBase.Security
             {
                 identity_.AddClaims(new[] {
                     new Claim(ClaimTypes.GivenName, user_.FirstName)
-                });
+});
             }
 
             // Last name
@@ -43,7 +43,7 @@ namespace SoftinuxBase.Security
             {
                 identity_.AddClaims(new[] {
                     new Claim(ClaimTypes.Surname, user_.LastName),
-                });
+});
             }
 
             // Roles
@@ -52,7 +52,7 @@ namespace SoftinuxBase.Security
             {
                 identity_.AddClaims(new[] {
                     new Claim(ClaimTypes.Role, role),
-                });
+});
             }
 
             // Permissions
@@ -90,6 +90,7 @@ namespace SoftinuxBase.Security
            {
                claims.Add(new Claim(ClaimType.Permission, PermissionHelper.GetScopedPermissionIdentifier(kv.Value, kv.Key)));
            }
+
            return claims;
         }
     }

@@ -8,15 +8,6 @@ namespace SoftinuxBase.Infrastructure
 {
     public class MenuItem
     {
-        public string Url { get; set; }
-        public string Name { get; set; }
-        public uint Position { get; }
-
-        /// <summary>
-        /// The fa-xxx class to render the associated icon
-        /// </summary>
-        public string FontAwesomeClass { get; }
-
         /// <summary>
         /// If not empty, any of these roles is required (access granted if a single role is possessed by current user).
         /// Menu item is decorated with Microsoft.AspNetCore.Authorization.AuthorizeAttribute with Roles.
@@ -30,7 +21,11 @@ namespace SoftinuxBase.Infrastructure
         /// </summary>
         private readonly List<string> _allRequiredPermissionIdentifiers = new List<string>();
 
-        public MenuItem(string url_, string name_, uint position_, string fontAwesomeClass_ = null,
+        public MenuItem(
+            string url_,
+            string name_,
+            uint position_,
+            string fontAwesomeClass_ = null,
             List<PermissionRequirementAttribute> infrastructureAuthorizeAttributes_ = null,
             List<Microsoft.AspNetCore.Authorization.AuthorizeAttribute> microsoftAuthorizeAttributes_ = null)
         {
@@ -47,9 +42,14 @@ namespace SoftinuxBase.Infrastructure
                 foreach (var attr in microsoftAuthorizeAttributes_)
                 {
                     if (!string.IsNullOrWhiteSpace(attr.Roles))
+                    {
                         _anyRequiredRoles.AddRange(attr.Roles.Split(','));
+                    }
+
                     if (!string.IsNullOrWhiteSpace(attr.Policy))
+                    {
                         _allRequiredPermissionIdentifiers.Add(attr.Policy);
+                    }
                 }
             }
 
@@ -59,9 +59,22 @@ namespace SoftinuxBase.Infrastructure
                 foreach (var attr in infrastructureAuthorizeAttributes_)
                 {
                     if (!string.IsNullOrWhiteSpace(attr.PermissionIdentifier))
+                    {
                         _allRequiredPermissionIdentifiers.Add(attr.PermissionIdentifier);
+                    }
                 }
             }
         }
+
+        public string Url { get; set; }
+
+        public string Name { get; set; }
+
+        public uint Position { get; }
+
+        /// <summary>
+        /// Gets the fa-xxx class to render the associated icon.
+        /// </summary>
+        public string FontAwesomeClass { get; }
     }
 }

@@ -44,9 +44,12 @@ namespace SoftinuxBase.Security.Tools
                     // A database record related to a not loaded extension (scope). Ignore this.
                     continue;
                 }
+
                 string roleName = roleNameByRoleId_.ContainsKey(rp.RoleId) ? roleNameByRoleId_[rp.RoleId] : null;
                 if (!model.PermissionsByRoleAndExtension[rp.Extension].ContainsKey(roleName))
+                {
                     model.PermissionsByRoleAndExtension[rp.Extension].Add(roleName, new List<global::SoftinuxBase.Security.Common.Enums.Permission>());
+                }
 
                 // Format the list of Permission enum values according to DB enum value
                 model.PermissionsByRoleAndExtension[rp.Extension][roleName] = PermissionHelper.GetLowerOrEqual(PermissionHelper.FromName(rp.Permission.Name));
@@ -58,7 +61,10 @@ namespace SoftinuxBase.Security.Tools
             foreach (string role in roleNames)
             {
                 if (rolesWithPerms.Contains(role))
+                {
                     continue;
+                }
+
                 foreach (string scope in model.PermissionsByRoleAndExtension.Keys)
                 {
                     model.PermissionsByRoleAndExtension[scope].Add(role, new List<global::SoftinuxBase.Security.Common.Enums.Permission>());
@@ -71,7 +77,7 @@ namespace SoftinuxBase.Security.Tools
         /// <summary>
         /// Get the list of extensions associated to a role, with corresponding permission, and also the list of extensions not linked to the role.
         /// </summary>
-        /// <param name="roleId_">Id of a role</param>
+        /// <param name="roleId_">Id of a role.</param>
         /// <param name="storage_"></param>
         /// <param name="availableExtensions_"></param>
         /// <param name="selectedExtensions_"></param>
@@ -92,7 +98,9 @@ namespace SoftinuxBase.Security.Tools
             {
                 var extensionName = extensionMetadata.GetExtensionName();
                 if (!selectedExtensionsNames.Contains(extensionName))
+                {
                     availableExtensions_.Add(extensionName);
+                }
             }
         }
     }

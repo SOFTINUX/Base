@@ -87,6 +87,7 @@ namespace CommonTest
 
             return builder.Build();
         }
+
         public void Dispose()
         {
             // ... clean up test data from the database ...
