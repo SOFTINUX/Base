@@ -28,7 +28,9 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.Menu
 #endif
 
                 if (extensionMetadata.MenuGroups == null)
+                {
                     continue;
+                }
 
                 foreach (Infrastructure.MenuGroup menuGroup in extensionMetadata.MenuGroups)
                 {
@@ -44,7 +46,6 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.Menu
 
                     foreach (Infrastructure.MenuItem menuItem in menuGroup.MenuItems)
                     {
-
                         // TODO: here add claims verification for menu items
                         menuItemViewModels.Add(new MenuItemViewModelFactory(RequestHandler).Create(menuItem));
                     }
@@ -70,8 +71,7 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.Menu
         /// <param name="menuGroup_"></param>
         /// <param name="logger_"></param>
         /// <returns></returns>
-        private static MenuGroupViewModel FindOrCreateMenuGroup(IRequestHandler requestHandler_, IDictionary<string, MenuGroupViewModel> menuGroupViewModels_,
-            Infrastructure.MenuGroup menuGroup_, ILogger logger_)
+        private static MenuGroupViewModel FindOrCreateMenuGroup(IRequestHandler requestHandler_, IDictionary<string, MenuGroupViewModel> menuGroupViewModels_, Infrastructure.MenuGroup menuGroup_, ILogger logger_)
         {
             menuGroupViewModels_.TryGetValue(menuGroup_.Name, out var menuGroupViewModel);
 
@@ -90,7 +90,10 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.Menu
 #endif
 
                 // If menu group already exist, the position and Font Awesome will be the one of the lowest position menu group
-                if (menuGroup_.Position >= menuGroupViewModel.Position) return menuGroupViewModel;
+                if (menuGroup_.Position >= menuGroupViewModel.Position)
+                {
+                    return menuGroupViewModel;
+                }
 #if DEBUG
                 logger_.LogInformation($"Menu group {menuGroup_.Name} found with lower position {menuGroup_.Name}");
 #endif

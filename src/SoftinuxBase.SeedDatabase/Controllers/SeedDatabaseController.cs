@@ -122,7 +122,8 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                     // WARNING: Do Not check in credentials of any kind into source control
                     var result = await _userManager.CreateAsync(user, password: "123_Password");
 
-                    if (!result.Succeeded) // return 500 if it fails
+                    // return 500 if it fails
+                    if (!result.Succeeded)
                     {
                         string msg = $"(SaveUsers: UserManager.CreateAsync) Error creating user: {user.Email}";
                         _logger.LogCritical(msg);
@@ -133,7 +134,8 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                     string role = firstUser ? "Administrator" : "User";
                     result = await _userManager.AddToRolesAsync(user, new[] { role });
 
-                    if (!result.Succeeded) // return 500 if fails
+                    // return 500 if fails
+                    if (!result.Succeeded)
                     {
                         string msg = $"(SaveUsers: UserManager.AddToRolesAsync) Error adding user to role, user: {user.Email}, role: {role}";
                         _logger.LogCritical(msg);
@@ -302,10 +304,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         /// <returns></returns>
         private void SaveRolePermission(string roleId_, string permissionId_, string extension_ = null)
         {
-            if (
-                (!string.IsNullOrWhiteSpace(permissionId_)) &&
-                (!string.IsNullOrWhiteSpace(roleId_))
-                )
+            if ((!string.IsNullOrWhiteSpace(permissionId_)) && (!string.IsNullOrWhiteSpace(roleId_)))
             {
                 RolePermission rolePermission = new RolePermission()
                 {

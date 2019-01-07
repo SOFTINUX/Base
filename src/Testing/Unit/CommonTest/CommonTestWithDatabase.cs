@@ -50,7 +50,6 @@ namespace CommonTest
             }
 
             // Base permissions not already created
-
             Permission[] permissions = (Permission[])Enum.GetValues(typeof(Permission));
 
             foreach (var p in permissions)
@@ -114,7 +113,7 @@ namespace CommonTest
         {
             var changedEntriesCopy = ((DbContext)DatabaseFixture.Storage.StorageContext).ChangeTracker.Entries()
 
-                //.Where(e => e.State == EntityState.Added ||
+                // .Where(e => e.State == EntityState.Added ||
                 //            e.State == EntityState.Modified ||
                 //            e.State == EntityState.Deleted)
                 .ToList();

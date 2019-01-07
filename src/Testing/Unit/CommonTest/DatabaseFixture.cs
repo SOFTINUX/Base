@@ -71,7 +71,6 @@ namespace CommonTest
             services_.AddLogging();
             services_.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-
             // Register database-specific storage context implementation.
             services_.AddScoped<IStorageContext, ApplicationStorageContext>();
 

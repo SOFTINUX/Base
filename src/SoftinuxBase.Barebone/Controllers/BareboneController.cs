@@ -12,7 +12,8 @@ namespace SoftinuxBase.Barebone.Controllers
 {
     public class BareboneController : Infrastructure.ControllerBase
     {
-        private readonly string _corporateName, _corporateLogo;
+        private readonly string _corporateName;
+        private readonly string _corporateLogo;
 
         public BareboneController(IStorage storage_, IConfiguration configuration_) : base(storage_)
         {

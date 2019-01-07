@@ -16,10 +16,12 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.Scripts
             List<Infrastructure.Script> scripts = new List<Infrastructure.Script>();
 
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
+            {
                 if (extensionMetadata.Scripts != null)
                 {
                     scripts.AddRange(extensionMetadata.Scripts);
                 }
+            }
 
             return new ScriptsViewModel()
             {

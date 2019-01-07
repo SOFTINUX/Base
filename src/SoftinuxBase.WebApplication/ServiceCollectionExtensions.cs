@@ -76,7 +76,7 @@ namespace SoftinuxBase.WebApplication
                 options_.Cookie.Name = configuration_["ConfigureApplicationCookie:Cookie.Name"] + configuration_["Corporate:Name"];
                 options_.Cookie.HttpOnly = true; // this must be true to prevent XSS
                 options_.Cookie.SameSite = (SameSiteMode)Enum.Parse(typeof(SameSiteMode), configuration_["ConfigureApplicationCookie:Cookie.SameSite"], false);
-                options_.Cookie.SecurePolicy = (CookieSecurePolicy)Enum.Parse(typeof(CookieSecurePolicy), configuration_["ConfigureApplicationCookie:Cookie.SecurePolicy"], false); //should ideally be "Always"
+                options_.Cookie.SecurePolicy = (CookieSecurePolicy)Enum.Parse(typeof(CookieSecurePolicy), configuration_["ConfigureApplicationCookie:Cookie.SecurePolicy"], false); // should ideally be "Always"
 
                 options_.SlidingExpiration = true;
             });

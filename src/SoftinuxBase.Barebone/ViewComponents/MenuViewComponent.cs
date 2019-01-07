@@ -12,7 +12,9 @@ namespace SoftinuxBase.Barebone.ViewComponents
 {
     public class MenuViewComponent : ViewComponentBase
     {
-        public MenuViewComponent(IStorage storage_, ILoggerFactory loggerFactory_) : base(storage_, loggerFactory_) { }
+        public MenuViewComponent(IStorage storage_, ILoggerFactory loggerFactory_) : base(storage_, loggerFactory_)
+        {
+        }
 
         /// <summary>
         /// Asynchronously builds menu.
