@@ -8,16 +8,17 @@ namespace SoftinuxBase.Security.Data.Entities
     public class Permission : IEntity
     {
         private string _name;
+
         /// <summary>
         /// Gets or sets primary key: GUID.
         /// </summary>
-        /// <value></value>
+        /// <value>
+        /// Primary key: GUID.
+        /// </value>
         public string Id { get; set; }
         public string Name
         {
-            get {
-                return _name;
-            }
+            get => _name;
             set
             {
                 _name = value;

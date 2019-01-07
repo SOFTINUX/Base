@@ -61,8 +61,7 @@ namespace SoftinuxBase.Security.Tools
                     foreach (ExtensionPermissionValue grantData in model_.Grants)
                     {
                         // Convert the string to the enum
-                        if (Enum.TryParse<Common.Enums.Permission>(grantData.PermissionValue, true,
-                            out var permissionEnumValue))
+                        if (Enum.TryParse<Common.Enums.Permission>(grantData.PermissionValue, true, out var permissionEnumValue))
                         {
                             var permissionEntity = storage_.GetRepository<IPermissionRepository>()
                                 .Find(permissionEnumValue);

@@ -1,16 +1,18 @@
 // Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 
 namespace SoftinuxBase.SeedDatabase.Controllers
@@ -31,9 +33,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         // 0: John, 1: Jane, 2: Paul
         private User[] _createdUsers = new User[3];
 
-        public SeedDatabaseController(UserManager<User> userManager_,
-            RoleManager<IdentityRole<string>> roleManager_, ILoggerFactory loggerFactory_,
-            IStorage storage_)
+        public SeedDatabaseController(UserManager<User> userManager_, RoleManager<IdentityRole<string>> roleManager_, ILoggerFactory loggerFactory_, IStorage storage_)
         {
             _userManager = userManager_;
             _roleManager = roleManager_;
@@ -122,7 +122,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                     // WARNING: Do Not check in credentials of any kind into source control
                     var result = await _userManager.CreateAsync(user, password: "123_Password");
 
-                    if (!result.Succeeded) //return 500 if it fails
+                    if (!result.Succeeded) // return 500 if it fails
                     {
                         string msg = $"(SaveUsers: UserManager.CreateAsync) Error creating user: {user.Email}";
                         _logger.LogCritical(msg);
@@ -170,7 +170,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                 {
                     var result = await _roleManager.CreateAsync(identityRole);
 
-                    //return 500 if fail
+                    // return 500 if fail
                     if (!result.Succeeded)
                     {
                         string msg = $"(SaveRoles: RoleManager.CreateAsync) Error creating role: {identityRole.Name}";
@@ -208,7 +208,6 @@ namespace SoftinuxBase.SeedDatabase.Controllers
             var adminPermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Permission.Admin.ToString())?.Id;
             var writePermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Permission.Write.ToString())?.Id;
             var readPermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Permission.Read.ToString())?.Id;
-
 
             // 1. Admin role: admin (globally)
             SaveRolePermission(adminRoleId, adminPermissionId);

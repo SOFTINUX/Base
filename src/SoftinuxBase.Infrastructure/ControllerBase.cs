@@ -19,9 +19,9 @@ namespace SoftinuxBase.Infrastructure
 
         // TODO make protected readonly ?
         public IStorage Storage { get; set; }
-        
+
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="ControllerBase"/> class.
         /// </summary>
         /// <param name="storage_">Storage interface provided by services container.</param>
         /// <param name="loggerFactory_">Logger factory interface provided by services container, optionally.</param>
@@ -34,7 +34,7 @@ namespace SoftinuxBase.Infrastructure
         /// <summary>
         /// Redirects to same url but looses model.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Return url string.</returns>
         protected RedirectResult CreateRedirectToSelfResult()
         {
             return Redirect(Request.Path.Value + Request.QueryString.Value);

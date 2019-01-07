@@ -13,7 +13,7 @@ namespace SoftinuxBase.Barebone.ViewModels
         protected ILogger Logger;
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="ViewModelFactoryBase"/> class.
         /// </summary>
         /// <param name="requestHandler_"></param>
         /// <param name="loggerFactory_">Optional.</param>

@@ -8,7 +8,7 @@ using SoftinuxBase.Security.Data.Entities;
 
 namespace SoftinuxBase.Security.Data.EntityFramework
 {
-    public class AspNetUsersRepository: RepositoryBase<User>, IAspNetUsersRepository
+    public class AspNetUsersRepository : RepositoryBase<User>, IAspNetUsersRepository
     {
         /// <summary>
         /// Return true if found, else false.

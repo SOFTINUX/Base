@@ -236,7 +236,6 @@ namespace SecurityTest
             finally
             {
                 // Cleanup created data
-
                 var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(roleName);
                 if (createdRole != null)
                 {
@@ -321,4 +320,3 @@ namespace SecurityTest
         }
     }
 }
-

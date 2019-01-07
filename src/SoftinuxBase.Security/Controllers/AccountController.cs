@@ -110,21 +110,21 @@ namespace SoftinuxBase.Security.Controllers
                 return await Task.Run(() => RedirectToAction("Index", "Barebone"));
             }
 
-            //if (result.RequiresTwoFactor)
-            //{
+            // if (result.RequiresTwoFactor)
+            // {
             //    return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
-            //}
+            // }
             if (result.IsLockedOut)
             {
                 _logger.LogWarning("User account locked out");
 
-                //return RedirectToAction(nameof(Lockout));
+                // return RedirectToAction(nameof(Lockout));
                 signIn_.ErrorMessage = "User account locked out";
                 ModelState.AddModelError("BadUserPassword", signIn_.ErrorMessage);
             }
             else
             {
-                //ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                // ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 signIn_.ErrorMessage = "Invalid login attempt";
                 ModelState.AddModelError("BadUserPassword", signIn_.ErrorMessage);
             }

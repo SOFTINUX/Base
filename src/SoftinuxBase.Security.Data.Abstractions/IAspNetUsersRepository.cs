@@ -5,7 +5,7 @@ using ExtCore.Data.Abstractions;
 
 namespace SoftinuxBase.Security.Data.Abstractions
 {
-    public interface IAspNetUsersRepository: IRepository
+    public interface IAspNetUsersRepository : IRepository
     {
         bool FindByNormalizedUserNameOrEmail(string value_);
     }

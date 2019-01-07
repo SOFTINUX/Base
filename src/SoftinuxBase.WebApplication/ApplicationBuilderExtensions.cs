@@ -25,16 +25,11 @@ namespace SoftinuxBase.WebApplication
         /// <param name="applicationBuilder_">
         /// The application builder passed to the Configure method of the web application's Startup class.
         /// </param>
-        /// <param name="hostingEnvironment_">
-        /// </param>
-        /// <param name="loggerFactory_">
-        /// </param>
-        /// <param name="configuration_">
-        /// </param>
-        /// <param name="antiForgery_">
-        /// </param>
-        public static void UseSoftinuxBase(this IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_,
-             IConfiguration configuration_, IAntiforgery antiForgery_)
+        /// <param name="hostingEnvironment_"></param>
+        /// <param name="loggerFactory_"></param>
+        /// <param name="configuration_"></param>
+        /// <param name="antiForgery_"></param>
+        public static void UseSoftinuxBase(this IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_, IConfiguration configuration_, IAntiforgery antiForgery_)
         {
             // 1. Error management
             if (hostingEnvironment_.IsDevelopment())
@@ -66,8 +61,7 @@ namespace SoftinuxBase.WebApplication
                 .ImageSources(s_ => s_.Self())
                 .ImageSources(s_ => s_.Self().CustomSources("data:"))
                 .ScriptSources(s_ => s_.Self())
-                .ScriptSources(s_ => s_.UnsafeInline())
-            );
+                .ScriptSources(s_ => s_.UnsafeInline()));
 
             // 2. Anti-forgery
             applicationBuilder_.Use(next_ => context_ =>
@@ -81,8 +75,7 @@ namespace SoftinuxBase.WebApplication
                     // The request token can be sent as a JavaScript-readable cookie,
                     // and Angular uses it by default.
                     var tokens = antiForgery_.GetAndStoreTokens(context_);
-                    context_.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken,
-                            new CookieOptions() { HttpOnly = false });
+                    context_.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, new CookieOptions() { HttpOnly = false });
                     }
 
                     return next_(context_);

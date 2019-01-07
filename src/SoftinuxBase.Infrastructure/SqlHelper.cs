@@ -45,11 +45,10 @@ namespace SoftinuxBase.Infrastructure
         /// </summary>
         /// <param name="resourcePath_"></param>
         /// <returns></returns>
-        public string ExecuteSqlResource(string resourcePath_)
-        {
+        public string ExecuteSqlResource(string resourcePath_) =>
+
             // TODO
             throw new Exception("Not yet implemented");
-        }
 
         /// <summary>
         /// Execute sql script form internal editor.
@@ -103,28 +102,28 @@ namespace SoftinuxBase.Infrastructure
             // list of provider: https://docs.microsoft.com/en-us/ef/core/providers/
             switch (((DbContext)_storage.StorageContext).Database.ProviderName)
             {
-                case "Microsoft.EntityFrameworkCore.Sqlite" :
+                case "Microsoft.EntityFrameworkCore.Sqlite":
                     _providerCode = ProviderCode.Sqlite;
                     break;
-                case "Microsoft.EntityFrameworkCore.SqlServer" :
+                case "Microsoft.EntityFrameworkCore.SqlServer":
                     _providerCode = ProviderCode.Mssql;
                     break;
-                case "Npgsql.EntityFrameworkCore.PostgreSQL" :
+                case "Npgsql.EntityFrameworkCore.PostgreSQL":
                     _providerCode = ProviderCode.Postgresql;
                     break;
-                case "Pomelo.EntityFrameworkCore.MySql" :
+                case "Pomelo.EntityFrameworkCore.MySql":
                     _providerCode = ProviderCode.MysqlMariadb;
                     break;
-                case "EntityFrameworkCore.SqlServerCompact40" :
+                case "EntityFrameworkCore.SqlServerCompact40":
                     _providerCode = ProviderCode.Sqlcompact4;
                     break;
-                case "EntityFrameworkCore.SqlServerCompact35" :
+                case "EntityFrameworkCore.SqlServerCompact35":
                     _providerCode = ProviderCode.Sqlcompact35;
                     break;
-                case "MySql.Data.EntityFrameworkCore" :
+                case "MySql.Data.EntityFrameworkCore":
                     _providerCode = ProviderCode.MysqlOracle;
                     break;
-                case "EntityFrameworkCore.Jet" :
+                case "EntityFrameworkCore.Jet":
                     _providerCode = ProviderCode.Msaccess;
                     break;
                 default:

@@ -18,7 +18,8 @@ namespace SoftinuxBase.Security
         private readonly IStorage _storage;
         private readonly UserManager<User> _userManager;
 
-        internal ClaimsManager(IStorage storage_, UserManager<User> userManager_) {
+        internal ClaimsManager(IStorage storage_, UserManager<User> userManager_)
+        {
             _storage = storage_;
             _userManager = userManager_;
         }
@@ -33,26 +34,29 @@ namespace SoftinuxBase.Security
             // First name
             if (!string.IsNullOrWhiteSpace(user_.FirstName))
             {
-                identity_.AddClaims(new[] {
+                identity_.AddClaims(new[]
+                {
                     new Claim(ClaimTypes.GivenName, user_.FirstName)
-});
+                });
             }
 
             // Last name
             if (!string.IsNullOrWhiteSpace(user_.LastName))
             {
-                identity_.AddClaims(new[] {
+                identity_.AddClaims(new[]
+                {
                     new Claim(ClaimTypes.Surname, user_.LastName),
-});
+                });
             }
 
             // Roles
             IList<string> roles = await _userManager.GetRolesAsync(user_);
             foreach (string role in roles)
             {
-                identity_.AddClaims(new[] {
+                identity_.AddClaims(new[]
+                {
                     new Claim(ClaimTypes.Role, role),
-});
+                });
             }
 
             // Permissions
@@ -64,7 +68,8 @@ namespace SoftinuxBase.Security
         /// </summary>
         /// <param name="userId_"></param>
         /// <returns></returns>
-        internal IEnumerable<Claim> GetAllPermissionClaims(string userId_) {
+        internal IEnumerable<Claim> GetAllPermissionClaims(string userId_)
+        {
            HashSet<KeyValuePair<Permission, string>> scopedPermissions = _storage.GetRepository<IPermissionRepository>().AllForUser(userId_);
            List<Claim> claims = new List<Claim>();
            Dictionary<string, Permission> permissionByScope = new Dictionary<string, Permission>();

@@ -12,26 +12,32 @@ namespace SoftinuxBase.Security
     public class ExtensionMetadata : IExtensionMetadata
     {
         bool IExtensionMetadata.IsAvailableForPermissions => true;
-        public IEnumerable<StyleSheet> StyleSheets => new[] {
-                new StyleSheet("/Styles.Security.css",510),
-};
+        public IEnumerable<StyleSheet> StyleSheets => new[]
+        {
+                new StyleSheet("/Styles.Security.css", 510),
+        };
         public IEnumerable<Script> Scripts => new Script[]
         {
-            new Script("/Scripts.security_user.min.js",710),
+            new Script("/Scripts.security_user.min.js", 710),
         };
 
-        public IEnumerable<MenuGroup> MenuGroups => new MenuGroup[]
+        public IEnumerable<MenuGroup> MenuGroups
         {
-                new MenuGroup(
-                    "Administration",
-                    0, // Always first
-                    new[]
-                    {
-                        new MenuItem("/administration", "Main", 100, null,
-                            new List<PermissionRequirementAttribute>(new[] { new PermissionRequirementAttribute(Permission.Admin), }))
-                    },
-                    "fa-wrench"
-                )
-        };
+            get
+            {
+                MenuItem[] menuItems_ = new[]
+                                    {
+                        new MenuItem("/administration", "Main", 100, null, new List<PermissionRequirementAttribute>(new[] { new PermissionRequirementAttribute(Permission.Admin), }))
+                                    };
+                return new MenuGroup[]
+                {
+                    new MenuGroup(
+                        "Administration",
+                        0, // Always first
+                        menuItems_,
+                        "fa-wrench")
+                };
+            }
+        }
     }
 }

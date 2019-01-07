@@ -108,15 +108,14 @@ namespace SecurityTest
                 roleNameByRoleId.Add(specialUserRole.Id, specialUserRole.Name);
 
                 // Execute
-                GrantViewModel model = ReadGrants.ReadAll(DatabaseFixture.RoleManager, DatabaseFixture.Storage,
-                    roleNameByRoleId);
+                GrantViewModel model = ReadGrants.ReadAll(DatabaseFixture.RoleManager, DatabaseFixture.Storage, roleNameByRoleId);
 
                 // Assert
                 // 1. Number of keys: extensions
                 Assert.Equal(ExtensionManager.GetInstances<IExtensionMetadata>().Count(), model.PermissionsByRoleAndExtension.Keys.Count);
 
                 // 2. Number of roles for "Security" extension
-                Assert.True((model.PermissionsByRoleAndExtension.ContainsKey("SoftinuxBase.Security")));
+                Assert.True(model.PermissionsByRoleAndExtension.ContainsKey("SoftinuxBase.Security"));
 
                 // We may have additional linked roles left by other tests...
                 Assert.True(model.PermissionsByRoleAndExtension["SoftinuxBase.Security"].Keys.Count >= 4);
@@ -157,12 +156,12 @@ namespace SecurityTest
 
                 // 7. Number of roles for Chinook extension
                 // When the dll doesn't exist on disk, this is our case, no permissions should be found
-                Assert.False((model.PermissionsByRoleAndExtension.ContainsKey("Chinook")));
+                Assert.False(model.PermissionsByRoleAndExtension.ContainsKey("Chinook"));
 
                 // No need to check the details for this extension
 
-                //  8. SoftinuxBase.SeedDatabase extension was found, no permissions should be found
-                Assert.True((model.PermissionsByRoleAndExtension.ContainsKey("SoftinuxBase.SeedDatabase")));
+                // 8. SoftinuxBase.SeedDatabase extension was found, no permissions should be found
+                Assert.True(model.PermissionsByRoleAndExtension.ContainsKey("SoftinuxBase.SeedDatabase"));
                 Assert.Equal(0, model.PermissionsByRoleAndExtension["SoftinuxBase.SeedDatabase"].Keys.Count);
             }
             finally

@@ -25,7 +25,5 @@ namespace SoftinuxBase.Infrastructure
         public string FontAwesomeClass { get; }
 
         public IEnumerable<MenuItem> MenuItems { get; }
-
-
     }
 }

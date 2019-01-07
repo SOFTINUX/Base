@@ -33,7 +33,6 @@ namespace WebApplication
         {
             // Note: AddScoped : for services based on EF (once per request),
             // other values : AddTransient (stateless), AddSingleton (avoids to implement singleton pattern ourselves)
-
             services_.AddSingleton(Configuration);
 
             // SoftinuxBase/db context
@@ -60,8 +59,7 @@ namespace WebApplication
             services_.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
-        public void Configure(IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_,
-         IConfiguration configuration_, IAntiforgery antiForgery_)
+        public void Configure(IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_, IConfiguration configuration_, IAntiforgery antiForgery_)
         {
 #if DEBUG
             Log.Information("#######################################################");

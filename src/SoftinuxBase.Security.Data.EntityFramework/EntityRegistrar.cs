@@ -18,8 +18,7 @@ namespace SoftinuxBase.Security.Data.EntityFramework
                 {
                     etb_.HasKey(e_ => e_.Id);
                     etb_.Property(e_ => e_.Id).ValueGeneratedOnAdd();
-                }
-            );
+                });
 
             // RolePermission
             modelBuilder_.Entity<RolePermission>(etb_ =>
@@ -27,15 +26,13 @@ namespace SoftinuxBase.Security.Data.EntityFramework
                     etb_.HasKey(e_ => e_.Id);
                     etb_.Property(e_ => e_.Id).ValueGeneratedOnAdd();
                     etb_.HasKey(e_ => new { e_.RoleId, e_.PermissionId, e_.Extension });
-                }
-            );
+                });
 
             // UserPermission
             modelBuilder_.Entity<UserPermission>(etb_ =>
                 {
                     etb_.HasKey(e_ => new { e_.UserId, e_.PermissionId, e_.Extension });
-                }
-            );
+                });
         }
     }
 }

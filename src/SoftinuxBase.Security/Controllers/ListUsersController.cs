@@ -17,12 +17,12 @@ namespace SoftinuxBase.Security.Controllers
     [PermissionRequirement(Permission.Admin)]
     public class ListUsersController : Infrastructure.ControllerBase
     {
-        //private readonly ILogger _logger;
+        // private readonly ILogger _logger;
         private readonly UserManager<User> _usersmanager;
 
         public ListUsersController(IStorage storage_, UserManager<User> users_, ILoggerFactory loggerFactory_) : base(storage_, loggerFactory_)
         {
-            //_logger = _loggerFactory.CreateLogger(GetType().FullName);
+            // _logger = _loggerFactory.CreateLogger(GetType().FullName);
             _usersmanager = users_;
         }
 

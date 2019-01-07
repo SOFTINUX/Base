@@ -27,7 +27,7 @@ namespace SoftinuxBase.Security.Tools
         /// <param name="viewModel_">user object from view.</param>
         /// <param name="userManager_"></param>
         /// <returns>true if create, false if fail.</returns>
-        public static bool CreateNewUser(IStorage storage_,SignUpViewModel viewModel_, UserManager<User> userManager_)
+        public static bool CreateNewUser(IStorage storage_, SignUpViewModel viewModel_, UserManager<User> userManager_)
         {
             return !IsUserExist(storage_, viewModel_.UserName, userManager_) && !IsUserExist(storage_, viewModel_.Email, userManager_);
         }

@@ -21,7 +21,8 @@ namespace SoftinuxBase.Infrastructure.Util
         }
 
         public void Dispose()
-        { }
+        {
+        }
 
         private class EfLogger : ILogger
         {

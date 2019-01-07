@@ -29,11 +29,10 @@ namespace SoftinuxBase.WebApplication
         /// <param name="services_">
         /// The services collection passed to the ConfigureServices method of the web application's Startup class.
         /// </param>
-        /// <param name="configuration_">
-        /// </param>
-        /// <param name="extensionsPath_">
-        /// </param>
-        public static void AddSoftinuxBase<T>(this IServiceCollection services_, IConfiguration configuration_, string extensionsPath_) where T : DbContext
+        /// <param name="configuration_"></param>
+        /// <param name="extensionsPath_"></param>
+        public static void AddSoftinuxBase<T>(this IServiceCollection services_, IConfiguration configuration_, string extensionsPath_)
+            where T : DbContext
         {
             services_.AddTransient<IUserClaimsPrincipalFactory<User>, ClaimsPrincipalFactory>();
 
@@ -75,7 +74,7 @@ namespace SoftinuxBase.WebApplication
                 options_.LoginPath = configuration_["ConfigureApplicationCookie:LoginPath"];
                 options_.LogoutPath = configuration_["ConfigureApplicationCookie:LogoutPath"];
                 options_.Cookie.Name = configuration_["ConfigureApplicationCookie:Cookie.Name"] + configuration_["Corporate:Name"];
-                options_.Cookie.HttpOnly = true; //this must be true to prevent XSS
+                options_.Cookie.HttpOnly = true; // this must be true to prevent XSS
                 options_.Cookie.SameSite = (SameSiteMode)Enum.Parse(typeof(SameSiteMode), configuration_["ConfigureApplicationCookie:Cookie.SameSite"], false);
                 options_.Cookie.SecurePolicy = (CookieSecurePolicy)Enum.Parse(typeof(CookieSecurePolicy), configuration_["ConfigureApplicationCookie:Cookie.SecurePolicy"], false); //should ideally be "Always"
 

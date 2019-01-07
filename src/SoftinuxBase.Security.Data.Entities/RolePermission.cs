@@ -13,7 +13,7 @@ namespace SoftinuxBase.Security.Data.Entities
     /// </summary>
     public class RolePermission : IEntity
     {
-        //private string _name;
+        // private string _name;
         public RolePermission()
         {
             Extension = "SoftinuxBase.Security";
@@ -22,7 +22,9 @@ namespace SoftinuxBase.Security.Data.Entities
         /// <summary>
         /// Gets or sets primary key: GUID.
         /// </summary>
-        /// <value></value>
+        /// <value>
+        /// Primary key: GUID.
+        /// </value>
         public string Id { get; set; }
 
         public string RoleId { get; set; }

@@ -33,7 +33,8 @@ namespace SoftinuxBase.Security.ViewModels.Account
         /// </summary>
         [Display(Name = "Password")]
         [DataType(DataType.Password)]
-        //[CustomValidation(typeof(Security.Common.Attributes.PasswordAttributes),"PasswordStrongTest")]
+
+        // [CustomValidation(typeof(Security.Common.Attributes.PasswordAttributes),"PasswordStrongTest")]
         [Required]
         [StringLength(10, MinimumLength = 8)]
         public string Password { get; set; }

@@ -13,6 +13,7 @@ namespace SoftinuxBase.Security.Data.Abstractions
         void Create(Permission entity_);
         void Edit(Permission entity_);
         void Delete(string entityId_);
+
         /// <summary>
         /// Every permission with its scope, linked to user, user's roles.
         /// </summary>
