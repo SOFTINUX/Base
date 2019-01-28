@@ -76,7 +76,7 @@ select.input-validation-error
 .register {
     border: 1px solid #d8dee2;
     border-radius: 5px;
-    padding: 5px 5px 5px 5px;    
+    padding: 5px 5px 5px 5px;
 }
 
 .login-box {
@@ -92,14 +92,18 @@ select.input-validation-error
 }
 
 /* role edition: right table */
-#editRoleRightExtensionsList .row {
+#editRoleRightExtensionsList>div.row, #editRoleLeftExtensionsList>div {
     margin-left: 0px;
     margin-right: 0px;
 }
 
-#editRoleRightExtensionsList .row.active {
+#editRoleRightExtensionsList>div.row.active, #editRoleLeftExtensionsList>div.active {
     background-color: #2196F3;
     color: white;
+}
+
+#editRoleRightExtensionsList>div.row.active select {
+    color: black;
 }
 
 /* end role edition */

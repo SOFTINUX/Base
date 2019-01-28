@@ -112,10 +112,21 @@ $(function () {
 
     // permission dropdown
     $('#acl-sel li').click(function (event_) {
-        const $target = $(event_.currentTarget);
-        $target.closest('.bs-dropdown-to-select-acl-group')
+        const target = $(event_.currentTarget);
+        target.closest('.bs-dropdown-to-select-acl-group')
             .find('[data-bind="bs-drp-sel-acl-label"]').text($(this).text());
         $('input[name="acl-selected_value"]').val($(this).attr('data-value'));
+    });
+
+    // left and right lists rows
+    $('#editRoleLeftExtensionsList>div').click(function(event_) {
+        console.log(event_);
+        row_clicked(event_);
+    });
+
+    $('#editRoleRightExtensionsList>div.row').click(function(event_) {
+        console.log(event_);
+        row_clicked(event_);
     });
 
     // Keyup, change, paste
@@ -232,7 +243,7 @@ function btnChevronMoveExtension(event_, transform_) {
 
     // if transform_ is defined, the list items are span element, else select options
 
-    const selectedElts = transform_ 
+    const selectedElts = transform_
     ? $(`#${$(_target).attr('data-fromlist')}` + (bulk ? ' span' : ' span.active')).toArray()
     : $(`#${$(_target).attr('data-fromlist')}` + (bulk ? ' option' : ' option:selected')).toArray();
 
@@ -288,10 +299,10 @@ function createMovedElementRight(target_) {
     console.log('move from left to right');
     let extension = $(target_).attr("name");
     return `<div class="row">
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <span name="${extension}">${extension}</span>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <select>
                         <option value="None">None</option>
                         <option value="Read" selected>Read</option>
@@ -352,6 +363,15 @@ function input_changed(editbtnid_) {
     $(`button#${editbtnid_}`).text('Save');
     $(`#cancel_${editbtnid_}`).removeClass('hidden');
     $(`button#${editbtnid_}`).removeClass('hidden');
+}
+
+function row_clicked(event_) {
+    const target = $(event_.currentTarget);
+    if(target.hasClass('active')) {
+        target.removeClass('active');
+    } else {
+        target.addClass('active');
+    }
 }
 
 /**
