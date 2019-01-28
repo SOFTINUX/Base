@@ -118,17 +118,6 @@ $(function () {
         $('input[name="acl-selected_value"]').val($(this).attr('data-value'));
     });
 
-    // left and right lists rows
-    $('#editRoleLeftExtensionsList>div').click(function(event_) {
-        console.log(event_);
-        row_clicked(event_);
-    });
-
-    $('#editRoleRightExtensionsList>div.row').click(function(event_) {
-        console.log(event_);
-        row_clicked(event_);
-    });
-
     // Keyup, change, paste
     $('#profile_form :input').bind('keyup change paste', function () {
         input_changed('save_profile_btn');
@@ -150,15 +139,6 @@ $(function () {
     // Focusout
     $('#role_name_input').focusout(function () {
         input_form_group_validator('#role_name_input');
-    });
-
-    // Click
-    $('#editRoleRightExtensionsList row').click(function() {
-        if ($(this).hasClass('active')) {
-            $(this).removeClass('active');
-        } else {
-            $(this).addClass('active');
-        }
     });
 
     /* User interactions that trigger ajax calls */
@@ -276,6 +256,18 @@ function btnChevronMoveExtension(event_, transform_) {
     }
     $(selectedElts).remove();
     event_.preventDefault();
+
+    // Now reapply the clicks handlers
+    // left and right lists rows
+    $('#editRoleLeftExtensionsList>div').off('click');
+    $('#editRoleLeftExtensionsList>div').click(function(event_) {
+        row_clicked(event_);
+    });
+
+    $('#editRoleRightExtensionsList>div').off('click');
+    $('#editRoleRightExtensionsList>div.row').click(function(event_) {
+        row_clicked(event_);
+    });
 }
 
 /**
@@ -473,6 +465,16 @@ function passSelectedRoleOnEdition(roleId_) {
                                 </select>
                             </div>
                         </div>`);
+        });
+
+        // Now add the clicks handlers
+        // left and right lists rows
+        $('#editRoleLeftExtensionsList>div').click(function(event_) {
+            row_clicked(event_);
+        });
+
+        $('#editRoleRightExtensionsList>div.row').click(function(event_) {
+            row_clicked(event_);
         });
     });
 }
