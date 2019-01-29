@@ -225,7 +225,7 @@ function btnChevronMoveExtension(event_, transform_) {
 
     let rootElt = $(`#${$(_target).attr('data-fromlist')}`);
     const selectedElts = transform_
-    ? rootElt.find(bulk ? ' span' : ' div.active span').toArray()
+    ? rootElt.find(bulk ? ' div' : ' div.active').toArray()
     : rootElt.find(bulk ? ' option' : ' option:selected').toArray();
 
     // console.log(selectedElts);
@@ -272,23 +272,23 @@ function btnChevronMoveExtension(event_, transform_) {
 }
 
 /**
- * Create a html fragment containing mostly a span element, from a html span element.
- * @param {HtmlElement} target_ - html span element
+ * Create a html fragment containing mostly a span element, from a html fragment containing mostly a span element.
+ * @param {HtmlElement} target_ - html div element
  * @return {string} html div
  */
 function createMovedElementLeft(target_) {
     console.log('move from right to left');
-    return `<div>${target_.outerHTML}</div>`;
+    return `<div>${$(target_).find('span').get(0).outerHTML}</div>`;
 }
 
 /**
- * Create a html fragment containing mostly a span and a select elements, from a html span element.
- * @param {HtmlElement} target_ - html span element
+ * Create a html fragment containing mostly a span and a select elements, from a html fragment contaning mostly a span and a select elements.
+ * @param {HtmlElement} target_ - html div element
  * @return {string} html div
  */
 function createMovedElementRight(target_) {
     console.log('move from left to right');
-    let extension = $(target_).attr("name");
+    let extension = $(target_).find('span').attr("name");
     return `<div class="row">
                 <div class="col-md-6">
                     <span name="${extension}">${extension}</span>
