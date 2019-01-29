@@ -221,17 +221,17 @@ function btnChevronMoveExtension(event_, transform_) {
 
     const bulk = $(_target).is('[data-bulk-move]');
 
-    // if transform_ is defined, the list items are span element, else select options
+    // if transform_ is defined, the selected list items are span elements, else select options
 
     const selectedElts = transform_
-    ? $(`#${$(_target).attr('data-fromlist')}` + (bulk ? ' span' : ' span.active')).toArray()
+    ? $(`#${$(_target).attr('data-fromlist')}` + (bulk ? ' span' : ' div.active span')).toArray()
     : $(`#${$(_target).attr('data-fromlist')}` + (bulk ? ' option' : ' option:selected')).toArray();
 
     // console.log(selectedElts);
 
     if (selectedElts.length === 0) {
-        const emptyExtensionList = 'You must have at least one extension in the list';
-        const emptyExtensionListTitle = 'No extensions are available.';
+        const emptyExtensionList = bulk ? 'You must have at least one extension in the list' : 'You must select at least one extension in the list';
+        const emptyExtensionListTitle = 'No extension to move';
         window.toastr.warning(emptyExtensionList, emptyExtensionListTitle);
         event_.preventDefault();
         return;
@@ -271,21 +271,20 @@ function btnChevronMoveExtension(event_, transform_) {
 }
 
 /**
- * Create an html div+span element from a html fragment
- * @param {HtmlElement} target_ - html fragment
- * @return {string} html div+span
+ * Create a html fragment containing mostly a span element, from a html span element.
+ * @param {HtmlElement} target_ - html span element
+ * @return {string} html div
  */
 function createMovedElementLeft(target_) {
     console.log('move from right to left');
     console.log(target_);
-    console.log($(target_).find("span"));
-    return `<div>${$(target_).find("span").outerHTML}</div>`;
+    return `<div>${$(target_).outerHTML}</div>`;
 }
 
 /**
- * Create a wrapped span + select html fragment from a span html element
+ * Create a html fragment containing mostly a span and a select elements, from a html span element.
  * @param {HtmlElement} target_ - html span element
- * @return {string} html fragment
+ * @return {string} html div
  */
 function createMovedElementRight(target_) {
     console.log('move from left to right');
