@@ -223,9 +223,10 @@ function btnChevronMoveExtension(event_, transform_) {
 
     // if transform_ is defined, the selected list items are span elements, else select options
 
+    let rootElt = $(`#${$(_target).attr('data-fromlist')}`);
     const selectedElts = transform_
-    ? $(`#${$(_target).attr('data-fromlist')}` + (bulk ? ' span' : ' div.active span')).toArray()
-    : $(`#${$(_target).attr('data-fromlist')}` + (bulk ? ' option' : ' option:selected')).toArray();
+    ? rootElt.find(bulk ? ' span' : ' div.active span').toArray()
+    : rootElt.find(bulk ? ' option' : ' option:selected').toArray();
 
     // console.log(selectedElts);
 
@@ -277,8 +278,7 @@ function btnChevronMoveExtension(event_, transform_) {
  */
 function createMovedElementLeft(target_) {
     console.log('move from right to left');
-    console.log(target_);
-    return `<div>${$(target_).outerHTML}</div>`;
+    return `<div>${target_.outerHTML}</div>`;
 }
 
 /**
