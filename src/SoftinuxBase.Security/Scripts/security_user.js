@@ -221,11 +221,11 @@ function btnChevronMoveExtension(event_, transform_) {
 
     const bulk = $(_target).is('[data-bulk-move]');
 
-    // if transform_ is defined, the selected list items are span elements, else select options
+    // if transform_ is defined, the selected list items are div elements, else select's options
 
     let rootElt = $(`#${$(_target).attr('data-fromlist')}`);
     const selectedElts = transform_
-    ? rootElt.find(bulk ? ' div' : ' div.active').toArray()
+    ? rootElt.find(bulk ? ' div.row' : ' div.row.active').toArray()
     : rootElt.find(bulk ? ' option' : ' option:selected').toArray();
 
     // console.log(selectedElts);
@@ -278,7 +278,10 @@ function btnChevronMoveExtension(event_, transform_) {
  */
 function createMovedElementLeft(target_) {
     console.log('move from right to left');
-    return `<div>${$(target_).find('span').get(0).outerHTML}</div>`;
+    console.log(target_);
+    return `<div class="row">
+                <div class="col-md-12">${$(target_).find('span').get(0).outerHTML}</div>
+            </div>`;
 }
 
 /**
@@ -442,7 +445,7 @@ function passSelectedRoleOnEdition(roleId_) {
         leftListElt.html("");
          // Fill
         data_.value.availableExtensions.forEach(function (extension_) {
-            leftListElt.append(`<div><span name="${extension_}">${extension_}</span></div>`);
+            leftListElt.append(`<div class="row"><div class="col-md-12"><span name="${extension_}">${extension_}</span></div></div>`);
         });
 
         // Selected extensions (right list)
