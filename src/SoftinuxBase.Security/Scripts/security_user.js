@@ -151,13 +151,13 @@ $(function () {
             input_form_group_validator('#role_name_input');
             return;
         }
-        var _selectedExtensions = [];
+        var selectedExtensions = [];
         $('#addRoleRightExtensionsList > option').each(function () {
-            _selectedExtensions.push(this.value);
+            selectedExtensions.push(this.value);
         });
         const postData = {
             RoleName: roleNameInputElt.val(),
-            Extensions: _selectedExtensions,
+            Extensions: selectedExtensions,
             PermissionValue: $('#newRolePermission').val()
         };
 
@@ -543,8 +543,6 @@ function saveEditRole() {
        Grants: grants
     };
 
-    console.log(postData);
-
     $.ajax('/administration/update-role',
        {
            method: 'POST',
@@ -552,7 +550,7 @@ function saveEditRole() {
        })
        .done(function (data_) {
            window.toastr.success(data_, 'Changes saved');
-           console.log(data_);
+           location.reload();
        });
 }
 
