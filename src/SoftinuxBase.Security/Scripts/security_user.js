@@ -180,7 +180,7 @@ $(function () {
             return;
         }
 
-        saveEditRole('edit-role-form');
+        saveEditRole();
     });
 
 });
@@ -251,7 +251,6 @@ function btnChevronMoveExtension(event_, transform_) {
             break;
     }
     for(let newElt of newElts) {
-        // console.log(newElt);
         // append the html element or string
         $(`#${$(_target).attr('data-tolist')}`).append(newElt);
     }
@@ -534,35 +533,27 @@ function savePermission(extension_, roleName_, permission_) {
  */
 function saveEditRole() {
 
-    var _selectedExtensions = [];
-    $('#editRoleRightExtensionsList>option').each(function () {
-       _selectedExtensions.push(this.value);
+    var grants = [];
+    $('#editRoleRightExtensionsList>div.row').each(function (index, elt) {
+       grants.push({Extension: $(elt).find('span').attr('name'), PermissionValue: $(elt).find('select').val()})
     });
     const postData = {
        RoleId: $('#editRoleId').val(),
        RoleName: $('#edit_role_name_input').val(),
-       Extensions: _selectedExtensions,
-       PermissionValue: $('#editRolePermission').val()
+       Grants: grants
     };
 
     console.log(postData);
 
-    //$.ajax('/administration/update-role',
-    //    {
-    //        method: 'POST',
-    //        data: postData
-    //        // headers: {
-    //        //     'RequestVerificationToken': $('input:hidden[name='__RequestVerificationToken']', $form).val()
-    //        // }
-    //    })
-    //    .done(function (data_) {
-    //        window.toastr.success(data_, 'Saved');
-    //        console.log(data_);
-    //    })
-    //    .fail(function (jqXhr_, testStatus_) {
-    //        window.toastr.error(testStatus_, 'ERROR)');
-    //        console.log(jqXhr_, testStatus_);
-    //    });
+    $.ajax('/administration/update-role',
+       {
+           method: 'POST',
+           data: postData
+       })
+       .done(function (data_) {
+           window.toastr.success(data_, 'Changes saved');
+           console.log(data_);
+       });
 }
 
 function deleteRole(role_) {
@@ -578,9 +569,5 @@ function deleteRole(role_) {
         .done(function (data_) {
             window.toastr.success(data_, 'Role deleted');
             console.log(data_);
-        })
-        .fail(function (jqXhr_, testStatus_) {
-            window.toastr.error(testStatus_, 'ERROR)');
-            console.log(jqXhr_, testStatus_);
         });
 }

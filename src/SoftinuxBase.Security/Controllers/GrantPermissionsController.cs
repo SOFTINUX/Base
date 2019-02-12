@@ -150,7 +150,8 @@ namespace SoftinuxBase.Security.Controllers
             // 2. Update role-permission links only if the list of extensions was changed (compare from db and from model_)
 
             // Return status code 200
-            return await Task.Run(() => Json("Not yet implemented"));
+
+            return StatusCode(400, "Not yet implemented");
         }
 
         #endregion
