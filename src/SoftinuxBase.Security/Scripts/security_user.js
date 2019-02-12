@@ -277,9 +277,7 @@ function btnChevronMoveExtension(event_, transform_) {
  * @return {string} html div
  */
 function createMovedElementLeft(target_) {
-    console.log('move from right to left');
-    console.log(target_);
-    return `<div class="row">
+    return `<div class="row modified">
                 <div class="col-md-12">${$(target_).find('span').get(0).outerHTML}</div>
             </div>`;
 }
@@ -290,9 +288,8 @@ function createMovedElementLeft(target_) {
  * @return {string} html div
  */
 function createMovedElementRight(target_) {
-    console.log('move from left to right');
     let extension = $(target_).find('span').attr("name");
-    return `<div class="row">
+    return `<div class="row modified">
                 <div class="col-md-6">
                     <span name="${extension}">${extension}</span>
                 </div>

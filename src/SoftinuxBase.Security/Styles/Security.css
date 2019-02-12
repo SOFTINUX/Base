@@ -97,12 +97,20 @@ select.input-validation-error
     margin-right: 0px;
 }
 
+/* selected lines: override modified lines style  */
 #editRoleRightExtensionsList>div.row.active, #editRoleLeftExtensionsList>div.active {
-    background-color: #2196F3;
-    color: white;
+    background-color: #2196F3 !important;
+    color: white !important;
 }
 
+/* selected lines's select */
 #editRoleRightExtensionsList>div.row.active select {
+    color: black;
+}
+
+/* modified lines */
+#editRoleRightExtensionsList>div.row.modified, #editRoleLeftExtensionsList>div.modified {
+    background-color: #FAFFBD;
     color: black;
 }
 
