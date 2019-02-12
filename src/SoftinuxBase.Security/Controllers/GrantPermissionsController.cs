@@ -141,17 +141,10 @@ namespace SoftinuxBase.Security.Controllers
         [PermissionRequirement(Permission.Admin)]
         [Route("administration/update-role")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateRoleAndItsPermissions(UpdateRoleAndGrantsViewModel model_)
         {
-            // 1. Check that new role name is free either return status 400
-            // use Tools.UpdateRoleAndGrants
-
-            // 2. Update role-permission links only if the list of extensions was changed (compare from db and from model_)
-
-            // Return status code 200
-
-            return StatusCode(400, "Not yet implemented");
+            string error = await UpdateRoleAndGrants.CheckAndUpdateRoleAndGrants(model_, _roleManager, Storage);
+            return StatusCode(string.IsNullOrEmpty(error) ? 201 : 400, error);
         }
 
         #endregion
