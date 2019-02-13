@@ -12,37 +12,37 @@ namespace SoftinuxBase.Security.Common.Attributes
 {
     public class PermissionRequirementAttribute : ActionFilterAttribute
     {
-        private readonly Permission _permissionName;
-        private readonly string _scope;
+        private readonly Permission _permissionLevel;
+        private readonly string _extensionName;
 
         /// <summary>
         /// Allows access when the user has the permission : a claim of type "Permission" with value
-        /// defined by its level (Admin, Write, Read...) and its scope (SoftinuxBase.Security, ExtensionX...).
-        /// Or the user has a permission with same scope but higher level (Admin when Write is the minimum requested to be granted access).
-        /// Default scope (assembly simple name) is global scope ("SoftinuxBase.Security").
+        /// defined by its level (Admin, Write, Read...) and an extension name (SoftinuxBase.Security, ProjectX.ExtensionY...).
+        /// Or the user has a permission with same extension name but higher level (Admin when Write is the minimum requested to be granted access).
+        /// Default extension name (assembly simple name) is "SoftinuxBase.Security".
         /// </summary>
         public PermissionRequirementAttribute(Permission permissionName_, string extensionAssemblySimpleName_ = "SoftinuxBase.Security")
         {
-            _permissionName = permissionName_;
-            _scope = extensionAssemblySimpleName_;
+            _permissionLevel = permissionName_;
+            _extensionName = extensionAssemblySimpleName_;
         }
 
         /// <summary>
         /// Gets permission unique identifier.
         /// </summary>
-        public string PermissionIdentifier => PermissionHelper.GetScopedPermissionIdentifier(_permissionName, _scope);
+        public string PermissionIdentifier => PermissionHelper.GetExtensionPermissionIdentifier(_permissionLevel, _extensionName);
 
         public override void OnActionExecuting(ActionExecutingContext context_)
         {
             bool accessGranted = false;
 
-            // Get the user claim, if any, matching the scope of interest
-            Claim claimOfLookupScope = context_.HttpContext.User.Claims.FirstOrDefault(c_ => c_.Type == ClaimType.Permission.ToString() && c_.Value.ToString().StartsWith($"{_scope}."));
+            // Get the user claim, if any, matching the extension of interest
+            Claim claimOfLookupExtension = context_.HttpContext.User.Claims.FirstOrDefault(c_ => c_.Type == ClaimType.Permission.ToString() && c_.Value.ToString().StartsWith($"{_extensionName}."));
 
-            if (claimOfLookupScope != null)
+            if (claimOfLookupExtension != null)
             {
-                Permission currentLevel = Enum.Parse<Permission>(PermissionHelper.GetPermissionLevel(claimOfLookupScope));
-                if ((int)currentLevel >= (int)_permissionName)
+                Permission currentLevel = Enum.Parse<Permission>(PermissionHelper.GetPermissionLevel(claimOfLookupExtension));
+                if ((int)currentLevel >= (int)_permissionLevel)
                 {
                     // access granted
                     accessGranted = true;
