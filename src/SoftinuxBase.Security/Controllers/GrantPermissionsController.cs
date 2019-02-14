@@ -137,7 +137,7 @@ namespace SoftinuxBase.Security.Controllers
         /// Update role name and linked extensions with permission level.
         /// </summary>
         /// <param name="model_"></param>
-        /// <returns>Json string.</returns>
+        /// <returns>Status code 201, or 400 with an error message</returns>
         [PermissionRequirement(Permission.Admin)]
         [Route("administration/update-role")]
         [HttpPost]
@@ -152,27 +152,30 @@ namespace SoftinuxBase.Security.Controllers
         #region DELETE
 
         /// <summary>
-        /// Delete the record indicating that a role is linked to an extension.
+        /// Delete the record linking a role to an extension.
         /// </summary>
         /// <param name="roleName_"></param>
-        /// <param name="scope_"></param>
-        /// <returns>Json boolean.</returns>
+        /// <param name="extensionName_"></param>
+        /// <returns>Status code 204 (ok) or 400 (no deletion occurred)</returns>
         [HttpPost]
-        public async Task<IActionResult> DeleteRoleExtensionLink(string roleName_, string scope_)
+        [Route("administration/delete-role-extension")]
+        public async Task<IActionResult> DeleteRoleExtensionLink(string roleName_, string extensionName_)
         {
-            return new JsonResult(await Tools.DeleteRole.DeleteRoleExtensionLink(roleName_, scope_, _roleManager, this.Storage));
+            bool deleted = await Tools.DeleteRole.DeleteRoleExtensionLink(roleName_, extensionName_, _roleManager, this.Storage);
+            return StatusCode(deleted ? 204 : 400);
         }
 
         /// <summary>
-        /// Delete role with extention link.
+        /// Delete the records linking a role to any extension, then delete role record if possible..
         /// </summary>
         /// <param name="roleName_"></param>
-        /// <returns>Json string.</returns>
+        /// <returns>Status code 204, or 400 with an error message</returns>
         [HttpPost]
         [Route("administration/delete-role")]
         public async Task<IActionResult> DeleteRole(string roleName_)
         {
-            return new JsonResult(await Tools.DeleteRole.DeleteRoleAndGrants(roleName_, _roleManager));
+            string error = await Tools.DeleteRole.DeleteRoleAndGrants(roleName_, _roleManager);
+            return StatusCode(string.IsNullOrEmpty(error) ? 204 : 400, error);
         }
 
         #endregion
