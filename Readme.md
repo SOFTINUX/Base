@@ -3,7 +3,7 @@
 
 *SoftinuxBase* is a free, open source, and cross-platform framework with built-in security access support and management for creating modular and extendable [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/) Core web applications.
 
-It is built using [ExtCore](http://extcore.net/) framework and the most modern tools and languages.  
+It is built using [ExtCore](http://extcore.net/) framework and the most modern tools and languages.
 Join our team!
 
 :warning: During the pre-alpha development phase, the issues are managed in our [bug tracker](https://issues.osames.org/projects/SOFB/issues) :warning:
@@ -22,15 +22,15 @@ Join our team!
 - [License](#license)
 - [Getting started](#getting-started)
     - [Prerequisites](#prerequisites)
-    - [Installation](#installation)  
-            - [1. Restore dependencies](#1-restore-dependencies)  
-            - [2. Restore nuget packages](#2-restore-nuget-packages)  
-            - [3. Update database with migration](#3-update-database-with-migration)  
-            - [4. Build the application](#4-build-the-application)  
-            - [5. Run the app](#5-run-the-app)  
-                - [:information_source: Information About Visual Studio 2017 :information_source:](#informationsource-information-about-visual-studio-2017-informationsource)  
-                - [:information_source: Information About Rider 2017.3 :information_source:](#informationsource-information-about-rider-20173-informationsource)  
-            - [6. Add the first user (demo user)](#6-add-the-first-user-demo-user)  
+    - [Installation](#installation)
+            - [1. Restore dependencies](#1-restore-dependencies)
+            - [2. Restore nuget packages](#2-restore-nuget-packages)
+            - [3. Update database with migration](#3-update-database-with-migration)
+            - [4. Build the application](#4-build-the-application)
+            - [5. Run the app](#5-run-the-app)
+                - [:information_source: Information About Visual Studio 2017 :information_source:](#informationsource-information-about-visual-studio-2017-informationsource)
+                - [:information_source: Information About Rider 2017.3 :information_source:](#informationsource-information-about-rider-20173-informationsource)
+            - [6. Add the first user (demo user)](#6-add-the-first-user-demo-user)
             - [7. Login with demo user](#7-login-with-demo-user)
     - [Implement your own extension](#implement-your-own-extension)
         - [Add a new project](#add-a-new-project)
@@ -54,13 +54,13 @@ Some screenshots of features:
 <img src="https://raw.githubusercontent.com/SOFTINUX/Base/master/screenshots/grant_global_permissions_wip.png" title="Set permissions" width="600" heigth="400">
 
 # License
-Licensed under the MIT License.  
+Licensed under the MIT License.
 See LICENSE file for license information.
 
 # Getting started
 
 ## Prerequisites
-In order you must have installed:  
+In order you must have installed:
 - [.NET Core SDK](https://www.microsoft.com/net/download)
 - [Node JS](https://nodejs.org/en/)
 
@@ -69,38 +69,40 @@ In order you must have installed:
 Go to *SoftinuxBase.Barebone* folder and run `npm i --save-dev` command so that dependencies packages are installed and settings updated.
 
 #### 2. Restore nuget packages
-Restore the nuGet packages is now an implicit command executed at application build.  
+Restore the nuGet packages is now an implicit command executed at application build.
 But you can still restore packages without building the application with the command `dotnet restore` in solution root folder.
 
 #### 3. Update database with migration
-Go to *SoftinuxBase.Webapplication* folder and run `dotnet ef database update`.  
-This will create the database. See *appsettings.json* for database path.  
-The Entity Framework database context is defined in web application's *Startup.cs*.  
+Go to *SoftinuxBase.Webapplication* folder and run `dotnet ef database update`.
+This will create the database. See *appsettings.json* for database path.
+The Entity Framework database context is defined in web application's *Startup.cs*.
 We use Sqlite for development, but you can change this easily for another SGDB (see *appsettings.json* file).
 
 #### 4. Build the application
 Go to the solution root folder and run `bp.bat` under Windows or `bp.sh` under Linux/MacOS. (use -h for help).
+This is the quick way. Some commands from `bp.bat`/`bp.sh` are also used by PreBuild and PostBuild events
+but this may not work for all IDEs.
 
 #### 5. Run the app
-Go to *SoftinuxBase.WebApplication* folder and type `dotnet run`.  
-If you prefer, you can also execute this command from solution root folder: `dotnet run --project SoftinuxBase.WebApplication\SoftinuxBase.WebApplication.csproj`  
+Go to *SoftinuxBase.WebApplication* folder and type `dotnet run`.
+If you prefer, you can also execute this command from solution root folder: `dotnet run --project SoftinuxBase.WebApplication\SoftinuxBase.WebApplication.csproj`
 (Beware of the path if you are on Linux/MacOS).
 
 After that, the application is available on <http://localhost:5000/> or <https://localhost:5000/>
 
 ##### :information_source: Information About Visual Studio 2017 :information_source:
-If you launched application from Visual Studio, this port will change,  
-being randomly defined, and value is stored in *SoftinuxBase.WebApplication/Properties/launchSettings.json*  
-You can edit this value in Visual Studio: WebApplication's properties > Debug tab > Web Server Settings/App URL or directly in launchSettings file.  
+If you launched application from Visual Studio, this port will change,
+being randomly defined, and value is stored in *SoftinuxBase.WebApplication/Properties/launchSettings.json*
+You can edit this value in Visual Studio: WebApplication's properties > Debug tab > Web Server Settings/App URL or directly in *launchSettings.json* file.
 After, the default port used by *dotnet run* is the port defined in *SoftinuxBase.WebApplication/Properties/launchSettings.json*.
 
 ##### :information_source: Information About Rider 2017.3 :information_source:
-Rider 2017.3 cannot execute the PostBuildEvent declared in *SoftinuxBase.WebApplication.csproj*.  
-You need to execute `./bp.sh copyexts` and `./bp.sh copydeps` after building the solution or project.  
+Rider 2017.3 cannot execute the PostBuild event declared in *SoftinuxBase.WebApplication.csproj*.
+You need to execute `./bp.sh copyexts` and `./bp.sh copydeps` after building the solution or project.
 Or refer to our [documentation](https://softinux-base.readthedocs.io/en/latest/howto/configure_rider.html) to see how to configure external tools that will be launched by build process.
 
 #### 6. Add the first user (demo user)
-With Postman (or the program of your choice) make a POST request to this url: <http://localhost:5000/dev/seed/CreateUser>  
+With Postman (or the program of your choice) make a POST request to this url: <http://localhost:5000/dev/seed/CreateUser>
 With command line:
 
 - using curl: `curl -i -X POST http://localhost:5000/dev/seed/CreateUser`
@@ -109,15 +111,15 @@ With command line:
 This will create the demo user with general permissions.
 
 #### 7. Login with demo user
-user: **johndoe@softinux.com**  
-(or johndoe)  
-password: **123_Password**  
+user: **johndoe@softinux.com**
+(or johndoe)
+password: **123_Password**
 (password is case sensitive)
 
 ## Implement your own extension
-:warning: You cannot place your Extensions folder to another drive. See [#2981](https://github.com/dotnet/core-setup/issues/2981#issuecomment-322572374)  
-  
-You can use [Visual Studio 2017](https://www.visualstudio.com/fr/downloads/), [Visual Studio Code](https://code.visualstudio.com/) or [JetBrains Rider](https://www.jetbrains.com/rider/) to make your own extension.  
+:warning: You cannot place your Extensions folder to another drive. See [#2981](https://github.com/dotnet/core-setup/issues/2981#issuecomment-322572374)
+
+You can use [Visual Studio 2017](https://www.visualstudio.com/fr/downloads/), [Visual Studio Code](https://code.visualstudio.com/) or [JetBrains Rider](https://www.jetbrains.com/rider/) to make your own extension.
 If you decide to use Visual Studio, be aware **that projects are not compatible with Visual Studio 2015**.
 
 ### Add a new project

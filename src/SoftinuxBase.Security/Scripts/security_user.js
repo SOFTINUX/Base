@@ -112,8 +112,8 @@ $(function () {
 
     // permission dropdown
     $('#acl-sel li').click(function (event_) {
-        const $target = $(event_.currentTarget);
-        $target.closest('.bs-dropdown-to-select-acl-group')
+        const target = $(event_.currentTarget);
+        target.closest('.bs-dropdown-to-select-acl-group')
             .find('[data-bind="bs-drp-sel-acl-label"]').text($(this).text());
         $('input[name="acl-selected_value"]').val($(this).attr('data-value'));
     });
@@ -141,15 +141,6 @@ $(function () {
         input_form_group_validator('#role_name_input');
     });
 
-    // Click
-    $('#editRoleRightExtensionsList row').click(function() {
-        if ($(this).hasClass('active')) {
-            $(this).removeClass('active');
-        } else {
-            $(this).addClass('active');
-        }
-    });
-
     /* User interactions that trigger ajax calls */
 
     // save new role with its extensions and permission
@@ -160,13 +151,13 @@ $(function () {
             input_form_group_validator('#role_name_input');
             return;
         }
-        var _selectedExtensions = [];
+        var selectedExtensions = [];
         $('#addRoleRightExtensionsList > option').each(function () {
-            _selectedExtensions.push(this.value);
+            selectedExtensions.push(this.value);
         });
         const postData = {
             RoleName: roleNameInputElt.val(),
-            Extensions: _selectedExtensions,
+            Extensions: selectedExtensions,
             PermissionValue: $('#newRolePermission').val()
         };
 
@@ -189,7 +180,7 @@ $(function () {
             return;
         }
 
-        saveEditRole('edit-role-form');
+        saveEditRole();
     });
 
 });
@@ -230,17 +221,18 @@ function btnChevronMoveExtension(event_, transform_) {
 
     const bulk = $(_target).is('[data-bulk-move]');
 
-    // if transform_ is defined, the list items are span element, else select options
+    // if transform_ is defined, the selected list items are div elements, else select's options
 
-    const selectedElts = transform_ 
-    ? $(`#${$(_target).attr('data-fromlist')}` + (bulk ? ' span' : ' span.active')).toArray()
-    : $(`#${$(_target).attr('data-fromlist')}` + (bulk ? ' option' : ' option:selected')).toArray();
+    let rootElt = $(`#${$(_target).attr('data-fromlist')}`);
+    const selectedElts = transform_
+    ? rootElt.find(bulk ? ' div.row' : ' div.row.active').toArray()
+    : rootElt.find(bulk ? ' option' : ' option:selected').toArray();
 
     // console.log(selectedElts);
 
     if (selectedElts.length === 0) {
-        const emptyExtensionList = 'You must have at least one extension in the list';
-        const emptyExtensionListTitle = 'No extensions are available.';
+        const emptyExtensionList = bulk ? 'You must have at least one extension in the list' : 'You must select at least one extension in the list';
+        const emptyExtensionListTitle = 'No extension to move';
         window.toastr.warning(emptyExtensionList, emptyExtensionListTitle);
         event_.preventDefault();
         return;
@@ -259,39 +251,48 @@ function btnChevronMoveExtension(event_, transform_) {
             break;
     }
     for(let newElt of newElts) {
-        // console.log(newElt);
         // append the html element or string
         $(`#${$(_target).attr('data-tolist')}`).append(newElt);
     }
     $(selectedElts).remove();
     event_.preventDefault();
+
+    // Now reapply the clicks handlers
+    // left and right lists rows
+    $('#editRoleLeftExtensionsList>div').off('click');
+    $('#editRoleLeftExtensionsList>div').click(function(event_) {
+        row_clicked(event_);
+    });
+
+    $('#editRoleRightExtensionsList>div').off('click');
+    $('#editRoleRightExtensionsList>div.row').click(function(event_) {
+        row_clicked(event_);
+    });
 }
 
 /**
- * Create an html div+span element from a html fragment
- * @param {HtmlElement} target_ - html fragment
- * @return {string} html div+span
+ * Create a html fragment containing mostly a span element, from a html fragment containing mostly a span element.
+ * @param {HtmlElement} target_ - html div element
+ * @return {string} html div
  */
 function createMovedElementLeft(target_) {
-    console.log('move from right to left');
-    console.log(target_);
-    console.log($(target_).find("span"));
-    return `<div>${$(target_).find("span").outerHTML}</div>`;
+    return `<div class="row modified">
+                <div class="col-md-12">${$(target_).find('span').get(0).outerHTML}</div>
+            </div>`;
 }
 
 /**
- * Create a wrapped span + select html fragment from a span html element
- * @param {HtmlElement} target_ - html span element
- * @return {string} html fragment
+ * Create a html fragment containing mostly a span and a select elements, from a html fragment contaning mostly a span and a select elements.
+ * @param {HtmlElement} target_ - html div element
+ * @return {string} html div
  */
 function createMovedElementRight(target_) {
-    console.log('move from left to right');
-    let extension = $(target_).attr("name");
-    return `<div class="row">
-                <div class="col-md-8">
+    let extension = $(target_).find('span').attr("name");
+    return `<div class="row modified">
+                <div class="col-md-6">
                     <span name="${extension}">${extension}</span>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <select>
                         <option value="None">None</option>
                         <option value="Read" selected>Read</option>
@@ -352,6 +353,15 @@ function input_changed(editbtnid_) {
     $(`button#${editbtnid_}`).text('Save');
     $(`#cancel_${editbtnid_}`).removeClass('hidden');
     $(`button#${editbtnid_}`).removeClass('hidden');
+}
+
+function row_clicked(event_) {
+    const target = $(event_.currentTarget);
+    if(target.hasClass('active')) {
+        target.removeClass('active');
+    } else {
+        target.addClass('active');
+    }
 }
 
 /**
@@ -431,7 +441,7 @@ function passSelectedRoleOnEdition(roleId_) {
         leftListElt.html("");
          // Fill
         data_.value.availableExtensions.forEach(function (extension_) {
-            leftListElt.append(`<div><span name="${extension_}">${extension_}</span></div>`);
+            leftListElt.append(`<div class="row"><div class="col-md-12"><span name="${extension_}">${extension_}</span></div></div>`);
         });
 
         // Selected extensions (right list)
@@ -453,6 +463,16 @@ function passSelectedRoleOnEdition(roleId_) {
                                 </select>
                             </div>
                         </div>`);
+        });
+
+        // Now add the clicks handlers
+        // left and right lists rows
+        $('#editRoleLeftExtensionsList>div').click(function(event_) {
+            row_clicked(event_);
+        });
+
+        $('#editRoleRightExtensionsList>div.row').click(function(event_) {
+            row_clicked(event_);
         });
     });
 }
@@ -513,35 +533,25 @@ function savePermission(extension_, roleName_, permission_) {
  */
 function saveEditRole() {
 
-    var _selectedExtensions = [];
-    $('#editRoleRightExtensionsList>option').each(function () {
-       _selectedExtensions.push(this.value);
+    var grants = [];
+    $('#editRoleRightExtensionsList>div.row').each(function (index, elt) {
+       grants.push({Extension: $(elt).find('span').attr('name'), PermissionValue: $(elt).find('select').val()})
     });
     const postData = {
        RoleId: $('#editRoleId').val(),
        RoleName: $('#edit_role_name_input').val(),
-       Extensions: _selectedExtensions,
-       PermissionValue: $('#editRolePermission').val()
+       Grants: grants
     };
 
-    console.log(postData);
-
-    //$.ajax('/administration/update-role',
-    //    {
-    //        method: 'POST',
-    //        data: postData
-    //        // headers: {
-    //        //     'RequestVerificationToken': $('input:hidden[name='__RequestVerificationToken']', $form).val()
-    //        // }
-    //    })
-    //    .done(function (data_) {
-    //        window.toastr.success(data_, 'Saved');
-    //        console.log(data_);
-    //    })
-    //    .fail(function (jqXhr_, testStatus_) {
-    //        window.toastr.error(testStatus_, 'ERROR)');
-    //        console.log(jqXhr_, testStatus_);
-    //    });
+    $.ajax('/administration/update-role',
+       {
+           method: 'POST',
+           data: postData
+       })
+       .done(function (data_) {
+           window.toastr.success(data_, 'Changes saved');
+           location.reload();
+       });
 }
 
 function deleteRole(role_) {
@@ -557,9 +567,5 @@ function deleteRole(role_) {
         .done(function (data_) {
             window.toastr.success(data_, 'Role deleted');
             console.log(data_);
-        })
-        .fail(function (jqXhr_, testStatus_) {
-            window.toastr.error(testStatus_, 'ERROR)');
-            console.log(jqXhr_, testStatus_);
         });
 }

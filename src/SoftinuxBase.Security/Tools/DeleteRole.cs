@@ -18,17 +18,17 @@ namespace SoftinuxBase.Security.Tools
         /// Delete the record indicating that a role is linked to an extension.
         /// </summary>
         /// <param name="roleName_"></param>
-        /// <param name="scope_"></param>
+        /// <param name="extensionName_"></param>
         /// <param name="roleManager_"></param>
         /// <param name="storage_"></param>
         /// <returns>boolean.</returns>
-        public static async Task<bool> DeleteRoleExtensionLink(string roleName_, string scope_, RoleManager<IdentityRole<string>> roleManager_, IStorage storage_)
+        public static async Task<bool> DeleteRoleExtensionLink(string roleName_, string extensionName_, RoleManager<IdentityRole<string>> roleManager_, IStorage storage_)
         {
             string roleId = (await roleManager_.FindByNameAsync(roleName_)).Id;
             IRolePermissionRepository repo = storage_.GetRepository<IRolePermissionRepository>();
-            if (repo.FindBy(roleId, scope_) != null)
+            if (repo.FindBy(roleId, extensionName_) != null)
             {
-                repo.Delete(roleId, scope_);
+                repo.Delete(roleId, extensionName_);
                 storage_.Save();
                 return true;
             }

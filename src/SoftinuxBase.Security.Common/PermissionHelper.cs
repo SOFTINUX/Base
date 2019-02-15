@@ -27,22 +27,22 @@ namespace SoftinuxBase.Security.Common
         /// <summary>
         /// Extension method to get the string representation of the enum value.
         /// </summary>
-        /// <param name="permission_"></param>
+        /// <param name="permissionLevel_"></param>
         /// <returns></returns>
-        public static string GetPermissionName(this Permission permission_)
+        public static string GetPermissionName(this Permission permissionLevel_)
         {
-            return permission_.ToString();
+            return permissionLevel_.ToString();
         }
 
         /// <summary>
-        /// Formats the unique identifier that defines a permission and its scope.
+        /// Formats the unique identifier that associates a permission level and an extension name.
         /// </summary>
-        /// <param name="permission_"></param>
-        /// <param name="scope_">The scope, equal to assembly name, given by Assembly.GetName().Name.</param>
+        /// <param name="permissionLevel_"></param>
+        /// <param name="extensionName_">The extension name, equal to assembly name, given by Assembly.GetName().Name.</param>
         /// <returns></returns>
-        public static string GetScopedPermissionIdentifier(Permission permission_, string scope_)
+        public static string GetExtensionPermissionIdentifier(Permission permissionLevel_, string extensionName_)
         {
-            return $"{scope_}.{permission_}";
+            return $"{extensionName_}.{permissionLevel_}";
         }
 
         /// <summary>
@@ -71,21 +71,21 @@ namespace SoftinuxBase.Security.Common
         }
 
         /// <summary>
-        /// From the value of a claim which type is Permission, gets the first part of the string that represents the permission scope.
+        /// From the value of a claim which type is Permission, gets the first part of the string that represents the name of extension concerned by this permission level.
         /// </summary>
         /// <param name="claim_"></param>
         /// <returns></returns>
-        public static string GetPermissionScope(Claim claim_)
+        public static string GetExtensionName(Claim claim_)
         {
-            return claim_.Type != ClaimType.Permission ? null : GetPermissionScope(claim_.Value);
+            return claim_.Type != ClaimType.Permission ? null : GetExtensionName(claim_.Value);
         }
 
         /// <summary>
-        /// From the value of a claim which type is Permission, gets the first part of the string that represents the permission scope.
+        /// From the value of a claim which type is Permission, gets the first part of the string that represents the name of extension concerned by this permission level.
         /// </summary>
         /// <param name="claimValue_"></param>
         /// <returns></returns>
-        public static string GetPermissionScope(string claimValue_)
+        public static string GetExtensionName(string claimValue_)
         {
             return claimValue_.Substring(0, claimValue_.Length - claimValue_.LastIndexOf(".", StringComparison.Ordinal));
         }

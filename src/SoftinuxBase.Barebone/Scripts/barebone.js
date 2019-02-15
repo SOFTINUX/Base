@@ -54,5 +54,5 @@ $('ul.treeview-menu a').filter(function() {
 $(document).ajaxError(function(jqXhr_, settings_, errorMessage_) {
     const errMsg = jqXhr_.responseText ? jqXhr_.responseText : errorMessage_;
     window.toastr.error(errMsg, 'ERROR');
-    console.log('Error calling ', settings_.url, ' ', errMsg);
+    console.log('Ajax error: ', errMsg);
   });

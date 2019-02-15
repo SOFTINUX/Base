@@ -76,7 +76,7 @@ select.input-validation-error
 .register {
     border: 1px solid #d8dee2;
     border-radius: 5px;
-    padding: 5px 5px 5px 5px;    
+    padding: 5px 5px 5px 5px;
 }
 
 .login-box {
@@ -92,14 +92,26 @@ select.input-validation-error
 }
 
 /* role edition: right table */
-#editRoleRightExtensionsList .row {
+#editRoleRightExtensionsList>div.row, #editRoleLeftExtensionsList>div {
     margin-left: 0px;
     margin-right: 0px;
 }
 
-#editRoleRightExtensionsList .row.active {
-    background-color: #2196F3;
-    color: white;
+/* selected lines: override modified lines style  */
+#editRoleRightExtensionsList>div.row.active, #editRoleLeftExtensionsList>div.active {
+    background-color: #2196F3 !important;
+    color: white !important;
+}
+
+/* selected lines's select */
+#editRoleRightExtensionsList>div.row.active select {
+    color: black;
+}
+
+/* modified lines */
+#editRoleRightExtensionsList>div.row.modified, #editRoleLeftExtensionsList>div.modified {
+    background-color: #FAFFBD;
+    color: black;
 }
 
 /* end role edition */

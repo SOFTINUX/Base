@@ -93,7 +93,7 @@ namespace SoftinuxBase.Security
             // Now build the claims
            foreach (KeyValuePair<string, Permission> kv in permissionByScope)
            {
-               claims.Add(new Claim(ClaimType.Permission, PermissionHelper.GetScopedPermissionIdentifier(kv.Value, kv.Key)));
+               claims.Add(new Claim(ClaimType.Permission, PermissionHelper.GetExtensionPermissionIdentifier(kv.Value, kv.Key)));
            }
 
            return claims;

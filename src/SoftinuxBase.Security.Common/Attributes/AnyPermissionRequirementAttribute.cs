@@ -14,51 +14,51 @@ namespace SoftinuxBase.Security.Common.Attributes
     public class AnyPermissionRequirementAttribute : ActionFilterAttribute
     {
         /// <summary>
-        /// Permissions grouped by scope.
+        /// Permissions grouped by extension.
         /// </summary>
         /// <returns></returns>
-        private readonly Dictionary<string, List<Permission>> _scopedPermissions = new Dictionary<string, List<Permission>>();
+        private readonly Dictionary<string, List<Permission>> _permissionsByExtension = new Dictionary<string, List<Permission>>();
 
         /// <summary>
         /// Allows access when the user has at least one of the claims of type "Permission" with value
-        /// defined by its level (Admin, Write, Read...) and its scope (Security, ExtensionX...).
+        /// defined by its level (Admin, Write, Read...) and an extension name (SoftinuxBase.Security, ProjectX.ExtensionY...).
         /// </summary>
-        /// <param name="permissionCode_"></param>
+        /// <param name="permissionLevel_"></param>
         /// <param name="extensionAssemblySimpleName_"></param>
-        public AnyPermissionRequirementAttribute(Permission[] permissionCode_, string[] extensionAssemblySimpleName_)
+        public AnyPermissionRequirementAttribute(Permission[] permissionLevel_, string[] extensionAssemblySimpleName_)
         {
-            for (int i = 0; i < permissionCode_.Length; i++)
+            for (int i = 0; i < permissionLevel_.Length; i++)
             {
-                if (_scopedPermissions.ContainsKey(extensionAssemblySimpleName_[i]))
+                if (_permissionsByExtension.ContainsKey(extensionAssemblySimpleName_[i]))
                 {
-                    _scopedPermissions[extensionAssemblySimpleName_[i]].Add(permissionCode_[i]);
+                    _permissionsByExtension[extensionAssemblySimpleName_[i]].Add(permissionLevel_[i]);
                 }
                 else
                 {
-                    _scopedPermissions.Add(extensionAssemblySimpleName_[i], new List<Permission> { permissionCode_[i] });
+                    _permissionsByExtension.Add(extensionAssemblySimpleName_[i], new List<Permission> { permissionLevel_[i] });
                 }
             }
         }
 
         /// <summary>
         /// Allows access when the user has at least one of the claims of type "Permission" with value
-        /// defined by its level (Admin, Write, Read...) and its scope (Security, ExtensionX...).
+        /// defined by its level (Admin, Write, Read...) and an extension name (SoftinuxBase.Security, ProjectX.ExtensionY...).
         /// </summary>
-        /// <param name="scopedPermissions_">Values with format ExtensionName.Permission.</param>
-        public AnyPermissionRequirementAttribute(string[] scopedPermissions_)
+        /// <param name="permissionsForExtensions_">Values with format ExtensionName.Permission.</param>
+        public AnyPermissionRequirementAttribute(string[] permissionsForExtensions_)
         {
-            foreach (string perm in scopedPermissions_)
+            foreach (string perm in permissionsForExtensions_)
             {
-                string scope = PermissionHelper.GetPermissionScope(perm);
+                string extension = PermissionHelper.GetExtensionName(perm);
                 Permission permission = Enum.Parse<Permission>(PermissionHelper.GetPermissionLevel(perm));
 
-                if (_scopedPermissions.ContainsKey(scope))
+                if (_permissionsByExtension.ContainsKey(extension))
                 {
-                    _scopedPermissions[scope].Add(permission);
+                    _permissionsByExtension[extension].Add(permission);
                 }
                 else
                 {
-                    _scopedPermissions.Add(scope, new List<Permission> { permission });
+                    _permissionsByExtension.Add(extension, new List<Permission> { permission });
                 }
             }
         }
@@ -66,15 +66,15 @@ namespace SoftinuxBase.Security.Common.Attributes
         public override void OnActionExecuting(ActionExecutingContext context_)
         {
             bool accessGranted = false;
-            foreach (string scope in _scopedPermissions.Keys)
+            foreach (string extension in _permissionsByExtension.Keys)
             {
-                // Get the user claim, if any, matching the scope of interest
-                Claim claimOfLookupScope = context_.HttpContext.User.Claims.FirstOrDefault(c_ => c_.Type == ClaimType.Permission.ToString() && c_.Value.ToString().StartsWith($"{scope}."));
+                // Get the user claim, if any, matching the extension of interest
+                Claim claimOfLookupExtension = context_.HttpContext.User.Claims.FirstOrDefault(c_ => c_.Type == ClaimType.Permission.ToString() && c_.Value.ToString().StartsWith($"{extension}."));
 
-                if (claimOfLookupScope != null)
+                if (claimOfLookupExtension != null)
                 {
-                    Permission currentLevel = Enum.Parse<Permission>(PermissionHelper.GetPermissionLevel(claimOfLookupScope));
-                    foreach (var permission in _scopedPermissions[scope])
+                    Permission currentLevel = Enum.Parse<Permission>(PermissionHelper.GetPermissionLevel(claimOfLookupExtension));
+                    foreach (var permission in _permissionsByExtension[extension])
                     {
                         var minLevel = (int)permission;
                         if ((int)currentLevel >= minLevel)
