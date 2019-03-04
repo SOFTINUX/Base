@@ -34,7 +34,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OSAMES/Base.git"
+    "url": "git+https://github.com/SOFTINUX/Base.git"
   },
   "keywords": [
     "softinux",
@@ -43,7 +43,7 @@
   "author": "Softinux",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/OSAMES/Base/issues"
+    "url": "https://github.com/SOFTINUX/Base/issues"
   },
-  "homepage": "https://github.com/OSAMES/Base#readme"
+  "homepage": "https://github.com/SOFTINUX/Base/Base#readme"
 }
