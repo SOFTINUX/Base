@@ -1,14 +1,13 @@
 // Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
-using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
-using SoftinuxBase.Security.ViewModels.Permissions;
 
 namespace SoftinuxBase.Security.Tools
 {
@@ -17,11 +16,7 @@ namespace SoftinuxBase.Security.Tools
         /// <summary>
         /// Delete the record indicating that a role is linked to an extension.
         /// </summary>
-        /// <param name="roleName_"></param>
-        /// <param name="extensionName_"></param>
-        /// <param name="roleManager_"></param>
-        /// <param name="storage_"></param>
-        /// <returns>boolean.</returns>
+        /// <returns>false when record to delete wasn't found</returns>
         public static async Task<bool> DeleteRoleExtensionLink(string roleName_, string extensionName_, RoleManager<IdentityRole<string>> roleManager_, IStorage storage_)
         {
             string roleId = (await roleManager_.FindByNameAsync(roleName_)).Id;
@@ -36,10 +31,62 @@ namespace SoftinuxBase.Security.Tools
             return false;
         }
 
-        public static async Task<string> DeleteRoleAndGrants(string roleName_, RoleManager<IdentityRole<string>> roleManager_)
+        /// <summary>
+        /// Delete all the records indicating that a role is linked to extensions.
+        /// </summary>
+        /// <returns>false when records to delete weren't found</returns>
+        public static async Task<bool> DeleteRoleExtensionLinks(string roleName_, RoleManager<IdentityRole<string>> roleManager_, IStorage storage_)
         {
             string roleId = (await roleManager_.FindByNameAsync(roleName_)).Id;
-            return "Work in progress. RoleId value: " + roleId;
+            IRolePermissionRepository repo = storage_.GetRepository<IRolePermissionRepository>();
+            IEnumerable<RolePermission> records = repo.FilteredByRoleId(roleId);
+            if (!records.Any())
+            {
+                return false;
+            }
+
+            foreach (var record in records)
+            {
+                repo.Delete(record.RoleId, record.Extension);
+            }
+
+            storage_.Save();
+            return true;
+        }
+
+        public static async Task<string> DeleteRoleAndAllLinks(string roleName_, RoleManager<IdentityRole<string>> roleManager_, IStorage storage_)
+        {
+            bool canDeleteRole = false;
+            string cannotDeleteMessage = null;
+            string roleId = (await roleManager_.FindByNameAsync(roleName_)).Id;
+            bool hasAnyUserDirectAdminPermission = ReadGrants.HasAnyUserDirectAdminPermission();
+            if (hasAnyUserDirectAdminPermission)
+            {
+                // We can delete this role, a user has Admin permission directly granted
+                canDeleteRole = true;
+            }
+            else
+            {
+                bool hasOtherRoleAdminPermission = ReadGrants.HasOtherRoleAdminPermission(roleId);
+                if (!hasOtherRoleAdminPermission)
+                {
+                    // We can not delete this role, no other role has Admin permission directly granted
+                    canDeleteRole = false;
+                    cannotDeleteMessage = "The role cannot be deleted, it's the last role with Admin permission";
+                }
+            }
+
+            if (!canDeleteRole)
+            {
+                return cannotDeleteMessage;
+            }
+            // delete the role-extensions links
+            await DeleteRoleExtensionLinks(roleName_, roleManager_, storage_);
+            // delete the role-users links
+            // TODO use UserManager.RemoveFromRoleAsync - make a new method that may ba reused
+            // delete the role itself
+            await roleManager_.DeleteAsync(await roleManager_.FindByNameAsync(roleName_));
+            return null;
         }
     }
 }

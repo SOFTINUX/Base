@@ -103,5 +103,20 @@ namespace SoftinuxBase.Security.Tools
                 }
             }
         }
+
+        public static bool HasAnyUserDirectAdminPermission()
+        {
+            // TODO
+            // check user-permission table
+            return false;
+        }
+
+        public static bool HasOtherRoleAdminPermission(string roleId_)
+        {
+            // TODO
+            // check role-permission tables
+            // Remove record associated to param role
+            return false;
+        }
     }
 }
