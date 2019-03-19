@@ -10,7 +10,7 @@ namespace SoftinuxBase.Security.Data.Abstractions
     public interface IRolePermissionRepository : IRepository
     {
         IEnumerable<RolePermission> All();
-        IEnumerable<RolePermission> FindBy(string roleId_, string extensionName_);
+        RolePermission FindBy(string roleId_, string extensionName_);
         IEnumerable<RolePermission> FilteredByRoleId(string roleId_);
         void Create(RolePermission entity_);
         void Edit(RolePermission entity_);
