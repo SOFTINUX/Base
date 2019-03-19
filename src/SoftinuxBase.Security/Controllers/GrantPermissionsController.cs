@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 using SoftinuxBase.Security.Common.Attributes;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
-using SoftinuxBase.Security.Extensions;
 using SoftinuxBase.Security.Tools;
 using SoftinuxBase.Security.ViewModels.Permissions;
 using Permission = SoftinuxBase.Security.Common.Enums.Permission;
@@ -174,7 +173,7 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/delete-role")]
         public async Task<IActionResult> DeleteRole(string roleName_)
         {
-            string error = await Tools.DeleteRole.DeleteRoleAndGrants(roleName_, _roleManager);
+            string error = await Tools.DeleteRole.DeleteRoleAndAllLinks(roleName_, _roleManager, this.Storage);
             return StatusCode(string.IsNullOrEmpty(error) ? 204 : 400, error);
         }
 
