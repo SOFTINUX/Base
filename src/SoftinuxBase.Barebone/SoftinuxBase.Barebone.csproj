@@ -130,5 +130,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Shared\_IsDebugBanner.cshtml" />
   </ItemGroup>
 </Project>

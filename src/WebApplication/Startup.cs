@@ -1,7 +1,9 @@
 ﻿// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System;
 using System.IO;
+using System.Reflection;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
@@ -51,9 +53,12 @@ namespace WebApplication
             services_.AddSoftinuxLogger();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
+            //var exeAssembly = Assembly.GetEntryAssembly().GetName().Name;
+            //var basePath = AppDomain.CurrentDomain.BaseDirectory;
             services_.AddSwaggerGen(c_ =>
             {
                 c_.SwaggerDoc("v1", new Info { Title = "Softinux Base API", Version = "v1" });
+                //c_.IncludeXmlComments($"{basePath}{exeAssembly}.xml");
             });
 
             services_.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
