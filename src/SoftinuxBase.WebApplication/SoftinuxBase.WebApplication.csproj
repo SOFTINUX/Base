@@ -26,7 +26,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ExtCore.WebApplication" Version="4.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="2.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
     <PackageReference Include="NWebsec.AspNetCore.Middleware" Version="2.0.0" />

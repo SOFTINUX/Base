@@ -60,6 +60,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.8.391" />
+    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.9.406" />
   </ItemGroup>
 </Project>

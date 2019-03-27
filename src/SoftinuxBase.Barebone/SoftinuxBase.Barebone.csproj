@@ -29,7 +29,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.8.391" />
+    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.9.406" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
