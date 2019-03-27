@@ -87,7 +87,9 @@ namespace SoftinuxBase.Security.Tools
             selectedExtensions_ = storage_.GetRepository<IRolePermissionRepository>().FilteredByRoleId(roleId_).Select(
                 rp_ => new SelectedExtension
                 {
-                    ExtensionName = rp_.Extension, PermissionName = rp_.Permission.Name, PermissionId = rp_.PermissionId
+                    ExtensionName = rp_.Extension, 
+                    PermissionName = rp_.Permission.Name, 
+                    PermissionId = rp_.PermissionId
                 })
                 .ToList();
 
@@ -97,7 +99,7 @@ namespace SoftinuxBase.Security.Tools
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
             {
                 var extensionName = extensionMetadata.GetExtensionName();
-                if (!selectedExtensionsNames.Contains(extensionName))
+                if (!selectedExtensionsNames.Contains(extensionName) && extensionMetadata.IsAvailableForPermissions)
                 {
                     availableExtensions_.Add(extensionName);
                 }
