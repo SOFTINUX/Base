@@ -2,6 +2,7 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.Collections.Generic;
+using System.Reflection ;
 
 namespace SoftinuxBase.Infrastructure.Interfaces
 {
@@ -15,5 +16,7 @@ namespace SoftinuxBase.Infrastructure.Interfaces
         IEnumerable<Script> Scripts { get; }
         IEnumerable<MenuGroup> MenuGroups { get; }
         bool IsAvailableForPermissions { get; }
+
+        Assembly CurrentAssemnly { get; }
     }
 }
