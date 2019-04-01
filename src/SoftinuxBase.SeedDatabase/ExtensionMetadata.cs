@@ -33,9 +33,9 @@ namespace SoftinuxBase.SeedDatabase
         /// Gets the authors of the extension (separated by commas).
         /// </summary>
         public string Authors => Attribute.GetCustomAttribute(CurrentAssemnly, typeof(AssemblyCompanyAttribute)).ToString();
-        
+
         /// <summary>
-        /// Gets the authors of the extension (separated by commas).
+        /// Gets the description of the extension (separated by commas).
         /// </summary>
         public string Description => Attribute.GetCustomAttribute(CurrentAssemnly, typeof(AssemblyDescriptionAttribute)).ToString();
 

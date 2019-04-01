@@ -5,12 +5,16 @@
     <RootNamespace>SoftinuxBase.SeedDatabase</RootNamespace>
     <PackageId>SoftinuxBase.SeedDatabase</PackageId>
     <Version>0.0.1</Version>
-    <Authors>Benjamin Nolmans</Authors>
+    <Authors>Benjamin Nolmans, Barbara Post</Authors>
     <Company>SOFTINUX</Company>
   </PropertyGroup>
   <PropertyGroup>
     <LangVersion>7</LangVersion>
     <CodeAnalysisRuleSet>..\..\StyleCopRules.ruleset</CodeAnalysisRuleSet>
+    <Description>Extension to create fake users for developping phase</Description>
+    <PackageProjectUrl>http://www.softinux.com/</PackageProjectUrl>
+    <Copyright>Copyright © 2017 Softinux</Copyright>
+    <RepositoryUrl>https://github.com/SOFTINUX/Base</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
