@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Reflection ;
+using ExtCore.Infrastructure;
 
 namespace SoftinuxBase.Infrastructure.Interfaces
 {
@@ -10,7 +11,7 @@ namespace SoftinuxBase.Infrastructure.Interfaces
     /// Implementing this interface allows your extension to define one or more menu items,
     /// and provide script and stylesheets elements to the main web application.
     /// </summary>
-    public interface IExtensionMetadata
+    public interface IExtensionMetadata : IExtension
     {
         IEnumerable<StyleSheet> StyleSheets { get; }
         IEnumerable<Script> Scripts { get; }

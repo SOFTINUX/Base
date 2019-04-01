@@ -10,29 +10,34 @@ using SoftinuxBase.Infrastructure.Interfaces;
 
 namespace SoftinuxBase.Barebone
 {
-    public class ExtensionMetadata : ExtensionBase, IExtensionMetadata
+    public class ExtensionMetadata : IExtensionMetadata
     {
         public Assembly CurrentAssemnly => Assembly.GetExecutingAssembly();
 
         /// <summary>
         /// Gets the name of the extension.
         /// </summary>
-        public override string Name => Attribute.GetCustomAttribute(CurrentAssemnly, typeof(AssemblyName)).ToString();
+        public string Name => Attribute.GetCustomAttribute(CurrentAssemnly, typeof(AssemblyName)).ToString();
 
         /// <summary>
         /// Gets the URL of the extension.
         /// </summary>
-        public override string Url => Attribute.GetCustomAttribute(CurrentAssemnly, typeof(AssemblyTitleAttribute)).ToString();
+        public string Url => Attribute.GetCustomAttribute(CurrentAssemnly, typeof(AssemblyTitleAttribute)).ToString();
 
         /// <summary>
         /// Gets the version of the extension.
         /// </summary>
-        public override string Version => Attribute.GetCustomAttribute(CurrentAssemnly, typeof(AssemblyVersionAttribute)).ToString();
+        public string Version => Attribute.GetCustomAttribute(CurrentAssemnly, typeof(AssemblyVersionAttribute)).ToString();
 
         /// <summary>
         /// Gets the authors of the extension (separated by commas).
         /// </summary>
-        public override string Authors => Attribute.GetCustomAttribute(CurrentAssemnly, typeof(AssemblyCompanyAttribute)).ToString();
+        public string Authors => Attribute.GetCustomAttribute(CurrentAssemnly, typeof(AssemblyCompanyAttribute)).ToString();
+        
+        /// <summary>
+        /// Gets the descriptionv of the extension (separated by commas).
+        /// </summary>
+        public string Description => Attribute.GetCustomAttribute(CurrentAssemnly, typeof(AssemblyDescriptionAttribute)).ToString();
 
         bool IExtensionMetadata.IsAvailableForPermissions => true;
 
