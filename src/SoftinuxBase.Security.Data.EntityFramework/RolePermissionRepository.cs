@@ -5,7 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ExtCore.Data.EntityFramework;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
