@@ -12,17 +12,21 @@ using SoftinuxBase.Security.ViewModels.Permissions;
 
 namespace SoftinuxBase.Security.Tools
 {
+    /*
+        The main CreateRoleAndGrants class
+        Contains all methods for reading granting permissions
+    */
     public static class CreateRoleAndGrants
     {
         /// <summary>
         /// First, check that a role with this name doesn't already exist.
         /// Second, save new data into database.
         /// </summary>
-        /// <param name="model_">Model with role name and grant data (extensions and permission level).</param>
+        /// <param name="storage_">Model with role name and grant data (extensions and permission level).</param>
         /// <param name="roleManager_"></param>
-        /// <param name="storage_"></param>
+        /// <param name="model_"></param>
         /// <returns>Not null when something failed, else null when save went ok.</returns>
-        public static async Task<string> CheckAndSaveNewRoleAndGrants(SaveNewRoleAndGrantsViewModel model_, RoleManager<IdentityRole<string>> roleManager_, IStorage storage_)
+        public static async Task<string> CheckAndSaveNewRoleAndGrants(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, SaveNewRoleAndGrantsViewModel model_)
         {
             if (await UpdateRoleAndGrants.CheckThatRoleOfThisNameExists(roleManager_, model_.RoleName))
             {

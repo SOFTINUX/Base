@@ -2,6 +2,7 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
@@ -9,9 +10,10 @@ using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.ViewModels.Permissions;
 
+[assembly: InternalsVisibleTo("SecurityTest")]
 namespace SoftinuxBase.Security.Tools
 {
-    public static class UpdateRoleAndGrants
+    internal static class UpdateRoleAndGrants
     {
         /// <summary>
         /// Check that a role with the same normalized name exists.
@@ -20,7 +22,7 @@ namespace SoftinuxBase.Security.Tools
         /// <param name="roleName_">Role name.</param>
         /// <param name="roleId_">Role ID. When not null, the found role should not have this id.</param>
         /// <returns>true when a role with this normalized name is found.</returns>
-        public static async Task<bool> CheckThatRoleOfThisNameExists(RoleManager<IdentityRole<string>> roleManager_, string roleName_, string roleId_ = null)
+        internal static async Task<bool> CheckThatRoleOfThisNameExists(RoleManager<IdentityRole<string>> roleManager_, string roleName_, string roleId_ = null)
         {
             var role = await roleManager_.FindByNameAsync(roleName_);
             return roleId_ == null ? (role != null) : (role != null && role.Id != roleId_);
@@ -34,7 +36,7 @@ namespace SoftinuxBase.Security.Tools
         /// <param name="roleManager_"></param>
         /// <param name="storage_"></param>
         /// <returns>Not null when something failed, else null when save went ok.</returns>
-        public static async Task<string> CheckAndUpdateRoleAndGrants(UpdateRoleAndGrantsViewModel model_, RoleManager<IdentityRole<string>> roleManager_, IStorage storage_)
+        internal static async Task<string> CheckAndUpdateRoleAndGrants(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, UpdateRoleAndGrantsViewModel model_)
         {
             if (await CheckThatRoleOfThisNameExists(roleManager_, model_.RoleName, model_.RoleId))
             {

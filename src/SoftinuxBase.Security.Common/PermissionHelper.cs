@@ -28,7 +28,7 @@ namespace SoftinuxBase.Security.Common
         /// Extension method to get the string representation of the enum value.
         /// </summary>
         /// <param name="permissionLevel_"></param>
-        /// <returns></returns>
+        /// <returns>string represent permission level.</returns>
         public static string GetPermissionName(this Permission permissionLevel_)
         {
             return permissionLevel_.ToString();
@@ -39,7 +39,7 @@ namespace SoftinuxBase.Security.Common
         /// </summary>
         /// <param name="permissionLevel_"></param>
         /// <param name="extensionName_">The extension name, equal to assembly name, given by Assembly.GetName().Name.</param>
-        /// <returns></returns>
+        /// <returns>string reprensent extension name with permission level.</returns>
         public static string GetExtensionPermissionIdentifier(Permission permissionLevel_, string extensionName_)
         {
             return $"{extensionName_}.{permissionLevel_}";

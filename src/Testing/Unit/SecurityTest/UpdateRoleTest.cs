@@ -66,7 +66,7 @@ namespace SecurityTest
                 };
 
                 // Execute
-                var result = await UpdateRoleAndGrants.CheckAndUpdateRoleAndGrants(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage);
+                var result = await UpdateRoleAndGrants.CheckAndUpdateRoleAndGrants(DatabaseFixture.Storage, DatabaseFixture.RoleManager, model);
 
                 // Assert
                 Assert.NotNull(result);
@@ -140,7 +140,7 @@ namespace SecurityTest
                 };
 
                 // Execute
-                var result = await UpdateRoleAndGrants.CheckAndUpdateRoleAndGrants(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage);
+                var result = await UpdateRoleAndGrants.CheckAndUpdateRoleAndGrants(DatabaseFixture.Storage, DatabaseFixture.RoleManager, model);
 
                 // Assert
                 Assert.Null(result);
@@ -216,7 +216,7 @@ namespace SecurityTest
                 };
 
                 // Execute
-                var result = await UpdateRoleAndGrants.CheckAndUpdateRoleAndGrants(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage);
+                var result = await UpdateRoleAndGrants.CheckAndUpdateRoleAndGrants(DatabaseFixture.Storage, DatabaseFixture.RoleManager, model);
 
                 // Assert
                 Assert.Null(result);
@@ -286,7 +286,7 @@ namespace SecurityTest
                 };
 
                 // Execute
-                var result = await UpdateRoleAndGrants.CheckAndUpdateRoleAndGrants(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage);
+                var result = await UpdateRoleAndGrants.CheckAndUpdateRoleAndGrants(DatabaseFixture.Storage, DatabaseFixture.RoleManager, model);
 
                 // Assert
                 Assert.Null(result);

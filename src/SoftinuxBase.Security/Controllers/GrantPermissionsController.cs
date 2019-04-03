@@ -98,7 +98,7 @@ namespace SoftinuxBase.Security.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveNewRoleAndItsPermissions(SaveNewRoleAndGrantsViewModel model_)
         {
-            string error = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(model_, _roleManager, Storage);
+            string error = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(Storage, _roleManager, model_);
             return StatusCode(string.IsNullOrEmpty(error) ? 201 : 400, error);
         }
 
@@ -142,7 +142,7 @@ namespace SoftinuxBase.Security.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateRoleAndItsPermissions(UpdateRoleAndGrantsViewModel model_)
         {
-            string error = await UpdateRoleAndGrants.CheckAndUpdateRoleAndGrants(model_, _roleManager, Storage);
+            string error = await UpdateRoleAndGrants.CheckAndUpdateRoleAndGrants(Storage, _roleManager, model_);
             return StatusCode(string.IsNullOrEmpty(error) ? 201 : 400, error);
         }
 
@@ -160,7 +160,7 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/delete-role-extension")]
         public async Task<IActionResult> DeleteRoleExtensionLink(string roleName_, string extensionName_)
         {
-            bool deleted = await Tools.DeleteRole.DeleteRoleExtensionLink(roleName_, extensionName_, _roleManager, this.Storage);
+            bool deleted = await Tools.DeleteRole.DeleteRoleExtensionLink(this.Storage, _roleManager, extensionName_, roleName_);
             return StatusCode(deleted ? 204 : 400);
         }
 
@@ -173,7 +173,7 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/delete-role")]
         public async Task<IActionResult> DeleteRole(string roleName_)
         {
-            string error = await Tools.DeleteRole.DeleteRoleAndAllLinks(roleName_, _roleManager, this.Storage);
+            string error = await Tools.DeleteRole.DeleteRoleAndAllLinks(this.Storage, _roleManager, roleName_);
             return StatusCode(string.IsNullOrEmpty(error) ? 204 : 400, error);
         }
 

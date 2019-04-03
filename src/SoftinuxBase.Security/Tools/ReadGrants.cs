@@ -15,12 +15,19 @@ using SoftinuxBase.Security.ViewModels.Permissions;
 
 namespace SoftinuxBase.Security.Tools
 {
+    /*
+        The main ReadGrants class
+        Contains all methods for reading grants permissions
+    */
     public static class ReadGrants
     {
         /// <summary>
         /// Read all grants: to have a global view of permissions granting: for a role or a user, what kind of permission is granted, for every scope (extension).
         /// </summary>
-        /// <returns></returns>
+        /// <param name="roleManager_">role manager instance.</param>
+        /// <param name="storage_">the data storage instance.</param>
+        /// <param name="roleNameByRoleId_">dictionary of all role with id.</param>
+        /// <returns>return a GrantViewModel model object.</returns>
         public static GrantViewModel ReadAll(RoleManager<IdentityRole<string>> roleManager_, IStorage storage_, Dictionary<string, string> roleNameByRoleId_)
         {
             GrantViewModel model = new GrantViewModel();
@@ -78,10 +85,9 @@ namespace SoftinuxBase.Security.Tools
         /// Get the list of extensions associated to a role, with corresponding permission, and also the list of extensions not linked to the role.
         /// </summary>
         /// <param name="roleId_">Id of a role.</param>
-        /// <param name="storage_"></param>
-        /// <param name="availableExtensions_"></param>
-        /// <param name="selectedExtensions_"></param>
-        /// <returns></returns>
+        /// <param name="storage_">the data storage instance.</param>
+        /// <param name="availableExtensions_">output a list of available extensions.</param>
+        /// <param name="selectedExtensions_">output a list of selected extensions.</param>
         public static void GetExtensions(string roleId_, IStorage storage_, out IList<string> availableExtensions_, out IList<SelectedExtension> selectedExtensions_)
         {
             selectedExtensions_ = storage_.GetRepository<IRolePermissionRepository>().FilteredByRoleId(roleId_).Select(

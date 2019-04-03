@@ -16,10 +16,10 @@ namespace SoftinuxBase.Security.Common.Attributes
         /// <summary>
         /// Permissions grouped by extension.
         /// </summary>
-        /// <returns></returns>
         private readonly Dictionary<string, List<Permission>> _permissionsByExtension = new Dictionary<string, List<Permission>>();
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="AnyPermissionRequirementAttribute"/> class.
         /// Allows access when the user has at least one of the claims of type "Permission" with value
         /// defined by its level (Admin, Write, Read...) and an extension name (SoftinuxBase.Security, ProjectX.ExtensionY...).
         /// </summary>
@@ -41,6 +41,7 @@ namespace SoftinuxBase.Security.Common.Attributes
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="AnyPermissionRequirementAttribute"/> class.
         /// Allows access when the user has at least one of the claims of type "Permission" with value
         /// defined by its level (Admin, Write, Read...) and an extension name (SoftinuxBase.Security, ProjectX.ExtensionY...).
         /// </summary>

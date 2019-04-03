@@ -9,6 +9,11 @@ namespace SoftinuxBase.Security.Common.Attributes
 {
     public class ClaimRequirementAttribute : TypeFilterAttribute
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClaimRequirementAttribute"/> class.
+        /// </summary>
+        /// <param name="claimType_"></param>
+        /// <param name="claimValue_"></param>
         public ClaimRequirementAttribute(string claimType_, string claimValue_) : base(typeof(ClaimRequirementFilter))
         {
             Arguments = new object[] { new Claim(claimType_, claimValue_) };

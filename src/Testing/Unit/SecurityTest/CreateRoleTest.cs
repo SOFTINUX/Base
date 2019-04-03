@@ -44,7 +44,7 @@ namespace SecurityTest
                 };
 
                 // Execute
-                var result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage);
+                var result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(DatabaseFixture.Storage, DatabaseFixture.RoleManager, model);
 
                 // Assert
                 Assert.Null(result);
@@ -94,7 +94,7 @@ namespace SecurityTest
                 };
 
                 // Execute
-                var result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage);
+                var result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(DatabaseFixture.Storage, DatabaseFixture.RoleManager, model);
 
                 // Assert
                 Assert.NotNull(result);
@@ -134,7 +134,7 @@ namespace SecurityTest
                 };
 
                 // Execute
-                var result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage);
+                var result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(DatabaseFixture.Storage, DatabaseFixture.RoleManager, model);
 
                 // Assert
                 Assert.Null(result);
@@ -143,7 +143,7 @@ namespace SecurityTest
                 var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(model.RoleName);
                 Assert.NotNull(createdRole);
 
-                result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(model, DatabaseFixture.RoleManager, DatabaseFixture.Storage);
+                result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(DatabaseFixture.Storage, DatabaseFixture.RoleManager, model);
                 Assert.NotNull(result);
                 Assert.Equal("A role with this name already exists", result);
             }

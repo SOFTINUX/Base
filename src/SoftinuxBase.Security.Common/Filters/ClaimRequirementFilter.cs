@@ -12,11 +12,19 @@ namespace SoftinuxBase.Security.Common.Filters
     {
         private readonly Claim _claim;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClaimRequirementFilter"/> class.
+        /// </summary>
+        /// <param name="claim_"></param>
         public ClaimRequirementFilter(Claim claim_)
         {
             _claim = claim_;
         }
 
+        /// <summary>
+        /// TODO Document this.
+        /// </summary>
+        /// <param name="context_"></param>
         public void OnAuthorization(AuthorizationFilterContext context_)
         {
             var hasClaim = context_.HttpContext.User.Claims.Any(c_ => c_.Type == _claim.Type && c_.Value == _claim.Value);
