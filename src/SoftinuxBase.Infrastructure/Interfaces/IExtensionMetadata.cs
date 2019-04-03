@@ -2,7 +2,7 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.Collections.Generic;
-using System.Reflection ;
+using System.Reflection;
 using ExtCore.Infrastructure;
 
 namespace SoftinuxBase.Infrastructure.Interfaces
@@ -18,6 +18,6 @@ namespace SoftinuxBase.Infrastructure.Interfaces
         IEnumerable<MenuGroup> MenuGroups { get; }
         bool IsAvailableForPermissions { get; }
 
-        Assembly CurrentAssemnly { get; }
+        Assembly CurrentAssembly { get; }
     }
 }

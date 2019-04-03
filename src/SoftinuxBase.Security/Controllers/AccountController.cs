@@ -10,7 +10,6 @@ using Microsoft.Extensions.Logging;
 using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.Tools;
 using SoftinuxBase.Security.ViewModels.Account;
-using ControllerBase = SoftinuxBase.Infrastructure.ControllerBase;
 
 namespace SoftinuxBase.Security.Controllers
 {

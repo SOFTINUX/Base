@@ -1,10 +1,9 @@
 ﻿// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
-using System ;
+using System;
 using System.Collections.Generic;
-using System.Reflection ;
-using ExtCore.Infrastructure;
+using System.Reflection;
 using SoftinuxBase.Infrastructure;
 using SoftinuxBase.Infrastructure.Interfaces;
 using SoftinuxBase.Security.Common.Attributes;
@@ -14,32 +13,32 @@ namespace SoftinuxBase.Security
 {
     public class ExtensionMetadata : IExtensionMetadata
     {
-        public Assembly CurrentAssemnly => Assembly.GetExecutingAssembly();
+        public Assembly CurrentAssembly => Assembly.GetExecutingAssembly();
 
         /// <summary>
         /// Gets the name of the extension.
         /// </summary>
-        public string Name => Attribute.GetCustomAttribute(CurrentAssemnly, typeof(AssemblyName)).ToString();
+        public string Name => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyName)).ToString();
 
         /// <summary>
         /// Gets the URL of the extension.
         /// </summary>
-        public string Url => Attribute.GetCustomAttribute(CurrentAssemnly, typeof(AssemblyTitleAttribute)).ToString();
+        public string Url => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyTitleAttribute)).ToString();
 
         /// <summary>
         /// Gets the version of the extension.
         /// </summary>
-        public string Version => Attribute.GetCustomAttribute(CurrentAssemnly, typeof(AssemblyVersionAttribute)).ToString();
+        public string Version => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyVersionAttribute)).ToString();
 
         /// <summary>
         /// Gets the authors of the extension (separated by commas).
         /// </summary>
-        public string Authors => Attribute.GetCustomAttribute(CurrentAssemnly, typeof(AssemblyCompanyAttribute)).ToString();
+        public string Authors => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyCompanyAttribute)).ToString();
 
         /// <summary>
         /// Gets the description of the extension (separated by commas).
         /// </summary>
-        public string Description => Attribute.GetCustomAttribute(CurrentAssemnly, typeof(AssemblyDescriptionAttribute)).ToString();
+        public string Description => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyDescriptionAttribute)).ToString();
 
         bool IExtensionMetadata.IsAvailableForPermissions => true;
 

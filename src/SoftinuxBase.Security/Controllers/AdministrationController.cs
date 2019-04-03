@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SoftinuxBase.Security.Common.Attributes;
 using SoftinuxBase.Security.Common.Enums;
-using ControllerBase = SoftinuxBase.Infrastructure.ControllerBase;
 
 namespace SoftinuxBase.Security.Controllers
 {

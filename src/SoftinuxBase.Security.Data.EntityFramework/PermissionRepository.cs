@@ -6,7 +6,6 @@ using System.Linq;
 using ExtCore.Data.EntityFramework;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 using Permission = SoftinuxBase.Security.Data.Entities.Permission;
