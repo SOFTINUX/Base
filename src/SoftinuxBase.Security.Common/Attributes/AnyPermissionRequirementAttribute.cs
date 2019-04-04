@@ -23,8 +23,8 @@ namespace SoftinuxBase.Security.Common.Attributes
         /// Allows access when the user has at least one of the claims of type "Permission" with value
         /// defined by its level (Admin, Write, Read...) and an extension name (SoftinuxBase.Security, ProjectX.ExtensionY...).
         /// </summary>
-        /// <param name="permissionLevel_"></param>
-        /// <param name="extensionAssemblySimpleName_"></param>
+        /// <param name="permissionLevel_">array of permissions objects containing permission level.</param>
+        /// <param name="extensionAssemblySimpleName_">array of strings containing the simple name of the assembly extensions.</param>
         public AnyPermissionRequirementAttribute(Permission[] permissionLevel_, string[] extensionAssemblySimpleName_)
         {
             for (int i = 0; i < permissionLevel_.Length; i++)

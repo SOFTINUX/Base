@@ -18,7 +18,7 @@ namespace SoftinuxBase.Security.Tools
         /// <summary>
         /// Check that a role with the same normalized name exists.
         /// </summary>
-        /// <param name="roleManager_"></param>
+        /// <param name="roleManager_">asp identity role manager object.</param>
         /// <param name="roleName_">Role name.</param>
         /// <param name="roleId_">Role ID. When not null, the found role should not have this id.</param>
         /// <returns>true when a role with this normalized name is found.</returns>
@@ -32,9 +32,9 @@ namespace SoftinuxBase.Security.Tools
         /// First, check that a role with this name and another ID doesn't already exist.
         /// Second, save new data into database.
         /// </summary>
+        /// <param name="storage_">the data storage instance.</param>
+        /// <param name="roleManager_">asp identity role manager object.</param>
         /// <param name="model_">Model with role name and grant data (extensions and permission level).</param>
-        /// <param name="roleManager_"></param>
-        /// <param name="storage_"></param>
         /// <returns>Not null when something failed, else null when save went ok.</returns>
         internal static async Task<string> CheckAndUpdateRoleAndGrants(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, UpdateRoleAndGrantsViewModel model_)
         {

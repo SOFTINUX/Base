@@ -5,6 +5,12 @@ namespace SoftinuxBase.Security.Extensions
 {
     public static class StringExtensions
     {
+        /// <summary>
+        /// Extend String class to
+        /// transform first letter of string in upper case.
+        /// </summary>
+        /// <param name="s_">string to make first letter in upper case.</param>
+        /// <returns>return the string with first letter in upper case.</returns>
         public static string UppercaseFirst(this string s_)
         {
             if (string.IsNullOrEmpty(s_))

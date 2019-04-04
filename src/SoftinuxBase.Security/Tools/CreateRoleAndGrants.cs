@@ -22,9 +22,9 @@ namespace SoftinuxBase.Security.Tools
         /// First, check that a role with this name doesn't already exist.
         /// Second, save new data into database.
         /// </summary>
-        /// <param name="storage_">Model with role name and grant data (extensions and permission level).</param>
-        /// <param name="roleManager_"></param>
-        /// <param name="model_"></param>
+        /// <param name="storage_">the data storage instance.</param>
+        /// <param name="roleManager_">asp identity role manager object.</param>
+        /// <param name="model_">model with role name and grand data (extensions and permissions level).</param>
         /// <returns>Not null when something failed, else null when save went ok.</returns>
         public static async Task<string> CheckAndSaveNewRoleAndGrants(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, SaveNewRoleAndGrantsViewModel model_)
         {

@@ -93,8 +93,8 @@ namespace SoftinuxBase.Security.Tools
             selectedExtensions_ = storage_.GetRepository<IRolePermissionRepository>().FilteredByRoleId(roleId_).Select(
                 rp_ => new SelectedExtension
                 {
-                    ExtensionName = rp_.Extension, 
-                    PermissionName = rp_.Permission.Name, 
+                    ExtensionName = rp_.Extension,
+                    PermissionName = rp_.Permission.Name,
                     PermissionId = rp_.PermissionId
                 })
                 .ToList();

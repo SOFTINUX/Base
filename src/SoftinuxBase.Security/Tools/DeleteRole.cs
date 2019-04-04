@@ -16,6 +16,10 @@ namespace SoftinuxBase.Security.Tools
         /// <summary>
         /// Delete the record indicating that a role is linked to an extension.
         /// </summary>
+        /// <param name="storage_">the data storage instance.</param>
+        /// <param name="roleManager_">role manager instance.</param>
+        /// <param name="extensionName_">string represent extension name.</param>
+        /// <param name="roleName_">string represent role name.</param>
         /// <returns>false when record to delete wasn't found.</returns>
         internal static async Task<bool> DeleteRoleExtensionLink(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, string extensionName_, string roleName_)
         {
@@ -34,6 +38,9 @@ namespace SoftinuxBase.Security.Tools
         /// <summary>
         /// Delete all the records indicating that a role is linked to extensions.
         /// </summary>
+        /// <param name="storage_">the data storage instance.</param>
+        /// <param name="roleManager_">role manager instance.</param>
+        /// <param name="roleName_">string represent role name.</param>
         /// <returns>false when records to delete weren't found.</returns>
         internal static async Task<bool> DeleteRoleExtensionLinks(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, string roleName_)
         {
