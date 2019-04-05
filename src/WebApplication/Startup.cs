@@ -1,6 +1,7 @@
 ﻿// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System;
 using System.IO;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Antiforgery;
@@ -20,7 +21,6 @@ namespace WebApplication
 {
     public class Startup
     {
-        private IConfiguration Configuration { get; }
         private readonly string _extensionsPath;
 
         public Startup(IConfiguration configuration_, IHostingEnvironment hostingEnvironment_)
@@ -28,6 +28,8 @@ namespace WebApplication
             Configuration = configuration_;
             _extensionsPath = hostingEnvironment_.ContentRootPath + Configuration["Extensions:Path"].Replace('/', Path.DirectorySeparatorChar).Replace('\\', Path.DirectorySeparatorChar);
         }
+
+        private IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services_)
         {
@@ -51,12 +53,15 @@ namespace WebApplication
             services_.AddSoftinuxLogger();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
-            //var exeAssembly = Assembly.GetEntryAssembly().GetName().Name;
-            //var basePath = AppDomain.CurrentDomain.BaseDirectory;
+            var basePath = AppDomain.CurrentDomain.BaseDirectory;
             services_.AddSwaggerGen(c_ =>
             {
                 c_.SwaggerDoc("v1", new Info { Title = "Softinux Base API", Version = "v1" });
-                //c_.IncludeXmlComments($"{basePath}{exeAssembly}.xml");
+                foreach (SoftinuxBase.Infrastructure.Interfaces.IExtensionMetadata extensionMetadata in ExtCore.Infrastructure.ExtensionManager.GetInstances<SoftinuxBase.Infrastructure.Interfaces.IExtensionMetadata>())
+                {
+                    Log.Information("#######################################################");
+                    c_.IncludeXmlComments($"{basePath}{extensionMetadata.CurrentAssembly}.xml");
+                }
             });
 
             services_.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

@@ -16,7 +16,7 @@ namespace SoftinuxBase.Barebone
         /// <summary>
         /// Gets the name of the extension.
         /// </summary>
-        public string Name => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyName)).ToString();
+        public string Name => CurrentAssembly.GetName().Name;
 
         /// <summary>
         /// Gets the URL of the extension.
