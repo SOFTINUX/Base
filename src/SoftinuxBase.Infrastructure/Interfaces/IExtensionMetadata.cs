@@ -19,5 +19,9 @@ namespace SoftinuxBase.Infrastructure.Interfaces
         bool IsAvailableForPermissions { get; }
 
         Assembly CurrentAssembly { get; }
+
+#if DEBUG
+        string CurrentAssemblyPath { get; }
+#endif
     }
 }

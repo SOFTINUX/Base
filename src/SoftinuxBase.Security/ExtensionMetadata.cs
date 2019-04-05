@@ -13,7 +13,15 @@ namespace SoftinuxBase.Security
 {
     public class ExtensionMetadata : IExtensionMetadata
     {
+        /// <summary>
+        /// Gets the current assembly object.
+        /// </summary>
         public Assembly CurrentAssembly => Assembly.GetExecutingAssembly();
+
+        /// <summary>
+        /// Gets the full path with assembly name.
+        /// </summary>
+        public string CurrentAssemblyPath => CurrentAssembly.Location.ToString();
 
         /// <summary>
         /// Gets the name of the extension.

@@ -59,8 +59,7 @@ namespace WebApplication
                 c_.SwaggerDoc("v1", new Info { Title = "Softinux Base API", Version = "v1" });
                 foreach (SoftinuxBase.Infrastructure.Interfaces.IExtensionMetadata extensionMetadata in ExtCore.Infrastructure.ExtensionManager.GetInstances<SoftinuxBase.Infrastructure.Interfaces.IExtensionMetadata>())
                 {
-                    Log.Information("#######################################################");
-                    c_.IncludeXmlComments($"{basePath}{extensionMetadata.CurrentAssembly}.xml");
+                    c_.IncludeXmlComments($"{extensionMetadata.CurrentAssemblyPath.Replace(@".dll", string.Empty)}.xml");
                 }
             });
 

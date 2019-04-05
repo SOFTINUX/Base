@@ -16,6 +16,9 @@
     <Copyright>Copyright © 2017 Softinux</Copyright>
     <RepositoryUrl>https://github.com/SOFTINUX/Base</RepositoryUrl>
   </PropertyGroup>
+  <ImportGroup Label="Documentation">
+    <Import Project="..\..\documentation.props" />
+  </ImportGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>

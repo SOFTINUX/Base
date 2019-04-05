@@ -19,6 +19,9 @@
   <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
+  <ImportGroup Label="Documentation">
+    <Import Project="..\..\documentation.props" />
+  </ImportGroup>
   <ItemGroup>
     <PackageReference Include="ExtCore.Mvc.Infrastructure" Version="4.0.0" />
     <PackageReference Include="ExtCore.Data.Abstractions" Version="4.0.0" />
