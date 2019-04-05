@@ -19,7 +19,7 @@ namespace SoftinuxBase.Barebone
         /// <summary>
         /// Gets the full path with assembly name.
         /// </summary>
-        public string CurrentAssemblyPath => CurrentAssembly.Location.ToString();
+        public string CurrentAssemblyPath => CurrentAssembly.Location;
 
         /// <summary>
         /// Gets the name of the extension.

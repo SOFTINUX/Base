@@ -52,8 +52,8 @@ namespace WebApplication
             // Logging
             services_.AddSoftinuxLogger();
 
+#if DEBUG
             // Register the Swagger generator, defining 1 or more Swagger documents
-            var basePath = AppDomain.CurrentDomain.BaseDirectory;
             services_.AddSwaggerGen(c_ =>
             {
                 c_.SwaggerDoc("v1", new Info { Title = "Softinux Base API", Version = "v1" });
@@ -62,6 +62,7 @@ namespace WebApplication
                     c_.IncludeXmlComments($"{extensionMetadata.CurrentAssemblyPath.Replace(@".dll", string.Empty)}.xml");
                 }
             });
+#endif
 
             services_.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

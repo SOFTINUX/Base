@@ -17,11 +17,7 @@ namespace SoftinuxBase.Infrastructure.Interfaces
         IEnumerable<Script> Scripts { get; }
         IEnumerable<MenuGroup> MenuGroups { get; }
         bool IsAvailableForPermissions { get; }
-
         Assembly CurrentAssembly { get; }
-
-#if DEBUG
         string CurrentAssemblyPath { get; }
-#endif
     }
 }
