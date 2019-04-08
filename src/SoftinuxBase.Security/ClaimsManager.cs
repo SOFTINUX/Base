@@ -3,8 +3,8 @@
 
 using System.Collections.Generic;
 using System.Security.Claims;
-using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
+using ExtCore.Data.Abstractions;
 using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Common.Enums;
 using SoftinuxBase.Security.Data.Abstractions;

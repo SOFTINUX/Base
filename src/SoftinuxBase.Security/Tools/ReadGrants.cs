@@ -6,7 +6,6 @@ using System.Linq;
 using ExtCore.Data.Abstractions;
 using ExtCore.Infrastructure;
 using Microsoft.AspNetCore.Identity;
-using SoftinuxBase.Infrastructure.Extensions;
 using SoftinuxBase.Infrastructure.Interfaces;
 using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.Abstractions;
@@ -35,7 +34,7 @@ namespace SoftinuxBase.Security.Tools
              // 1. Get all scopes from available extensions, create initial dictionaries
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
             {
-                model.PermissionsByRoleAndExtension.Add(extensionMetadata.GetExtensionName(), new Dictionary<string, List<global::SoftinuxBase.Security.Common.Enums.Permission>>());
+                model.PermissionsByRoleAndExtension.Add(extensionMetadata.Name, new Dictionary<string, List<global::SoftinuxBase.Security.Common.Enums.Permission>>());
             }
 
             // 2. Read data from RolePermission table
@@ -104,7 +103,7 @@ namespace SoftinuxBase.Security.Tools
             availableExtensions_ = new List<string>();
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
             {
-                var extensionName = extensionMetadata.GetExtensionName();
+                var extensionName = extensionMetadata.Name;
                 if (!selectedExtensionsNames.Contains(extensionName) && extensionMetadata.IsAvailableForPermissions)
                 {
                     availableExtensions_.Add(extensionName);

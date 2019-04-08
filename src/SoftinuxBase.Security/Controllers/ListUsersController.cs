@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using SoftinuxBase.Security.Common.Attributes;
 using SoftinuxBase.Security.Data.Entities;
+
 using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 
 namespace SoftinuxBase.Security.Controllers
