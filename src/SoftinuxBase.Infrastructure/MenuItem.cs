@@ -21,6 +21,15 @@ namespace SoftinuxBase.Infrastructure
         /// </summary>
         private readonly List<string> _allRequiredPermissionIdentifiers = new List<string>();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MenuItem"/> class.
+        /// </summary>
+        /// <param name="url_">set menuitem route url.</param>
+        /// <param name="name_">set menu item display name.</param>
+        /// <param name="position_">set menu item position in menu group.</param>
+        /// <param name="fontAwesomeClass_">set menu item icon.</param>
+        /// <param name="infrastructureAuthorizeAttributes_"></param>
+        /// <param name="microsoftAuthorizeAttributes_"></param>
         public MenuItem(
             string url_,
             string name_,
@@ -66,10 +75,19 @@ namespace SoftinuxBase.Infrastructure
             }
         }
 
-        public string Url { get; set; }
+        /// <summary>
+        /// Gets route url.
+        /// </summary>
+        public string Url { get; private set; }
 
-        public string Name { get; set; }
+        /// <summary>
+        /// Gets menu display name.
+        /// </summary>
+        public string Name { get; private set; }
 
+        /// <summary>
+        /// Gets menu position in list.
+        /// </summary>
         public uint Position { get; }
 
         /// <summary>

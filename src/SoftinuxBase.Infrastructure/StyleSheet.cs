@@ -5,14 +5,25 @@ namespace SoftinuxBase.Infrastructure
 {
     public class StyleSheet
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StyleSheet"/> class.
+        /// </summary>
+        /// <param name="url_">set url to load css.</param>
+        /// <param name="position_">set position of css in the list of css included in the page.</param>
         public StyleSheet(string url_, int position_)
         {
             Url = url_;
             Position = position_;
         }
 
-        public string Url { get; set; }
+        /// <summary>
+        /// Gets url of css included in the page.
+        /// </summary>
+        public string Url { get; private set; }
 
+        /// <summary>
+        /// Gets position of the css in the list of css included in the page.
+        /// </summary>
         public int Position { get; }
     }
 }
