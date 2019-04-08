@@ -24,12 +24,12 @@ namespace SoftinuxBase.Infrastructure
         /// <summary>
         /// Initializes a new instance of the <see cref="MenuItem"/> class.
         /// </summary>
-        /// <param name="url_">set menuitem route url.</param>
+        /// <param name="url_">set menu item route url.</param>
         /// <param name="name_">set menu item display name.</param>
         /// <param name="position_">set menu item position in menu group.</param>
-        /// <param name="fontAwesomeClass_">set menu item icon.</param>
-        /// <param name="infrastructureAuthorizeAttributes_"></param>
-        /// <param name="microsoftAuthorizeAttributes_"></param>
+        /// <param name="fontAwesomeClass_">set menu item icon. If null, "fa-circle-o" will be used.</param>
+        /// <param name="infrastructureAuthorizeAttributes_">set a list of <see cref="PermissionRequirementAttribute"/>.</param>
+        /// <param name="microsoftAuthorizeAttributes_">set a list of <see cref="Microsoft.AspNetCore.Authorization.AuthorizeAttribute"/>.</param>
         public MenuItem(
             string url_,
             string name_,
@@ -42,7 +42,6 @@ namespace SoftinuxBase.Infrastructure
             Name = name_;
             Position = position_;
 
-            // Always a default icon
             FontAwesomeClass = fontAwesomeClass_ ?? "fa-circle-o";
 
             if (microsoftAuthorizeAttributes_ != null)
@@ -81,12 +80,12 @@ namespace SoftinuxBase.Infrastructure
         public string Url { get; private set; }
 
         /// <summary>
-        /// Gets menu display name.
+        /// Gets menu item display name.
         /// </summary>
         public string Name { get; private set; }
 
         /// <summary>
-        /// Gets menu position in list.
+        /// Gets menu item position in list.
         /// </summary>
         public uint Position { get; }
 
