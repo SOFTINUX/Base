@@ -11,8 +11,11 @@ namespace SoftinuxBase.Barebone.ViewComponents
 {
     public class StyleSheetsViewComponent : ViewComponentBase
     {
+        private readonly ILogger _logger;
+
         public StyleSheetsViewComponent(ILoggerFactory loggerFactory_) : base(loggerFactory_)
         {
+            _logger = _loggerFactory.CreateLogger(GetType().FullName);
         }
 
         public Task<IViewComponentResult> InvokeAsync()
@@ -21,7 +24,7 @@ namespace SoftinuxBase.Barebone.ViewComponents
             watch.Start();
             StyleSheetsViewModel model = new StyleSheetsViewModelFactory().Create();
             watch.Stop();
-            LoggerFactory.CreateLogger<StyleSheetsViewComponent>().LogInformation("Time to build stylesheets list by StyleSheetsViewModelFactory: " + watch.ElapsedMilliseconds + " ms");
+            _logger.LogInformation("Time to build stylesheets list by StyleSheetsViewModelFactory: " + watch.ElapsedMilliseconds + " ms");
             return Task.FromResult<IViewComponentResult>(View(model));
         }
     }

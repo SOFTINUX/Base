@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using ExtCore.Data.Abstractions;
 using ExtCore.Infrastructure;
 using Microsoft.Extensions.Logging;
 using SoftinuxBase.Barebone.ViewModels.Shared.MenuGroup;
@@ -13,9 +14,12 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.Menu
 {
     public class MenuViewModelFactory : ViewModelFactoryBase
     {
-        public MenuViewModelFactory(IRequestHandler requestHandler_, ILoggerFactory loggerFactory_)
-            : base(requestHandler_, loggerFactory_)
+        private readonly ILogger _logger;
+
+        public MenuViewModelFactory(IStorage storage_, ILoggerFactory loggerFactory_)
+            : base(storage_, loggerFactory_)
         {
+            _logger = loggerFactory_?.CreateLogger(GetType().FullName);
         }
 
         public MenuViewModel Create()
@@ -24,7 +28,7 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.Menu
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
             {
 #if DEBUG
-                Logger.LogInformation($"Looking for menu groups for extension metadata {extensionMetadata.GetType().FullName}");
+                _logger.LogInformation($"Looking for menu groups for extension metadata {extensionMetadata.GetType().FullName}");
 #endif
 
                 if (extensionMetadata.MenuGroups == null)
@@ -34,7 +38,7 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.Menu
 
                 foreach (Infrastructure.MenuGroup menuGroup in extensionMetadata.MenuGroups)
                 {
-                    MenuGroupViewModel menuGroupViewModel = FindOrCreateMenuGroup(RequestHandler, menuGroupViewModels, menuGroup, Logger);
+                    MenuGroupViewModel menuGroupViewModel = FindOrCreateMenuGroup(_storage, _loggerFactory, menuGroupViewModels, menuGroup, _logger);
 
                     // Take existing items
                     List<MenuItemViewModel> menuItemViewModels = menuGroupViewModel.MenuItems;
@@ -47,7 +51,7 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.Menu
                     foreach (Infrastructure.MenuItem menuItem in menuGroup.MenuItems)
                     {
                         // TODO: here add claims verification for menu items
-                        menuItemViewModels.Add(new MenuItemViewModelFactory(RequestHandler).Create(menuItem));
+                        menuItemViewModels.Add(new MenuItemViewModelFactory(_storage, _loggerFactory).Create(menuItem));
                     }
 
                     // Set all the ordered items back to menu group
@@ -66,12 +70,13 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.Menu
         /// <summary>
         /// Finds the MenuGroupViewModel in menuGroupViewModels_ or creates and returns it.
         /// </summary>
-        /// <param name="requestHandler_"></param>
+        /// <param name="storage_"></param>
+        /// <param name="loggerFactory_"></param>
         /// <param name="menuGroupViewModels_"></param>
         /// <param name="menuGroup_"></param>
         /// <param name="logger_"></param>
         /// <returns></returns>
-        private static MenuGroupViewModel FindOrCreateMenuGroup(IRequestHandler requestHandler_, IDictionary<string, MenuGroupViewModel> menuGroupViewModels_, Infrastructure.MenuGroup menuGroup_, ILogger logger_)
+        private static MenuGroupViewModel FindOrCreateMenuGroup(IStorage storage_, ILoggerFactory loggerFactory_, IDictionary<string, MenuGroupViewModel> menuGroupViewModels_, Infrastructure.MenuGroup menuGroup_, ILogger logger_)
         {
             menuGroupViewModels_.TryGetValue(menuGroup_.Name, out var menuGroupViewModel);
 
@@ -80,7 +85,7 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.Menu
 #if DEBUG
                 logger_.LogInformation($"Menu group {menuGroup_.Name} found for first time, position {menuGroup_.Position}");
 #endif
-                menuGroupViewModel = new MenuGroupViewModelFactory(requestHandler_).Create(menuGroup_);
+                menuGroupViewModel = new MenuGroupViewModelFactory(storage_, loggerFactory_).Create(menuGroup_);
                 menuGroupViewModels_.Add(menuGroupViewModel.Name, menuGroupViewModel);
             }
             else

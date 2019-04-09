@@ -12,8 +12,11 @@ namespace SoftinuxBase.Barebone.ViewComponents
 {
     public class MenuViewComponent : ViewComponentBase
     {
+        private readonly ILogger _logger;
+
         public MenuViewComponent(IStorage storage_, ILoggerFactory loggerFactory_) : base(storage_, loggerFactory_)
         {
+            _logger = _loggerFactory.CreateLogger(GetType().FullName);
         }
 
         /// <summary>
@@ -22,13 +25,13 @@ namespace SoftinuxBase.Barebone.ViewComponents
         /// <returns></returns>
         public Task<IViewComponentResult> InvokeAsync()
         {
-            MenuViewModelFactory factory = new MenuViewModelFactory(this, LoggerFactory);
+            MenuViewModelFactory factory = new MenuViewModelFactory(_storage, _loggerFactory);
 
             Stopwatch watch = new Stopwatch();
             watch.Start();
             MenuViewModel menu = factory.Create();
             watch.Stop();
-            LoggerFactory.CreateLogger<MenuViewComponent>().LogInformation("Time to build menu content by MenuViewModelFactory: " + watch.ElapsedMilliseconds + " ms");
+            _logger.LogInformation("Time to build menu content by MenuViewModelFactory: " + watch.ElapsedMilliseconds + " ms");
             return Task.FromResult<IViewComponentResult>(View(menu));
         }
     }

@@ -11,8 +11,11 @@ namespace SoftinuxBase.Barebone.ViewComponents
 {
     public class ScriptsViewComponent : ViewComponentBase
     {
+        private readonly ILogger _logger;
+
         public ScriptsViewComponent(ILoggerFactory loggerFactory_) : base(loggerFactory_)
         {
+            _logger = _loggerFactory.CreateLogger(GetType().FullName);
         }
 
         public Task<IViewComponentResult> InvokeAsync()
@@ -21,7 +24,7 @@ namespace SoftinuxBase.Barebone.ViewComponents
             watch.Start();
             ScriptsViewModel model = new ScriptsViewModelFactory().Create();
             watch.Stop();
-            LoggerFactory.CreateLogger<ScriptsViewComponent>().LogInformation("Time to build scripts list by ScriptsViewModelFactory: " + watch.ElapsedMilliseconds + " ms");
+            _logger.LogInformation("Time to build scripts list by ScriptsViewModelFactory: " + watch.ElapsedMilliseconds + " ms");
             return Task.FromResult<IViewComponentResult>(View(model));
         }
     }

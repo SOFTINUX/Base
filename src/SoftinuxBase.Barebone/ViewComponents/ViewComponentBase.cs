@@ -4,25 +4,24 @@
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SoftinuxBase.Infrastructure.Interfaces;
 
 namespace SoftinuxBase.Barebone.ViewComponents
 {
-    public abstract class ViewComponentBase : ViewComponent, IRequestHandler
+    public abstract class ViewComponentBase : ViewComponent
     {
-        public IStorage Storage { get; }
+        protected readonly IStorage _storage;
 
-        public ILoggerFactory LoggerFactory { get; }
+        protected readonly ILoggerFactory _loggerFactory;
 
         protected ViewComponentBase(IStorage storage_, ILoggerFactory loggerFactory_)
         {
-            Storage = storage_;
-            LoggerFactory = loggerFactory_;
+            _storage = storage_;
+            _loggerFactory = loggerFactory_;
         }
 
         protected ViewComponentBase(ILoggerFactory loggerFactory_)
         {
-            LoggerFactory = loggerFactory_;
+            _loggerFactory = loggerFactory_;
         }
     }
 }

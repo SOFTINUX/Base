@@ -49,7 +49,7 @@ namespace SoftinuxBase.Security.Controllers
 
             ViewBag.RolesList = rolesList;
 
-            var model = ReadGrants.ReadAll(_roleManager, Storage, roleNameByRoleId);
+            var model = ReadGrants.ReadAll(_roleManager, _storage, roleNameByRoleId);
             return await Task.Run(() => View(model));
         }
 
@@ -75,7 +75,7 @@ namespace SoftinuxBase.Security.Controllers
                 return StatusCode(400, Json("No such role for edition"));
             }
 
-            ReadGrants.GetExtensions(roleId_, Storage, out var availableExtensions, out var selectedExtensions);
+            ReadGrants.GetExtensions(roleId_, _storage, out var availableExtensions, out var selectedExtensions);
 
             ReadRoleViewModel result = new ReadRoleViewModel
             {
@@ -99,7 +99,7 @@ namespace SoftinuxBase.Security.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveNewRoleAndItsPermissions(SaveNewRoleAndGrantsViewModel model_)
         {
-            string error = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(Storage, _roleManager, model_);
+            string error = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(_storage, _roleManager, model_);
             return StatusCode(string.IsNullOrEmpty(error) ? 201 : 400, error);
         }
 
@@ -120,16 +120,16 @@ namespace SoftinuxBase.Security.Controllers
         public async Task<IActionResult> UpdateRolePermission(string roleName_, string permissionValue_, string extension_)
         {
             string roleId = (await _roleManager.FindByNameAsync(roleName_)).Id;
-            IRolePermissionRepository repo = Storage.GetRepository<IRolePermissionRepository>();
+            IRolePermissionRepository repo = _storage.GetRepository<IRolePermissionRepository>();
             repo.Delete(roleId, extension_);
 
             if (Enum.TryParse<Permission>(permissionValue_, true, out var permissionEnumValue))
             {
-                var permissionEntity = Storage.GetRepository<IPermissionRepository>().Find(permissionEnumValue);
+                var permissionEntity = _storage.GetRepository<IPermissionRepository>().Find(permissionEnumValue);
                 repo.Create(new RolePermission { RoleId = roleId, PermissionId = permissionEntity.Id, Extension = extension_ });
             }
 
-            Storage.Save();
+            _storage.Save();
             return new JsonResult(true);
         }
 
@@ -143,7 +143,7 @@ namespace SoftinuxBase.Security.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateRoleAndItsPermissions(UpdateRoleAndGrantsViewModel model_)
         {
-            string error = await UpdateRoleAndGrants.CheckAndUpdateRoleAndGrants(Storage, _roleManager, model_);
+            string error = await UpdateRoleAndGrants.CheckAndUpdateRoleAndGrants(_storage, _roleManager, model_);
             return StatusCode(string.IsNullOrEmpty(error) ? 201 : 400, error);
         }
 
@@ -161,7 +161,7 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/delete-role-extension")]
         public async Task<IActionResult> DeleteRoleExtensionLink(string roleName_, string extensionName_)
         {
-            bool deleted = await Tools.DeleteRole.DeleteRoleExtensionLink(this.Storage, _roleManager, extensionName_, roleName_);
+            bool deleted = await Tools.DeleteRole.DeleteRoleExtensionLink(this._storage, _roleManager, extensionName_, roleName_);
             return StatusCode(deleted ? 204 : 400);
         }
 
@@ -174,7 +174,7 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/delete-role")]
         public async Task<IActionResult> DeleteRole(string roleName_)
         {
-            string error = await Tools.DeleteRole.DeleteRoleAndAllLinks(this.Storage, _roleManager, roleName_);
+            string error = await Tools.DeleteRole.DeleteRoleAndAllLinks(this._storage, _roleManager, roleName_);
             return StatusCode(string.IsNullOrEmpty(error) ? 204 : 400, error);
         }
 

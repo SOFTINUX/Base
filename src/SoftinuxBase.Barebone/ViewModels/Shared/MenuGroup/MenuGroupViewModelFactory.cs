@@ -2,15 +2,16 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.Collections.Generic;
+using ExtCore.Data.Abstractions;
+using Microsoft.Extensions.Logging;
 using SoftinuxBase.Barebone.ViewModels.Shared.MenuItem;
-using SoftinuxBase.Infrastructure.Interfaces;
 
 namespace SoftinuxBase.Barebone.ViewModels.Shared.MenuGroup
 {
     public class MenuGroupViewModelFactory : ViewModelFactoryBase
     {
-        public MenuGroupViewModelFactory(IRequestHandler requestHandler_)
-            : base(requestHandler_)
+        public MenuGroupViewModelFactory(IStorage storage_, ILoggerFactory loggerFactory_)
+            : base(storage_, loggerFactory_)
         {
         }
 
