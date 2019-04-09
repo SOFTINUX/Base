@@ -21,12 +21,22 @@ namespace SoftinuxBase.Security.Controllers
         // private readonly ILogger _logger;
         private readonly UserManager<User> _usersmanager;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ListUsersController"/> class.
+        /// </summary>
+        /// <param name="storage_">application storage instance.</param>
+        /// <param name="users_">.Net Identity user from UserManager.</param>
+        /// <param name="loggerFactory_">application logger instance.</param>
         public ListUsersController(IStorage storage_, UserManager<User> users_, ILoggerFactory loggerFactory_) : base(storage_, loggerFactory_)
         {
             // _logger = _loggerFactory.CreateLogger(GetType().FullName);
             _usersmanager = users_;
         }
 
+        /// <summary>
+        /// List users.
+        /// </summary>
+        /// <returns>return listing view of users.</returns>
         [Route("administration/listusers")]
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -35,6 +45,11 @@ namespace SoftinuxBase.Security.Controllers
             return await Task.Run(() => View("ListUsers"));
         }
 
+        /// <summary>
+        /// edit user.
+        /// </summary>
+        /// <param name="userId_">string represent user Id.</param>
+        /// <returns>return edit user view.</returns>
         [Route("administration/listusers/edituser")]
         [HttpGet]
         public async Task<IActionResult> EditUser(string userId_)

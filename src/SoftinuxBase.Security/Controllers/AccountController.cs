@@ -19,6 +19,13 @@ namespace SoftinuxBase.Security.Controllers
         private readonly UserManager<User> _userManager;
         private readonly ILogger _logger;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AccountController"/> class.
+        /// </summary>
+        /// <param name="storage_">application storage intance.</param>
+        /// <param name="loggerFactory_">application logger instance.</param>
+        /// <param name="userManager_">identity .Net Core usesr manager instance.</param>
+        /// <param name="signInManager_">identity .Net Core signin manager instance.</param>
         public AccountController(IStorage storage_, ILoggerFactory loggerFactory_, UserManager<User> userManager_, SignInManager<User> signInManager_) : base(storage_, loggerFactory_)
         {
             _userManager = userManager_;

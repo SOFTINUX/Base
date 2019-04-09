@@ -154,9 +154,9 @@ namespace SoftinuxBase.Security.Controllers
         /// <summary>
         /// Delete the record linking a role to an extension.
         /// </summary>
-        /// <param name="roleName_"></param>
-        /// <param name="extensionName_"></param>
-        /// <returns>Status code 204 (ok) or 400 (no deletion occurred)</returns>
+        /// <param name="roleName_">string represent role to delete.</param>
+        /// <param name="extensionName_">string represent the extension name linked to role.</param>
+        /// <returns>Status code 204 (ok) or 400 (no deletion occurred).</returns>
         [HttpPost]
         [Route("administration/delete-role-extension")]
         public async Task<IActionResult> DeleteRoleExtensionLink(string roleName_, string extensionName_)
@@ -168,8 +168,8 @@ namespace SoftinuxBase.Security.Controllers
         /// <summary>
         /// Delete the records linking a role to any extension, then delete role record if possible..
         /// </summary>
-        /// <param name="roleName_"></param>
-        /// <returns>Status code 204, or 400 with an error message</returns>
+        /// <param name="roleName_">string represent role name to delete.</param>
+        /// <returns>Status code 204, or 400 with an error message.</returns>
         [HttpPost]
         [Route("administration/delete-role")]
         public async Task<IActionResult> DeleteRole(string roleName_)

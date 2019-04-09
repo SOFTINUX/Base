@@ -11,11 +11,13 @@ namespace SoftinuxBase.Barebone
 {
     public class ExtensionMetadata : IExtensionMetadata
     {
+        /// <inheritdoc />
         /// <summary>
         /// Gets the current assembly object.
         /// </summary>
         public Assembly CurrentAssembly => Assembly.GetExecutingAssembly();
 
+        /// <inheritdoc />
         /// <summary>
         /// Gets the full path with assembly name.
         /// </summary>
