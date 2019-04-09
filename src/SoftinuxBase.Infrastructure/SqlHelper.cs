@@ -4,10 +4,10 @@
 using System;
 using System.Data.SqlClient;
 using System.IO;
+using ExtCore.Data.Abstractions;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using ExtCore.Data.Abstractions;
 using Npgsql;
 
 namespace SoftinuxBase.Infrastructure
@@ -61,24 +61,24 @@ namespace SoftinuxBase.Infrastructure
         }
 
         /// <summary>
-        /// application storage instance.
+        /// Storage interface provided by services container.
         /// </summary>
         private readonly IStorage _storage;
 
         /// <summary>
-        /// application logger instance.
+        /// Logger factory interface provided by services container.
         /// </summary>
         private readonly ILogger _logger;
 
         /// <summary>
-        /// type of database provider.
+        /// Type of database provider.
         /// </summary>
         private ProviderCode _providerCode;
 
         /// <summary>
-        /// connexion string to database.
+        /// Connection string to database.
         /// </summary>
-        private string _connexionString;
+        private string _connectionString;
 
         /// <summary>
         /// Execute SQL code from an embedded resource SQL file.
@@ -91,13 +91,13 @@ namespace SoftinuxBase.Infrastructure
         /// <summary>
         /// Initializes a new instance of the <see cref="SqlHelper"/> class.
         /// </summary>
-        /// <param name="storage_">the data storage instance.</param>
-        /// <param name="loggerFactory_">the logger factory instance.</param>
+        /// <param name="storage_">Storage interface provided by services container.</param>
+        /// <param name="loggerFactory_">Logger factory interface provided by services container.</param>
         public SqlHelper(IStorage storage_, ILoggerFactory loggerFactory_)
         {
             _storage = storage_;
             _logger = loggerFactory_.CreateLogger(GetType().FullName);
-            _connexionString = ((DbContext)_storage.StorageContext).Database.GetDbConnection().ConnectionString;
+            _connectionString = ((DbContext)_storage.StorageContext).Database.GetDbConnection().ConnectionString;
             GetProvider();
         }
 
@@ -142,7 +142,7 @@ namespace SoftinuxBase.Infrastructure
         }
 
         /// <summary>
-        /// Execute sql script form internal editor.
+        /// Execute sql script string.
         /// </summary>
         /// <param name="sqlScript_">sql script to execute.</param>
         /// <returns>result of sql script execution.</returns>
@@ -150,7 +150,7 @@ namespace SoftinuxBase.Infrastructure
         {
             if (string.IsNullOrWhiteSpace(sqlScript_) || string.IsNullOrEmpty(sqlScript_))
             {
-                return "you sql script is empty";
+                return "your sql script is empty";
             }
 
             throw new Exception("Not yet implemented");
@@ -159,7 +159,7 @@ namespace SoftinuxBase.Infrastructure
         /// <summary>
         /// Execute SQL code from a plain SQL file.
         /// </summary>
-        /// <param name="filePath_">the file to execute with his access path.</param>
+        /// <param name="filePath_">Path of the file to execute.</param>
         /// <returns>Any error information, else null when no error happened.</returns>
         public string ExecuteSqlFileWithTransaction(string filePath_)
         {
@@ -187,13 +187,13 @@ namespace SoftinuxBase.Infrastructure
         /// <summary>
         /// Test sqlite database connection.
         /// </summary>
-        /// <param name="connexionString_">the connection string to sqlite.</param>
-        /// <returns>True if can open and close connexion, else false.</returns>
-        private static bool TestSqliteConnexion(string connexionString_)
+        /// <param name="connectionString_">the connection string to sqlite.</param>
+        /// <returns>True if can open and close connection, else false.</returns>
+        private static bool TestSqliteConnection(string connectionString_)
         {
             try
             {
-                SqliteConnection connection = new SqliteConnection(connexionString_);
+                SqliteConnection connection = new SqliteConnection(connectionString_);
 
                 connection.Open();
                 connection.Close();
@@ -208,13 +208,13 @@ namespace SoftinuxBase.Infrastructure
         /// <summary>
         /// Test mssql database connection.
         /// </summary>
-        /// <param name="connexionString_">the connection string to MsSql database server.</param>
-        /// <returns>True if can open and close connexion, else false.</returns>
-        private static bool TestMsSqlConnexion(string connexionString_)
+        /// <param name="connectionString_">the connection string to MsSql database server.</param>
+        /// <returns>True if can open and close connection, else false.</returns>
+        private static bool TestMsSqlConnection(string connectionString_)
         {
             try
             {
-                SqlConnection connection = new SqlConnection(connexionString_);
+                SqlConnection connection = new SqlConnection(connectionString_);
 
                 connection.Open();
                 connection.Close();
@@ -229,13 +229,13 @@ namespace SoftinuxBase.Infrastructure
         /// <summary>
         /// Test PostgreSql database connection.
         /// </summary>
-        /// <param name="connexionString_">the connection string to PostgreSql database server.</param>
-        /// <returns>True if can open and close connexion, else false.</returns>
-        private static bool TestPostgresqlConnexion(string connexionString_)
+        /// <param name="connectionString_">the connection string to PostgreSql database server.</param>
+        /// <returns>True if can open and close connection, else false.</returns>
+        private static bool TestPostgresqlConnection(string connectionString_)
         {
             try
             {
-                NpgsqlConnection connection = new NpgsqlConnection(connexionString_);
+                NpgsqlConnection connection = new NpgsqlConnection(connectionString_);
 
                 connection.Open();
                 connection.Close();
@@ -257,11 +257,11 @@ namespace SoftinuxBase.Infrastructure
             switch (_providerCode)
             {
                 case ProviderCode.Sqlite:
-                    return TestSqliteConnexion(connecString_);
+                    return TestSqliteConnection(connecString_);
                 case ProviderCode.Mssql:
-                    return TestMsSqlConnexion(connecString_);
+                    return TestMsSqlConnection(connecString_);
                 case ProviderCode.Postgresql:
-                    return TestPostgresqlConnexion(connecString_);
+                    return TestPostgresqlConnection(connecString_);
                 default:
                     throw new Exception("Database provider not yet implemented");
             }

@@ -22,10 +22,10 @@ namespace SoftinuxBase.Security.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountController"/> class.
         /// </summary>
-        /// <param name="storage_">application storage intance.</param>
-        /// <param name="loggerFactory_">application logger instance.</param>
-        /// <param name="userManager_">identity .Net Core usesr manager instance.</param>
-        /// <param name="signInManager_">identity .Net Core signin manager instance.</param>
+        /// <param name="storage_">Storage interface provided by services container.</param>
+        /// <param name="loggerFactory_">Logger factory interface provided by services container.</param>
+        /// <param name="userManager_">identity framework user manager instance.</param>
+        /// <param name="signInManager_">identity framework signin manager instance.</param>
         public AccountController(IStorage storage_, ILoggerFactory loggerFactory_, UserManager<User> userManager_, SignInManager<User> signInManager_) : base(storage_, loggerFactory_)
         {
             _userManager = userManager_;
@@ -34,7 +34,7 @@ namespace SoftinuxBase.Security.Controllers
         }
 
         /// <summary>
-        /// Access to the register page with GET method, and allowed when not authenticated (of course ^^).
+        /// Access to the register page (GET, anonymous access).
         /// </summary>
         /// <returns>SignUp view.</returns>
         [HttpGet]
@@ -45,11 +45,10 @@ namespace SoftinuxBase.Security.Controllers
         }
 
         /// <summary>
-        /// SignUp action request
-        /// POST: /Account/SignUp.
+        /// SignUp (register) action request (POST to /Account/SignUp).
         /// </summary>
-        /// <param name="signUp_">sinUp model from view.</param>
-        /// <returns>Index or SignUp view.</returns>
+        /// <param name="signUp_">signUp model from view.</param>
+        /// <returns>Index view (signup was ok) or SignUp view (signup failed).</returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -67,7 +66,7 @@ namespace SoftinuxBase.Security.Controllers
         }
 
         /// <summary>
-        /// Access to the login page with GET method, and allowed when not authenticated (of course ^^).
+        /// Access to the login page (GET, anonymous access).
         /// </summary>
         /// <returns>SignIn view.</returns>
         [HttpGet]
@@ -78,10 +77,10 @@ namespace SoftinuxBase.Security.Controllers
         }
 
         /// <summary>
-        /// Sign in action request.
+        /// Sign in (login) action request.
         /// </summary>
-        /// <param name="signIn_">sinUp model from view.</param>
-        /// <returns>View.</returns>
+        /// <param name="signIn_">signIp model from view.</param>
+        /// <returns>Index view (signin was ok) or SignIn view (signin failed).</returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -142,7 +141,7 @@ namespace SoftinuxBase.Security.Controllers
         /// <summary>
         /// SignOut action request.
         /// </summary>
-        /// <returns>View SignIn.</returns>
+        /// <returns>SignIn (login) view.</returns>
         [HttpGet]
         public async Task<IActionResult> SignOut()
         {
@@ -152,9 +151,9 @@ namespace SoftinuxBase.Security.Controllers
         }
 
         /// <summary>
-        /// No acces area.
+        /// Display the access denied page.
         /// </summary>
-        /// <returns>View.</returns>
+        /// <returns>AccessDenied view.</returns>
         [HttpGet]
         public async Task<IActionResult> AccessDenied()
         {
@@ -168,7 +167,7 @@ namespace SoftinuxBase.Security.Controllers
         [HttpGet]
         public IActionResult CreateUser()
         {
-            // TODO coder: create this as async method
+            // TODO to code: create this as async method
             // return user creation view
             return null;
         }
@@ -176,15 +175,15 @@ namespace SoftinuxBase.Security.Controllers
         [HttpPost]
         public IActionResult SaveUser(string userId_)
         {
-            // TODO coder: create this as async method
+            // TODO to code: create this as async method
             return null;
         }
 
         /// <summary>
         /// Update user profile action request.
         /// </summary>
-        /// <param name="userId_">string represent user Id.</param>
-        /// <returns>view user.</returns>
+        /// <param name="userId_">user Id value.</param>
+        /// <returns>User view.</returns>
         [HttpGet]
         public async Task<IActionResult> UpdateProfile(string userId_)
         {
@@ -194,8 +193,8 @@ namespace SoftinuxBase.Security.Controllers
         /// <summary>
         /// Return true when user name isn't in use.
         /// </summary>
-        /// <param name="userName_">string represent user name.</param>
-        /// <returns>json.</returns>
+        /// <param name="userName_">user name value.</param>
+        /// <returns>True/false as JSON.</returns>
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> CheckUserNameExist(string userName_)

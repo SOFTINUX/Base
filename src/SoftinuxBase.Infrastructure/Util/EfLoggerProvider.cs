@@ -13,7 +13,7 @@ namespace SoftinuxBase.Infrastructure.Util
         private static readonly object LogFileWriteLock = new object();
 
         /// <summary>
-        /// path to write log file. Extracted from assembly executing location.
+        /// Gets the path of log file to write. Extracted from assembly executing location.
         /// </summary>
         public static string LogFilePath =>
             Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "entityframework.log");
