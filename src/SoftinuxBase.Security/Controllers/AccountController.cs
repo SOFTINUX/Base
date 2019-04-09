@@ -41,8 +41,8 @@ namespace SoftinuxBase.Security.Controllers
         /// SignUp action request
         /// POST: /Account/SignUp.
         /// </summary>
-        /// <param name="signUp_"></param>
-        /// <returns></returns>
+        /// <param name="signUp_">sinUp model from view.</param>
+        /// <returns>Index or SignUp view.</returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -73,7 +73,7 @@ namespace SoftinuxBase.Security.Controllers
         /// <summary>
         /// Sign in action request.
         /// </summary>
-        /// <param name="signIn_"></param>
+        /// <param name="signIn_">sinUp model from view.</param>
         /// <returns>View.</returns>
         [HttpPost]
         [AllowAnonymous]
@@ -176,7 +176,7 @@ namespace SoftinuxBase.Security.Controllers
         /// <summary>
         /// Update user profile action request.
         /// </summary>
-        /// <param name="userId_"></param>
+        /// <param name="userId_">string represent user Id.</param>
         /// <returns>view user.</returns>
         [HttpGet]
         public async Task<IActionResult> UpdateProfile(string userId_)
@@ -187,7 +187,7 @@ namespace SoftinuxBase.Security.Controllers
         /// <summary>
         /// Return true when user name isn't in use.
         /// </summary>
-        /// <param name="userName_"></param>
+        /// <param name="userName_">string represent user name.</param>
         /// <returns>json.</returns>
         [HttpPost]
         [AllowAnonymous]

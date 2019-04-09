@@ -13,11 +13,34 @@ namespace SoftinuxBase.Infrastructure.Interfaces
     /// </summary>
     public interface IExtensionMetadata : IExtension
     {
+        /// <summary>
+        /// Gets list of styles sheet for extension.
+        /// </summary>
         IEnumerable<StyleSheet> StyleSheets { get; }
+
+        /// <summary>
+        /// Gets list of scripts for extension.
+        /// </summary>
         IEnumerable<Script> Scripts { get; }
+
+        /// <summary>
+        /// Gets menu group of extensions.
+        /// </summary>
         IEnumerable<MenuGroup> MenuGroups { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether if extension if visible in permissions panel.
+        /// </summary>
         bool IsAvailableForPermissions { get; }
+
+        /// <summary>
+        /// Gets extention name.
+        /// </summary>
         Assembly CurrentAssembly { get; }
+
+        /// <summary>
+        /// Gets path to extension location.
+        /// </summary>
         string CurrentAssemblyPath { get; }
     }
 }

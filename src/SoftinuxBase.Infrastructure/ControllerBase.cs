@@ -1,10 +1,10 @@
 // Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
+using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ExtCore.Data.Abstractions;
 using SoftinuxBase.Infrastructure.Interfaces;
 
 namespace SoftinuxBase.Infrastructure
@@ -15,6 +15,9 @@ namespace SoftinuxBase.Infrastructure
     [Authorize]
     public abstract class ControllerBase : Controller, IRequestHandler
     {
+        /// <summary>
+        /// Logger Factory instance. Can't be in private member.
+        /// </summary>
         protected readonly ILoggerFactory LoggerFactory;
 
         // TODO make protected readonly ?

@@ -60,10 +60,24 @@ namespace SoftinuxBase.Infrastructure
             Msaccess,
         }
 
+        /// <summary>
+        /// application storage instance.
+        /// </summary>
         private readonly IStorage _storage;
+
+        /// <summary>
+        /// application logger instance.
+        /// </summary>
         private readonly ILogger _logger;
+
+        /// <summary>
+        /// type of database provider.
+        /// </summary>
         private ProviderCode _providerCode;
 
+        /// <summary>
+        /// connexion string to database.
+        /// </summary>
         private string _connexionString;
 
         /// <summary>

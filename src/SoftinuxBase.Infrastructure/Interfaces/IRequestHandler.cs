@@ -1,8 +1,8 @@
 // Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
-using Microsoft.AspNetCore.Http;
 using ExtCore.Data.Abstractions;
+using Microsoft.AspNetCore.Http;
 
 namespace SoftinuxBase.Infrastructure.Interfaces
 {
@@ -12,7 +12,14 @@ namespace SoftinuxBase.Infrastructure.Interfaces
     /// </summary>
     public interface IRequestHandler
     {
+        /// <summary>
+        /// Gets application HttpContext.
+        /// </summary>
         HttpContext HttpContext { get; }
+
+        /// <summary>
+        /// Gets application storage.
+        /// </summary>
         IStorage Storage { get; }
     }
 }
