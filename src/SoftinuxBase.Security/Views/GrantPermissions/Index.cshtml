@@ -3,7 +3,6 @@
 *@
 @using Microsoft.AspNetCore.Identity
 @using ExtCore.Infrastructure
-@using SoftinuxBase.Infrastructure.Extensions
 @using SoftinuxBase.Infrastructure.Interfaces
 
 @model SoftinuxBase.Security.ViewModels.Permissions.GrantViewModel
@@ -81,7 +80,7 @@
                                         @{
                                             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
                                             {
-                                                var scope = extensionMetadata.GetExtensionName();
+                                                var scope = extensionMetadata.Name;
                                                 if (extensionMetadata.IsAvailableForPermissions)
                                                 {
                                                     <option value="@Html.Raw(scope)">@Html.Raw(scope)</option>
