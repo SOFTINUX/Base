@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using SoftinuxBase.Infrastructure.Util;
 using SoftinuxBase.Security.Data.Entities;
+using Util ;
 
 namespace SoftinuxBase.WebApplication
 {
@@ -18,21 +18,24 @@ namespace SoftinuxBase.WebApplication
     /// </summary>
     public class ApplicationStorageContext : IdentityDbContext<User, IdentityRole<string>, string>, IStorageContext
     {
+        private readonly ILoggerFactory _loggerFactory;
+
+        protected ApplicationStorageContext(DbContextOptions options_, ILoggerFactory loggerFactory_)
+            : base(options_)
+        {
+            _loggerFactory = loggerFactory_;
+        }
+
         public DbSet<Permission> Permission { get; set; }
         public DbSet<RolePermission> RolePermission { get; set; }
         public DbSet<UserPermission> UserPermission { get; set; }
 
-        public ApplicationStorageContext(DbContextOptions options_)
-            : base(options_)
-        {
-        }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder_)
         {
 #if DEBUG
-            ILoggerFactory loggerFactory = new LoggerFactory();
-            loggerFactory.AddProvider(new EfLoggerProvider());
-            base.OnConfiguring(optionsBuilder_.EnableSensitiveDataLogging().UseLoggerFactory(loggerFactory));
+            //ILoggerFactory loggerFactory = new LoggerFactory();
+            _loggerFactory.AddProvider(new EfLoggerProvider());
+            base.OnConfiguring(optionsBuilder_.EnableSensitiveDataLogging().UseLoggerFactory(_loggerFactory));
 #endif
         }
 
