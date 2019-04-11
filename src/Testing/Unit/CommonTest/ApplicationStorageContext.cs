@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using SoftinuxBase.Infrastructure.Util;
 using SoftinuxBase.Security.Data.Entities;
+using SoftinuxLogger.Providers;
 
 namespace CommonTest
 {

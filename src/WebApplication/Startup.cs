@@ -49,7 +49,7 @@ namespace WebApplication
             services_.AddScoped<IStorageContext, ApplicationStorageContext>();
 
             // Logging
-            //services_.AddSoftinuxLogger();
+            services_.AddSoftinuxLogger(Configuration);
 
 #if DEBUG
             // Register the Swagger generator, defining 1 or more Swagger documents
@@ -65,14 +65,6 @@ namespace WebApplication
 
             services_.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services_.AddLogging(loggingBuilder =>
-            {
-                loggingBuilder.AddConfiguration(Configuration.GetSection("Logging"));
-                loggingBuilder.AddConsole();
-                loggingBuilder.AddDebug();
-            });
-
-            var test = services_.BuildServiceProvider().GetRequiredService<ILoggerFactory>();
         }
 
         public void Configure(IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_, IConfiguration configuration_, IAntiforgery antiForgery_)
@@ -95,8 +87,6 @@ namespace WebApplication
 
             applicationBuilder_.UseSoftinuxBase(hostingEnvironment_, loggerFactory_, configuration_, antiForgery_);
 
-            // Logging
-            //applicationBuilder_.UseSoftinuxLogger(loggerFactory_, configuration_);
         }
     }
 }

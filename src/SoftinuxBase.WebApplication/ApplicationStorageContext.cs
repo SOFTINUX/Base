@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SoftinuxBase.Security.Data.Entities;
-using Util ;
 
 namespace SoftinuxBase.WebApplication
 {
