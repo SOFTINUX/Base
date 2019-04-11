@@ -20,10 +20,9 @@ namespace SoftinuxBase.WebApplication
     {
         private readonly ILoggerFactory _loggerFactory;
 
-        protected ApplicationStorageContext(DbContextOptions options_, ILoggerFactory loggerFactory_)
+        protected ApplicationStorageContext(DbContextOptions options_)
             : base(options_)
         {
-            _loggerFactory = loggerFactory_;
         }
 
         public DbSet<Permission> Permission { get; set; }
@@ -34,8 +33,8 @@ namespace SoftinuxBase.WebApplication
         {
 #if DEBUG
             //ILoggerFactory loggerFactory = new LoggerFactory();
-            _loggerFactory.AddProvider(new EfLoggerProvider());
-            base.OnConfiguring(optionsBuilder_.EnableSensitiveDataLogging().UseLoggerFactory(_loggerFactory));
+            //_loggerFactory.AddProvider(new EfLoggerProvider());
+            base.OnConfiguring(optionsBuilder_.EnableSensitiveDataLogging() /*.UseLoggerFactory(_loggerFactory)*/);
 #endif
         }
 

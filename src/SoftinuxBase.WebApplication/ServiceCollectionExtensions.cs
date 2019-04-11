@@ -2,14 +2,15 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
+
+using ExtCore.Data.Abstractions;
+using ExtCore.Data.EntityFramework;
+using ExtCore.WebApplication.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ExtCore.Data.Abstractions;
-using ExtCore.Data.EntityFramework;
-using ExtCore.WebApplication.Extensions;
 using SoftinuxBase.Infrastructure;
 using SoftinuxBase.Security;
 using SoftinuxBase.Security.Data.Entities;
@@ -22,7 +23,7 @@ namespace SoftinuxBase.WebApplication
     public static class ServiceCollectionExtensions
     {
         /// <summary>
-        /// Configure : logging, identity, application cookie, corporate logo, ExtCore, anti-forgery.
+        /// Configure : identity, application cookie, corporate logo, ExtCore, anti-forgery.
         /// It must be called inside the ConfigureServices method of the web application's Startup class
         /// in order SoftinuxBase to work properly.
         /// </summary>
