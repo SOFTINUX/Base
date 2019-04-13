@@ -49,7 +49,7 @@ namespace WebApplication
             services_.AddScoped<IStorageContext, ApplicationStorageContext>();
 
             // Logging
-            services_.AddSoftinuxLogger(Configuration);
+            // services_.AddSoftinuxLogger(Configuration);
 
 #if DEBUG
             // Register the Swagger generator, defining 1 or more Swagger documents
@@ -86,7 +86,6 @@ namespace WebApplication
 #endif
 
             applicationBuilder_.UseSoftinuxBase(hostingEnvironment_, loggerFactory_, configuration_, antiForgery_);
-
         }
     }
 }

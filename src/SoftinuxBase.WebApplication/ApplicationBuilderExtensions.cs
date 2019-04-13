@@ -72,10 +72,10 @@ namespace SoftinuxBase.WebApplication
                         string.Equals(path, "/", StringComparison.OrdinalIgnoreCase) ||
                         string.Equals(path, "/signin", StringComparison.OrdinalIgnoreCase))
                     {
-                    // The request token can be sent as a JavaScript-readable cookie,
-                    // and Angular uses it by default.
-                    var tokens = antiForgery_.GetAndStoreTokens(context_);
-                    context_.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, new CookieOptions() { HttpOnly = false });
+                        // The request token can be sent as a JavaScript-readable cookie,
+                        // and Angular uses it by default.
+                        var tokens = antiForgery_.GetAndStoreTokens(context_);
+                        context_.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, new CookieOptions() { HttpOnly = false });
                     }
 
                     return next_(context_);

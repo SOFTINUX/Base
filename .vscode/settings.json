@@ -9,8 +9,12 @@
     "workbench.sideBar.location": "left",
     "workbench.activityBar.visible": true,
     "workbench.colorCustomizations": {
-        //"editorGutter.background": "#1e1e1e",
+        "editor.lineHighlightBorder": "#363636",
+        "editor.lineHighlightBackground": "#363636",
         "tab.activeBorder": "#FFA500",
+        "activityBar.background": "#561332",
+        "titleBar.activeBackground": "#791B45",
+        "titleBar.activeForeground": "#FEFCFD"
     },
     // Controls if quick suggestions should show up while typing
     "editor.quickSuggestions": {
