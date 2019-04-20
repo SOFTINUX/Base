@@ -2,7 +2,7 @@
     "editor.formatOnSave": false,
     "dotnet-test-explorer.testProjectPath": "./src/Testing/Unit/SecurityTest",
     "dotnet-test-explorer.enableTelemetry": false,
-    "dotnet-test-explorer.pathForResultFile": "${workspaceFolder}",
+    //"dotnet-test-explorer.pathForResultFile": "${workspaceFolder}",
     "editor.showFoldingControls": "always",
     "editor.fontLigatures": true,
     "editor.renderControlCharacters": false,
