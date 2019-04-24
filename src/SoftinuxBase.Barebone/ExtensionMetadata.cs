@@ -50,7 +50,6 @@ namespace SoftinuxBase.Barebone
 
         bool IExtensionMetadata.IsAvailableForPermissions => true;
 
-
         public IEnumerable<StyleSheet> StyleSheets => new[]
         {
             new StyleSheet("/node_modules.wfk_opensans.opensans.css", 100),

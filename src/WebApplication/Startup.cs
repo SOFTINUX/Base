@@ -13,7 +13,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using SoftinuxBase.WebApplication;
-using SoftinuxLogger;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace WebApplication
@@ -48,8 +47,9 @@ namespace WebApplication
             // Register database-specific storage context implementation.
             services_.AddScoped<IStorageContext, ApplicationStorageContext>();
 
-            // Logging
-            // services_.AddSoftinuxLogger(Configuration);
+            /* Logging
+               services_.AddSoftinuxLogger(Configuration);
+            */
 
 #if DEBUG
             // Register the Swagger generator, defining 1 or more Swagger documents
@@ -64,7 +64,6 @@ namespace WebApplication
 #endif
 
             services_.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
         }
 
         public void Configure(IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_, IConfiguration configuration_, IAntiforgery antiForgery_)

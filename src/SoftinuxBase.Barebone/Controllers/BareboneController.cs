@@ -41,7 +41,7 @@ namespace SoftinuxBase.Barebone.Controllers
         /// <summary>
         /// partial view for errors.
         /// </summary>
-        /// <returns>error view</returns>
+        /// <returns>error view.</returns>
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         [HttpGet]
         public async Task<IActionResult> Error()

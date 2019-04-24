@@ -31,8 +31,8 @@ namespace SoftinuxBase.WebApplication
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder_)
         {
 #if DEBUG
-            //ILoggerFactory loggerFactory = new LoggerFactory();
-            //_loggerFactory.AddProvider(new EfLoggerProvider());
+            // ILoggerFactory loggerFactory = new LoggerFactory();
+            // _loggerFactory.AddProvider(new EfLoggerProvider());
             base.OnConfiguring(optionsBuilder_.EnableSensitiveDataLogging() /*.UseLoggerFactory(_loggerFactory)*/);
 #endif
         }

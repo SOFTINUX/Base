@@ -3,9 +3,9 @@
 
 using System.Security.Claims;
 using System.Threading.Tasks;
+using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
-using ExtCore.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 
 namespace SoftinuxBase.Security

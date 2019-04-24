@@ -137,7 +137,7 @@ namespace SoftinuxBase.Security.Controllers
         /// Update role name and linked extensions with permission level.
         /// </summary>
         /// <param name="model_"></param>
-        /// <returns>Status code 201, or 400 with an error message</returns>
+        /// <returns>Status code 201, or 400 with an error message.</returns>
         [PermissionRequirement(Permission.Admin)]
         [Route("administration/update-role")]
         [HttpPost]

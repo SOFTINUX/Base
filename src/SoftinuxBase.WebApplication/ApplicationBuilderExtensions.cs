@@ -2,13 +2,13 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
+using ExtCore.WebApplication.Extensions;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using ExtCore.WebApplication.Extensions;
 
 namespace SoftinuxBase.WebApplication
 {
