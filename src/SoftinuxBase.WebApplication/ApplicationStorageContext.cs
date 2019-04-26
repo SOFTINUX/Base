@@ -6,6 +6,7 @@ using ExtCore.Data.EntityFramework;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SoftinuxBase.Security.Data.Entities;
 
@@ -33,7 +34,7 @@ namespace SoftinuxBase.WebApplication
 #if DEBUG
             // ILoggerFactory loggerFactory = new LoggerFactory();
             // _loggerFactory.AddProvider(new EfLoggerProvider());
-            base.OnConfiguring(optionsBuilder_.EnableSensitiveDataLogging() /*.UseLoggerFactory(_loggerFactory)*/);
+            base.OnConfiguring(optionsBuilder_.EnableSensitiveDataLogging().UseLoggerFactory(GetLoggerFactory()) /*.UseLoggerFactory(_loggerFactory)*/);
 #endif
         }
 
@@ -41,6 +42,16 @@ namespace SoftinuxBase.WebApplication
         {
             base.OnModelCreating(modelBuilder_);
             this.RegisterEntities(modelBuilder_);
+        }
+
+        private ILoggerFactory GetLoggerFactory()
+        {
+          IServiceCollection serviceCollection = new ServiceCollection();
+          serviceCollection.AddLogging(builder =>
+                 builder.AddConsole()
+                    .AddProvider(new EfLoggerProvider())
+                    .AddFilter(DbLoggerCategory.Database.Command.Name, LogLevel.Debug));
+          return serviceCollection.BuildServiceProvider().GetService<ILoggerFactory>();
         }
     }
 }

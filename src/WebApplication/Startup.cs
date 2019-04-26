@@ -47,10 +47,6 @@ namespace WebApplication
             // Register database-specific storage context implementation.
             services_.AddScoped<IStorageContext, ApplicationStorageContext>();
 
-            /* Logging
-               services_.AddSoftinuxLogger(Configuration);
-            */
-
 #if DEBUG
             // Register the Swagger generator, defining 1 or more Swagger documents
             services_.AddSwaggerGen(c_ =>
