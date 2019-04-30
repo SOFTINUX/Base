@@ -6,9 +6,10 @@ using ExtCore.Data.EntityFramework;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SoftinuxBase.Security.Data.Entities;
-using SoftinuxLogger.Providers;
+using SoftinuxBase.WebApplication;
 
 namespace CommonTest
 {
@@ -27,9 +28,7 @@ namespace CommonTest
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder_)
         {
 #if DEBUG
-            ILoggerFactory loggerFactory = new LoggerFactory();
-            loggerFactory.AddProvider(new EfLoggerProvider());
-            base.OnConfiguring(optionsBuilder_.EnableSensitiveDataLogging().UseLoggerFactory(loggerFactory));
+            base.OnConfiguring(optionsBuilder_.EnableSensitiveDataLogging().UseLoggerFactory(GetLoggerFactory()));
 #endif
         }
 
@@ -37,6 +36,15 @@ namespace CommonTest
         {
             base.OnModelCreating(modelBuilder_);
             this.RegisterEntities(modelBuilder_);
+        }
+
+        private ILoggerFactory GetLoggerFactory()
+        {
+          IServiceCollection serviceCollection = new ServiceCollection();
+          serviceCollection.AddLogging(builder =>
+                 builder.AddProvider(new EfLoggerProvider())
+                        .AddFilter(DbLoggerCategory.Database.Command.Name, LogLevel.Debug));
+          return serviceCollection.BuildServiceProvider().GetService<ILoggerFactory>();
         }
     }
 }

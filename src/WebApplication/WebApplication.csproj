@@ -61,21 +61,16 @@
   <ItemGroup>
     <Folder Include="Extensions\" />
   </ItemGroup>
-  <ItemGroup>
-    <Reference Include="SoftinuxLogger">
-      <HintPath>..\..\SoftinuxLogger\SoftinuxLogger.dll</HintPath>
-    </Reference>
-  </ItemGroup>
   <PropertyGroup>
     <SolutionDir Condition=" '$(SolutionDir)' == '' ">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), SoftinuxBase.sln))\</SolutionDir>
   </PropertyGroup>
   <Target Name="PreBuild" AfterTargets="BeforeBuild">
-    <Exec Command="$(SolutionDir)bp.bat bundles" Condition="'$(OS)' == 'Windows_NT'" />
+    <Exec Command="&quot;$(SolutionDir)&quot;bp.bat bundles" Condition="'$(OS)' == 'Windows_NT'" />
     <Exec Command="'$(SolutionDir)'bp.sh bundles" Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'" />
     <Exec Command="'$(SolutionDir)'bp.sh bundles" Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'" />
   </Target>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="$(SolutionDir)bp.bat copydeps| $(SolutionDir)bp.bat copyexts" Condition="'$(OS)' == 'Windows_NT'" />
+    <Exec Command="&quot;$(SolutionDir)&quot;bp.bat copydeps| &quot;$(SolutionDir)&quot;bp.bat copyexts" Condition="'$(OS)' == 'Windows_NT'" />
     <Exec Command="'$(SolutionDir)'bp.sh copydeps" Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'" />
     <Exec Command="'$(SolutionDir)'bp.sh copydeps" Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'" />
   </Target>

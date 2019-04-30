@@ -25,15 +25,13 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="ExtCore.Data.EntityFramework" Version="4.0.0" />
-    <Reference Include="SoftinuxLogger">
-      <HintPath>..\..\..\..\SoftinuxLogger\SoftinuxLogger.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../../../SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
     <ProjectReference Include="../../../SoftinuxBase.Security.Data.Entities\SoftinuxBase.Security.Data.Entities.csproj" />
     <ProjectReference Include="../../../SoftinuxBase.Security.Data.EntityFramework\SoftinuxBase.Security.Data.EntityFramework.csproj" />
     <ProjectReference Include="../../../SoftinuxBase.SeedDatabase\SoftinuxBase.SeedDatabase.csproj" />
+    <ProjectReference Include="../../../SoftinuxBase.WebApplication\SoftinuxBase.WebApplication.csproj" />
   </ItemGroup>
     <ItemGroup>
     <None Update="appsettings.json">

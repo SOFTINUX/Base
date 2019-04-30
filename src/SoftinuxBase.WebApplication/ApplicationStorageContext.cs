@@ -18,8 +18,6 @@ namespace SoftinuxBase.WebApplication
     /// </summary>
     public class ApplicationStorageContext : IdentityDbContext<User, IdentityRole<string>, string>, IStorageContext
     {
-        private readonly ILoggerFactory _loggerFactory;
-
         protected ApplicationStorageContext(DbContextOptions options_)
             : base(options_)
         {
@@ -32,9 +30,7 @@ namespace SoftinuxBase.WebApplication
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder_)
         {
 #if DEBUG
-            // ILoggerFactory loggerFactory = new LoggerFactory();
-            // _loggerFactory.AddProvider(new EfLoggerProvider());
-            base.OnConfiguring(optionsBuilder_.EnableSensitiveDataLogging().UseLoggerFactory(GetLoggerFactory()) /*.UseLoggerFactory(_loggerFactory)*/);
+            base.OnConfiguring(optionsBuilder_.EnableSensitiveDataLogging().UseLoggerFactory(GetLoggerFactory()));
 #endif
         }
 
@@ -48,9 +44,8 @@ namespace SoftinuxBase.WebApplication
         {
           IServiceCollection serviceCollection = new ServiceCollection();
           serviceCollection.AddLogging(builder =>
-                 builder.AddConsole()
-                    .AddProvider(new EfLoggerProvider())
-                    .AddFilter(DbLoggerCategory.Database.Command.Name, LogLevel.Debug));
+                 builder.AddProvider(new EfLoggerProvider())
+                        .AddFilter(DbLoggerCategory.Database.Command.Name, LogLevel.Debug));
           return serviceCollection.BuildServiceProvider().GetService<ILoggerFactory>();
         }
     }
