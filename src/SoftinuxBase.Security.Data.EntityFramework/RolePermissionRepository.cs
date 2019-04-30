@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ExtCore.Data.EntityFramework;
 using Microsoft.EntityFrameworkCore;
+using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 
@@ -29,6 +30,15 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         public RolePermission FindBy(string roleId_, string extensionName_)
         {
             return All().FirstOrDefault(e_ => e_.RoleId == roleId_ && e_.Extension == extensionName_);
+        }
+
+        public RolePermission FindBy(string extensionName_, Common.Enums.Permission level_)
+        {
+            IEnumerable<RolePermission> found = from rp in storageContext.Set<RolePermission>()
+                join p in storageContext.Set<Permission>() on rp.PermissionId equals p.Id
+                where rp.Extension == extensionName_ && p.Name == level_.GetPermissionName()
+                select rp;
+            return found.FirstOrDefault();
         }
 
         public IEnumerable<RolePermission> FilteredByRoleId(string roleId_)

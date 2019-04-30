@@ -11,6 +11,7 @@ using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.ViewModels.Permissions;
+using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 
 namespace SoftinuxBase.Security.Tools
 {
@@ -122,10 +123,16 @@ namespace SoftinuxBase.Security.Tools
         public static bool IsLastAdmin(RoleManager<IdentityRole<string>> roleManager_, IStorage storage_, string roleName_, string extensionName_)
         {
             // Is there a user directly granted Admin for this extension?
-            //storage_.GetRepository<IUserPermissionRepository>().
+            if (storage_.GetRepository<IUserPermissionRepository>().FindBy(extensionName_, Permission.Admin) != null)
+            {
+                // A user is directly granted
+                return false;
+            }
 
-            // TODO
+            var record = storage_.GetRepository<IRolePermissionRepository>().FindBy(extensionName_, Permission.Admin);
             
+            // TODO finish this (compare any record to param role: the same => return true, else false)
+
             return false;
         }
 

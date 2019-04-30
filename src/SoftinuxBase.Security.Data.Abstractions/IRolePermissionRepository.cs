@@ -11,6 +11,7 @@ namespace SoftinuxBase.Security.Data.Abstractions
     {
         IEnumerable<RolePermission> All();
         RolePermission FindBy(string roleId_, string extensionName_);
+        RolePermission FindBy(string extensionName_, Common.Enums.Permission level_);
         IEnumerable<RolePermission> FilteredByRoleId(string roleId_);
         void Create(RolePermission entity_);
         void Edit(RolePermission entity_);
