@@ -56,7 +56,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                 // Save ROLES
                 await SaveRoles();
 
-                // Save PERMISSIONS
+                // Save USERS and USER-ROLE
                 await SaveUsers();
 
                 // Save PERMISSIONS
@@ -113,13 +113,16 @@ namespace SoftinuxBase.SeedDatabase.Controllers
             };
 
             bool firstUser = true;
+            IdentityResult result;
+            string roleName;
+
             foreach (var user in new[] { johnUser, janeUser, paulUser })
             {
                 // add the user to the database if it doesn't already exist
                 if (await _userManager.FindByEmailAsync(user.Email) == null)
                 {
                     // WARNING: Do Not check in credentials of any kind into source control
-                    var result = await _userManager.CreateAsync(user, password: "123_Password");
+                    result = await _userManager.CreateAsync(user, password: "123_Password");
 
                     // return 500 if it fails
                     if (!result.Succeeded)
@@ -130,13 +133,13 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                     }
 
                     // Assign roles to user. John has Admin role, Jane and Paul have User role
-                    string role = firstUser ? "Administrator" : "User";
-                    result = await _userManager.AddToRolesAsync(user, new[] { role });
+                    roleName = Constants.GetRoleName(firstUser ? Role.Administrator : Role.User);
+                    result = await _userManager.AddToRolesAsync(user, new[] { roleName });
 
                     // return 500 if fails
                     if (!result.Succeeded)
                     {
-                        string msg = $"(SaveUsers: UserManager.AddToRolesAsync) Error adding user to role, user: {user.Email}, role: {role}";
+                        string msg = $"(SaveUsers: UserManager.AddToRolesAsync) Error adding user to role, user: {user.Email}, role: {roleName}";
                         _logger.LogCritical(msg);
                         throw new Exception(msg);
                     }
@@ -145,7 +148,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                 firstUser = false;
             }
 
-            _createdUsers = new[] { johnUser, janeUser, paulUser };
+             _createdUsers = new[] { johnUser, janeUser, paulUser };
         }
 
         /// <summary>
