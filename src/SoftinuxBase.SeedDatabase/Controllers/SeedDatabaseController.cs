@@ -266,7 +266,6 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         /// <param name="permissionId_"></param>
         /// <param name="user_"></param>
         /// <param name="scope_"></param>
-        /// <returns></returns>
         private void SaveUserPermission(string permissionId_, User user_, string scope_ = null)
         {
             if (!string.IsNullOrWhiteSpace(permissionId_) && user_ != null)

@@ -65,7 +65,7 @@ namespace SoftinuxBase.Security
             {
                 MenuItem[] menuItems_ = new[]
                                     {
-                        new MenuItem("/administration", "Main", 100, null, new List<PermissionRequirementAttribute>(new[] { new PermissionRequirementAttribute(Permission.Admin), }))
+                        new MenuItem("/administration", "Main", 100, null, new List<PermissionRequirementAttribute>(new[] { new PermissionRequirementAttribute(Permission.Admin, "SoftinuxBase.Security"), }))
                                     };
                 return new MenuGroup[]
                 {

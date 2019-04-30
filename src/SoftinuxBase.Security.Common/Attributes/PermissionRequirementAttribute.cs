@@ -20,12 +20,14 @@ namespace SoftinuxBase.Security.Common.Attributes
         /// Allows access when the user has the permission : a claim of type "Permission" with value
         /// defined by its level (Admin, Write, Read...) and an extension name (SoftinuxBase.Security, ProjectX.ExtensionY...).
         /// Or the user has a permission with same extension name but higher level (Admin when Write is the minimum requested to be granted access).
-        /// Default extension name (assembly simple name) is "SoftinuxBase.Security".
         /// </summary>
         /// <param name="permissionName_"></param>
         /// <param name="extensionAssemblySimpleName_"></param>
-        public PermissionRequirementAttribute(Permission permissionName_, string extensionAssemblySimpleName_ = "SoftinuxBase.Security")
+        public PermissionRequirementAttribute(Permission permissionName_, string extensionAssemblySimpleName_)
         {
+            if (string.IsNullOrWhiteSpace(extensionAssemblySimpleName_))
+                throw new ArgumentNullException("Please specify the extension name");
+
             _permissionLevel = permissionName_;
             _extensionName = extensionAssemblySimpleName_;
         }

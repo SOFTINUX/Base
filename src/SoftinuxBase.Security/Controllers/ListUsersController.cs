@@ -15,7 +15,7 @@ using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 
 namespace SoftinuxBase.Security.Controllers
 {
-    [PermissionRequirement(Permission.Admin)]
+    [PermissionRequirement(Permission.Admin, "SoftinuxBase.Security")]
     public class ListUsersController : Infrastructure.ControllerBase
     {
         // private readonly ILogger _logger;

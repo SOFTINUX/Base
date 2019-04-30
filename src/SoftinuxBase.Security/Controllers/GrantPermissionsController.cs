@@ -17,7 +17,7 @@ using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 
 namespace SoftinuxBase.Security.Controllers
 {
-    [PermissionRequirement(Permission.Admin)]
+    [PermissionRequirement(Permission.Admin, "SoftinuxBase.Security")]
     public class GrantPermissionsController : Infrastructure.ControllerBase
     {
         private readonly RoleManager<IdentityRole<string>> _roleManager;
@@ -29,7 +29,6 @@ namespace SoftinuxBase.Security.Controllers
 
         #region READ
 
-        [PermissionRequirement(Permission.Admin)]
         [Route("administration/grantpermissions")]
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -58,7 +57,6 @@ namespace SoftinuxBase.Security.Controllers
         /// </summary>
         /// <param name="roleId_"></param>
         /// <returns>Http code and JSON role object.</returns>
-        [PermissionRequirement(Permission.Admin)]
         [Route("administration/read-role")]
         [HttpGet]
         public async Task<IActionResult> GetRoleForEdition(string roleId_)
@@ -114,7 +112,6 @@ namespace SoftinuxBase.Security.Controllers
         /// <param name="permissionValue_">New permission level to save.</param>
         /// <param name="extension_">Extension.</param>
         /// <returns>JSON with "true" when it succeeded.</returns>
-        [PermissionRequirement(Permission.Admin)]
         [Route("administration/update-role-permission")]
         [HttpGet] // TODO change to POST
         public async Task<IActionResult> UpdateRolePermission(string roleName_, string permissionValue_, string extension_)
@@ -138,7 +135,7 @@ namespace SoftinuxBase.Security.Controllers
         /// </summary>
         /// <param name="model_"></param>
         /// <returns>Status code 201, or 400 with an error message.</returns>
-        [PermissionRequirement(Permission.Admin)]
+        [PermissionRequirement(Permission.Admin, "SoftinuxBase.Security")]
         [Route("administration/update-role")]
         [HttpPost]
         public async Task<IActionResult> UpdateRoleAndItsPermissions(UpdateRoleAndGrantsViewModel model_)

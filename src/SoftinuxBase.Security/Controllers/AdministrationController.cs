@@ -10,7 +10,7 @@ using SoftinuxBase.Security.Common.Enums;
 
 namespace SoftinuxBase.Security.Controllers
 {
-    [PermissionRequirement(Permission.Admin)]
+    [PermissionRequirement(Permission.Admin, "SoftinuxBase.Security")]
     public class AdministrationController : Infrastructure.ControllerBase
     {
         private readonly ILogger _logger;
