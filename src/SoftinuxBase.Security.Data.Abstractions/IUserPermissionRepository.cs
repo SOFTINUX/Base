@@ -10,6 +10,7 @@ namespace SoftinuxBase.Security.Data.Abstractions
     public interface IUserPermissionRepository : IRepository
     {
         UserPermission FindBy(string userId_, string permissionId_);
+        UserPermission FindBy(string extensionName_, Common.Enums.Permission level_);
         IEnumerable<UserPermission> FilteredByUserId(string userId_);
         void Create(UserPermission entity_);
         void Edit(UserPermission entity_);

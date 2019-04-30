@@ -42,7 +42,7 @@ namespace CommonTest
 
         /// <summary>
         /// At runtime, with a SqLite database, the current directory is where the dll live
-        /// (bin/Debug/netcoreapp2.1).
+        /// (bin/Debug/netcoreapp...).
         /// Then we must adapt the path from configuration.
         /// Override this method to redefine your own connection string when you need.
         /// </summary>
@@ -74,8 +74,6 @@ namespace CommonTest
             // Register database-specific storage context implementation.
             services_.AddScoped<IStorageContext, ApplicationStorageContext>();
 
-            // Optional: Softinux logger
-            // services_.AddSoftinuxLogger();
         }
 
         private static IConfiguration LoadConfiguration()

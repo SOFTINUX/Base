@@ -111,19 +111,23 @@ namespace SoftinuxBase.Security.Tools
             }
         }
 
-        public static bool HasAnyUserDirectAdminPermission()
+        /// <summary>
+        /// This function checks that the role is the last grant of Admin right to the target extension.
+        /// This allows to warn the user in case no user is granted Admin for this extension and we want to remove the grant from role.
+        /// In case the extension is SoftinuxBase.Security, this check will prevent the delete action.
+        /// </summary>
+        /// <param name="roleName_"></param>
+        /// <param name="roleManager_"></param>
+        /// <returns></returns>
+        public static bool IsLastAdmin(RoleManager<IdentityRole<string>> roleManager_, IStorage storage_, string roleName_, string extensionName_)
         {
+            // Is there a user directly granted Admin for this extension?
+            //storage_.GetRepository<IUserPermissionRepository>().
+
             // TODO
-            // check user-permission table
+            
             return false;
         }
 
-        public static bool HasOtherRoleAdminPermission(string roleId_)
-        {
-            // TODO
-            // check role-permission tables
-            // Remove record associated to param role
-            return false;
-        }
     }
 }
