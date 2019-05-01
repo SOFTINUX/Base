@@ -28,9 +28,9 @@ namespace SecurityTest
         /// The role name is updated, a permission to an extension is added.
         /// The changes are prevented because the new role name isn't available.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        public async Task TestCheckAndUpdateRole_Error_NameAlreadyTaken()
+        public async Task CheckAndUpdateRole_Error_NameAlreadyTaken()
         {
             string firstRoleName = "New Role 1 " + DateTime.Now.Ticks;
             string secondRoleName = "New Role 2 " + DateTime.Now.Ticks;
@@ -101,9 +101,9 @@ namespace SecurityTest
         /// <summary>
         /// The role name is updated, a permission to an extension is added.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        public async Task TestCheckAndUpdateRole_NameAvailable_AddExtension()
+        public async Task CheckAndUpdateRole_NameAvailable_AddExtension()
         {
             string firstRoleName = "New Role 1 " + DateTime.Now.Ticks;
             string secondRoleName = "New Role 2 " + DateTime.Now.Ticks;
@@ -176,9 +176,9 @@ namespace SecurityTest
         /// <summary>
         /// A permission to an extension is deleted, another is added, another is modified.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        public async Task TestCheckAndUpdateRole_ChangeAddDeleteExtension()
+        public async Task CheckAndUpdateRole_ChangeAddDeleteExtension()
         {
             string roleName = "New Role 1 " + DateTime.Now.Ticks;
             var rolePermissionRepository = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
@@ -252,9 +252,9 @@ namespace SecurityTest
         /// <summary>
         /// A null extensions list is passed, there will be no change.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        public async Task TestCheckAndUpdateRole_NoExtensionInList_NoChange()
+        public async Task CheckAndUpdateRole_NoExtensionInList_NoChange()
         {
             string firstRoleName = "New Role 1 " + DateTime.Now.Ticks;
             var rolePermissionRepository = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();

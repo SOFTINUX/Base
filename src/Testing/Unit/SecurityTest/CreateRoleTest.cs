@@ -27,7 +27,7 @@ namespace SecurityTest
         [Theory]
         [InlineData("Security,Chinook")]
         [InlineData("Security")]
-        public async Task TestCheckAndSaveNewRole_Ok(string extensionNames_)
+        public async Task CheckAndSaveNewRole_Ok(string extensionNames_)
         {
             string roleName = "New Role 1 " + DateTime.Now.Ticks;
             var permRepo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
@@ -78,7 +78,7 @@ namespace SecurityTest
         /// Test that we cannot create a role without any extension.
         /// </summary>
         [Fact]
-        public async Task TestCheckAndSaveNewRole_Error_NoExtensionSelected()
+        public async Task CheckAndSaveNewRole_Error_NoExtensionSelected()
         {
             string roleName = "New Role 1 " + DateTime.Now.Ticks;
             var permRepo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
@@ -117,7 +117,7 @@ namespace SecurityTest
         }
 
         [Fact]
-        public async Task TestCheckAndSaveNewRole_Error_NameAlreadyTaken()
+        public async Task CheckAndSaveNewRole_Error_NameAlreadyTaken()
         {
             string roleName = "New Role 1 " + DateTime.Now.Ticks;
             var permRepo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();

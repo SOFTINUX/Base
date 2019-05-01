@@ -19,7 +19,7 @@ namespace SecurityTest
         /// Test that we are able to read data using Storage and ExtCore repository pattern.
         /// </summary>
         [Fact]
-        public void TestReadWithRepository()
+        public void TestReadDatabaseWithRepository()
         {
             var data = DatabaseFixture.Storage.GetRepository<IPermissionRepository>().All();
             Assert.NotNull(data);
@@ -29,7 +29,7 @@ namespace SecurityTest
         /// Test that we are able to read data using Identity.
         /// </summary>
         [Fact]
-        public void TestReadWithIdentity()
+        public void ReadRoleWithIdentity()
         {
             var data = DatabaseFixture.RoleManager.Roles.ToList();
             Assert.NotNull(data);

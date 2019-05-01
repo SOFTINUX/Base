@@ -22,7 +22,7 @@ namespace SecurityTest
         /// <summary>
         /// Permission level "Admin" for extension "SoftinuxBase.Security" is directly linked to an user: John Doe.
         /// </summary>
-        /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous unit test.</placeholder></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
         public async Task FindByExtensionAndLevel_ShouldFind()
         {

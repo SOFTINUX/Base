@@ -13,7 +13,7 @@ namespace SecurityTest
         [InlineData("ThisIsaTest")]
         [InlineData("Thisisatest")]
         [InlineData("THISISATEST")]
-        public void Test(string value_)
+        public void UppercaseFirst(string value_)
         {
             Assert.Equal("Thisisatest", value_.UppercaseFirst());
         }

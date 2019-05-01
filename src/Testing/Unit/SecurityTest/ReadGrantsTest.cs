@@ -47,7 +47,7 @@ namespace SecurityTest
         ///
         /// </summary>
         [Fact]
-        public async void Test()
+        public async void ReadAll()
         {
             var repo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
             var permRepo = DatabaseFixture.Storage.GetRepository<IPermissionRepository>();
