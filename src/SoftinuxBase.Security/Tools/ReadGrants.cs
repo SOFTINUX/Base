@@ -144,6 +144,11 @@ namespace SoftinuxBase.Security.Tools
             {
                 return true;
             }
+
+            // The roles that have Admin right must have users linked to them
+            // TODO find how to query that using Identity (role manager, user manager) (remove roleId)
+            // and if at least one user found => return false, else true
+
             return false;
         }
 

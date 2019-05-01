@@ -1,8 +1,10 @@
 // Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using CommonTest;
 using ExtCore.Infrastructure;
 using SoftinuxBase.Infrastructure.Interfaces;
@@ -47,7 +49,7 @@ namespace SecurityTest
         ///
         /// </summary>
         [Fact]
-        public async void ReadAll()
+        public async Task ReadAll()
         {
             var repo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
             var permRepo = DatabaseFixture.Storage.GetRepository<IPermissionRepository>();
@@ -174,6 +176,34 @@ namespace SecurityTest
                 var specialUserRole = await DatabaseFixture.RoleManager.FindByNameAsync("Special User");
                 await DatabaseFixture.RoleManager.DeleteAsync(specialUserRole);
             }
+        }
+
+        [Fact]
+        public async Task IsLastAdmin_No_StillAnUserForThisExtension()
+        {
+            // TODO
+            throw new NotImplementedException("To be coded");
+        }
+
+        [Fact]
+        public async Task IsLastAdmin_No_StillAnotherRoleWithUsersForThisExtension()
+        {
+            // TODO
+            throw new NotImplementedException("To be coded");
+        }
+
+        [Fact]
+        public async Task IsLastAdmin_Yes_StillAnotherRoleButWithoutUsersForThisExtension()
+        {
+            // TODO
+            throw new NotImplementedException("To be coded");
+        }
+
+        [Fact]
+        public async Task IsLastAdmin_Yes_NoOthrtRoleWithUsersForThisExtension()
+        {
+            // TODO
+            throw new NotImplementedException("To be coded");
         }
     }
 }
