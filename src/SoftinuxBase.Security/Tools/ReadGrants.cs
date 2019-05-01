@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using ExtCore.Infrastructure;
 using Microsoft.AspNetCore.Identity;
@@ -115,12 +116,13 @@ namespace SoftinuxBase.Security.Tools
         /// <summary>
         /// This function checks that the role is the last grant of Admin right to the target extension.
         /// This allows to warn the user in case no user is granted Admin for this extension and we want to remove the grant from role.
-        /// In case the extension is SoftinuxBase.Security, this check will prevent the delete action.
+        /// In case the extension is SoftinuxBase.Security, this check will be used to prevent the delete action.
         /// </summary>
+        /// <param name="storage_"></param>
         /// <param name="roleName_"></param>
         /// <param name="roleManager_"></param>
         /// <returns></returns>
-        public static bool IsLastAdmin(RoleManager<IdentityRole<string>> roleManager_, IStorage storage_, string roleName_, string extensionName_)
+        public static async Task<bool> IsLastAdmin(RoleManager<IdentityRole<string>> roleManager_, IStorage storage_, string roleName_, string extensionName_)
         {
             // Is there a user directly granted Admin for this extension?
             if (storage_.GetRepository<IUserPermissionRepository>().FindBy(extensionName_, Permission.Admin) != null)
@@ -129,10 +131,19 @@ namespace SoftinuxBase.Security.Tools
                 return false;
             }
 
-            var record = storage_.GetRepository<IRolePermissionRepository>().FindBy(extensionName_, Permission.Admin);
-            
-            // TODO finish this (compare any record to param role: the same => return true, else false)
+            var rolePermissionRecords = storage_.GetRepository<IRolePermissionRepository>().FindBy(extensionName_, Permission.Admin);
 
+            if (!rolePermissionRecords.Any())
+            {
+                // This method shouldn't have been called in this case :-)
+                return false;
+            }
+
+            var roleId = (await roleManager_.FindByNameAsync(roleName_)).Id;
+            if (rolePermissionRecords.Count() == 1 && rolePermissionRecords.First().Id == roleId)
+            {
+                return true;
+            }
             return false;
         }
 

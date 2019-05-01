@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,12 +28,12 @@ namespace SecurityTest
         {
             var record = DatabaseFixture.Storage.GetRepository<IUserPermissionRepository>()
                 .FindBy(Constants.SoftinuxBaseSecurity, Permission.Admin);
-            Assert.NotNull(record);
+            Assert.NotEmpty(record);
 
             // It should be John Doe
             string johnDoeUserId = (await DatabaseFixture.UserManager.FindByNameAsync("johndoe"))?.Id;
             Assert.NotNull(johnDoeUserId);
-            Assert.Equal(johnDoeUserId, record.UserId);
+            Assert.Equal(johnDoeUserId, record.First().UserId);
         }
 
         /// <summary>
@@ -43,7 +44,7 @@ namespace SecurityTest
         {
             var record = DatabaseFixture.Storage.GetRepository<IUserPermissionRepository>()
                 .FindBy("SoftinuxBase.DoesNotExist", Permission.Admin);
-            Assert.Null(record);
+            Assert.Empty(record);
         }
     }
 }

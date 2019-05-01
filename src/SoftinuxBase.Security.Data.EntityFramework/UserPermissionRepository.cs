@@ -19,13 +19,12 @@ namespace SoftinuxBase.Security.Data.EntityFramework
             return dbSet.FirstOrDefault(e_ => e_.UserId == userId_ && e_.PermissionId == permissionId_);
         }
 
-        public UserPermission FindBy(string extensionName_, Common.Enums.Permission level_)
+        public IEnumerable<UserPermission> FindBy(string extensionName_, Common.Enums.Permission level_)
         {
-            IEnumerable<UserPermission> found = from up in storageContext.Set<UserPermission>()
+            return from up in storageContext.Set<UserPermission>()
                 join p in storageContext.Set<Permission>() on up.PermissionId equals p.Id
                 where up.Extension == extensionName_ && p.Name == level_.GetPermissionName()
                 select up;
-            return found.FirstOrDefault();
         }
 
         public IEnumerable<UserPermission> FilteredByUserId(string userId_)
