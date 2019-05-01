@@ -12,6 +12,7 @@ using SoftinuxBase.Security.Tools;
 using SoftinuxBase.Security.ViewModels.Permissions;
 using SoftinuxBase.SeedDatabase;
 using Xunit;
+using Constants = SoftinuxBase.Common.Constants;
 using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 
 namespace SecurityTest
@@ -81,16 +82,16 @@ namespace SecurityTest
                 DatabaseFixture.Storage.Save();
 
                 repo.Create(new RolePermission
-                    { RoleId = adminRole.Id, Extension = "SoftinuxBase.Security", PermissionId = adminPermissionId });
+                    { RoleId = adminRole.Id, Extension = Constants.SoftinuxBaseSecurity, PermissionId = adminPermissionId });
                 repo.Create(new RolePermission
-                    { RoleId = userRole.Id, Extension = "SoftinuxBase.Security", PermissionId = readPermissionId });
+                    { RoleId = userRole.Id, Extension = Constants.SoftinuxBaseSecurity, PermissionId = readPermissionId });
                 repo.Create(new RolePermission
                 {
-                    RoleId = anonymousRole.Id, Extension = "SoftinuxBase.Security", PermissionId = neverPermissionId
+                    RoleId = anonymousRole.Id, Extension = Constants.SoftinuxBaseSecurity, PermissionId = neverPermissionId
                 });
                 repo.Create(new RolePermission
                 {
-                    RoleId = specialUserRole.Id, Extension = "SoftinuxBase.Security", PermissionId = writePermissionId
+                    RoleId = specialUserRole.Id, Extension = Constants.SoftinuxBaseSecurity, PermissionId = writePermissionId
                 });
 
                 repo.Create(new RolePermission
@@ -115,44 +116,44 @@ namespace SecurityTest
                 Assert.Equal(ExtensionManager.GetInstances<IExtensionMetadata>().Count(), model.PermissionsByRoleAndExtension.Keys.Count);
 
                 // 2. Number of roles for "Security" extension
-                Assert.True(model.PermissionsByRoleAndExtension.ContainsKey("SoftinuxBase.Security"));
+                Assert.True(model.PermissionsByRoleAndExtension.ContainsKey(Constants.SoftinuxBaseSecurity));
 
                 // We may have additional linked roles left by other tests...
-                Assert.True(model.PermissionsByRoleAndExtension["SoftinuxBase.Security"].Keys.Count >= 4);
+                Assert.True(model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurity].Keys.Count >= 4);
 
                 // 3. Admin role
-                Assert.True(model.PermissionsByRoleAndExtension["SoftinuxBase.Security"].ContainsKey(adminRole.Name));
+                Assert.True(model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurity].ContainsKey(adminRole.Name));
 
                 // Admin -> Admin, Write, Read, Never
-                Assert.Equal(4, model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][adminRole.Name].Count);
-                Assert.Contains(Permission.Admin, model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][adminRole.Name]);
-                Assert.Contains(Permission.Write, model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][adminRole.Name]);
-                Assert.Contains(Permission.Read, model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][adminRole.Name]);
-                Assert.Contains(Permission.Never, model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][adminRole.Name]);
+                Assert.Equal(4, model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurity][adminRole.Name].Count);
+                Assert.Contains(Permission.Admin, model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurity][adminRole.Name]);
+                Assert.Contains(Permission.Write, model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurity][adminRole.Name]);
+                Assert.Contains(Permission.Read, model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurity][adminRole.Name]);
+                Assert.Contains(Permission.Never, model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurity][adminRole.Name]);
 
                 // 4. Special User role
-                Assert.True(model.PermissionsByRoleAndExtension["SoftinuxBase.Security"].ContainsKey(specialUserRole.Name));
+                Assert.True(model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurity].ContainsKey(specialUserRole.Name));
 
                 // Write -> Write, Read, Never
-                Assert.Equal(3, model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][specialUserRole.Name].Count);
-                Assert.Contains(Permission.Write, model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][specialUserRole.Name]);
-                Assert.Contains(Permission.Read, model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][specialUserRole.Name]);
-                Assert.Contains(Permission.Never, model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][specialUserRole.Name]);
+                Assert.Equal(3, model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurity][specialUserRole.Name].Count);
+                Assert.Contains(Permission.Write, model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurity][specialUserRole.Name]);
+                Assert.Contains(Permission.Read, model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurity][specialUserRole.Name]);
+                Assert.Contains(Permission.Never, model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurity][specialUserRole.Name]);
 
                 // 5. User role
-                Assert.True(model.PermissionsByRoleAndExtension["SoftinuxBase.Security"].ContainsKey(userRole.Name));
+                Assert.True(model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurity].ContainsKey(userRole.Name));
 
                 // Read -> Read, Never
-                Assert.Equal(2, model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][userRole.Name].Count);
-                Assert.Contains(Permission.Read, model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][userRole.Name]);
-                Assert.Contains(Permission.Never, model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][userRole.Name]);
+                Assert.Equal(2, model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurity][userRole.Name].Count);
+                Assert.Contains(Permission.Read, model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurity][userRole.Name]);
+                Assert.Contains(Permission.Never, model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurity][userRole.Name]);
 
                 // 6. Anonymous role
-                Assert.True(model.PermissionsByRoleAndExtension["SoftinuxBase.Security"].ContainsKey(anonymousRole.Name));
+                Assert.True(model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurity].ContainsKey(anonymousRole.Name));
 
                 // Never -> Never
-                Assert.Single(model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][anonymousRole.Name]);
-                Assert.Contains(Permission.Never, model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][anonymousRole.Name]);
+                Assert.Single(model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurity][anonymousRole.Name]);
+                Assert.Contains(Permission.Never, model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurity][anonymousRole.Name]);
 
                 // 7. Number of roles for Chinook extension
                 // When the dll doesn't exist on disk, this is our case, no permissions should be found

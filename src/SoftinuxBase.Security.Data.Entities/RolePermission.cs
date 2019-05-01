@@ -3,6 +3,7 @@
 
 using ExtCore.Data.Entities.Abstractions;
 using Microsoft.AspNetCore.Identity;
+using SoftinuxBase.Common;
 
 namespace SoftinuxBase.Security.Data.Entities
 {
@@ -15,7 +16,7 @@ namespace SoftinuxBase.Security.Data.Entities
         // private string _name;
         public RolePermission()
         {
-            Extension = "SoftinuxBase.Security";
+            Extension = Constants.SoftinuxBaseSecurity;
         }
 
         /// <summary>

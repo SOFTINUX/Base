@@ -323,7 +323,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
             try
             {
                 _storage.Save();
-                _logger.LogInformation($"\"Saving role-permission: permission: {permissionId_}, to role: {roleId_}, for extension: {extension_ ?? "SoftinuxBase.Security"} ok.\"");
+                _logger.LogInformation($"\"Saving role-permission: permission: {permissionId_}, to role: {roleId_}, for extension: {extension_ ?? Common.Constants.SoftinuxBaseSecurity} ok.\"");
             }
             catch (Exception e)
             {

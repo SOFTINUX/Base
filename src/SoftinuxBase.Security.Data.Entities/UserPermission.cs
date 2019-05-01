@@ -3,6 +3,7 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using ExtCore.Data.Entities.Abstractions;
+using SoftinuxBase.Common;
 
 namespace SoftinuxBase.Security.Data.Entities
 {
@@ -13,7 +14,7 @@ namespace SoftinuxBase.Security.Data.Entities
     {
         public UserPermission()
         {
-            Extension = "SoftinuxBase.Security";
+            Extension = Constants.SoftinuxBaseSecurity;
         }
 
         public string UserId { get; set; }

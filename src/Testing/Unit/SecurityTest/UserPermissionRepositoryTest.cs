@@ -4,6 +4,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using CommonTest;
+using SoftinuxBase.Common;
 using SoftinuxBase.Security.Common.Enums;
 using SoftinuxBase.Security.Data.Abstractions;
 using Xunit;
@@ -25,7 +26,7 @@ namespace SecurityTest
         public async Task FindByExtensionAndLevel_ShouldFind()
         {
             var record = DatabaseFixture.Storage.GetRepository<IUserPermissionRepository>()
-                .FindBy("SoftinuxBase.Security", Permission.Admin);
+                .FindBy(Constants.SoftinuxBaseSecurity, Permission.Admin);
             Assert.NotNull(record);
 
             // It should be John Doe

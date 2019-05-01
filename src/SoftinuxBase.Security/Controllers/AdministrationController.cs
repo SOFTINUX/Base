@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SoftinuxBase.Common;
 using SoftinuxBase.Security.Common.Attributes;
 using SoftinuxBase.Security.Common.Enums;
 
 namespace SoftinuxBase.Security.Controllers
 {
-    [PermissionRequirement(Permission.Admin, "SoftinuxBase.Security")]
+    [PermissionRequirement(Permission.Admin, Constants.SoftinuxBaseSecurity)]
     public class AdministrationController : Infrastructure.ControllerBase
     {
         private readonly ILogger _logger;

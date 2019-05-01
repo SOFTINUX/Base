@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SoftinuxBase.Common;
 using SoftinuxBase.Security.Common.Attributes;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
@@ -17,7 +18,7 @@ using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 
 namespace SoftinuxBase.Security.Controllers
 {
-    [PermissionRequirement(Permission.Admin, "SoftinuxBase.Security")]
+    [PermissionRequirement(Permission.Admin, Constants.SoftinuxBaseSecurity)]
     public class GrantPermissionsController : Infrastructure.ControllerBase
     {
         private readonly RoleManager<IdentityRole<string>> _roleManager;
@@ -135,7 +136,7 @@ namespace SoftinuxBase.Security.Controllers
         /// </summary>
         /// <param name="model_"></param>
         /// <returns>Status code 201, or 400 with an error message.</returns>
-        [PermissionRequirement(Permission.Admin, "SoftinuxBase.Security")]
+        [PermissionRequirement(Permission.Admin, Constants.SoftinuxBaseSecurity)]
         [Route("administration/update-role")]
         [HttpPost]
         public async Task<IActionResult> UpdateRoleAndItsPermissions(UpdateRoleAndGrantsViewModel model_)

@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using SoftinuxBase.Common;
 using SoftinuxBase.Infrastructure;
 using SoftinuxBase.Infrastructure.Interfaces;
 using SoftinuxBase.Security.Common.Attributes;
@@ -65,7 +66,7 @@ namespace SoftinuxBase.Security
             {
                 MenuItem[] menuItems_ = new[]
                                     {
-                        new MenuItem("/administration", "Main", 100, null, new List<PermissionRequirementAttribute>(new[] { new PermissionRequirementAttribute(Permission.Admin, "SoftinuxBase.Security"), }))
+                        new MenuItem("/administration", "Main", 100, null, new List<PermissionRequirementAttribute>(new[] { new PermissionRequirementAttribute(Permission.Admin, Constants.SoftinuxBaseSecurity), }))
                                     };
                 return new MenuGroup[]
                 {
