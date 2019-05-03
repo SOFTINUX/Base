@@ -191,7 +191,6 @@ Function CleanBin
 Function NoParam
 {
     Clean
-    CreateBundles
     Build
     Copydeps
     Copyexts

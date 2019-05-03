@@ -113,7 +113,6 @@ case $1 in
         ;;
     *)
         clean
-        bundles
         build
         copydeps
         copyexts

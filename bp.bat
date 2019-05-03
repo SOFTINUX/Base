@@ -34,6 +34,7 @@ dotnet clean
 IF "%1" == "clean" GOTO End
 
 :Bundles
+IF "%1" == "" GOTO Build
 echo ###################
 echo Updating bundles
 echo ###################
