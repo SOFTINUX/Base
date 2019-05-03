@@ -30,7 +30,7 @@ namespace SoftinuxBase.Security.Controllers
 
         #region READ
 
-        [Route("administration/grantpermissions")]
+        [Route("administration/grant-permissions")]
         [HttpGet]
         public async Task<IActionResult> Index()
         {

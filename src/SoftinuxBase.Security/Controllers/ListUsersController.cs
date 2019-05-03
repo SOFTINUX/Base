@@ -37,7 +37,7 @@ namespace SoftinuxBase.Security.Controllers
         /// List users.
         /// </summary>
         /// <returns>return listing view of users.</returns>
-        [Route("administration/listusers")]
+        [Route("administration/list-users")]
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -50,7 +50,7 @@ namespace SoftinuxBase.Security.Controllers
         /// </summary>
         /// <param name="userId_">string represent user Id.</param>
         /// <returns>return edit user view.</returns>
-        [Route("administration/listusers/edituser")]
+        [Route("administration/list-users/edit-user")]
         [HttpGet]
         public async Task<IActionResult> EditUser(string userId_)
         {

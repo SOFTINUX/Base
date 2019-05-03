@@ -48,7 +48,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         }
 
         [HttpPost]
-        [Route("/dev/seed/CreateUser")]
+        [Route("/dev/seed/create-user")]
         public async Task<IActionResult> CreateUser()
         {
             try
