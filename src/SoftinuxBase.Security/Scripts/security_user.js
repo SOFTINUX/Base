@@ -151,13 +151,13 @@ $(function () {
             input_form_group_validator('#role_name_input');
             return;
         }
-        var selectedExtensions = [];
+        var _selectedExtensions = [];
         $('#addRoleRightExtensionsList > option').each(function () {
-            selectedExtensions.push(this.value);
+            _selectedExtensions.push(this.value);
         });
         const postData = {
             RoleName: roleNameInputElt.val(),
-            Extensions: selectedExtensions,
+            Extensions: _selectedExtensions,
             PermissionValue: $('#newRolePermission').val()
         };
 
@@ -247,7 +247,7 @@ function btnChevronMoveExtension(event_, transform_) {
             newElts = selectedElts.map(createMovedElementRight);
             break;
         default:
-            newElts = selectedElts.map(function(elt) { return elt.outerHTML});
+            newElts = selectedElts.map(function(elt_) { return elt_.outerHTML});
             break;
     }
     for(let newElt of newElts) {
@@ -425,7 +425,7 @@ function passSelectedRoleOnEdition(roleId_) {
     $('#edit-role-group').removeClass('has-error');
     $.ajax('/administration/read-role', { data: { 'roleId_': roleId_ } }).done(function (data_) {
         const role = data_.value.role;
-        for (let key in role) {
+        for (let i =0, len = role.length; i < len; i++) {
             $(`#edit_role_${key}`).val(role[key]);
         }
 
@@ -439,31 +439,33 @@ function passSelectedRoleOnEdition(roleId_) {
         let leftListElt = $('#editRoleLeftExtensionsList');
         // Clear
         leftListElt.html("");
-         // Fill
-        data_.value.availableExtensions.forEach(function (extension_) {
-            leftListElt.append(`<div class="row"><div class="col-md-12"><span name="${extension_}">${extension_}</span></div></div>`);
-        });
+        // Fill
+        for (let i =0, len = data_.value.availableExtensions.length; i < len; i++) {
+            let extension = data_.value.availableExtensions[i];
+            leftListElt.append(`<div class="row"><div class="col-md-12"><span name="${extension}">${extension}</span></div></div>`);
+        }
 
         // Selected extensions (right list)
         let rightListElt = $('#editRoleRightExtensionsList');
         // Clear
         rightListElt.html("");
         // Fill
-        data_.value.selectedExtensions.forEach(function (extension_) {
+        for (let i =0, len = data_.value.selectedExtensions.length; i < len; i++) {
+            let extension = data_.value.selectedExtensions[i];
             rightListElt.append(`<div class="row">
                             <div class="col-md-6">
-                                <span name="${extension_.extensionName}">${extension_.extensionName}</span>
+                                <span name="${extension.extensionName}">${extension.extensionName}</span>
                             </div>
                             <div class="col-md-6">
                                 <select>
-                                    <option value="None" ${extension_.permissionName === 'None' ? "selected" : ""}>None</option>
-                                    <option value="Read" ${extension_.permissionName === 'Read' ? "selected" : ""}>Read</option>
-                                    <option value="Write" ${extension_.permissionName === 'Write' ? "selected" : ""}>Write</option>
-                                    <option value="Admin" ${extension_.permissionName === 'Admin' ? "selected" : ""}>Admin</option>
+                                    <option value="None" ${extension.permissionName === 'None' ? "selected" : ""}>None</option>
+                                    <option value="Read" ${extension.permissionName === 'Read' ? "selected" : ""}>Read</option>
+                                    <option value="Write" ${extension.permissionName === 'Write' ? "selected" : ""}>Write</option>
+                                    <option value="Admin" ${extension.permissionName === 'Admin' ? "selected" : ""}>Admin</option>
                                 </select>
                             </div>
                         </div>`);
-        });
+        }
 
         // Now add the clicks handlers
         // left and right lists rows
@@ -538,14 +540,14 @@ function savePermission(extension_, roleName_, permission_) {
  * Ajax call to update data: role with its related data update. Ajax POST.
  */
 function saveEditRole() {
-    var grants = [];
-    $('#editRoleRightExtensionsList>div.row').each(function (index, elt) {
-       grants.push({Extension: $(elt).find('span').attr('name'), PermissionValue: $(elt).find('select').val()})
+    var _grants = [];
+    $('#editRoleRightExtensionsList>div.row').each(function (index_, elt_) {
+        _grants.push({ Extension: $(elt_).find('span').attr('name'), PermissionValue: $(elt_).find('select').val() });
     });
     const postData = {
        RoleId: $('#editRoleId').val(),
        RoleName: $('#edit_role_name_input').val(),
-       Grants: grants
+       Grants: _grants
     };
 
     $.ajax('/administration/update-role',
