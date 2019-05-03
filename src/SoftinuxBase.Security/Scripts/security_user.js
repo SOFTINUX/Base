@@ -483,16 +483,22 @@ function passSelectedRoleOnEdition(roleId_) {
 function checkClick() {
     const splitted = $(event.target)[0].id.split('_');
     const base = splitted[0] + '_' + splitted[1];
+    const writeCheckbox = document.getElementById(`${base}_WRITE`);
+    const readCheckbox = document.getElementById(`${base}_READ`);
     var _activeCheckedPermissions = 'NEVER';
 
     if (event.target.checked) {
         // when checking, impacted checkboxes become checked and disabled
         switch (splitted[2]) {
             case 'ADMIN':
-                $(`#${base}_WRITE, #${base}_READ`).prop('checked', true).prop('disabled', true);
+                writeCheckbox.checked = true;
+                writeCheckbox.disabled = true;
+                readCheckbox.checked = true;
+                readCheckbox.disabled = true;
                 break;
             case 'WRITE':
-                $(`#${base}_READ`).prop('checked', true).prop('disabled', true);
+                readCheckbox.checked = true;
+                readCheckbox.disabled = true;
                 break;
         }
         savePermission(splitted[0], splitted[1], splitted[2]);
@@ -501,11 +507,11 @@ function checkClick() {
         // when unchecking, first next checkbox becomes enabled
         switch (splitted[2]) {
             case 'ADMIN':
-                $(`#${base}_WRITE`).prop('disabled', false);
+                writeCheckbox.disabled = false;
                 _activeCheckedPermissions = 'WRITE';
                 break;
             case 'WRITE':
-                $(`#${base}_READ`).prop('disabled', false);
+                readCheckbox.disabled = false;
                 _activeCheckedPermissions = 'READ';
                 break;
         }
@@ -532,7 +538,6 @@ function savePermission(extension_, roleName_, permission_) {
  * Ajax call to update data: role with its related data update. Ajax POST.
  */
 function saveEditRole() {
-
     var grants = [];
     $('#editRoleRightExtensionsList>div.row').each(function (index, elt) {
        grants.push({Extension: $(elt).find('span').attr('name'), PermissionValue: $(elt).find('select').val()})
