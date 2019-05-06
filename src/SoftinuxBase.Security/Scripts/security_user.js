@@ -15,100 +15,111 @@ $(function () {
     /* User interactions that trigger UI changes but no ajax call */
 
     // Manage click on buttons
-    $('button').click( function(event_) {
-        const id = $(this).attr('id');
-        switch(id){
-            case 'save_profile_btn':
-                edit_state('profile_form_fieldset', 'save_profile_btn', event_);
-                break;
-            case 'cancel_save_profile_btn':
-                cancel_edit_state('profile_form', 'profile_form_fieldset', 'save_profile_btn', 'Edit', event_);
-                break;
-            case 'change_pwd-btn':
-                edit_state('pwd_form_fliedset', 'change_pwd-btn', event_);
-                break;
-            case 'cancel_change_pwd-btn':
-                cancel_edit_state('pwd_form', 'pwd_form_fliedset', 'change_pwd-btn', 'Change', event_);
-                break;
-            case 'add-role-btn':
-                $('#edit-role-area').addClass('hidden');
-                $('#add-role-area').is(':hidden') ? $('#add-role-area').removeClass('hidden') : $('#add-role-area').addClass('hidden');
-                break;
-            case 'edit-role-btn':
-                $('#add-role-area').addClass('hidden');
-                $('#edit-role-area').is(':hidden') ? $('#edit-role-area').removeClass('hidden') : $('#edit-role-area').addClass('hidden');
-                break;
-            case 'cancel-add-role-btn':
-                $('#edit-role-area').addClass('hidden');
-                $('#add-role-area').addClass('hidden');
-                break;
-            case 'cancel-edit-role-btn':
-                $('#edit-role-area').addClass('hidden');
-                $('#add-role-area').addClass('hidden');
-                break;
-            // Add selected/unselected extensions management
-            case 'addRoleBtnRight':
-                btnChevronMoveExtension(event_);
-                break;
-            case 'addRoleBtnAllRight':
-                btnChevronMoveExtension(event_);
-                break;
-            case 'addRoleBtnLeft':
-                btnChevronMoveExtension(event_);
-                break;
-            case 'addRoleBtnAllLeft':
-                btnChevronMoveExtension(event_);
-                break;
-            // Edit selected/unselected extensions management
-            case 'editRoleBtnRight':
-                btnChevronMoveExtension(event_, 'to-right');
-                break;
-            case 'editRoleBtnAllRight':
-                btnChevronMoveExtension(event_, 'to-right');
-                break;
-            case 'editRoleBtnLeft':
-                btnChevronMoveExtension(event_, 'to-left');
-                break;
-            case 'editRoleBtnAllLeft':
-                btnChevronMoveExtension(event_, 'to-left');
-                break;
-            default:
-                break;
-        }
-    });
+    [].forEach.call(document.querySelectorAll('button'),
+        function (event_) {
+            event_.addEventListener('click',
+                function () {
+                    let addRoleArea = document.querySelector('#add-role-area');
+                    let editRoleArea = document.querySelector('#edit-role-area');
+
+                    switch (event_.id) {
+                        case 'save_profile_btn':
+                            edit_state('profile_form_fieldset', 'save_profile_btn', event_);
+                            break;
+                        case 'cancel_save_profile_btn':
+                            cancel_edit_state('profile_form', 'profile_form_fieldset', 'save_profile_btn', 'Edit', event_);
+                            break;
+                        case 'change_pwd-btn':
+                            edit_state('pwd_form_fliedset', 'change_pwd-btn', event_);
+                            break;
+                        case 'cancel_change_pwd-btn':
+                            cancel_edit_state('pwd_form', 'pwd_form_fliedset', 'change_pwd-btn', 'Change', event_);
+                            break;
+                        case 'add-role-btn':
+                            editRoleArea.style.display = 'none';
+                            addRoleArea.style.display = addRoleArea.style.display !== 'none' ? 'none' : 'block';
+                            break;
+                        case 'edit-role-btn':
+                            addRoleArea.style.display = 'none';
+                            editRoleArea.style.display = editRoleArea.style.display !== 'none' ? 'none' : 'block';
+                            break;
+                        case 'cancel-add-role-btn':
+                            editRoleArea.style.display = 'none';
+                            addRoleArea.style.display = 'none';
+                            break;
+                        case 'cancel-edit-role-btn':
+                            editRoleArea.style.display = 'none';
+                            addRoleArea.style.display = 'none';
+                            break;
+                        // Add selected/unselected extensions management
+                        case 'addRoleBtnRight':
+                            btnChevronMoveExtension(event_);
+                            break;
+                        case 'addRoleBtnAllRight':
+                            btnChevronMoveExtension(event_);
+                            break;
+                        case 'addRoleBtnLeft':
+                            btnChevronMoveExtension(event_);
+                            break;
+                        case 'addRoleBtnAllLeft':
+                            btnChevronMoveExtension(event_);
+                            break;
+                        // Edit selected/unselected extensions management
+                        case 'editRoleBtnRight':
+                            btnChevronMoveExtension(event_, 'to-right');
+                            break;
+                        case 'editRoleBtnAllRight':
+                            btnChevronMoveExtension(event_, 'to-right');
+                            break;
+                        case 'editRoleBtnLeft':
+                            btnChevronMoveExtension(event_, 'to-left');
+                            break;
+                        case 'editRoleBtnAllLeft':
+                            btnChevronMoveExtension(event_, 'to-left');
+                            break;
+                        default:
+                            break;
+                    }
+                });
+        });
+
 
     // permissions administration: collapsing
-    $('#collapse').on('click', function () {
-        const state = $(this).data('state');
-        if (state === 'closed') {
-            $(this).data('state', 'open');
-            // TODO change icon to open double chevron
+    [].forEach.call(document.querySelectorAll('#collapse'),
+        function(event_) {
+            event_.addEventListener('click',
+                function() {
+                    const state = $(this).data('state');
+                    if (state === 'closed') {
+                        $(this).data('state', 'open');
+                        // TODO change icon to open double chevron
 
-            // open all the collapsed children
-            $('.extension-row.collapsed').each(function () {
-                $(this).removeClass('collapsed');
-                $(this).data('aria-expanded', 'true');
-                $('.row.collapse').each(function () {
-                    $(this).addClass('in');
+                        // open all the collapsed children
+                        $('.extension-row.collapsed').each(function () {
+                            $(this).removeClass('collapsed');
+                            $(this).data('aria-expanded', 'true');
+                            $('.row.collapse').each(function () {
+                                $(this).addClass('in');
+                            });
+                        });
+
+                    } else {
+                        $(this).data('state', 'closed');
+                        // TODO change icon to closed double chevron
+
+                        // collapse all the children
+                        $('.extension-row').each(function () {
+                            if (!$(this).hasClass('collapsed')) {
+                                $(this).addClass('collapsed');
+                                $(this).data('aria-expanded', 'false');
+                                $('.row.collapse').each(function () {
+                                    $(this).removeClass('in');
+                                });
+                            }
+                        });
+                    }
                 });
-            });
-
-        } else {
-            $(this).data('state', 'closed');
-            // TODO change icon to closed double chevron
-
-            // collapse all the children
-            $('.extension-row').each(function () {
-                if (!$(this).hasClass('collapsed')) {
-                    $(this).addClass('collapsed');
-                    $(this).data('aria-expanded', 'false');
-                    $('.row.collapse').each(function () {
-                        $(this).removeClass('in');
-                    });
-                }
-            });
-        }
-    });
+        });
 
     // permission dropdown
     $('#acl-sel li').click(function (event_) {
@@ -225,8 +236,8 @@ function btnChevronMoveExtension(event_, transform_) {
 
     let rootElt = $(`#${$(_target).attr('data-fromlist')}`);
     const selectedElts = transform_
-    ? rootElt.find(bulk ? ' div.row' : ' div.row.active').toArray()
-    : rootElt.find(bulk ? ' option' : ' option:selected').toArray();
+        ? rootElt.find(bulk ? ' div.row' : ' div.row.active').toArray()
+        : rootElt.find(bulk ? ' option' : ' option:selected').toArray();
 
     // console.log(selectedElts);
 
@@ -247,10 +258,10 @@ function btnChevronMoveExtension(event_, transform_) {
             newElts = selectedElts.map(createMovedElementRight);
             break;
         default:
-            newElts = selectedElts.map(function(elt_) { return elt_.outerHTML});
+            newElts = selectedElts.map(function (elt_) { return elt_.outerHTML });
             break;
     }
-    for(let newElt of newElts) {
+    for (let newElt of newElts) {
         // append the html element or string
         $(`#${$(_target).attr('data-tolist')}`).append(newElt);
     }
@@ -260,12 +271,12 @@ function btnChevronMoveExtension(event_, transform_) {
     // Now reapply the clicks handlers
     // left and right lists rows
     $('#editRoleLeftExtensionsList>div').off('click');
-    $('#editRoleLeftExtensionsList>div').click(function(event_) {
+    $('#editRoleLeftExtensionsList>div').click(function (event_) {
         row_clicked(event_);
     });
 
     $('#editRoleRightExtensionsList>div').off('click');
-    $('#editRoleRightExtensionsList>div.row').click(function(event_) {
+    $('#editRoleRightExtensionsList>div.row').click(function (event_) {
         row_clicked(event_);
     });
 }
@@ -357,7 +368,7 @@ function input_changed(editbtnid_) {
 
 function row_clicked(event_) {
     const target = $(event_.currentTarget);
-    if(target.hasClass('active')) {
+    if (target.hasClass('active')) {
         target.removeClass('active');
     } else {
         target.addClass('active');
@@ -425,7 +436,7 @@ function passSelectedRoleOnEdition(roleId_) {
     $('#edit-role-group').removeClass('has-error');
     $.ajax('/administration/read-role', { data: { 'roleId_': roleId_ } }).done(function (data_) {
         const role = data_.value.role;
-        for (let i =0, len = role.length; i < len; i++) {
+        for (let i = 0, len = role.length; i < len; i++) {
             $(`#edit_role_${key}`).val(role[key]);
         }
 
@@ -440,7 +451,7 @@ function passSelectedRoleOnEdition(roleId_) {
         // Clear
         leftListElt.html("");
         // Fill
-        for (let i =0, len = data_.value.availableExtensions.length; i < len; i++) {
+        for (let i = 0, len = data_.value.availableExtensions.length; i < len; i++) {
             let extension = data_.value.availableExtensions[i];
             leftListElt.append(`<div class="row"><div class="col-md-12"><span name="${extension}">${extension}</span></div></div>`);
         }
@@ -450,7 +461,7 @@ function passSelectedRoleOnEdition(roleId_) {
         // Clear
         rightListElt.html("");
         // Fill
-        for (let i =0, len = data_.value.selectedExtensions.length; i < len; i++) {
+        for (let i = 0, len = data_.value.selectedExtensions.length; i < len; i++) {
             let extension = data_.value.selectedExtensions[i];
             rightListElt.append(`<div class="row">
                             <div class="col-md-6">
@@ -469,11 +480,11 @@ function passSelectedRoleOnEdition(roleId_) {
 
         // Now add the clicks handlers
         // left and right lists rows
-        $('#editRoleLeftExtensionsList>div').click(function(event_) {
+        $('#editRoleLeftExtensionsList>div').click(function (event_) {
             row_clicked(event_);
         });
 
-        $('#editRoleRightExtensionsList>div.row').click(function(event_) {
+        $('#editRoleRightExtensionsList>div.row').click(function (event_) {
             row_clicked(event_);
         });
     });
@@ -545,20 +556,20 @@ function saveEditRole() {
         _grants.push({ Extension: $(elt_).find('span').attr('name'), PermissionValue: $(elt_).find('select').val() });
     });
     const postData = {
-       RoleId: $('#editRoleId').val(),
-       RoleName: $('#edit_role_name_input').val(),
-       Grants: _grants
+        RoleId: $('#editRoleId').val(),
+        RoleName: $('#edit_role_name_input').val(),
+        Grants: _grants
     };
 
     $.ajax('/administration/update-role',
-       {
-           method: 'POST',
-           data: postData
-       })
-       .done(function (data_) {
-           window.toastr.success(data_, 'Changes saved');
-           location.reload();
-       });
+        {
+            method: 'POST',
+            data: postData
+        })
+        .done(function (data_) {
+            window.toastr.success(data_, 'Changes saved');
+            location.reload();
+        });
 }
 
 function deleteRole(role_) {
