@@ -10,6 +10,7 @@
     <PackageId>SoftinuxBase.Security</PackageId>
     <PackageIconUrl></PackageIconUrl>
     <PackageProjectUrl>http://www.softinux.com/</PackageProjectUrl>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
   </PropertyGroup>
   <PropertyGroup>
     <LangVersion>7</LangVersion>
@@ -28,6 +29,13 @@
   <ItemGroup>
     <EmbeddedResource Include="Styles\**;Scripts\**\*.min.js;Views\**" />
   </ItemGroup>
+  <Choose>
+    <When Condition=" '$(Configuration)'=='Debug' ">
+      <ItemGroup>
+        <EmbeddedResource Include="Scripts\**\security_user.js" />
+      </ItemGroup>
+    </When>
+  </Choose>
   <ItemGroup>
     <None Remove="Views\Account\AccessDenied.cshtml" />
     <None Remove="Views\Account\SignIn.cshtml" />

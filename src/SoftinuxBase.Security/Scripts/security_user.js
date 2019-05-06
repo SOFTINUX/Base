@@ -224,17 +224,17 @@ function browseForAvatar() {
  * - "to-right": transform a html span element to an html fragment
  */
 function btnChevronMoveExtension(event_, transform_) {
-
+    var temp = event_;
     var _target = event_.target;
 
-    if (_target.tagName === 'I')
-        _target = _target.parentNode;
+    if (event_.tagName === 'I')
+        event_ = event_.parentNode;
 
-    const bulk = $(_target).is('[data-bulk-move]');
+    const bulk = event_.hasAttribute("data-bulk-move");
 
     // if transform_ is defined, the selected list items are div elements, else select's options
 
-    let rootElt = $(`#${$(_target).attr('data-fromlist')}`);
+    let rootElt = $(`#${event_.getAttribute('data-fromlist')}`);
     const selectedElts = transform_
         ? rootElt.find(bulk ? ' div.row' : ' div.row.active').toArray()
         : rootElt.find(bulk ? ' option' : ' option:selected').toArray();
