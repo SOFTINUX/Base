@@ -53,16 +53,16 @@ $(function () {
                             break;
                         // Add selected/unselected extensions management
                         case 'addRoleBtnRight':
-                            btnChevronMoveExtension(event_);
+                            btnChevronMoveExtension(event_, '');
                             break;
                         case 'addRoleBtnAllRight':
-                            btnChevronMoveExtension(event_);
+                            btnChevronMoveExtension(event_, '');
                             break;
                         case 'addRoleBtnLeft':
-                            btnChevronMoveExtension(event_);
+                            btnChevronMoveExtension(event_, '');
                             break;
                         case 'addRoleBtnAllLeft':
-                            btnChevronMoveExtension(event_);
+                            btnChevronMoveExtension(event_, '');
                             break;
                         // Edit selected/unselected extensions management
                         case 'editRoleBtnRight':
@@ -234,10 +234,10 @@ function btnChevronMoveExtension(event_, transform_) {
 
     // if transform_ is defined, the selected list items are div elements, else select's options
 
-    let rootElt = $(`#${event_.getAttribute('data-fromlist')}`);
+    let rootElt = document.getElementById(`${event_.getAttribute('data-fromlist')}`);
     const selectedElts = transform_
-        ? rootElt.find(bulk ? ' div.row' : ' div.row.active').toArray()
-        : rootElt.find(bulk ? ' option' : ' option:selected').toArray();
+        ? bulk ? rootElt.querySelectorAll(' div.row') : rootElt.querySelectorAll(' div.row.active')
+        : bulk ? rootElt.querySelectorAll('option') : rootElt.selectedOptions;
 
     // console.log(selectedElts);
 
