@@ -215,86 +215,67 @@ function browseForAvatar() {
 /*----------------------------------------------------------------*/
 
 /**
- * Copy selected item(s) from left listbox to right listbox
+ * Move selected item(s) over left listbox to right listbox
  *
- * @param {object} event_ - dom event
+ * @param {object} event_ - HTML Button element
  * @param {string} transform_ - how to transform the event target :
- * - null: just clone the target
- * - "to-left": transform the html fragment to a html span element
- * - "to-right": transform a html span element to an html fragment
+ * - "to-left": transform the html option element to a html span element
+ * - "to-right": transform a html span element to an html option element
+ * - other value making cloning on the target.
  */
 function btnChevronMoveExtension(event_, transform_) {
-    var temp = event_;
-    var _target = event_.target;
-
     if (event_.tagName === 'I')
         event_ = event_.parentNode;
 
     const bulk = event_.hasAttribute("data-bulk-move");
 
-    // if transform_ is defined, the selected list items are div elements, else select's options
-
     let rootElt = document.getElementById(`${event_.getAttribute('data-fromlist')}`);
     const selectedElts = transform_
+        // if transform_ is defined, the selected list items are div elements, else select's options
         ? bulk ? rootElt.querySelectorAll(' div.row') : rootElt.querySelectorAll(' div.row.active')
         : bulk ? rootElt.querySelectorAll('option') : rootElt.selectedOptions;
-
-    // console.log(selectedElts);
 
     if (selectedElts.length === 0) {
         const emptyExtensionList = bulk ? 'You must have at least one extension in the list' : 'You must select at least one extension in the list';
         const emptyExtensionListTitle = 'No extension to move';
         window.toastr.warning(emptyExtensionList, emptyExtensionListTitle);
-        event_.preventDefault();
         return;
     }
 
     let newElts = [];
     switch (transform_) {
         case 'to-left':
-            newElts = selectedElts.map(createMovedElementLeft);
+            //newElts = selectedElts.map(createMovedElementLeft);
+            newElts = Array.from(selectedElts,createMovedElementLeft);
             break;
         case 'to-right':
-            newElts = selectedElts.map(createMovedElementRight);
+            newElts = Array.from(selectedElts, createMovedElementRight);
+            //newElts = selectedElts.map(createMovedElementRight);
             break;
         default:
-            newElts = selectedElts.map(function (elt_) { return elt_.outerHTML });
-            break;
+            newElts = Array.from(selectedElts, currentElt => currentElt.outerHTML);
+            break; 
     }
+    
     for (let newElt of newElts) {
-        // append the html element or string
-        $(`#${$(_target).attr('data-tolist')}`).append(newElt);
+        document.getElementById(`${event_.getAttribute('data-tolist')}`).insertAdjacentHTML('beforeend', newElt);
     }
-    $(selectedElts).remove();
-    event_.preventDefault();
-
-    // Now reapply the clicks handlers
-    // left and right lists rows
-    $('#editRoleLeftExtensionsList>div').off('click');
-    $('#editRoleLeftExtensionsList>div').click(function (event_) {
-        row_clicked(event_);
-    });
-
-    $('#editRoleRightExtensionsList>div').off('click');
-    $('#editRoleRightExtensionsList>div.row').click(function (event_) {
-        row_clicked(event_);
-    });
 }
 
 /**
  * Create a html fragment containing mostly a span element, from a html fragment containing mostly a span element.
- * @param {HtmlElement} target_ - html div element
+ * @param {Object} target_ - html div element
  * @return {string} html div
  */
 function createMovedElementLeft(target_) {
     return `<div class="row modified">
-                <div class="col-md-12">${$(target_).find('span').get(0).outerHTML}</div>
+                <div class="col-md-12">${target_.querySelectorAll('span')[0].outerHTML}</div>
             </div>`;
 }
 
 /**
  * Create a html fragment containing mostly a span and a select elements, from a html fragment contaning mostly a span and a select elements.
- * @param {HtmlElement} target_ - html div element
+ * @param {object} target_ - html div element
  * @return {string} html div
  */
 function createMovedElementRight(target_) {
