@@ -260,6 +260,10 @@ function btnChevronMoveExtension(event_, transform_) {
     for (let newElt of newElts) {
         document.getElementById(`${event_.getAttribute('data-tolist')}`).insertAdjacentHTML('beforeend', newElt);
     }
+    
+    for (let item of selectedElts) {
+        item.remove();
+    }
 }
 
 /**
