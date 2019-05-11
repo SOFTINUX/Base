@@ -83,29 +83,13 @@ $(function () {
                 });
         });
 
-    //document.getElementById('editRoleRightExtensionsList').addEventListener('click', event_ => {
-    //    var test = event_.target;
-    //    row_clicked(test.closest('div.row'));
-    //    console.log('parent %s: ', test.closest('div.row'));
-    //    }, false);
+    document.getElementById('editRoleRightExtensionsList').addEventListener('click', event_ => {
+        row_clicked(event_.target.closest('div.row'));
+        }, false);
 
-    //document.getElementById('editRoleLeftExtensionsList').addEventListener('click', event_ => {
-    //    var test = event_.target;
-    //    row_clicked(test.closest('div.row'));
-    //    console.log('parent %s: ', test.closest('div.row'));
-    //}, false);
-
-    document.querySelector('#editRoleRightExtensionsList').addEventListener('click',
-        function(event_) {
-            row_clicked(event_.currentTarget.closest('div.row'));
-            console.log('parent %s: ', event_.currentTarget.closest('div.row'));
-        });
-
-    document.querySelector('#editRoleLeftExtensionsList').addEventListener('click',
-        function(event_) {
-            row_clicked(event_.currentTarget.closest('div.row'));
-            console.log('parent %s: ', event_.currentTarget.closest('div.row'));
-        });
+    document.getElementById('editRoleLeftExtensionsList').addEventListener('click', event_ => {
+        row_clicked(event_.target.closest('div.row'));
+    }, false);
 
     // permissions administration: collapsing
     [].forEach.call(document.querySelectorAll('#collapse'),
@@ -375,11 +359,10 @@ function input_changed(editbtnid_) {
 }
 
 function row_clicked(event_) {
-    const test = event_.currentTarget;
-    if (test.classList.contains('active')) {
-        test.classList.remove('active');
+    if (event_.classList.contains('active')) {
+        event_.classList.remove('active');
     } else {
-        test.classList.add('active');
+        event_.classList.add('active');
     }
 }
 
@@ -486,15 +469,6 @@ function passSelectedRoleOnEdition(roleId_) {
                         </div>`);
         }
 
-        // Now add the clicks handlers
-        // left and right lists rows
-        $('#editRoleLeftExtensionsList>div').click(function (event_) {
-            row_clicked(event_);
-        });
-
-        $('#editRoleRightExtensionsList>div.row').click(function (event_) {
-            row_clicked(event_);
-        });
     });
 }
 
