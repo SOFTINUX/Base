@@ -19,8 +19,8 @@ $(function () {
         function (event_) {
             event_.addEventListener('click',
                 function () {
-                    let addRoleArea = document.querySelector('#add-role-area');
-                    let editRoleArea = document.querySelector('#edit-role-area');
+                    const addRoleArea = document.querySelector('#add-role-area');
+                    const editRoleArea = document.querySelector('#edit-role-area');
 
                     switch (event_.id) {
                         case 'save_profile_btn':
@@ -83,6 +83,29 @@ $(function () {
                 });
         });
 
+    //document.getElementById('editRoleRightExtensionsList').addEventListener('click', event_ => {
+    //    var test = event_.target;
+    //    row_clicked(test.closest('div.row'));
+    //    console.log('parent %s: ', test.closest('div.row'));
+    //    }, false);
+
+    //document.getElementById('editRoleLeftExtensionsList').addEventListener('click', event_ => {
+    //    var test = event_.target;
+    //    row_clicked(test.closest('div.row'));
+    //    console.log('parent %s: ', test.closest('div.row'));
+    //}, false);
+
+    document.querySelector('#editRoleRightExtensionsList').addEventListener('click',
+        function(event_) {
+            row_clicked(event_.currentTarget.closest('div.row'));
+            console.log('parent %s: ', event_.currentTarget.closest('div.row'));
+        });
+
+    document.querySelector('#editRoleLeftExtensionsList').addEventListener('click',
+        function(event_) {
+            row_clicked(event_.currentTarget.closest('div.row'));
+            console.log('parent %s: ', event_.currentTarget.closest('div.row'));
+        });
 
     // permissions administration: collapsing
     [].forEach.call(document.querySelectorAll('#collapse'),
@@ -227,9 +250,9 @@ function btnChevronMoveExtension(event_, transform_) {
     if (event_.tagName === 'I')
         event_ = event_.parentNode;
 
-    const bulk = event_.hasAttribute("data-bulk-move");
+    const bulk = event_.hasAttribute('data-bulk-move');
 
-    let rootElt = document.getElementById(`${event_.getAttribute('data-fromlist')}`);
+    const rootElt = document.getElementById(`${event_.getAttribute('data-fromlist')}`);
     const selectedElts = transform_
         // if transform_ is defined, the selected list items are div elements, else select's options
         ? bulk ? rootElt.querySelectorAll(' div.row') : rootElt.querySelectorAll(' div.row.active')
@@ -253,14 +276,14 @@ function btnChevronMoveExtension(event_, transform_) {
             //newElts = selectedElts.map(createMovedElementRight);
             break;
         default:
-            newElts = Array.from(selectedElts, currentElt => currentElt.outerHTML);
-            break; 
+            newElts = Array.from(selectedElts, currentElt_ => currentElt_.outerHTML);
+            break;
     }
-    
+
     for (let newElt of newElts) {
         document.getElementById(`${event_.getAttribute('data-tolist')}`).insertAdjacentHTML('beforeend', newElt);
     }
-    
+
     for (let item of selectedElts) {
         item.remove();
     }
@@ -283,7 +306,7 @@ function createMovedElementLeft(target_) {
  * @return {string} html div
  */
 function createMovedElementRight(target_) {
-    let extension = $(target_).find('span').attr("name");
+    const extension = $(target_).find('span').attr('name');
     return `<div class="row modified">
                 <div class="col-md-6">
                     <span name="${extension}">${extension}</span>
@@ -352,11 +375,11 @@ function input_changed(editbtnid_) {
 }
 
 function row_clicked(event_) {
-    const target = $(event_.currentTarget);
-    if (target.hasClass('active')) {
-        target.removeClass('active');
+    const test = event_.currentTarget;
+    if (test.classList.contains('active')) {
+        test.classList.remove('active');
     } else {
-        target.addClass('active');
+        test.classList.add('active');
     }
 }
 
