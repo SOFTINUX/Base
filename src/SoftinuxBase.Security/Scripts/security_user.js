@@ -85,48 +85,49 @@ $(function () {
 
     document.getElementById('editRoleRightExtensionsList').addEventListener('click', event_ => {
         row_clicked(event_.target.closest('div.row'));
-        }, false);
+    }, false);
 
     document.getElementById('editRoleLeftExtensionsList').addEventListener('click', event_ => {
         row_clicked(event_.target.closest('div.row'));
     }, false);
 
     // permissions administration: collapsing
-    [].forEach.call(document.querySelectorAll('#collapse'),
-        function(event_) {
-            event_.addEventListener('click',
-                function() {
-                    const state = $(this).data('state');
-                    if (state === 'closed') {
-                        $(this).data('state', 'open');
-                        // TODO change icon to open double chevron
+    document.getElementById('collapse').addEventListener('click', () => {
+        const element = document.getElementById('collapse');
+        const state = document.getElementById('collapse').dataset.state;
 
-                        // open all the collapsed children
-                        $('.extension-row.collapsed').each(function () {
-                            $(this).removeClass('collapsed');
-                            $(this).data('aria-expanded', 'true');
-                            $('.row.collapse').each(function () {
-                                $(this).addClass('in');
-                            });
-                        });
+        var _subEl;
+        if (state === 'closed') {
+            element.dataset.state = 'open';
+            // TODO change icon to open double chevron
 
-                    } else {
-                        $(this).data('state', 'closed');
-                        // TODO change icon to closed double chevron
-
-                        // collapse all the children
-                        $('.extension-row').each(function () {
-                            if (!$(this).hasClass('collapsed')) {
-                                $(this).addClass('collapsed');
-                                $(this).data('aria-expanded', 'false');
-                                $('.row.collapse').each(function () {
-                                    $(this).removeClass('in');
-                                });
-                            }
-                        });
+            // open all the collapsed children
+            var _elements = Array.from(document.getElementsByClassName('extension-row collapsed'));
+            for (let item of _elements) {
+                item.classList.remove('collapsed');
+                item.setAttribute('aria-expanded', 'true');
+                _subEl = document.getElementsByClassName('row collapse');
+                for (var _i = 0, _ilen = _subEl.length; _i < _ilen; _i++) {
+                    _subEl[_i].classList.add('in');
+                }
+            }
+        } else {
+            element.dataset.state = 'closed';
+            // TODO change icon to closed double chevron
+            const elementRow = Array.from(document.getElementsByClassName('extension-row'));
+            // collapse all the children
+            for (let item of elementRow) {
+                if (!item.classList.contains('collapsed')) {
+                    item.classList.add('collapsed');
+                    item.setAttribute('aria-expanded', 'false');
+                    _subEl = document.getElementsByClassName('row collapse');
+                    for (var _j = 0, _jlen = _subEl.length; _j < _jlen; _j++) {
+                        _subEl[_j].classList.remove('in');
                     }
-                });
-        });
+                }
+            }
+        }
+    }, false);
 
     // permission dropdown
     $('#acl-sel li').click(function (event_) {
@@ -137,13 +138,14 @@ $(function () {
     });
 
     // Keyup, change, paste
-    $('#profile_form :input').bind('keyup change paste', function () {
-        input_changed('save_profile_btn');
-    });
+    const profileForm = document.getElementById('profile_form').getElementsByTagName('input');
+    profileForm.addEventListener('keyup', input_changed('save_profile_btn'));
+    profileForm.addEventListener('paste', input_changed('save_profile_btn'));
+    profileForm.addEventListener('change', input_changed('save_profile_btn'));
 
-    $('#pwd_form :input').bind('keyup change paste', function () {
-        input_changed('change_pwd-btn');
-    });
+    document.getElementById('pwd_form').getElementsByTagName('input').addEventListener('keyup', input_changed('change_pwd-btn'));
+    document.getElementById('pwd_form').getElementsByTagName('input').addEventListener('paste', input_changed('change_pwd-btn'));
+    document.getElementById('pwd_form').getElementsByTagName('input').addEventListener('change', input_changed('change_pwd-btn'));
 
     // Change
     $('#inputAvatar').change(function () {
@@ -253,7 +255,7 @@ function btnChevronMoveExtension(event_, transform_) {
     switch (transform_) {
         case 'to-left':
             //newElts = selectedElts.map(createMovedElementLeft);
-            newElts = Array.from(selectedElts,createMovedElementLeft);
+            newElts = Array.from(selectedElts, createMovedElementLeft);
             break;
         case 'to-right':
             newElts = Array.from(selectedElts, createMovedElementRight);
