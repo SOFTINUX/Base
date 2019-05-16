@@ -24,21 +24,21 @@
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Scripts" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Styles\**;Scripts\**\*.min.js;Views\**" />
   </ItemGroup>
   <Choose>
     <When Condition=" '$(Configuration)'=='Debug' ">
       <ItemGroup>
         <EmbeddedResource Include="Scripts\**\security_user.js" />
+        <EmbeddedResource Include="Scripts\**\security_edit_user.js" />
+        <EmbeddedResource Include="Scripts\**\security_user_permissions.js" />
       </ItemGroup>
     </When>
   </Choose>
   <ItemGroup>
     <None Remove="Views\Account\AccessDenied.cshtml" />
     <None Remove="Views\Account\SignIn.cshtml" />
+    <None Remove="Views\Shared\_Layout_Edit_User_Admin.cshtml" />
     <None Remove="Views\Shared\_ListClaims.cshtml" />
     <None Remove="Views\Shared\_User_Profile_Details.cshtml" />
     <None Remove="Views\_ViewImports.cshtml" />

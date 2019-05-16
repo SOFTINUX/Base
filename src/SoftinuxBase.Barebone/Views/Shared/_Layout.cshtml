@@ -1,6 +1,6 @@
 ﻿@*
-Copyright © 2017 SOFTINUX. All rights reserved.
-Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
+    Copyright © 2017 SOFTINUX. All rights reserved.
+    Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 *@
 
 @using Microsoft.Extensions.Options;
@@ -9,7 +9,7 @@ Licensed under the MIT License, Version 2.0. See License.txt in the project root
 @inject IOptions<CorporateConfiguration> OptionsApplicationConfiguration
 
 <!DOCTYPE html>
-<html @if (!User.Identity.IsAuthenticated) { @Html.Raw("class=\"login-page\"")}>
+<html @if (!User.Identity.IsAuthenticated) { @Html.Raw("class=\"login-page\"") }>
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,14 +20,14 @@ Licensed under the MIT License, Version 2.0. See License.txt in the project root
     @RenderSection("Styles", false)
 </head>
 @{
-    string authClass="";
+    string authClass = "";
     authClass = !User.Identity.IsAuthenticated ? "hold-transition login-page" : "hold-transition skin-blue sidebar-mini";
     // use typed "properties" variable else the compiler isn't able to understand the LINQ expression.
     System.Reflection.PropertyInfo[] properties = Model?.GetType().GetProperties();
     bool hasModelWithErrorMessageProperty = properties != null && properties.Where(p => p.Name.Equals("ErrorMessage")).Any();
 }
 <body class="@authClass">
-    <div class="wrapper" @if (!User.Identity.IsAuthenticated){ @Html.Raw("style=\"background-image: url('" + OptionsApplicationConfiguration.Value.LoginBackgroundImage + "'); background-size: cover;\"")}>
+    <div class="wrapper" @if (!User.Identity.IsAuthenticated) { @Html.Raw("style=\"background-image: url('" + OptionsApplicationConfiguration.Value.LoginBackgroundImage + "'); background-size: cover;\"") }>
         @if (User.Identity.IsAuthenticated)
         {
             @* Main Header *@
@@ -122,8 +122,8 @@ Licensed under the MIT License, Version 2.0. See License.txt in the project root
             </footer>
         }
     </div>
-                                                               @await Component.InvokeAsync("Scripts")
-                                                               @if (!User.Identity.IsAuthenticated)
+    @await Component.InvokeAsync("Scripts")
+    @if (!User.Identity.IsAuthenticated)
     {
         <script type="text/javascript">
             $("input").keypress(function (event) {

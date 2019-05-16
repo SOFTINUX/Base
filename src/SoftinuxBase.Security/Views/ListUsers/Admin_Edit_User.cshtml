@@ -3,7 +3,7 @@
 *@
 
 @{
-    Layout = null;
+    Layout = "_Layout_Edit_User_Admin";
 }
 
 @model SoftinuxBase.Security.Data.Entities.User
@@ -33,4 +33,9 @@
     </div>
 </div>
 
-@Html.Partial("_User_Profile_Details_Fields")
+@* @Html.Partial("_User_Profile_Details_Fields") *@
+<partial name="_User_Profile_Details_Fields"></partial>
+
+@section Scripts {
+    <script type="text/javascript" src="/Scripts/security_edit_user.js"></script>
+}
