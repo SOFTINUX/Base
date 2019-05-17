@@ -1,11 +1,23 @@
 ﻿'use strict';
 
 // Keyup, change, paste
-const profileForm = document.getElementById('profile_form').getElementsByTagName('input');
-profileForm.addEventListener('keyup', input_changed('save_profile_btn'));
-profileForm.addEventListener('paste', input_changed('save_profile_btn'));
-profileForm.addEventListener('change', input_changed('save_profile_btn'));
+let profileForm = document.getElementById('profile_form');
+if (profileForm !== null) {
+    profileForm = profileForm.getElementsByTagName('input');
+    for (let inputField of profileForm) {
+        inputField.addEventListener('keyup', () => input_changed('save_profile_btn'));
+        inputField.addEventListener('paste', () => input_changed('save_profile_btn'));
+        inputField.addEventListener('change', () => input_changed('save_profile_btn'));
+    }
+}
 
-document.getElementById('pwd_form').getElementsByTagName('input').addEventListener('keyup', input_changed('change_pwd-btn'));
-document.getElementById('pwd_form').getElementsByTagName('input').addEventListener('paste', input_changed('change_pwd-btn'));
-document.getElementById('pwd_form').getElementsByTagName('input').addEventListener('change', input_changed('change_pwd-btn'));
+let changePasswordForm = document.getElementById('pwd_form');
+if (changePasswordForm !== null) {
+    changePasswordForm = changePasswordForm.getElementsByTagName('input');
+    for (let pwdField of changePasswordForm) {
+        pwdField.addEventListener('keyup', () => input_changed('change_pwd-btn'));
+        pwdField.addEventListener('paste', () => input_changed('change_pwd-btn'));
+        pwdField.addEventListener('change', () => input_changed('change_pwd-btn'));
+    }
+}
+
