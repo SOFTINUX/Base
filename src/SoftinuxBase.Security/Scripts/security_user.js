@@ -12,13 +12,13 @@ $(function () {
 
     browseForAvatar();
 
-
-
-
     // Change
-    $('#inputAvatar').change(function () {
-        $('#file_path').val($(this).val());
-    });
+    let inputAvatar = document.getElementById('inputAvatar');
+    if(inputAvatar) {
+        inputAvatar.addEventListener('change', event_ => {
+            document.getElementById('file_path').value = event_.target.value;
+        });
+    }
 
     $('#role_name_input').change(function () {
         input_form_group_validator('#role_name_input');
@@ -225,9 +225,13 @@ function input_changed(editbtnid_) {
     element.disabled = false;
     element.classList.remove('btn-primary');
     element.classList.add('btn-success');
-    element.text('Save');
+    element.innerText = 'Save';
     element.classList.remove('hidden');
-    document.getElementById(`#cancel_${element}`).classList.remove('hidden');
+    // show the corresponding cancel button when it exists
+    let cancelButton = document.getElementById(`#cancel_${editbtnid_.replace('save', 'cancel')}`);
+    if (cancelButton) {
+        cancelButton.classList.remove('hidden');
+    }
 }
 
 function row_clicked(event_) {
