@@ -12,13 +12,8 @@ $(function () {
 
     browseForAvatar();
 
-    // permission dropdown
-    $('#acl-sel li').click(function (event_) {
-        const target = $(event_.currentTarget);
-        target.closest('.bs-dropdown-to-select-acl-group')
-            .find('[data-bind="bs-drp-sel-acl-label"]').text($(this).text());
-        $('input[name="acl-selected_value"]').val($(this).attr('data-value'));
-    });
+
+
 
     // Change
     $('#inputAvatar').change(function () {

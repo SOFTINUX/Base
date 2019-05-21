@@ -112,3 +112,10 @@
             }
         }
     }, false);
+
+    // permission dropdown
+    document.getElementById('acl-sel').addEventListener('click', event_ => {
+        let clickedLiElt = event_.target.closest('li');
+        clickedLiElt.closest('.bs-dropdown-to-select-acl-group').querySelectorAll('[data-bind="bs-drp-sel-acl-label"]')[0].innerText = clickedLiElt.innerText;
+        document.getElementById('newRolePermission').value = clickedLiElt.getAttribute('data-value');
+    }, false);
