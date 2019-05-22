@@ -1,8 +1,8 @@
 ﻿// Manage click on buttons
     [].forEach.call(document.querySelectorAll('button'),
-        function (clickedElement_) {
+        clickedElement_=> {
             clickedElement_.addEventListener('click',
-                function () {
+                () => {
                     const addRoleArea = document.querySelector('#add-role-area');
                     const editRoleArea = document.querySelector('#edit-role-area');
 

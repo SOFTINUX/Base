@@ -178,26 +178,6 @@ function createMovedElementRight(target_) {
 
 /**
  *
- * @param {any} fieldsetid_ - fieldsetid_
- * @param {any} editbtnid_ - editbtnid_
- * @param {any} event_ - event_
- */
-//function edit_state(fieldsetid_, editbtnid_, event_) {
-//    //event_.preventDefault();
-//    $(`#cancel_${editbtnid_}`).removeClass('hidden');
-//    $(`button#${editbtnid_}`).addClass('hidden');
-//    if (editbtnid_ === 'save_profile_btn') {
-//        $('#file_browser').addClass('btn-primary');
-//        $('#file_browser').removeClass('btn-default');
-//    }
-//    if ($(`#${fieldsetid_}`).prop('disabled')) {
-//        $(`#${fieldsetid_}`).removeAttr('disabled');
-//        $(`#${editbtnid_}`).prop('disabled', true);
-//    }
-//}
-
-/**
- *
  * @param {any} formid_ - formid_
  * @param {any} fieldsetid_ - fieldsetid_
  * @param {any} editbtnid_ - editbtnid_
