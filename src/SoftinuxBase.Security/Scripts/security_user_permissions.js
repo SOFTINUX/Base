@@ -1,12 +1,12 @@
 ﻿// Manage click on buttons
     [].forEach.call(document.querySelectorAll('button'),
-        function (event_) {
-            event_.addEventListener('click',
+        function (clickedElement_) {
+            clickedElement_.addEventListener('click',
                 function () {
                     const addRoleArea = document.querySelector('#add-role-area');
                     const editRoleArea = document.querySelector('#edit-role-area');
 
-                    switch (event_.id) {
+                    switch (clickedElement_.id) {
                         case 'add-role-btn':
                             editRoleArea.style.display = 'none';
                             addRoleArea.style.display = addRoleArea.style.display !== 'none' ? 'none' : 'block';
@@ -25,29 +25,29 @@
                             break;
                         // Add selected/unselected extensions management
                         case 'addRoleBtnRight':
-                            btnChevronMoveExtension(event_, '');
+                            btnChevronMoveExtension(clickedElement_, '');
                             break;
                         case 'addRoleBtnAllRight':
-                            btnChevronMoveExtension(event_, '');
+                            btnChevronMoveExtension(clickedElement_, '');
                             break;
                         case 'addRoleBtnLeft':
-                            btnChevronMoveExtension(event_, '');
+                            btnChevronMoveExtension(clickedElement_, '');
                             break;
                         case 'addRoleBtnAllLeft':
-                            btnChevronMoveExtension(event_, '');
+                            btnChevronMoveExtension(clickedElement_, '');
                             break;
                         // Edit selected/unselected extensions management
                         case 'editRoleBtnRight':
-                            btnChevronMoveExtension(event_, 'to-right');
+                            btnChevronMoveExtension(clickedElement_, 'to-right');
                             break;
                         case 'editRoleBtnAllRight':
-                            btnChevronMoveExtension(event_, 'to-right');
+                            btnChevronMoveExtension(clickedElement_, 'to-right');
                             break;
                         case 'editRoleBtnLeft':
-                            btnChevronMoveExtension(event_, 'to-left');
+                            btnChevronMoveExtension(clickedElement_, 'to-left');
                             break;
                         case 'editRoleBtnAllLeft':
-                            btnChevronMoveExtension(event_, 'to-left');
+                            btnChevronMoveExtension(clickedElement_, 'to-left');
                             break;
                         default:
                             break;
