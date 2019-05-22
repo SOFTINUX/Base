@@ -16,36 +16,23 @@
                             editRoleArea.style.display = editRoleArea.style.display !== 'none' ? 'none' : 'block';
                             break;
                         case 'cancel-add-role-btn':
-                            editRoleArea.style.display = 'none';
-                            addRoleArea.style.display = 'none';
-                            break;
                         case 'cancel-edit-role-btn':
                             editRoleArea.style.display = 'none';
                             addRoleArea.style.display = 'none';
                             break;
                         // Add selected/unselected extensions management
                         case 'addRoleBtnRight':
-                            btnChevronMoveExtension(clickedElement_, '');
-                            break;
                         case 'addRoleBtnAllRight':
-                            btnChevronMoveExtension(clickedElement_, '');
-                            break;
                         case 'addRoleBtnLeft':
-                            btnChevronMoveExtension(clickedElement_, '');
-                            break;
                         case 'addRoleBtnAllLeft':
                             btnChevronMoveExtension(clickedElement_, '');
                             break;
                         // Edit selected/unselected extensions management
                         case 'editRoleBtnRight':
-                            btnChevronMoveExtension(clickedElement_, 'to-right');
-                            break;
                         case 'editRoleBtnAllRight':
                             btnChevronMoveExtension(clickedElement_, 'to-right');
                             break;
                         case 'editRoleBtnLeft':
-                            btnChevronMoveExtension(clickedElement_, 'to-left');
-                            break;
                         case 'editRoleBtnAllLeft':
                             btnChevronMoveExtension(clickedElement_, 'to-left');
                             break;

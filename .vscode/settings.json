@@ -9,8 +9,8 @@
     "workbench.sideBar.location": "left",
     "workbench.activityBar.visible": true,
     "workbench.colorCustomizations": {
-        "editor.lineHighlightBorder": "#363636",
-        "editor.lineHighlightBackground": "#363636",
+        //"editor.lineHighlightBorder": "#fdfccf",
+        //"editor.lineHighlightBackground": "#fafafa",
         "tab.activeBorder": "#FFA500",
         "activityBar.background": "#561332",
         "titleBar.activeBackground": "#791B45",
