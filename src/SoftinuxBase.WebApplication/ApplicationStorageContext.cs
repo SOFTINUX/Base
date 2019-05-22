@@ -42,11 +42,11 @@ namespace SoftinuxBase.WebApplication
 
         private ILoggerFactory GetLoggerFactory()
         {
-          IServiceCollection serviceCollection = new ServiceCollection();
-          serviceCollection.AddLogging(builder =>
-                 builder.AddProvider(new EfLoggerProvider())
-                        .AddFilter(DbLoggerCategory.Database.Command.Name, LogLevel.Debug));
-          return serviceCollection.BuildServiceProvider().GetService<ILoggerFactory>();
+            IServiceCollection serviceCollection = new ServiceCollection();
+            serviceCollection.AddLogging(builder =>
+                   builder.AddProvider(new EfLoggerProvider())
+                          .AddFilter(DbLoggerCategory.Database.Command.Name, LogLevel.Debug));
+            return serviceCollection.BuildServiceProvider().GetService<ILoggerFactory>();
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ExtCore.Data.EntityFramework;
@@ -22,9 +21,9 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         public IEnumerable<UserPermission> FindBy(string extensionName_, Common.Enums.Permission level_)
         {
             return from up in storageContext.Set<UserPermission>()
-                join p in storageContext.Set<Permission>() on up.PermissionId equals p.Id
-                where up.Extension == extensionName_ && p.Name == level_.GetPermissionName()
-                select up;
+                   join p in storageContext.Set<Permission>() on up.PermissionId equals p.Id
+                   where up.Extension == extensionName_ && p.Name == level_.GetPermissionName()
+                   select up;
         }
 
         public IEnumerable<UserPermission> FilteredByUserId(string userId_)
@@ -55,5 +54,5 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         {
             dbSet.RemoveRange(dbSet.ToArray());
         }
-      }
+    }
 }

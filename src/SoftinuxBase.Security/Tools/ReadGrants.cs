@@ -33,7 +33,7 @@ namespace SoftinuxBase.Security.Tools
         {
             GrantViewModel model = new GrantViewModel();
 
-             // 1. Get all scopes from available extensions, create initial dictionaries
+            // 1. Get all scopes from available extensions, create initial dictionaries
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
             {
                 model.PermissionsByRoleAndExtension.Add(extensionMetadata.Name, new Dictionary<string, List<global::SoftinuxBase.Security.Common.Enums.Permission>>());

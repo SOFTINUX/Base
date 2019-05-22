@@ -71,13 +71,13 @@ namespace SoftinuxBase.Security
         /// <returns></returns>
         internal IEnumerable<Claim> GetAllPermissionClaims(string userId_)
         {
-           HashSet<KeyValuePair<Permission, string>> scopedPermissions = _storage.GetRepository<IPermissionRepository>().AllForUser(userId_);
-           List<Claim> claims = new List<Claim>();
-           Dictionary<string, Permission> permissionByScope = new Dictionary<string, Permission>();
+            HashSet<KeyValuePair<Permission, string>> scopedPermissions = _storage.GetRepository<IPermissionRepository>().AllForUser(userId_);
+            List<Claim> claims = new List<Claim>();
+            Dictionary<string, Permission> permissionByScope = new Dictionary<string, Permission>();
 
-           // Take highest level permission for every scope
-           foreach (KeyValuePair<Permission, string> kv in scopedPermissions)
-           {
+            // Take highest level permission for every scope
+            foreach (KeyValuePair<Permission, string> kv in scopedPermissions)
+            {
                 if (permissionByScope.ContainsKey(kv.Value))
                 {
                     if ((int)permissionByScope[kv.Value] < (int)kv.Key)
@@ -89,15 +89,15 @@ namespace SoftinuxBase.Security
                 {
                     permissionByScope.Add(kv.Value, kv.Key);
                 }
-           }
+            }
 
             // Now build the claims
-           foreach (KeyValuePair<string, Permission> kv in permissionByScope)
-           {
-               claims.Add(new Claim(ClaimType.Permission, PermissionHelper.GetExtensionPermissionIdentifier(kv.Value, kv.Key)));
-           }
+            foreach (KeyValuePair<string, Permission> kv in permissionByScope)
+            {
+                claims.Add(new Claim(ClaimType.Permission, PermissionHelper.GetExtensionPermissionIdentifier(kv.Value, kv.Key)));
+            }
 
-           return claims;
+            return claims;
         }
     }
 }

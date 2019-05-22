@@ -84,22 +84,26 @@ namespace SecurityTest
                 DatabaseFixture.Storage.Save();
 
                 repo.Create(new RolePermission
-                    { RoleId = adminRole.Id, Extension = Constants.SoftinuxBaseSecurity, PermissionId = adminPermissionId });
+                { RoleId = adminRole.Id, Extension = Constants.SoftinuxBaseSecurity, PermissionId = adminPermissionId });
                 repo.Create(new RolePermission
-                    { RoleId = userRole.Id, Extension = Constants.SoftinuxBaseSecurity, PermissionId = readPermissionId });
+                { RoleId = userRole.Id, Extension = Constants.SoftinuxBaseSecurity, PermissionId = readPermissionId });
                 repo.Create(new RolePermission
                 {
-                    RoleId = anonymousRole.Id, Extension = Constants.SoftinuxBaseSecurity, PermissionId = neverPermissionId
+                    RoleId = anonymousRole.Id,
+                    Extension = Constants.SoftinuxBaseSecurity,
+                    PermissionId = neverPermissionId
                 });
                 repo.Create(new RolePermission
                 {
-                    RoleId = specialUserRole.Id, Extension = Constants.SoftinuxBaseSecurity, PermissionId = writePermissionId
+                    RoleId = specialUserRole.Id,
+                    Extension = Constants.SoftinuxBaseSecurity,
+                    PermissionId = writePermissionId
                 });
 
                 repo.Create(new RolePermission
-                    { RoleId = adminRole.Id, Extension = "Chinook", PermissionId = adminPermissionId });
+                { RoleId = adminRole.Id, Extension = "Chinook", PermissionId = adminPermissionId });
                 repo.Create(new RolePermission
-                    { RoleId = userRole.Id, Extension = "Chinook", PermissionId = writePermissionId });
+                { RoleId = userRole.Id, Extension = "Chinook", PermissionId = writePermissionId });
 
                 DatabaseFixture.Storage.Save();
 

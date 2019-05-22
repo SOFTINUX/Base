@@ -17,8 +17,8 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         public IEnumerable<RolePermission> All()
         {
             IEnumerable all = from rp in storageContext.Set<RolePermission>()
-                join p in storageContext.Set<Permission>() on rp.PermissionId equals p.Id
-                select new {RolePermission = rp, Permission = p};
+                              join p in storageContext.Set<Permission>() on rp.PermissionId equals p.Id
+                              select new { RolePermission = rp, Permission = p };
 
             foreach (dynamic item in all)
             {
@@ -35,9 +35,9 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         public IEnumerable<RolePermission> FindBy(string extensionName_, Common.Enums.Permission level_)
         {
             return from rp in storageContext.Set<RolePermission>()
-                join p in storageContext.Set<Permission>() on rp.PermissionId equals p.Id
-                where rp.Extension == extensionName_ && p.Name == level_.GetPermissionName()
-                select rp;
+                   join p in storageContext.Set<Permission>() on rp.PermissionId equals p.Id
+                   where rp.Extension == extensionName_ && p.Name == level_.GetPermissionName()
+                   select rp;
         }
 
         public IEnumerable<RolePermission> FilteredByRoleId(string roleId_)

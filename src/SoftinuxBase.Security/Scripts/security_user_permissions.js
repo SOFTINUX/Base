@@ -7,18 +7,6 @@
                     const editRoleArea = document.querySelector('#edit-role-area');
 
                     switch (event_.id) {
-                        case 'save_profile_btn':
-                            edit_state('profile_form_fieldset', 'save_profile_btn', event_);
-                            break;
-                        case 'cancel_save_profile_btn':
-                            cancel_edit_state('profile_form', 'profile_form_fieldset', 'save_profile_btn', 'Edit', event_);
-                            break;
-                        case 'change_pwd-btn':
-                            edit_state('pwd_form_fliedset', 'change_pwd-btn', event_);
-                            break;
-                        case 'cancel_change_pwd-btn':
-                            cancel_edit_state('pwd_form', 'pwd_form_fliedset', 'change_pwd-btn', 'Change', event_);
-                            break;
                         case 'add-role-btn':
                             editRoleArea.style.display = 'none';
                             addRoleArea.style.display = addRoleArea.style.display !== 'none' ? 'none' : 'block';

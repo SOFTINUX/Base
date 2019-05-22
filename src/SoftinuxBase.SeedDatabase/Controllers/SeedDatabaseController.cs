@@ -148,7 +148,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                 firstUser = false;
             }
 
-             _createdUsers = new[] { johnUser, janeUser, paulUser };
+            _createdUsers = new[] { johnUser, janeUser, paulUser };
         }
 
         /// <summary>
