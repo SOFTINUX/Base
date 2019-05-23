@@ -223,20 +223,6 @@ function row_clicked(event_) {
 }
 
 /**
- * display modal to choose what to remove about role
- */
-function removeRoleLink() {
-    console.log('Role name: ', $(event.target).parent().data('roleId'));
-    const splitted = $(event.target).parent().data().roleId.split('_');
-    console.log('Extension name: ', splitted[0], ' Role name: ', splitted[1]);
-
-    $('#moduleName').text(splitted[0]);
-    $('#roleName').text(splitted[1]);
-
-    $('#myModal').modal('show');
-}
-
-/**
  * Set error style to input when its value is empty.
  * @param {string} el_ - jQuery selector string.
  */

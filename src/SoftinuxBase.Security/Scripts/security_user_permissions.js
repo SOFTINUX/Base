@@ -95,3 +95,17 @@ document.getElementById('acl-sel').addEventListener('click', event_ => {
     clickedLiElt.closest('.bs-dropdown-to-select-acl-group').querySelectorAll('[data-bind="bs-drp-sel-acl-label"]')[0].innerText = clickedLiElt.innerText;
     document.getElementById('newRolePermission').value = clickedLiElt.getAttribute('data-value');
 }, false);
+
+
+function removeRoleLink(element_) {
+    if (!element_) {
+        console.log('You must pass this as argument of removeRoleLink onlick.');
+        return;
+    }
+    const splitted = element_.parentNode.dataset.roleId.split('_');
+
+    document.getElementById('moduleName').innerText = splitted[0];
+    document.getElementById('roleName').innerText = splitted[1];
+
+    $('#myModal').modal('show');
+}
