@@ -189,7 +189,7 @@ function removeRoleLink(element_) {
     const splitted = element_.parentNode.dataset.roleId.split('_');
 
     document.getElementById('moduleName').innerText = splitted[0];
-    document.getElementById('roleName').innerText = splitted[1];
+    document.getElementById('selectedRoleName').innerText = splitted[1];
 
     $('#myModal').modal('show');
 }
