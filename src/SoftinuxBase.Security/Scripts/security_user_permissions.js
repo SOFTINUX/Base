@@ -32,8 +32,7 @@
                     case 'editRoleBtnAllRight':
                     case 'editRoleBtnLeft':
                     case 'editRoleBtnAllLeft':
-                        let direction = this.includes('left') ? 'to-left' : 'to-right';
-                        btnChevronMoveExtension(clickedElement_, direction);
+                        btnChevronMoveExtension(clickedElement_, clickedElement_.id.includes('left') ? 'to-left' : 'to-right');
                         break;
                     default:
                         break;
