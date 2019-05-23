@@ -177,7 +177,7 @@ document.getElementById('collapse').addEventListener('click', (event_) => {
 document.getElementById('acl-sel').addEventListener('click', event_ => {
     let clickedLiElt = event_.target.closest('li');
     clickedLiElt.closest('.bs-dropdown-to-select-acl-group').querySelectorAll('[data-bind="bs-drp-sel-acl-label"]')[0].innerText = clickedLiElt.innerText;
-    document.getElementById('newRolePermission').value = clickedLiElt.dataset.value;
+    document.getElementById('newRolePermission').value = clickedLiElt.dataset.permissionlevel;
 }, false);
 
 
