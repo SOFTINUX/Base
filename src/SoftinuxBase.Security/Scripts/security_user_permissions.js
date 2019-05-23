@@ -136,12 +136,13 @@ document.getElementById('editRoleLeftExtensionsList').addEventListener('click', 
 }, false);
 
 // permissions administration: collapsing
-document.getElementById('collapse').addEventListener('click', () => {
-    const element = document.getElementById('collapse');
-    const state = element.dataset.state;
+document.getElementById('collapse').addEventListener('click', (event_) => {
+    let element = event_.target;
+    if (element.tagName === 'I')
+        element = element.parentNode;
     const _subEl = document.getElementsByClassName('row collapse');
 
-    if (state === 'closed') {
+    if (element.dataset.state === 'closed') {
         element.dataset.state = 'open';
         // TODO change icon to open double chevron
 
