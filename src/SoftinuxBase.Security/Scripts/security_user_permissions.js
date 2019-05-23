@@ -32,7 +32,7 @@
                     case 'editRoleBtnAllRight':
                     case 'editRoleBtnLeft':
                     case 'editRoleBtnAllLeft':
-                        btnChevronMoveExtension(clickedElement_, clickedElement_.id.includes('left') ? 'to-left' : 'to-right');
+                        btnChevronMoveExtension(clickedElement_, clickedElement_.id.toLowerCase().includes('left') ? 'to-left' : 'to-right');
                         break;
                     default:
                         break;
