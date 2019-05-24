@@ -26,9 +26,9 @@ $(function () {
  * browse for avatar
  */
 function browseForAvatar() {
-    $('#file_browser').click(function (event_) {
+    document.getElementById('file_browser').addEventListener('click', event_ => {
         event_.preventDefault();
-        $('#inputAvatar').click();
+        document.getElementById('inputAvatar').click();
     });
 }
 
