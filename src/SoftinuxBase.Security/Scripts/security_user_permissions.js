@@ -182,7 +182,7 @@ document.getElementById('acl-sel').addEventListener('click', event_ => {
 
 
 document.getElementById('save-edit-role-btn').addEventListener('click', () => {
-    if (!document.getElementById('edit_role_name_input').val()) {
+    if (!document.getElementById('edit_role_name_input').value) {
         window.toastr.warning('No new role name given.', 'Role not updated!');
         input_form_group_validator('#edit_role_name_input');
         return;
