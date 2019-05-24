@@ -56,9 +56,9 @@ if (changePasswordForm !== null) {
 
 /**
  *
- * @param {any} fieldsetid_ - fieldsetid_
- * @param {any} editbtnid_ - editbtnid_
- * @param {any} event_ - event_
+ * @param {string} fieldsetid_ - fieldset html ID selector
+ * @param {string} editbtnid_ - edit button html ID selector
+ * @param {any} event_ - event handler
  */
 function edit_state(fieldsetid_, editbtnid_, event_) {
     event_.preventDefault();
@@ -79,4 +79,41 @@ function edit_state(fieldsetid_, editbtnid_, event_) {
     }
 }
 
+/**
+ *
+ * @param {string} formid_ - form html ID selector
+ * @param {string} fieldsetid_ - fieldset html ID selector
+ * @param {string} editbtnid_ - edit button html ID selector
+ * @param {string} editbtntxt_ - edit button html text
+ * @param {any} event_ - event handler
+ */
+function cancel_edit_state(formid_, fieldsetid_, editbtnid_, editbtntxt_, event_) {
+    event_.preventDefault();
+    document.getElementById(fieldsetid_).disabled = true;
+    document.getElementById(editbtnid_).disabled = false;
+    document.getElementById(editbtnid_).innerHTML = editbtntxt_;
+    document.getElementById(`cancel_${editbtnid_}`).classList.add('hidden');
+    document.getElementById(editbtnid_).classList.remove('hidden');
+    document.getElementById('file_browser').classList.remove('btn-primary');
+    document.getElementById(editbtnid_).classList.remove('btn-success');
+    document.getElementById(editbtnid_).classList.add('btn-primary');
+    document.getElementById(formid_).reset();
+}
 
+/**
+ *
+ * @param {string} editbtnid_ - button html ID selector
+ */
+function input_changed(editbtnid_) {
+    const element = document.getElementById(editbtnid_);
+    element.disabled = false;
+    element.classList.remove('btn-primary');
+    element.classList.add('btn-success');
+    element.innerText = 'Save';
+    element.classList.remove('hidden');
+    // show the corresponding cancel button when it exists
+    let cancelButton = document.getElementById(`cancel_${editbtnid_.replace('save', 'cancel')}`);
+    if (cancelButton) {
+        cancelButton.classList.remove('hidden');
+    }
+}

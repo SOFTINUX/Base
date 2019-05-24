@@ -20,62 +20,7 @@ $(function () {
         });
     }
 
-    $('#role_name_input').change(function () {
-        input_form_group_validator('#role_name_input');
-    });
-
-    // Focusout
-    $('#role_name_input').focusout(function () {
-        input_form_group_validator('#role_name_input');
-    });
-
-    /* User interactions that trigger ajax calls */
-
-    // save new role with its extensions and permission
-    $('#save-add-role-btn').click(function () {
-        const roleNameInputElt = $('#role_name_input');
-        if (!roleNameInputElt.val()) {
-            window.toastr.warning('No role name given.', 'Role not saved!');
-            input_form_group_validator('#role_name_input');
-            return;
-        }
-        var _selectedExtensions = [];
-        $('#addRoleRightExtensionsList > option').each(function () {
-            _selectedExtensions.push(this.value);
-        });
-        const postData = {
-            RoleName: roleNameInputElt.val(),
-            Extensions: _selectedExtensions,
-            PermissionValue: $('#newRolePermission').val()
-        };
-
-        $.ajax('/administration/save-new-role', { method: 'POST', data: postData })
-            .done(function (data_) {
-                window.toastr.success(data_, 'New role created');
-                input_form_group_set_error('#role_name_input', null);
-                location.reload();
-            })
-            .fail(function (jqXhr_, testStatus_) {
-                const errMsg = jqXhr_.responseText ? jqXhr_.responseText : testStatus_;
-                input_form_group_set_error('#role_name_input', errMsg);
-            });
-    });
-
-    $('#save-edit-role-btn').click(function () {
-        if (!$('#edit_role_name_input').val()) {
-            window.toastr.warning('No new role name given.', 'Role not updated!');
-            input_form_group_validator('#edit_role_name_input');
-            return;
-        }
-
-        saveEditRole();
-    });
-
 });
-
-/* Function declared in global namespace
-so that they can be called by inline event handlers (onclick='...')
-or by functions declared in anonymous function above */
 
 /**
  * browse for avatar
@@ -90,44 +35,6 @@ function browseForAvatar() {
 /*----------------------------------------------------------------*/
 /*------------------------ events handler ------------------------*/
 /*----------------------------------------------------------------*/
-
-/**
- *
- * @param {any} formid_ - formid_
- * @param {any} fieldsetid_ - fieldsetid_
- * @param {any} editbtnid_ - editbtnid_
- * @param {any} editbtntxt_ - editbtntxt_
- * @param {any} event_ - event_
- */
-function cancel_edit_state(formid_, fieldsetid_, editbtnid_, editbtntxt_, event_) {
-    event_.preventDefault();
-    $(`#${fieldsetid_}`).prop('disabled', true);
-    $(`#${editbtnid_}`).prop('disabled', false);
-    $(`button#${editbtnid_}`).text(editbtntxt_);
-    $(`#cancel_${editbtnid_}`).addClass('hidden');
-    $(`button#${editbtnid_}`).removeClass('hidden');
-    $('#file_browser').removeClass('btn-primary');
-    $(`#${editbtnid_}`).removeClass('btn-success').addClass('btn-primary');
-    $(`#${formid_}`)[0].reset();
-}
-
-/**
- *
- * @param {string} editbtnid_ - button html ID selector
- */
-function input_changed(editbtnid_) {
-    const element = document.getElementById(editbtnid_);
-    element.disabled = false;
-    element.classList.remove('btn-primary');
-    element.classList.add('btn-success');
-    element.innerText = 'Save';
-    element.classList.remove('hidden');
-    // show the corresponding cancel button when it exists
-    let cancelButton = document.getElementById(`#cancel_${editbtnid_.replace('save', 'cancel')}`);
-    if (cancelButton) {
-        cancelButton.classList.remove('hidden');
-    }
-}
 
 function row_clicked(event_) {
     if (event_.classList.contains('active')) {

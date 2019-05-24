@@ -1,4 +1,46 @@
-﻿/**
+﻿// Manage click on buttons
+[].forEach.call(document.querySelectorAll('button'),
+    clickedElement_ => {
+        clickedElement_.addEventListener('click',
+            () => {
+                const addRoleArea = document.querySelector('#add-role-area');
+                const editRoleArea = document.querySelector('#edit-role-area');
+
+                switch (clickedElement_.id) {
+                    case 'add-role-btn':
+                        editRoleArea.style.display = 'none';
+                        addRoleArea.style.display = addRoleArea.style.display !== 'none' ? 'none' : 'block';
+                        break;
+                    case 'edit-role-btn':
+                        addRoleArea.style.display = 'none';
+                        editRoleArea.style.display = editRoleArea.style.display !== 'none' ? 'none' : 'block';
+                        break;
+                    case 'cancel-add-role-btn':
+                    case 'cancel-edit-role-btn':
+                        editRoleArea.style.display = 'none';
+                        addRoleArea.style.display = 'none';
+                        break;
+                    // Add selected/unselected extensions management
+                    case 'addRoleBtnRight':
+                    case 'addRoleBtnAllRight':
+                    case 'addRoleBtnLeft':
+                    case 'addRoleBtnAllLeft':
+                        btnChevronMoveExtension(clickedElement_, '');
+                        break;
+                    // Edit selected/unselected extensions management
+                    case 'editRoleBtnRight':
+                    case 'editRoleBtnAllRight':
+                    case 'editRoleBtnLeft':
+                    case 'editRoleBtnAllLeft':
+                        btnChevronMoveExtension(clickedElement_, clickedElement_.id.toLowerCase().includes('left') ? 'to-left' : 'to-right');
+                        break;
+                    default:
+                        break;
+                }
+            }, false);
+    });
+
+/**
  * Move selected item(s) over left listbox to right listbox
  *
  * @param {object} event_ - HTML Button element
@@ -81,48 +123,6 @@ function createMovedElementRight(target_) {
             </div>`;
 }
 
-// Manage click on buttons
-[].forEach.call(document.querySelectorAll('button'),
-    clickedElement_ => {
-        clickedElement_.addEventListener('click',
-            () => {
-                const addRoleArea = document.querySelector('#add-role-area');
-                const editRoleArea = document.querySelector('#edit-role-area');
-
-                switch (clickedElement_.id) {
-                    case 'add-role-btn':
-                        editRoleArea.style.display = 'none';
-                        addRoleArea.style.display = addRoleArea.style.display !== 'none' ? 'none' : 'block';
-                        break;
-                    case 'edit-role-btn':
-                        addRoleArea.style.display = 'none';
-                        editRoleArea.style.display = editRoleArea.style.display !== 'none' ? 'none' : 'block';
-                        break;
-                    case 'cancel-add-role-btn':
-                    case 'cancel-edit-role-btn':
-                        editRoleArea.style.display = 'none';
-                        addRoleArea.style.display = 'none';
-                        break;
-                    // Add selected/unselected extensions management
-                    case 'addRoleBtnRight':
-                    case 'addRoleBtnAllRight':
-                    case 'addRoleBtnLeft':
-                    case 'addRoleBtnAllLeft':
-                        btnChevronMoveExtension(clickedElement_, '');
-                        break;
-                    // Edit selected/unselected extensions management
-                    case 'editRoleBtnRight':
-                    case 'editRoleBtnAllRight':
-                    case 'editRoleBtnLeft':
-                    case 'editRoleBtnAllLeft':
-                        btnChevronMoveExtension(clickedElement_, clickedElement_.id.toLowerCase().includes('left') ? 'to-left' : 'to-right');
-                        break;
-                    default:
-                        break;
-                }
-            }, false);
-    });
-
 /*----------------------------------------------------------------*/
 /*------------------------ events handler ------------------------*/
 /*----------------------------------------------------------------*/
@@ -181,6 +181,29 @@ document.getElementById('acl-sel').addEventListener('click', event_ => {
 }, false);
 
 
+document.getElementById('save-edit-role-btn').addEventListener('click', () => {
+    if (!document.getElementById('edit_role_name_input').val()) {
+        window.toastr.warning('No new role name given.', 'Role not updated!');
+        input_form_group_validator('#edit_role_name_input');
+        return;
+    }
+
+    saveEditRole();
+});
+
+document.getElementById('role_name_input').addEventListener('change', () => {
+    input_form_group_validator('#role_name_input');
+});
+
+// Focusout
+document.getElementById('role_name_input').addEventListener('focusout', () => {
+    input_form_group_validator('#role_name_input');
+});
+
+/*----------------------------------------------------------------*/
+/*------------------------ functions -----------------------------*/
+/*----------------------------------------------------------------*/
+
 function removeRoleLink(element_) {
     if (!element_) {
         console.log('You must pass this as argument of removeRoleLink onlick.');
@@ -193,3 +216,37 @@ function removeRoleLink(element_) {
 
     $('#myModal').modal('show');
 }
+
+/*---------------------------------------------------------------------------------------------*/
+/*------------------------ User interactions that trigger ajax calls --------------------------*/
+/*---------------------------------------------------------------------------------------------*/
+
+// save new role with its extensions and permission
+document.getElementById('save-add-role-btn').addEventListener('click', () => {
+    const roleNameInputElt = document.getElementById('role_name_input');
+    if (!roleNameInputElt.value) {
+        window.toastr.warning('No role name given.', 'Role not saved!');
+        input_form_group_validator('#role_name_input');
+        return;
+    }
+    var _selectedExtensions = [];
+    $('#addRoleRightExtensionsList > option').each(function () {
+        _selectedExtensions.push(this.value);
+    });
+    const postData = {
+        RoleName: roleNameInputElt.value,
+        Extensions: _selectedExtensions,
+        PermissionValue: $('#newRolePermission').val()
+    };
+
+    $.ajax('/administration/save-new-role', { method: 'POST', data: postData })
+        .done(function (data_) {
+            window.toastr.success(data_, 'New role created');
+            input_form_group_set_error('#role_name_input', null);
+            location.reload();
+        })
+        .fail(function (jqXhr_, testStatus_) {
+            const errMsg = jqXhr_.responseText ? jqXhr_.responseText : testStatus_;
+            input_form_group_set_error('#role_name_input', errMsg);
+        });
+});
