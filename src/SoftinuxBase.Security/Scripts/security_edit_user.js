@@ -89,14 +89,15 @@ function edit_state(fieldsetid_, editbtnid_, event_) {
  */
 function cancel_edit_state(formid_, fieldsetid_, editbtnid_, editbtntxt_, event_) {
     event_.preventDefault();
-    document.getElementById(fieldsetid_).disabled = true;
+
+    document.getElementById(editbtnid_).classList.remove('hidden', 'btn-success');
+    document.getElementById(editbtnid_).classList.add('btn-primary');
     document.getElementById(editbtnid_).disabled = false;
     document.getElementById(editbtnid_).innerHTML = editbtntxt_;
+
+    document.getElementById(fieldsetid_).disabled = true;
     document.getElementById(`cancel_${editbtnid_}`).classList.add('hidden');
-    document.getElementById(editbtnid_).classList.remove('hidden');
     document.getElementById('file_browser').classList.remove('btn-primary');
-    document.getElementById(editbtnid_).classList.remove('btn-success');
-    document.getElementById(editbtnid_).classList.add('btn-primary');
     document.getElementById(formid_).reset();
 }
 
@@ -107,10 +108,9 @@ function cancel_edit_state(formid_, fieldsetid_, editbtnid_, editbtntxt_, event_
 function input_changed(editbtnid_) {
     const element = document.getElementById(editbtnid_);
     element.disabled = false;
-    element.classList.remove('btn-primary');
+    element.classList.remove('hidden', 'btn-primary');
     element.classList.add('btn-success');
     element.innerText = 'Save';
-    element.classList.remove('hidden');
     // show the corresponding cancel button when it exists
     let cancelButton = document.getElementById(`cancel_${editbtnid_.replace('save', 'cancel')}`);
     if (cancelButton) {

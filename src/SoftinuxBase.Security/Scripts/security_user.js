@@ -59,11 +59,9 @@ function inputFormGroupValidatorById(elementId_) {
     }
 
     if (element.value ){
-        element.classList.remove('has-error')
-        element.classList.remove('has-feedback');
+        element.classList.remove('has-error', 'has-feedback');
     } else {
-        element.classList.add('has-error');
-        element.classList.add('has-feedback');
+        element.classList.add('has-error', 'has-feedback');
     }
 }
 
