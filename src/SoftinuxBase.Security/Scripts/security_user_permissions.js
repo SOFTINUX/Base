@@ -128,11 +128,11 @@ function createMovedElementRight(target_) {
 /*----------------------------------------------------------------*/
 
 document.getElementById('editRoleRightExtensionsList').addEventListener('click', event_ => {
-    row_clicked(event_.target.closest('div.row'));
+    rowClicked(event_.target.closest('div.row'));
 }, false);
 
 document.getElementById('editRoleLeftExtensionsList').addEventListener('click', event_ => {
-    row_clicked(event_.target.closest('div.row'));
+    rowClicked(event_.target.closest('div.row'));
 }, false);
 
 // permissions administration: collapsing
@@ -184,7 +184,7 @@ document.getElementById('acl-sel').addEventListener('click', event_ => {
 document.getElementById('save-edit-role-btn').addEventListener('click', () => {
     if (!document.getElementById('edit_role_name_input').value) {
         window.toastr.warning('No new role name given.', 'Role not updated!');
-        input_form_group_validator('#edit_role_name_input');
+        inputFormGroupValidatorById('#edit_role_name_input');
         return;
     }
 
@@ -192,12 +192,12 @@ document.getElementById('save-edit-role-btn').addEventListener('click', () => {
 });
 
 document.getElementById('role_name_input').addEventListener('change', () => {
-    input_form_group_validator('#role_name_input');
+    inputFormGroupValidatorById('#role_name_input');
 });
 
 // Focusout
 document.getElementById('role_name_input').addEventListener('focusout', () => {
-    input_form_group_validator('#role_name_input');
+    inputFormGroupValidatorById('#role_name_input');
 });
 
 /*----------------------------------------------------------------*/
@@ -229,7 +229,7 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
     const roleNameInputElt = document.getElementById('role_name_input');
     if (!roleNameInputElt.value) {
         window.toastr.warning('No role name given.', 'Role not saved!');
-        input_form_group_validator('#role_name_input');
+        inputFormGroupValidatorById('#role_name_input');
         return;
     }
 
@@ -248,11 +248,11 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
     $.ajax('/administration/save-new-role', { method: 'POST', data: postData })
         .done(function (data_) {
             window.toastr.success(data_, 'New role created');
-            input_form_group_set_error('#role_name_input', null);
+            inputFormGroupSetError('#role_name_input', null);
             location.reload();
         })
         .fail(function (jqXhr_, testStatus_) {
             const errMsg = jqXhr_.responseText ? jqXhr_.responseText : testStatus_;
-            input_form_group_set_error('#role_name_input', errMsg);
+            inputFormGroupSetError('#role_name_input', errMsg);
         });
 });

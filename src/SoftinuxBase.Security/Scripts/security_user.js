@@ -28,7 +28,7 @@ $(function () {
 function browseForAvatar() {
     fileBrowserBtn = document.getElementById('file_browser');
     if (fileBrowserBtn !== null) {
-        document.getElementById('file_browser').addEventListener('click', event_ => {
+        fileBrowserBtn.addEventListener('click', event_ => {
                 event_.preventDefault();
                 document.getElementById('inputAvatar').click();
             });
@@ -39,7 +39,7 @@ function browseForAvatar() {
 /*------------------------ events handler ------------------------*/
 /*----------------------------------------------------------------*/
 
-function row_clicked(event_) {
+function rowClicked(event_) {
     if (event_.classList.contains('active')) {
         event_.classList.remove('active');
     } else {
@@ -49,17 +49,21 @@ function row_clicked(event_) {
 
 /**
  * Set error style to input when its value is empty.
- * @param {string} el_ - jQuery selector string.
+ * @param {string} elementId_ - jQuery selector string.
  */
-function input_form_group_validator(el_) {
-    if (!$(el_).is('input')) {
+function inputFormGroupValidatorById(elementId_) {
+
+    const element = document.body.getElementById(elementId_.replace(/^#+/, ''));
+    if (!element.is('input')) {
         return;
     }
 
-    if ($(el_).val()) {
-        $(el_).closest('.form-group').removeClass('has-error').removeClass('has-feedback');
+    if (element.value ){
+        element.classList.remove('has-error')
+        element.classList.remove('has-feedback');
     } else {
-        $(el_).closest('.form-group').addClass('has-error').addClass('has-feedback');
+        element.classList.add('has-error');
+        element.classList.add('has-feedback');
     }
 }
 
@@ -68,8 +72,8 @@ function input_form_group_validator(el_) {
  * @param {string} element_ - jQuery selector string.
  * @param {string} errMsg_ - error message if any error, else null to remove error style and message.
  */
-function input_form_group_set_error(element_, errMsg_) {
-    if (!$(element_).is('input')) {
+function inputFormGroupSetError(element_, errMsg_) {
+    if (!document.body.getElementById(elementId_.replace(/^#+/, '')).is('input')) {
         return;
     }
     const formGroupEl = $(element_).closest('.form-group');
