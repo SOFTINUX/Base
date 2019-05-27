@@ -26,10 +26,13 @@ $(function () {
  * browse for avatar
  */
 function browseForAvatar() {
-    document.getElementById('file_browser').addEventListener('click', event_ => {
-        event_.preventDefault();
-        document.getElementById('inputAvatar').click();
-    });
+    fileBrowserBtn = document.getElementById('file_browser');
+    if (fileBrowserBtn !== null) {
+        document.getElementById('file_browser').addEventListener('click', event_ => {
+                event_.preventDefault();
+                document.getElementById('inputAvatar').click();
+            });
+    }
 }
 
 /*----------------------------------------------------------------*/
@@ -88,37 +91,37 @@ function input_form_group_set_error(element_, errMsg_) {
  * @param {any} roleId_ - roleId
  */
 function passSelectedRoleOnEdition(roleId_) {
-    $('#edit-role-group').removeClass('has-error');
+    document.getElementById('edit-role-group').classList.remove('has-error');
     $.ajax('/administration/read-role', { data: { 'roleId_': roleId_ } }).done(function (data_) {
         const role = data_.value.role;
         for (let i = 0, len = role.length; i < len; i++) {
-            $(`#edit_role_${key}`).val(role[key]);
+            document.getElementById(`edit_role_${key}`).value = role[key];
         }
 
         // Role name
-        $('#edit_role_name_input').val(role.name);
+        document.getElementById('edit_role_name_input').value = role.name;
 
         // Role ID
-        $('#editRoleId').val(roleId_);
+        document.getElementById('editRoleId').value = roleId_;
 
         // Available extensions (left list)
-        let leftListElt = $('#editRoleLeftExtensionsList');
+        let leftListElt = document.getElementById('editRoleLeftExtensionsList');
         // Clear
-        leftListElt.html("");
+        leftListElt.innerHTML("");
         // Fill
         for (let i = 0, len = data_.value.availableExtensions.length; i < len; i++) {
             let extension = data_.value.availableExtensions[i];
-            leftListElt.append(`<div class="row"><div class="col-md-12"><span name="${extension}">${extension}</span></div></div>`);
+            leftListElt.appendChild(`<div class="row"><div class="col-md-12"><span name="${extension}">${extension}</span></div></div>`);
         }
 
         // Selected extensions (right list)
-        let rightListElt = $('#editRoleRightExtensionsList');
+        let rightListElt = document.getElementById('editRoleRightExtensionsList');
         // Clear
-        rightListElt.html("");
+        rightListElt.innerHTML("");
         // Fill
         for (let i = 0, len = data_.value.selectedExtensions.length; i < len; i++) {
             let extension = data_.value.selectedExtensions[i];
-            rightListElt.append(`<div class="row">
+            rightListElt.appendChild(`<div class="row">
                             <div class="col-md-6">
                                 <span name="${extension.extensionName}">${extension.extensionName}</span>
                             </div>

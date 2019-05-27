@@ -215,6 +215,8 @@ function removeRoleLink(element_) {
     document.getElementById('selectedRoleName').innerText = splitted[1];
 
     $('#myModal').modal('show');
+    //document.getElementById('myModal').classList.toggle('in');
+    //document.getElementById('myModal').classList.toggle('show');
 }
 
 /*---------------------------------------------------------------------------------------------*/
@@ -223,20 +225,24 @@ function removeRoleLink(element_) {
 
 // save new role with its extensions and permission
 document.getElementById('save-add-role-btn').addEventListener('click', () => {
+
     const roleNameInputElt = document.getElementById('role_name_input');
     if (!roleNameInputElt.value) {
         window.toastr.warning('No role name given.', 'Role not saved!');
         input_form_group_validator('#role_name_input');
         return;
     }
-    var _selectedExtensions = [];
-    $('#addRoleRightExtensionsList > option').each(function () {
-        _selectedExtensions.push(this.value);
-    });
+
+    let _selectedExtensions = [];
+    const addRoleRightExtensionsList = document.getElementById('addRoleRightExtensionsList');
+    for (let i = 0; i < addRoleRightExtensionsList.option.length; i++) {
+        _selectedExtensions.push(test.option[i].value);
+    }
+
     const postData = {
         RoleName: roleNameInputElt.value,
         Extensions: _selectedExtensions,
-        PermissionValue: $('#newRolePermission').val()
+        PermissionValue: document.getElementById('newRolePermission').value
     };
 
     $.ajax('/administration/save-new-role', { method: 'POST', data: postData })
