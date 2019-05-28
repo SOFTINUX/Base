@@ -22,7 +22,7 @@ function findDomElement(element_){
  */
 function getElementType(element_){
     switch(Object.prototype.toString.call(element_)){
-        case '[object Input]':
+        case '[object HTMLInputElement]':
             return 'input';
         case '[object Text]':
             return 'text';

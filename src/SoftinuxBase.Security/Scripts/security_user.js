@@ -59,7 +59,7 @@ function inputFormGroupValidatorById(element_) {
         return;
     }
 
-    const formGroupEl = element_.closest('.form-group');
+    const formGroupEl = element.closest('.form-group');
     if (element.value ){
         formGroupEl.classList.remove('has-error', 'has-feedback');
     } else {
@@ -77,13 +77,13 @@ function inputFormGroupSetError(element_, errMsg_) {
     if (!Object.is(getElementType(element), 'input')) {
         return;
     }
-    const formGroupEl = element_.closest('.form-group');
+    const formGroupEl = element.closest('.form-group');
     if (!errMsg_) {
-        formGroupEl.removeClass('has-error').removeClass('has-feedback');
-        formGroupEl.find('span.help-block').html('');
+        formGroupEl.classList.remove('has-error', 'has-feedback');
+        formGroupEl.querySelectorAll('span.help-block').innerHTML = '';
     } else {
-        formGroupEl.addClass('has-error').addClass('has-feedback');
-        formGroupEl.find('span.help-block').html(errMsg_);
+        formGroupEl.classList.add('has-error', 'has-feedback');
+        formGroupEl.querySelectorAll('span.help-block').innerHTML = errMsg_;
     }
 }
 
