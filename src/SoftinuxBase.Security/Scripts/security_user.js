@@ -3,6 +3,7 @@
 
 ///<reference path = '../../SoftinuxBase.Barebone/node_modules/jquery/dist/jquery.js' />
 ///<reference path = '../../SoftinuxBase.Barebone/node_modules/toastr/toastr.js' />
+///<reference path = '../../SoftinuxBase.Barebone/Scripts/toolbox.js' />
 
 /* Anonymous function to avoid polluting global namespace */
 $(function () {
@@ -48,30 +49,13 @@ function rowClicked(event_) {
 }
 
 /**
- * Find element in DOM.
- * @param {string} element_ - element to find by Id or Class.
- * @return {object} - return dom object.
- */
-function findDomElement(element_){
-    elementById = document.body.getElementById(element_.replace(/^#+/, ''));
-    elementByClass = document.body.getElementsByClassName(element_.replace(/^.+/, ''))
-
-    const domElement = elementById || elementByClass;
-    if (!domElement){
-        throw new Error('Element not found in DOM');
-    }
-
-    return domElement;
-}
-
-/**
  * Set error style to input when its value is empty.
  * @param {string} element_ - element to find by Id or Class..
  */
 function inputFormGroupValidatorById(element_) {
 
     const element = findDomElement(element_);
-    if (!element.is('input')) {
+    if (!Object.is(getElementType(element), 'input')) {
         return;
     }
 
@@ -90,7 +74,7 @@ function inputFormGroupValidatorById(element_) {
  */
 function inputFormGroupSetError(element_, errMsg_) {
     const element = findDomElement(element_);
-    if (!element.is('input')) {
+    if (!Object.is(getElementType(element), 'input')) {
         return;
     }
     const formGroupEl = element_.closest('.form-group');
@@ -128,21 +112,21 @@ function passSelectedRoleOnEdition(roleId_) {
         // Available extensions (left list)
         let leftListElt = document.getElementById('editRoleLeftExtensionsList');
         // Clear
-        leftListElt.innerHTML("");
+        leftListElt.innerHTML = '';
         // Fill
         for (let i = 0, len = data_.value.availableExtensions.length; i < len; i++) {
             let extension = data_.value.availableExtensions[i];
-            leftListElt.appendChild(`<div class="row"><div class="col-md-12"><span name="${extension}">${extension}</span></div></div>`);
+            leftListElt.insertAdjacentHTML('beforeend', `<div class="row"><div class="col-md-12"><span name="${extension}">${extension}</span></div></div>`);
         }
 
         // Selected extensions (right list)
         let rightListElt = document.getElementById('editRoleRightExtensionsList');
         // Clear
-        rightListElt.innerHTML("");
+        rightListElt.innerHTML = '';
         // Fill
         for (let i = 0, len = data_.value.selectedExtensions.length; i < len; i++) {
             let extension = data_.value.selectedExtensions[i];
-            rightListElt.appendChild(`<div class="row">
+            rightListElt.insertAdjacentHTML('beforeend', `<div class="row">
                             <div class="col-md-6">
                                 <span name="${extension.extensionName}">${extension.extensionName}</span>
                             </div>
