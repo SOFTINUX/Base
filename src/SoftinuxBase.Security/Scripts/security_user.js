@@ -48,18 +48,19 @@ function rowClicked(event_) {
 }
 
 /**
- * find element in DOM.
+ * Find element in DOM.
  * @param {string} element_ - element to find by Id or Class.
+ * @return {object} - return dom object.
  */
 function findDomElement(element_){
     elementById = document.body.getElementById(element_.replace(/^#+/, ''));
     elementByClass = document.body.getElementsByClassName(element_.replace(/^.+/, ''))
 
-    const domElement = elementById || elementByClass
+    const domElement = elementById || elementByClass;
     if (!domElement){
         throw new Error('Element not found in DOM');
     }
-    
+
     return domElement;
 }
 
