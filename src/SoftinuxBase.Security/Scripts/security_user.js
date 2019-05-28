@@ -48,33 +48,51 @@ function rowClicked(event_) {
 }
 
 /**
- * Set error style to input when its value is empty.
- * @param {string} elementId_ - jQuery selector string.
+ * find element in DOM.
+ * @param {string} element_ - element to find by Id or Class.
  */
-function inputFormGroupValidatorById(elementId_) {
+function findDomElement(element_){
+    elementById = document.body.getElementById(element_.replace(/^#+/, ''));
+    elementByClass = document.body.getElementsByClassName(element_.replace(/^.+/, ''))
 
-    const element = document.body.getElementById(elementId_.replace(/^#+/, ''));
+    const domElement = elementById || elementByClass
+    if (!domElement){
+        throw new Error('Element not found in DOM');
+    }
+    
+    return domElement;
+}
+
+/**
+ * Set error style to input when its value is empty.
+ * @param {string} element_ - element to find by Id or Class..
+ */
+function inputFormGroupValidatorById(element_) {
+
+    const element = findDomElement(element_);
     if (!element.is('input')) {
         return;
     }
 
+    const formGroupEl = element_.closest('.form-group');
     if (element.value ){
-        element.closest('.form-group').classList.remove('has-error', 'has-feedback');
+        formGroupEl.classList.remove('has-error', 'has-feedback');
     } else {
-        element.closest('.form-group').classList.add('has-error', 'has-feedback');
+        formGroupEl.classList.add('has-error', 'has-feedback');
     }
 }
 
 /**
  * Set error style to an input and error message below.
- * @param {string} element_ - jQuery selector string.
+ * @param {string} element_ - element to find by Id or Class.
  * @param {string} errMsg_ - error message if any error, else null to remove error style and message.
  */
 function inputFormGroupSetError(element_, errMsg_) {
-    if (!document.body.getElementById(elementId_.replace(/^#+/, '')).is('input')) {
+    const element = findDomElement(element_);
+    if (!element.is('input')) {
         return;
     }
-    const formGroupEl = $(element_).closest('.form-group');
+    const formGroupEl = element_.closest('.form-group');
     if (!errMsg_) {
         formGroupEl.removeClass('has-error').removeClass('has-feedback');
         formGroupEl.find('span.help-block').html('');
