@@ -1,7 +1,7 @@
 /**
  * Find element in DOM.
- * @param {string} element_ - element to find by Id or Class.
- * @return {object} - return dom object.
+ * @param {string} element_ - Id or Class.
+ * @return {Array} - return array of DOM elements.
  */
 function findDomElement(element_){
     elementById = document.getElementById(element_.replace(/^#+/, ''));
@@ -9,10 +9,10 @@ function findDomElement(element_){
 
     const domElement = elementById || elementByClass;
     if (!domElement){
-        throw new Error('Element not found in DOM');
+        throw new Error(`Element not found in DOM: ${element_}`);
     }
 
-    return domElement;
+    return Array.of(domElement);
 }
 
 /**

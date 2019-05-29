@@ -50,40 +50,44 @@ function rowClicked(event_) {
 
 /**
  * Set error style to input when its value is empty.
- * @param {string} element_ - element to find by Id or Class..
+ * @param {string} element_ - Id or Class.
  */
-function inputFormGroupValidatorById(element_) {
+function inputFormGroupValidator(element_) {
 
-    const element = findDomElement(element_);
-    if (!Object.is(getElementType(element), 'input')) {
-        return;
-    }
+    const elements = findDomElement(element_);
+    for(let element of elements) {
+        if (!Object.is(getElementType(element), 'input')) {
+            continue;
+        }
 
-    const formGroupEl = element.closest('.form-group');
-    if (element.value ){
-        formGroupEl.classList.remove('has-error', 'has-feedback');
-    } else {
-        formGroupEl.classList.add('has-error', 'has-feedback');
+        const formGroupEl = element.closest('.form-group');
+        if (element.value ){
+            formGroupEl.classList.remove('has-error', 'has-feedback');
+        } else {
+            formGroupEl.classList.add('has-error', 'has-feedback');
+        }
     }
 }
 
 /**
- * Set error style to an input and error message below.
- * @param {string} element_ - element to find by Id or Class.
+ * Set error style to an input and its error message below.
+ * @param {string} element_ - Id or Class.
  * @param {string} errMsg_ - error message if any error, else null to remove error style and message.
  */
 function inputFormGroupSetError(element_, errMsg_) {
-    const element = findDomElement(element_);
-    if (!Object.is(getElementType(element), 'input')) {
-        return;
-    }
-    const formGroupEl = element.closest('.form-group');
-    if (!errMsg_) {
-        formGroupEl.classList.remove('has-error', 'has-feedback');
-        formGroupEl.querySelectorAll('span.help-block').innerHTML = '';
-    } else {
-        formGroupEl.classList.add('has-error', 'has-feedback');
-        formGroupEl.querySelectorAll('span.help-block').innerHTML = errMsg_;
+    const elements = findDomElement(element_);
+    for(let element of elements) {
+        if (!Object.is(getElementType(element), 'input')) {
+            continue;
+        }
+        const formGroupEl = element.closest('.form-group');
+        if (!errMsg_) {
+            formGroupEl.classList.remove('has-error', 'has-feedback');
+            formGroupEl.querySelectorAll('span.help-block')[0].innerHTML = '';
+        } else {
+            formGroupEl.classList.add('has-error', 'has-feedback');
+            formGroupEl.querySelectorAll('span.help-block')[0].innerHTML = errMsg_;
+        }
     }
 }
 
@@ -98,10 +102,12 @@ function inputFormGroupSetError(element_, errMsg_) {
 function passSelectedRoleOnEdition(roleId_) {
     document.getElementById('edit-role-group').classList.remove('has-error');
     $.ajax('/administration/read-role', { data: { 'roleId_': roleId_ } }).done(function (data_) {
+        // data_.value is ReadRoleViewModel
         const role = data_.value.role;
-        for (let i = 0, len = role.length; i < len; i++) {
-            document.getElementById(`edit_role_${key}`).value = role[key];
-        }
+
+        // for (let i = 0, len = role.length; i < len; i++) {
+        //     document.getElementById(`edit_role_${key}`).value = role[key];
+        // }
 
         // Role name
         document.getElementById('edit_role_name_input').value = role.name;
@@ -114,8 +120,7 @@ function passSelectedRoleOnEdition(roleId_) {
         // Clear
         leftListElt.innerHTML = '';
         // Fill
-        for (let i = 0, len = data_.value.availableExtensions.length; i < len; i++) {
-            let extension = data_.value.availableExtensions[i];
+        for (let extension of data_.value.availableExtensions) {
             leftListElt.insertAdjacentHTML('beforeend', `<div class="row"><div class="col-md-12"><span name="${extension}">${extension}</span></div></div>`);
         }
 
@@ -124,8 +129,7 @@ function passSelectedRoleOnEdition(roleId_) {
         // Clear
         rightListElt.innerHTML = '';
         // Fill
-        for (let i = 0, len = data_.value.selectedExtensions.length; i < len; i++) {
-            let extension = data_.value.selectedExtensions[i];
+        for (let extension of data_.value.selectedExtensions) {
             rightListElt.insertAdjacentHTML('beforeend', `<div class="row">
                             <div class="col-md-6">
                                 <span name="${extension.extensionName}">${extension.extensionName}</span>

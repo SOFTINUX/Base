@@ -152,8 +152,8 @@ document.getElementById('collapse').addEventListener('click', (event_) => {
             item.classList.remove('collapsed');
             item.setAttribute('aria-expanded', 'true');
         }
-        for (let _i = 0, _ilen = _subEl.length; _i < _ilen; _i++) {
-            _subEl[_i].classList.add('in');
+        for (let item of _subEl) {
+            item.classList.add('in');
         }
     } else {
         element.dataset.state = 'closed';
@@ -162,13 +162,11 @@ document.getElementById('collapse').addEventListener('click', (event_) => {
         // collapse all the children
         const elementRow = Array.from(document.getElementsByClassName('extension-row'));
         for (let item of elementRow) {
-            if (!item.classList.contains('collapsed')) {
-                item.classList.add('collapsed');
-                item.setAttribute('aria-expanded', 'false');
-            }
+            item.classList.add('collapsed');
+            item.setAttribute('aria-expanded', 'false');
         }
-        for (let _i = 0, _ilen = _subEl.length; _i < _ilen; _i++) {
-            _subEl[_i].classList.remove('in');
+        for (let item of _subEl) {
+            item.classList.remove('in');
         }
     }
 }, false);
@@ -184,7 +182,7 @@ document.getElementById('acl-sel').addEventListener('click', event_ => {
 document.getElementById('save-edit-role-btn').addEventListener('click', () => {
     if (!document.getElementById('edit_role_name_input').value) {
         window.toastr.warning('No new role name given.', 'Role not updated!');
-        inputFormGroupValidatorById('#edit_role_name_input');
+        inputFormGroupValidator('#edit_role_name_input');
         return;
     }
 
@@ -192,12 +190,12 @@ document.getElementById('save-edit-role-btn').addEventListener('click', () => {
 });
 
 document.getElementById('role_name_input').addEventListener('change', () => {
-    inputFormGroupValidatorById('#role_name_input');
+    inputFormGroupValidator('#role_name_input');
 });
 
 // Focusout
 document.getElementById('role_name_input').addEventListener('focusout', () => {
-    inputFormGroupValidatorById('#role_name_input');
+    inputFormGroupValidator('#role_name_input');
 });
 
 /*----------------------------------------------------------------*/
@@ -229,14 +227,14 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
     const roleNameInputElt = document.getElementById('role_name_input');
     if (!roleNameInputElt.value) {
         window.toastr.warning('No role name given.', 'Role not saved!');
-        inputFormGroupValidatorById('#role_name_input');
+        inputFormGroupValidator('#role_name_input');
         return;
     }
 
     let _selectedExtensions = [];
     const addRoleRightExtensionsList = document.getElementById('addRoleRightExtensionsList');
-    for (let i = 0; i < addRoleRightExtensionsList.option.length; i++) {
-        _selectedExtensions.push(test.option[i].value);
+    for (let listOption of addRoleRightExtensionsList.querySelectorAll('option')) {
+        _selectedExtensions.push(listOption.value);
     }
 
     const postData = {
