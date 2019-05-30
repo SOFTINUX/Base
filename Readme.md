@@ -36,6 +36,7 @@ Join our team!
         - [Add a new project](#add-a-new-project)
         - [Add project reference to the solution](#add-project-reference-to-the-solution)
         - [Write your code](#write-your-code)
+- [Browsers Support](browsers-support)
 - [Using Visual Studio Code For Developing](#using-visual-studio-code-for-developing)
 
 ## Basic Concepts
@@ -102,11 +103,11 @@ You need to execute `./bp.sh copyexts` and `./bp.sh copydeps` after building the
 Or refer to our [documentation](https://softinux-base.readthedocs.io/en/latest/howto/configure_rider.html) to see how to configure external tools that will be launched by build process.
 
 #### 6. Add the first user (demo user)
-With Postman (or the program of your choice) make a POST request to this url: <http://localhost:5000/dev/seed/CreateUser>
+With Postman (or the program of your choice) make a POST request to this url: <http://localhost:5000/dev/seed/create-user>
 With command line:
 
-- using curl: `curl -i -X POST http://localhost:5000/dev/seed/CreateUser`
-- using powershell: `Invoke-WebRequest -Uri http://localhost:5000/dev/seed/CreateUser -Method POST`
+- using curl: `curl -i -X POST http://localhost:5000/dev/seed/create-user`
+- using powershell: `Invoke-WebRequest -Uri http://localhost:5000/dev/seed/create-user -Method POST`
 
 This will create the demo user with general permissions.
 
@@ -125,12 +126,16 @@ If you decide to use Visual Studio, be aware **that projects are not compatible 
 ### Add a new project
 Using command-line (easy and cross-platform):
 
-`dotnet new classlib -o <you_new_project>`
+```
+dotnet new classlib -o <you_new_project>
+```
 
 ### Add project reference to the solution
 Go to solution folder and type:
 
-`dotnet add reference <path_to_your_new_project>`
+```
+dotnet add reference <path_to_your_new_project>
+```
 
 ### Write your code
 In your new project, create a class that implements `SoftinuxBase.Infrastructure.IExtensionMetadata`.
@@ -138,6 +143,18 @@ In your new project, create a class that implements `SoftinuxBase.Infrastructure
 Your extension will depend on `SoftinuxBase.Infrastructure`.
 
 Have a look at sample extensions, [wiki](https://github.com/SOFTINUX/Base/wiki), feel free to open issues for questions.
+
+# Browsers support
+
+| ![][ie]<br />IE / Edge | ![][firefox]<br />Firefox | ![][chrome]<br />Chrome | ![][safari]<br />Safari | ![][opera]<br />Opera |
+| ---------------------- | ------------------------- | ----------------------- | ----------------------- | --------------------- |
+| IE10, IE11, Edge       | last 10 versions          | last 10 versions        | last 10 versions        | last 10 versions      |
+
+[ie]: https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/edge.png
+[firefox]: https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/firefox.png
+[chrome]: https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/chrome.png
+[safari]: https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/safari.png
+[opera]: https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/opera.png
 
 # Using Visual Studio Code For Developing
 If you prefer to use Visual Studio Code, you need these extensions:
@@ -149,7 +166,7 @@ If you prefer to use Visual Studio Code, you need these extensions:
 - [IntelliSense for CSS class name](https://marketplace.visualstudio.com/items?itemName=Zignd.html-css-class-completion)
 - [Path Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-- [TSLint](https://marketplace.visualstudio.com/items?itemName=eg2.tslint)
+- [TSLint](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-tslint-plugin)
 - [Visual Studio Code Solution Explorer](https://marketplace.visualstudio.com/items?itemName=fernandoescolar.vscode-solution-explorer)
 
 Optional for better experience:
