@@ -1,4 +1,7 @@
-﻿// Manage click on buttons
+﻿// Copyright © 2017-2019 SOFTINUX. All rights reserved.
+// Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
+
+// Manage click on buttons
 [].forEach.call(document.querySelectorAll('button'),
     clickedElement_ => {
         clickedElement_.addEventListener('click',
@@ -39,6 +42,93 @@
                 }
             }, false);
     });
+
+/*----------------------------------------------------------------*/
+/*------------------------ events handlers ------------------------*/
+/*----------------------------------------------------------------*/
+
+document.getElementById('editRoleRightExtensionsList').addEventListener('click', event_ => {
+    rowClicked(event_.target.closest('div.row'));
+}, false);
+
+document.getElementById('editRoleLeftExtensionsList').addEventListener('click', event_ => {
+    rowClicked(event_.target.closest('div.row'));
+}, false);
+
+// permissions administration: collapsing
+document.getElementById('collapse').addEventListener('click', (event_) => {
+    let element = event_.target;
+    if (element.tagName === 'I')
+        element = element.parentNode;
+    const _subEl = document.getElementsByClassName('row collapse');
+
+    if (element.dataset.state === 'closed') {
+        element.dataset.state = 'open';
+        // TODO change icon to open double chevron
+
+        // open all the collapsed children
+        const _elements = Array.from(document.getElementsByClassName('extension-row collapsed'));
+        for (let item of _elements) {
+            item.classList.remove('collapsed');
+            item.setAttribute('aria-expanded', 'true');
+        }
+        for (let item of _subEl) {
+            item.classList.add('in');
+        }
+    } else {
+        element.dataset.state = 'closed';
+        // TODO change icon to closed double chevron
+
+        // collapse all the children
+        const elementRow = Array.from(document.getElementsByClassName('extension-row'));
+        for (let item of elementRow) {
+            item.classList.add('collapsed');
+            item.setAttribute('aria-expanded', 'false');
+        }
+        for (let item of _subEl) {
+            item.classList.remove('in');
+        }
+    }
+}, false);
+
+// permission dropdown
+document.getElementById('acl-sel').addEventListener('click', event_ => {
+    let clickedLiElt = event_.target.closest('li');
+    clickedLiElt.closest('.bs-dropdown-to-select-acl-group').querySelectorAll('[data-bind="bs-drp-sel-acl-label"]')[0].innerText = clickedLiElt.innerText;
+    document.getElementById('newRolePermission').value = clickedLiElt.dataset.permissionlevel;
+}, false);
+
+
+document.getElementById('save-edit-role-btn').addEventListener('click', () => {
+    if (!document.getElementById('edit_role_name_input').value) {
+        window.toastr.warning('No new role name given.', 'Role not updated!');
+        inputFormGroupValidator('#edit_role_name_input');
+        return;
+    }
+
+    saveEditRole();
+});
+
+document.getElementById('role_name_input').addEventListener('change', () => {
+    inputFormGroupValidator('#role_name_input');
+});
+
+// Focusout
+document.getElementById('role_name_input').addEventListener('focusout', () => {
+    inputFormGroupValidator('#role_name_input');
+});
+
+/*----------------------------------------------------------------*/
+/*------------------------ functions -----------------------------*/
+/*----------------------------------------------------------------*/
+
+function rowClicked(event_) {
+    if (event_.classList.contains('active')) {
+        event_.classList.remove('active');
+    } else {
+        event_.classList.add('active');
+    }
+}
 
 /**
  * Move selected item(s) over left listbox to right listbox
@@ -123,85 +213,6 @@ function createMovedElementRight(target_) {
             </div>`;
 }
 
-/*----------------------------------------------------------------*/
-/*------------------------ events handler ------------------------*/
-/*----------------------------------------------------------------*/
-
-document.getElementById('editRoleRightExtensionsList').addEventListener('click', event_ => {
-    rowClicked(event_.target.closest('div.row'));
-}, false);
-
-document.getElementById('editRoleLeftExtensionsList').addEventListener('click', event_ => {
-    rowClicked(event_.target.closest('div.row'));
-}, false);
-
-// permissions administration: collapsing
-document.getElementById('collapse').addEventListener('click', (event_) => {
-    let element = event_.target;
-    if (element.tagName === 'I')
-        element = element.parentNode;
-    const _subEl = document.getElementsByClassName('row collapse');
-
-    if (element.dataset.state === 'closed') {
-        element.dataset.state = 'open';
-        // TODO change icon to open double chevron
-
-        // open all the collapsed children
-        const _elements = Array.from(document.getElementsByClassName('extension-row collapsed'));
-        for (let item of _elements) {
-            item.classList.remove('collapsed');
-            item.setAttribute('aria-expanded', 'true');
-        }
-        for (let item of _subEl) {
-            item.classList.add('in');
-        }
-    } else {
-        element.dataset.state = 'closed';
-        // TODO change icon to closed double chevron
-
-        // collapse all the children
-        const elementRow = Array.from(document.getElementsByClassName('extension-row'));
-        for (let item of elementRow) {
-            item.classList.add('collapsed');
-            item.setAttribute('aria-expanded', 'false');
-        }
-        for (let item of _subEl) {
-            item.classList.remove('in');
-        }
-    }
-}, false);
-
-// permission dropdown
-document.getElementById('acl-sel').addEventListener('click', event_ => {
-    let clickedLiElt = event_.target.closest('li');
-    clickedLiElt.closest('.bs-dropdown-to-select-acl-group').querySelectorAll('[data-bind="bs-drp-sel-acl-label"]')[0].innerText = clickedLiElt.innerText;
-    document.getElementById('newRolePermission').value = clickedLiElt.dataset.permissionlevel;
-}, false);
-
-
-document.getElementById('save-edit-role-btn').addEventListener('click', () => {
-    if (!document.getElementById('edit_role_name_input').value) {
-        window.toastr.warning('No new role name given.', 'Role not updated!');
-        inputFormGroupValidator('#edit_role_name_input');
-        return;
-    }
-
-    saveEditRole();
-});
-
-document.getElementById('role_name_input').addEventListener('change', () => {
-    inputFormGroupValidator('#role_name_input');
-});
-
-// Focusout
-document.getElementById('role_name_input').addEventListener('focusout', () => {
-    inputFormGroupValidator('#role_name_input');
-});
-
-/*----------------------------------------------------------------*/
-/*------------------------ functions -----------------------------*/
-/*----------------------------------------------------------------*/
-
 function removeRoleLink(element_) {
     if (!element_) {
         console.log('You must pass this as argument of removeRoleLink onlick.');
@@ -254,3 +265,154 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
             inputFormGroupSetError('#role_name_input', errMsg);
         });
 });
+
+/**
+ * Update the UI with selected role information. Ajax GET.
+ * @param {any} roleId_ - roleId
+ */
+function passSelectedRoleOnEdition(roleId_) {
+    document.getElementById('edit-role-group').classList.remove('has-error');
+    $.ajax('/administration/read-role', { data: { 'roleId_': roleId_ } }).done(function (data_) {
+        // data_.value is ReadRoleViewModel
+        const role = data_.value.role;
+
+        // for (let i = 0, len = role.length; i < len; i++) {
+        //     document.getElementById(`edit_role_${key}`).value = role[key];
+        // }
+
+        // Role name
+        document.getElementById('edit_role_name_input').value = role.name;
+
+        // Role ID
+        document.getElementById('editRoleId').value = roleId_;
+
+        // Available extensions (left list)
+        let leftListElt = document.getElementById('editRoleLeftExtensionsList');
+        // Clear
+        leftListElt.innerHTML = '';
+        // Fill
+        for (let extension of data_.value.availableExtensions) {
+            leftListElt.insertAdjacentHTML('beforeend', `<div class="row"><div class="col-md-12"><span name="${extension}">${extension}</span></div></div>`);
+        }
+
+        // Selected extensions (right list)
+        let rightListElt = document.getElementById('editRoleRightExtensionsList');
+        // Clear
+        rightListElt.innerHTML = '';
+        // Fill
+        for (let extension of data_.value.selectedExtensions) {
+            rightListElt.insertAdjacentHTML('beforeend', `<div class="row">
+                            <div class="col-md-6">
+                                <span name="${extension.extensionName}">${extension.extensionName}</span>
+                            </div>
+                            <div class="col-md-6">
+                                <select>
+                                    <option value="None" ${extension.permissionName === 'None' ? "selected" : ""}>None</option>
+                                    <option value="Read" ${extension.permissionName === 'Read' ? "selected" : ""}>Read</option>
+                                    <option value="Write" ${extension.permissionName === 'Write' ? "selected" : ""}>Write</option>
+                                    <option value="Admin" ${extension.permissionName === 'Admin' ? "selected" : ""}>Admin</option>
+                                </select>
+                            </div>
+                        </div>`);
+        }
+
+    });
+}
+
+/**
+ * Click in permission checkbox. Calls savePermission().
+ */
+function checkClick() {
+    const splitted = $(event.target)[0].id.split('_');
+    const base = splitted[0] + '_' + splitted[1];
+    const writeCheckbox = document.getElementById(`${base}_WRITE`);
+    const readCheckbox = document.getElementById(`${base}_READ`);
+    var _activeCheckedPermissions = 'NEVER';
+
+    if (event.target.checked) {
+        // when checking, impacted checkboxes become checked and disabled
+        switch (splitted[2]) {
+            case 'ADMIN':
+                writeCheckbox.checked = true;
+                writeCheckbox.disabled = true;
+                readCheckbox.checked = true;
+                readCheckbox.disabled = true;
+                break;
+            case 'WRITE':
+                readCheckbox.checked = true;
+                readCheckbox.disabled = true;
+                break;
+        }
+        savePermission(splitted[0], splitted[1], splitted[2]);
+    }
+    else {
+        // when unchecking, first next checkbox becomes enabled
+        switch (splitted[2]) {
+            case 'ADMIN':
+                writeCheckbox.disabled = false;
+                _activeCheckedPermissions = 'WRITE';
+                break;
+            case 'WRITE':
+                readCheckbox.disabled = false;
+                _activeCheckedPermissions = 'READ';
+                break;
+        }
+        savePermission(splitted[0], splitted[1], _activeCheckedPermissions);
+    }
+}
+
+/**
+ * Ajax call to update data: role-extension-permission link update. Ajax GET (TODO change to POST).
+ * @param {any} extension_ - extension
+ * @param {any} roleName_ - role name
+ * @param {any} permission_ - permission (enum value)
+ */
+function savePermission(extension_, roleName_, permission_) {
+    const params = {
+        'roleName_': roleName_,
+        'permissionValue_': permission_,
+        'extension_': extension_
+    };
+    $.ajax('/administration/update-role-permission', { data: params });
+}
+
+/**
+ * Ajax call to update data: role with its related data update. Ajax POST.
+ */
+function saveEditRole() {
+    var _grants = [];
+    $('#editRoleRightExtensionsList>div.row').each(function (index_, elt_) {
+        _grants.push({ Extension: $(elt_).find('span').attr('name'), PermissionValue: $(elt_).find('select').val() });
+    });
+    const postData = {
+        RoleId: $('#editRoleId').val(),
+        RoleName: $('#edit_role_name_input').val(),
+        Grants: _grants
+    };
+
+    $.ajax('/administration/update-role',
+        {
+            method: 'POST',
+            data: postData
+        })
+        .done(function (data_) {
+            window.toastr.success(data_, 'Changes saved');
+            location.reload();
+        });
+}
+
+function deleteRole(role_) {
+    const postData = {
+        'roleName_': role_
+    };
+
+    $.ajax('/administration/delete-role',
+        {
+            method: 'POST',
+            data: postData
+        })
+        .done(function (data_) {
+            window.toastr.success(data_, 'Role deleted');
+            console.log(data_);
+        });
+}

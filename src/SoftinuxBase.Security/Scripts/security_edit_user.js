@@ -1,4 +1,12 @@
-﻿'use strict';
+﻿// Copyright © 2017-2019 SOFTINUX. All rights reserved.
+// Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
+
+'use strict';
+
+/*----------------------------------------------------------------*/
+/*------------------------ on page load ------------------------*/
+/*----------------------------------------------------------------*/
+addEventListenersForAvatarSelection();
 
 [].forEach.call(document.querySelectorAll('button'),
     function (event_) {
@@ -32,8 +40,8 @@
 // Keyup, change, paste
 let profileForm = document.getElementById('profile_form');
 if (profileForm !== null) {
-    profileForm = profileForm.getElementsByTagName('input');
-    for (let inputField of profileForm) {
+    let inputFields = profileForm.getElementsByTagName('input');
+    for (let inputField of inputFields) {
         inputField.addEventListener('keyup', () => input_changed('save_profile_btn'));
         inputField.addEventListener('paste', () => input_changed('save_profile_btn'));
         inputField.addEventListener('change', () => input_changed('save_profile_btn'));
@@ -42,17 +50,41 @@ if (profileForm !== null) {
 
 let changePasswordForm = document.getElementById('pwd_form');
 if (changePasswordForm !== null) {
-    changePasswordForm = changePasswordForm.getElementsByTagName('input');
-    for (let pwdField of changePasswordForm) {
+    let inputFields = changePasswordForm.getElementsByTagName('input');
+    for (let pwdField of inputFields) {
         pwdField.addEventListener('keyup', () => input_changed('change_pwd-btn'));
         pwdField.addEventListener('paste', () => input_changed('change_pwd-btn'));
         pwdField.addEventListener('change', () => input_changed('change_pwd-btn'));
     }
 }
 
+
+
 /*----------------------------------------------------------------*/
 /*------------------------ functions -----------------------------*/
 /*----------------------------------------------------------------*/
+
+/*
+ * Add events listeners for file selection : button and hidden file input.
+*/
+function addEventListenersForAvatarSelection() {
+    // Set selected file name to visible texbox (file input is hidden)
+    let inputAvatar = document.getElementById('inputAvatar');
+    if (inputAvatar !== null) {
+        inputAvatar.addEventListener('change', event_ => {
+            document.getElementById('file_path').value = event_.target.files[0].name;
+        }, false);
+    }
+    // Trigger file selection when button is clicked (file input is hidden)
+    let fileBrowser = document.getElementById('file_browser');
+    if (fileBrowser !== null) {
+        fileBrowser.addEventListener('click', event_ => {
+            event_.preventDefault();
+            // Open the file selector
+            document.getElementById('inputAvatar').click();
+        }, false);
+    }
+}
 
 /**
  *
