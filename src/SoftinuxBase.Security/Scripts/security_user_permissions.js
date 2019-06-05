@@ -55,8 +55,10 @@ document.getElementById('editRoleLeftExtensionsList').addEventListener('click', 
     rowClicked(event_.target.closest('div.row'));
 }, false);
 
-// permissions administration: collapsing
-document.getElementById('collapse').addEventListener('click', (event_) => {
+/**
+ * Toggle collapsed state for permissions administration table.
+ */
+document.getElementById('collapse').addEventListener('click', event_ => {
     let element = event_.target;
     if (element.tagName === 'I')
         element = element.parentNode;
@@ -91,7 +93,10 @@ document.getElementById('collapse').addEventListener('click', (event_) => {
     }
 }, false);
 
-// permission dropdown
+/**
+ * Handle the click on pseudo-dropdown that displays permission level:
+ * set the label, set the value to hidden input.
+ */
 document.getElementById('acl-sel').addEventListener('click', event_ => {
     let clickedLiElt = event_.target.closest('li');
     clickedLiElt.closest('.bs-dropdown-to-select-acl-group').querySelectorAll('[data-bind="bs-drp-sel-acl-label"]')[0].innerText = clickedLiElt.innerText;
@@ -131,21 +136,21 @@ function rowClicked(event_) {
 }
 
 /**
- * Move selected item(s) over left listbox to right listbox
+ * Move selected item(s) over left listbox to right listbox.
  *
- * @param {object} event_ - HTML Button element
+ * @param {object} clickedElement_ - clicked HTML Button element
  * @param {string} transform_ - how to transform the event target :
- * - "to-left": transform the html option element to a html span element
+ * - "to-left": transform a html option element to a html span element
  * - "to-right": transform a html span element to an html option element
- * - other value making cloning on the target.
+ * - other value: clone the target.
  */
-function btnChevronMoveExtension(event_, transform_) {
-    if (event_.tagName === 'I')
-        event_ = event_.parentNode;
+function btnChevronMoveExtension(clickedElement_, transform_) {
+    if (clickedElement_.tagName === 'I')
+        clickedElement_ = clickedElement_.parentNode;
 
-    const bulk = event_.hasAttribute('data-bulk-move');
+    const bulk = clickedElement_.hasAttribute('data-bulk-move');
 
-    const rootElt = document.getElementById(`${event_.dataset.fromlist}`);
+    const rootElt = document.getElementById(`${clickedElement_.dataset.fromlist}`);
     const selectedElts = transform_
         // if transform_ is defined, the selected list items are div elements, else select's options
         ? bulk ? rootElt.querySelectorAll(' div.row') : rootElt.querySelectorAll(' div.row.active')
@@ -172,7 +177,7 @@ function btnChevronMoveExtension(event_, transform_) {
     }
 
     for (let newElt of newElts) {
-        document.getElementById(`${event_.dataset.tolist}`).insertAdjacentHTML('beforeend', newElt);
+        document.getElementById(`${clickedElement_.dataset.tolist}`).insertAdjacentHTML('beforeend', newElt);
     }
 
     for (let item of selectedElts) {
@@ -181,9 +186,10 @@ function btnChevronMoveExtension(event_, transform_) {
 }
 
 /**
- * Create a html fragment containing mostly a span element, from a html fragment containing mostly a span element.
+ * Create a html fragment containing mostly a span element styled as "modified",
+ * using text from a html fragment containing mostly a span element.
  * @param {Object} target_ - html div element
- * @return {string} html div
+ * @return {string} html div element outer html
  */
 function createMovedElementLeft(target_) {
     return `<div class="row modified">
@@ -192,9 +198,10 @@ function createMovedElementLeft(target_) {
 }
 
 /**
- * Create a html fragment containing mostly a span and a select elements, from a html fragment contaning mostly a span and a select elements.
+ * Create a html fragment containing mostly a span and a select elements styled as "modified",
+ * using text from a html fragment containing mostly a span and a select elements.
  * @param {object} target_ - html div element
- * @return {string} html div
+ * @return {string} html div element outer html
  */
 function createMovedElementRight(target_) {
     const extension = target_.querySelectorAll('span')[0].getAttribute('name');
@@ -232,7 +239,9 @@ function removeRoleLink(element_) {
 /*------------------------ User interactions that trigger ajax calls --------------------------*/
 /*---------------------------------------------------------------------------------------------*/
 
-// save new role with its extensions and permission
+/**
+ * Save new role with its extensions and permission.
+*/
 document.getElementById('save-add-role-btn').addEventListener('click', () => {
 
     const roleNameInputElt = document.getElementById('role_name_input');
@@ -273,12 +282,8 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
 function passSelectedRoleOnEdition(roleId_) {
     document.getElementById('edit-role-group').classList.remove('has-error');
     $.ajax('/administration/read-role', { data: { 'roleId_': roleId_ } }).done(function (data_) {
-        // data_.value is ReadRoleViewModel
+        // data_.value is ReadRoleViewModel C# class
         const role = data_.value.role;
-
-        // for (let i = 0, len = role.length; i < len; i++) {
-        //     document.getElementById(`edit_role_${key}`).value = role[key];
-        // }
 
         // Role name
         document.getElementById('edit_role_name_input').value = role.name;
@@ -321,17 +326,18 @@ function passSelectedRoleOnEdition(roleId_) {
 
 /**
  * Click in permission checkbox. Calls savePermission().
+ * @param {HTMLCheckboxElement} clickedCheckbox - permission level checkbox
  */
-function checkClick() {
-    const splitted = $(event.target)[0].id.split('_');
-    const base = splitted[0] + '_' + splitted[1];
-    const writeCheckbox = document.getElementById(`${base}_WRITE`);
-    const readCheckbox = document.getElementById(`${base}_READ`);
+function checkClick(clickedCheckbox) {
+    const splittedId = clickedCheckbox.id.split('_');
+    const baseId = splittedId[0] + '_' + splittedId[1];
+    const writeCheckbox = document.getElementById(`${baseId}_WRITE`);
+    const readCheckbox = document.getElementById(`${baseId}_READ`);
     var _activeCheckedPermissions = 'NEVER';
 
-    if (event.target.checked) {
+    if (clickedCheckbox.checked) {
         // when checking, impacted checkboxes become checked and disabled
-        switch (splitted[2]) {
+        switch (splittedId[2]) {
             case 'ADMIN':
                 writeCheckbox.checked = true;
                 writeCheckbox.disabled = true;
@@ -343,11 +349,11 @@ function checkClick() {
                 readCheckbox.disabled = true;
                 break;
         }
-        savePermission(splitted[0], splitted[1], splitted[2]);
+        savePermission(splittedId[0], splittedId[1], splittedId[2]);
     }
     else {
         // when unchecking, first next checkbox becomes enabled
-        switch (splitted[2]) {
+        switch (splittedId[2]) {
             case 'ADMIN':
                 writeCheckbox.disabled = false;
                 _activeCheckedPermissions = 'WRITE';
@@ -357,7 +363,7 @@ function checkClick() {
                 _activeCheckedPermissions = 'READ';
                 break;
         }
-        savePermission(splitted[0], splitted[1], _activeCheckedPermissions);
+        savePermission(splittedId[0], splittedId[1], _activeCheckedPermissions);
     }
 }
 

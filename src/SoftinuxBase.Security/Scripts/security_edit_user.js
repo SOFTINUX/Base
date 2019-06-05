@@ -122,10 +122,11 @@ function edit_state(fieldsetid_, editbtnid_, event_) {
 function cancel_edit_state(formid_, fieldsetid_, editbtnid_, editbtntxt_, event_) {
     event_.preventDefault();
 
-    document.getElementById(editbtnid_).classList.remove('hidden', 'btn-success');
-    document.getElementById(editbtnid_).classList.add('btn-primary');
-    document.getElementById(editbtnid_).disabled = false;
-    document.getElementById(editbtnid_).innerHTML = editbtntxt_;
+    let editbtnId = document.getElementById(editbtnid_);
+    editbtnId.classList.remove('hidden', 'btn-success');
+    editbtnId.classList.add('btn-primary');
+    editbtnId.disabled = false;
+    editbtnId.innerHTML = editbtntxt_;
 
     document.getElementById(fieldsetid_).disabled = true;
     document.getElementById(`cancel_${editbtnid_}`).classList.add('hidden');
