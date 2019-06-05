@@ -68,14 +68,14 @@ if (changePasswordForm !== null) {
  * Add events listeners for file selection : button and hidden file input.
 */
 function addEventListenersForAvatarSelection() {
-    // Set selected file name to visible texbox (file input is hidden)
+    // When a file is chosen using file selector, put the selected file's name into the "file_path" text input
     let inputAvatar = document.getElementById('inputAvatar');
     if (inputAvatar !== null) {
         inputAvatar.addEventListener('change', event_ => {
             document.getElementById('file_path').value = event_.target.files[0].name;
         }, false);
     }
-    // Trigger file selection when button is clicked (file input is hidden)
+    // When the "file_browser" button is clicked, trigger a click on not visible input of type file ("inputAvatar") to allow to select a file
     let fileBrowser = document.getElementById('file_browser');
     if (fileBrowser !== null) {
         fileBrowser.addEventListener('click', event_ => {
