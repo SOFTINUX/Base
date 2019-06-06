@@ -35,7 +35,7 @@
                                     <div class="col-lg-1 col-md-2 col-sm-2 col-xs-1 cell-heigth-25 cell-role-row">
                                         <label class="checkbox-container">
                                             <input id="@Html.Raw(item.Key + "_" + subitem.Key + "_" + "ADMIN")" type="checkbox"
-                                                   @if (subitem.Value.Contains(Permission.Admin)) { @Html.Raw("checked") } onclick="checkClick(this)">
+                                                   @if (subitem.Value.Contains(Permission.Admin)) { @Html.Raw("checked") } onclick="permissionCheckBoxClick(this)">
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
@@ -44,7 +44,7 @@
                                         <label class="checkbox-container">
                                             <input id="@Html.Raw(item.Key + "_" + subitem.Key + "_" + "WRITE")" type="checkbox"
                                                    @if (subitem.Value.Contains(Permission.Write)) { @Html.Raw("checked") }
-                                                   @if (subitem.Value.Contains(Permission.Admin)) { @Html.Raw("disabled=\"true\"") } onclick="checkClick(this)">
+                                                   @if (subitem.Value.Contains(Permission.Admin)) { @Html.Raw("disabled=\"true\"") } onclick="permissionCheckBoxClick(this)">
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
@@ -53,7 +53,7 @@
                                         <label class="checkbox-container">
                                             <input id="@Html.Raw(item.Key + "_" + subitem.Key + "_" + "READ")" type="checkbox"
                                                    @if (subitem.Value.Contains(Permission.Read)) { @Html.Raw("checked") }
-                                                   @if (subitem.Value.Contains(Permission.Write)) { @Html.Raw("disabled=\"true\"") } onclick="checkClick(this)">
+                                                   @if (subitem.Value.Contains(Permission.Write)) { @Html.Raw("disabled=\"true\"") } onclick="permissionCheckBoxClick(this)">
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>

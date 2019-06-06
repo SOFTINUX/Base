@@ -328,7 +328,7 @@ function passSelectedRoleOnEdition(roleId_) {
  * Click in permission checkbox. Calls savePermission().
  * @param {HTMLCheckboxElement} clickedCheckbox - permission level checkbox
  */
-function checkClick(clickedCheckbox) {
+function permissionCheckBoxClick(clickedCheckbox) {
     const splittedId = clickedCheckbox.id.split('_');
     const baseId = splittedId[0] + '_' + splittedId[1];
     const writeCheckbox = document.getElementById(`${baseId}_WRITE`);
