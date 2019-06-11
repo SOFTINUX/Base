@@ -1,7 +1,7 @@
 ﻿// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
-import { testMe } from '/Scripts.barebone.min.js'
+import { testMe } from '/Scripts/barebone_ajax.js'
 
 // Manage click on buttons
 [].forEach.call(document.querySelectorAll('button'),
@@ -12,7 +12,7 @@ import { testMe } from '/Scripts.barebone.min.js'
                 const editRoleArea = document.querySelector('#edit-role-area');
 
                 //uncomment to test
-                //testMe(clickedElement_.id);
+                testMe(clickedElement_.id);
 
                 switch (clickedElement_.id) {
                     case 'add-role-btn':

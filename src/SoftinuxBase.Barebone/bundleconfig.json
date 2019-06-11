@@ -3,9 +3,7 @@
     "outputFileName": "Scripts/barebone.min.js",
     "inputFiles": [
       "Scripts/barebone.js",
-      "Scripts/barebone_ajax.js",
       "Scripts/infrastructure.js"
-
     ],
     "minify": {
       "enabled": true,
