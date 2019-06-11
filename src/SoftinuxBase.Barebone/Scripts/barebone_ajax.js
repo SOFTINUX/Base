@@ -1,9 +1,16 @@
+// Copyright © 2017-2019 SOFTINUX. All rights reserved.
+// Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
+
 "use strict";
 
 // Documentation https://developer.mozilla.org/fr/docs/Web/Guide/AJAX/Premiers_pas
 // Voir aussi https://stackoverflow.com/a/24468752
 
-Barebone = {};
+// temporary code
+export function testMe(message) {
+    alert(message);
+}
+// end temporary code
 
 /**
  * Make http request.
@@ -13,7 +20,7 @@ Barebone = {};
  * @param {function} responseCallback_ - function that is executed with response data. Optional
  * @return {boolean} - result
  */
-Barebone.prototype.makeRequest = function(type_, url_, data_, responseCallback_) {
+ export default function makeAjaxRequest(type_, url_, data_, responseCallback_) {
     let httpRequest = false;
     type_ = type_.toUpperCase();
 
