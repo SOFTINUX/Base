@@ -49,10 +49,3 @@ var url = window.location;
 $('ul.treeview-menu a').filter(function() {
 	return this.href === url;
 }).parentsUntil('.sidebar-menu > .treeview-menu').addClass('active');
-
-// Global ajax error handler
-$(document).ajaxError(function(jqXhr_, settings_, errorMessage_) {
-    const errMsg = jqXhr_.responseText ? jqXhr_.responseText : errorMessage_;
-    window.toastr.error(errMsg, 'ERROR');
-    console.log('Ajax error: ', errMsg);
-  });

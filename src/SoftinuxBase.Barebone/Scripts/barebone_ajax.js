@@ -71,7 +71,8 @@ function requestResult(httpRequest, responseCallback_) {
             if (httpRequest.status === 200 || httpRequest.status === 201 || httpRequest.status === 400) {
                 console.log(responseText);
             } else {
-                console.log("Un problème est survenu avec la requête. Texte de la réponse: " + responseText);
+                window.toastr.error(responseText, 'ERROR');
+                console.log('Ajax error: ', responseText);
             }
 
             if (responseCallback_) {
