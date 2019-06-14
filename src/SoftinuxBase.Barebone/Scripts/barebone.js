@@ -49,3 +49,6 @@ var url = window.location;
 $('ul.treeview-menu a').filter(function() {
 	return this.href === url;
 }).parentsUntil('.sidebar-menu > .treeview-menu').addClass('active');
+
+// To vanillate, see https://gomakethings.com/how-to-get-all-parent-elements-with-vanilla-javascript/#climbing-up-the-dom
+// because here we want to add a css class to all ancestors elements up to the selector.

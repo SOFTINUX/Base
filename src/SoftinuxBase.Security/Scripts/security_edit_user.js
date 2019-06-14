@@ -9,10 +9,10 @@
 addEventListenersForAvatarSelection();
 
 [].forEach.call(document.querySelectorAll('button'),
-    function (event_) {
-        event_.addEventListener('click',
+    function (button_) {
+        button_.addEventListener('click',
             function (e_) {
-                switch (event_.id) {
+                switch (button_.id) {
                     case 'save_profile_btn':
                         edit_state('profile_form_fieldset', 'save_profile_btn', e_);
                         break;
