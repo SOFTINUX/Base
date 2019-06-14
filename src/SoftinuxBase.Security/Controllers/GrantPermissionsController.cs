@@ -96,7 +96,7 @@ namespace SoftinuxBase.Security.Controllers
         /// <returns>Http status code.</returns>
         [Route("administration/save-new-role")]
         [HttpPost]
-        public async Task<IActionResult> SaveNewRoleAndItsPermissions(SaveNewRoleAndGrantsViewModel model_)
+        public async Task<IActionResult> SaveNewRoleAndItsPermissions([FromBody] SaveNewRoleAndGrantsViewModel model_)
         {
             string error = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(_storage, _roleManager, model_);
             return StatusCode(string.IsNullOrEmpty(error) ? 201 : 400, error);

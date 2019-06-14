@@ -4,4 +4,5 @@ Licensed under the MIT License, Version 2.0. See License.txt in the project root
 *@
 
 @model SoftinuxBase.Barebone.ViewModels.Shared.Script.ScriptViewModel
-<script src="@Model.Url"></script>
+@* including script with type "module" allows it to import ES6 modules *@
+<script src="@Model.Url" type="module"></script>

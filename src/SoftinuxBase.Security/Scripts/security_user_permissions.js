@@ -1,7 +1,10 @@
 ﻿// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
-import { testMe } from '/Scripts/barebone_ajax.js'
+///<reference path = '../../SoftinuxBase.Barebone/Scripts/barebone_ajax.js' />
+
+import makeAjaxRequest from '/Scripts/barebone_ajax.js';
+import { inputFormGroupSetError, inputFormGroupValidator } from '/Scripts/security_user.js'
 
 // Manage click on buttons
 [].forEach.call(document.querySelectorAll('button'),
@@ -10,9 +13,6 @@ import { testMe } from '/Scripts/barebone_ajax.js'
             () => {
                 const addRoleArea = document.querySelector('#add-role-area');
                 const editRoleArea = document.querySelector('#edit-role-area');
-
-                //uncomment to test
-                testMe(clickedElement_.id);
 
                 switch (clickedElement_.id) {
                     case 'add-role-btn':
@@ -268,16 +268,15 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
         PermissionValue: document.getElementById('newRolePermission').value
     };
 
-    $.ajax('/administration/save-new-role', { method: 'POST', data: postData })
-        .done(function (data_) {
-            window.toastr.success(data_, 'New role created');
+    makeAjaxRequest('POST', '/administration/save-new-role', postData, (responseStatus, responseText) => {
+        if (responseStatus === 201) {
+            window.toastr.success(responseText, 'New role created');
             inputFormGroupSetError('#role_name_input', null);
             location.reload();
-        })
-        .fail(function (jqXhr_, testStatus_) {
-            const errMsg = jqXhr_.responseText ? jqXhr_.responseText : testStatus_;
-            inputFormGroupSetError('#role_name_input', errMsg);
-        });
+        } else {
+            inputFormGroupSetError('#role_name_input', responseText ? responseText : responseStatus);
+        }
+    });
 });
 
 /**

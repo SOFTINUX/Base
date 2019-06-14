@@ -129,6 +129,7 @@ namespace SoftinuxBase.Barebone
             // new Script("/node_modules.codemirror.addon.scroll.annotatescrollbar.js",677),
             // --
             new Script("/Scripts.barebone.min.js", 700),
+            new Script("/Scripts.barebone_ajax.js", 701),
         };
         public IEnumerable<MenuGroup> MenuGroups => null;
     }

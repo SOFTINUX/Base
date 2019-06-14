@@ -24,7 +24,7 @@ window.toastr.options.positionClass = 'toast-top-right';
  * Set error style to input when its value is empty.
  * @param {string} element_ - Id or Class.
  */
-function inputFormGroupValidator(element_) {
+export function inputFormGroupValidator(element_) {
 
     const elements = findDomElement(element_);
     for(let element of elements) {
@@ -46,7 +46,7 @@ function inputFormGroupValidator(element_) {
  * @param {string} element_ - Id or Class.
  * @param {string} errMsg_ - error message if any error, else null to remove error style and message.
  */
-function inputFormGroupSetError(element_, errMsg_) {
+export function inputFormGroupSetError(element_, errMsg_) {
     const elements = findDomElement(element_);
     for(let element of elements) {
         if (!Object.is(getElementType(element), 'input')) {
