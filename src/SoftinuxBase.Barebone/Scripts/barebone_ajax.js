@@ -6,14 +6,9 @@
 // Documentation https://developer.mozilla.org/fr/docs/Web/Guide/AJAX/Premiers_pas
 // Voir aussi https://stackoverflow.com/a/24468752
 
-// temporary code
-export function testMe(message) {
-    alert(message);
-}
-// end temporary code
-
 /**
  * Make http request.
+ * @export
  * @param {string } type_ - type of request (GET/POST/PUT/PATCH/DELETE)
  * @param {string} url_ - url (without query string)
  * @param {json} data_ - json data
@@ -32,7 +27,7 @@ export function testMe(message) {
         return false;
     }
 
-    // on défini la fonction qui traite le retour (la réponse du serveur)
+    // on définit la fonction qui traite le retour (la réponse du serveur)
     httpRequest.onreadystatechange = () => {
         requestResult(httpRequest, responseCallback_);
     };
