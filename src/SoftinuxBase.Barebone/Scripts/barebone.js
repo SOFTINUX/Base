@@ -39,11 +39,11 @@ $(document).ready(
 
 
 [].forEach.call(document.querySelectorAll('ul.treeview-menu a'), (anchor_) => {
-    if (anchor_.href == window.location) {
+    if (window.location.href.startsWith(anchor_.href)) {
         let currentElement = anchor_;
         for (; currentElement && currentElement !== document; currentElement = currentElement.parentNode) {
             if (currentElement.matches("li")) {
-                // a parent li in menu
+                // a parent li in menu (menu iteml li (immediate parent of anchor) or menu group li)
                 currentElement.classList.add('active');
             } else if (currentElement.matches(".sidebar-menu > .treeview-menu")) {
                 // the root of menu is hit, stop iterating parent nodes
