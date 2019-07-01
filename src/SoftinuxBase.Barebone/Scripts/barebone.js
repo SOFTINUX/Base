@@ -37,41 +37,19 @@ $(document).ready(
 // AdminLTE menu tweak: remember which menu group was open
 // https://github.com/almasaeed2010/AdminLTE/issues/1806
 
-/** Add active class and stay opened when selected
- * Vanilla JS version, thanks to https://gomakethings.com/how-to-get-all-parent-elements-with-vanilla-javascript/#climbing-up-the-dom
- */
-keepTreeviewMenuOpened();
 
-function keepTreeviewMenuOpened() {
-    [].forEach.call(document.querySelectorAll('ul.treeview-menu a'), (anchor_) => {
-        if (anchor_.href == window.location) {
-            [].forEach.call(getParents(anchor_), (elem_) => {
-                elem_.classList.add('active');
-            });
-        }
-    });
-}
-
-/**
- * Gather all the parent nodes of an element "elem" until current element matches selector "selector"
- * and return the list of all the elements.
- * @export
- * @param {*} elem
- * @param {*} selector
- * @returns
- */
-export function getParents(elem, selector) {
-
-    // Set up a parent array
-    let parents = [];
-
-    // Push each parent element to the array
-    for ( ; elem && elem !== document; elem = elem.parentNode ) {
-        if (elem.matches(selector)) {
-            parents.push(elem);
+[].forEach.call(document.querySelectorAll('ul.treeview-menu a'), (anchor_) => {
+    if (anchor_.href == window.location) {
+        let currentElement = anchor_;
+        for (; currentElement && currentElement !== document; currentElement = currentElement.parentNode) {
+            if (currentElement.matches("li")) {
+                // a parent li in menu
+                currentElement.classList.add('active');
+            } else if (currentElement.matches(".sidebar-menu > .treeview-menu")) {
+                // the root of menu is hit, stop iterating parent nodes
+                break;
+            }
         }
     }
+});
 
-    // Return our parent array
-    return parents;
-};
