@@ -3,6 +3,19 @@
 // vanilla version of https://github.com/santhony7/pressAndHold/blob/master/jquery.pressAndHold.js
 // See also: https://www.kirupa.com/html5/press_and_hold.htm -- better pattern, more modern...
 
+ // Variables of this module
+ let _pressedHtmlElement = undefined;
+ // default values
+ let _settings = {
+    holdTime: 700,
+    progressIndicatorRemoveDelay: 300,
+    progressIndicatorColor: "#ff0000",
+    progressIndicatorOpacity: 0.6
+};
+let _timer = null;
+let _decaCounter = null;
+let _progressIndicatorHTML = null;
+
 /*
  * @param {HTMLElement} - the html element that will be pressed and hold
  * @param { { holdTime: int, progressIndicatorRemoveDelay: int, progressIndicatorColor: string, progressIndicatorOpacity: number} }
@@ -14,85 +27,70 @@
 
 		}
  */
-Barebone = {};
+export default function pressAndHold(htmlElement, options) {
+    // set pressed element
+    _pressedHtmlElement = htmlElement;
 
-Barebone.pressAndHold = function (htmlElement, options) {
-    this._pressedHtmlElement = htmlElement;
-    // default values
-    this._settings = {
-        holdTime: 700,
-        progressIndicatorRemoveDelay: 300,
-        progressIndicatorColor: "#ff0000",
-        progressIndicatorOpacity: 0.6
+    // override settings with parameter options, if any applicable
+    Object.assign(_settings, options);
 
-    };
-    // use parameter options
-    Object.assign(this._settings, options);
-
-    // other internal variables
-    this._timer = null;
-    this._decaCounter = null;
-    this._progressIndicatorHTML = null;
-    this.init();
+    init();
 }
 
-Barebone.pressAndHold.prototype._startPressAndHold = function() {
-    this._pressedHtmlElement.dispatchEvent(new CustomEvent("start.pressAndHold"));
-    this._timer = setInterval(function() {
-        decaCounter += 10;
-        this._pressedHtmlElement.querySelectorAll(".holdButtonProgress")[0].css.left = ((decaCounter / _this.settings.holdTime) * 100 - 100) + "%";
-        if (decaCounter == _this.settings.holdTime) {
-            _this.exitTimer(this._timer);
-            this._pressedHtmlElement.dispatchEvent(new CustomEvent("complete.pressAndHold"));
+function _startPressAndHold() {
+    _pressedHtmlElement.dispatchEvent(new CustomEvent("start.pressAndHold"));
+    _timer = setInterval(function() {
+        _decaCounter += 10;
+        _pressedHtmlElement.querySelectorAll(".holdButtonProgress")[0].css.left = ((_decaCounter / _settings.holdTime) * 100 - 100) + "%";
+        if (_decaCounter == _settings.holdTime) {
+            exitTimer(_timer);
+            _pressedHtmlElement.dispatchEvent(new CustomEvent("complete.pressAndHold"));
         }
     }, 10);
 }
 
-Barebone.pressAndHold.prototype.init = function() {
+function init() {
     console.log('init');
 
     // Style pressed html element
-    this._pressedHtmlElement.display = "block";
-    this._pressedHtmlElement.overflow = "hidden";
-    this._pressedHtmlElement.position = "relative";
+    _pressedHtmlElement.display = "block";
+    _pressedHtmlElement.overflow = "hidden";
+    _pressedHtmlElement.position = "relative";
 
-    this._progressIndicatorHTML = '<div class="holdButtonProgress" style="height: 100%; width: 100%; position: absolute; top: 0; left: -100%; background-color:' + this.settings.progressIndicatorColor + '; opacity:' + this.settings.progressIndicatorOpacity + ';"></div>';
+    _progressIndicatorHTML = '<div class="holdButtonProgress" style="height: 100%; width: 100%; position: absolute; top: 0; left: -100%; background-color:' + _settings.progressIndicatorColor + '; opacity:' + _settings.progressIndicatorOpacity + ';"></div>';
 
-    this._pressedHtmlElement.insertAdjacentHTML('afterbegin', this._progressIndicatorHTML);
+    _pressedHtmlElement.insertAdjacentHTML('afterbegin', _progressIndicatorHTML);
 
-    var _this = this;
-
-    this._pressedHtmlElement.addEventListener('mouseup', event_ => {
-        _this.exitTimer(_this._timer);
+    _pressedHtmlElement.addEventListener('mouseup', event_ => {
+        exitTimer(_timer);
     });
 
-    this._pressedHtmlElement.addEventListener('mouseleave', event_ => {
-        _this.exitTimer(_this._timer);
+    _pressedHtmlElement.addEventListener('mouseleave', event_ => {
+        exitTimer(_timer);
     });
 
-    this._pressedHtmlElement.addEventListener('touchend', event_ => {
-        _this.exitTimer(_this._timer);
+    _pressedHtmlElement.addEventListener('touchend', event_ => {
+        exitTimer(_timer);
     });
 
-    this._pressedHtmlElement.addEventListener('mousedown', event_ => {
+    _pressedHtmlElement.addEventListener('mousedown', event_ => {
         if (event_.button != 2) {
-            _this._startPressAndHold();
+            _startPressAndHold();
          }
     });
 
-    this._pressedHtmlElement.addEventListener('touchstart', event_ => {
-        _this._startPressAndHold();
+    _pressedHtmlElement.addEventListener('touchstart', event_ => {
+        _startPressAndHold();
     });
 }
 
-Barebone.pressAndHold.prototype.exitTimer = function(timer) {
-    var _this = this;
-    clearTimeout(this._timer);
-    this._pressedHtmlElement.removeEventListener('mouseleave');
-    this._pressedHtmlElement.removeEventListener('touchend');
+function exitTimer(timer) {
+    clearTimeout(timer);
+    _pressedHtmlElement.removeEventListener('mouseleave');
+    _pressedHtmlElement.removeEventListener('touchend');
 
     setTimeout(function() {
        document.querySelectorAll(".holdButtonProgress")[0].css.left = "-100%";
-       this._pressedHtmlElement.dispatchEvent(new CustomEvent("complete.pressAndHold"));
-    }, this._settings.progressIndicatorRemoveDelay);
+       _pressedHtmlElement.dispatchEvent(new CustomEvent("complete.pressAndHold"));
+    }, _settings.progressIndicatorRemoveDelay);
 }

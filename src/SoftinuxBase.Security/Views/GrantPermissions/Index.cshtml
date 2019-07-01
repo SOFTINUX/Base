@@ -281,36 +281,42 @@
 </div>
 
 @section Scripts {
-    <script src="/Scripts/jquery.pressAndHold.min.js"></script>
+    <script src="/Scripts/barebone_press_and_hold.js"></script>
     <script src="/Scripts/toolbox.js" type="text/javascript"></script>
     <script src="/Scripts/security_user_permissions.js" type="module"></script>
 <script>
+
+        import pressAndHold from '/Scripts/barebone_press_and_hold.js';
         var SuccessMessage = "@(ViewBag.SuccessMessage)";
         window.StopAccordionsPropagation = function(e) {
             console.log('StopAccordionsPropagation');
             e.stopPropagation();
         };
 
-        @*
-            cannot move into security.js otherwise error :
-            Uncaught TypeError: $(...).pressAndHold is not a function
-            is present.
-        *@
         @* begin pressAndHold block *@
-        $(".removeAllRoles").pressAndHold({
-            holdTime: 1000,
-            progressIndicatorRemoveDelay: 900,
-            progressIndicatorColor: "#FFFFFF;",
-            progressIndicatorOpacity: 1,
-            progressIndicatorPosition: "bottom"
-        });
+        Array.from(document.querySelectorAll(".removeAllRoles")).forEach(
+            (element) => {
+                pressAndHold(element, {
+                    holdTime: 1000,
+                    progressIndicatorRemoveDelay: 900,
+                    progressIndicatorColor: "#FFFFFF;",
+                    progressIndicatorOpacity: 1,
+                    progressIndicatorPosition: "bottom"
+                });
+            }
+        );
 
-        $(".removeAllRoles").on('complete.pressAndHold', function() {
-            //deleteRole();
-            console.log("");
-            console.log("complete");
-            $('#myModal').modal('hide');
-        });
+        Array.from(document.querySelectorAll(".removeAllRoles")).forEach(
+            (element) => {
+                addEventListener("complete.pressAndHold", event_ => {
+                    //deleteRole();
+                    console.log("");
+                    console.log("complete");
+                    // TODO hide the modal $('#myModal').modal('hide');
+                });
+            }
+        );
+
         @* end pressAndHold block *@
 
         $("#name").keypress(function(event){
