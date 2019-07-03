@@ -6,5 +6,7 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.Script
     public class ScriptViewModel
     {
         public string Url { get; set; }
+
+        public bool IsJsModule { get; set; }
     }
 }

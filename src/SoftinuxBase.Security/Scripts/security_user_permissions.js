@@ -7,7 +7,7 @@ import makeAjaxRequest from '/Scripts/barebone_ajax.js';
 import { inputFormGroupSetError, inputFormGroupValidator } from '/Scripts/security_user.js'
 
 // Manage click on buttons
-[].forEach.call(document.querySelectorAll('button'),
+Array.from(document.querySelectorAll('button')).forEach(
     clickedElement_ => {
         clickedElement_.addEventListener('click',
             () => {
@@ -46,7 +46,9 @@ import { inputFormGroupSetError, inputFormGroupValidator } from '/Scripts/securi
                         break;
                 }
             }, false);
-    });
+    }
+);
+
 
 /*----------------------------------------------------------------*/
 /*------------------------ events handlers ------------------------*/
