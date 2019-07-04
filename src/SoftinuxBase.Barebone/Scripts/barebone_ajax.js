@@ -1,7 +1,7 @@
 // Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
-"use strict";
+'use strict';
 
 // Documentation https://developer.mozilla.org/fr/docs/Web/Guide/AJAX/Premiers_pas
 // Voir aussi https://stackoverflow.com/a/24468752
@@ -50,20 +50,21 @@
         httpRequest.send();
     }
 
-}
+    return true;
+ }
 
 /**
  * treatment of http request response
- * @param {object} httpRequest - httpRequest object
+ * @param {object} httpRequest_ - httpRequest object
  * @param {function(number, string)} responseCallback_ - function that is executed with 2 parameters: response status (number), response text (string). Optional
  */
-function requestResult(httpRequest, responseCallback_) {
+function requestResult(httpRequest_, responseCallback_) {
     try {
         // on regarde si la requete est finie
-        if (httpRequest.readyState === XMLHttpRequest.DONE) {
+        if (httpRequest_.readyState === XMLHttpRequest.DONE) {
             // When there is no response text returned by server, use status text
-            let responseText = httpRequest.responseText ? httpRequest.responseText : httpRequest.statusText;            // si le retour est un code 200 (ok) ou 201 (created) ou 400 (bad request)
-            if (httpRequest.status === 200 || httpRequest.status === 201 || httpRequest.status === 400) {
+            let responseText = httpRequest_.responseText ? httpRequest_.responseText : httpRequest_.statusText;            // si le retour est un code 200 (ok) ou 201 (created) ou 400 (bad request)
+            if (httpRequest_.status === 200 || httpRequest_.status === 201 || httpRequest_.status === 400) {
                 console.log(responseText);
             } else {
                 window.toastr.error(responseText, 'ERROR');
@@ -71,12 +72,12 @@ function requestResult(httpRequest, responseCallback_) {
             }
 
             if (responseCallback_) {
-                responseCallback_(httpRequest.status, responseText);
+                responseCallback_(httpRequest_.status, responseText);
             }
 
         }
     }
-    catch( e ) {
-        alert("Une exception s’est produite : " + e.message);
+    catch( _e ) {
+        alert("Une exception s’est produite : " + _e.message);
     }
 }
