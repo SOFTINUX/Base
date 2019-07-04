@@ -2,11 +2,12 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 ///<reference path = '../../SoftinuxBase.Barebone/Scripts/barebone_ajax.js' />
+///<reference path = './security_user.js' />
 
 'use strict';
 
 import makeAjaxRequest from '/Scripts/barebone_ajax.js';
-import { inputFormGroupSetError, inputFormGroupValidator } from '/Scripts/security_user.js'
+import { inputFormGroupSetError, inputFormGroupValidator } from '/Scripts/security_user.js';
 
 // Manage click on buttons
 Array.from(document.querySelectorAll('button')).forEach(

@@ -3,7 +3,7 @@
 
 ///<reference path = '../../SoftinuxBase.Barebone/node_modules/jquery/dist/jquery.js' />
 ///<reference path = '../../SoftinuxBase.Barebone/node_modules/toastr/toastr.js' />
-///<reference path = '../../SoftinuxBase.Barebone/Scripts/toolbox.js' />
+
 
 'use strict';
 

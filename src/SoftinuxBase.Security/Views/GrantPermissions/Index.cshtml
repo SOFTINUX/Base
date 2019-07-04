@@ -1,5 +1,7 @@
 @* Copyright © 2017-2019 SOFTINUX. All rights reserved.
     Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
+
+    <reference path='../../SoftinuxBase.Barebone/Scripts/barebone_press_and_hold.js' />
 *@
 @using Microsoft.AspNetCore.Identity
 @using ExtCore.Infrastructure
@@ -17,11 +19,11 @@
 }
 
 @section Styles {
-<style>
-    .holdButtonProgress {
-        height: 5px !important;
-    }
-</style>
+    <style>
+        .holdButtonProgress {
+            height: 5px !important;
+        }
+    </style>
 }
 
 <div class="row">
@@ -145,27 +147,27 @@
                                     </select>
                                 </div>
                             </div>
-                                <div class="col-md-4">
-                                    <div class="form-group" id="edit-role-group">
-                                        <label>Role Name:</label>
-                                        <input id="edit_role_name_input" name="edit_role_name_input" type="text" class="form-control" @Html.Raw(inputExtendAttributes) />
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Role Id:</label>
-                                        <input type="hidden" name="editRoleId" id="editRoleId" />
-                                        <input id="edit_role_id" name="edit_role_id" type="text" class="form-control" disabled="disabled" />
-                                    </div>
+                            <div class="col-md-4">
+                                <div class="form-group" id="edit-role-group">
+                                    <label>Role Name:</label>
+                                    <input id="edit_role_name_input" name="edit_role_name_input" type="text" class="form-control" @Html.Raw(inputExtendAttributes) />
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Role Normalized Name:</label>
-                                        <input id="edit_role_normalizedName" type="text" class="form-control" disabled="disabled" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Role Concurrency Stamp:</label>
-                                        <input id="edit_role_concurrencyStamp" type="text" class="form-control" disabled="disabled" />
-                                    </div>
+                                <div class="form-group">
+                                    <label>Role Id:</label>
+                                    <input type="hidden" name="editRoleId" id="editRoleId" />
+                                    <input id="edit_role_id" name="edit_role_id" type="text" class="form-control" disabled="disabled" />
                                 </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Role Normalized Name:</label>
+                                    <input id="edit_role_normalizedName" type="text" class="form-control" disabled="disabled" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Role Concurrency Stamp:</label>
+                                    <input id="edit_role_concurrencyStamp" type="text" class="form-control" disabled="disabled" />
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row">
@@ -281,12 +283,12 @@
 </div>
 
 @section Scripts {
-    <script src="/Scripts/barebone_press_and_hold.js"></script>
+    @* ReSharper disable once Html.PathError (from Security.Barebone's scripts) *@
     <script src="/Scripts/toolbox.js" type="text/javascript"></script>
     <script src="/Scripts/security_user_permissions.js" type="module"></script>
-<script>
+    <script type="module">
 
-        import pressAndHold from '/Scripts/barebone_press_and_hold.js';
+    import pressAndHold from '/Scripts/barebone_press_and_hold.js';
 
         var SuccessMessage = "@(ViewBag.SuccessMessage)";
         window.StopAccordionsPropagation = function(e) {
