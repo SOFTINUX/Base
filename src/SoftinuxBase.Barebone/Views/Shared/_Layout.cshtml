@@ -49,7 +49,7 @@
                     @* Navbar Right Menu *@
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
-                            @Html.Partial("_UserBadge")
+                            <partial name="_UserBadge" />
                             @* Control Sidebar Toggle Button *@
                             <li>
                                 <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
@@ -78,7 +78,7 @@
 
                 @if (@Html.IsDebug())
                 {
-                    @Html.Partial("_IsDebugBanner")
+                    <partial name="_IsDebugBanner" />
                 }
                 @* Content Header (Page header) *@
                 <section class="content-header">
