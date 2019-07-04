@@ -65,82 +65,80 @@ window.removeRoleLink = removeRoleLink;
 /*----------------------------------------------------------------*/
 /*------------------------ events handlers ------------------------*/
 /*----------------------------------------------------------------*/
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('editRoleRightExtensionsList').addEventListener('click', event_ => {
-        rowClicked(event_.target.closest('div.row'));
-    }, false);
+document.getElementById('editRoleRightExtensionsList').addEventListener('click', event_ => {
+    rowClicked(event_.target.closest('div.row'));
+}, false);
 
-    document.getElementById('editRoleLeftExtensionsList').addEventListener('click', event_ => {
-        rowClicked(event_.target.closest('div.row'));
-    }, false);
+document.getElementById('editRoleLeftExtensionsList').addEventListener('click', event_ => {
+    rowClicked(event_.target.closest('div.row'));
+}, false);
 
-    /**
-    * Toggle collapsed state for permissions administration table.
+/**
+* Toggle collapsed state for permissions administration table.
+*/
+document.getElementById('collapse').addEventListener('click', event_ => {
+    let element = event_.target;
+    if (element.tagName === 'I')
+        element = element.parentNode;
+    const subEl = document.getElementsByClassName('row collapse');
+
+    if (element.dataset.state === 'closed') {
+        element.dataset.state = 'open';
+        // TODO change icon to open double chevron
+
+        // open all the collapsed children
+        const elements = Array.from(document.getElementsByClassName('extension-row collapsed'));
+        for (let item of elements) {
+            item.classList.remove('collapsed');
+            item.setAttribute('aria-expanded', 'true');
+        }
+        for (let item of subEl) {
+            item.classList.add('in');
+        }
+    } else {
+        element.dataset.state = 'closed';
+        // TODO change icon to closed double chevron
+
+        // collapse all the children
+        const elementRow = Array.from(document.getElementsByClassName('extension-row'));
+        for (let item of elementRow) {
+            item.classList.add('collapsed');
+            item.setAttribute('aria-expanded', 'false');
+        }
+        for (let item of subEl) {
+            item.classList.remove('in');
+        }
+    }
+}, false);
+
+/**
+    * Handle the click on pseudo-dropdown that displays permission level:
+    * set the label, set the value to hidden input.
     */
-    document.getElementById('collapse').addEventListener('click', event_ => {
-        let element = event_.target;
-        if (element.tagName === 'I')
-            element = element.parentNode;
-        const _subEl = document.getElementsByClassName('row collapse');
-
-        if (element.dataset.state === 'closed') {
-            element.dataset.state = 'open';
-            // TODO change icon to open double chevron
-
-            // open all the collapsed children
-            const _elements = Array.from(document.getElementsByClassName('extension-row collapsed'));
-            for (let item of _elements) {
-                item.classList.remove('collapsed');
-                item.setAttribute('aria-expanded', 'true');
-            }
-            for (let item of _subEl) {
-                item.classList.add('in');
-            }
-        } else {
-            element.dataset.state = 'closed';
-            // TODO change icon to closed double chevron
-
-            // collapse all the children
-            const elementRow = Array.from(document.getElementsByClassName('extension-row'));
-            for (let item of elementRow) {
-                item.classList.add('collapsed');
-                item.setAttribute('aria-expanded', 'false');
-            }
-            for (let item of _subEl) {
-                item.classList.remove('in');
-            }
-        }
-    }, false);
-
-    /**
-        * Handle the click on pseudo-dropdown that displays permission level:
-        * set the label, set the value to hidden input.
-        */
-    document.getElementById('acl-sel').addEventListener('click', event_ => {
-        let clickedLiElt = event_.target.closest('li');
-        clickedLiElt.closest('.bs-dropdown-to-select-acl-group').querySelectorAll('[data-bind="bs-drp-sel-acl-label"]')[0].innerText = clickedLiElt.innerText;
-        document.getElementById('newRolePermission').value = clickedLiElt.dataset.permissionlvl;
-    }, false);
+document.getElementById('acl-sel').addEventListener('click', event_ => {
+    let clickedLiElt = event_.target.closest('li');
+    clickedLiElt.closest('.bs-dropdown-to-select-acl-group').querySelectorAll('[data-bind="bs-drp-sel-acl-label"]')[0].innerText = clickedLiElt.innerText;
+    document.getElementById('newRolePermission').value = clickedLiElt.dataset.permissionlvl;
+}, false);
 
 
-    document.getElementById('save-edit-role-btn').addEventListener('click', () => {
-        if (!document.getElementById('edit_role_name_input').value) {
-            window.toastr.warning('No new role name given.', 'Role not updated!');
-            inputFormGroupValidator('#edit_role_name_input');
-            return;
-        }
+document.getElementById('save-edit-role-btn').addEventListener('click', () => {
+    if (!document.getElementById('edit_role_name_input').value) {
+        window.toastr.warning('No new role name given.', 'Role not updated!');
+        inputFormGroupValidator('#edit_role_name_input');
+        return;
+    }
 
-        saveEditRole();
-    });
+    saveEditRole();
+});
 
-    document.getElementById('role_name_input').addEventListener('change', () => {
-        inputFormGroupValidator('#role_name_input');
-    });
+document.getElementById('role_name_input').addEventListener('change', () => {
+    inputFormGroupValidator('#role_name_input');
+});
 
-    // Focusout
-    document.getElementById('role_name_input').addEventListener('focusout', () => {
-        inputFormGroupValidator('#role_name_input');
-    });
+// Focusout
+document.getElementById('role_name_input').addEventListener('focusout', () => {
+    inputFormGroupValidator('#role_name_input');
 });
 /*----------------------------------------------------------------*/
 /*------------------------ functions -----------------------------*/
@@ -270,25 +268,25 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
         return;
     }
 
-    let _selectedExtensions = [];
+    let selectedExtensions = [];
     const addRoleRightExtensionsList = document.getElementById('addRoleRightExtensionsList');
     for (let listOption of addRoleRightExtensionsList.querySelectorAll('option')) {
-        _selectedExtensions.push(listOption.value);
+        selectedExtensions.push(listOption.value);
     }
 
     const postData = {
         RoleName: roleNameInputElt.value,
-        Extensions: _selectedExtensions,
+        Extensions: selectedExtensions,
         PermissionValue: document.getElementById('newRolePermission').value
     };
 
-    makeAjaxRequest('POST', '/administration/save-new-role', postData, (responseStatus, responseText) => {
-        if (responseStatus === 201) {
-            window.toastr.success(responseText, 'New role created');
+    makeAjaxRequest('POST', '/administration/save-new-role', postData, (responseStatus_, responseText_) => {
+        if (responseStatus_ === 201) {
+            window.toastr.success(responseText_, 'New role created');
             inputFormGroupSetError('#role_name_input', null);
             location.reload();
         } else {
-            inputFormGroupSetError('#role_name_input', responseText ? responseText : responseStatus);
+            inputFormGroupSetError('#role_name_input', responseText_ ? responseText_ : responseStatus_);
         }
     });
 });
@@ -344,16 +342,16 @@ export function passSelectedRoleOnEdition(roleId_) {
 
 /**
  * Click in permission checkbox. Calls savePermission().
- * @param {HTMLCheckboxElement} clickedCheckbox - permission level checkbox
+ * @param {HTMLCheckboxElement} clickedCheckbox_ - permission level checkbox
  */
-export function permissionCheckBoxClick(clickedCheckbox) {
-    const splittedId = clickedCheckbox.id.split('_');
+export function permissionCheckBoxClick(clickedCheckbox_) {
+    const splittedId = clickedCheckbox_.id.split('_');
     const baseId = splittedId[0] + '_' + splittedId[1];
     const writeCheckbox = document.getElementById(`${baseId}_WRITE`);
     const readCheckbox = document.getElementById(`${baseId}_READ`);
     var _activeCheckedPermissions = 'NEVER';
 
-    if (clickedCheckbox.checked) {
+    if (clickedCheckbox_.checked) {
         // when checking, impacted checkboxes become checked and disabled
         switch (splittedId[2]) {
             case 'ADMIN':

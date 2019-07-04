@@ -12,12 +12,12 @@
 }
 
 @{
-    User user_ = UserManager.GetUserAsync(User).Result;
+    User user = UserManager.GetUserAsync(User).Result;
 }
 
 <div class="row">
     <div class="col-md-3">
-        @Html.Partial("_User_Profile_Details_Card", user_)
+        <partial name="_User_Profile_Details_Card" model="user" />
     </div>
     <div class="col-md-9">
         <div class="nav-tabs-custom">
@@ -31,12 +31,12 @@
             </ul>
             <div class="tab-content">
                 <div class="active tab-pane" id="details">
-                    @Html.Partial("_User_Profile_Details", user_)
+                    <partial name="_User_Profile_Details" model="user" />
                 </div>
                 <div class="tab-pane" id="groups">
                     <h3><i class="fa fa-users" aria-hidden="true"></i>&nbsp;&nbsp;My Groups</h3>
-                    <h4>My Claims</h4><br/>
-                    @Html.Partial("_ListClaims")
+                    <h4>My Claims</h4><br />
+                    <partial name="_ListClaims" />
                 </div>
             </div>
         </div>

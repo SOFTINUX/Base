@@ -6,5 +6,5 @@ Licensed under the MIT License, Version 2.0. See License.txt in the project root
 @model SoftinuxBase.Barebone.ViewModels.Shared.Menu.MenuViewModel
 @foreach (var menuGroup in Model.MenuGroups)
 {
-    @Html.Partial("_MenuGroup", menuGroup)
+    <partial name="_MenuGroup" model="menuGroup" />
 }
