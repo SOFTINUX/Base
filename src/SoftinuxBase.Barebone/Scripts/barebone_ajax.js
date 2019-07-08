@@ -22,8 +22,7 @@
     httpRequest.setRequestHeader('Content-Type', 'application/json');
 
     // we define the function that processes the server response
-    httpRequest.onreadystatechange = () => {requestResult(httpRequest, responseCallback_);
-    };
+    httpRequest.onreadystatechange = () => { requestResult(httpRequest, responseCallback_); };
 
     if (type_ === 'GET' && data_) {
         // add data to url
@@ -62,7 +61,7 @@ function requestResult(httpRequest_, responseCallback_) {
                 console.log(responseText);
             } else {
                 window.toastr.error(responseText, 'ERROR');
-                console.log('Ajax error: ', responseText);
+                console.error('Ajax error: ', responseText);
             }
 
             if (responseCallback_) {
