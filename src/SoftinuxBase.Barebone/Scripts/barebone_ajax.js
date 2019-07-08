@@ -65,7 +65,7 @@ function requestResult(httpRequest_, responseCallback_) {
             }
 
             if (responseCallback_) {
-                responseCallback_(httpRequest_.status, responseText);
+                responseCallback_(httpRequest_.status, responseText as string);
             }
 
         }
@@ -73,6 +73,6 @@ function requestResult(httpRequest_, responseCallback_) {
     catch( _e ) {
         alert(`Une exception s’est produite : ${_e.message}`);
         window.toastr.error(`Une exception s’est produite : ${_e.message}`, 'ERROR');
-        responseCallback_('', _e.message);
+        responseCallback_(0, _e.message);
     }
 }
