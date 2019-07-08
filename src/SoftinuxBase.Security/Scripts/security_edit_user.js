@@ -90,7 +90,7 @@ function addEventListenersForAvatarSelection() {
  *
  * @param {string} fieldsetid_ - fieldset html ID selector
  * @param {string} editbtnid_ - edit button html ID selector
- * @param {any} event_ - event handler
+ * @param {Event} event_ - event handler
  */
 function edit_state(fieldsetid_, editbtnid_, event_) {
     event_.preventDefault();
@@ -106,8 +106,8 @@ function edit_state(fieldsetid_, editbtnid_, event_) {
         fileBrowser.classList.add('btn-default');
     }
     if (fieldSetId.disabled) {
-        fieldSetId.removeAttribute('disabled');
-        editbtnId.setAttribute('disaled', true);
+        fieldSetId.disabled = false;
+        editbtnId.disable = true;
     }
 }
 
@@ -117,7 +117,7 @@ function edit_state(fieldsetid_, editbtnid_, event_) {
  * @param {string} fieldsetid_ - fieldset html ID selector
  * @param {string} editbtnid_ - edit button html ID selector
  * @param {string} editbtntxt_ - edit button html text
- * @param {any} event_ - event handler
+ * @param {Event} event_ - event handler
  */
 function cancel_edit_state(formid_, fieldsetid_, editbtnid_, editbtntxt_, event_) {
     event_.preventDefault();
