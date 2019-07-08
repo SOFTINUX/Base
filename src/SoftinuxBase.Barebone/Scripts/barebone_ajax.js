@@ -8,6 +8,7 @@
 
 /**
  * Make http request.
+ * Return values is in responseCallback_ function.
  * @export
  * @param {string } type_ - type of request (GET/POST/PUT/PATCH/DELETE)
  * @param {string} url_ - url (without query string)
@@ -20,23 +21,23 @@
 
     httpRequest.setRequestHeader('Content-Type', 'application/json');
 
-    // on définit la fonction qui traite le retour (la réponse du serveur)
+    // we define the function that processes the server response
     httpRequest.onreadystatechange = () => {requestResult(httpRequest, responseCallback_);
     };
 
     if (type_ === 'GET' && data_) {
-        // on ajoute les données à l'url
+        // add data to url
         url_ += `?data=${encodeURIComponent(JSON.stringify(data_))}`;
     }
 
-    // on ouvre la requete http en mode ajax (le true en dernier paramètre = en asynchrone)
+    // we open the http request in ajax mode (true last parameter = asynchronous)
      try {
          httpRequest.open(type_, url_, true);
-         // POST/PUT/PATCH et présence de données JSON. NB: the controller should use "[FromBody"]
+         // POST/PUT/PATCH and presence of JSON. NB: the controller should use "[FromBody"]
          if ((type_ === 'POST' || type_ === 'PUT' || type_ === 'PATCH') && data_) {
              httpRequest.send(JSON.stringify(data_));
          } else {
-             // on envoie la requete http de type GET
+             // we send the GET type http request
              httpRequest.send();
          }
      }
@@ -53,10 +54,10 @@
  */
 function requestResult(httpRequest_, responseCallback_) {
     try {
-        // on regarde si la requete est finie
+        // we look if the request is finished
         if (httpRequest_.readyState === XMLHttpRequest.DONE) {
             // When there is no response text returned by server, use status text
-            let responseText = httpRequest_.responseText ? httpRequest_.responseText : httpRequest_.statusText;            // si le retour est un code 200 (ok) ou 201 (created) ou 400 (bad request)
+            let responseText = httpRequest_.responseText ? httpRequest_.responseText : httpRequest_.statusText; // si le retour est un code 200 (ok) ou 201 (created) ou 400 (bad request)
             if (httpRequest_.status === 200 || httpRequest_.status === 201 || httpRequest_.status === 400) {
                 console.log(responseText);
             } else {
