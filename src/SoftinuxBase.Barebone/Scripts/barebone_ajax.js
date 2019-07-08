@@ -42,6 +42,7 @@
      }
      catch (_e) {
          window.toastr.error('Cannot send or open request.', 'ERROR');
+         console.error(`Error on ajax request: ${_e.message}`);
      }
  }
 
