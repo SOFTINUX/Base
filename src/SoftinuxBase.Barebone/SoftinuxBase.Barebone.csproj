@@ -60,6 +60,7 @@
     <None Remove="node_modules\admin-lte\dist\js\adminlte.min.js" />
     <None Remove="node_modules\inputmask\dist\min\jquery.inputmask.bundle.min.js" />
     <None Remove="node_modules\toastr\build\toastr.min.js" />
+    <None Remove="Views\About\Ajax.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="node_modules\jquery\dist\jquery.min.js" />

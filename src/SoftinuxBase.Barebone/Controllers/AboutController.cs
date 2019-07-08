@@ -13,5 +13,11 @@ namespace SoftinuxBase.Barebone.Controllers
         {
             return await Task.Run(() => View());
         }
+
+        [HttpGet]
+        public async Task<ActionResult> Ajax()
+        {
+            return await Task.Run(() => View());
+        }
     }
 }
