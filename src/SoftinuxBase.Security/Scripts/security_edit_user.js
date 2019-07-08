@@ -70,14 +70,14 @@ if (changePasswordForm !== null) {
 function addEventListenersForAvatarSelection() {
     // When a file is chosen using file selector, put the selected file's name into the "file_path" text input
     let inputAvatar = document.getElementById('inputAvatar');
-    if (inputAvatar !== null) {
+    if (inputAvatar) {
         inputAvatar.addEventListener('change', event_ => {
             document.getElementById('file_path').value = event_.target.files[0].name;
         }, false);
     }
     // When the "file_browser" button is clicked, trigger a click on not visible input of type file ("inputAvatar") to allow to select a file
     let fileBrowser = document.getElementById('file_browser');
-    if (fileBrowser !== null) {
+    if (fileBrowser) {
         fileBrowser.addEventListener('click', event_ => {
             event_.preventDefault();
             // Open the file selector
