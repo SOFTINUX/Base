@@ -23,8 +23,8 @@
     <Import Project="..\..\documentation.props" />
   </ImportGroup>
   <ItemGroup>
-    <PackageReference Include="ExtCore.Mvc.Infrastructure" Version="4.0.0" />
-    <PackageReference Include="ExtCore.Data.Abstractions" Version="4.0.0" />
+    <PackageReference Include="ExtCore.Mvc.Infrastructure" Version="4.1.0" />
+    <PackageReference Include="ExtCore.Data.Abstractions" Version="4.1.0" />
     <PackageReference Include="FontAwesome" Version="4.7.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">

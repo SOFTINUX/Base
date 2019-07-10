@@ -10,12 +10,12 @@
     <AdditionalFiles Include="..\..\..\..\stylecop.json" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ExtCore.Data.EntityFramework.Sqlite" Version="4.0.0" />
-    <PackageReference Include="ExtCore.Infrastructure" Version="4.0.0" />
-    <PackageReference Include="ExtCore.WebApplication" Version="4.0.0" />
+    <PackageReference Include="ExtCore.Data.EntityFramework.Sqlite" Version="4.1.0" />
+    <PackageReference Include="ExtCore.Infrastructure" Version="4.1.0" />
+    <PackageReference Include="ExtCore.WebApplication" Version="4.1.0" />
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.1.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
