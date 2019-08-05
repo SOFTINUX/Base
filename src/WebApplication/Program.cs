@@ -23,7 +23,7 @@ namespace WebApplication
         {
             // Create the logger
             Log.Logger = new LoggerConfiguration()
-                .ReadFrom.ConfigurationSection(Configuration.GetSection("Serilog"))
+                .ReadFrom.Configuration(Configuration, "Serilog")
                 .CreateLogger();
             CreateWebHostBuilder(args_).Build().Run();
         }
