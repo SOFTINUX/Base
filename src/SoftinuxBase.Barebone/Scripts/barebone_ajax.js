@@ -19,11 +19,6 @@
     type_ = type_.toUpperCase();
     let httpRequest = new XMLHttpRequest();
 
-    httpRequest.setRequestHeader('Content-Type', 'application/json');
-
-    // we define the function that processes the server response
-    httpRequest.onreadystatechange = () => { requestResult(httpRequest, responseCallback_); };
-
     if (type_ === 'GET' && data_) {
         // add data to url
         url_ += `?data=${encodeURIComponent(JSON.stringify(data_))}`;
@@ -32,6 +27,10 @@
     // we open the http request in ajax mode (true last parameter = asynchronous)
      try {
          httpRequest.open(type_, url_, true);
+         httpRequest.setRequestHeader('Content-Type', 'application/json');
+         // we define the function that processes the server response
+         httpRequest.onreadystatechange = () => { requestResult(httpRequest, responseCallback_); };
+
          // POST/PUT/PATCH and presence of JSON. NB: the controller should use "[FromBody"]
          if ((type_ === 'POST' || type_ === 'PUT' || type_ === 'PATCH') && data_) {
              httpRequest.send(JSON.stringify(data_));
@@ -65,7 +64,7 @@ function requestResult(httpRequest_, responseCallback_) {
             }
 
             if (responseCallback_) {
-                responseCallback_(httpRequest_.status, responseText as string);
+                responseCallback_(httpRequest_.status, responseText.toString());
             }
 
         }

@@ -139,7 +139,7 @@ namespace SoftinuxBase.Security.Controllers
         [PermissionRequirement(Permission.Admin, Constants.SoftinuxBaseSecurity)]
         [Route("administration/update-role")]
         [HttpPost]
-        public async Task<IActionResult> UpdateRoleAndItsPermissions(UpdateRoleAndGrantsViewModel model_)
+        public async Task<IActionResult> UpdateRoleAndItsPermissions([FromBody] UpdateRoleAndGrantsViewModel model_)
         {
             string error = await UpdateRoleAndGrants.CheckAndUpdateRoleAndGrants(_storage, _roleManager, model_);
             return StatusCode(string.IsNullOrEmpty(error) ? 201 : 400, error);

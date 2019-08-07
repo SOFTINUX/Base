@@ -395,7 +395,14 @@ export function savePermission(extension_, roleName_, permission_) {
         'permissionValue_': permission_,
         'extension_': extension_
     };
-    $.ajax('/administration/update-role-permission', { data: params });
+
+    makeAjaxRequest('POST', '/administration/update-role-permission', params, (responseStatus_, responseText_) => {
+        if (responseStatus_ === 201) {
+            window.toastr.success(data_, 'Changes saved');
+        } else {
+            window.toastr.error('Cannot update role permissions. See logs for errors', 'Error');
+        }
+    });
 }
 
 /**
@@ -412,15 +419,14 @@ export function saveEditRole() {
         Grants: _grants
     };
 
-    $.ajax('/administration/update-role',
-        {
-            method: 'POST',
-            data: postData
-        })
-        .done(function (data_) {
+    makeAjaxRequest('POST', '/administration/update-role', postData, (responseStatus_, responseText_) => {
+        if (responseStatus_ === 201) {
             window.toastr.success(data_, 'Changes saved');
             location.reload();
-        });
+        } else {
+            window.toastr.error('Cannot update role. See logs for errors', 'Error');
+        }
+    });
 }
 
 export function deleteRole(role_) {
@@ -428,13 +434,12 @@ export function deleteRole(role_) {
         'roleName_': role_
     };
 
-    $.ajax('/administration/delete-role',
-        {
-            method: 'POST',
-            data: postData
-        })
-        .done(function (data_) {
+    makeAjaxRequest('POST', '/administration/delete-role', postData, (responseStatus_, responseText_) => {
+        if (responseStatus_ === 201) {
             window.toastr.success(data_, 'Role deleted');
-            console.log(data_);
-        });
+            location.reload();
+        } else {
+            window.toastr.error('Cannot delete role. See logs for errors', 'Error');
+        }
+    });
 }
