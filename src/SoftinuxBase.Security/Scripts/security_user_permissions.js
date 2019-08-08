@@ -297,9 +297,14 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
  */
 export function passSelectedRoleOnEdition(roleId_) {
     document.getElementById('edit-role-group').classList.remove('has-error');
-    $.ajax('/administration/read-role', { data: { 'roleId_': roleId_ } }).done(function (data_) {
-        // data_.value is ReadRoleViewModel C# class
-        const role = data_.value.role;
+    makeAjaxRequest('GET', '/administration/read-role', { 'roleId_': roleId_ }, (responseStatus_, responseText_) => {
+        if (responseStatus_ !== 201) {
+            window.toastr.error(`Serveur return code ${responseStatus_}`, 'Error');
+            return;
+        }
+
+        // responseText_.value is ReadRoleViewModel C# class
+        const role = responseText_.value.role;
 
         // Role name
         document.getElementById('edit_role_name_input').value = role.name;
@@ -312,7 +317,7 @@ export function passSelectedRoleOnEdition(roleId_) {
         // Clear
         leftListElt.innerHTML = '';
         // Fill
-        for (let extension of data_.value.availableExtensions) {
+        for (let extension of responseText_.value.availableExtensions) {
             leftListElt.insertAdjacentHTML('beforeend', `<div class="row"><div class="col-md-12"><span name="${extension}">${extension}</span></div></div>`);
         }
 
@@ -321,7 +326,7 @@ export function passSelectedRoleOnEdition(roleId_) {
         // Clear
         rightListElt.innerHTML = '';
         // Fill
-        for (let extension of data_.value.selectedExtensions) {
+        for (let extension of responseText_.value.selectedExtensions) {
             rightListElt.insertAdjacentHTML('beforeend', `<div class="row">
                             <div class="col-md-6">
                                 <span name="${extension.extensionName}">${extension.extensionName}</span>
@@ -336,7 +341,6 @@ export function passSelectedRoleOnEdition(roleId_) {
                             </div>
                         </div>`);
         }
-
     });
 }
 
