@@ -398,7 +398,7 @@ export function savePermission(extension_, roleName_, permission_) {
 
     makeAjaxRequest('POST', '/administration/update-role-permission', params, (responseStatus_, responseText_) => {
         if (responseStatus_ === 201) {
-            window.toastr.success(data_, 'Changes saved');
+            window.toastr.success(responseText_, 'Changes saved');
         } else {
             window.toastr.error('Cannot update role permissions. See logs for errors', 'Error');
         }
@@ -439,7 +439,7 @@ export function saveEditRole() {
 
     makeAjaxRequest('POST', '/administration/update-role', postData, (responseStatus_, responseText_) => {
         if (responseStatus_ === 201) {
-            window.toastr.success(data_, 'Changes saved');
+            window.toastr.success(responseText_, 'Changes saved');
             location.reload();
         } else {
             window.toastr.error('Cannot update role. See logs for errors', 'Error');
@@ -454,7 +454,7 @@ export function deleteRole(role_) {
 
     makeAjaxRequest('POST', '/administration/delete-role', postData, (responseStatus_, responseText_) => {
         if (responseStatus_ === 201) {
-            window.toastr.success(data_, 'Role deleted');
+            window.toastr.success(responseText_, 'Role deleted');
             location.reload();
         } else {
             window.toastr.error('Cannot delete role. See logs for errors', 'Error');
