@@ -437,8 +437,8 @@ export function saveEditRole() {
     if (!_noError) return;
 
     const postData = {
-        RoleId: $('#editRoleId').val(),
-        RoleName: $('#edit_role_name_input').val(),
+        RoleId: document.getElementById('editRoleId').value,
+        RoleName: document.getElementById('edit_role_name_input').value,
         Grants: _grants
     };
 
