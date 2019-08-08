@@ -409,18 +409,27 @@ export function savePermission(extension_, roleName_, permission_) {
  * Ajax call to update data: role with its related data update. Ajax POST.
  */
 export function saveEditRole() {
-    var _grants = [];
+    let _grants = [];
+    let _noError = true;
 
     Array.prototype.forEach.call(document.querySelectorAll('#editRoleRightExtensionsList>div.row'), function (elt_) {
-        var _extension, _permission;
+        let _extension, _permission;
         Array.prototype.forEach.call(elt_.querySelectorAll('div'), function (elt_) {
             if (elt_.querySelector('span'))
                 _extension = elt_.querySelector('span').getAttribute('name');
             if (elt_.querySelector('select'))
                 _permission = elt_.querySelector('select option:checked').value;
         });
-        _grants.push({ Extension: _extension, PermissionValue: _permission });
+
+        if (_extension && _permission)
+            _grants.push({ Extension: _extension, PermissionValue: _permission });
+        else {
+            window.toastr.error('Cannot update role from client', 'Error');
+            _noError = false;
+        }
     });
+
+    if (!_noError) return;
 
     const postData = {
         RoleId: $('#editRoleId').val(),
