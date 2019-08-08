@@ -15,35 +15,39 @@
  * @param {json} data_ - json data
  * @param {function(number, string)} responseCallback_ - function that is executed with 2 parameters: response status (number), response text (string). Optional
  */
- export default function makeAjaxRequest(type_, url_, data_, responseCallback_) {
+export default function makeAjaxRequest(type_, url_, data_, responseCallback_) {
     type_ = type_.toUpperCase();
     let httpRequest = new XMLHttpRequest();
 
     if (type_ === 'GET' && data_) {
         // add data to url
-        url_ += `?data=${encodeURIComponent(JSON.stringify(data_))}`;
+        let query = [];
+        for (let key in data_) {
+            query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data_[key]));
+        }
+        url_ += (query.length ? '?' + query.join('&') : '');
     }
 
     // we open the http request in ajax mode (true last parameter = asynchronous)
-     try {
-         httpRequest.open(type_, url_, true);
-         httpRequest.setRequestHeader('Content-Type', 'application/json');
-         // we define the function that processes the server response
-         httpRequest.onreadystatechange = () => { requestResult(httpRequest, responseCallback_); };
+    try {
+        httpRequest.open(type_, url_, true);
+        httpRequest.setRequestHeader('Content-Type', 'application/json');
+        // we define the function that processes the server response
+        httpRequest.onreadystatechange = () => { requestResult(httpRequest, responseCallback_); };
 
-         // POST/PUT/PATCH and presence of JSON. NB: the controller should use "[FromBody"]
-         if ((type_ === 'POST' || type_ === 'PUT' || type_ === 'PATCH') && data_) {
-             httpRequest.send(JSON.stringify(data_));
-         } else {
-             // we send the GET type http request
-             httpRequest.send();
-         }
-     }
-     catch (_e) {
-         window.toastr.error('Cannot send or open request.', 'ERROR');
-         console.error(`Error on ajax request: ${_e.message}`);
-     }
- }
+        // POST/PUT/PATCH and presence of JSON. NB: the controller should use "[FromBody"]
+        if ((type_ === 'POST' || type_ === 'PUT' || type_ === 'PATCH') && data_) {
+            httpRequest.send(JSON.stringify(data_));
+        } else {
+            // we send the GET type http request
+            httpRequest.send();
+        }
+    }
+    catch (_e) {
+        window.toastr.error('Cannot send or open request.', 'ERROR');
+        console.error(`Error on ajax request: ${_e.message}`);
+    }
+}
 
 /**
  * treatment of http request response
@@ -69,7 +73,7 @@ function requestResult(httpRequest_, responseCallback_) {
 
         }
     }
-    catch( _e ) {
+    catch (_e) {
         alert(`Une exception s’est produite : ${_e.message}`);
         window.toastr.error(`Une exception s’est produite : ${_e.message}`, 'ERROR');
         responseCallback_(0, _e.message);

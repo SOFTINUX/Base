@@ -298,13 +298,14 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
 export function passSelectedRoleOnEdition(roleId_) {
     document.getElementById('edit-role-group').classList.remove('has-error');
     makeAjaxRequest('GET', '/administration/read-role', { 'roleId_': roleId_ }, (responseStatus_, responseText_) => {
-        if (responseStatus_ !== 201) {
+        if (responseStatus_ !== 200) {
             window.toastr.error(`Serveur return code ${responseStatus_}`, 'Error');
             return;
         }
 
-        // responseText_.value is ReadRoleViewModel C# class
-        const role = responseText_.value.role;
+        let responseDataJson = JSON.parse(responseText_).value;
+        // responseJson.value is ReadRoleViewModel C# class
+        const role = responseDataJson.role;
 
         // Role name
         document.getElementById('edit_role_name_input').value = role.name;
@@ -317,7 +318,7 @@ export function passSelectedRoleOnEdition(roleId_) {
         // Clear
         leftListElt.innerHTML = '';
         // Fill
-        for (let extension of responseText_.value.availableExtensions) {
+        for (let extension of responseDataJson.availableExtensions) {
             leftListElt.insertAdjacentHTML('beforeend', `<div class="row"><div class="col-md-12"><span name="${extension}">${extension}</span></div></div>`);
         }
 
@@ -326,7 +327,7 @@ export function passSelectedRoleOnEdition(roleId_) {
         // Clear
         rightListElt.innerHTML = '';
         // Fill
-        for (let extension of responseText_.value.selectedExtensions) {
+        for (let extension of responseDataJson.selectedExtensions) {
             rightListElt.insertAdjacentHTML('beforeend', `<div class="row">
                             <div class="col-md-6">
                                 <span name="${extension.extensionName}">${extension.extensionName}</span>
