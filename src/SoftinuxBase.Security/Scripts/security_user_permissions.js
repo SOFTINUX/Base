@@ -410,9 +410,18 @@ export function savePermission(extension_, roleName_, permission_) {
  */
 export function saveEditRole() {
     var _grants = [];
-    $('#editRoleRightExtensionsList>div.row').each(function (index_, elt_) {
-        _grants.push({ Extension: $(elt_).find('span').attr('name'), PermissionValue: $(elt_).find('select').val() });
+
+    Array.prototype.forEach.call(document.querySelectorAll('#editRoleRightExtensionsList>div.row'), function (elt_) {
+        var _extension, _permission;
+        Array.prototype.forEach.call(elt_.querySelectorAll('div'), function (elt_) {
+            if (elt_.querySelector('span'))
+                _extension = elt_.querySelector('span').getAttribute('name');
+            if (elt_.querySelector('select'))
+                _permission = elt_.querySelector('select option:checked').value;
+        });
+        _grants.push({ Extension: _extension, PermissionValue: _permission });
     });
+
     const postData = {
         RoleId: $('#editRoleId').val(),
         RoleName: $('#edit_role_name_input').val(),
