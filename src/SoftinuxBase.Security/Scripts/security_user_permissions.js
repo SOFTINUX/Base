@@ -414,11 +414,11 @@ export function saveEditRole() {
 
     Array.prototype.forEach.call(document.querySelectorAll('#editRoleRightExtensionsList>div.row'), function (elt_) {
         let _extension, _permission;
-        Array.prototype.forEach.call(elt_.querySelectorAll('div'), function (elt_) {
-            if (elt_.querySelector('span'))
+        Array.prototype.forEach.call(elt_.querySelectorAll('div'), function (subElt_) {
+            if (subElt_.querySelector('span'))
                 _extension = elt_.querySelector('span').getAttribute('name');
-            if (elt_.querySelector('select'))
-                _permission = elt_.querySelector('select option:checked').value;
+            if (subElt_.querySelector('select'))
+                _permission = subElt_.querySelector('select option:checked').value;
         });
 
         if (_extension && _permission)
