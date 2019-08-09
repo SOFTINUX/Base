@@ -109,22 +109,21 @@ namespace SoftinuxBase.Security.Controllers
         /// <summary>
         /// Update a record indicating with which permission this role is linked to an extension.
         /// </summary>
-        /// <param name="roleName_">Role name.</param>
-        /// <param name="permissionValue_">New permission level to save.</param>
-        /// <param name="extension_">Extension.</param>
+        /// <param name="model_">object represent values passed from ajax.</param>
         /// <returns>JSON with "true" when it succeeded.</returns>
+        [PermissionRequirement(Permission.Admin, Constants.SoftinuxBaseSecurity)]
         [Route("administration/update-role-permission")]
-        [HttpGet] // TODO change to POST
-        public async Task<IActionResult> UpdateRolePermission(string roleName_, string permissionValue_, string extension_)
+        [HttpPost]
+        public async Task<IActionResult> UpdateRolePermission([FromBody] UpdateRolePermissionViewModel model_)
         {
-            string roleId = (await _roleManager.FindByNameAsync(roleName_)).Id;
+            string roleId = (await _roleManager.FindByNameAsync(model_.RoleName)).Id;
             IRolePermissionRepository repo = _storage.GetRepository<IRolePermissionRepository>();
-            repo.Delete(roleId, extension_);
+            repo.Delete(roleId, model_.Extension);
 
-            if (Enum.TryParse<Permission>(permissionValue_, true, out var permissionEnumValue))
+            if (Enum.TryParse<Permission>(model_.PermissionValue, true, out var permissionEnumValue))
             {
                 var permissionEntity = _storage.GetRepository<IPermissionRepository>().Find(permissionEnumValue);
-                repo.Create(new RolePermission { RoleId = roleId, PermissionId = permissionEntity.Id, Extension = extension_ });
+                repo.Create(new RolePermission { RoleId = roleId, PermissionId = permissionEntity.Id, Extension = model_.Extension });
             }
 
             _storage.Save();
@@ -152,14 +151,13 @@ namespace SoftinuxBase.Security.Controllers
         /// <summary>
         /// Delete the record linking a role to an extension.
         /// </summary>
-        /// <param name="roleName_">string represent role to delete.</param>
-        /// <param name="extensionName_">string represent the extension name linked to role.</param>
+        /// <param name="model_"></param>
         /// <returns>Status code 204 (ok) or 400 (no deletion occurred).</returns>
         [HttpPost]
         [Route("administration/delete-role-extension")]
-        public async Task<IActionResult> DeleteRoleExtensionLink(string roleName_, string extensionName_)
+        public async Task<IActionResult> DeleteRoleExtensionLink([FromBody] DeleteRoleExtensionLinkViewModel model_)
         {
-            bool deleted = await Tools.DeleteRole.DeleteRoleExtensionLink(this._storage, _roleManager, extensionName_, roleName_);
+            bool deleted = await Tools.DeleteRole.DeleteRoleExtensionLink(this._storage, _roleManager, model_.ExtensionName, model_.RoleName);
             return StatusCode(deleted ? 204 : 400);
         }
 

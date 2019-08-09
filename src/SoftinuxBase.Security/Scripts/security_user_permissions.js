@@ -396,9 +396,9 @@ export function permissionCheckBoxClick(clickedCheckbox_) {
  */
 export function savePermission(extension_, roleName_, permission_) {
     const params = {
-        'roleName_': roleName_,
-        'permissionValue_': permission_,
-        'extension_': extension_
+        RoleName: roleName_,
+        PermissionValue: permission_,
+        Extension: extension_
     };
 
     makeAjaxRequest('POST', '/administration/update-role-permission', params, (responseStatus_, responseText_) => {

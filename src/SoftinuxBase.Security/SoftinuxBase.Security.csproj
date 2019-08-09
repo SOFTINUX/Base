@@ -74,4 +74,7 @@
     </PackageReference>
     <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.9.406" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models" />
+  </ItemGroup>
 </Project>
