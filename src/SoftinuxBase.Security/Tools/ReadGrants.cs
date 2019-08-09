@@ -118,10 +118,11 @@ namespace SoftinuxBase.Security.Tools
         /// This allows to warn the user in case no user is granted Admin for this extension and we want to remove the grant from role.
         /// In case the extension is SoftinuxBase.Security, this check will be used to prevent the delete action.
         /// </summary>
-        /// <param name="storage_"></param>
-        /// <param name="roleName_"></param>
-        /// <param name="roleManager_"></param>
-        /// <returns></returns>
+        /// <param name="roleManager_">ASP.NET Core identity role manager.</param>
+        /// <param name="storage_">The data storage instance.</param>
+        /// <param name="roleName_">Role name.</param>
+        /// <param name="extensionName_">Name of extension.</param>
+        /// <returns>bool.</returns>
         public static async Task<bool> IsLastAdmin(RoleManager<IdentityRole<string>> roleManager_, IStorage storage_, string roleName_, string extensionName_)
         {
             // Is there a user directly granted Admin for this extension?
@@ -145,12 +146,13 @@ namespace SoftinuxBase.Security.Tools
                 return true;
             }
 
-            // The roles that have Admin right must have users linked to them
-            // TODO find how to query that using Identity (role manager, user manager) (remove roleId)
-            // and if at least one user found => return false, else true
+            /*
+             The roles that have Admin right must have users linked to them
+             TODO find how to query that using Identity (role manager, user manager) (remove roleId)
+             and if at least one user found => return false, else true
+            */
 
             return false;
         }
-
     }
 }

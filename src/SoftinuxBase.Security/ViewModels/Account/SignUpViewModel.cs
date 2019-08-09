@@ -11,7 +11,6 @@ namespace SoftinuxBase.Security.ViewModels.Account
         /// <summary>
         /// Gets or sets first name field.
         /// </summary>
-        /// <returns></returns>
         [Required]
         [Display(Name = "User Name")]
         [StringLength(256, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = 4)]

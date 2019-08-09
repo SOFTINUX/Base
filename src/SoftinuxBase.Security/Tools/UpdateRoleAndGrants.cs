@@ -32,8 +32,8 @@ namespace SoftinuxBase.Security.Tools
         /// First, check that a role with this name and another ID doesn't already exist.
         /// Second, save new data into database.
         /// </summary>
-        /// <param name="storage_">the data storage instance.</param>
-        /// <param name="roleManager_">asp identity role manager object.</param>
+        /// <param name="storage_">The data storage instance.</param>
+        /// <param name="roleManager_">ASP.NET Core identity role manager.</param>
         /// <param name="model_">Model with role name and grant data (extensions and permission level).</param>
         /// <returns>Not null when something failed, else null when save went ok.</returns>
         internal static async Task<string> CheckAndUpdateRoleAndGrants(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, UpdateRoleAndGrantsViewModel model_)

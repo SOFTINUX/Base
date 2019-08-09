@@ -28,8 +28,8 @@ namespace SoftinuxBase.Security
         /// <summary>
         /// Adds custom claims to WIF-managed ClaimsIdentity object, from application user object.
         /// </summary>
-        /// <param name="user_"></param>
-        /// <param name="identity_"></param>
+        /// <param name="user_">Application user.</param>
+        /// <param name="identity_">Application user as claims collection.</param>
         internal async void AddClaims(User user_, ClaimsIdentity identity_)
         {
             // First name
@@ -67,8 +67,8 @@ namespace SoftinuxBase.Security
         /// <summary>
         /// Reads all scoped permissions from database and create a custom "permission" claim for every scope, if any permission found for this scope.
         /// </summary>
-        /// <param name="userId_"></param>
-        /// <returns></returns>
+        /// <param name="userId_">Application user ID.</param>
+        /// <returns>List of claims.</returns>
         internal IEnumerable<Claim> GetAllPermissionClaims(string userId_)
         {
             HashSet<KeyValuePair<Permission, string>> scopedPermissions = _storage.GetRepository<IPermissionRepository>().AllForUser(userId_);

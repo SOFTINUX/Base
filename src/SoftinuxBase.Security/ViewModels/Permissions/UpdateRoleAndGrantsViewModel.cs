@@ -18,7 +18,9 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
         /// <summary>
         /// Gets or sets list of extension name with associated permission enum value.
         /// </summary>
-        /// <value></value>
+        /// <value>
+        /// List of extension name with associated permission enum value.
+        /// </value>
         public List<ExtensionPermissionValue> Grants { get; set; }
     }
 }

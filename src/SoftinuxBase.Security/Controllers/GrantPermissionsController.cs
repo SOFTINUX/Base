@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
@@ -56,22 +57,24 @@ namespace SoftinuxBase.Security.Controllers
         /// <summary>
         /// Return role for edition: role information and associated extensions list.
         /// </summary>
-        /// <param name="roleId_"></param>
+        /// <param name="roleId_">Id of role to read.</param>
         /// <returns>Http code and JSON role object.</returns>
         [Route("administration/read-role")]
         [HttpGet]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetRoleForEdition(string roleId_)
         {
             if (string.IsNullOrWhiteSpace(roleId_) || string.IsNullOrEmpty(roleId_))
             {
-                return StatusCode(400, Json("No role id given"));
+                return StatusCode((int)HttpStatusCode.BadRequest, Json("No role id given"));
             }
 
             var role = await _roleManager.FindByIdAsync(roleId_);
 
             if (role == null)
             {
-                return StatusCode(400, Json("No such role for edition"));
+                return StatusCode((int)HttpStatusCode.BadRequest, Json("No such role for edition"));
             }
 
             ReadGrants.GetExtensions(roleId_, _storage, out var availableExtensions, out var selectedExtensions);
@@ -82,7 +85,7 @@ namespace SoftinuxBase.Security.Controllers
                 SelectedExtensions = selectedExtensions,
                 AvailableExtensions = availableExtensions
             };
-            return StatusCode(200, Json(result));
+            return StatusCode((int)HttpStatusCode.OK, Json(result));
         }
 
         #endregion
@@ -92,14 +95,16 @@ namespace SoftinuxBase.Security.Controllers
         /// <summary>
         /// Create a role. Then create a set of records indicating to which extensions with which permission this role is linked to.
         /// </summary>
-        /// <param name="model_"></param>
+        /// <param name="model_">object representing values passed from ajax.</param>
         /// <returns>Http status code.</returns>
         [Route("administration/save-new-role")]
         [HttpPost]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> SaveNewRoleAndItsPermissions([FromBody] SaveNewRoleAndGrantsViewModel model_)
         {
             string error = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(_storage, _roleManager, model_);
-            return StatusCode(string.IsNullOrEmpty(error) ? 201 : 400, error);
+            return StatusCode(string.IsNullOrEmpty(error) ? (int)HttpStatusCode.Created : (int)HttpStatusCode.BadRequest, error);
         }
 
         #endregion
@@ -109,11 +114,12 @@ namespace SoftinuxBase.Security.Controllers
         /// <summary>
         /// Update a record indicating with which permission this role is linked to an extension.
         /// </summary>
-        /// <param name="model_">object represent values passed from ajax.</param>
-        /// <returns>JSON with "true" when it succeeded.</returns>
+        /// <param name="model_">object representing values passed from ajax.</param>
+        /// <returns>OK 200.</returns>
         [PermissionRequirement(Permission.Admin, Constants.SoftinuxBaseSecurity)]
         [Route("administration/update-role-permission")]
         [HttpPost]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<IActionResult> UpdateRolePermission([FromBody] UpdateRolePermissionViewModel model_)
         {
             string roleId = (await _roleManager.FindByNameAsync(model_.RoleName)).Id;
@@ -127,21 +133,23 @@ namespace SoftinuxBase.Security.Controllers
             }
 
             _storage.Save();
-            return new JsonResult(true);
+            return StatusCode((int)HttpStatusCode.OK);
         }
 
         /// <summary>
         /// Update role name and linked extensions with permission level.
         /// </summary>
-        /// <param name="model_"></param>
+        /// <param name="model_">object representing values passed from ajax.</param>
         /// <returns>Status code 201, or 400 with an error message.</returns>
         [PermissionRequirement(Permission.Admin, Constants.SoftinuxBaseSecurity)]
         [Route("administration/update-role")]
         [HttpPost]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> UpdateRoleAndItsPermissions([FromBody] UpdateRoleAndGrantsViewModel model_)
         {
             string error = await UpdateRoleAndGrants.CheckAndUpdateRoleAndGrants(_storage, _roleManager, model_);
-            return StatusCode(string.IsNullOrEmpty(error) ? 201 : 400, error);
+            return StatusCode(string.IsNullOrEmpty(error) ? (int)HttpStatusCode.Created : (int)HttpStatusCode.BadRequest, error);
         }
 
         #endregion
@@ -151,27 +159,31 @@ namespace SoftinuxBase.Security.Controllers
         /// <summary>
         /// Delete the record linking a role to an extension.
         /// </summary>
-        /// <param name="model_"></param>
+        /// <param name="model_">object representing values passed from ajax.</param>
         /// <returns>Status code 204 (ok) or 400 (no deletion occurred).</returns>
-        [HttpPost]
+        [HttpDelete]
         [Route("administration/delete-role-extension")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> DeleteRoleExtensionLink([FromBody] DeleteRoleExtensionLinkViewModel model_)
         {
             bool deleted = await Tools.DeleteRole.DeleteRoleExtensionLink(this._storage, _roleManager, model_.ExtensionName, model_.RoleName);
-            return StatusCode(deleted ? 204 : 400);
+            return StatusCode(deleted ? (int)HttpStatusCode.NoContent : (int)HttpStatusCode.BadRequest);
         }
 
         /// <summary>
         /// Delete the records linking a role to any extension, then delete role record if possible..
         /// </summary>
-        /// <param name="roleName_">string represent role name to delete.</param>
+        /// <param name="roleName_">Name of role to delete.</param>
         /// <returns>Status code 204, or 400 with an error message.</returns>
-        [HttpPost]
+        [HttpDelete]
         [Route("administration/delete-role")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> DeleteRole(string roleName_)
         {
             string error = await Tools.DeleteRole.DeleteRoleAndAllLinks(this._storage, _roleManager, roleName_);
-            return StatusCode(string.IsNullOrEmpty(error) ? 204 : 400, error);
+            return StatusCode(string.IsNullOrEmpty(error) ? (int)HttpStatusCode.NoContent : (int)HttpStatusCode.BadRequest, error);
         }
 
         #endregion

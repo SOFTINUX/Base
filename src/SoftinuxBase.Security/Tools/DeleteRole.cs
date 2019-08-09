@@ -63,30 +63,30 @@ namespace SoftinuxBase.Security.Tools
 
         internal static async Task<string> DeleteRoleAndAllLinks(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, string roleName_)
         {
-            //bool canDeleteRole = false;
-            //string cannotDeleteMessage = null;
-            //string roleId = (await roleManager_.FindByNameAsync(roleName_)).Id;
-            //bool hasAnyUserDirectAdminPermission = ReadGrants.HasAnyUserDirectAdminPermission();
-            //if (hasAnyUserDirectAdminPermission)
-            //{
-            //    // We can delete this role, a user has Admin permission directly granted
-            //    canDeleteRole = true;
-            //}
-            //else
-            //{
-            //    bool hasOtherRoleAdminPermission = ReadGrants.HasOtherRoleAdminPermission(roleId);
-            //    if (!hasOtherRoleAdminPermission)
-            //    {
-            //        // We can not delete this role, no other role has Admin permission directly granted
-            //        canDeleteRole = false;
-            //        cannotDeleteMessage = "The role cannot be deleted, it's the last role with Admin permission";
-            //    }
-            //}
+            /*bool canDeleteRole = false;
+            string cannotDeleteMessage = null;
+            string roleId = (await roleManager_.FindByNameAsync(roleName_)).Id;
+            bool hasAnyUserDirectAdminPermission = ReadGrants.HasAnyUserDirectAdminPermission();
+            if (hasAnyUserDirectAdminPermission)
+            {
+                // We can delete this role, a user has Admin permission directly granted
+                canDeleteRole = true;
+            }
+            else
+            {
+                bool hasOtherRoleAdminPermission = ReadGrants.HasOtherRoleAdminPermission(roleId);
+                if (!hasOtherRoleAdminPermission)
+                {
+                    // We can not delete this role, no other role has Admin permission directly granted
+                    canDeleteRole = false;
+                    cannotDeleteMessage = "The role cannot be deleted, it's the last role with Admin permission";
+                }
+            }
 
-            //if (!canDeleteRole)
-            //{
-            //    return cannotDeleteMessage;
-            //}
+            if (!canDeleteRole)
+            {
+                return cannotDeleteMessage;
+            }*/
 
             // delete the role-extensions links
             await DeleteRoleExtensionLinks(storage_, roleManager_, roleName_);

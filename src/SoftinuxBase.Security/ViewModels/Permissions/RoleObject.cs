@@ -11,7 +11,8 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
     public class RoleObject
     {
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="RoleObject"/> class.
+        /// THIS IS A WIP.
         /// </summary>
         /// <param name="role_">Required parameter.</param>
         /// <param name="users_">Optional parameter.</param>
