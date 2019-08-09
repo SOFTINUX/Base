@@ -5,9 +5,24 @@ namespace SoftinuxBase.Security.Common.Enums
 {
     public enum Permission
     {
+        /// <summary>
+        /// No permission.
+        /// </summary>
         Never = 0,
+
+        /// <summary>
+        /// Read only access permission.
+        /// </summary>
         Read = 1,
+
+        /// <summary>
+        /// Write access permission.
+        /// </summary>
         Write = 2,
+
+        /// <summary>
+        /// Highest access permission.
+        /// </summary>
         Admin = 4
     }
 }

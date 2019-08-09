@@ -39,9 +39,9 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         }
 
         /// <summary>
-        /// Every permission with its extension, linked to user and user's roles.
+        /// <see cref="IPermissionRepository.AllForUser"/>.
         /// </summary>
-        /// <param name="userId_"></param>
+        /// <param name="userId_">User ID.</param>
         /// <returns>List of key/value : permission and extension.</returns>
         public HashSet<KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>> AllForUser(string userId_)
         {
@@ -78,13 +78,13 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         }
 
         /// <summary>
-        /// Find a permission by enum value.
+        /// <see cref="IPermissionRepository.Find"/>.
         /// </summary>
-        /// <param name="permissionValue_"></param>
-        /// <returns></returns>
-        public Permission Find(Security.Common.Enums.Permission permissionValue_)
+        /// <param name="permissionLevel_">Permission level.</param>
+        /// <returns>Permission entity.</returns>
+        public Permission Find(Security.Common.Enums.Permission permissionLevel_)
         {
-            return All().FirstOrDefault(p_ => p_.NormalizedName == permissionValue_.ToString().ToUpperInvariant());
+            return All().FirstOrDefault(p_ => p_.NormalizedName == permissionLevel_.ToString().ToUpperInvariant());
         }
     }
 }

@@ -14,15 +14,19 @@ namespace SoftinuxBase.Infrastructure
     [Authorize]
     public abstract class ControllerBase : Controller
     {
-        /// <summary>
-        /// Logger factory interface provided by services container.
-        /// </summary>
-        protected readonly ILoggerFactory _loggerFactory;
+#pragma warning disable SA1401 // FieldsMustBePrivate
 
         /// <summary>
         /// Storage interface provided by services container.
         /// </summary>
-        protected readonly IStorage _storage;
+        protected readonly IStorage Storage;
+
+        /// <summary>
+        /// Logger factory interface provided by services container.
+        /// </summary>
+        protected readonly ILoggerFactory LoggerFactory;
+
+#pragma warning restore SA1401 // FieldsMustBePrivate
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ControllerBase"/> class.
@@ -31,8 +35,8 @@ namespace SoftinuxBase.Infrastructure
         /// <param name="loggerFactory_">Logger factory interface optionally provided by services container.</param>
         protected ControllerBase(IStorage storage_, ILoggerFactory loggerFactory_ = null)
         {
-            _storage = storage_;
-            _loggerFactory = loggerFactory_;
+            Storage = storage_;
+            LoggerFactory = loggerFactory_;
         }
 
         /// <summary>

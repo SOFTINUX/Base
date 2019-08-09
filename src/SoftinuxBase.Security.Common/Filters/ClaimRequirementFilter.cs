@@ -15,7 +15,7 @@ namespace SoftinuxBase.Security.Common.Filters
         /// <summary>
         /// Initializes a new instance of the <see cref="ClaimRequirementFilter"/> class.
         /// </summary>
-        /// <param name="claim_"></param>
+        /// <param name="claim_">A claim.</param>
         public ClaimRequirementFilter(Claim claim_)
         {
             _claim = claim_;
@@ -24,7 +24,7 @@ namespace SoftinuxBase.Security.Common.Filters
         /// <summary>
         /// TODO Document this.
         /// </summary>
-        /// <param name="context_"></param>
+        /// <param name="context_">AuthorizationFilterContext object.</param>
         public void OnAuthorization(AuthorizationFilterContext context_)
         {
             var hasClaim = context_.HttpContext.User.Claims.Any(c_ => c_.Type == _claim.Type && c_.Value == _claim.Value);

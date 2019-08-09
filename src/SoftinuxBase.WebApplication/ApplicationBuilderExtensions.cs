@@ -22,13 +22,11 @@ namespace SoftinuxBase.WebApplication
         /// It must be called inside the Configure method
         /// of the web application's Startup class in order SoftinuxBase to work properly.
         /// </summary>
-        /// <param name="applicationBuilder_">
-        /// The application builder passed to the Configure method of the web application's Startup class.
-        /// </param>
-        /// <param name="hostingEnvironment_"></param>
-        /// <param name="loggerFactory_"></param>
-        /// <param name="configuration_"></param>
-        /// <param name="antiForgery_"></param>
+        /// <param name="applicationBuilder_">The application builder passed to the Configure method of the web application's Startup class.</param>
+        /// <param name="hostingEnvironment_">The hosting environment passed to the Configure method of the web application's Startup class.</param>
+        /// <param name="loggerFactory_">The logger factory passed to the Configure method of the web application's Startup class.</param>
+        /// <param name="configuration_">The application configuration passed to the Configure method of the web application's Startup class.</param>
+        /// <param name="antiForgery_">The anti forgery system passed to the Configure method of the web application's Startup class.</param>
         public static void UseSoftinuxBase(this IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_, IConfiguration configuration_, IAntiforgery antiForgery_)
         {
             // 1. Error management

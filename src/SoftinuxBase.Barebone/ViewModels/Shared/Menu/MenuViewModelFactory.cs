@@ -38,7 +38,7 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.Menu
 
                 foreach (Infrastructure.MenuGroup menuGroup in extensionMetadata.MenuGroups)
                 {
-                    MenuGroupViewModel menuGroupViewModel = FindOrCreateMenuGroup(_storage, _loggerFactory, menuGroupViewModels, menuGroup, _logger);
+                    MenuGroupViewModel menuGroupViewModel = FindOrCreateMenuGroup(Storage, LoggerFactory, menuGroupViewModels, menuGroup, _logger);
 
                     // Take existing items
                     List<MenuItemViewModel> menuItemViewModels = menuGroupViewModel.MenuItems;
@@ -51,7 +51,7 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.Menu
                     foreach (Infrastructure.MenuItem menuItem in menuGroup.MenuItems)
                     {
                         // TODO: here add claims verification for menu items
-                        menuItemViewModels.Add(new MenuItemViewModelFactory(_storage, _loggerFactory).Create(menuItem));
+                        menuItemViewModels.Add(new MenuItemViewModelFactory(Storage, LoggerFactory).Create(menuItem));
                     }
 
                     // Set all the ordered items back to menu group
@@ -70,12 +70,12 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.Menu
         /// <summary>
         /// Finds the MenuGroupViewModel in menuGroupViewModels_ or creates and returns it.
         /// </summary>
-        /// <param name="storage_"></param>
-        /// <param name="loggerFactory_"></param>
-        /// <param name="menuGroupViewModels_"></param>
-        /// <param name="menuGroup_"></param>
-        /// <param name="logger_"></param>
-        /// <returns></returns>
+        /// <param name="storage_">The data storage instance.</param>
+        /// <param name="loggerFactory_">ILoggerFactory object.</param>
+        /// <param name="menuGroupViewModels_">Dictionary of MenuGroupViewModel objects.</param>
+        /// <param name="menuGroup_">MenuGroup object.</param>
+        /// <param name="logger_">ILogger object.</param>
+        /// <returns>MenuGroupViewModel object.</returns>
         private static MenuGroupViewModel FindOrCreateMenuGroup(IStorage storage_, ILoggerFactory loggerFactory_, IDictionary<string, MenuGroupViewModel> menuGroupViewModels_, Infrastructure.MenuGroup menuGroup_, ILogger logger_)
         {
             menuGroupViewModels_.TryGetValue(menuGroup_.Name, out var menuGroupViewModel);

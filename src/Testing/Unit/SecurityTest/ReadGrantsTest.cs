@@ -14,7 +14,7 @@ using SoftinuxBase.Security.Tools;
 using SoftinuxBase.Security.ViewModels.Permissions;
 using SoftinuxBase.SeedDatabase;
 using Xunit;
-using Constants = SoftinuxBase.Common.Constants;
+using Constants = SoftinuxBase.Security.Common.Constants;
 using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 
 namespace SecurityTest

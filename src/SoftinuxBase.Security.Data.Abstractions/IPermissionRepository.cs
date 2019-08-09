@@ -15,12 +15,17 @@ namespace SoftinuxBase.Security.Data.Abstractions
         void Delete(string entityId_);
 
         /// <summary>
-        /// Every permission with its scope, linked to user, user's roles.
+        /// Every permission with its extension, linked to user and user's roles.
         /// </summary>
-        /// <param name="userId_"></param>
-        /// <returns></returns>
+        /// <param name="userId_">user ID.</param>
+        /// <returns>Set of permission levels associated to extensions.</returns>
         HashSet<KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>> AllForUser(string userId_);
 
-        Permission Find(Security.Common.Enums.Permission permissionValue_);
+        /// <summary>
+        /// Find a permission by enum value.
+        /// </summary>
+        /// <param name="permissionLevel_">Permission level.</param>
+        /// <returns>Permission entity.</returns>
+        Permission Find(Security.Common.Enums.Permission permissionLevel_);
     }
 }

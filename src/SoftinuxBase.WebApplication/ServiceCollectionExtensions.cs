@@ -27,11 +27,12 @@ namespace SoftinuxBase.WebApplication
         /// It must be called inside the ConfigureServices method of the web application's Startup class
         /// in order SoftinuxBase to work properly.
         /// </summary>
+        /// <typeparam name="T">Your EF DBContext.</typeparam>
         /// <param name="services_">
         /// The services collection passed to the ConfigureServices method of the web application's Startup class.
         /// </param>
-        /// <param name="configuration_"></param>
-        /// <param name="extensionsPath_"></param>
+        /// <param name="configuration_">Application configuration object.</param>
+        /// <param name="extensionsPath_">Extensions folder location.</param>
         public static void AddSoftinuxBase<T>(this IServiceCollection services_, IConfiguration configuration_, string extensionsPath_)
             where T : DbContext
         {

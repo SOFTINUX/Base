@@ -12,8 +12,8 @@ namespace SoftinuxBase.Security.Common.Attributes
         /// <summary>
         /// Initializes a new instance of the <see cref="ClaimRequirementAttribute"/> class.
         /// </summary>
-        /// <param name="claimType_"></param>
-        /// <param name="claimValue_"></param>
+        /// <param name="claimType_">Type of claim.</param>
+        /// <param name="claimValue_">Value of claim.</param>
         public ClaimRequirementAttribute(string claimType_, string claimValue_) : base(typeof(ClaimRequirementFilter))
         {
             Arguments = new object[] { new Claim(claimType_, claimValue_) };

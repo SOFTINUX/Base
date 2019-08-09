@@ -8,19 +8,29 @@ namespace SoftinuxBase.Barebone.ViewModels
 {
     public class ViewModelFactoryBase
     {
-        protected readonly IStorage _storage;
+#pragma warning disable SA1401 // FieldsMustBePrivate
 
-        protected readonly ILoggerFactory _loggerFactory;
+        /// <summary>
+        /// Storage interface provided by services container.
+        /// </summary>
+        protected readonly IStorage Storage;
+
+        /// <summary>
+        /// Logger factory interface provided by services container.
+        /// </summary>
+        protected readonly ILoggerFactory LoggerFactory;
+
+#pragma warning restore SA1401 // FieldsMustBePrivate
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewModelFactoryBase"/> class.
         /// </summary>
-        /// <param name="storage_"></param>
+        /// <param name="storage_">The data storage instance.</param>
         /// <param name="loggerFactory_">Optional.</param>
         public ViewModelFactoryBase(IStorage storage_, ILoggerFactory loggerFactory_ = null)
         {
-            _storage = storage_;
-            _loggerFactory = loggerFactory_;
+            Storage = storage_;
+            LoggerFactory = loggerFactory_;
         }
     }
 }

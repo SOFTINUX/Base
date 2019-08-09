@@ -79,7 +79,6 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         /// <summary>
         /// Save users and fill _createdUsers class variable;.
         /// </summary>
-        /// <returns></returns>
         private async Task SaveUsers()
         {
             // our default user
@@ -133,7 +132,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                     }
 
                     // Assign roles to user. John has Admin role, Jane and Paul have User role
-                    roleName = Constants.GetRoleName(firstUser ? Role.Administrator : Role.User);
+                    roleName = (firstUser ? Role.Administrator : Role.User).GetRoleName();
                     result = await _userManager.AddToRolesAsync(user, new[] { roleName });
 
                     // return 500 if fails
@@ -154,7 +153,6 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         /// <summary>
         /// Save the roles and populate _createdRoles class variable.
         /// </summary>
-        /// <returns></returns>
         private async Task SaveRoles()
         {
             // Get the list of the role from the enum
@@ -186,7 +184,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         }
 
         /// <summary>
-        ///
+        /// TODO.
         /// </summary>
         private void SaveUserPermission()
         {
@@ -201,7 +199,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         }
 
         /// <summary>
-        ///
+        /// TODO.
         /// </summary>
         private void SaveRolePermission()
         {
@@ -229,7 +227,6 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         /// <summary>
         /// Save the roles and populate _createdPermissions class variable.
         /// </summary>
-        /// <returns></returns>
         private void SavePermissions()
         {
             Permission[] permissions = (Permission[])Enum.GetValues(typeof(Permission));
@@ -261,12 +258,12 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         }
 
         /// <summary>
-        ///
+        /// TODO.
         /// </summary>
-        /// <param name="permissionId_"></param>
-        /// <param name="user_"></param>
-        /// <param name="scope_"></param>
-        private void SaveUserPermission(string permissionId_, User user_, string scope_ = null)
+        /// <param name="permissionId_">permission ID.</param>
+        /// <param name="user_">Application user.</param>
+        /// <param name="extension_">Extension name.</param>
+        private void SaveUserPermission(string permissionId_, User user_, string extension_ = null)
         {
             if (!string.IsNullOrWhiteSpace(permissionId_) && user_ != null)
             {
@@ -275,9 +272,9 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                     UserId = user_.Id,
                     PermissionId = permissionId_
                 };
-                if (!string.IsNullOrWhiteSpace(scope_))
+                if (!string.IsNullOrWhiteSpace(extension_))
                 {
-                    userPermission.Extension = scope_;
+                    userPermission.Extension = extension_;
                 }
 
                 _storage.GetRepository<IUserPermissionRepository>().Create(userPermission);
@@ -297,12 +294,11 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         }
 
         /// <summary>
-        ///
+        /// TODO.
         /// </summary>
-        /// <param name="roleId_"></param>
-        /// <param name="permissionId_"></param>
-        /// <param name="extension_"></param>
-        /// <returns></returns>
+        /// <param name="roleId_">Role Id.</param>
+        /// <param name="permissionId_">Permission ID.</param>
+        /// <param name="extension_">Extension name.</param>
         private void SaveRolePermission(string roleId_, string permissionId_, string extension_ = null)
         {
             if ((!string.IsNullOrWhiteSpace(permissionId_)) && (!string.IsNullOrWhiteSpace(roleId_)))
@@ -323,7 +319,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
             try
             {
                 _storage.Save();
-                _logger.LogInformation($"\"Saving role-permission: permission: {permissionId_}, to role: {roleId_}, for extension: {extension_ ?? Common.Constants.SoftinuxBaseSecurity} ok.\"");
+                _logger.LogInformation($"\"Saving role-permission: permission: {permissionId_}, to role: {roleId_}, for extension: {extension_ ?? Security.Common.Constants.SoftinuxBaseSecurity} ok.\"");
             }
             catch (Exception e)
             {

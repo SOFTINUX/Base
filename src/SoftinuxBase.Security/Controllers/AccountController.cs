@@ -30,7 +30,7 @@ namespace SoftinuxBase.Security.Controllers
         {
             _userManager = userManager_;
             _signInManager = signInManager_;
-            _logger = _loggerFactory.CreateLogger(GetType().FullName);
+            _logger = LoggerFactory.CreateLogger(GetType().FullName);
         }
 
         /// <summary>
@@ -199,7 +199,7 @@ namespace SoftinuxBase.Security.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> CheckUserNameExist(string userName_)
         {
-            return await Task.Run(() => Json(!RegisterUser.IsUserExist(_storage, userName_, _userManager)));
+            return await Task.Run(() => Json(!RegisterUser.IsUserExist(Storage, userName_, _userManager)));
         }
     }
 }

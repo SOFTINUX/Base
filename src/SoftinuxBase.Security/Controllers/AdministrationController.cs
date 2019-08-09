@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SoftinuxBase.Common;
+using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Common.Attributes;
 using SoftinuxBase.Security.Common.Enums;
 
@@ -23,7 +23,7 @@ namespace SoftinuxBase.Security.Controllers
         /// <param name="loggerFactory_">application logger factory instance.</param>
         public AdministrationController(IStorage storage_, ILoggerFactory loggerFactory_) : base(storage_, loggerFactory_)
         {
-            _logger = _loggerFactory.CreateLogger(GetType().FullName);
+            _logger = LoggerFactory.CreateLogger(GetType().FullName);
             _logger.LogInformation("oups");
         }
 

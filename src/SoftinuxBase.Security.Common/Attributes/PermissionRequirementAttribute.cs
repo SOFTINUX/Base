@@ -21,14 +21,16 @@ namespace SoftinuxBase.Security.Common.Attributes
         /// defined by its level (Admin, Write, Read...) and an extension name (SoftinuxBase.Security, ProjectX.ExtensionY...).
         /// Or the user has a permission with same extension name but higher level (Admin when Write is the minimum requested to be granted access).
         /// </summary>
-        /// <param name="permissionName_"></param>
-        /// <param name="extensionAssemblySimpleName_"></param>
-        public PermissionRequirementAttribute(Permission permissionName_, string extensionAssemblySimpleName_)
+        /// <param name="permissionLevel_">Permission level.</param>
+        /// <param name="extensionAssemblySimpleName_">the simple name of the assembly extension.</param>
+        public PermissionRequirementAttribute(Permission permissionLevel_, string extensionAssemblySimpleName_)
         {
             if (string.IsNullOrWhiteSpace(extensionAssemblySimpleName_))
-                throw new ArgumentNullException("Please specify the extension name");
+            {
+                throw new ArgumentNullException(nameof(extensionAssemblySimpleName_), "Please specify the extension name");
+            }
 
-            _permissionLevel = permissionName_;
+            _permissionLevel = permissionLevel_;
             _extensionName = extensionAssemblySimpleName_;
         }
 
@@ -37,12 +39,16 @@ namespace SoftinuxBase.Security.Common.Attributes
         /// </summary>
         public string PermissionIdentifier => PermissionHelper.GetExtensionPermissionIdentifier(_permissionLevel, _extensionName);
 
+        /// <summary>
+        /// TODO document.
+        /// </summary>
+        /// <param name="context_">ActionExecutingContext.</param>
         public override void OnActionExecuting(ActionExecutingContext context_)
         {
             bool accessGranted = false;
 
             // Get the user claim, if any, matching the extension of interest
-            Claim claimOfLookupExtension = context_.HttpContext.User.Claims.FirstOrDefault(c_ => c_.Type == ClaimType.Permission.ToString() && c_.Value.ToString().StartsWith($"{_extensionName}."));
+            Claim claimOfLookupExtension = context_.HttpContext.User.Claims.FirstOrDefault(c_ => c_.Type == ClaimType.Permission && c_.Value.ToString().StartsWith($"{_extensionName}."));
 
             if (claimOfLookupExtension != null)
             {

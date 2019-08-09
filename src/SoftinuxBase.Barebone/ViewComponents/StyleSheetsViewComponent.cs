@@ -15,7 +15,7 @@ namespace SoftinuxBase.Barebone.ViewComponents
 
         public StyleSheetsViewComponent(ILoggerFactory loggerFactory_) : base(loggerFactory_)
         {
-            _logger = _loggerFactory.CreateLogger(GetType().FullName);
+            _logger = LoggerFactory.CreateLogger(GetType().FullName);
         }
 
         public Task<IViewComponentResult> InvokeAsync()

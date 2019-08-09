@@ -3,7 +3,7 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using ExtCore.Data.Entities.Abstractions;
-using SoftinuxBase.Common;
+using SoftinuxBase.Security.Common;
 
 namespace SoftinuxBase.Security.Data.Entities
 {

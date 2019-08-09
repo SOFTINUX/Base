@@ -3,7 +3,7 @@
 
 using ExtCore.Data.Entities.Abstractions;
 using Microsoft.AspNetCore.Identity;
-using SoftinuxBase.Common;
+using SoftinuxBase.Security.Common;
 
 namespace SoftinuxBase.Security.Data.Entities
 {

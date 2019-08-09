@@ -9,19 +9,29 @@ namespace SoftinuxBase.Barebone.ViewComponents
 {
     public abstract class ViewComponentBase : ViewComponent
     {
-        protected readonly IStorage _storage;
+#pragma warning disable SA1401 // FieldsMustBePrivate
 
-        protected readonly ILoggerFactory _loggerFactory;
+        /// <summary>
+        /// Storage interface provided by services container.
+        /// </summary>
+        protected readonly IStorage Storage;
+
+        /// <summary>
+        /// Logger factory interface provided by services container.
+        /// </summary>
+        protected readonly ILoggerFactory LoggerFactory;
+
+#pragma warning restore SA1401 // FieldsMustBePrivate
 
         protected ViewComponentBase(IStorage storage_, ILoggerFactory loggerFactory_)
         {
-            _storage = storage_;
-            _loggerFactory = loggerFactory_;
+            Storage = storage_;
+            LoggerFactory = loggerFactory_;
         }
 
         protected ViewComponentBase(ILoggerFactory loggerFactory_)
         {
-            _loggerFactory = loggerFactory_;
+            LoggerFactory = loggerFactory_;
         }
     }
 }

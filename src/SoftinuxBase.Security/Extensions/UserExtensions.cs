@@ -17,24 +17,24 @@ namespace SoftinuxBase.Security.Extensions
         /// Generic method to check whether the currently logged user has some claim.
         /// Useful for Razor views.
         /// </summary>
-        /// <param name="claimsPrincipal_"></param>
-        /// <param name="claimType_"></param>
-        /// <param name="claimValue_"></param>
-        /// <returns></returns>
+        /// <param name="claimsPrincipal_">Application user object with all claims.</param>
+        /// <param name="claimType_">Claim type.</param>
+        /// <param name="claimValue_">Claim value.</param>
+        /// <returns>Bool.</returns>
         public static bool HasClaim(this ClaimsPrincipal claimsPrincipal_, string claimType_, string claimValue_)
         {
             return claimsPrincipal_.Claims.FirstOrDefault(c_ => c_.Type == claimType_ && c_.Value == claimValue_) != null;
         }
 
         /// <summary>
-        /// Method to check whether the currently logged user hasc some claim of type Permission,
+        /// Method to check whether the currently logged user has some claim of type Permission,
         /// defined by a permission (enum value) and a scope (assembly simple name).
         /// Useful for Razor views.
         /// </summary>
-        /// <param name="claimsPrincipal_"></param>
-        /// <param name="permission_"></param>
-        /// <param name="extensionAssemblySimpleName_"></param>
-        /// <returns></returns>
+        /// <param name="claimsPrincipal_">Application user object with all claims.</param>
+        /// <param name="permission_">Permission level.</param>
+        /// <param name="extensionAssemblySimpleName_">Assembly name of target extension.</param>
+        /// <returns>Bool.</returns>
         public static bool HasPermissionClaim(this ClaimsPrincipal claimsPrincipal_, Permission permission_, string extensionAssemblySimpleName_)
         {
             return HasClaim(claimsPrincipal_, ClaimType.Permission, PermissionHelper.GetExtensionPermissionIdentifier(permission_, extensionAssemblySimpleName_));
