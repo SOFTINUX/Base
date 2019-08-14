@@ -162,13 +162,15 @@ namespace SoftinuxBase.Security.Controllers
         /// <param name="model_">object representing values passed from ajax.</param>
         /// <returns>Status code 204 (ok) or 400 (no deletion occurred).</returns>
         [HttpDelete]
+        [PermissionRequirement(Permission.Admin, Constants.SoftinuxBaseSecurity)]
         [Route("administration/delete-role-extension")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> DeleteRoleExtensionLink([FromBody] DeleteRoleExtensionLinkViewModel model_)
         {
-            bool deleted = await Tools.DeleteRole.DeleteRoleExtensionLink(this.Storage, _roleManager, model_.ExtensionName, model_.RoleName);
-            return StatusCode(deleted ? (int)HttpStatusCode.NoContent : (int)HttpStatusCode.BadRequest);
+            //bool deleted = await Tools.DeleteRole.DeleteRoleExtensionLink(this.Storage, _roleManager, model_.ExtensionName, model_.RoleName);
+            //return StatusCode(deleted ? (int)HttpStatusCode.NoContent : (int)HttpStatusCode.BadRequest);
+            return StatusCode(403);
         }
 
         /// <summary>
@@ -177,6 +179,7 @@ namespace SoftinuxBase.Security.Controllers
         /// <param name="roleName_">Name of role to delete.</param>
         /// <returns>Status code 204, or 400 with an error message.</returns>
         [HttpDelete]
+        [PermissionRequirement(Permission.Admin, Constants.SoftinuxBaseSecurity)]
         [Route("administration/delete-role")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]

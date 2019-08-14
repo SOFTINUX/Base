@@ -248,6 +248,15 @@ export function removeRoleLink(element_) {
     document.getElementById('selectedRoleName').innerText = splitted[1];
 
     $('#myModal').modal('show');
+    document.getElementById('removeForModule').addEventListener('click', function(event_) {
+        console.log(event_);
+        deleteRolePermissionOnExtension(splitted[0], splitted[1])
+    }, false);
+
+    $('#myModal').modal('show');
+    document.getElementById('removeForAllModules').addEventListener('click', function(event_) {
+        console.log(event_);
+    }, false);
     //document.getElementById('myModal').classList.toggle('in');
     //document.getElementById('myModal').classList.toggle('show');
 }
@@ -448,6 +457,22 @@ export function saveEditRole() {
             location.reload();
         } else {
             window.toastr.error('Cannot update role. See logs for errors', 'Error');
+        }
+    });
+}
+
+export function deleteRolePermissionOnExtension(roleName_, extensionName_) {
+    const postData = {
+        RoleName: roleName_,
+        ExtensionName: extensionName_
+    };
+
+    makeAjaxRequest('DELETE', '/administration/delete-role-extension', postData, (responseStatus_, responseText_) => {
+        if (responseStatus_ === 201) {
+            window.toastr.success(responseText_, 'Role deleted');
+            location.reload();
+        } else {
+            window.toastr.error('NO ERROR FROM TWEAKED CONTROLLER', 'Error');
         }
     });
 }

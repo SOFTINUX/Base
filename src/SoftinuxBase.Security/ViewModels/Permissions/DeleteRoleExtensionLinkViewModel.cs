@@ -5,7 +5,7 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
 {
     public class DeleteRoleExtensionLinkViewModel
     {
-        public string RoleName => null;
-        public string ExtensionName => null;
+        public string RoleName { get; set; }
+        public string ExtensionName { get; set; }
     }
 }
