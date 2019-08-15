@@ -10,13 +10,13 @@ let pressedHtmlElement = undefined;
 // default values
 let settings = {
     holdTime: 700,
-    progressIndicatorColor: "#ff0000",
+    progressIndicatorColor: '#ff0000',
     progressIndicatorOpacity: 0.6
 };
 let timerId = null;
 let counter = 0;
 let progressIndicatorHtml = null;
-let pressHoldEvent = new CustomEvent("pressHold");
+let pressHoldEvent = new CustomEvent('pressHold');
 
 /*
  * @param {HTMLElement} htmlElement_ - the html element that will be pressed and hold
@@ -42,25 +42,25 @@ function init() {
     console.log('init');
 
     // Style pressed html element
-    pressedHtmlElement.style.display = "block";
-    pressedHtmlElement.style.overflow = "hidden";
-    pressedHtmlElement.style.position = "relative";
+    pressedHtmlElement.style.display = 'block';
+    pressedHtmlElement.style.overflow = 'hidden';
+    pressedHtmlElement.style.position = 'relative';
 
-    progressIndicatorHtml = '<div class="holdButtonProgress" style="height: 100%; width: 100%; position: absolute; top: 0; left: -100%; background-color:' + settings.progressIndicatorColor + '; opacity:' + settings.progressIndicatorOpacity + ';"></div>';
+    progressIndicatorHtml = `<div class="holdButtonProgress" style="height: 100%; width: 100%; position: absolute; top: 0; left: -100%; background-color:${settings.progressIndicatorColor}; opacity:${settings.progressIndicatorOpacity};"></div>`;
 
     pressedHtmlElement.insertAdjacentHTML('beforeend', progressIndicatorHtml);
 
     // Listening for the mouse and touch events
-    pressedHtmlElement.addEventListener("mousedown", pressingDown, false);
-    pressedHtmlElement.addEventListener("mouseup", notPressingDown, false);
-    pressedHtmlElement.addEventListener("mouseleave", notPressingDown, false);
+    pressedHtmlElement.addEventListener('mousedown', pressingDown, false);
+    pressedHtmlElement.addEventListener('mouseup', notPressingDown, false);
+    pressedHtmlElement.addEventListener('mouseleave', notPressingDown, false);
 
     // ReSharper disable Html.EventNotResolved
-    pressedHtmlElement.addEventListener("touchstart", pressingDown, false);
-    pressedHtmlElement.addEventListener("touchend", notPressingDown, false);
+    pressedHtmlElement.addEventListener('touchstart', pressingDown, false);
+    pressedHtmlElement.addEventListener('touchend', notPressingDown, false);
 
     // Listening for our custom pressHold event
-    pressedHtmlElement.addEventListener("pressHold", doSomething, false);
+    pressedHtmlElement.addEventListener('pressHold', doSomething, false);
     // ReSharper restore Html.EventNotResolved
 }
 
@@ -77,7 +77,7 @@ function notPressingDown() {
     // Stop the timer
     window.cancelAnimationFrame(timerId);
     counter = 0;
-    pressedHtmlElement.querySelectorAll(".holdButtonProgress")[0].style.left = "-100%";
+    pressedHtmlElement.querySelectorAll('.holdButtonProgress')[0].style.left = '-100%';
 
     //console.log("Not pressing!");
 }
@@ -92,7 +92,7 @@ function timerFunc() {
         timerId = requestAnimationFrame(timerFunc);
         counter++;
 
-        pressedHtmlElement.querySelectorAll(".holdButtonProgress")[0].style.left = (counter / (settings.holdTime * 60 / 1000) * 100 - 100) + "%";
+        pressedHtmlElement.querySelectorAll('.holdButtonProgress')[0].style.left = (counter / (settings.holdTime * 60 / 1000) * 100 - 100) + '%';
 
     } else {
         //console.log("Press threshold reached!");
@@ -101,6 +101,6 @@ function timerFunc() {
 }
 
 function doSomething() {
-    console.log("pressHold event fired!");
+    console.log('pressHold event fired!');
 }
 
