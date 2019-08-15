@@ -293,7 +293,7 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
         if (responseStatus_ === 201) {
             window.toastr.success(responseText_, 'New role created');
             inputFormGroupSetError('#role_name_input', null);
-            location.reload();
+            reloadGrantPermissionsHtmlView();
         } else {
             inputFormGroupSetError('#role_name_input', responseText_ ? responseText_ : responseStatus_);
         }
@@ -454,7 +454,7 @@ export function saveEditRole() {
     makeAjaxRequest('POST', '/administration/update-role', postData, (responseStatus_, responseText_) => {
         if (responseStatus_ === 201) {
             window.toastr.success(responseText_, 'Changes saved');
-            location.reload();
+            reloadGrantPermissionsHtmlView();
         } else {
             window.toastr.error('Cannot update role. See logs for errors', 'Error');
         }
@@ -470,7 +470,7 @@ export function deleteRolePermissionOnExtension(roleName_, extensionName_) {
     makeAjaxRequest('DELETE', '/administration/delete-role-extension', postData, (responseStatus_, responseText_) => {
         if (responseStatus_ === 201) {
             window.toastr.success(responseText_, 'Role deleted');
-            location.reload();
+            reloadGrantPermissionsHtmlView();
         } else {
             window.toastr.error('NO ERROR FROM TWEAKED CONTROLLER', 'Error');
         }
@@ -485,9 +485,15 @@ export function deleteRole(role_) {
     makeAjaxRequest('POST', '/administration/delete-role', postData, (responseStatus_, responseText_) => {
         if (responseStatus_ === 201) {
             window.toastr.success(responseText_, 'Role deleted');
-            location.reload();
+            reloadGrantPermissionsHtmlView();
         } else {
             window.toastr.error('Cannot delete role. See logs for errors', 'Error');
         }
+    });
+}
+
+function reloadGrantPermissionsHtmlView() {
+    makeAjaxRequest('GET', '/administration/read-permissions-grants', null, (responseStatus_, responseText_) => {
+        document.getElementById('GrantPermissionsTable').innerHTML = responseText_;
     });
 }

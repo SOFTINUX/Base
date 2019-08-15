@@ -79,7 +79,7 @@
                                     <label>Available extension(s)</label>
                                     <select class="form-control" multiple="" id="addRoleLeftExtensionsList">
                                         @{
-                                            // TODO move this to view component + partial view 
+                                            // TODO move this to view component + partial view
                                             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
                                             {
                                                 var scope = extensionMetadata.Name;
@@ -243,8 +243,9 @@
                         </div>
                     </div>
                     @* List extensions and roles *@
-                    @*<partial name="_List_Roles_Extensions"/>*@
-                    @await Component.InvokeAsync("GrantPermissions")
+                    <div id="GrantPermissionsTable">
+                        @await Component.InvokeAsync("GrantPermissions")
+                    </div>
                 </section>
             </div>
         </div>

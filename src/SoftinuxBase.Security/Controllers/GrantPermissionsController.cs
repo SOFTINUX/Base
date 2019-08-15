@@ -72,6 +72,18 @@ namespace SoftinuxBase.Security.Controllers
             return StatusCode((int)HttpStatusCode.OK, Json(result));
         }
 
+        /// <summary>
+        /// Return table of permissions for list roles extensions.
+        /// </summary>
+        /// <returns>view component.</returns>
+        [Route("administration/read-permissions-grants")]
+        [HttpGet]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public IActionResult ReadPermissionsTable()
+        {
+            return ViewComponent("GrantPermissions");
+        }
+
         #endregion
 
         #region CREATE
@@ -100,7 +112,6 @@ namespace SoftinuxBase.Security.Controllers
         /// </summary>
         /// <param name="model_">object representing values passed from ajax.</param>
         /// <returns>OK 200.</returns>
-        [PermissionRequirement(Permission.Admin, Constants.SoftinuxBaseSecurity)]
         [Route("administration/update-role-permission")]
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.OK)]
@@ -116,7 +127,7 @@ namespace SoftinuxBase.Security.Controllers
                 repo.Create(new RolePermission { RoleId = roleId, PermissionId = permissionEntity.Id, Extension = model_.Extension });
             }
 
-            Storage.Save();
+            Storage.SaveAsync();
             return StatusCode((int)HttpStatusCode.OK);
         }
 
@@ -125,7 +136,6 @@ namespace SoftinuxBase.Security.Controllers
         /// </summary>
         /// <param name="model_">object representing values passed from ajax.</param>
         /// <returns>Status code 201, or 400 with an error message.</returns>
-        [PermissionRequirement(Permission.Admin, Constants.SoftinuxBaseSecurity)]
         [Route("administration/update-role")]
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.Created)]
@@ -146,7 +156,6 @@ namespace SoftinuxBase.Security.Controllers
         /// <param name="model_">object representing values passed from ajax.</param>
         /// <returns>Status code 204 (ok) or 400 (no deletion occurred).</returns>
         [HttpDelete]
-        [PermissionRequirement(Permission.Admin, Constants.SoftinuxBaseSecurity)]
         [Route("administration/delete-role-extension")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
@@ -163,7 +172,6 @@ namespace SoftinuxBase.Security.Controllers
         /// <param name="roleName_">Name of role to delete.</param>
         /// <returns>Status code 204, or 400 with an error message.</returns>
         [HttpDelete]
-        [PermissionRequirement(Permission.Admin, Constants.SoftinuxBaseSecurity)]
         [Route("administration/delete-role")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
