@@ -7,7 +7,6 @@
 @using ExtCore.Infrastructure
 @using SoftinuxBase.Infrastructure.Interfaces
 
-@model SoftinuxBase.Security.ViewModels.Permissions.GrantViewModel
 @inject RoleManager<IdentityRole<string>> RolesManager
 
 @section title {
@@ -80,6 +79,7 @@
                                     <label>Available extension(s)</label>
                                     <select class="form-control" multiple="" id="addRoleLeftExtensionsList">
                                         @{
+                                            // TODO move this to view component + partial view 
                                             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
                                             {
                                                 var scope = extensionMetadata.Name;
@@ -140,6 +140,7 @@
                                     <label>Available role(s)</label>
                                     <select class="form-control" multiple="" id="availableRoles" onclick="passSelectedRoleOnEdition(this.options[this.selectedIndex].value);">
                                         @* here roles list *@
+                                        // TODO move this to view component + partial view
                                         @foreach (var role in RolesManager.Roles)
                                         {
                                             <option value="@Html.Raw(role.Id)">@Html.Raw(role.Name)</option>

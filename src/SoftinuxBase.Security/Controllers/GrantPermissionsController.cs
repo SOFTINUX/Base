@@ -35,23 +35,7 @@ namespace SoftinuxBase.Security.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            // Create a dictionary with all roles for injecting as json into grant permission page
-            Dictionary<string, IdentityRole<string>> rolesList = new Dictionary<string, IdentityRole<string>>();
-
-            // Create a dictionary with role id and name, since we will use role name in GrantViewModel
-            // and we have role id in RolePermission table.
-            Dictionary<string, string> roleNameByRoleId = new Dictionary<string, string>();
-
-            foreach (var role in _roleManager.Roles)
-            {
-                roleNameByRoleId.Add(role.Id, role.Name);
-                rolesList.Add(role.Id, role);
-            }
-
-            ViewBag.RolesList = rolesList;
-
-            var model = ReadGrants.ReadAll(_roleManager, Storage, roleNameByRoleId);
-            return await Task.Run(() => View(model));
+            return await Task.Run(() => View());
         }
 
         /// <summary>
