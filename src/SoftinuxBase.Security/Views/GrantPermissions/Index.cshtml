@@ -77,7 +77,7 @@
                             <div class="col-md-5">
                                 <div class="form-group margin">
                                     <label>Available extension(s)</label>
-                                    <select class="form-control" multiple="" id="addRoleLeftExtensionsList">
+                                    <select class="form-control" multiple id="addRoleLeftExtensionsList">
                                         @{
                                             // TODO move this to view component + partial view
                                             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
@@ -138,9 +138,10 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Available role(s)</label>
-                                    <select class="form-control" multiple="" id="availableRoles" onclick="passSelectedRoleOnEdition(this.options[this.selectedIndex].value);">
+                                    <select class="form-control" id="availableRoles" onChange="passSelectedRoleOnEdition(this.options[this.selectedIndex].value);">
+                                        <option disabled selected value="0"> -- select a role -- </option>
                                         @* here roles list *@
-                                        // TODO move this to view component + partial view
+                                        @* TODO move this to view component + partial view *@
                                         @foreach (var role in RolesManager.Roles)
                                         {
                                             <option value="@Html.Raw(role.Id)">@Html.Raw(role.Name)</option>
