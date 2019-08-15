@@ -7,7 +7,7 @@
 
 // Variables of this module
 let pressedHtmlElement = undefined;
-// default values
+// default settings
 let settings = {
     holdTime: 700,
     progressIndicatorColor: '#ff0000',
@@ -20,20 +20,26 @@ let pressHoldEvent = new CustomEvent('pressHold');
 
 /*
  * @param {HTMLElement} htmlElement_ - the html element that will be pressed and hold
- * @param { { holdTime: int, progressIndicatorColor: string, progressIndicatorOpacity: number} }
- *        options_.
- * Default values: {
-			holdTime: 700,
-			progressIndicatorColor: "#ff0000",
-			progressIndicatorOpacity: 0.6
-		}
+ * @param {
+ *          {
+ *              holdTime: int,
+ *              progressIndicatorColor: string,
+ *              progressIndicatorOpacity: number
+ *          }
+ *        } settings_.
+ * Default settings:
+ *      {
+            holdTime: 700,
+            progressIndicatorColor: "#ff0000",
+            progressIndicatorOpacity: 0.6
+        }
  */
-export default function pressAndHold(htmlElement_, options_) {
+export default function pressAndHold(htmlElement_, settings_) {
     // set pressed element
     pressedHtmlElement = htmlElement_;
 
     // override settings with parameter options, if any applicable
-    Object.assign(settings, options_);
+    Object.assign(settings, settings_);
 
     init();
 }
@@ -88,11 +94,11 @@ function notPressingDown() {
 function timerFunc() {
     //console.log("Timer tick!");
 
-    if (counter < (settings.holdTime * 60 / 1000)) {
+    if (counter < settings.holdTime * 60 / 1000) {
         timerId = requestAnimationFrame(timerFunc);
         counter++;
 
-        pressedHtmlElement.querySelectorAll('.holdButtonProgress')[0].style.left = (counter / (settings.holdTime * 60 / 1000) * 100 - 100) + '%';
+        pressedHtmlElement.querySelectorAll('.holdButtonProgress')[0].style.left = counter / (settings.holdTime * 60 / 1000) * 100 - 100 + '%';
 
     } else {
         //console.log("Press threshold reached!");
