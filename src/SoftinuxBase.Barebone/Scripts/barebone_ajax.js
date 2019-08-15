@@ -10,7 +10,7 @@
  * Make http request.
  * Return values is in responseCallback_ function.
  * @export
- * @param {string } type_ - type of request (GET/POST/PUT/PATCH/DELETE)
+ * @param {string} type_ - type of request (GET/POST/PUT/PATCH/DELETE)
  * @param {string} url_ - url (without query string)
  * @param {json} data_ - json data
  * @param {function(number, string)} responseCallback_ - function that is executed with 2 parameters: response status (number), response text (string). Optional
@@ -22,10 +22,11 @@ export default function makeAjaxRequest(type_, url_, data_, responseCallback_) {
     if (type_ === 'GET' && data_) {
         // add data to url
         let query = [];
+        // ReSharper disable once MissingHasOwnPropertyInForeach
         for (let key in data_) {
             query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data_[key]));
         }
-        url_ += (query.length ? '?' + query.join('&') : '');
+        url_ += query.length ? '?' + query.join('&') : '';
     }
 
     // we open the http request in ajax mode (true last parameter = asynchronous)
@@ -43,9 +44,9 @@ export default function makeAjaxRequest(type_, url_, data_, responseCallback_) {
             httpRequest.send();
         }
     }
-    catch (_e) {
+    catch (e) {
         window.toastr.error('Cannot send or open request.', 'ERROR');
-        console.error(`Error on ajax request: ${_e.message}`);
+        console.error(`Error on ajax request: ${e.message}`);
     }
 }
 
@@ -73,9 +74,9 @@ function requestResult(httpRequest_, responseCallback_) {
 
         }
     }
-    catch (_e) {
-        alert(`Une exception s’est produite : ${_e.message}`);
-        window.toastr.error(`Une exception s’est produite : ${_e.message}`, 'ERROR');
-        responseCallback_(0, _e.message);
+    catch (e) {
+        alert(`Une exception s’est produite : ${e.message}`);
+        window.toastr.error(`Une exception s’est produite : ${e.message}`, 'ERROR');
+        responseCallback_(0, e.message);
     }
 }

@@ -6,34 +6,34 @@
 // Credits: https://www.kirupa.com/html5/press_and_hold.htm (modern pattern)
 
 // Variables of this module
-let _pressedHtmlElement = undefined;
+let pressedHtmlElement = undefined;
 // default values
-let _settings = {
+let settings = {
     holdTime: 700,
     progressIndicatorColor: "#ff0000",
     progressIndicatorOpacity: 0.6
 };
-let _timerID = null;
-let _counter = 0;
-let _progressIndicatorHTML = null;
-let _pressHoldEvent = new CustomEvent("pressHold");
+let timerId = null;
+let counter = 0;
+let progressIndicatorHtml = null;
+let pressHoldEvent = new CustomEvent("pressHold");
 
 /*
- * @param {HTMLElement} - the html element that will be pressed and hold
+ * @param {HTMLElement} htmlElement_ - the html element that will be pressed and hold
  * @param { { holdTime: int, progressIndicatorColor: string, progressIndicatorOpacity: number} }
- *        options, default values: {
+ *        options_.
+ * Default values: {
 			holdTime: 700,
 			progressIndicatorColor: "#ff0000",
 			progressIndicatorOpacity: 0.6
-
 		}
  */
-export default function pressAndHold(htmlElement, options) {
+export default function pressAndHold(htmlElement_, options_) {
     // set pressed element
-    _pressedHtmlElement = htmlElement;
+    pressedHtmlElement = htmlElement_;
 
     // override settings with parameter options, if any applicable
-    Object.assign(_settings, options);
+    Object.assign(settings, options_);
 
     init();
 }
@@ -42,40 +42,42 @@ function init() {
     console.log('init');
 
     // Style pressed html element
-    _pressedHtmlElement.style.display = "block";
-    _pressedHtmlElement.style.overflow = "hidden";
-    _pressedHtmlElement.style.position = "relative";
+    pressedHtmlElement.style.display = "block";
+    pressedHtmlElement.style.overflow = "hidden";
+    pressedHtmlElement.style.position = "relative";
 
-    _progressIndicatorHTML = '<div class="holdButtonProgress" style="height: 100%; width: 100%; position: absolute; top: 0; left: -100%; background-color:' + _settings.progressIndicatorColor + '; opacity:' + _settings.progressIndicatorOpacity + ';"></div>';
+    progressIndicatorHtml = '<div class="holdButtonProgress" style="height: 100%; width: 100%; position: absolute; top: 0; left: -100%; background-color:' + settings.progressIndicatorColor + '; opacity:' + settings.progressIndicatorOpacity + ';"></div>';
 
-    _pressedHtmlElement.insertAdjacentHTML('beforeend', _progressIndicatorHTML);
+    pressedHtmlElement.insertAdjacentHTML('beforeend', progressIndicatorHtml);
 
     // Listening for the mouse and touch events
-    _pressedHtmlElement.addEventListener("mousedown", pressingDown, false);
-    _pressedHtmlElement.addEventListener("mouseup", notPressingDown, false);
-    _pressedHtmlElement.addEventListener("mouseleave", notPressingDown, false);
+    pressedHtmlElement.addEventListener("mousedown", pressingDown, false);
+    pressedHtmlElement.addEventListener("mouseup", notPressingDown, false);
+    pressedHtmlElement.addEventListener("mouseleave", notPressingDown, false);
 
-    _pressedHtmlElement.addEventListener("touchstart", pressingDown, false);
-    _pressedHtmlElement.addEventListener("touchend", notPressingDown, false);
+    // ReSharper disable Html.EventNotResolved
+    pressedHtmlElement.addEventListener("touchstart", pressingDown, false);
+    pressedHtmlElement.addEventListener("touchend", notPressingDown, false);
 
     // Listening for our custom pressHold event
-    _pressedHtmlElement.addEventListener("pressHold", doSomething, false);
+    pressedHtmlElement.addEventListener("pressHold", doSomething, false);
+    // ReSharper restore Html.EventNotResolved
 }
 
-function pressingDown(e) {
+function pressingDown(e_) {
     // Start the timer
     requestAnimationFrame(timerFunc);
 
-    e.preventDefault();
+    e_.preventDefault();
 
     //console.log("Pressing!");
 }
 
-function notPressingDown(e) {
+function notPressingDown() {
     // Stop the timer
-    cancelAnimationFrame(_timerID);
-    _counter = 0;
-    _pressedHtmlElement.querySelectorAll(".holdButtonProgress")[0].style.left = "-100%";
+    window.cancelAnimationFrame(timerId);
+    counter = 0;
+    pressedHtmlElement.querySelectorAll(".holdButtonProgress")[0].style.left = "-100%";
 
     //console.log("Not pressing!");
 }
@@ -86,19 +88,19 @@ function notPressingDown(e) {
 function timerFunc() {
     //console.log("Timer tick!");
 
-    if (_counter < (_settings.holdTime * 60/1000)) {
-        _timerID = requestAnimationFrame(timerFunc);
-        _counter++;
+    if (counter < (settings.holdTime * 60 / 1000)) {
+        timerId = requestAnimationFrame(timerFunc);
+        counter++;
 
-        _pressedHtmlElement.querySelectorAll(".holdButtonProgress")[0].style.left = ((_counter / (_settings.holdTime * 60/1000)) * 100 - 100) + "%";
+        pressedHtmlElement.querySelectorAll(".holdButtonProgress")[0].style.left = (counter / (settings.holdTime * 60 / 1000) * 100 - 100) + "%";
 
     } else {
         //console.log("Press threshold reached!");
-        _pressedHtmlElement.dispatchEvent(_pressHoldEvent);
+        pressedHtmlElement.dispatchEvent(pressHoldEvent);
     }
 }
 
-function doSomething(e) {
+function doSomething() {
     console.log("pressHold event fired!");
 }
 
