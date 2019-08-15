@@ -63,7 +63,7 @@ namespace SoftinuxBase.Security.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetRoleForEdition(string roleId_)
+        public async Task<IActionResult> ReadRole(string roleId_)
         {
             if (string.IsNullOrWhiteSpace(roleId_) || string.IsNullOrEmpty(roleId_))
             {

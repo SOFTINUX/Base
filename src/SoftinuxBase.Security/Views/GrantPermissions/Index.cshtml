@@ -242,7 +242,8 @@
                         </div>
                     </div>
                     @* List extensions and roles *@
-                    <partial name="_List_Roles_Extensions" model="Model" />
+                    @*<partial name="_List_Roles_Extensions"/>*@
+                    @await Component.InvokeAsync("GrantPermissions")
                 </section>
             </div>
         </div>

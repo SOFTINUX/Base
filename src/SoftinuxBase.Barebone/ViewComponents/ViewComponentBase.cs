@@ -29,6 +29,11 @@ namespace SoftinuxBase.Barebone.ViewComponents
             LoggerFactory = loggerFactory_;
         }
 
+        protected ViewComponentBase(IStorage storage_)
+        {
+            Storage = storage_;
+        }
+
         protected ViewComponentBase(ILoggerFactory loggerFactory_)
         {
             LoggerFactory = loggerFactory_;

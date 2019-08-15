@@ -27,6 +27,7 @@ namespace SoftinuxBase.Barebone.ViewComponents
         {
             MenuViewModelFactory factory = new MenuViewModelFactory(Storage, LoggerFactory);
 
+            // TODO disable/remove stopwatch in release
             Stopwatch watch = new Stopwatch();
             watch.Start();
             MenuViewModel menu = factory.Create();

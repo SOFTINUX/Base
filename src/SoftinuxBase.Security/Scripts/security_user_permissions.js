@@ -398,7 +398,7 @@ export function permissionCheckBoxClick(clickedCheckbox_) {
 }
 
 /**
- * Ajax call to update data: role-extension-permission link update. Ajax GET (TODO change to POST).
+ * Ajax call to update data: role-extension-permission link update. Ajax POST.
  * @param {any} extension_ - extension
  * @param {any} roleName_ - role name
  * @param {any} permission_ - permission (enum value)
@@ -411,7 +411,7 @@ export function savePermission(extension_, roleName_, permission_) {
     };
 
     makeAjaxRequest('POST', '/administration/update-role-permission', params, (responseStatus_, responseText_) => {
-        if (responseStatus_ === 201) {
+        if (responseStatus_ === 200) {
             window.toastr.success(responseText_, 'Changes saved');
         } else {
             window.toastr.error('Cannot update role permissions. See logs for errors', 'Error');

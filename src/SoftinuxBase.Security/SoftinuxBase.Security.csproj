@@ -63,6 +63,7 @@
     <EmbeddedResource Include="..\SoftinuxBase.Barebone\node_modules\datatables.net-buttons-bs\css\buttons.bootstrap.min.css" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SoftinuxBase.Barebone\SoftinuxBase.Barebone.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.Data.EntityFramework\SoftinuxBase.Security.Data.EntityFramework.csproj" />
   </ItemGroup>
@@ -73,5 +74,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.9.406" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Shared\Components\GrantPermissions\" />
   </ItemGroup>
 </Project>
