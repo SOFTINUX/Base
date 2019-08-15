@@ -42,25 +42,25 @@
     <None Remove="Views\Shared\_ListClaims.cshtml" />
     <None Remove="Views\Shared\_User_Profile_Details.cshtml" />
     <None Remove="Views\_ViewImports.cshtml" />
-    <None Remove="..\SoftinuxBase.Barebone\node_modules\datatables.net\js\jquery.dataTables.js" />
-    <None Remove="..\SoftinuxBase.Barebone\node_modules\datatables.net-bs\js\dataTables.bootstrap.js" />
-    <None Remove="..\SoftinuxBase.Barebone\node_modules\datatables.net-select\js\dataTables.select.min.js" />
-    <None Remove="..\SoftinuxBase.Barebone\node_modules\datatables.net-bs\css\dataTables.bootstrap.css" />
-    <None Remove="..\SoftinuxBase.Barebone\node_modules\datatables.net-select-bs\css\select.bootstrap.min.css" />
-    <None Remove="..\SoftinuxBase.Barebone\node_modules\datatables.net-buttons\js\dataTables.buttons.min.js" />
-    <None Remove="..\SoftinuxBase.Barebone\node_modules\datatables.net-buttons-bs\js\buttons.bootstrap.min.js" />
+    <None Remove="..\..\node_modules\datatables.net\js\jquery.dataTables.js" />
+    <None Remove="..\..\node_modules\datatables.net-bs\js\dataTables.bootstrap.js" />
+    <None Remove="..\..\node_modules\datatables.net-select\js\dataTables.select.min.js" />
+    <None Remove="..\..\node_modules\datatables.net-bs\css\dataTables.bootstrap.css" />
+    <None Remove="..\..\node_modules\datatables.net-select-bs\css\select.bootstrap.min.css" />
+    <None Remove="..\..\node_modules\datatables.net-buttons\js\dataTables.buttons.min.js" />
+    <None Remove="..\..\node_modules\datatables.net-buttons-bs\js\buttons.bootstrap.min.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\SoftinuxBase.Barebone\node_modules\datatables.net\js\jquery.dataTables.js" />
-    <EmbeddedResource Include="..\SoftinuxBase.Barebone\node_modules\datatables.net-bs\js\dataTables.bootstrap.js" />
-    <EmbeddedResource Include="..\SoftinuxBase.Barebone\node_modules\datatables.net-select\js\dataTables.select.min.js" />
-    <EmbeddedResource Include="..\SoftinuxBase.Barebone\node_modules\datatables.net-buttons\js\dataTables.buttons.min.js" />
-    <EmbeddedResource Include="..\SoftinuxBase.Barebone\node_modules\datatables.net-buttons-bs\js\buttons.bootstrap.min.js" />
+    <EmbeddedResource Include="..\..\node_modules\datatables.net\js\jquery.dataTables.js" />
+    <EmbeddedResource Include="..\..\node_modules\datatables.net-bs\js\dataTables.bootstrap.js" />
+    <EmbeddedResource Include="..\..\node_modules\datatables.net-select\js\dataTables.select.min.js" />
+    <EmbeddedResource Include="..\..\node_modules\datatables.net-buttons\js\dataTables.buttons.min.js" />
+    <EmbeddedResource Include="..\..\node_modules\datatables.net-buttons-bs\js\buttons.bootstrap.min.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\SoftinuxBase.Barebone\node_modules\datatables.net-bs\css\dataTables.bootstrap.css" />
-    <EmbeddedResource Include="..\SoftinuxBase.Barebone\node_modules\datatables.net-select-bs\css\select.bootstrap.min.css" />
-    <EmbeddedResource Include="..\SoftinuxBase.Barebone\node_modules\datatables.net-buttons-bs\css\buttons.bootstrap.min.css" />
+    <EmbeddedResource Include="..\..\node_modules\datatables.net-bs\css\dataTables.bootstrap.css" />
+    <EmbeddedResource Include="..\..\node_modules\datatables.net-select-bs\css\select.bootstrap.min.css" />
+    <EmbeddedResource Include="..\..\node_modules\datatables.net-buttons-bs\css\buttons.bootstrap.min.css" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SoftinuxBase.Barebone\SoftinuxBase.Barebone.csproj" />

@@ -51,5 +51,7 @@
         "typescriptreact",
         "yml"
     ],
-    "cSpell.enabled": false
-}
+    "cSpell.enabled": false,
+    "eslint.options": {
+        "configFile": ".eslintrc.json"
+    }

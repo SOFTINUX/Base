@@ -40,97 +40,86 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Styles\**;Scripts\**;Views\**;Fonts\**" />
-    <EmbeddedResource Include="**\node_modules\icheck\skins\square\**" />
-    <EmbeddedResource Include="**\node_modules\icheck\skins\minimal\**" />
-    <EmbeddedResource Include="**\node_modules\icheck\skins\line\**" />
-    <EmbeddedResource Include="**\node_modules\icheck\skins\flat\**" />
-    <EmbeddedResource Include="**\node_modules\admin-lte\dist\css\skins\**" />
-    <EmbeddedResource Include="**\node_modules\admin-lte\dist\css\alt\**" />
+    <EmbeddedResource Include="..\..\node_modules\icheck\skins\square\**" />
+    <EmbeddedResource Include="..\..\node_modules\icheck\skins\minimal\**" />
+    <EmbeddedResource Include="..\..\node_modules\icheck\skins\line\**" />
+    <EmbeddedResource Include="..\..\node_modules\icheck\skins\flat\**" />
+    <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\css\skins\**" />
+    <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\css\alt\**" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="node_modules\bootstrap\dist\css\bootstrap.min.css" />
-    <None Remove="node_modules\normalize.css\normalize.css" />
-    <None Remove="node_modules\font-awesome\css\font-awesome.min.css" />
-    <None Remove="node_modules\wfk-opensans\opensans.css" />
-    <None Remove="node_modules\jquery\dist\jquery.min.js" />
-    <None Remove="node_modules\bootstrap\dist\js\bootstrap.min.js" />
-    <None Remove="node_modules\jquery-validation\dist\jquery.validate.min.js" />
-    <None Remove="node_modules\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js" />
-    <None Remove="node_modules\js-cookie\src\js.cookie.js" />
-    <None Remove="node_modules\admin-lte\dist\js\adminlte.min.js" />
-    <None Remove="node_modules\inputmask\dist\min\jquery.inputmask.bundle.min.js" />
-    <None Remove="node_modules\toastr\build\toastr.min.js" />
+    <None Remove="node_modules\**\*" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="node_modules\jquery\dist\jquery.min.js" />
-    <EmbeddedResource Include="node_modules\jquery\dist\jquery.min.map" />
-    <EmbeddedResource Include="node_modules\bootstrap\dist\js\bootstrap.min.js" />
-    <EmbeddedResource Include="node_modules\jquery-validation\dist\jquery.validate.min.js" />
-    <EmbeddedResource Include="node_modules\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js" />
-    <EmbeddedResource Include="node_modules\js-cookie\src\js.cookie.js" />
-    <EmbeddedResource Include="node_modules\icheck\icheck.js" />
-    <EmbeddedResource Include="node_modules\inputmask\dist\min\jquery.inputmask.bundle.min.js" />
-    <EmbeddedResource Include="node_modules\admin-lte\dist\js\adminlte.min.js" />
-    <EmbeddedResource Include="node_modules\toastr\build\toastr.min.js" />
-    <EmbeddedResource Include="node_modules\codemirror\lib\codemirror.js" />
-    <EmbeddedResource Include="node_modules\codemirror\mode\sql\sql.js" />
-    <EmbeddedResource Include="node_modules\codemirror\addon\hint\show-hint.js" />
-    <EmbeddedResource Include="node_modules\codemirror\addon\hint\sql-hint.js" />
-    <EmbeddedResource Include="node_modules\codemirror\addon\hint\css-hint.js" />
-    <EmbeddedResource Include="node_modules\codemirror\addon\edit\trailingspace.js" />
-    <EmbeddedResource Include="node_modules\codemirror\addon\edit\matchbrackets.js" />
-    <EmbeddedResource Include="node_modules\codemirror\addon\edit\closebrackets.js" />
-    <EmbeddedResource Include="node_modules\codemirror\addon\display\fullscreen.js" />
-    <EmbeddedResource Include="node_modules\codemirror\addon\search\search.js" />
-    <EmbeddedResource Include="node_modules\codemirror\addon\search\searchcursor.js" />
-    <EmbeddedResource Include="node_modules\codemirror\addon\search\matchesonscrollbar.js" />
-    <EmbeddedResource Include="node_modules\codemirror\addon\search\match-highlighter.js" />
-    <EmbeddedResource Include="node_modules\codemirror\addon\selection\active-line.js" />
-    <EmbeddedResource Include="node_modules\codemirror\addon\dialog\dialog.js" />
-    <EmbeddedResource Include="node_modules\codemirror\addon\scroll\annotatescrollbar.js" />
+    <EmbeddedResource Include="..\..\node_modules\jquery\dist\jquery.min.js" LinkBase="node_modules\jquery\dist" />
+    <EmbeddedResource Include="..\..\node_modules\jquery\dist\jquery.min.map" LinkBase="node_modules\jquery\dist" />
+    <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\js\bootstrap.min.js" LinkBase="node_modules\bootstrap\dist\js\" />
+    <EmbeddedResource Include="..\..\node_modules\jquery-validation\dist\jquery.validate.min.js" LinkBase="node_modules\jquery-validation\dist\" />
+    <EmbeddedResource Include="..\..\node_modules\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js" LinkBase="node_modules\jquery-validation-unobtrusive\dist\" />
+    <EmbeddedResource Include="..\..\node_modules\js-cookie\src\js.cookie.js" LinkBase="node_modules\js-cookie\src\" />
+    <EmbeddedResource Include="..\..\node_modules\icheck\icheck.js" LinkBase="node_modules\icheck\" />
+    <EmbeddedResource Include="..\..\node_modules\inputmask\dist\min\jquery.inputmask.bundle.min.js" LinkBase="node_modules\inputmask\dist\min\" />
+    <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\js\adminlte.min.js" LinkBase="node_modules\admin-lte\dist\js\" />
+    <EmbeddedResource Include="..\..\node_modules\toastr\build\toastr.min.js" LinkBase="node_modules\toastr\build\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\lib\codemirror.js" LinkBase="node_modules\codemirror\lib\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\mode\sql\sql.js" LinkBase="node_modules\codemirror\mode\sql\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\hint\show-hint.js" LinkBase="node_modules\codemirror\addon\hint\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\hint\sql-hint.js" LinkBase="node_modules\codemirror\addon\hint\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\hint\css-hint.js" LinkBase="node_modules\codemirror\addon\hint\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\edit\trailingspace.js" LinkBase="node_modules\codemirror\addon\edit\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\edit\matchbrackets.js" LinkBase="node_modules\codemirror\addon\edit\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\edit\closebrackets.js" LinkBase="node_modules\codemirror\addon\edit\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\display\fullscreen.js" LinkBase="node_modules\codemirror\addon\display\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\search\search.js" LinkBase="node_modules\codemirror\addon\search\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\search\searchcursor.js" LinkBase="node_modules\codemirror\addon\search\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\search\matchesonscrollbar.js" LinkBase="node_modules\codemirror\addon\search\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\search\match-highlighter.js" LinkBase="node_modules\codemirror\addon\search\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\selection\active-line.js" LinkBase="node_modules\codemirror\addon\selection\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\dialog\dialog.js" LinkBase="node_modules\codemirror\addon\dialog\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\scroll\annotatescrollbar.js" LinkBase="node_modules\codemirror\addon\scroll\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="node_modules\normalize.css\normalize.css" />
-    <EmbeddedResource Include="node_modules\bootstrap\dist\css\bootstrap.min.css" />
-    <EmbeddedResource Include="node_modules\bootstrap\dist\css\bootstrap.min.css.map" />
-    <EmbeddedResource Include="node_modules\admin-lte\dist\css\AdminLTE.min.css" />
-    <EmbeddedResource Include="node_modules\admin-lte\dist\css\adminlte.min.css.map" />
-    <EmbeddedResource Include="node_modules\font-awesome\css\font-awesome.min.css" />
-    <EmbeddedResource Include="node_modules\font-awesome\css\font-awesome.css.map" />
-    <EmbeddedResource Include="node_modules\ionicons\dist\css\ionicons.min.css" />
+    <EmbeddedResource Include="..\..\node_modules\normalize.css\normalize.css" LinkBase="node_modules\normalize.css\" />
+    <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\css\bootstrap.min.css" LinkBase="node_modules\bootstrap\dist\css\" />
+    <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\css\bootstrap.min.css.map" LinkBase="node_modules\bootstrap\dist\css\" />
+    <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\css\AdminLTE.min.css" LinkBase="node_modules\admin-lte\dist\css\" />
+    <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\css\adminlte.min.css.map" LinkBase="node_modules\admin-lte\dist\css\" />
+    <EmbeddedResource Include="..\..\node_modules\font-awesome\css\font-awesome.min.css" LinkBase="node_modules\font-awesome\css\" />
+    <EmbeddedResource Include="..\..\node_modules\font-awesome\css\font-awesome.css.map" LinkBase="node_modules\font-awesome\css\" />
+    <EmbeddedResource Include="..\..\node_modules\ionicons\dist\css\ionicons.min.css" LinkBase="node_modules\ionicons\dist\css\" />
     <!-- <EmbeddedResource Include="node_modules\ionicons\dist\css\ionicons.min.css.map" /> -->
-    <EmbeddedResource Include="node_modules\wfk-opensans\opensans.css" />
-    <EmbeddedResource Include="node_modules\toastr\build\toastr.min.css" />
-    <EmbeddedResource Include="node_modules\codemirror\lib\codemirror.css" />
-    <EmbeddedResource Include="node_modules\codemirror\addon\hint\show-hint.css" />
-    <EmbeddedResource Include="node_modules\codemirror\addon\display\fullscreen.css" />
-    <EmbeddedResource Include="node_modules\codemirror\addon\search\matchesonscrollbar.css" />
-    <EmbeddedResource Include="node_modules\codemirror\addon\dialog\dialog.css" />
-    <EmbeddedResource Include="node_modules\codemirror\theme\dracula.css" />
-    <EmbeddedResource Include="node_modules\codemirror\theme\eclipse.css" />
-    <EmbeddedResource Include="node_modules\codemirror\theme\idea.css" />
-    <EmbeddedResource Include="node_modules\codemirror\theme\lesser-dark.css" />
-    <EmbeddedResource Include="node_modules\codemirror\theme\material.css" />
-    <EmbeddedResource Include="node_modules\codemirror\theme\monokai.css" />
-    <EmbeddedResource Include="node_modules\codemirror\theme\base16-dark.css" />
-    <EmbeddedResource Include="node_modules\codemirror\theme\base16-light.css" />
+    <EmbeddedResource Include="..\..\node_modules\wfk-opensans\opensans.css" LinkBase="node_modules\wfk-opensans\" />
+    <EmbeddedResource Include="..\..\node_modules\toastr\build\toastr.min.css" LinkBase="node_modules\toastr\build\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\lib\codemirror.css" LinkBase="node_modules\codemirror\lib\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\hint\show-hint.css" LinkBase="node_modules\codemirror\addon\hint\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\display\fullscreen.css" LinkBase="node_modules\codemirror\addon\display\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\search\matchesonscrollbar.css" LinkBase="node_modules\codemirror\addon\search\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\dialog\dialog.css" LinkBase="node_modules\codemirror\addon\dialog\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\theme\dracula.css" LinkBase="node_modules\codemirror\theme\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\theme\eclipse.css" LinkBase="node_modules\codemirror\theme\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\theme\idea.css" LinkBase="node_modules\codemirror\theme\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\theme\lesser-dark.css" LinkBase="node_modules\codemirror\theme\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\theme\material.css" LinkBase="node_modules\codemirror\theme\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\theme\monokai.css" LinkBase="node_modules\codemirror\theme\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\theme\base16-dark.css" LinkBase="node_modules\codemirror\theme\" />
+    <EmbeddedResource Include="..\..\node_modules\codemirror\theme\base16-light.css" LinkBase="node_modules\codemirror\theme\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.eot" />
-    <EmbeddedResource Include="node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.svg" />
-    <EmbeddedResource Include="node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.ttf" />
-    <EmbeddedResource Include="node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.woff" />
-    <EmbeddedResource Include="node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.woff2" />
-    <EmbeddedResource Include="node_modules\font-awesome\fonts\fontawesome-webfont.woff" />
-    <EmbeddedResource Include="node_modules\font-awesome\fonts\fontawesome-webfont.woff2" />
-    <EmbeddedResource Include="node_modules\font-awesome\fonts\fontawesome-webfont.ttf" />
-    <EmbeddedResource Include="node_modules\font-awesome\fonts\fontawesome-webfont.svg" />
-    <EmbeddedResource Include="node_modules\font-awesome\fonts\FontAwesome.otf" />
-    <EmbeddedResource Include="node_modules\ionicons\dist\fonts\ionicons.eot" />
-    <EmbeddedResource Include="node_modules\ionicons\dist\fonts\ionicons.svg" />
-    <EmbeddedResource Include="node_modules\ionicons\dist\fonts\ionicons.ttf" />
-    <EmbeddedResource Include="node_modules\ionicons\dist\fonts\ionicons.woff" />
-    <EmbeddedResource Include="node_modules\ionicons\dist\fonts\ionicons.woff2" />
+    <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.eot" LinkBase="node_modules\bootstrap\dist\fonts\" />
+    <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.svg" LinkBase="node_modules\bootstrap\dist\fonts\" />
+    <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.ttf" LinkBase="node_modules\bootstrap\dist\fonts\" />
+    <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.woff" LinkBase="node_modules\bootstrap\dist\fonts\" />
+    <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.woff2" LinkBase="node_modules\bootstrap\dist\fonts\" />
+    <EmbeddedResource Include="..\..\node_modules\font-awesome\fonts\fontawesome-webfont.woff" LinkBase="node_modules\font-awesome\fonts\" />
+    <EmbeddedResource Include="..\..\node_modules\font-awesome\fonts\fontawesome-webfont.woff2" LinkBase="node_modules\font-awesome\fonts\" />
+    <EmbeddedResource Include="..\..\node_modules\font-awesome\fonts\fontawesome-webfont.ttf" LinkBase="node_modules\font-awesome\fonts\" />
+    <EmbeddedResource Include="..\..\node_modules\font-awesome\fonts\fontawesome-webfont.svg" LinkBase="node_modules\font-awesome\fonts\" />
+    <EmbeddedResource Include="..\..\node_modules\font-awesome\fonts\FontAwesome.otf" LinkBase="node_modules\font-awesome\fonts\" />
+    <EmbeddedResource Include="..\..\node_modules\ionicons\dist\fonts\ionicons.eot" LinkBase="node_modules\ionicons\dist\fonts\" />
+    <EmbeddedResource Include="..\..\node_modules\ionicons\dist\fonts\ionicons.svg" LinkBase="node_modules\ionicons\dist\fonts\" />
+    <EmbeddedResource Include="..\..\node_modules\ionicons\dist\fonts\ionicons.ttf" LinkBase="node_modules\ionicons\dist\fonts\" />
+    <EmbeddedResource Include="..\..\node_modules\ionicons\dist\fonts\ionicons.woff" LinkBase="node_modules\ionicons\dist\fonts\" />
+    <EmbeddedResource Include="..\..\node_modules\ionicons\dist\fonts\ionicons.woff2" LinkBase="node_modules\ionicons\dist\fonts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\_references.js" />
