@@ -37,19 +37,17 @@
 // AdminLTE menu tweak: remember which menu group was open
 // https://github.com/almasaeed2010/AdminLTE/issues/1806
 
-
 [].forEach.call(document.querySelectorAll('ul.treeview-menu a'), (anchor_) => {
-    if (window.location.href.startsWith(anchor_.href)) {
-        let currentElement = anchor_;
-        for (; currentElement && currentElement !== document; currentElement = currentElement.parentNode) {
-            if (currentElement.matches("li")) {
-                // a parent li in menu (menu iteml li (immediate parent of anchor) or menu group li)
-                currentElement.classList.add('active');
-            } else if (currentElement.matches(".sidebar-menu > .treeview-menu")) {
-                // the root of menu is hit, stop iterating parent nodes
-                break;
-            }
-        }
-    }
+	if (window.location.href.startsWith(anchor_.href)) {
+		let currentElement = anchor_;
+		for (; currentElement && currentElement !== document; currentElement = currentElement.parentNode) {
+			if (currentElement.matches('li')) {
+				// a parent li in menu (menu iteml li (immediate parent of anchor) or menu group li)
+				currentElement.classList.add('active');
+			} else if (currentElement.matches('.sidebar-menu > .treeview-menu')) {
+				// the root of menu is hit, stop iterating parent nodes
+				break;
+			}
+		}
+	}
 });
-

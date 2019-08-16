@@ -15,5 +15,10 @@
         "sourceType": "module"
     },
     "rules": {
+        "semi": ["error", "always"], // https://eslint.org/docs/rules/semi
+        "indent": ["error", "tab"],
+        "no-tabs":"off",
+        "curly":"off",
+        "space-before-function-paren":"off"
     }
 }
