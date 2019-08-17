@@ -23,9 +23,6 @@
   <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Styles\**;Scripts\**\*.min.js;Views\**" />
-  </ItemGroup>
   <Choose>
     <When Condition=" '$(Configuration)'=='Debug' ">
       <ItemGroup>
@@ -36,22 +33,17 @@
     </When>
   </Choose>
   <ItemGroup>
-    <None Remove="Views\Account\AccessDenied.cshtml" />
-    <None Remove="Views\Account\SignIn.cshtml" />
-    <None Remove="Views\Shared\_Layout_Edit_User_Admin.cshtml" />
-    <None Remove="Views\Shared\_ListClaims.cshtml" />
-    <None Remove="Views\Shared\_User_Profile_Details.cshtml" />
-    <None Remove="Views\_ViewImports.cshtml" />
-    <None Remove="..\..\node_modules\**\*" />
+    <None Remove="node_modules\**" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Styles\**;Scripts\**\*.min.js;Views\**" />
+    <!-- JavaScript -->
     <EmbeddedResource Include="..\..\node_modules\datatables.net\js\jquery.dataTables.js" LinkBase="node_modules\datatables.net\js\" />
     <EmbeddedResource Include="..\..\node_modules\datatables.net-bs\js\dataTables.bootstrap.js" LinkBase="node_modules\datatables.net-bs\js\" />
     <EmbeddedResource Include="..\..\node_modules\datatables.net-select\js\dataTables.select.min.js" LinkBase="node_modules\datatables.net-select\js\" />
     <EmbeddedResource Include="..\..\node_modules\datatables.net-buttons\js\dataTables.buttons.min.js" LinkBase="node_modules\datatables.net-buttons\js\" />
     <EmbeddedResource Include="..\..\node_modules\datatables.net-buttons-bs\js\buttons.bootstrap.min.js" LinkBase="node_modules\\datatables.net-buttons-bs\js\" />
-  </ItemGroup>
-  <ItemGroup>
+    <!-- Css -->
     <EmbeddedResource Include="..\..\node_modules\datatables.net-bs\css\dataTables.bootstrap.css" LinkBase="node_modules\datatables.net-bs\css\" />
     <EmbeddedResource Include="..\..\node_modules\datatables.net-select-bs\css\select.bootstrap.min.css" LinkBase="node_modules\datatables.net-select-bs\css\" />
     <EmbeddedResource Include="..\..\node_modules\datatables.net-buttons-bs\css\buttons.bootstrap.min.css" LinkBase="node_modules\datatables.net-buttons-bs\css\" />

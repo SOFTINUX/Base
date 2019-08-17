@@ -39,30 +39,11 @@
     <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="node_modules\bootstrap\dist\css\bootstrap.min.css" />
-    <None Remove="node_modules\normalize.css\normalize.css" />
-    <None Remove="node_modules\font-awesome\css\font-awesome.min.css" />
-    <None Remove="node_modules\wfk-opensans\opensans.css" />
-    <None Remove="node_modules\jquery\dist\jquery.min.js" />
-    <None Remove="node_modules\bootstrap\dist\js\bootstrap.min.js" />
-    <None Remove="node_modules\jquery-validation\dist\jquery.validate.min.js" />
-    <None Remove="node_modules\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js" />
-    <None Remove="node_modules\js-cookie\src\js.cookie.js" />
-    <None Remove="node_modules\admin-lte\dist\js\adminlte.min.js" />
-    <None Remove="node_modules\inputmask\dist\min\jquery.inputmask.bundle.min.js" />
-    <None Remove="node_modules\toastr\build\toastr.min.js" />
-    <None Remove="node_modules\icheck\**\*.*" />
+    <None Remove="node_modules\**" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Styles\**;Scripts\**;Views\**;Fonts\**" />
-    <EmbeddedResource Include="..\..\node_modules\icheck\skins\square\**" LinkBase="node_modules\icheck\skins\square\" />
-    <EmbeddedResource Include="..\..\node_modules\icheck\skins\minimal\**" LinkBase="node_modules\icheck\skins\minimal\" />
-    <EmbeddedResource Include="..\..\node_modules\icheck\skins\line\**" LinkBase="node_modules\icheck\skins\line\" />
-    <EmbeddedResource Include="..\..\node_modules\icheck\skins\flat\**" LinkBase="node_modules\icheck\skins\flat\" />
-    <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\css\skins\**" LinkBase="node_modules\admin-lte\dist\css\skins\" />
-    <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\css\alt\**" LinkBase="node_modules\admin-lte\dist\css\alt\" />
-  </ItemGroup>
-  <ItemGroup>
+    <!-- Javascript -->
     <EmbeddedResource Include="..\..\node_modules\jquery\dist\jquery.min.js" LinkBase="node_modules\jquery\dist" />
     <EmbeddedResource Include="..\..\node_modules\jquery\dist\jquery.min.map" LinkBase="node_modules\jquery\dist" />
     <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\js\bootstrap.min.js" LinkBase="node_modules\bootstrap\dist\js\" />
@@ -89,8 +70,7 @@
     <EmbeddedResource Include="..\..\node_modules\codemirror\addon\selection\active-line.js" LinkBase="node_modules\codemirror\addon\selection\" />
     <EmbeddedResource Include="..\..\node_modules\codemirror\addon\dialog\dialog.js" LinkBase="node_modules\codemirror\addon\dialog\" />
     <EmbeddedResource Include="..\..\node_modules\codemirror\addon\scroll\annotatescrollbar.js" LinkBase="node_modules\codemirror\addon\scroll\" />
-  </ItemGroup>
-  <ItemGroup>
+    <!-- Css -->
     <EmbeddedResource Include="..\..\node_modules\normalize.css\normalize.css" LinkBase="node_modules\normalize.css\" />
     <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\css\bootstrap.min.css" LinkBase="node_modules\bootstrap\dist\css\" />
     <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\css\bootstrap.min.css.map" LinkBase="node_modules\bootstrap\dist\css\" />
@@ -115,8 +95,13 @@
     <EmbeddedResource Include="..\..\node_modules\codemirror\theme\monokai.css" LinkBase="node_modules\codemirror\theme\" />
     <EmbeddedResource Include="..\..\node_modules\codemirror\theme\base16-dark.css" LinkBase="node_modules\codemirror\theme\" />
     <EmbeddedResource Include="..\..\node_modules\codemirror\theme\base16-light.css" LinkBase="node_modules\codemirror\theme\" />
-  </ItemGroup>
-  <ItemGroup>
+    <EmbeddedResource Include="..\..\node_modules\icheck\skins\square\**" LinkBase="node_modules\icheck\skins\square\" />
+    <EmbeddedResource Include="..\..\node_modules\icheck\skins\minimal\**" LinkBase="node_modules\icheck\skins\minimal\" />
+    <EmbeddedResource Include="..\..\node_modules\icheck\skins\line\**" LinkBase="node_modules\icheck\skins\line\" />
+    <EmbeddedResource Include="..\..\node_modules\icheck\skins\flat\**" LinkBase="node_modules\icheck\skins\flat\" />
+    <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\css\skins\**" LinkBase="node_modules\admin-lte\dist\css\skins\" />
+    <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\css\alt\**" LinkBase="node_modules\admin-lte\dist\css\alt\" />
+    <!-- Fonts -->
     <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.eot" LinkBase="node_modules\bootstrap\dist\fonts\" />
     <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.svg" LinkBase="node_modules\bootstrap\dist\fonts\" />
     <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.ttf" LinkBase="node_modules\bootstrap\dist\fonts\" />
