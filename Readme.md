@@ -179,31 +179,41 @@ Have a look at sample extensions, [wiki](https://github.com/SOFTINUX/Base/wiki),
 
 If you prefer to use Visual Studio Code, you need these extensions:
 
+Verry recommended for this project
+
 - [Net Core Test Explorer](https://marketplace.visualstudio.com/items?itemName=formulahendry.dotnet-test-explorer)
 - [C#](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
-- [Code Outline](https://marketplace.visualstudio.com/items?itemName=patrys.vscode-code-outline)
 - [Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome)
 - [IntelliSense for CSS class name](https://marketplace.visualstudio.com/items?itemName=Zignd.html-css-class-completion)
 - [Path Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-- [TSLint](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-tslint-plugin)
 - [Visual Studio Code Solution Explorer](https://marketplace.visualstudio.com/items?itemName=fernandoescolar.vscode-solution-explorer)
+- [Visual IntelliCode](https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.vscodeintellicode)
+- [Bracket Pair Colorizer](https://marketplace.visualstudio.com/items?itemName=CoenraadS.bracket-pair-colorizer)
+- [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
+- [Rest Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
+- [Better Comments](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments)
+- [MarkdownLint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
+- [Version Lens](https://marketplace.visualstudio.com/items?itemName=pflannery.vscode-versionlens)
+- [Trailing Spaces](https://marketplace.visualstudio.com/items?itemName=shardulm94.trailing-spaces)
+- [Todo](https://marketplace.visualstudio.com/items?itemName=fabiospampinato.vscode-todo-plus)
+- [Log File Highlighter](https://marketplace.visualstudio.com/items?itemName=emilast.LogFileHighlighter)
 
 Optional for better experience:
 
-- [Can I Use](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-caniuse)
 - [Git History](https://marketplace.visualstudio.com/items?itemName=donjayamanne.githistory)
 - [Git Lens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
+- [Git Graph](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph)
 - [gitignore](https://marketplace.visualstudio.com/items?itemName=codezombiech.gitignore)
 - [HTML CSS Support](https://marketplace.visualstudio.com/items?itemName=ecmel.vscode-html-css)
-- [Log File Highlighter](https://marketplace.visualstudio.com/items?itemName=emilast.LogFileHighlighter)
-- [Output Colorizer](https://marketplace.visualstudio.com/items?itemName=IBM.output-colorizer)
-- [Trailing Spaces](https://marketplace.visualstudio.com/items?itemName=shardulm94.trailing-spaces)
-- [Todo Highlight](https://marketplace.visualstudio.com/items?itemName=wayou.vscode-todo-highlight)
+- ~~[Output Colorizer](https://marketplace.visualstudio.com/items?itemName=IBM.output-colorizer)~~ not maintained.
+- [Task Explorer](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-tslint-plugin=)
+- ~~[Code Outline](https://marketplace.visualstudio.com/items?itemName=patrys.vscode-code-outline)~~ depreciated.Vs Code to this.
+- [TSLint](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-tslint-plugin)
+- [Can I Use](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-caniuse)
 
 At your discretion:
 
-- [Better Comments](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments)
 - [To Do Task](https://marketplace.visualstudio.com/items?itemName=sandy081.todotasks)
 - [Remind Me](https://marketplace.visualstudio.com/items?itemName=cg-cnu.vscode-remind-me)
 - [Python](https://marketplace.visualstudio.com/items?itemName=donjayamanne.python)
