@@ -74,7 +74,7 @@ In order you must have installed:
 
 #### 1. Restore dependencies
 
-Run `npm i --save-dev` command so that dependencies packages are installed.
+Run `npm i` command so that dependencies packages are installed.
 
 #### 2. Restore nuget packages
 
@@ -179,7 +179,7 @@ Have a look at sample extensions, [wiki](https://github.com/SOFTINUX/Base/wiki),
 
 If you prefer to use Visual Studio Code, you need these extensions:
 
-Verry recommended for this project
+Very recommended for this project
 
 - [Net Core Test Explorer](https://marketplace.visualstudio.com/items?itemName=formulahendry.dotnet-test-explorer)
 - [C#](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
