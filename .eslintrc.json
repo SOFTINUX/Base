@@ -16,7 +16,7 @@
     },
     "rules": {
         "semi": ["error", "always"], // https://eslint.org/docs/rules/semi
-        "indent": ["error", "tab"],
+        "indent": ["error", 4, { "SwitchCase": 1 }],
         "no-tabs":"off",
         "curly":"off",
         "space-before-function-paren":"off"
