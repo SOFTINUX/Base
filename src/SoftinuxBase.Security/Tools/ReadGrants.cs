@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using ExtCore.Infrastructure;
 using Microsoft.AspNetCore.Identity;
+using Remotion.Linq.Parsing.Structure.IntermediateModel;
 using SoftinuxBase.Infrastructure.Interfaces;
 using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.Abstractions;
@@ -114,7 +115,7 @@ namespace SoftinuxBase.Security.Tools
         }
 
         /// <summary>
-        /// This function checks that the role is the last grant of Admin right to the target extension.
+        /// This function checks that the role is the last grant of Admin permission level to the target extension.
         /// This allows to warn the user in case no user is granted Admin for this extension and we want to remove the grant from role.
         /// In case the extension is SoftinuxBase.Security, this check will be used to prevent the delete action.
         /// </summary>
@@ -123,8 +124,13 @@ namespace SoftinuxBase.Security.Tools
         /// <param name="roleName_">Role name.</param>
         /// <param name="extensionName_">Name of extension.</param>
         /// <returns>bool.</returns>
-        public static async Task<bool> IsLastAdmin(RoleManager<IdentityRole<string>> roleManager_, IStorage storage_, string roleName_, string extensionName_)
+        public static async Task<bool> HasRoleLastAdminPermission(RoleManager<IdentityRole<string>> roleManager_, IStorage storage_, string roleName_, string extensionName_)
         {
+
+            // test
+            var currentRole = await roleManager_.FindByNameAsync(roleName_);
+            // end test
+
             // Is there a user directly granted Admin for this extension?
             if (storage_.GetRepository<IUserPermissionRepository>().FindBy(extensionName_, Permission.Admin) != null)
             {
@@ -132,23 +138,27 @@ namespace SoftinuxBase.Security.Tools
                 return false;
             }
 
-            var rolePermissionRecords = storage_.GetRepository<IRolePermissionRepository>().FindBy(extensionName_, Permission.Admin);
+            var rolePermissionRecordsWithAdminLevel = storage_.GetRepository<IRolePermissionRepository>().FindBy(extensionName_, Permission.Admin);
 
-            if (!rolePermissionRecords.Any())
+            if (!rolePermissionRecordsWithAdminLevel.Any())
             {
                 // This method shouldn't have been called in this case :-)
                 return false;
             }
 
-            var roleId = (await roleManager_.FindByNameAsync(roleName_)).Id;
-            if (rolePermissionRecords.Count() == 1 && rolePermissionRecords.First().Id == roleId)
+            // var currentRole = await roleManager_.FindByNameAsync(roleName_);
+            if (rolePermissionRecordsWithAdminLevel.Count() == 1 && rolePermissionRecordsWithAdminLevel.First().Id == currentRole.Id)
             {
                 return true;
             }
 
+            IEnumerable<User> usersHavingCurrentRole =
+                storage_.GetRepository<IAspNetUsersRepository>().FindActiveUsersHavingRole(roleName_);
+
+            // TODO change the FindActiveUsersHavingRole to pass a list of role names.
+
             /*
              The roles that have Admin right must have users linked to them
-             TODO find how to query that using Identity (role manager, user manager) (remove roleId)
              and if at least one user found => return false, else true
             */
 
