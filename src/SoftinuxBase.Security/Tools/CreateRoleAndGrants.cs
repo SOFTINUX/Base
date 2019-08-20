@@ -25,7 +25,7 @@ namespace SoftinuxBase.Security.Tools
         /// <param name="storage_">the data storage instance.</param>
         /// <param name="roleManager_">asp identity role manager object.</param>
         /// <param name="model_">model with role name and grand data (extensions and permissions level).</param>
-        /// <returns>Not null when something failed, else null when save went ok.</returns>
+        /// <returns>Current asynchronous Task with not null string result when something failed, else null when save went ok.</returns>
         public static async Task<string> CheckAndSaveNewRoleAndGrants(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, SaveNewRoleAndGrantsViewModel model_)
         {
             if (await UpdateRoleAndGrants.CheckThatRoleOfThisNameExists(roleManager_, model_.RoleName))
@@ -69,7 +69,7 @@ namespace SoftinuxBase.Security.Tools
                     }
                 }
 
-                storage_.Save();
+                await storage_.SaveAsync();
 
                 return null;
             }

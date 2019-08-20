@@ -202,7 +202,7 @@ namespace SecurityTest
                 // Add a link to an extension
                 rolePermissionRepository.Create(new RolePermission { PermissionId = readPermissionId, RoleId = roleId, Extension = "Security" });
                 rolePermissionRepository.Create(new RolePermission { PermissionId = readPermissionId, RoleId = roleId, Extension = "Another" });
-                DatabaseFixture.Storage.Save();
+                await DatabaseFixture.Storage.SaveAsync();
 
                 UpdateRoleAndGrantsViewModel model = new UpdateRoleAndGrantsViewModel
                 {
@@ -274,7 +274,7 @@ namespace SecurityTest
 
                 // Create a link to an extension
                 rolePermissionRepository.Create(new RolePermission { RoleId = firstRole.Id, PermissionId = writePermissionId, Extension = "Security" });
-                DatabaseFixture.Storage.Save();
+                await DatabaseFixture.Storage.SaveAsync();
 
                 UpdateRoleAndGrantsViewModel model = new UpdateRoleAndGrantsViewModel
                 {

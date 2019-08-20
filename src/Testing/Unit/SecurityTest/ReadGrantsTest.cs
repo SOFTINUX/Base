@@ -48,6 +48,7 @@ namespace SecurityTest
         /// User role : Write permission.
         ///
         /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
         public async Task ReadAll()
         {
@@ -81,7 +82,7 @@ namespace SecurityTest
                 // 5. Create role-extension links
                 // Cleanup first
                 repo.DeleteAll();
-                DatabaseFixture.Storage.Save();
+                await DatabaseFixture.Storage.SaveAsync();
 
                 repo.Create(new RolePermission
                 { RoleId = adminRole.Id, Extension = Constants.SoftinuxBaseSecurity, PermissionId = adminPermissionId });
@@ -105,7 +106,7 @@ namespace SecurityTest
                 repo.Create(new RolePermission
                 { RoleId = userRole.Id, Extension = "Chinook", PermissionId = writePermissionId });
 
-                DatabaseFixture.Storage.Save();
+                await DatabaseFixture.Storage.SaveAsync();
 
                 // 6. Build the dictionary that is used by the tool and created in GrantPermissionsController
                 Dictionary<string, string> roleNameByRoleId = new Dictionary<string, string>();
@@ -175,7 +176,7 @@ namespace SecurityTest
             {
                 // Cleanup created data
                 repo.DeleteAll();
-                DatabaseFixture.Storage.Save();
+                await DatabaseFixture.Storage.SaveAsync();
 
                 var specialUserRole = await DatabaseFixture.RoleManager.FindByNameAsync("Special User");
                 await DatabaseFixture.RoleManager.DeleteAsync(specialUserRole);

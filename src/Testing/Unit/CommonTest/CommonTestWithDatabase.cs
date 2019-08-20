@@ -63,7 +63,7 @@ namespace CommonTest
 
                 repo.Create(permission);
             }
-
+            // Don't use the async Storage.SaveAsync() because this method is called in class constructor - TODO use a helper pattern?
             DatabaseFixture.Storage.Save();
         }
 

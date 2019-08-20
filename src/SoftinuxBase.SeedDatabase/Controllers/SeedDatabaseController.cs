@@ -60,13 +60,13 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                 await SaveUsers();
 
                 // Save PERMISSIONS
-                SavePermissions();
+                await SavePermissions();
 
                 // Save USER-PERMISSION
-                SaveUserPermission();
+                await SaveUserPermission();
 
                 // Save ROLE-PERMISSION
-                SaveRolePermission();
+                await SaveRolePermission();
 
                 return Ok("Demo database initialization Ok.");
             }
@@ -186,22 +186,22 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         /// <summary>
         /// TODO.
         /// </summary>
-        private void SaveUserPermission()
+        private async Task SaveUserPermission()
         {
             var adminPermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Permission.Admin.ToString())?.Id;
 
             // John (admin user): Admin (globally)
-            SaveUserPermission(adminPermissionId, _createdUsers[0]);
+            await SaveUserPermission(adminPermissionId, _createdUsers[0]);
 
             // Paul : Admin (Chinook)
             // Note: Chinook is not distributed
-            SaveUserPermission(adminPermissionId, _createdUsers[2], "Chinook");
+            await SaveUserPermission(adminPermissionId, _createdUsers[2], "Chinook");
         }
 
         /// <summary>
         /// TODO.
         /// </summary>
-        private void SaveRolePermission()
+        private async Task SaveRolePermission()
         {
             var adminRoleId = _createdRoles.FirstOrDefault(r_ => r_.Name == Role.Administrator.ToString())?.Id;
             var userRoleId = _createdRoles.FirstOrDefault(r_ => r_.Name == Role.User.ToString())?.Id;
@@ -212,22 +212,22 @@ namespace SoftinuxBase.SeedDatabase.Controllers
             var readPermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Permission.Read.ToString())?.Id;
 
             // 1. Admin role: admin (globally)
-            SaveRolePermission(adminRoleId, adminPermissionId);
+            await SaveRolePermission(adminRoleId, adminPermissionId);
 
             // 2. Admin role: admin (Chinook)
-            SaveRolePermission(adminRoleId, adminPermissionId, "Chinook");
+            await SaveRolePermission(adminRoleId, adminPermissionId, "Chinook");
 
             // 3. User role: write (globally)
-            SaveRolePermission(userRoleId, writePermissionId);
+            await SaveRolePermission(userRoleId, writePermissionId);
 
             // 4. Anonymous role: read (globally)
-            SaveRolePermission(anonymousRoleId, readPermissionId);
+            await SaveRolePermission(anonymousRoleId, readPermissionId);
         }
 
         /// <summary>
         /// Save the roles and populate _createdPermissions class variable.
         /// </summary>
-        private void SavePermissions()
+        private async Task SavePermissions()
         {
             Permission[] permissions = (Permission[])Enum.GetValues(typeof(Permission));
 
@@ -246,7 +246,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
 
             try
             {
-                _storage.Save();
+                await _storage.SaveAsync();
                 _logger.LogInformation("\"Saving permissions ok.\"");
             }
             catch (Exception e)
@@ -263,7 +263,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         /// <param name="permissionId_">permission ID.</param>
         /// <param name="user_">Application user.</param>
         /// <param name="extension_">Extension name.</param>
-        private void SaveUserPermission(string permissionId_, User user_, string extension_ = null)
+        private async Task SaveUserPermission(string permissionId_, User user_, string extension_ = null)
         {
             if (!string.IsNullOrWhiteSpace(permissionId_) && user_ != null)
             {
@@ -282,7 +282,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
 
             try
             {
-                _storage.Save();
+                await _storage.SaveAsync();
                 _logger.LogInformation($"\"Saving user-permission {permissionId_} ok.\"");
             }
             catch (Exception e)
@@ -299,7 +299,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         /// <param name="roleId_">Role Id.</param>
         /// <param name="permissionId_">Permission ID.</param>
         /// <param name="extension_">Extension name.</param>
-        private void SaveRolePermission(string roleId_, string permissionId_, string extension_ = null)
+        private async Task SaveRolePermission(string roleId_, string permissionId_, string extension_ = null)
         {
             if ((!string.IsNullOrWhiteSpace(permissionId_)) && (!string.IsNullOrWhiteSpace(roleId_)))
             {
@@ -318,7 +318,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
 
             try
             {
-                _storage.Save();
+                await _storage.SaveAsync();
                 _logger.LogInformation($"\"Saving role-permission: permission: {permissionId_}, to role: {roleId_}, for extension: {extension_ ?? Security.Common.Constants.SoftinuxBaseSecurity} ok.\"");
             }
             catch (Exception e)

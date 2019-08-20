@@ -35,7 +35,7 @@ namespace SoftinuxBase.Security.Tools
         /// <param name="storage_">The data storage instance.</param>
         /// <param name="roleManager_">ASP.NET Core identity role manager.</param>
         /// <param name="model_">Model with role name and grant data (extensions and permission level).</param>
-        /// <returns>Not null when something failed, else null when save went ok.</returns>
+        /// <returns>Current asynchronous Task with not null string result when something failed, else null when save went ok.</returns>
         internal static async Task<string> CheckAndUpdateRoleAndGrants(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, UpdateRoleAndGrantsViewModel model_)
         {
             if (await CheckThatRoleOfThisNameExists(roleManager_, model_.RoleName, model_.RoleId))
@@ -78,7 +78,7 @@ namespace SoftinuxBase.Security.Tools
                     }
                 }
 
-                storage_.Save();
+                await storage_.SaveAsync();
 
                 return null;
             }

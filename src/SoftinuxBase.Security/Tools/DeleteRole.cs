@@ -20,7 +20,7 @@ namespace SoftinuxBase.Security.Tools
         /// <param name="roleManager_">role manager instance.</param>
         /// <param name="extensionName_">string represent extension name.</param>
         /// <param name="roleName_">string represent role name.</param>
-        /// <returns>false when record to delete wasn't found.</returns>
+        /// <returns>Current asynchronous Task with false result when record to delete wasn't found.</returns>
         internal static async Task<bool> DeleteRoleExtensionLink(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, string extensionName_, string roleName_)
         {
             string roleId = (await roleManager_.FindByNameAsync(roleName_)).Id;
@@ -31,7 +31,7 @@ namespace SoftinuxBase.Security.Tools
             }
 
             repo.Delete(roleId, extensionName_);
-            storage_.Save();
+            await storage_.SaveAsync();
             return true;
 
         }
@@ -42,7 +42,7 @@ namespace SoftinuxBase.Security.Tools
         /// <param name="storage_">the data storage instance.</param>
         /// <param name="roleManager_">role manager instance.</param>
         /// <param name="roleName_">string represent role name.</param>
-        /// <returns>false when records to delete weren't found.</returns>
+        /// <returns>Current asynchronous Task with false result when records to delete weren't found.</returns>
         internal static async Task<bool> DeleteRoleExtensionLinks(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, string roleName_)
         {
             string roleId = (await roleManager_.FindByNameAsync(roleName_)).Id;
@@ -58,7 +58,7 @@ namespace SoftinuxBase.Security.Tools
                 repo.Delete(record.RoleId, record.Extension);
             }
 
-            storage_.Save();
+            await storage_.SaveAsync();
             return true;
         }
 
