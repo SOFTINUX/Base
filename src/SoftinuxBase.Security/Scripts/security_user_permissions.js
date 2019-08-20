@@ -8,6 +8,7 @@
 
 import makeAjaxRequest from '/Scripts/barebone_ajax.js';
 import { inputFormGroupSetError, inputFormGroupValidator } from '/Scripts/security_user.js';
+import { inputOnlyNumbers } from '/Scripts/toolbox.js';
 
 // Manage click on buttons
 Array.from(document.querySelectorAll('button')).forEach(
@@ -139,6 +140,11 @@ document.getElementById('role_name_input').addEventListener('change', () => {
 document.getElementById('role_name_input').addEventListener('focusout', () => {
     inputFormGroupValidator('#role_name_input');
 });
+
+// only numbers
+document.getElementById('#role_name_input').addEventListener('keypress', (event_) => {
+    inputOnlyNumbers(event_);
+}, false);
 /* ---------------------------------------------------------------- */
 /* ------------------------ functions ----------------------------- */
 /* ---------------------------------------------------------------- */

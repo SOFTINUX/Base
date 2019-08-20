@@ -47,3 +47,31 @@ export function getElementType(element_) {
             return 'NaO';
     }
 }
+
+export function inputOnlyNumbers(event_) {
+    /*
+        accept only numerics and underscore
+            8 - (backspace)
+            32 - (space)
+            46 - (delete)
+            48-57 - (0-9) Numbers
+            65-90 - (A-Z)
+            97-122 - (a-z)
+            189 - (minus/underscore)
+    */
+
+    if (event_.defaultPrevented) {
+        return; // Should not do anything if the key event was already consumed.
+    }
+    let charCode = parseInt(event_.keyCode);
+
+    // check number only.
+    if (charCode >= 48 && charCode <= 57) {
+        return true;
+    }
+
+    // check special char.
+    if ((charCode >=1 && charCode <= 64) || (charCode >=121) && charCode !== 32) {
+        event_.preventDefault();
+    }
+}

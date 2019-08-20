@@ -48,6 +48,16 @@
     cursor: pointer;
 }
 
+.unlink-role:after {
+    font-family: "FontAwesome", serif;
+    font-size: 18px;
+    content: "\f127";
+}
+
+.unlink-role:hover {
+    cursor: pointer;
+}
+
 .validation-error {
     color: #A94442 !important;
 }
@@ -83,18 +93,17 @@ select.input-validation-error
     margin: 7% auto 2% auto !important;
 }
 
-/* Copyright © 2017-2019 SOFTINUX. All rights reserved.
- Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
-*/
-
 .login-page {
     height: 100% !important;
 }
 
+.nav-tab-custom-dropshadow {
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1) !important;
+}
 /* role edition: right table */
 #editRoleRightExtensionsList>div.row, #editRoleLeftExtensionsList>div {
-    margin-left: 0px;
-    margin-right: 0px;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 /* selected lines: override modified lines style  */
