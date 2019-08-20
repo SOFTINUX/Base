@@ -28,7 +28,7 @@ namespace SoftinuxBase.Security
         {
             var principal = await base.CreateAsync(user_);
 
-            new ClaimsManager(_storage, UserManager).AddClaims(user_, (ClaimsIdentity)principal.Identity);
+            await new ClaimsManager(_storage, UserManager).AddClaimsAsync(user_, (ClaimsIdentity)principal.Identity);
 
             return principal;
         }

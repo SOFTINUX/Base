@@ -71,15 +71,15 @@ namespace CommonTest
         /// Create the standard base roles, if they don't exist.
         /// Similar to SoftinuxBase.SeedDatabase extension's job.
         /// </summary>
-        /// <returns></returns>
-        protected async Task CreateBaseRolesIfNeeded()
+        /// <returns>The asynchronous Task.</returns>
+        protected async Task CreateBaseRolesIfNeededAsync()
         {
             // Get the list of the role from the enum
             Role[] roles = (Role[])Enum.GetValues(typeof(Role));
 
             foreach (var r in roles)
             {
-                await CreateRoleIfNotExisting(r.GetRoleName());
+                await CreateRoleIfNotExistingAsync(r.GetRoleName());
             }
         }
 
@@ -87,9 +87,9 @@ namespace CommonTest
         /// Create a roles, if it doesn't exist
         /// Similar to SoftinuxBase.SeedDatabase extension's job.
         /// </summary>
-        /// <param name="roleName_"></param>
-        /// <returns></returns>
-        protected async Task CreateRoleIfNotExisting(string roleName_)
+        /// <param name="roleName_">Role name.</param>
+        /// <returns>The asynchronous Task.</returns>
+        protected async Task CreateRoleIfNotExistingAsync(string roleName_)
         {
             // create an identity role object out of the enum value
             IdentityRole<string> identityRole = new IdentityRole<string>

@@ -39,7 +39,8 @@ namespace SoftinuxBase.Security.Controllers
         /// <returns>return listing view of users.</returns>
         [Route("administration/list-users")]
         [HttpGet]
-        public async Task<IActionResult> Index()
+        [ActionName("Index")]
+        public async Task<IActionResult> IndexAsync()
         {
             ViewBag.userList = _usersmanager.Users.Select(u_ => new SelectListItem { Text = u_.UserName, Value = u_.Id }).ToList();
             return await Task.Run(() => View("ListUsers"));
@@ -52,7 +53,8 @@ namespace SoftinuxBase.Security.Controllers
         /// <returns>return edit user view.</returns>
         [Route("administration/list-users/edit-user")]
         [HttpGet]
-        public async Task<IActionResult> EditUser(string userId_)
+        [ActionName("EditUser")]
+        public async Task<IActionResult> EditUserAsync(string userId_)
         {
             var user = _usersmanager.Users.FirstOrDefault(u_ => u_.Id == userId_);
             return await Task.Run(() => View("Admin_Edit_User", user));

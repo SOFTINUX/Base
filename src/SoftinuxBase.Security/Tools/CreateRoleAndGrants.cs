@@ -26,9 +26,9 @@ namespace SoftinuxBase.Security.Tools
         /// <param name="roleManager_">asp identity role manager object.</param>
         /// <param name="model_">model with role name and grand data (extensions and permissions level).</param>
         /// <returns>Current asynchronous Task with not null string result when something failed, else null when save went ok.</returns>
-        public static async Task<string> CheckAndSaveNewRoleAndGrants(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, SaveNewRoleAndGrantsViewModel model_)
+        public static async Task<string> CheckAndSaveNewRoleAndGrantsAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, SaveNewRoleAndGrantsViewModel model_)
         {
-            if (await UpdateRoleAndGrants.CheckThatRoleOfThisNameExists(roleManager_, model_.RoleName))
+            if (await UpdateRoleAndGrants.CheckThatRoleOfThisNameExistsAsync(roleManager_, model_.RoleName))
             {
                 return "A role with this name already exists";
             }

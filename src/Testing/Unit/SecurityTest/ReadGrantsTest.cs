@@ -50,7 +50,7 @@ namespace SecurityTest
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        public async Task ReadAll()
+        public async Task ReadAllAsync()
         {
             var repo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
             var permRepo = DatabaseFixture.Storage.GetRepository<IPermissionRepository>();
@@ -58,10 +58,10 @@ namespace SecurityTest
             {
                 // Arrange
                 // 1. Create base roles
-                await CreateBaseRolesIfNeeded();
+                await CreateBaseRolesIfNeededAsync();
 
                 // 2. Create "Special User" role
-                await CreateRoleIfNotExisting("Special User");
+                await CreateRoleIfNotExistingAsync("Special User");
 
                 // 3. Read roles to get their IDs
                 var adminRole = await DatabaseFixture.RoleManager.FindByNameAsync(Role.Administrator.GetRoleName());
@@ -168,9 +168,8 @@ namespace SecurityTest
 
                 // No need to check the details for this extension
 
-                // 8. SoftinuxBase.SeedDatabase extension was found, no permissions should be found
+                // 8. SoftinuxBase.SeedDatabase extension was found
                 Assert.True(model.PermissionsByRoleAndExtension.ContainsKey("SoftinuxBase.SeedDatabase"));
-                Assert.Equal(0, model.PermissionsByRoleAndExtension["SoftinuxBase.SeedDatabase"].Keys.Count);
             }
             finally
             {
@@ -184,28 +183,28 @@ namespace SecurityTest
         }
 
         [Fact]
-        public async Task IsLastAdmin_No_StillAnUserForThisExtension()
+        public async Task IsLastAdmin_No_StillAnUserForThisExtensionAsync()
         {
             // TODO
             throw new NotImplementedException("To be coded");
         }
 
         [Fact]
-        public async Task IsLastAdmin_No_StillAnotherRoleWithUsersForThisExtension()
+        public async Task IsLastAdmin_No_StillAnotherRoleWithUsersForThisExtensionAsync()
         {
             // TODO
             throw new NotImplementedException("To be coded");
         }
 
         [Fact]
-        public async Task IsLastAdmin_Yes_StillAnotherRoleButWithoutUsersForThisExtension()
+        public async Task IsLastAdmin_Yes_StillAnotherRoleButWithoutUsersForThisExtensionAsync()
         {
             // TODO
             throw new NotImplementedException("To be coded");
         }
 
         [Fact]
-        public async Task IsLastAdmin_Yes_NoOthrtRoleWithUsersForThisExtension()
+        public async Task IsLastAdmin_Yes_NoOthrtRoleWithUsersForThisExtensionAsync()
         {
             // TODO
             throw new NotImplementedException("To be coded");

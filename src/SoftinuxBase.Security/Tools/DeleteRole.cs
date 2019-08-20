@@ -21,7 +21,7 @@ namespace SoftinuxBase.Security.Tools
         /// <param name="extensionName_">string represent extension name.</param>
         /// <param name="roleName_">string represent role name.</param>
         /// <returns>Current asynchronous Task with false result when record to delete wasn't found.</returns>
-        internal static async Task<bool> DeleteRoleExtensionLink(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, string extensionName_, string roleName_)
+        internal static async Task<bool> DeleteRoleExtensionLinkAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, string extensionName_, string roleName_)
         {
             string roleId = (await roleManager_.FindByNameAsync(roleName_)).Id;
             IRolePermissionRepository repo = storage_.GetRepository<IRolePermissionRepository>();
@@ -43,7 +43,7 @@ namespace SoftinuxBase.Security.Tools
         /// <param name="roleManager_">role manager instance.</param>
         /// <param name="roleName_">string represent role name.</param>
         /// <returns>Current asynchronous Task with false result when records to delete weren't found.</returns>
-        internal static async Task<bool> DeleteRoleExtensionLinks(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, string roleName_)
+        internal static async Task<bool> DeleteRoleExtensionLinksAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, string roleName_)
         {
             string roleId = (await roleManager_.FindByNameAsync(roleName_)).Id;
             IRolePermissionRepository repo = storage_.GetRepository<IRolePermissionRepository>();
@@ -62,7 +62,7 @@ namespace SoftinuxBase.Security.Tools
             return true;
         }
 
-        internal static async Task<string> DeleteRoleAndAllLinks(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, string roleName_)
+        internal static async Task<string> DeleteRoleAndAllLinksAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, string roleName_)
         {
             /*bool canDeleteRole = false;
             string cannotDeleteMessage = null;
@@ -90,7 +90,7 @@ namespace SoftinuxBase.Security.Tools
             }*/
 
             // delete the role-extensions links
-            await DeleteRoleExtensionLinks(storage_, roleManager_, roleName_);
+            await DeleteRoleExtensionLinksAsync(storage_, roleManager_, roleName_);
 
             // delete the role-users links
             // TODO use UserManager.RemoveFromRoleAsync - make a new method that may be reused

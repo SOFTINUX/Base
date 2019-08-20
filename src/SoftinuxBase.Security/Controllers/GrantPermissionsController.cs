@@ -33,7 +33,8 @@ namespace SoftinuxBase.Security.Controllers
 
         [Route("administration/grant-permissions")]
         [HttpGet]
-        public async Task<IActionResult> Index()
+        [ActionName("Index")]
+        public async Task<IActionResult> IndexAsync()
         {
             return await Task.Run(() => View());
         }
@@ -45,9 +46,10 @@ namespace SoftinuxBase.Security.Controllers
         /// <returns>Http code and JSON role object.</returns>
         [Route("administration/read-role")]
         [HttpGet]
+        [ActionName("ReadRole")]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> ReadRole(string roleId_)
+        public async Task<IActionResult> ReadRoleAsync(string roleId_)
         {
             if (string.IsNullOrWhiteSpace(roleId_) || string.IsNullOrEmpty(roleId_))
             {
@@ -95,11 +97,12 @@ namespace SoftinuxBase.Security.Controllers
         /// <returns>Http status code.</returns>
         [Route("administration/save-new-role")]
         [HttpPost]
+        [ActionName("SaveNewRoleAndItsPermissions")]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> SaveNewRoleAndItsPermissions([FromBody] SaveNewRoleAndGrantsViewModel model_)
+        public async Task<IActionResult> SaveNewRoleAndItsPermissionsAsync([FromBody] SaveNewRoleAndGrantsViewModel model_)
         {
-            string error = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(Storage, _roleManager, model_);
+            string error = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrantsAsync(Storage, _roleManager, model_);
             return StatusCode(string.IsNullOrEmpty(error) ? (int)HttpStatusCode.Created : (int)HttpStatusCode.BadRequest, error);
         }
 
@@ -114,8 +117,9 @@ namespace SoftinuxBase.Security.Controllers
         /// <returns>OK 200.</returns>
         [Route("administration/update-role-permission")]
         [HttpPost]
+        [ActionName("UpdateRolePermission")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> UpdateRolePermission([FromBody] UpdateRolePermissionViewModel model_)
+        public async Task<IActionResult> UpdateRolePermissionAsync([FromBody] UpdateRolePermissionViewModel model_)
         {
             string roleId = (await _roleManager.FindByNameAsync(model_.RoleName)).Id;
             IRolePermissionRepository repo = Storage.GetRepository<IRolePermissionRepository>();
@@ -138,11 +142,12 @@ namespace SoftinuxBase.Security.Controllers
         /// <returns>Status code 201, or 400 with an error message.</returns>
         [Route("administration/update-role")]
         [HttpPost]
+        [ActionName("UpdateRoleAndItsPermissions")]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> UpdateRoleAndItsPermissions([FromBody] UpdateRoleAndGrantsViewModel model_)
+        public async Task<IActionResult> UpdateRoleAndItsPermissionsAsync([FromBody] UpdateRoleAndGrantsViewModel model_)
         {
-            string error = await UpdateRoleAndGrants.CheckAndUpdateRoleAndGrants(Storage, _roleManager, model_);
+            string error = await UpdateRoleAndGrants.CheckAndUpdateRoleAndGrantsAsync(Storage, _roleManager, model_);
             return StatusCode(string.IsNullOrEmpty(error) ? (int)HttpStatusCode.Created : (int)HttpStatusCode.BadRequest, error);
         }
 
@@ -156,12 +161,13 @@ namespace SoftinuxBase.Security.Controllers
         /// <param name="model_">object representing values passed from ajax.</param>
         /// <returns>Status code 204 (ok) or 400 (no deletion occurred).</returns>
         [HttpDelete]
+        [ActionName("DeleteRoleExtensionLink")]
         [Route("administration/delete-role-extension")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> DeleteRoleExtensionLink([FromBody] DeleteRoleExtensionLinkViewModel model_)
+        public async Task<IActionResult> DeleteRoleExtensionLinkAsync([FromBody] DeleteRoleExtensionLinkViewModel model_)
         {
-            bool deleted = await Tools.DeleteRole.DeleteRoleExtensionLink(this.Storage, _roleManager, model_.ExtensionName, model_.RoleName);
+            bool deleted = await Tools.DeleteRole.DeleteRoleExtensionLinkAsync(this.Storage, _roleManager, model_.ExtensionName, model_.RoleName);
             return StatusCode(deleted ? (int)HttpStatusCode.NoContent : (int)HttpStatusCode.BadRequest);
         }
 
@@ -171,12 +177,13 @@ namespace SoftinuxBase.Security.Controllers
         /// <param name="roleName_">Name of role to delete.</param>
         /// <returns>Status code 204, or 400 with an error message.</returns>
         [HttpDelete]
+        [ActionName("DeleteRole")]
         [Route("administration/delete-role")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> DeleteRole(string roleName_)
+        public async Task<IActionResult> DeleteRoleAsync(string roleName_)
         {
-            string error = await Tools.DeleteRole.DeleteRoleAndAllLinks(this.Storage, _roleManager, roleName_);
+            string error = await Tools.DeleteRole.DeleteRoleAndAllLinksAsync(this.Storage, _roleManager, roleName_);
             return StatusCode(string.IsNullOrEmpty(error) ? (int)HttpStatusCode.NoContent : (int)HttpStatusCode.BadRequest, error);
         }
 

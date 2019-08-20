@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using SoftinuxBase.Security.Common;
@@ -30,7 +31,8 @@ namespace SoftinuxBase.Security
         /// </summary>
         /// <param name="user_">Application user.</param>
         /// <param name="identity_">Application user as claims collection.</param>
-        internal async void AddClaims(User user_, ClaimsIdentity identity_)
+        /// <returns>The asynchronous Task.</returns>
+        internal async Task AddClaimsAsync(User user_, ClaimsIdentity identity_)
         {
             // First name
             if (!string.IsNullOrWhiteSpace(user_.FirstName))

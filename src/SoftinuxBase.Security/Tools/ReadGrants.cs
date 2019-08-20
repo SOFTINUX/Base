@@ -124,7 +124,7 @@ namespace SoftinuxBase.Security.Tools
         /// <param name="roleName_">Role name.</param>
         /// <param name="extensionName_">Name of extension.</param>
         /// <returns>bool.</returns>
-        public static async Task<bool> HasRoleLastAdminPermission(RoleManager<IdentityRole<string>> roleManager_, IStorage storage_, string roleName_, string extensionName_)
+        public static async Task<bool> IsRoleLastAdminPermissionLevelGrantForExtensionAsync(RoleManager<IdentityRole<string>> roleManager_, IStorage storage_, string roleName_, string extensionName_)
         {
 
             // test

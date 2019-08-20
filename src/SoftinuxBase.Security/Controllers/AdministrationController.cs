@@ -32,7 +32,8 @@ namespace SoftinuxBase.Security.Controllers
         /// </summary>
         /// <returns>administration Index view.</returns>
         [HttpGet]
-        public async Task<IActionResult> Index()
+        [ActionName("Index")]
+        public async Task<IActionResult> IndexAsync()
         {
             return await Task.Run(() => View("Administration"));
         }

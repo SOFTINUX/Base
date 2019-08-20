@@ -31,7 +31,8 @@ namespace SoftinuxBase.Barebone.Controllers
         /// </summary>
         /// <returns>index view.</returns>
         [HttpGet]
-        public async Task<ActionResult> Index()
+        [ActionName("Index")]
+        public async Task<ActionResult> IndexAsync()
         {
             ViewBag.CorporateName = _corporateName;
             ViewBag.CorporateLogo = _corporateLogo;
@@ -44,7 +45,8 @@ namespace SoftinuxBase.Barebone.Controllers
         /// <returns>error view.</returns>
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         [HttpGet]
-        public async Task<IActionResult> Error()
+        [ActionName("Error")]
+        public async Task<IActionResult> ErrorAsync()
         {
             return await Task.Run(() => View(new Barebone.ViewModels.ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier }));
         }

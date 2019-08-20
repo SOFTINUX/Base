@@ -142,7 +142,7 @@ document.getElementById('role_name_input').addEventListener('focusout', () => {
 });
 
 // only numbers
-document.getElementById('#role_name_input').addEventListener('keypress', (event_) => {
+document.getElementById('role_name_input').addEventListener('keypress', (event_) => {
     inputOnlyNumbers(event_);
 }, false);
 /* ---------------------------------------------------------------- */

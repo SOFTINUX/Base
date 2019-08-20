@@ -62,10 +62,9 @@ function requestResult(httpRequest_, responseCallback_) {
         // we look if the request is finished
         if (httpRequest_.readyState === XMLHttpRequest.DONE) {
             // When there is no response text returned by server, use status text
-            const responseText = httpRequest_.responseText ? httpRequest_.responseText : httpRequest_.statusText; // si le retour est un code 200 (ok) ou 201 (created) ou 400 (bad request)
-            if (httpRequest_.status === 200 || httpRequest_.status === 201 || httpRequest_.status === 400) {
-                console.log(responseText);
-            } else {
+            const responseText = httpRequest_.responseText ? httpRequest_.responseText : httpRequest_.statusText;
+            if (httpRequest_.status !== 200 && httpRequest_.status !== 201 && httpRequest_.status !== 400) {
+                // 200, 201 and 400 indicate successful response by the server
                 window.toastr.error(responseText, 'ERROR');
                 console.error('Ajax error: ', responseText);
             }

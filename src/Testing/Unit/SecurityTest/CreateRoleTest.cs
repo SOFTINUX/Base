@@ -27,7 +27,7 @@ namespace SecurityTest
         [Theory]
         [InlineData("Security,Chinook")]
         [InlineData("Security")]
-        public async Task CheckAndSaveNewRole_Ok(string extensionNames_)
+        public async Task CheckAndSaveNewRole_OkAsync(string extensionNames_)
         {
             string roleName = "New Role 1 " + DateTime.Now.Ticks;
             var permRepo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
@@ -44,7 +44,7 @@ namespace SecurityTest
                 };
 
                 // Execute
-                var result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(DatabaseFixture.Storage, DatabaseFixture.RoleManager, model);
+                var result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrantsAsync(DatabaseFixture.Storage, DatabaseFixture.RoleManager, model);
 
                 // Assert
                 Assert.Null(result);
@@ -78,7 +78,7 @@ namespace SecurityTest
         /// Test that we cannot create a role without any extension.
         /// </summary>
         [Fact]
-        public async Task CheckAndSaveNewRole_Error_NoExtensionSelected()
+        public async Task CheckAndSaveNewRole_Error_NoExtensionSelectedAsync()
         {
             string roleName = "New Role 1 " + DateTime.Now.Ticks;
             var permRepo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
@@ -94,7 +94,7 @@ namespace SecurityTest
                 };
 
                 // Execute
-                var result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(DatabaseFixture.Storage, DatabaseFixture.RoleManager, model);
+                var result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrantsAsync(DatabaseFixture.Storage, DatabaseFixture.RoleManager, model);
 
                 // Assert
                 Assert.NotNull(result);
@@ -117,7 +117,7 @@ namespace SecurityTest
         }
 
         [Fact]
-        public async Task CheckAndSaveNewRole_Error_NameAlreadyTaken()
+        public async Task CheckAndSaveNewRole_Error_NameAlreadyTakenAsync()
         {
             string roleName = "New Role 1 " + DateTime.Now.Ticks;
             var permRepo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
@@ -134,7 +134,7 @@ namespace SecurityTest
                 };
 
                 // Execute
-                var result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(DatabaseFixture.Storage, DatabaseFixture.RoleManager, model);
+                var result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrantsAsync(DatabaseFixture.Storage, DatabaseFixture.RoleManager, model);
 
                 // Assert
                 Assert.Null(result);
@@ -143,7 +143,7 @@ namespace SecurityTest
                 var createdRole = await DatabaseFixture.RoleManager.FindByNameAsync(model.RoleName);
                 Assert.NotNull(createdRole);
 
-                result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrants(DatabaseFixture.Storage, DatabaseFixture.RoleManager, model);
+                result = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrantsAsync(DatabaseFixture.Storage, DatabaseFixture.RoleManager, model);
                 Assert.NotNull(result);
                 Assert.Equal("A role with this name already exists", result);
             }

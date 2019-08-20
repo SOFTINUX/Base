@@ -22,7 +22,7 @@ namespace SoftinuxBase.Security.Tools
         /// <param name="roleName_">Role name.</param>
         /// <param name="roleId_">Role ID. When not null, the found role should not have this id.</param>
         /// <returns>true when a role with this normalized name is found.</returns>
-        internal static async Task<bool> CheckThatRoleOfThisNameExists(RoleManager<IdentityRole<string>> roleManager_, string roleName_, string roleId_ = null)
+        internal static async Task<bool> CheckThatRoleOfThisNameExistsAsync(RoleManager<IdentityRole<string>> roleManager_, string roleName_, string roleId_ = null)
         {
             var role = await roleManager_.FindByNameAsync(roleName_);
             return roleId_ == null ? (role != null) : (role != null && role.Id != roleId_);
@@ -36,9 +36,9 @@ namespace SoftinuxBase.Security.Tools
         /// <param name="roleManager_">ASP.NET Core identity role manager.</param>
         /// <param name="model_">Model with role name and grant data (extensions and permission level).</param>
         /// <returns>Current asynchronous Task with not null string result when something failed, else null when save went ok.</returns>
-        internal static async Task<string> CheckAndUpdateRoleAndGrants(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, UpdateRoleAndGrantsViewModel model_)
+        internal static async Task<string> CheckAndUpdateRoleAndGrantsAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, UpdateRoleAndGrantsViewModel model_)
         {
-            if (await CheckThatRoleOfThisNameExists(roleManager_, model_.RoleName, model_.RoleId))
+            if (await CheckThatRoleOfThisNameExistsAsync(roleManager_, model_.RoleName, model_.RoleId))
             {
                 return "A role with this name already exists";
             }

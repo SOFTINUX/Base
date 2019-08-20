@@ -23,7 +23,7 @@ namespace SecurityTest
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        public async Task FindByExtensionAndLevel_ShouldFind()
+        public async Task FindByExtensionAndLevel_ShouldFindAsync()
         {
             var record = DatabaseFixture.Storage.GetRepository<IUserPermissionRepository>()
                 .FindBy(Constants.SoftinuxBaseSecurity, Permission.Admin);
