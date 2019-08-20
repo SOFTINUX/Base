@@ -291,60 +291,56 @@
     <script src="/Scripts/toolbox.js" type="module"></script>
     <script src="/Scripts/security_user_permissions.js" type="module"></script>
     <script type="module">
+        import pressAndHold from '/Scripts/barebone_press_and_hold.js';
 
-    import pressAndHold from '/Scripts/barebone_press_and_hold.js';
+            var SuccessMessage = "@(ViewBag.SuccessMessage)";
+            window.StopAccordionsPropagation = function(e) {
+                console.log('StopAccordionsPropagation');
+                e.stopPropagation();
+            };
 
-        var SuccessMessage = "@(ViewBag.SuccessMessage)";
-        window.StopAccordionsPropagation = function(e) {
-            console.log('StopAccordionsPropagation');
-            e.stopPropagation();
-        };
+            @* begin pressAndHold block *@
+            Array.from(document.querySelectorAll(".removeAllRoles")).forEach(
+                (element) => {
+                    pressAndHold(element, {
+                        holdTime: 1000,
+                        progressIndicatorRemoveDelay: 900,
+                        progressIndicatorColor: "#FFFFFF;",
+                        progressIndicatorOpacity: 1,
+                        progressIndicatorPosition: "bottom"
+                    });
+                }
+            );
 
-        @* begin pressAndHold block *@
-        Array.from(document.querySelectorAll(".removeAllRoles")).forEach(
-            (element) => {
-                pressAndHold(element, {
-                    holdTime: 1000,
-                    progressIndicatorRemoveDelay: 900,
-                    progressIndicatorColor: "#FFFFFF;",
-                    progressIndicatorOpacity: 1,
-                    progressIndicatorPosition: "bottom"
-                });
-            }
-        );
+            Array.from(document.querySelectorAll(".removeAllRoles")).forEach(
+                (element) => {
+                    addEventListener("complete.pressAndHold", event_ => {
+                        //deleteRole();
+                        console.log("");
+                        console.log("complete");
+                        // TODO hide the modal $('#myModal').modal('hide');
+                    });
+                }
+            );
+            @* end pressAndHold block *@
+    </script>
 
-        Array.from(document.querySelectorAll(".removeAllRoles")).forEach(
-            (element) => {
-                addEventListener("complete.pressAndHold", event_ => {
-                    //deleteRole();
-                    console.log("");
-                    console.log("complete");
-                    // TODO hide the modal $('#myModal').modal('hide');
-                });
-            }
-        );
+    <script type="text/javascript">
+        document.querySelector('#role_name_input').addEventListener('keypress', (event_) => {
+            let charCode = parseInt(event_.keyCode);
+             if (event_.defaultPrevented) {
+                return; @* Should not do anything if the key event was already consumed. *@
+             }
 
-        @* end pressAndHold block *@
-
-        $("#name").keypress(function(event){
-            @* get envent value *@
-            var inputValue = event.which;
-            @*
-                48-57 - (0-9)Numbers
-                65-90 - (A-Z)
-                97-122 - (a-z)
-                8 - (backspace)
-                32 - (space)
-                189 (minus/underscore) not used here
-            *@
             @* check number only. *@
-            if(inputValue >= 48 && inputValue <= 57){
-                return true;
-            }
+             if (charCode >= 48 && charCode <= 57) {
+                  return true;
+             }
+
             @* check special char. *@
-            if ((inputValue >=1 && inputValue <= 64) || (inputValue >=121) && inputValue !== 32) {
-                event.preventDefault();
-            }
-        });
+             if ((charCode >=1 && charCode <= 64) || (charCode >=121) && charCode !== 32) {
+                   event_.preventDefault();
+             }
+        }, false);
     </script>
 }

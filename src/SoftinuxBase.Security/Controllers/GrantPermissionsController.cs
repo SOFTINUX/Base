@@ -127,7 +127,7 @@ namespace SoftinuxBase.Security.Controllers
                 repo.Create(new RolePermission { RoleId = roleId, PermissionId = permissionEntity.Id, Extension = model_.Extension });
             }
 
-            Storage.SaveAsync();
+            await Storage.SaveAsync();
             return StatusCode((int)HttpStatusCode.OK);
         }
 
@@ -161,9 +161,8 @@ namespace SoftinuxBase.Security.Controllers
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> DeleteRoleExtensionLink([FromBody] DeleteRoleExtensionLinkViewModel model_)
         {
-            //bool deleted = await Tools.DeleteRole.DeleteRoleExtensionLink(this.Storage, _roleManager, model_.ExtensionName, model_.RoleName);
-            //return StatusCode(deleted ? (int)HttpStatusCode.NoContent : (int)HttpStatusCode.BadRequest);
-            return StatusCode(403);
+            bool deleted = await Tools.DeleteRole.DeleteRoleExtensionLink(this.Storage, _roleManager, model_.ExtensionName, model_.RoleName);
+            return StatusCode(deleted ? (int)HttpStatusCode.NoContent : (int)HttpStatusCode.BadRequest);
         }
 
         /// <summary>

@@ -25,14 +25,15 @@ namespace SoftinuxBase.Security.Tools
         {
             string roleId = (await roleManager_.FindByNameAsync(roleName_)).Id;
             IRolePermissionRepository repo = storage_.GetRepository<IRolePermissionRepository>();
-            if (repo.FindBy(roleId, extensionName_) != null)
+            if (repo.FindBy(roleId, extensionName_) == null)
             {
-                repo.Delete(roleId, extensionName_);
-                storage_.Save();
-                return true;
+                return false;
             }
 
-            return false;
+            repo.Delete(roleId, extensionName_);
+            storage_.Save();
+            return true;
+
         }
 
         /// <summary>
@@ -46,7 +47,7 @@ namespace SoftinuxBase.Security.Tools
         {
             string roleId = (await roleManager_.FindByNameAsync(roleName_)).Id;
             IRolePermissionRepository repo = storage_.GetRepository<IRolePermissionRepository>();
-            IEnumerable<RolePermission> records = repo.FilteredByRoleId(roleId);
+            IEnumerable<RolePermission> records = repo.FilteredByRoleId(roleId).ToList();
             if (!records.Any())
             {
                 return false;
