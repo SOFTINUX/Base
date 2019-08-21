@@ -86,6 +86,18 @@ namespace SoftinuxBase.Security.Controllers
             return ViewComponent("GrantPermissions");
         }
 
+        /// <summary>
+        /// Return updated roles list.
+        /// </summary>
+        /// <returns>view component.</returns>
+        [Route("administration/read-updated-roles")]
+        [HttpGet]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public IActionResult ReadRoles()
+        {
+            return ViewComponent("EditRolePermissions");
+        }
+
         #endregion
 
         #region CREATE

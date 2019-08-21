@@ -126,9 +126,9 @@ namespace SoftinuxBase.Security.Tools
         /// <returns>bool.</returns>
         public static async Task<bool> IsRoleLastAdminPermissionLevelGrantForExtensionAsync(RoleManager<IdentityRole<string>> roleManager_, IStorage storage_, string roleName_, string extensionName_)
         {
-
             // test
             var currentRole = await roleManager_.FindByNameAsync(roleName_);
+
             // end test
 
             // Is there a user directly granted Admin for this extension?

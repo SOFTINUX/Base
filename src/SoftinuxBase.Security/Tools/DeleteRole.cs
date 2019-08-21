@@ -33,7 +33,6 @@ namespace SoftinuxBase.Security.Tools
             repo.Delete(roleId, extensionName_);
             await storage_.SaveAsync();
             return true;
-
         }
 
         /// <summary>

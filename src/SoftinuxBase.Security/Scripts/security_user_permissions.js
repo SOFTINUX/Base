@@ -142,7 +142,7 @@ document.getElementById('role_name_input').addEventListener('focusout', () => {
 });
 
 // only numbers
-document.getElementById('role_name_input').addEventListener('keypress', (event_) => {
+document.getElementById('role_name_input').addEventListener('keypress', event_ => {
     inputOnlyNumbers(event_);
 }, false);
 /* ---------------------------------------------------------------- */
@@ -174,7 +174,7 @@ function btnChevronMoveExtension(clickedElement_, transform_) {
 
     const rootElt = document.getElementById(`${clickedElement_.dataset.fromlist}`);
     const selectedElts = transform_
-    // if transform_ is defined, the selected list items are div elements, else select's options
+        // if transform_ is defined, the selected list items are div elements, else select's options
         ? bulk ? rootElt.querySelectorAll(' div.row') : rootElt.querySelectorAll(' div.row.active')
         : bulk ? rootElt.querySelectorAll('option') : rootElt.selectedOptions;
 
@@ -254,14 +254,14 @@ export function removeRoleLink(element_) {
 
     // eslint-disable-next-line no-undef
     $('#myModal').modal('show');
-    document.getElementById('removeForModule').addEventListener('click', function(event_) {
+    document.getElementById('removeForModule').addEventListener('click', event_ => {
         console.log(event_);
         deleteRolePermissionOnExtension(splitted[0], splitted[1]);
     }, false);
 
     // eslint-disable-next-line no-undef
     $('#myModal').modal('show');
-    document.getElementById('removeForAllModules').addEventListener('click', function(event_) {
+    document.getElementById('removeForAllModules').addEventListener('click', event_ => {
         console.log(event_);
     }, false);
 }
@@ -298,6 +298,7 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
             window.toastr.success(responseText_, 'New role created');
             inputFormGroupSetError('#role_name_input', null);
             reloadGrantPermissionsHtmlView();
+            reloadRolesHtmlView();
         } else {
             inputFormGroupSetError('#role_name_input', responseText_ || responseStatus_);
         }
@@ -498,5 +499,11 @@ export function deleteRole(role_) {
 function reloadGrantPermissionsHtmlView() {
     makeAjaxRequest('GET', '/administration/read-permissions-grants', null, (responseStatus_, responseText_) => {
         document.getElementById('GrantPermissionsTable').innerHTML = responseText_;
+    });
+}
+
+function reloadRolesHtmlView() {
+    makeAjaxRequest('GET', '/administration/read-updated-roles', null, (responseStatus_, responseText_) => {
+        document.getElementById('edit-role-tab').innerHTML = responseText_;
     });
 }
