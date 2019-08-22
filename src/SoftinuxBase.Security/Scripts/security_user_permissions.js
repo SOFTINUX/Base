@@ -19,19 +19,6 @@ Array.from(document.querySelectorAll('button')).forEach(
                 const editRoleArea = document.querySelector('#edit-role-area');
 
                 switch (clickedElement_.id) {
-                    case 'add-role-btn':
-                        editRoleArea.style.display = 'none';
-                        addRoleArea.style.display = addRoleArea.style.display !== 'none' ? 'none' : 'block';
-                        break;
-                    case 'edit-role-btn':
-                        addRoleArea.style.display = 'none';
-                        editRoleArea.style.display = editRoleArea.style.display !== 'none' ? 'none' : 'block';
-                        break;
-                    case 'cancel-add-role-btn':
-                    case 'cancel-edit-role-btn':
-                        editRoleArea.style.display = 'none';
-                        addRoleArea.style.display = 'none';
-                        break;
                     // Add selected/unselected extensions management
                     case 'addRoleBtnRight':
                     case 'addRoleBtnAllRight':
@@ -64,8 +51,31 @@ window.deleteRole = deleteRole;
 window.removeRoleLink = removeRoleLink;
 
 /* ---------------------------------------------------------------- */
+/* ------------------------ Global Cosntants ---------------------- */
+/* ---------------------------------------------------------------- */
+
+/**
+ * make global constant of available extension.
+ */
+function RoleExtensionsListOriginalState(){
+    Object.defineProperty(window, 'RoleExtensionsListOriginalState', {
+        value: document.getElementById('addRoleLeftExtensionsList').innerHTML,
+        configurable: false,
+        writable: false
+    });
+}
+
+/* ---------------------------------------------------------------- */
 /* ------------------------ events handlers ----------------------- */
 /* ---------------------------------------------------------------- */
+window.addEventListener('DOMContentLoaded', () =>{
+    if (document.getElementById('addRoleLeftExtensionsList').innerHTML) {
+        RoleExtensionsListOriginalState();
+    }
+    else
+        document.getElementById('addRoleLeftExtensionsList').innerHTML = "<option value=\"ERROR\">Error. See logs.</option>"
+});
+
 document.getElementById('editRoleRightExtensionsList').addEventListener('click', event_ => {
     rowClicked(event_.target.closest('div.row'));
 }, false);
@@ -113,9 +123,9 @@ document.getElementById('collapse').addEventListener('click', event_ => {
 }, false);
 
 /**
-    * Handle the click on pseudo-dropdown that displays permission level:
-    * set the label, set the value to hidden input.
-    */
+ * Handle the click on pseudo-dropdown that displays permission level:
+ * set the label, set the value to hidden input.
+ */
 document.getElementById('acl-sel').addEventListener('click', event_ => {
     const clickedLiElt = event_.target.closest('li');
     clickedLiElt.closest('.bs-dropdown-to-select-acl-group').querySelectorAll('[data-bind="bs-drp-sel-acl-label"]')[0].innerText = clickedLiElt.innerText;
@@ -272,7 +282,7 @@ export function removeRoleLink(element_) {
 
 /**
  * Save new role with its extensions and permission.
-*/
+ */
 document.getElementById('save-add-role-btn').addEventListener('click', () => {
     const roleNameInputElt = document.getElementById('role_name_input');
     if (!roleNameInputElt.value) {
@@ -303,6 +313,10 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
             inputFormGroupSetError('#role_name_input', responseText_ || responseStatus_);
         }
     });
+
+    document.getElementById('addRoleRightExtensionsList').innerHTML = '';
+    document.getElementById('addRoleLeftExtensionsList').innerHTML = window.RoleExtensionsListOriginalState;
+
 });
 
 /**
@@ -368,7 +382,7 @@ export function permissionCheckBoxClick(clickedCheckbox_) {
     const baseId = splittedId[0] + '_' + splittedId[1];
     const writeCheckbox = document.getElementById(`${baseId}_WRITE`);
     const readCheckbox = document.getElementById(`${baseId}_READ`);
-    var _activeCheckedPermissions = 'NEVER';
+    let _activeCheckedPermissions = 'NEVER';
 
     if (clickedCheckbox_.checked) {
         // when checking, impacted checkboxes become checked and disabled
