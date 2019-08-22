@@ -5,11 +5,6 @@
 @using Microsoft.AspNetCore.Identity
 @using SoftinuxBase.Security.Common.Enums
 
-@*
-@model SoftinuxBase.Security.ViewModels.Permissions.GrantViewModel
-@inject RoleManager<IdentityRole<string>> RolesManager
-*@
-
 @Html.AntiForgeryToken()
 
 @{
@@ -61,7 +56,7 @@
                 <div class="form-group margin">
                     <label>Available extension(s)</label>
                     <div id="editRoleLeftExtensionsList" class="form-control" style="height:100%">
-                        @* here available extensions *@
+                        @* here available extensions filled by javascript *@
                     </div>
                 </div>
             </div>
@@ -81,7 +76,7 @@
                 <div class="form-group margin">
                     <label>Selected extension(s)</label>
                     <div id="editRoleRightExtensionsList" class="form-control" style="height:100%">
-                        @* here selected extensions *@
+                        @* here selected extensions filled by javascript *@
                     </div>
                 </div>
             </div>
@@ -98,7 +93,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div style="border-bottom: 2px dotted lightgray; height: 10px;"></div>
+                <div class="dottedLine15"></div>
             </div>
         </div>
         <div class="row">

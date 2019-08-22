@@ -15,9 +15,6 @@ Array.from(document.querySelectorAll('button')).forEach(
     clickedElement_ => {
         clickedElement_.addEventListener('click',
             () => {
-                const addRoleArea = document.querySelector('#add-role-area');
-                const editRoleArea = document.querySelector('#edit-role-area');
-
                 switch (clickedElement_.id) {
                     // Add selected/unselected extensions management
                     case 'addRoleBtnRight':
@@ -57,7 +54,7 @@ window.removeRoleLink = removeRoleLink;
 /**
  * make global constant of available extension.
  */
-function DefineExtensionsListOriginalState(){
+function DefineExtensionsListOriginalState() {
     Object.defineProperty(window, 'RoleExtensionsListOriginalState', {
         value: document.getElementById('addRoleLeftExtensionsList').innerHTML,
         configurable: false,
@@ -68,12 +65,11 @@ function DefineExtensionsListOriginalState(){
 /* ---------------------------------------------------------------- */
 /* ------------------------ events handlers ----------------------- */
 /* ---------------------------------------------------------------- */
-window.addEventListener('DOMContentLoaded', () =>{
-    if (document.getElementById('addRoleLeftExtensionsList').innerHTML) {
+window.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('addRoleLeftExtensionsList').innerHTML)
         DefineExtensionsListOriginalState();
-    }
     else
-        document.getElementById('addRoleLeftExtensionsList').innerHTML = "<option value=\"ERROR\">Error. See logs.</option>"
+        document.getElementById('addRoleLeftExtensionsList').innerHTML = '<option value="ERROR">Error. See logs.</option>';
 });
 
 document.getElementById('editRoleRightExtensionsList').addEventListener('click', event_ => {
@@ -319,7 +315,6 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
     document.querySelector('[data-bind="bs-drp-sel-acl-label"]').innerText = 'Read';
     document.getElementById('addRoleRightExtensionsList').innerHTML = '';
     document.getElementById('addRoleLeftExtensionsList').innerHTML = window.RoleExtensionsListOriginalState;
-
 });
 
 /**
@@ -482,13 +477,13 @@ export function saveEditRole() {
     });
 }
 
-export function deleteRolePermissionOnExtension(roleName_, extensionName_) {
+export function deleteRolePermissionOnExtension(extensionName_, roleName_) {
     const postData = {
         RoleName: roleName_,
         ExtensionName: extensionName_
     };
 
-    makeAjaxRequest('DELETE', '/administration/delete-role-extension', postData, (responseStatus_, responseText_) => {
+    makeAjaxRequest('DELETE', `/administration/delete-role-extension/${roleName_}/${extensionName_}`, {}, (responseStatus_, responseText_) => {
         if (responseStatus_ === 201) {
             window.toastr.success(responseText_, 'Role deleted');
             reloadGrantPermissionsHtmlView();

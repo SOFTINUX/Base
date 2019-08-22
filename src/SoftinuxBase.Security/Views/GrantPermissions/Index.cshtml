@@ -36,8 +36,15 @@
                 @* BUTTONS *@
                 <div class="nav-tabs-custom nav-tab-custom-dropshadow">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#add-role-tab" data-toggle="tab" aria-expanded="true">Add Role</a></li>
-                        <li><a href="#edit-role-tab" data-toggle="tab" aria-expanded="true">Edit Role</a></li>
+                        <li class="active">
+                            <a id="add-role-tab-link" href="#add-role-tab" data-toggle="tab" aria-expanded="true">Add Role</a>
+                        </li>
+                        <li>
+                            <a id="edit-role-tab-link" href="#edit-role-tab" data-toggle="tab" aria-expanded="true">Edit Role</a>
+                        </li>
+                        <li>
+                            <a id="bulk-delete-role-tab-link" href="#bulk-delete-role-tab" data-toggle="tab" aria-expanded="true">Bulk Delete</a>
+                        </li>
                     </ul>
 
                     <div class="tab-content">
@@ -76,17 +83,7 @@
                                             <div class="form-group margin">
                                                 <label>Available extension(s)</label>
                                                 <select class="form-control" multiple id="addRoleLeftExtensionsList">
-                                                    @{
-                                                        // TODO move this to view component + partial view
-                                                        foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
-                                                        {
-                                                            var scope = extensionMetadata.Name;
-                                                            if (extensionMetadata.IsAvailableForPermissions)
-                                                            {
-                                                                <option value="@Html.Raw(scope)">@Html.Raw(scope)</option>
-                                                            }
-                                                        }
-                                                    }
+                                                    @await Component.InvokeAsync("AddRoleListExtensions")
                                                 </select>
                                             </div>
                                         </div>
@@ -106,9 +103,14 @@
                                             <div class="form-group margin">
                                                 <label>Selected extension(s)</label>
                                                 <select class="form-control" multiple="" id="addRoleRightExtensionsList" name="selectedExtensions">
-                                                    @* here selected extensions options *@
+                                                    @* here selected extensions options filled by javascript *@
                                                 </select>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="dottedLine15"></div>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -120,7 +122,7 @@
                                                 </div>
                                                 @* cancel btn *@
                                                 <div class="btn-group">
-                                                    <button class="btn btn-block btn-danger" id="cancel-add-role-btn">Cancel</button>
+                                                    <button class="btn btn-block btn-primary" id="cancel-add-role-btn">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -131,6 +133,13 @@
                         <div class="tab-pane" id="edit-role-tab">
                             @* EDIT ROLE *@
                             @await Component.InvokeAsync("EditRolePermissions")
+                        </div>
+                        <div class="tab-pane" id="bulk-delete-role-tab">
+                            @* BULK DELETE ROLE *@
+                            <select class="form-control" id="availableRolesForDelete" multiple>
+                                @* here roles list *@
+                                @await Component.InvokeAsync("BulkDeleteRoles")
+                            </select>
                         </div>
                     </div>
                 </div>
