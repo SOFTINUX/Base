@@ -122,5 +122,9 @@ select.input-validation-error
     background-color: #FAFFBD;
     color: black;
 }
-
 /* end role edition */
+
+.dottedLine15 {
+    border-bottom: 2px dotted lightgray;
+    height: 15px;
+}

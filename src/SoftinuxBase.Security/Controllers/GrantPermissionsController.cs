@@ -170,16 +170,17 @@ namespace SoftinuxBase.Security.Controllers
         /// <summary>
         /// Delete the record linking a role to an extension.
         /// </summary>
-        /// <param name="model_">object representing values passed from ajax.</param>
+        /// <param name="roleName_"></param>
+        /// <param name="extensionName_"></param>
         /// <returns>Status code 204 (ok) or 400 (no deletion occurred).</returns>
-        [HttpDelete]
+        [HttpDelete("{RoleName}/{ExtensionName}")]
         [ActionName("DeleteRoleExtensionLink")]
-        [Route("administration/delete-role-extension")]
+        [Route("administration/delete-role-extension/{RoleName}/{ExtensionName}")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> DeleteRoleExtensionLinkAsync([FromBody] DeleteRoleExtensionLinkViewModel model_)
+        public async Task<IActionResult> DeleteRoleExtensionLinkAsync(string RoleName, string ExtensionName)
         {
-            bool deleted = await Tools.DeleteRole.DeleteRoleExtensionLinkAsync(this.Storage, _roleManager, model_.ExtensionName, model_.RoleName);
+            bool deleted = await Tools.DeleteRole.DeleteRoleExtensionLinkAsync(this.Storage, _roleManager, ExtensionName, RoleName);
             return StatusCode(deleted ? (int)HttpStatusCode.NoContent : (int)HttpStatusCode.BadRequest);
         }
 
