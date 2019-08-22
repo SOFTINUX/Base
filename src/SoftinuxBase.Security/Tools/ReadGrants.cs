@@ -116,8 +116,12 @@ namespace SoftinuxBase.Security.Tools
 
         /// <summary>
         /// This function checks that the role is the last grant of Admin permission level to the target extension.
-        /// This allows to warn the user in case no user is granted Admin for this extension and we want to remove the grant from role.
+        /// This allows to warn the user in case no user would be granted Admin anymore for this extension after we remove the grant from this role.
         /// In case the extension is SoftinuxBase.Security, this check will be used to prevent the delete action.
+        /// Rules:
+        /// <ul>
+        /// <li>No user should be granted admin permission level for this role and extension.</li>
+        /// <li>The other roles linked to the extension, with Admin permission level, should be an empty list or not linked to aany user.</li></ul>
         /// </summary>
         /// <param name="roleManager_">ASP.NET Core identity role manager.</param>
         /// <param name="storage_">The data storage instance.</param>
