@@ -57,7 +57,7 @@ window.removeRoleLink = removeRoleLink;
 /**
  * make global constant of available extension.
  */
-function RoleExtensionsListOriginalState(){
+function DefineExtensionsListOriginalState(){
     Object.defineProperty(window, 'RoleExtensionsListOriginalState', {
         value: document.getElementById('addRoleLeftExtensionsList').innerHTML,
         configurable: false,
@@ -70,7 +70,7 @@ function RoleExtensionsListOriginalState(){
 /* ---------------------------------------------------------------- */
 window.addEventListener('DOMContentLoaded', () =>{
     if (document.getElementById('addRoleLeftExtensionsList').innerHTML) {
-        RoleExtensionsListOriginalState();
+        DefineExtensionsListOriginalState();
     }
     else
         document.getElementById('addRoleLeftExtensionsList').innerHTML = "<option value=\"ERROR\">Error. See logs.</option>"
