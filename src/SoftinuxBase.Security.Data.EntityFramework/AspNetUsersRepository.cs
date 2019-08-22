@@ -23,20 +23,20 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         }
 
         /// <summary>
-        /// Find all the users that have a role defined by its name.
+        /// Find all the users that have roles defined by their names.
         /// </summary>
-        /// <param name="roleName_">Name of a role.</param>
+        /// <param name="roleNames_">Name of roles.</param>
         /// <returns>Linked users.</returns>
-        public IEnumerable<User> FindActiveUsersHavingRole(string roleName_)
+        public IEnumerable<User> FindActiveUsersHavingRoles(IEnumerable<string> roleNames_)
         {
-            string normalizedRoleName = roleName_.ToUpperInvariant();
+            IEnumerable<string> normalizedRoleNames = roleNames_.Select(n_ => n_.ToUpperInvariant());
 
             // TODO add another where clause "where u. ... == ..." to keep only active users
             IEnumerable<User> users =
                 from u in storageContext.Set<User>()
                 join ur in storageContext.Set<IdentityUserRole<string>>() on u.Id equals ur.UserId
                 join r in storageContext.Set<IdentityRole<string>>() on ur.RoleId equals r.Id
-                where r.NormalizedName == normalizedRoleName
+                where normalizedRoleNames.Contains(r.NormalizedName)
                 select u;
 
             return users;

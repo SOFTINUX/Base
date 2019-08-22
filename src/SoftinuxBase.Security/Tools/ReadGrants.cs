@@ -153,20 +153,20 @@ namespace SoftinuxBase.Security.Tools
             // var currentRole = await roleManager_.FindByNameAsync(roleName_);
             if (rolePermissionRecordsWithAdminLevel.Count() == 1 && rolePermissionRecordsWithAdminLevel.First().Id == currentRole.Id)
             {
+                // There is only one grant to current role
                 return true;
             }
 
-            IEnumerable<User> usersHavingCurrentRole =
-                storage_.GetRepository<IAspNetUsersRepository>().FindActiveUsersHavingRole(roleName_);
-
-            // TODO change the FindActiveUsersHavingRole to pass a list of role names.
-
             /*
-             The roles that have Admin right must have users linked to them
-             and if at least one user found => return false, else true
+            The roles that have Admin right must have users linked to them
+            and if at least one user found => return false, else true
             */
 
-            return false;
+            IEnumerable<User> usersHavingRoles =
+                storage_.GetRepository<IAspNetUsersRepository>().FindActiveUsersHavingRoles(rolePermissionRecordsWithAdminLevel.Where(rp_ => rp_.RoleId != currentRole.Id).Select(rp_ => rp_.Role.NormalizedName));
+
+            return !usersHavingRoles.Any();
+
         }
     }
 }

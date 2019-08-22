@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ExtCore.Data.EntityFramework;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.Abstractions;
@@ -32,12 +33,28 @@ namespace SoftinuxBase.Security.Data.EntityFramework
             return All().FirstOrDefault(e_ => e_.RoleId == roleId_ && e_.Extension == extensionName_);
         }
 
+        /// <summary>
+        /// Finds records in RolePermission table that matches the parameter extension name and permission level.
+        /// Additionally retrieve the role name.
+        /// </summary>
+        /// <param name="extensionName_">Name of extension.</param>
+        /// <param name="level_">Permiossion level.</param>
+        /// <returns>The RolePermission objects with associated Role object.</returns>
         public IEnumerable<RolePermission> FindBy(string extensionName_, Common.Enums.Permission level_)
         {
+            // TODO write the query with the other query syntax? (fluent)
             return from rp in storageContext.Set<RolePermission>()
                    join p in storageContext.Set<Permission>() on rp.PermissionId equals p.Id
+                   join r in storageContext.Set<IdentityRole<string>>() on rp.RoleId equals r.Id
                    where rp.Extension == extensionName_ && p.Name == level_.GetPermissionName()
-                   select rp;
+                   select new RolePermission
+                   {
+                       Extension = rp.Extension,
+                       RoleId = rp.RoleId,
+                       Id = rp.Id,
+                       Role = new IdentityRole<string>(r.Name) { Id = r.Id, NormalizedName = r.NormalizedName },
+                       PermissionId = rp.PermissionId
+                   };
         }
 
         public IEnumerable<RolePermission> FilteredByRoleId(string roleId_)
