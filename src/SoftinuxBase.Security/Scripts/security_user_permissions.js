@@ -314,6 +314,9 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
         }
     });
 
+    document.getElementById('role_name_input').value = '';
+    document.getElementById('newRolePermission').value = 1;
+    document.querySelector('[data-bind="bs-drp-sel-acl-label"]').innerText = 'Read';
     document.getElementById('addRoleRightExtensionsList').innerHTML = '';
     document.getElementById('addRoleLeftExtensionsList').innerHTML = window.RoleExtensionsListOriginalState;
 
