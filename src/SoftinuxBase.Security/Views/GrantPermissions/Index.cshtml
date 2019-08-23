@@ -140,6 +140,25 @@
                                 @* here roles list *@
                                 @await Component.InvokeAsync("BulkDeleteRoles")
                             </select>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="dottedLine15"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="margin">
+                                    <div class="col-md-12">
+                                        @* delete btn *@
+                                        <div class="btn-group">
+                                            <button class="btn btn-block btn-danger" id="bulk-delete-btn">DELETE</button>
+                                        </div>
+                                        @* cancel btn *@
+                                        <div class="btn-group">
+                                            <button class="btn btn-block btn-primary" id="cancel-bulk-delete-btn">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -128,3 +128,7 @@ select.input-validation-error
     border-bottom: 2px dotted lightgray;
     height: 15px;
 }
+
+#availableRolesForDelete {
+    height: 340pt;
+}

@@ -173,7 +173,7 @@ namespace SoftinuxBase.Security.Controllers
         /// <param name="roleName_"></param>
         /// <param name="extensionName_"></param>
         /// <returns>Status code 204 (ok) or 400 (no deletion occurred).</returns>
-        [HttpDelete("{RoleName}/{ExtensionName}")]
+        [HttpDelete]
         [ActionName("DeleteRoleExtensionLink")]
         [Route("administration/delete-role-extension/{RoleName}/{ExtensionName}")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]

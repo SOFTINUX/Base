@@ -24,6 +24,12 @@
                             @* html into roles list loop *@
                             @foreach (var subitem in item.Value)
                             {
+
+                                @if (!subitem.Value.Contains(Permission.Never))
+                                {
+                                    continue;
+                                }
+
                                 <div class="row" data-role-id="@Html.Raw(item.Key+ "_" + subitem.Key)">
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 cell-heigth-25" align="right">
                                         @if (item.Value.ElementAt(0).Key.Equals(subitem.Key))
