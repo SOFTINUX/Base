@@ -11,7 +11,14 @@
     int i = 1;
     foreach (var item in Model.PermissionsByRoleAndExtension)
     {
-        if (item.Value.Any())
+        bool hasNotNeverPermission = false;
+        @foreach (var kvpRolePermissions in from kvpRolePermissions in item.Value from permission in kvpRolePermissions.Value.Where(permission_ => permission_ != Permission.Never)
+            select kvpRolePermissions)
+        {
+            hasNotNeverPermission = true;
+        }
+
+        if (hasNotNeverPermission)
         {
             <div class="row extension-row accordion-toggle collapsed" data-extension-id="@Html.Raw(item.Key)" data-toggle="collapse" data-target=@Html.Raw("\"#extension" + i + "\"")>
                 <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
@@ -25,7 +32,7 @@
                             @foreach (var subitem in item.Value)
                             {
 
-                                @if (!subitem.Value.Contains(Permission.Never))
+                                @if (!subitem.Value.Any() || subitem.Value.All(permission_ => permission_ == Permission.Never))
                                 {
                                     continue;
                                 }
