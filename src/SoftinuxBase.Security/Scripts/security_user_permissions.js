@@ -138,6 +138,15 @@ document.getElementById('save-edit-role-btn').addEventListener('click', () => {
     saveEditRole();
 });
 
+document.getElementById('bulk-delete-btn').addEventListener('click', (event_) => {
+    if (document.getElementById('availableRolesForDelete').selectedOptions.length === 0)
+        window.toastr.warning('No role selected', 'Warning');
+});
+
+document.getElementById('cancel-bulk-delete-btn').addEventListener('click', (event_) => {
+    document.getElementById('availableRolesForDelete').selectedIndex = -1;
+});
+
 document.getElementById('role_name_input').addEventListener('change', () => {
     inputFormGroupValidator('#role_name_input');
 });

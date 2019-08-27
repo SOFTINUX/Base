@@ -25,7 +25,9 @@
             "launchBrowser": {
                 "enabled": true,
                 "args": "${auto-detect-url}",
-                "runtimeArgs": "--incognito",
+                "runtimeArgs": [
+                    "--incognito"
+                ],
                 "windows": {
                     "command": "cmd.exe",
                     "args": "/C start ${auto-detect-url}"
@@ -38,10 +40,11 @@
                 }
             },
             "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "https://localhost:5000"
             },
             "sourceFileMap": {
-                "/Views": "${workspaceRoot}/Views"
+                "/Views": "${workspaceRoot}/src/SoftinuxBase.Security/Views"
             }
         },
         {
