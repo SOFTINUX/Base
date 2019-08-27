@@ -347,3 +347,6 @@ src/Testing/Integration/videos/*
 
 #npm lock packages
 package-lock.json
+
+#don't ignore for rider linux
+!**/WebApplication/Properties/launchSettings.json
