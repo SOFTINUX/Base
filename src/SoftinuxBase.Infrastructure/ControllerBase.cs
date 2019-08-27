@@ -42,7 +42,7 @@ namespace SoftinuxBase.Infrastructure
         /// <summary>
         /// Redirects to same url but looses model.
         /// </summary>
-        /// <returns>Return url string.</returns>
+        /// <returns>Return <see cref="RedirectResult" /> url string.</returns>
         protected RedirectResult CreateRedirectToSelfResult()
         {
             return Redirect(Request.Path.Value + Request.QueryString.Value);
