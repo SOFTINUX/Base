@@ -138,6 +138,10 @@ document.getElementById('save-edit-role-btn').addEventListener('click', () => {
     saveEditRole();
 });
 
+document.getElementById('cancel-add-role-btn').addEventListener('click', () => {
+    resetAddRoleForm();
+});
+
 document.getElementById('bulk-delete-btn').addEventListener('click', (event_) => {
     if (document.getElementById('availableRolesForDelete').selectedOptions.length === 0)
         window.toastr.warning('No role selected', 'Warning');
@@ -319,11 +323,7 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
         }
     });
 
-    document.getElementById('role_name_input').value = '';
-    document.getElementById('newRolePermission').value = 1;
-    document.querySelector('[data-bind="bs-drp-sel-acl-label"]').innerText = 'Read';
-    document.getElementById('addRoleRightExtensionsList').innerHTML = '';
-    document.getElementById('addRoleLeftExtensionsList').innerHTML = window.RoleExtensionsListOriginalState;
+    resetAddRoleForm();
 });
 
 /**
@@ -527,4 +527,12 @@ function reloadRolesHtmlView() {
     makeAjaxRequest('GET', '/administration/read-updated-roles', null, (responseStatus_, responseText_) => {
         document.getElementById('edit-role-tab').innerHTML = responseText_;
     });
+}
+
+function resetAddRoleForm() {
+    document.getElementById('role_name_input').value = '';
+    document.getElementById('newRolePermission').value = 1;
+    document.querySelector('[data-bind="bs-drp-sel-acl-label"]').innerText = 'Read';
+    document.getElementById('addRoleRightExtensionsList').innerHTML = '';
+    document.getElementById('addRoleLeftExtensionsList').innerHTML = window.RoleExtensionsListOriginalState;
 }

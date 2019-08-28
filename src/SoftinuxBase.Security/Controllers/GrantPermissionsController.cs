@@ -2,7 +2,7 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
-using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
@@ -167,22 +167,27 @@ namespace SoftinuxBase.Security.Controllers
 
         #region DELETE
 
+        // ReSharper disable InconsistentNaming
+
         /// <summary>
         /// Delete the record linking a role to an extension.
         /// </summary>
-        /// <param name="roleName_"></param>
-        /// <param name="extensionName_"></param>
+        /// <param name="RoleName">Name of role to delete.</param>
+        /// <param name="ExtensionName">Name of linked extension.</param>
         /// <returns>Status code 204 (ok) or 400 (no deletion occurred).</returns>
         [HttpDelete]
         [ActionName("DeleteRoleExtensionLink")]
         [Route("administration/delete-role-extension/{RoleName}/{ExtensionName}")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1313", Justification = "Ignore paramter camalcase")]
         public async Task<IActionResult> DeleteRoleExtensionLinkAsync(string RoleName, string ExtensionName)
         {
-            bool deleted = await Tools.DeleteRole.DeleteRoleExtensionLinkAsync(this.Storage, _roleManager, ExtensionName, RoleName);
+            bool deleted = await DeleteRole.DeleteRoleExtensionLinkAsync(this.Storage, _roleManager, ExtensionName, RoleName);
             return StatusCode(deleted ? (int)HttpStatusCode.NoContent : (int)HttpStatusCode.BadRequest);
         }
+
+        // ReSharper restore InconsistentNaming
 
         /// <summary>
         /// Delete the records linking a role to any extension, then delete role record if possible..
@@ -196,7 +201,7 @@ namespace SoftinuxBase.Security.Controllers
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> DeleteRoleAsync(string roleName_)
         {
-            string error = await Tools.DeleteRole.DeleteRoleAndAllLinksAsync(this.Storage, _roleManager, roleName_);
+            string error = await DeleteRole.DeleteRoleAndAllLinksAsync(this.Storage, _roleManager, roleName_);
             return StatusCode(string.IsNullOrEmpty(error) ? (int)HttpStatusCode.NoContent : (int)HttpStatusCode.BadRequest, error);
         }
 

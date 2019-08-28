@@ -2,12 +2,12 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using ExtCore.Infrastructure;
 using Microsoft.AspNetCore.Identity;
-using Remotion.Linq.Parsing.Structure.IntermediateModel;
 using SoftinuxBase.Infrastructure.Interfaces;
 using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.Abstractions;
@@ -121,13 +121,15 @@ namespace SoftinuxBase.Security.Tools
         /// Rules:
         /// <ul>
         /// <li>No user should be granted admin permission level for this role and extension.</li>
-        /// <li>The other roles linked to the extension, with Admin permission level, should be an empty list or not linked to aany user.</li></ul>
+        /// <li>The other roles linked to the extension, with Admin permission level, should be an empty list or not linked to aany user.</li>
+        /// </ul>
         /// </summary>
         /// <param name="roleManager_">ASP.NET Core identity role manager.</param>
         /// <param name="storage_">The data storage instance.</param>
         /// <param name="roleName_">Role name.</param>
         /// <param name="extensionName_">Name of extension.</param>
         /// <returns>bool.</returns>
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1629", Justification = "Suppress warning for 'Rules:' in summary")]
         public static async Task<bool> IsRoleLastAdminPermissionLevelGrantForExtensionAsync(RoleManager<IdentityRole<string>> roleManager_, IStorage storage_, string roleName_, string extensionName_)
         {
             // test
@@ -166,7 +168,6 @@ namespace SoftinuxBase.Security.Tools
                 storage_.GetRepository<IAspNetUsersRepository>().FindActiveUsersHavingRoles(rolePermissionRecordsWithAdminLevel.Where(rp_ => rp_.RoleId != currentRole.Id).Select(rp_ => rp_.Role.NormalizedName));
 
             return !usersHavingRoles.Any();
-
         }
     }
 }

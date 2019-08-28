@@ -85,7 +85,7 @@ namespace SoftinuxBase.Infrastructure
         /// TODO make this code and replace at good place.
         /// </summary>
         /// <param name="resourcePath_">internal ressource path.</param>
-        /// <returns>result of sql execution.</returns>
+        /// <returns>Return a <see cref="string"/> result of sql execution.</returns>
         public string ExecuteSqlResource(string resourcePath_) => throw new Exception("Not yet implemented");
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace SoftinuxBase.Infrastructure
         /// <summary>
         /// Get the Entity Framework provider.
         /// </summary>
-        /// <returns>ProviderCode <see cref="ProviderCode" />.</returns>
+        /// <returns>Return a <see cref="ProviderCode" />.</returns>
         public ProviderCode GetProvider()
         {
             // list of provider: https://docs.microsoft.com/en-us/ef/core/providers/
@@ -145,7 +145,7 @@ namespace SoftinuxBase.Infrastructure
         /// Execute sql script string.
         /// </summary>
         /// <param name="sqlScript_">sql script to execute.</param>
-        /// <returns>result of sql script execution <see cref="ExecuteSqlScript"/>.</returns>
+        /// <returns>Return a <see cref="ExecuteSqlScript"/> result of sql script execution>.</returns>
         public string ExecuteSqlScript(string sqlScript_)
         {
             if (string.IsNullOrWhiteSpace(sqlScript_) || string.IsNullOrEmpty(sqlScript_))
@@ -160,7 +160,7 @@ namespace SoftinuxBase.Infrastructure
         /// Execute SQL code from a plain SQL file.
         /// </summary>
         /// <param name="filePath_">Path of the file to execute.</param>
-        /// <returns>Any error information, else null when no error happened <see cref="ExecuteSqlFileWithTransaction"/>.</returns>
+        /// <returns>Return a <see cref="ExecuteSqlFileWithTransaction"/>. Any error information, else null when no error happened.</returns>
         public string ExecuteSqlFileWithTransaction(string filePath_)
         {
             if (!File.Exists(filePath_))
@@ -188,7 +188,7 @@ namespace SoftinuxBase.Infrastructure
         /// Test sqlite database connection.
         /// </summary>
         /// <param name="connectionString_">the connection string to sqlite.</param>
-        /// <returns>True if can open and close connection, else false. <see cref="bool"/></returns>
+        /// <returns>Return a <see cref="bool"/>. True if can open and close connection, else false.</returns>
         private static bool TestSqliteConnection(string connectionString_)
         {
             try
@@ -209,7 +209,7 @@ namespace SoftinuxBase.Infrastructure
         /// Test mssql database connection.
         /// </summary>
         /// <param name="connectionString_">the connection string to MsSql database server.</param>
-        /// <returns>True if can open and close connection, else false <see cref="bool"/>.</returns>
+        /// <returns>Return a <see cref="bool"/>. True if can open and close connection, else false.</returns>
         private static bool TestMsSqlConnection(string connectionString_)
         {
             try
@@ -230,7 +230,7 @@ namespace SoftinuxBase.Infrastructure
         /// Test PostgreSql database connection.
         /// </summary>
         /// <param name="connectionString_">the connection string to PostgreSql database server.</param>
-        /// <returns>True if can open and close connection, else false <see cref="bool"/>.</returns>
+        /// <returns>Return a <see cref="bool"/>. True if can open and close connection, else false.</returns>
         private static bool TestPostgresqlConnection(string connectionString_)
         {
             try
@@ -251,7 +251,7 @@ namespace SoftinuxBase.Infrastructure
         /// Test database connection on SqLite, MsSql, PostgreSql.
         /// </summary>
         /// <param name="connecString_">the connection string to database server.</param>
-        /// <returns>True if call return true, else false <see cref="bool"/>.</returns>
+        /// <returns>Return a <see cref="bool"/>. True if call return true, else false.</returns>
         private bool TestDbConnection(string connecString_)
         {
             switch (_providerCode)
