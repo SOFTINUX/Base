@@ -54,5 +54,17 @@
     "cSpell.enabled": false,
     "eslint.options": {
         "configFile": ".eslintrc.json"
+    },
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope" : [
+                    "keyword.control.flow.return.cs"
+                ],
+                "settings": {
+                    "fontStyle": "bold"
+                }
+            }
+        ]
     }
 }
