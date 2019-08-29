@@ -15,6 +15,10 @@ namespace SoftinuxBase.Security.Data.EntityFramework
 {
     public class RolePermissionRepository : RepositoryBase<RolePermission>, IRolePermissionRepository
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>Return a <see cref="IEnumerable" /> of <see cref="RolePermission" />.</returns>
         public IEnumerable<RolePermission> All()
         {
             IEnumerable all = from rp in storageContext.Set<RolePermission>()
@@ -28,6 +32,12 @@ namespace SoftinuxBase.Security.Data.EntityFramework
             }
         }
 
+        /// <summary>
+        /// Find role and his attached extensions
+        /// </summary>
+        /// <param name="roleId_">The role Id as <see cref="string" />.</param>
+        /// <param name="extensionName_">The extension name as <see cref="string" />.</param>
+        /// <returns></returns>
         public RolePermission FindBy(string roleId_, string extensionName_)
         {
             return All().FirstOrDefault(e_ => e_.RoleId == roleId_ && e_.Extension == extensionName_);
@@ -57,21 +67,39 @@ namespace SoftinuxBase.Security.Data.EntityFramework
                    };
         }
 
+        /// <summary>
+        ///  Return filtered roles list.
+        /// </summary>
+        /// <param name="roleId_">role id.</param>
+        /// <returns>Return a <see cref="IEnumerable" /> of <see cref="RolePermission" />.</returns>
         public IEnumerable<RolePermission> FilteredByRoleId(string roleId_)
         {
             return All().Where(e_ => e_.RoleId == roleId_).ToList();
         }
 
+        /// <summary>
+        /// Create a Role Permission record
+        /// </summary>
+        /// <param name="entity_"><see cref="RolePermission" />.</param>
         public virtual void Create(RolePermission entity_)
         {
             dbSet.Add(entity_);
         }
 
+        /// <summary>
+        /// Modify a Role Permission field
+        /// </summary>
+        /// <param name="entity_"><see cref="RolePermission" />.</param>
         public virtual void Edit(RolePermission entity_)
         {
             storageContext.Entry(entity_).State = EntityState.Modified;
         }
 
+        /// <summary>
+        /// Delete 
+        /// </summary>
+        /// <param name="roleId_"></param>
+        /// <param name="extensions_"></param>
         public void Delete(string roleId_, string extensions_)
         {
             var entity = FindBy(roleId_, extensions_);
@@ -81,6 +109,9 @@ namespace SoftinuxBase.Security.Data.EntityFramework
             }
         }
 
+        /// <summary>
+        /// Delete All
+        /// </summary>
         public void DeleteAll()
         {
             dbSet.RemoveRange(dbSet.ToArray());
