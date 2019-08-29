@@ -9,7 +9,7 @@ namespace SoftinuxBase.Security.Data.Abstractions
 {
     public interface IAspNetUsersRepository : IRepository
     {
-        bool FindByNormalizedUserNameOrEmail(string value_);
+        bool FindByNormalizedUserNameOrEmail(string normalizedValue_);
 
         IEnumerable<User> FindActiveUsersHavingRoles(IEnumerable<string> roleNames_);
     }

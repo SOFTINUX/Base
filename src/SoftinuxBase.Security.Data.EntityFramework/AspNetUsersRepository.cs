@@ -10,23 +10,26 @@ using SoftinuxBase.Security.Data.Entities;
 
 namespace SoftinuxBase.Security.Data.EntityFramework
 {
+    /// <summary>
+    /// A class for performing queries related to <see cref="User"/>.
+    /// </summary>
     public class AspNetUsersRepository : RepositoryBase<User>, IAspNetUsersRepository
     {
         /// <summary>
-        /// Return true if found, else false.
+        /// Check by name or e-mail user existence.
         /// </summary>
-        /// <param name="value_">normalized string to find.</param>
-        /// <returns>bool.</returns>
-        public bool FindByNormalizedUserNameOrEmail(string value_)
+        /// <param name="normalizedValue_">String value from <see cref="UserManager{TUser}.NormalizeKey"/>.</param>
+        /// <returns>A bool indicating that an user was found.</returns>
+        public bool FindByNormalizedUserNameOrEmail(string normalizedValue_)
         {
-            return dbSet.FirstOrDefault(e_ => e_.NormalizedUserName == value_ || e_.NormalizedEmail == value_) != null;
+            return dbSet.FirstOrDefault(e_ => e_.NormalizedUserName == normalizedValue_ || e_.NormalizedEmail == normalizedValue_) != null;
         }
 
         /// <summary>
-        /// Find all the users that have roles defined by their names.
+        /// Find all the users linked to roles.
         /// </summary>
-        /// <param name="roleNames_">Name of roles.</param>
-        /// <returns>Linked users.</returns>
+        /// <param name="roleNames_"><see cref="IEnumerable{String}"/> role names.</param>
+        /// <returns><see cref="IEnumerable{User}"/> users.</returns>
         public IEnumerable<User> FindActiveUsersHavingRoles(IEnumerable<string> roleNames_)
         {
             IEnumerable<string> normalizedRoleNames = roleNames_.Select(n_ => n_.ToUpperInvariant());
