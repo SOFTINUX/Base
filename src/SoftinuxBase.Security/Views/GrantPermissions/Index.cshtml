@@ -52,7 +52,7 @@
                             @* ADD ROLE *@
                             <div class="row" id="add-role-area">
                                 <div class="col-md-12">
-                                    <form name="add-new-role-form">
+                                    <form name="add-new-role-form" onsubmit="return false">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group" id="add-role-group">
@@ -119,7 +119,7 @@
                                                 <div class="col-md-12">
                                                     @* save btn *@
                                                     <div class="btn-group">
-                                                        <button class="btn btn-block btn-success" id="save-add-role-btn">Save</button>
+                                                        <button class="btn btn-block btn-success" id="save-add-role-btn" type="button">Save</button>
                                                     </div>
                                                     @* cancel btn *@
                                                     <div class="btn-group">
@@ -134,13 +134,13 @@
                         </div>
                         <div class="tab-pane" id="edit-role-tab">
                             @* EDIT ROLE *@
-                            <form name="edit-role-form">
+                            <form name="edit-role-form" onsubmit="return false">
                                 @await Component.InvokeAsync("EditRolePermissions")
                             </form>
                         </div>
                         <div class="tab-pane" id="bulk-delete-role-tab">
                             @* BULK DELETE ROLE *@
-                            <form name="bulk-delete-form">
+                            <form name="bulk-delete-form" onsubmit="return false">
                                 <select class="form-control" id="availableRolesForDelete" multiple>
                                     @* here roles list *@
                                     @await Component.InvokeAsync("BulkDeleteRoles")
@@ -155,7 +155,7 @@
                                         <div class="col-md-12">
                                             @* delete btn *@
                                             <div class="btn-group">
-                                                <button class="btn btn-block btn-danger" id="bulk-delete-btn">DELETE</button>
+                                                <button class="btn btn-block btn-danger" id="bulk-delete-btn" type="button">DELETE</button>
                                             </div>
                                             @* cancel btn *@
                                             <div class="btn-group">

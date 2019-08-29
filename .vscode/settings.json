@@ -55,6 +55,8 @@
     "eslint.options": {
         "configFile": ".eslintrc.json"
     },
+    "editor.wordWrap": "on",
+    "editor.wordWrapColumn": 350,
     "editor.tokenColorCustomizations": {
         "textMateRules": [
             {

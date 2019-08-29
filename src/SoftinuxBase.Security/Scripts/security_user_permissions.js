@@ -136,6 +136,7 @@ document.getElementById('save-edit-role-btn').addEventListener('click', () => {
     }
 
     saveEditRole();
+    resetEditRoleForm();
 });
 
 document.getElementById('cancel-add-role-btn').addEventListener('click', () => {
@@ -535,4 +536,15 @@ function resetAddRoleForm() {
     document.querySelector('[data-bind="bs-drp-sel-acl-label"]').innerText = 'Read';
     document.getElementById('addRoleRightExtensionsList').innerHTML = '';
     document.getElementById('addRoleLeftExtensionsList').innerHTML = window.RoleExtensionsListOriginalState;
+}
+
+function resetEditRoleForm() {
+    document.getElementById('editRoleLeftExtensionsList').innerHTML = '';
+    document.getElementById('editRoleRightExtensionsList').innerHTML = '';
+    document.getElementById('edit_role_name_input').value = '';
+    document.getElementById('editRoleId').value = '';
+    document.getElementById('edit_role_id').value = '';
+    document.getElementById('edit_role_normalizedName').value = '';
+    document.getElementById('edit_role_concurrencyStamp').value = '';
+
 }
