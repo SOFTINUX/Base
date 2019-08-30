@@ -18,18 +18,27 @@ using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 namespace SoftinuxBase.Security.Tools
 {
     /*
-        The main ReadGrants class
-        Contains all methods for reading grants permissions
+        The main ReadGrants class.
+        Contains all methods for reading grants permissions.
     */
+    /// <summary>
+    /// The main ReadGrants class.
+    ///
+    /// contains all methods for reading grants permissions.
+    /// </summary>
     public static class ReadGrants
     {
         /// <summary>
-        /// Read all grants: to have a global view of permissions granting: for a role or a user, what kind of permission is granted, for every scope (extension).
+        /// Read all grants:
+        ///
+        /// - to have a global view of permissions granting:
+        ///
+        /// -- for a role or a user, what kind of permission is granted, for every extensions.
         /// </summary>
-        /// <param name="roleManager_">role manager instance.</param>
-        /// <param name="storage_">the data storage instance.</param>
-        /// <param name="roleNameByRoleId_">dictionary of all role with id.</param>
-        /// <returns>return a GrantViewModel model object.</returns>
+        /// <param name="roleManager_">Role manager instance.</param>
+        /// <param name="storage_">Storage interface provided by services container.</param>
+        /// <param name="roleNameByRoleId_">Dictionary of all roles with id.</param>
+        /// <returns>Return a GrantViewModel model object.</returns>
         public static GrantViewModel ReadAll(RoleManager<IdentityRole<string>> roleManager_, IStorage storage_, Dictionary<string, string> roleNameByRoleId_)
         {
             GrantViewModel model = new GrantViewModel();
@@ -84,12 +93,13 @@ namespace SoftinuxBase.Security.Tools
         }
 
         /// <summary>
-        /// Get the list of extensions associated to a role, with corresponding permission, and also the list of extensions not linked to the role.
+        /// Get the list of all extensions associated to a role, with corresponding permissions,
+        /// and also the list of extensions not linked to the role.
         /// </summary>
         /// <param name="roleId_">Id of a role.</param>
-        /// <param name="storage_">the data storage instance.</param>
-        /// <param name="availableExtensions_">output a list of available extensions.</param>
-        /// <param name="selectedExtensions_">output a list of selected extensions.</param>
+        /// <param name="storage_">Storage interface provided by services container.</param>
+        /// <param name="availableExtensions_">Output a list of available extensions.</param>
+        /// <param name="selectedExtensions_">Output a list of selected extensions.</param>
         public static void GetExtensions(string roleId_, IStorage storage_, out IList<string> availableExtensions_, out IList<SelectedExtension> selectedExtensions_)
         {
             selectedExtensions_ = storage_.GetRepository<IRolePermissionRepository>().FilteredByRoleId(roleId_).Select(
@@ -116,8 +126,11 @@ namespace SoftinuxBase.Security.Tools
 
         /// <summary>
         /// This function checks that the role is the last grant of Admin permission level to the target extension.
+        ///
         /// This allows to warn the user in case no user would be granted Admin anymore for this extension after we remove the grant from this role.
+        ///
         /// In case the extension is SoftinuxBase.Security, this check will be used to prevent the delete action.
+        ///
         /// Rules:
         /// <ul>
         /// <li>No user should be granted admin permission level for this role and extension.</li>
@@ -125,7 +138,7 @@ namespace SoftinuxBase.Security.Tools
         /// </ul>
         /// </summary>
         /// <param name="roleManager_">ASP.NET Core identity role manager.</param>
-        /// <param name="storage_">The data storage instance.</param>
+        /// <param name="storage_">Storage interface provided by services container.</param>
         /// <param name="roleName_">Role name.</param>
         /// <param name="extensionName_">Name of extension.</param>
         /// <returns>bool.</returns>

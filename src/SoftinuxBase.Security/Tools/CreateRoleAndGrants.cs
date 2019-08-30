@@ -13,19 +13,25 @@ using SoftinuxBase.Security.ViewModels.Permissions;
 namespace SoftinuxBase.Security.Tools
 {
     /*
-        The main CreateRoleAndGrants class
-        Contains all methods for reading granting permissions
+        The main CreateRoleAndGrants class.
+        Contains all methods for reading granting permissions.
     */
+    /// <summary>
+    /// The main CreateRoleAndGrants class.
+    ///
+    /// Contains all methods for reading granting permissions.
+    /// </summary>
     public static class CreateRoleAndGrants
     {
         /// <summary>
         /// First, check that a role with this name doesn't already exist.
+        ///
         /// Second, save new data into database.
         /// </summary>
-        /// <param name="storage_">the data storage instance.</param>
-        /// <param name="roleManager_">asp identity role manager object.</param>
-        /// <param name="model_">model with role name and grand data (extensions and permissions level).</param>
-        /// <returns>Current asynchronous Task with not null string result when something failed, else null when save went ok.</returns>
+        /// <param name="storage_">Storage interface provided by services container.</param>
+        /// <param name="roleManager_">Roles manager object.</param>
+        /// <param name="model_">A <see cref="SaveNewRoleAndGrantsViewModel" /> object.</param>
+        /// <returns>Not null if failure, otherwise null</returns>
         public static async Task<string> CheckAndSaveNewRoleAndGrantsAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, SaveNewRoleAndGrantsViewModel model_)
         {
             if (await UpdateRoleAndGrants.CheckThatRoleOfThisNameExistsAsync(roleManager_, model_.RoleName))

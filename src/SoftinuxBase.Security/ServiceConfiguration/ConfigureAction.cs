@@ -9,12 +9,18 @@ namespace SoftinuxBase.Security.ServiceConfiguration
 {
     /// <summary>
     /// Action that must be executed inside the Configure method of a web application's Startup class:
+    ///
     /// Activates the authentication.
     /// </summary>
     public class ConfigureAction : IConfigureAction
     {
         public int Priority => 200;
 
+        /// <summary>
+        /// TODO DOCUMENT ME
+        /// </summary>
+        /// <param name="applicationBuilder_"></param>
+        /// <param name="serviceProvider_"></param>
         public void Execute(IApplicationBuilder applicationBuilder_, IServiceProvider serviceProvider_)
         {
             applicationBuilder_.UseAuthentication();

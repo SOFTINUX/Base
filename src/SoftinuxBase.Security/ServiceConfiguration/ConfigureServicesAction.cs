@@ -15,17 +15,29 @@ namespace SoftinuxBase.Security.ServiceConfiguration
 {
     /// <summary>
     /// Action that must be executed inside the ConfigureServices method of a web application's Startup class:
+    ///
     /// Configuration of application services for Identity.
+    /// <remarks>This class is Internal to SoftinuxBase.Security.</remarks>
     /// </summary>
     internal class ConfigureServicesAction : IConfigureServicesAction
     {
         public int Priority => 200;
 
+        /// <summary>
+        /// TODO DOCUMENT ME
+        /// </summary>
+        /// <param name="serviceCollection_"></param>
+        /// <param name="serviceProvider_"></param>
         public void Execute(IServiceCollection serviceCollection_, IServiceProvider serviceProvider_)
         {
             serviceCollection_.AddScoped<IUserClaimsPrincipalFactory<User>, ClaimsPrincipalFactory>();
         }
 
+        /// <summary>
+        /// TODO DOCUMENT ME
+        /// </summary>
+        /// <param name="statusCode_"></param>
+        /// <returns></returns>
         private static Func<RedirectContext<CookieAuthenticationOptions>, Task> ReplaceRedirectorWithStatusCode(
             HttpStatusCode statusCode_) => context_ =>
         {

@@ -9,6 +9,15 @@ using SoftinuxBase.Security.Common.Enums;
 
 namespace SoftinuxBase.Security.Common
 {
+    /*
+        The main permissions helper class.
+        Contains all methods for permissions.
+    */
+    /// <summary>
+    /// The main permissions helper class.
+    ///
+    /// Contains all methods for permissions.
+    /// </summary>
     public static class PermissionHelper
     {
         [Obsolete]
@@ -18,6 +27,11 @@ namespace SoftinuxBase.Security.Common
             return perm;
         }
 
+        /// <summary>
+        /// TODO DOCUMENT ME
+        /// </summary>
+        /// <param name="name_">Permission name</param>
+        /// <returns>Permissions name from enum</returns>
         public static Permission FromName(string name_)
         {
             Enum.TryParse(name_, out Permission perm);
@@ -28,7 +42,7 @@ namespace SoftinuxBase.Security.Common
         /// Extension method to get the string representation of the enum value.
         /// </summary>
         /// <param name="permissionLevel_">Permission level.</param>
-        /// <returns>string represent permission level.</returns>
+        /// <returns>String represent permission level.</returns>
         public static string GetPermissionName(this Permission permissionLevel_)
         {
             return permissionLevel_.ToString();
@@ -38,8 +52,8 @@ namespace SoftinuxBase.Security.Common
         /// Formats the unique identifier that associates a permission level and an extension name.
         /// </summary>
         /// <param name="permissionLevel_">Permission level.</param>
-        /// <param name="extensionName_">The extension name, equal to assembly name, given by Assembly.GetName().Name.</param>
-        /// <returns>string reprensent extension name with permission level.</returns>
+        /// <param name="extensionName_">The extension name, equal to assembly name, given by <c>Assembly.GetName().Name</c>.</param>
+        /// <returns>String reprensent extension name with permission level.</returns>
         public static string GetExtensionPermissionIdentifier(Permission permissionLevel_, string extensionName_)
         {
             return $"{extensionName_}.{permissionLevel_}";
@@ -49,7 +63,7 @@ namespace SoftinuxBase.Security.Common
         /// From the value of a claim which type is Permission, gets the second part of the string that represents the permission level (Admin, Write...).
         /// </summary>
         /// <param name="claim_">Claim of type permission.</param>
-        /// <returns>the second part of the string that represents the permission level.</returns>
+        /// <returns>The second part of the string that represents the permission level.</returns>
         public static string GetPermissionLevel(Claim claim_)
         {
             if (claim_.Type != ClaimType.Permission)
@@ -63,8 +77,8 @@ namespace SoftinuxBase.Security.Common
         /// <summary>
         /// From the value of a claim which type is Permission, gets the second part of the string that represents the permission level (Admin, Write...).
         /// </summary>
-        /// <param name="claimValue_">value of a claim of type permission.</param>
-        /// <returns>the second part of the string that represents the permission level.</returns>
+        /// <param name="claimValue_">Value of a claim of type permission.</param>
+        /// <returns>The second part of the string that represents the permission level.</returns>
         public static string GetPermissionLevel(string claimValue_)
         {
             return claimValue_.Substring(claimValue_.LastIndexOf(".", StringComparison.Ordinal) + 1);
@@ -74,7 +88,7 @@ namespace SoftinuxBase.Security.Common
         /// From a claim which type is Permission, gets the first part of the string that represents the name of extension concerned by this permission level.
         /// </summary>
         /// <param name="claim_">Claim of type permission.</param>
-        /// <returns>the first part of the string that represents the name of extension concerned by this permission level.</returns>
+        /// <returns>The first part of the string that represents the name of extension concerned by this permission level.</returns>
         public static string GetExtensionName(Claim claim_)
         {
             return claim_.Type != ClaimType.Permission ? null : GetExtensionName(claim_.Value);
@@ -83,8 +97,8 @@ namespace SoftinuxBase.Security.Common
         /// <summary>
         /// From the value of a claim which type is Permission, gets the first part of the string that represents the name of extension concerned by this permission level.
         /// </summary>
-        /// <param name="claimValue_">value of a claim of type permission.</param>
-        /// <returns>the first part of the string that represents the name of extension concerned by this permission level.</returns>
+        /// <param name="claimValue_">Value of a claim of type permission.</param>
+        /// <returns>The first part of the string that represents the name of extension concerned by this permission level.</returns>
         public static string GetExtensionName(string claimValue_)
         {
             return claimValue_.Substring(0, claimValue_.Length - claimValue_.LastIndexOf(".", StringComparison.Ordinal));

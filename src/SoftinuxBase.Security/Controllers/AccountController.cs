@@ -24,8 +24,8 @@ namespace SoftinuxBase.Security.Controllers
         /// </summary>
         /// <param name="storage_">Storage interface provided by services container.</param>
         /// <param name="loggerFactory_">Logger factory interface provided by services container.</param>
-        /// <param name="userManager_">identity framework user manager instance.</param>
-        /// <param name="signInManager_">identity framework signin manager instance.</param>
+        /// <param name="userManager_">User manager instance.</param>
+        /// <param name="signInManager_">Signin manager instance.</param>
         public AccountController(IStorage storage_, ILoggerFactory loggerFactory_, UserManager<User> userManager_, SignInManager<User> signInManager_) : base(storage_, loggerFactory_)
         {
             _userManager = userManager_;

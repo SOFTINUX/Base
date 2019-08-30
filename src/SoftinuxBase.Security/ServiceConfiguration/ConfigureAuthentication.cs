@@ -13,15 +13,26 @@ namespace SoftinuxBase.Security.ServiceConfiguration
 {
     /// <summary>
     /// Configuration of application services to activate authenticated access.
+    /// <remarks>This class is Internal to SoftinuxBase.Security.</remarks>
     /// </summary>
     internal class ConfigureAuthentication : IConfigureServicesAction
     {
         public int Priority => 200;
 
+        /// <summary>
+        /// Do nothing.
+        /// </summary>
+        /// <param name="serviceCollection_"></param>
+        /// <param name="serviceProvider_"></param>
         public void Execute(IServiceCollection serviceCollection_, IServiceProvider serviceProvider_)
         {
         }
 
+        /// <summary>
+        /// Suppress redirect on API URLs.
+        /// </summary>
+        /// <param name="statusCode_"></param>
+        /// <returns></returns>
         private static Func<RedirectContext<CookieAuthenticationOptions>, Task> ReplaceRedirectorWithStatusCode(
             HttpStatusCode statusCode_) => context_ =>
         {

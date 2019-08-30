@@ -11,16 +11,25 @@ using SoftinuxBase.Security.Data.Entities;
 
 namespace SoftinuxBase.Security.Tools
 {
+    /*
+        The main Deletion class.
+        Contains all methods for deletions.
+    */
+    /// <summary>
+    /// The main Deletion class.
+    ///
+    /// Contains all methods for deletions.
+    /// </summary>
     internal static class DeleteRole
     {
         /// <summary>
-        /// Delete the record indicating that a role is linked to an extension.
+        /// Delete a link between a role and an extension
         /// </summary>
-        /// <param name="storage_">the data storage instance.</param>
-        /// <param name="roleManager_">role manager instance.</param>
-        /// <param name="extensionName_">string represent extension name.</param>
-        /// <param name="roleName_">string represent role name.</param>
-        /// <returns>Current asynchronous Task with false result when record to delete wasn't found.</returns>
+        /// <param name="storage_">Storage interface provided by services container.</param>
+        /// <param name="roleManager_">Roles manager instance.</param>
+        /// <param name="extensionName_">Extension name.</param>
+        /// <param name="roleName_">Role name.</param>
+        /// <returns>Return null on succes, otherwise return error message.</returns>
         internal static async Task<bool> DeleteRoleExtensionLinkAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, string extensionName_, string roleName_)
         {
             string roleId = (await roleManager_.FindByNameAsync(roleName_)).Id;
@@ -36,12 +45,12 @@ namespace SoftinuxBase.Security.Tools
         }
 
         /// <summary>
-        /// Delete all the records indicating that a role is linked to extensions.
+        /// Delete all links between a role and extensions.
         /// </summary>
-        /// <param name="storage_">the data storage instance.</param>
-        /// <param name="roleManager_">role manager instance.</param>
-        /// <param name="roleName_">string represent role name.</param>
-        /// <returns>Current asynchronous Task with false result when records to delete weren't found.</returns>
+        /// <param name="storage_">Storage interface provided by services container.</param>
+        /// <param name="roleManager_">Roles manager instance.</param>
+        /// <param name="roleName_">Role name.</param>
+        /// <returns>Return false if not found, otherwise return true.</returns>
         internal static async Task<bool> DeleteRoleExtensionLinksAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, string roleName_)
         {
             string roleId = (await roleManager_.FindByNameAsync(roleName_)).Id;
@@ -61,6 +70,14 @@ namespace SoftinuxBase.Security.Tools
             return true;
         }
 
+        /// <summary>
+        /// Delete role and all links to extensions.
+        /// </summary>
+        /// <remarks>⚠️This method is under development.</remarks>
+        /// <param name="storage_">Storage interface provided by services container.</param>
+        /// <param name="roleManager_">Roles manager instance.</param>
+        /// <param name="roleName_">Role name.</param>
+        /// <returns>null</returns>
         internal static async Task<string> DeleteRoleAndAllLinksAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, string roleName_)
         {
             /*bool canDeleteRole = false;

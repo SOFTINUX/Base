@@ -14,6 +14,11 @@ namespace SoftinuxBase.Security.ServiceConfiguration
     {
         public int Priority => 200;
 
+        /// <summary>
+        /// TODO DOCUMENT ME
+        /// </summary>
+        /// <param name="applicationBuilder_"></param>
+        /// <param name="serviceProvider_"></param>
         public void Execute(IApplicationBuilder applicationBuilder_, IServiceProvider serviceProvider_)
         {
             applicationBuilder_.UseAuthentication();

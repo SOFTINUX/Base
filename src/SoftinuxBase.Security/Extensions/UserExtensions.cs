@@ -14,27 +14,28 @@ namespace SoftinuxBase.Security.Extensions
     public static class UserExtensions
     {
         /// <summary>
-        /// Generic method to check whether the currently logged user has some claim.
+        /// Check whether the currently logged user has some claim.
         /// Useful for Razor views.
         /// </summary>
+        /// <remarks>This is a generic method</remarks>
         /// <param name="claimsPrincipal_">Application user object with all claims.</param>
         /// <param name="claimType_">Claim type.</param>
         /// <param name="claimValue_">Claim value.</param>
-        /// <returns>Bool.</returns>
+        /// <returns>True if a claim is found.</returns>
         public static bool HasClaim(this ClaimsPrincipal claimsPrincipal_, string claimType_, string claimValue_)
         {
-            return claimsPrincipal_.Claims.FirstOrDefault(c_ => c_.Type == claimType_ && c_.Value == claimValue_) != null;
+            return claimsPrincipal_.Claims.FirstOrDefault(claim_ => claim_.Type == claimType_ && claim_.Value == claimValue_) != null;
         }
 
         /// <summary>
-        /// Method to check whether the currently logged user has some claim of type Permission,
-        /// defined by a permission (enum value) and a scope (assembly simple name).
+        /// Check whether the currently logged user has some claim of type Permission,
+        /// defined by a permission level with a extension assembly name.
         /// Useful for Razor views.
         /// </summary>
         /// <param name="claimsPrincipal_">Application user object with all claims.</param>
         /// <param name="permission_">Permission level.</param>
         /// <param name="extensionAssemblySimpleName_">Assembly name of target extension.</param>
-        /// <returns>Bool.</returns>
+        /// <returns>True if a claim is found.</returns>
         public static bool HasPermissionClaim(this ClaimsPrincipal claimsPrincipal_, Permission permission_, string extensionAssemblySimpleName_)
         {
             return HasClaim(claimsPrincipal_, ClaimType.Permission, PermissionHelper.GetExtensionPermissionIdentifier(permission_, extensionAssemblySimpleName_));
