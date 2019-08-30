@@ -5,6 +5,10 @@ using System.Collections.Generic;
 using ExtCore.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.Data.EntityFramework")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.SeedDatabase")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SecurityTest")]
 namespace SoftinuxBase.Security.Data.Abstractions
 {
     public interface IUserPermissionRepository : IRepository

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security")]
 namespace SoftinuxBase.Security.Data.EntityFramework
 {
     /// <summary>

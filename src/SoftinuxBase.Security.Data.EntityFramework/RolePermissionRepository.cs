@@ -11,6 +11,9 @@ using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SecurityTest")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.SeedDatabase")]
 namespace SoftinuxBase.Security.Data.EntityFramework
 {
     public class RolePermissionRepository : RepositoryBase<RolePermission>, IRolePermissionRepository
@@ -21,9 +24,9 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         /// <returns>Return a <see cref="IEnumerable" /> of <see cref="RolePermission" />.</returns>
         public IEnumerable<RolePermission> All()
         {
-            IEnumerable all = from rp in storageContext.Set<RolePermission>()
-                              join p in storageContext.Set<Permission>() on rp.PermissionId equals p.Id
-                              select new { RolePermission = rp, Permission = p };
+            var all = from rolePermission in storageContext.Set<RolePermission>()
+                      join permission in storageContext.Set<Permission>() on rolePermission.PermissionId equals permission.Id
+                      select new { RolePermission = rolePermission, Permission = permission };
 
             foreach (dynamic item in all)
             {
@@ -52,18 +55,17 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         /// <returns>The RolePermission objects with associated Role object.</returns>
         public IEnumerable<RolePermission> FindBy(string extensionName_, Common.Enums.Permission level_)
         {
-            // TODO write the query with the other query syntax? (fluent)
-            return from rp in storageContext.Set<RolePermission>()
-                   join p in storageContext.Set<Permission>() on rp.PermissionId equals p.Id
-                   join r in storageContext.Set<IdentityRole<string>>() on rp.RoleId equals r.Id
-                   where rp.Extension == extensionName_ && p.Name == level_.GetPermissionName()
+            return from rolePermisson in storageContext.Set<RolePermission>()
+                   join permission in storageContext.Set<Permission>() on rolePermisson.PermissionId equals permission.Id
+                   join identityRoles in storageContext.Set<IdentityRole<string>>() on rolePermisson.RoleId equals identityRoles.Id
+                   where rolePermisson.Extension == extensionName_ && permission.Name == level_.GetPermissionName()
                    select new RolePermission
                    {
-                       Extension = rp.Extension,
-                       RoleId = rp.RoleId,
-                       Id = rp.Id,
-                       Role = new IdentityRole<string>(r.Name) { Id = r.Id, NormalizedName = r.NormalizedName },
-                       PermissionId = rp.PermissionId
+                       Extension = rolePermisson.Extension,
+                       RoleId = rolePermisson.RoleId,
+                       Id = rolePermisson.Id,
+                       Role = new IdentityRole<string>(identityRoles.Name) { Id = identityRoles.Id, NormalizedName = identityRoles.NormalizedName },
+                       PermissionId = rolePermisson.PermissionId
                    };
         }
 

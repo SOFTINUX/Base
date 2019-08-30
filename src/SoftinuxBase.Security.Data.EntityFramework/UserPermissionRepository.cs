@@ -9,6 +9,10 @@ using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SecurityTest")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.SeedDatabase")]
+
 namespace SoftinuxBase.Security.Data.EntityFramework
 {
     public class UserPermissionRepository : RepositoryBase<UserPermission>, IUserPermissionRepository
