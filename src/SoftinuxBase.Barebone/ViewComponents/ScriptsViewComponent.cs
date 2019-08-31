@@ -20,11 +20,15 @@ namespace SoftinuxBase.Barebone.ViewComponents
 
         public Task<IViewComponentResult> InvokeAsync()
         {
+#if DEBUG
             Stopwatch watch = new Stopwatch();
             watch.Start();
+#endif
             ScriptsViewModel model = new ScriptsViewModelFactory().Create();
+#if DEBUG
             watch.Stop();
             _logger.LogInformation("Time to build scripts list by ScriptsViewModelFactory: " + watch.ElapsedMilliseconds + " ms");
+#endif
             return Task.FromResult<IViewComponentResult>(View(model));
         }
     }

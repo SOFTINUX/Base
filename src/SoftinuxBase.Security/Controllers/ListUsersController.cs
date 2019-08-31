@@ -24,7 +24,7 @@ namespace SoftinuxBase.Security.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="ListUsersController"/> class.
         /// </summary>
-        /// <param name="storage_">application storage instance.</param>
+        /// <param name="storage_">Storage interface provided by services container.</param>
         /// <param name="users_">.Net Identity user from UserManager.</param>
         /// <param name="loggerFactory_">application logger instance.</param>
         public ListUsersController(IStorage storage_, UserManager<User> users_, ILoggerFactory loggerFactory_) : base(storage_, loggerFactory_)

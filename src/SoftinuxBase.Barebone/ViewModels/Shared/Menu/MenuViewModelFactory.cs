@@ -70,7 +70,7 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.Menu
         /// <summary>
         /// Finds the MenuGroupViewModel in menuGroupViewModels_ or creates and returns it.
         /// </summary>
-        /// <param name="storage_">The data storage instance.</param>
+        /// <param name="storage_">Storage interface provided by services container.</param>
         /// <param name="loggerFactory_">ILoggerFactory object.</param>
         /// <param name="menuGroupViewModels_">Dictionary of MenuGroupViewModel objects.</param>
         /// <param name="menuGroup_">MenuGroup object.</param>

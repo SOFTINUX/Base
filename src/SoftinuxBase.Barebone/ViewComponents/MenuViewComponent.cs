@@ -27,12 +27,15 @@ namespace SoftinuxBase.Barebone.ViewComponents
         {
             MenuViewModelFactory factory = new MenuViewModelFactory(Storage, LoggerFactory);
 
-            // TODO disable/remove stopwatch in release
+#if DEBUG
             Stopwatch watch = new Stopwatch();
             watch.Start();
+#endif
             MenuViewModel menu = factory.Create();
+#if DEBUG
             watch.Stop();
             _logger.LogInformation("Time to build menu content by MenuViewModelFactory: " + watch.ElapsedMilliseconds + " ms");
+#endif
             return Task.FromResult<IViewComponentResult>(View(menu));
         }
     }

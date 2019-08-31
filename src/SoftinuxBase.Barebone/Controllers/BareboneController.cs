@@ -18,8 +18,8 @@ namespace SoftinuxBase.Barebone.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="BareboneController"/> class.
         /// </summary>
-        /// <param name="storage_">application storage instance.</param>
-        /// <param name="configuration_">application configuiration object.</param>
+        /// <param name="storage_">Storage interface provided by services container.</param>
+        /// <param name="configuration_">Application configuiration object.</param>
         public BareboneController(IStorage storage_, IConfiguration configuration_) : base(storage_)
         {
             _corporateName = configuration_["Corporate:Name"];
@@ -27,9 +27,9 @@ namespace SoftinuxBase.Barebone.Controllers
         }
 
         /// <summary>
-        /// index controller.
+        /// Index controller.
         /// </summary>
-        /// <returns>index view.</returns>
+        /// <returns>Index view.</returns>
         [HttpGet]
         [ActionName("Index")]
         public async Task<ActionResult> IndexAsync()
@@ -40,9 +40,9 @@ namespace SoftinuxBase.Barebone.Controllers
         }
 
         /// <summary>
-        /// partial view for errors.
+        /// Partial view for errors.
         /// </summary>
-        /// <returns>error view.</returns>
+        /// <returns>Error view.</returns>
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         [HttpGet]
         [ActionName("Error")]
