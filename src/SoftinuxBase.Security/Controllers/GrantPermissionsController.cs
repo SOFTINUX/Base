@@ -200,11 +200,11 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/delete-role/{roleNameList_}")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> DeleteRoleAsync(List<string> roleNameList_)
+        public async Task<IActionResult> DeleteRoleAsync([FromRoute] string roleNameList_)
         {
             //string error = await DeleteRole.DeleteRoleAndAllLinksAsync(this.Storage, _roleManager, roleNameList_);
             //string[] error = roleNameList_;
-            List<string> error = roleNameList_;
+            string[] error = roleNameList_.Split(new char[] {','});
             return StatusCode(string.IsNullOrEmpty(error[0]) ? (int)HttpStatusCode.NoContent : (int)HttpStatusCode.BadRequest, error);
         }
 
