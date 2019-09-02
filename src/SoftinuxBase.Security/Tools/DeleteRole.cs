@@ -76,9 +76,9 @@ namespace SoftinuxBase.Security.Tools
         /// <remarks>⚠️This method is under development.</remarks>
         /// <param name="storage_">Storage interface provided by services container.</param>
         /// <param name="roleManager_">Roles manager instance.</param>
-        /// <param name="roleName_">Role name.</param>
+        /// <param name="roleNameList_">Role name.</param>
         /// <returns>null</returns>
-        internal static async Task<string> DeleteRoleAndAllLinksAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, string roleName_)
+        internal static async Task<string> DeleteRoleAndAllLinksAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, List<string> roleNameList_)
         {
             /*bool canDeleteRole = false;
             string cannotDeleteMessage = null;
@@ -106,12 +106,15 @@ namespace SoftinuxBase.Security.Tools
             }*/
 
             // delete the role-extensions links
-            await DeleteRoleExtensionLinksAsync(storage_, roleManager_, roleName_);
+            foreach (var role_ in roleNameList_)
+            {
+                //await DeleteRoleExtensionLinksAsync(storage_, roleManager_, role_);
+                // delete the role-users links
+                // TODO use UserManager.RemoveFromRoleAsync - make a new method that may be reused
+                // delete the role itself
+                //await roleManager_.DeleteAsync(await roleManager_.FindByNameAsync(role_));
+            }
 
-            // delete the role-users links
-            // TODO use UserManager.RemoveFromRoleAsync - make a new method that may be reused
-            // delete the role itself
-            await roleManager_.DeleteAsync(await roleManager_.FindByNameAsync(roleName_));
             return null;
         }
     }

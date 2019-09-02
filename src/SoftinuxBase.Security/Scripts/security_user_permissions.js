@@ -143,12 +143,16 @@ document.getElementById('cancel-add-role-btn').addEventListener('click', () => {
     resetAddRoleForm();
 });
 
-document.getElementById('bulk-delete-btn').addEventListener('click', (event_) => {
+document.getElementById('bulk-delete-btn').addEventListener('click', () => {
     if (document.getElementById('availableRolesForDelete').selectedOptions.length === 0)
         window.toastr.warning('No role selected', 'Warning');
+    else {
+        deleteRole(Array.from(document.getElementById('availableRolesForDelete').options).filter(option => option.selected).map(option => option.value));
+    }
+    console.log(Array.from(document.getElementById('availableRolesForDelete').options).filter(option => option.selected).map(option => option.value));
 });
 
-document.getElementById('cancel-bulk-delete-btn').addEventListener('click', (event_) => {
+document.getElementById('cancel-bulk-delete-btn').addEventListener('click', () => {
     document.getElementById('availableRolesForDelete').selectedIndex = -1;
 });
 
@@ -503,17 +507,20 @@ export function deleteRolePermissionOnExtension(extensionName_, roleName_) {
     });
 }
 
-export function deleteRole(role_) {
+export function deleteRole(roleNameList_) {
     const postData = {
-        roleName_: role_
+        roleNameList_: roleNameList_
     };
 
-    makeAjaxRequest('POST', '/administration/delete-role', postData, (responseStatus_, responseText_) => {
+    console.log(`/administration/delete-role/${roleNameList_}`);
+    makeAjaxRequest('DELETE', `/administration/delete-role/${roleNameList_}`, {}, (responseStatus_, responseText_) => {
         if (responseStatus_ === 201) {
-            window.toastr.success(responseText_, 'Role deleted');
+            window.toastr.success(responseText_, 'Role(s) deleted');
             reloadGrantPermissionsHtmlView();
+            console.log(responseStatus_, responseText_);
         } else {
             window.toastr.error('Cannot delete role. See logs for errors', 'Error');
+            console.log(responseStatus_, responseText_);
         }
     });
 }

@@ -2,6 +2,7 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Threading.Tasks;
@@ -192,17 +193,19 @@ namespace SoftinuxBase.Security.Controllers
         /// <summary>
         /// Delete the records linking a role to any extension, then delete role record if possible..
         /// </summary>
-        /// <param name="roleName_">Name of role to delete.</param>
+        /// <param name="roleNameList_">Name of role to delete.</param>
         /// <returns>Status code 204, or 400 with an error message.</returns>
         [HttpDelete]
         [ActionName("DeleteRole")]
-        [Route("administration/delete-role")]
+        [Route("administration/delete-role/{roleNameList_}")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> DeleteRoleAsync(string roleName_)
+        public async Task<IActionResult> DeleteRoleAsync(List<string> roleNameList_)
         {
-            string error = await DeleteRole.DeleteRoleAndAllLinksAsync(this.Storage, _roleManager, roleName_);
-            return StatusCode(string.IsNullOrEmpty(error) ? (int)HttpStatusCode.NoContent : (int)HttpStatusCode.BadRequest, error);
+            //string error = await DeleteRole.DeleteRoleAndAllLinksAsync(this.Storage, _roleManager, roleNameList_);
+            //string[] error = roleNameList_;
+            List<string> error = roleNameList_;
+            return StatusCode(string.IsNullOrEmpty(error[0]) ? (int)HttpStatusCode.NoContent : (int)HttpStatusCode.BadRequest, error);
         }
 
         #endregion
