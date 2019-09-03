@@ -73,12 +73,12 @@ namespace SoftinuxBase.Security.Tools
         /// <summary>
         /// Delete role and all links to extensions.
         /// </summary>
-        /// <remarks>⚠️This method is under development.</remarks>
+        /// <remarks>This method is under development.</remarks>
         /// <param name="storage_">Storage interface provided by services container.</param>
         /// <param name="roleManager_">Roles manager instance.</param>
         /// <param name="roleNameList_">Role name.</param>
         /// <returns>null</returns>
-        internal static async Task<string> DeleteRoleAndAllLinksAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, List<string> roleNameList_)
+        internal static async Task<string> DeleteRoleAndAllLinksAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, string roleNameList_)
         {
             /*bool canDeleteRole = false;
             string cannotDeleteMessage = null;
@@ -106,14 +106,14 @@ namespace SoftinuxBase.Security.Tools
             }*/
 
             // delete the role-extensions links
-            foreach (var role_ in roleNameList_)
-            {
-                //await DeleteRoleExtensionLinksAsync(storage_, roleManager_, role_);
-                // delete the role-users links
-                // TODO use UserManager.RemoveFromRoleAsync - make a new method that may be reused
-                // delete the role itself
-                //await roleManager_.DeleteAsync(await roleManager_.FindByNameAsync(role_));
-            }
+            await DeleteRoleExtensionLinksAsync(storage_, roleManager_, roleNameList_);
+
+            // TODO use UserManager.RemoveFromRoleAsync - make a new method that may be reused
+
+            // delete the role itself
+            // 🚨 make this call for each role of role list.
+            // ⚠️ Look if is not better to make loop from DeleteRoleExtensionLinksAsync here
+            // await roleManager_.DeleteAsync(await roleManager_.FindByNameAsync(roleNameList_));
 
             return null;
         }

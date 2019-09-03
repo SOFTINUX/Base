@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
@@ -202,12 +203,16 @@ namespace SoftinuxBase.Security.Controllers
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> DeleteRoleAsync(string roleNameList_)
         {
-            //string error = await DeleteRole.DeleteRoleAndAllLinksAsync(this.Storage, _roleManager, roleNameList_);
+            var errors = new List<string>();
 
-            //string[] error = roleNameList_;
+            foreach (var role in roleNameList_.Split(new char[] { ',' }))
+            {
+                var error = await DeleteRole.DeleteRoleAndAllLinksAsync(this.Storage, _roleManager, role);
+                if (error != null)
+                    errors.Add(error);
+            }
 
-            string[] error = roleNameList_.Split(new char[]{ ',' });
-            return StatusCode(string.IsNullOrEmpty(error[0]) ? (int)HttpStatusCode.NoContent : (int)HttpStatusCode.BadRequest, error);
+            return StatusCode(!errors.Any() ? (int)HttpStatusCode.NoContent : (int)HttpStatusCode.BadRequest, errors);
         }
 
         #endregion
