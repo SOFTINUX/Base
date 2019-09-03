@@ -178,7 +178,7 @@ namespace SoftinuxBase.Security.Tools
             */
 
             IEnumerable<User> usersHavingRoles =
-                storage_.GetRepository<IAspNetUsersRepository>().FindActiveUsersHavingRoles(rolePermissionRecordsWithAdminLevel.Where(rp_ => rp_.RoleId != currentRole.Id).Select(rp_ => rp_.Role.NormalizedName));
+                storage_.GetRepository<IAspNetUsersRepository>().FindUsersHavingRoles(rolePermissionRecordsWithAdminLevel.Where(rp_ => rp_.RoleId != currentRole.Id).Select(rp_ => rp_.Role.NormalizedName));
 
             return !usersHavingRoles.Any();
         }

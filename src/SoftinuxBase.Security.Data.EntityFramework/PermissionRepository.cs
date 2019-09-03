@@ -15,79 +15,75 @@ using Permission = SoftinuxBase.Security.Data.Entities.Permission;
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("CommonTest")]
 namespace SoftinuxBase.Security.Data.EntityFramework
 {
-    public class PermissionRepository : RepositoryBase<Permission>, IPermissionRepository
+    internal class PermissionRepository : RepositoryBase<Permission>, IPermissionRepository
     {
+        /// <inheritdoc />
         public virtual IEnumerable<Permission> All()
         {
             return dbSet.ToList();
         }
 
+        /// <inheritdoc />
         public virtual void Create(Permission entity_)
         {
             dbSet.Add(entity_);
         }
 
+        /// <inheritdoc />
         public virtual void Edit(Permission entity_)
         {
             storageContext.Entry(entity_).State = EntityState.Modified;
         }
 
-        public virtual void Delete(string entityId_)
+        /// <inheritdoc />
+        public virtual void Delete(string permissionId_)
         {
-            var entity = dbSet.FirstOrDefault(e_ => e_.Id == entityId_);
+            var entity = dbSet.FirstOrDefault(permission_ => permission_.Id == permissionId_);
             if (entity != null)
             {
                 dbSet.Remove(entity);
             }
         }
 
-        /// <summary>
-        /// <see cref="IPermissionRepository.AllForUser"/>.
-        /// </summary>
-        /// <param name="userId_">User ID.</param>
-        /// <returns>List of key/value : permission and extension.</returns>
+        /// <inheritdoc />
         public HashSet<KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>> AllForUser(string userId_)
         {
             IEnumerable<KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>> permissionsOfRoles =
-                from p in storageContext.Set<Permission>()
-                join rp in storageContext.Set<RolePermission>() on p.Id equals rp.PermissionId
-                join r in storageContext.Set<IdentityRole<string>>() on rp.RoleId equals r.Id
-                join ur in storageContext.Set<IdentityUserRole<string>>() on r.Id equals ur.RoleId
-                where ur.UserId == userId_
+                from permission in storageContext.Set<Permission>()
+                join rolePermission in storageContext.Set<RolePermission>() on permission.Id equals rolePermission.PermissionId
+                join identityRole in storageContext.Set<IdentityRole<string>>() on rolePermission.RoleId equals identityRole.Id
+                join identityUserRole in storageContext.Set<IdentityUserRole<string>>() on identityRole.Id equals identityUserRole.RoleId
+                where identityUserRole.UserId == userId_
                 select new KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>(
-                    SoftinuxBase.Security.Common.PermissionHelper.FromName(p.Name), rp.Extension);
+                    SoftinuxBase.Security.Common.PermissionHelper.FromName(permission.Name), rolePermission.Extension);
 
             IEnumerable<KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>> permissionsOfUser =
-                from p in storageContext.Set<Permission>()
-                join up in storageContext.Set<UserPermission>() on p.Id equals up.PermissionId
-                where up.UserId == userId_
+                from permission in storageContext.Set<Permission>()
+                join userPermission in storageContext.Set<UserPermission>() on permission.Id equals userPermission.PermissionId
+                where userPermission.UserId == userId_
                 select new KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>(
-                    SoftinuxBase.Security.Common.PermissionHelper.FromName(p.Name), up.Extension);
+                    SoftinuxBase.Security.Common.PermissionHelper.FromName(permission.Name), userPermission.Extension);
 
             HashSet<KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>> allPermissions =
                 new HashSet<KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>>();
 
-            foreach (KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string> p in permissionsOfRoles)
+            foreach (KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string> item in permissionsOfRoles)
             {
-                allPermissions.Add(p);
+                allPermissions.Add(item);
             }
 
-            foreach (KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string> p in permissionsOfUser)
+            foreach (KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string> item in permissionsOfUser)
             {
-                allPermissions.Add(p);
+                allPermissions.Add(item);
             }
 
             return allPermissions;
         }
 
-        /// <summary>
-        /// <see cref="IPermissionRepository.Find"/>.
-        /// </summary>
-        /// <param name="permissionLevel_">Permission level.</param>
-        /// <returns>Permission entity.</returns>
+        /// <inheritdoc />
         public Permission Find(Security.Common.Enums.Permission permissionLevel_)
         {
-            return All().FirstOrDefault(p_ => p_.NormalizedName == permissionLevel_.ToString().ToUpperInvariant());
+            return All().FirstOrDefault(permission_ => permission_.NormalizedName == permissionLevel_.ToString().ToUpperInvariant());
         }
     }
 }

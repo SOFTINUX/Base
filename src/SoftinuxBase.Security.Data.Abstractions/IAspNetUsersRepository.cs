@@ -3,16 +3,30 @@
 
 using System.Collections.Generic;
 using ExtCore.Data.Abstractions;
+using Microsoft.AspNetCore.Identity;
 using SoftinuxBase.Security.Data.Entities;
 
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security")]
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.Data.EntityFramework")]
 namespace SoftinuxBase.Security.Data.Abstractions
 {
-    public interface IAspNetUsersRepository : IRepository
+    /// <summary>
+    /// An interface for performing queries related to <see cref="User"/>.
+    /// </summary>
+    internal interface IAspNetUsersRepository : IRepository
     {
+        /// <summary>
+        /// Check by name or e-mail user existence.
+        /// </summary>
+        /// <param name="normalizedValue_">String value from <see cref="UserManager{TUser}.NormalizeKey"/>.</param>
+        /// <returns>A bool indicating that an user was found.</returns>
         bool FindByNormalizedUserNameOrEmail(string normalizedValue_);
 
-        IEnumerable<User> FindActiveUsersHavingRoles(IEnumerable<string> roleNames_);
+        /// <summary>
+        /// Find all the users linked to roles.
+        /// </summary>
+        /// <param name="roleNames_"><see cref="IEnumerable{String}"/> role names.</param>
+        /// <returns><see cref="IEnumerable{User}"/> users.</returns>
+        IEnumerable<User> FindUsersHavingRoles(IEnumerable<string> roleNames_);
     }
 }
