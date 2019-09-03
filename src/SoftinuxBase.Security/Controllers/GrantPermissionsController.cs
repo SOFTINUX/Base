@@ -209,7 +209,9 @@ namespace SoftinuxBase.Security.Controllers
             {
                 var error = await DeleteRole.DeleteRoleAndAllLinksAsync(this.Storage, _roleManager, role);
                 if (error != null)
+                {
                     errors.Add(error);
+                }
             }
 
             return StatusCode(!errors.Any() ? (int)HttpStatusCode.NoContent : (int)HttpStatusCode.BadRequest, errors);
