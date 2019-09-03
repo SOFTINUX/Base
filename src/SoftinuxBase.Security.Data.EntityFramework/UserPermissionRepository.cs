@@ -15,7 +15,7 @@ using SoftinuxBase.Security.Data.Entities;
 
 namespace SoftinuxBase.Security.Data.EntityFramework
 {
-    public class UserPermissionRepository : RepositoryBase<UserPermission>, IUserPermissionRepository
+    internal class UserPermissionRepository : RepositoryBase<UserPermission>, IUserPermissionRepository
     {
         public UserPermission FindBy(string userId_, string permissionId_)
         {

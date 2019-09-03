@@ -5,10 +5,6 @@ using ExtCore.Data.Entities.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using SoftinuxBase.Security.Common;
 
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.Data.EntityFramework")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SecurityTest")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.SeedDatabase")]
 namespace SoftinuxBase.Security.Data.Entities
 {
     /// <summary>

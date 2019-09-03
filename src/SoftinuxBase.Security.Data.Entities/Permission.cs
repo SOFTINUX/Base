@@ -3,12 +3,6 @@
 
 using ExtCore.Data.Entities.Abstractions;
 
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.Data.Abstractions")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.Data.EntityFramework")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.WebApplication")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.SeedDatabase")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("CommonTest")]
 namespace SoftinuxBase.Security.Data.Entities
 {
     public class Permission : IEntity

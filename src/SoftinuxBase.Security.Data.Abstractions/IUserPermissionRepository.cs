@@ -11,7 +11,7 @@ using SoftinuxBase.Security.Data.Entities;
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SecurityTest")]
 namespace SoftinuxBase.Security.Data.Abstractions
 {
-    public interface IUserPermissionRepository : IRepository
+    internal interface IUserPermissionRepository : IRepository
     {
         UserPermission FindBy(string userId_, string permissionId_);
         IEnumerable<UserPermission> FindBy(string extensionName_, Common.Enums.Permission level_);
