@@ -15,7 +15,7 @@ using Permission = SoftinuxBase.Security.Data.Entities.Permission;
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("CommonTest")]
 namespace SoftinuxBase.Security.Data.EntityFramework
 {
-    internal class PermissionRepository : RepositoryBase<Permission>, IPermissionRepository
+    public class PermissionRepository : RepositoryBase<Permission>, IPermissionRepository
     {
         /// <inheritdoc />
         public virtual IEnumerable<Permission> All()

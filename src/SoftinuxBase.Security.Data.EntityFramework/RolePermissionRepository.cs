@@ -16,7 +16,7 @@ using SoftinuxBase.Security.Data.Entities;
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.SeedDatabase")]
 namespace SoftinuxBase.Security.Data.EntityFramework
 {
-    internal class RolePermissionRepository : RepositoryBase<RolePermission>, IRolePermissionRepository
+    public class RolePermissionRepository : RepositoryBase<RolePermission>, IRolePermissionRepository
     {
         /// <summary>
         /// 

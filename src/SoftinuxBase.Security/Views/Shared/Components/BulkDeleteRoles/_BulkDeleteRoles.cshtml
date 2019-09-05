@@ -5,5 +5,5 @@
 @* here roles list *@
 @foreach (var role in Model.Roles)
 {
-    <option value="@Html.Raw(role.Id)">@Html.Raw(role.Name)</option>
+    <option value="@Html.Raw(role.Name)" data-id="@Html.Raw(role.Id)">@Html.Raw(role.Name)</option>
 }

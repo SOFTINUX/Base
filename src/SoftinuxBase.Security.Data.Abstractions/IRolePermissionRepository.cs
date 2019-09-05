@@ -12,7 +12,7 @@ using SoftinuxBase.Security.Data.Entities;
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SecurityTest")]
 namespace SoftinuxBase.Security.Data.Abstractions
 {
-    internal interface IRolePermissionRepository : IRepository
+    public interface IRolePermissionRepository : IRepository
     {
         IEnumerable<RolePermission> All();
         RolePermission FindBy(string roleId_, string extensionName_);
