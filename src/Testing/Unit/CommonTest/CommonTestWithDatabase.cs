@@ -45,7 +45,7 @@ namespace CommonTest
         {
             var repo = DatabaseFixture.Storage.GetRepository<IPermissionRepository>();
 
-            if (repo.All().FirstOrDefault(p_ => p_.Id == Permission.Admin.ToString()) != null)
+            if (repo.All().FirstOrDefault(p_ => p_.Name == Permission.Admin.GetPermissionName()) != null)
             {
                 return;
             }
@@ -58,13 +58,14 @@ namespace CommonTest
                 // create a permission object out of the enum value
                 SoftinuxBase.Security.Data.Entities.Permission permission = new SoftinuxBase.Security.Data.Entities.Permission()
                 {
-                    Id = PermissionHelper.GetPermissionName(p),
+                    // Automatic ID
                     Name = PermissionHelper.GetPermissionName(p)
                 };
 
                 repo.Create(permission);
             }
-            // Don't use the async Storage.SaveAsync() because this method is called in class constructor - TODO use a helper pattern?
+
+            // Can't use the async Storage.SaveAsync() because this method is called in class constructor - TODO use a helper pattern?
             DatabaseFixture.Storage.Save();
         }
 

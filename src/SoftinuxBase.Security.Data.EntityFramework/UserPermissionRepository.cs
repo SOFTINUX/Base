@@ -22,12 +22,14 @@ namespace SoftinuxBase.Security.Data.EntityFramework
             return dbSet.FirstOrDefault(e_ => e_.UserId == userId_ && e_.PermissionId == permissionId_);
         }
 
+        /// <inheritdoc />
         public IEnumerable<UserPermission> FindBy(string extensionName_, Common.Enums.Permission level_)
         {
-            return from up in storageContext.Set<UserPermission>()
-                   join p in storageContext.Set<Permission>() on up.PermissionId equals p.Id
-                   where up.Extension == extensionName_ && p.Name == level_.GetPermissionName()
-                   select up;
+            var data = from userPermission in storageContext.Set<UserPermission>()
+                   join permission in storageContext.Set<Permission>() on userPermission.PermissionId equals permission.Id
+                   where userPermission.Extension == extensionName_ && permission.Name == level_.GetPermissionName()
+                   select userPermission;
+            return data.ToList();
         }
 
         public IEnumerable<UserPermission> FilteredByUserId(string userId_)

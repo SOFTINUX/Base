@@ -8,13 +8,13 @@ using Microsoft.AspNetCore.Identity;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security")]
+// [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security")]
 namespace SoftinuxBase.Security.Data.EntityFramework
 {
     /// <summary>
     /// A class for performing queries related to <see cref="User"/>.
     /// </summary>
-    internal class AspNetUsersRepository : RepositoryBase<User>, IAspNetUsersRepository
+    public class AspNetUsersRepository : RepositoryBase<User>, IAspNetUsersRepository
     {
         /// <inheritdoc />
         public bool FindByNormalizedUserNameOrEmail(string normalizedValue_)
@@ -29,14 +29,14 @@ namespace SoftinuxBase.Security.Data.EntityFramework
 
             // TODO IF APPLICABLE add another where clause "where u. ... == ..." to keep only active users
             // and rename current method to FindActiveUsersHavingRoles (update interface's summary)
-            IEnumerable<User> users =
+            var users =
                 from user in storageContext.Set<User>()
                 join identityUserRole in storageContext.Set<IdentityUserRole<string>>() on user.Id equals identityUserRole.UserId
                 join identityRole in storageContext.Set<IdentityRole<string>>() on identityUserRole.RoleId equals identityRole.Id
                 where normalizedRoleNames.Contains(identityRole.NormalizedName)
                 select user;
 
-            return users;
+            return users.ToList();
         }
     }
 }

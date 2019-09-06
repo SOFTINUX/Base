@@ -145,13 +145,10 @@ namespace SoftinuxBase.Security.Tools
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1629", Justification = "Suppress warning for 'Rules:' in summary")]
         public static async Task<bool> IsRoleLastAdminPermissionLevelGrantForExtensionAsync(RoleManager<IdentityRole<string>> roleManager_, IStorage storage_, string roleName_, string extensionName_)
         {
-            // test
             var currentRole = await roleManager_.FindByNameAsync(roleName_);
 
-            // end test
-
             // Is there a user directly granted Admin for this extension?
-            if (storage_.GetRepository<IUserPermissionRepository>().FindBy(extensionName_, Permission.Admin) != null)
+            if (storage_.GetRepository<IUserPermissionRepository>().FindBy(extensionName_, Permission.Admin).Any())
             {
                 // A user is directly granted
                 return false;

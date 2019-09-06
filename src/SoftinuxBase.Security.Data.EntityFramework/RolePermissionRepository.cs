@@ -35,27 +35,16 @@ namespace SoftinuxBase.Security.Data.EntityFramework
             }
         }
 
-        /// <summary>
-        /// Find role and his attached extensions
-        /// </summary>
-        /// <param name="roleId_">The role Id as <see cref="string" />.</param>
-        /// <param name="extensionName_">The extension name as <see cref="string" />.</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public RolePermission FindBy(string roleId_, string extensionName_)
         {
             return All().FirstOrDefault(e_ => e_.RoleId == roleId_ && e_.Extension == extensionName_);
         }
 
-        /// <summary>
-        /// Finds records in RolePermission table that matches the parameter extension name and permission level.
-        /// Additionally retrieve the role name.
-        /// </summary>
-        /// <param name="extensionName_">Name of extension.</param>
-        /// <param name="level_">Permiossion level.</param>
-        /// <returns>The RolePermission objects with associated Role object.</returns>
+        /// <inheritdoc />
         public IEnumerable<RolePermission> FindBy(string extensionName_, Common.Enums.Permission level_)
         {
-            return from rolePermisson in storageContext.Set<RolePermission>()
+            var  data = from rolePermisson in storageContext.Set<RolePermission>()
                    join permission in storageContext.Set<Permission>() on rolePermisson.PermissionId equals permission.Id
                    join identityRoles in storageContext.Set<IdentityRole<string>>() on rolePermisson.RoleId equals identityRoles.Id
                    where rolePermisson.Extension == extensionName_ && permission.Name == level_.GetPermissionName()
@@ -67,6 +56,8 @@ namespace SoftinuxBase.Security.Data.EntityFramework
                        Role = new IdentityRole<string>(identityRoles.Name) { Id = identityRoles.Id, NormalizedName = identityRoles.NormalizedName },
                        PermissionId = rolePermisson.PermissionId
                    };
+
+            return data.ToList();
         }
 
         /// <summary>

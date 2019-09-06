@@ -9,6 +9,7 @@ using CommonTest;
 using ExtCore.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using SoftinuxBase.Infrastructure.Interfaces;
+using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.Tools;
@@ -190,7 +191,7 @@ namespace SecurityTest
         /// </summary>
         /// <returns></returns>
         [Fact]
-        public async Task IsRoleLastAdminPermissionLevelGrantForExtension_No_StillAnUserWithAdminPermissionKevelForThisExtensionAsync()
+        public async Task IsRoleLastAdminPermissionLevelGrantForExtension_No_StillAnUserWithAdminPermissionLevelForThisExtensionAsync()
         {
             var rolePermRepo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
             var permRepo = DatabaseFixture.Storage.GetRepository<IPermissionRepository>();

@@ -6,14 +6,14 @@ using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using SoftinuxBase.Security.Data.Entities;
 
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.Data.EntityFramework")]
+// [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security")]
+//  [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.Data.EntityFramework")]
 namespace SoftinuxBase.Security.Data.Abstractions
 {
     /// <summary>
     /// An interface for performing queries related to <see cref="User"/>.
     /// </summary>
-    internal interface IAspNetUsersRepository : IRepository
+    public interface IAspNetUsersRepository : IRepository
     {
         /// <summary>
         /// Check by name or e-mail user existence.
