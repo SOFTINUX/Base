@@ -92,12 +92,24 @@ namespace SoftinuxBase.Security.Controllers
         /// Return updated roles list.
         /// </summary>
         /// <returns>view component.</returns>
-        [Route("administration/read-updated-roles")]
+        [Route("administration/edit-role-tab")]
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public IActionResult ReadRoles()
+        public IActionResult RefreshRoleTab()
         {
             return ViewComponent("EditRolePermissions");
+        }
+
+        /// <summary>
+        /// Return bulk delete roles list.
+        /// </summary>
+        /// <returns>view component.</returns>
+        [Route("administration/bulk-delete-role-tab")]
+        [HttpGet]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public IActionResult RefreshBulkDeleteTab()
+        {
+            return ViewComponent("BulkDeleteRoles");
         }
 
         #endregion
@@ -195,12 +207,10 @@ namespace SoftinuxBase.Security.Controllers
         /// Delete the records linking a role to any extension, then delete role record if possible..
         /// </summary>
         /// <param name="roleNameList_">Name of role to delete.</param>
-        /// <returns>Status code 204, or 400 with an error message.</returns>
+        /// <returns>Status code 200, or 400 with an error message.</returns>
         [HttpDelete]
         [ActionName("DeleteRole")]
         [Route("administration/delete-role/{roleNameList_}")]
-        [ProducesResponseType((int)HttpStatusCode.NoContent)]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> DeleteRoleAsync(string roleNameList_)
         {
             var errors = new List<string>();
@@ -214,7 +224,12 @@ namespace SoftinuxBase.Security.Controllers
                 }
             }
 
-            return StatusCode(!errors.Any() ? (int)HttpStatusCode.NoContent : (int)HttpStatusCode.BadRequest, errors);
+            if (errors.Any())
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, errors);
+            }
+
+            return ViewComponent("BulkDeleteRoles");
         }
 
         #endregion

@@ -321,8 +321,7 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
         if (responseStatus_ === 201) {
             window.toastr.success(responseText_, 'New role created');
             inputFormGroupSetError('#role_name_input', null);
-            reloadGrantPermissionsHtmlView();
-            reloadRolesHtmlView();
+            refreshPermissionsTabs();
         } else {
             inputFormGroupSetError('#role_name_input', responseText_ || responseStatus_);
         }
@@ -484,7 +483,7 @@ export function saveEditRole() {
     makeAjaxRequest('POST', '/administration/update-role', postData, (responseStatus_, responseText_) => {
         if (responseStatus_ === 201) {
             window.toastr.success(responseText_, 'Changes saved');
-            reloadGrantPermissionsHtmlView();
+            refreshPermissionsTabs();
         } else {
             window.toastr.error('Cannot update role. See logs for errors', 'Error');
         }
@@ -492,15 +491,10 @@ export function saveEditRole() {
 }
 
 export function deleteRolePermissionOnExtension(extensionName_, roleName_) {
-    const postData = {
-        RoleName: roleName_,
-        ExtensionName: extensionName_
-    };
-
     makeAjaxRequest('DELETE', `/administration/delete-role-extension/${roleName_}/${extensionName_}`, {}, (responseStatus_, responseText_) => {
         if (responseStatus_ === 201) {
             window.toastr.success(responseText_, 'Role deleted');
-            reloadGrantPermissionsHtmlView();
+            refreshPermissionsTabs();
         } else {
             window.toastr.error('NO ERROR FROM TWEAKED CONTROLLER', 'Error');
         }
@@ -508,15 +502,10 @@ export function deleteRolePermissionOnExtension(extensionName_, roleName_) {
 }
 
 export function deleteRole(roleNameList_) {
-    const postData = {
-        roleNameList_: roleNameList_
-    };
-
-    console.log(`/administration/delete-role/${roleNameList_}`);
     makeAjaxRequest('DELETE', `/administration/delete-role/${roleNameList_}`, {}, (responseStatus_, responseText_) => {
-        if (responseStatus_ === 201) {
-            window.toastr.success(responseText_, 'Role(s) deleted');
-            reloadGrantPermissionsHtmlView();
+        if (responseStatus_ !== 400) {
+            window.toastr.success(`${roleNameList_}`, 'Role(s) deleted');
+            refreshPermissionsTabs();
             console.log(responseStatus_, responseText_);
         } else {
             window.toastr.error('Cannot delete role. See logs for errors', 'Error');
@@ -532,9 +521,21 @@ function reloadGrantPermissionsHtmlView() {
 }
 
 function reloadRolesHtmlView() {
-    makeAjaxRequest('GET', '/administration/read-updated-roles', null, (responseStatus_, responseText_) => {
+    makeAjaxRequest('GET', '/administration/edit-role-tab', null, (responseStatus_, responseText_) => {
         document.getElementById('edit-role-tab').innerHTML = responseText_;
     });
+}
+
+function reloadBulkDeleteTab() {
+    makeAjaxRequest('GET', '/administration/bulk-delete-role-tab', null, (responseStatus_, responseText_) => {
+        document.getElementById('availableRolesForDelete').innerHTML = responseText_;
+    });
+}
+
+function refreshPermissionsTabs() {
+    reloadGrantPermissionsHtmlView();
+    reloadRolesHtmlView();
+    reloadBulkDeleteTab();
 }
 
 function resetAddRoleForm() {
@@ -553,5 +554,4 @@ function resetEditRoleForm() {
     document.getElementById('edit_role_id').value = '';
     document.getElementById('edit_role_normalizedName').value = '';
     document.getElementById('edit_role_concurrencyStamp').value = '';
-
 }
