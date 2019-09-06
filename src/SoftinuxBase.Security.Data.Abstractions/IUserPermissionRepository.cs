@@ -5,13 +5,13 @@ using System.Collections.Generic;
 using ExtCore.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.Data.EntityFramework")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.SeedDatabase")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SecurityTest")]
+// [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security")]
+// [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.Data.EntityFramework")]
+// [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.SeedDatabase")]
+// [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SecurityTest")]
 namespace SoftinuxBase.Security.Data.Abstractions
 {
-    internal interface IUserPermissionRepository : IRepository
+    public interface IUserPermissionRepository : IRepository
     {
         UserPermission FindBy(string userId_, string permissionId_);
         IEnumerable<UserPermission> FindBy(string extensionName_, Common.Enums.Permission level_);

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CommonTest;
 using ExtCore.Infrastructure;
+using Microsoft.AspNetCore.Identity;
 using SoftinuxBase.Infrastructure.Interfaces;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
@@ -182,32 +183,128 @@ namespace SecurityTest
             }
         }
 
+        /// <summary>
+        /// Create a role, associate it to an extension with admin permission level.
+        /// Create a user, associate it to the same extension with admin permission level.
+        /// Run the check for the role and the extension. Expect false.
+        /// </summary>
+        /// <returns></returns>
         [Fact]
-        public async Task IsLastAdmin_No_StillAnUserForThisExtensionAsync()
+        public async Task IsRoleLastAdminPermissionLevelGrantForExtension_No_StillAnUserWithAdminPermissionKevelForThisExtensionAsync()
+        {
+            var rolePermRepo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
+            var permRepo = DatabaseFixture.Storage.GetRepository<IPermissionRepository>();
+            var userPermRepo = DatabaseFixture.Storage.GetRepository<IUserPermissionRepository>();
+
+            string adminPermissionId = null;
+            string roleName = Guid.NewGuid().ToString();
+            string extensionName = Guid.NewGuid().ToString();
+            string userName = Guid.NewGuid().ToString();
+
+            IdentityRole<string> role = null;
+            User user = null;
+
+            try
+            {
+                // Arrange
+                // 1. Create a test role
+                await CreateRoleIfNotExistingAsync(roleName);
+
+                // 2. Read role to get its ID
+                role = await DatabaseFixture.RoleManager.FindByNameAsync(roleName);
+
+                // 3. Read permissions to get their IDs
+                adminPermissionId = permRepo.All().FirstOrDefault(p_ => p_.Name == Permission.Admin.GetPermissionName())?.Id;
+
+                // 4. Associate the role to an extension
+                RolePermission rolePermission = new RolePermission { Extension = extensionName, PermissionId = adminPermissionId, RoleId = role.Id };
+                rolePermRepo.Create(rolePermission);
+                await DatabaseFixture.Storage.SaveAsync();
+
+                // 5. Create an user
+                user = await CreateUserAsync(userName);
+
+                // 6. Associate the user to the extension
+                UserPermission userPermission = new UserPermission { Extension = extensionName, PermissionId = adminPermissionId, UserId = user.Id };
+                userPermRepo.Create(userPermission);
+                await DatabaseFixture.Storage.SaveAsync();
+
+                // Act
+                bool isLast = await ReadGrants.IsRoleLastAdminPermissionLevelGrantForExtensionAsync(DatabaseFixture.RoleManager, DatabaseFixture.Storage, roleName, extensionName);
+
+                // Assert
+                Assert.False(isLast);
+            }
+            finally
+            {
+                // Cleanup
+                // 1. Delete the UserPermission
+                userPermRepo.Delete(user?.Id, adminPermissionId);
+
+                // 2. Delete the RolePermission
+                rolePermRepo.Delete(role?.Id, extensionName);
+
+                // 3. Delete the User
+                await DatabaseFixture.UserManager.DeleteAsync(user);
+
+                // 4. Delete the Role
+                await DatabaseFixture.RoleManager.DeleteAsync(role);
+            }
+        }
+
+        /// <summary>
+        /// Create a role, associate it to an extension with admin permission level.
+        /// Create a user, associate it to the same extension with write permission level.
+        /// Run the check for the role and the extension. Expect true.
+        /// </summary>
+        /// <returns></returns>
+        [Fact]
+        public async Task IsRoleLastAdminPermissionLevelGrantForExtension_True_NoUserWithAdminPermissionLevelForThisExtensionAsync()
+        {
+
+
+            // TODO
+            throw new NotImplementedException("To be coded");
+        }
+
+        /// <summary>
+        /// Create a role, associate it to an extension with admin permission level.
+        /// Create a second role, associate it to an user, associate this second role to the same extension with admin permission level.
+        /// Run the check for the first role and the extension. Expect false.
+        /// </summary>
+        /// <returns></returns>
+        [Fact]
+        public async Task IsRoleLastAdminPermissionLevelGrantForExtension_No_StillAnotherRoleWithAdminPermissionWithUsersForThisExtensionAsync()
         {
             // TODO
             throw new NotImplementedException("To be coded");
         }
 
+        /// <summary>
+        /// Create a role, associate it to an extension with admin permission level.
+        /// Create a second role, associate it to an user, associate this second role to the same extension with write permission level.
+        /// Run the check for the first role and the extension. Expect true.
+        /// </summary>
+        /// <returns></returns>
         [Fact]
-        public async Task IsLastAdmin_No_StillAnotherRoleWithUsersForThisExtensionAsync()
+        public async Task IsRoleLastAdminPermissionLevelGrantForExtension_Yes_NoAnotherRoleWithAdminPermissionWithUsersForThisExtensionAsync()
         {
             // TODO
             throw new NotImplementedException("To be coded");
         }
 
+        /// <summary>
+        /// Create a role, associate it to an extension with admin permission level.
+        /// Create a second role, associate this second role to the same extension with admin permission level. The role is not associated to users.
+        /// Run the check for the first role and the extension. Expect true.
+        /// </summary>
+        /// <returns></returns>
         [Fact]
-        public async Task IsLastAdmin_Yes_StillAnotherRoleButWithoutUsersForThisExtensionAsync()
+        public async Task IsRoleLastAdminPermissionLevelGrantForExtension_Yes_StillAnotherRoleButWithoutUsersForThisExtensionAsync()
         {
             // TODO
             throw new NotImplementedException("To be coded");
         }
 
-        [Fact]
-        public async Task IsLastAdmin_Yes_NoOthrtRoleWithUsersForThisExtensionAsync()
-        {
-            // TODO
-            throw new NotImplementedException("To be coded");
-        }
     }
 }

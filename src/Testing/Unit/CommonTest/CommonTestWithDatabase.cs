@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SoftinuxBase.Security.Common;
-using SoftinuxBase.Security.Common.Enums;
 using SoftinuxBase.Security.Data.Abstractions;
+using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.SeedDatabase;
+using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 
 namespace CommonTest
 {
@@ -84,14 +85,14 @@ namespace CommonTest
         }
 
         /// <summary>
-        /// Create a roles, if it doesn't exist
+        /// Create a role, if it doesn't exist
         /// Similar to SoftinuxBase.SeedDatabase extension's job.
         /// </summary>
         /// <param name="roleName_">Role name.</param>
         /// <returns>The asynchronous Task.</returns>
         protected async Task CreateRoleIfNotExistingAsync(string roleName_)
         {
-            // create an identity role object out of the enum value
+            // create an identity role object
             IdentityRole<string> identityRole = new IdentityRole<string>
             {
                 // Automatic ID
@@ -107,6 +108,26 @@ namespace CommonTest
                     throw new Exception($"Could not create missing role: {identityRole.Name}");
                 }
             }
+        }
+
+        /// <summary>
+        /// Create a user, if it doesn't exist
+        /// Similar to SoftinuxBase.SeedDatabase extension's job.
+        /// </summary>
+        /// <param name="userName_">User name/first name/last name/part of e-mail.</param>
+        /// <returns>The asynchronous Task.</returns>
+        protected async Task<User> CreateUserAsync(string userName_)
+        {
+            // create an identity user object
+            User user = new User { FirstName = userName_, LastName = userName_, UserName = userName_, Email = $"{userName_}@softinux.com", LockoutEnabled = false };
+            var result = await DatabaseFixture.UserManager.CreateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                throw new Exception($"Could not create user with name: {userName_}");
+            }
+
+            return user;
         }
 
         protected void CleanTrackedEntities()
