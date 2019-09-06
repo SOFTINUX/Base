@@ -261,10 +261,65 @@ namespace SecurityTest
         [Fact]
         public async Task IsRoleLastAdminPermissionLevelGrantForExtension_True_NoUserWithAdminPermissionLevelForThisExtensionAsync()
         {
+            var rolePermRepo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
+            var permRepo = DatabaseFixture.Storage.GetRepository<IPermissionRepository>();
+            var userPermRepo = DatabaseFixture.Storage.GetRepository<IUserPermissionRepository>();
 
+            string adminPermissionId = null;
+            string roleName = Guid.NewGuid().ToString();
+            string extensionName = Guid.NewGuid().ToString();
+            string userName = Guid.NewGuid().ToString();
 
-            // TODO
-            throw new NotImplementedException("To be coded");
+            IdentityRole<string> role = null;
+            User user = null;
+
+            try
+            {
+                // Arrange
+                // 1. Create a test role
+                await CreateRoleIfNotExistingAsync(roleName);
+
+                // 2. Read role to get its ID
+                role = await DatabaseFixture.RoleManager.FindByNameAsync(roleName);
+
+                // 3. Read permissions to get their IDs
+                adminPermissionId = permRepo.All().FirstOrDefault(p_ => p_.Name == Permission.Admin.GetPermissionName())?.Id;
+                string writePermissionId = permRepo.All().FirstOrDefault(p_ => p_.Name == Permission.Write.GetPermissionName())?.Id;
+
+                // 4. Associate the role to an extension
+                RolePermission rolePermission = new RolePermission { Extension = extensionName, PermissionId = adminPermissionId, RoleId = role.Id };
+                rolePermRepo.Create(rolePermission);
+                await DatabaseFixture.Storage.SaveAsync();
+
+                // 5. Create an user
+                user = await CreateUserAsync(userName);
+
+                // 6. Associate the user to the extension
+                UserPermission userPermission = new UserPermission { Extension = extensionName, PermissionId = writePermissionId, UserId = user.Id };
+                userPermRepo.Create(userPermission);
+                await DatabaseFixture.Storage.SaveAsync();
+
+                // Act
+                bool isLast = await ReadGrants.IsRoleLastAdminPermissionLevelGrantForExtensionAsync(DatabaseFixture.RoleManager, DatabaseFixture.Storage, roleName, extensionName);
+
+                // Assert
+                Assert.True(isLast);
+            }
+            finally
+            {
+                // Cleanup
+                // 1. Delete the UserPermission
+                userPermRepo.Delete(user?.Id, adminPermissionId);
+
+                // 2. Delete the RolePermission
+                rolePermRepo.Delete(role?.Id, extensionName);
+
+                // 3. Delete the User
+                await DatabaseFixture.UserManager.DeleteAsync(user);
+
+                // 4. Delete the Role
+                await DatabaseFixture.RoleManager.DeleteAsync(role);
+            }
         }
 
         /// <summary>
@@ -276,8 +331,80 @@ namespace SecurityTest
         [Fact]
         public async Task IsRoleLastAdminPermissionLevelGrantForExtension_No_StillAnotherRoleWithAdminPermissionWithUsersForThisExtensionAsync()
         {
-            // TODO
-            throw new NotImplementedException("To be coded");
+            var rolePermRepo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
+            var permRepo = DatabaseFixture.Storage.GetRepository<IPermissionRepository>();
+            var userPermRepo = DatabaseFixture.Storage.GetRepository<IUserPermissionRepository>();
+
+            string adminPermissionId = null;
+            string roleName = Guid.NewGuid().ToString();
+            string secondRoleName = Guid.NewGuid().ToString();
+            string extensionName = Guid.NewGuid().ToString();
+            string userName = Guid.NewGuid().ToString();
+
+            IdentityRole<string> role = null;
+            IdentityRole<string> secondRole = null;
+            User user = null;
+
+            try
+            {
+                // Arrange
+                // 1. Create a test role
+                await CreateRoleIfNotExistingAsync(roleName);
+
+                // 2. Read role to get its ID
+                role = await DatabaseFixture.RoleManager.FindByNameAsync(roleName);
+
+                // 3. Read permissions to get their IDs
+                adminPermissionId = permRepo.All().FirstOrDefault(p_ => p_.Name == Permission.Admin.GetPermissionName())?.Id;
+
+                // 4. Associate the role to an extension
+                RolePermission rolePermission = new RolePermission { Extension = extensionName, PermissionId = adminPermissionId, RoleId = role.Id };
+                rolePermRepo.Create(rolePermission);
+                await DatabaseFixture.Storage.SaveAsync();
+
+                // 5. Create a second role
+                await CreateRoleIfNotExistingAsync(secondRoleName);
+
+                // 6. Read second role to get its ID
+                secondRole = await DatabaseFixture.RoleManager.FindByNameAsync(secondRoleName);
+
+                // 7. Create an user
+                user = await CreateUserAsync(userName);
+
+                // 8. Associate the second role to the user
+                Assert.True((await DatabaseFixture.UserManager.AddToRoleAsync(user, secondRoleName)).Succeeded);
+
+                // 9. Associate the second role to the extension
+                rolePermission = new RolePermission {Extension = extensionName, PermissionId = adminPermissionId, RoleId = secondRole.Id};
+                rolePermRepo.Create(rolePermission);
+                await DatabaseFixture.Storage.SaveAsync();
+
+                // Act
+                bool isLast = await ReadGrants.IsRoleLastAdminPermissionLevelGrantForExtensionAsync(DatabaseFixture.RoleManager, DatabaseFixture.Storage, roleName, extensionName);
+
+                // Assert
+                Assert.False(isLast);
+            }
+            finally
+            {
+                // Cleanup
+                // 1. Delete the UserPermission
+                userPermRepo.Delete(user?.Id, adminPermissionId);
+
+                // 2. Delete the RolePermission
+                rolePermRepo.Delete(role?.Id, extensionName);
+                rolePermRepo.Delete(secondRole?.Id, extensionName);
+
+                // 2b. Delete the UserRole
+                await DatabaseFixture.UserManager.RemoveFromRoleAsync(user, secondRoleName);
+
+                // 3. Delete the User
+                await DatabaseFixture.UserManager.DeleteAsync(user);
+
+                // 4. Delete the Role
+                await DatabaseFixture.RoleManager.DeleteAsync(role);
+                await DatabaseFixture.RoleManager.DeleteAsync(secondRole);
+            }
         }
 
         /// <summary>
@@ -289,8 +416,81 @@ namespace SecurityTest
         [Fact]
         public async Task IsRoleLastAdminPermissionLevelGrantForExtension_Yes_NoAnotherRoleWithAdminPermissionWithUsersForThisExtensionAsync()
         {
-            // TODO
-            throw new NotImplementedException("To be coded");
+            var rolePermRepo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
+            var permRepo = DatabaseFixture.Storage.GetRepository<IPermissionRepository>();
+            var userPermRepo = DatabaseFixture.Storage.GetRepository<IUserPermissionRepository>();
+
+            string adminPermissionId = null;
+            string roleName = Guid.NewGuid().ToString();
+            string secondRoleName = Guid.NewGuid().ToString();
+            string extensionName = Guid.NewGuid().ToString();
+            string userName = Guid.NewGuid().ToString();
+
+            IdentityRole<string> role = null;
+            IdentityRole<string> secondRole = null;
+            User user = null;
+
+            try
+            {
+                // Arrange
+                // 1. Create a test role
+                await CreateRoleIfNotExistingAsync(roleName);
+
+                // 2. Read role to get its ID
+                role = await DatabaseFixture.RoleManager.FindByNameAsync(roleName);
+
+                // 3. Read permissions to get their IDs
+                adminPermissionId = permRepo.All().FirstOrDefault(p_ => p_.Name == Permission.Admin.GetPermissionName())?.Id;
+                string writePermissionId = permRepo.All().FirstOrDefault(p_ => p_.Name == Permission.Write.GetPermissionName())?.Id;
+
+                // 4. Associate the role to an extension
+                RolePermission rolePermission = new RolePermission { Extension = extensionName, PermissionId = adminPermissionId, RoleId = role.Id };
+                rolePermRepo.Create(rolePermission);
+                await DatabaseFixture.Storage.SaveAsync();
+
+                // 5. Create a second role
+                await CreateRoleIfNotExistingAsync(secondRoleName);
+
+                // 6. Read second role to get its ID
+                secondRole = await DatabaseFixture.RoleManager.FindByNameAsync(secondRoleName);
+
+                // 7. Create an user
+                user = await CreateUserAsync(userName);
+
+                // 8. Associate the second role to the user
+                Assert.True((await DatabaseFixture.UserManager.AddToRoleAsync(user, secondRoleName)).Succeeded);
+
+                // 9. Associate the second role to the extension
+                rolePermission = new RolePermission { Extension = extensionName, PermissionId = writePermissionId, RoleId = secondRole.Id };
+                rolePermRepo.Create(rolePermission);
+                await DatabaseFixture.Storage.SaveAsync();
+
+                // Act
+                bool isLast = await ReadGrants.IsRoleLastAdminPermissionLevelGrantForExtensionAsync(DatabaseFixture.RoleManager, DatabaseFixture.Storage, roleName, extensionName);
+
+                // Assert
+                Assert.True(isLast);
+            }
+            finally
+            {
+                // Cleanup
+                // 1. Delete the UserPermission
+                userPermRepo.Delete(user?.Id, adminPermissionId);
+
+                // 2. Delete the RolePermission
+                rolePermRepo.Delete(role?.Id, extensionName);
+                rolePermRepo.Delete(secondRole?.Id, extensionName);
+
+                // 2b. Delete the UserRole
+                await DatabaseFixture.UserManager.RemoveFromRoleAsync(user, secondRoleName);
+
+                // 3. Delete the User
+                await DatabaseFixture.UserManager.DeleteAsync(user);
+
+                // 4. Delete the Role
+                await DatabaseFixture.RoleManager.DeleteAsync(role);
+                await DatabaseFixture.RoleManager.DeleteAsync(secondRole);
+            }
         }
 
         /// <summary>
@@ -302,8 +502,62 @@ namespace SecurityTest
         [Fact]
         public async Task IsRoleLastAdminPermissionLevelGrantForExtension_Yes_StillAnotherRoleButWithoutUsersForThisExtensionAsync()
         {
-            // TODO
-            throw new NotImplementedException("To be coded");
+            var rolePermRepo = DatabaseFixture.Storage.GetRepository<IRolePermissionRepository>();
+            var permRepo = DatabaseFixture.Storage.GetRepository<IPermissionRepository>();
+
+            string roleName = Guid.NewGuid().ToString();
+            string secondRoleName = Guid.NewGuid().ToString();
+            string extensionName = Guid.NewGuid().ToString();
+
+            IdentityRole<string> role = null;
+            IdentityRole<string> secondRole = null;
+
+            try
+            {
+                // Arrange
+                // 1. Create a test role
+                await CreateRoleIfNotExistingAsync(roleName);
+
+                // 2. Read role to get its ID
+                role = await DatabaseFixture.RoleManager.FindByNameAsync(roleName);
+
+                // 3. Read permissions to get their IDs
+                string adminPermissionId = permRepo.All().FirstOrDefault(p_ => p_.Name == Permission.Admin.GetPermissionName())?.Id;
+
+                // 4. Associate the role to an extension
+                RolePermission rolePermission = new RolePermission { Extension = extensionName, PermissionId = adminPermissionId, RoleId = role.Id };
+                rolePermRepo.Create(rolePermission);
+                await DatabaseFixture.Storage.SaveAsync();
+
+                // 5. Create a second role
+                await CreateRoleIfNotExistingAsync(secondRoleName);
+
+                // 6. Read second role to get its ID
+                secondRole = await DatabaseFixture.RoleManager.FindByNameAsync(secondRoleName);
+
+                // 7. Associate the second role to the extension
+                rolePermission = new RolePermission { Extension = extensionName, PermissionId = adminPermissionId, RoleId = secondRole.Id };
+                rolePermRepo.Create(rolePermission);
+                await DatabaseFixture.Storage.SaveAsync();
+
+                // Act
+                bool isLast = await ReadGrants.IsRoleLastAdminPermissionLevelGrantForExtensionAsync(DatabaseFixture.RoleManager, DatabaseFixture.Storage, roleName, extensionName);
+
+                // Assert
+                Assert.True(isLast);
+            }
+            finally
+            {
+                // Cleanup
+                
+                // 1. Delete the RolePermission
+                rolePermRepo.Delete(role?.Id, extensionName);
+                rolePermRepo.Delete(secondRole?.Id, extensionName);
+
+                // 2. Delete the Role
+                await DatabaseFixture.RoleManager.DeleteAsync(role);
+                await DatabaseFixture.RoleManager.DeleteAsync(secondRole);
+            }
         }
 
     }
