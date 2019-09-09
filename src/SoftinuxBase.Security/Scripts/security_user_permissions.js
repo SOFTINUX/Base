@@ -505,12 +505,11 @@ export function deleteRolePermissionOnExtension(extensionName_, roleName_) {
 
 export function deleteRole(roleNameList_) {
     makeAjaxRequest('DELETE', `/administration/delete-role/${roleNameList_}`, {}, (responseStatus_, responseText_) => {
-        if (responseStatus_ !== 400) {
+        if (responseStatus_ === 200) {
             window.toastr.success(`${roleNameList_}`, 'Role(s) deleted');
             refreshPermissionsTabs();
-            console.log(responseStatus_, responseText_);
         } else {
-            window.toastr.error('Cannot delete role. See logs for details', 'Error');
+            window.toastr.error('Cannot delete role(s). See logs for details', 'Error');
             console.log(responseStatus_, responseText_);
         }
     });

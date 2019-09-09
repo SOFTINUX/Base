@@ -214,10 +214,10 @@ namespace SoftinuxBase.Security.Controllers
         // ReSharper restore InconsistentNaming
 
         /// <summary>
-        /// Delete the records linking a role to any extension, then delete role record if possible..
+        /// Delete the records linking a role to any extension, then delete role record if possible (including links to users).
         /// </summary>
-        /// <param name="roleNameList_">Name of role to delete.</param>
-        /// <returns>Status code 200, or 400 with an error message.</returns>
+        /// <param name="roleNameList_">Comma-separated names of roles to delete.</param>
+        /// <returns>Status code 200 (ok), or 400 with an error message.</returns>
         [HttpDelete]
         [ActionName("DeleteRole")]
         [Route("administration/delete-role/{roleNameList_}")]
@@ -239,7 +239,7 @@ namespace SoftinuxBase.Security.Controllers
                 return StatusCode((int)HttpStatusCode.BadRequest, errors);
             }
 
-            return ViewComponent("BulkDeleteRoles");
+            return StatusCode((int) HttpStatusCode.OK);
         }
 
         #endregion
