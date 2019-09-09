@@ -140,18 +140,29 @@ namespace SoftinuxBase.Security.Controllers
         /// Update a record indicating with which permission this role is linked to an extension.
         /// </summary>
         /// <param name="model_">object representing values passed from ajax.</param>
-        /// <returns>OK 200.</returns>
+        /// <returns>Status code 200 (ok) or 400 (update not permitted).</returns>
         [Route("administration/update-role-permission")]
         [HttpPost]
         [ActionName("UpdateRolePermission")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> UpdateRolePermissionAsync([FromBody] UpdateRolePermissionViewModel model_)
         {
             string roleId = (await _roleManager.FindByNameAsync(model_.RoleName)).Id;
+            bool permissionEnumParsed = Enum.TryParse<Permission>(model_.PermissionValue, true, out Permission permissionEnumValue);
+
+            if (model_.Extension == Constants.SoftinuxBaseSecurity && permissionEnumValue != Permission.Admin)
+            {
+                if (await ReadGrants.IsRoleLastAdminPermissionLevelGrantForExtensionAsync(_roleManager, Storage, model_.RoleName, model_.Extension))
+                {
+                    return StatusCode((int)HttpStatusCode.BadRequest, "Permission not updated, the role is the last Admin grant to SoftinuxBase.Security extension");
+                }
+            }
+
             IRolePermissionRepository repo = Storage.GetRepository<IRolePermissionRepository>();
             repo.Delete(roleId, model_.Extension);
 
-            if (Enum.TryParse<Permission>(model_.PermissionValue, true, out var permissionEnumValue))
+            if (permissionEnumParsed)
             {
                 var permissionEntity = Storage.GetRepository<IPermissionRepository>().Find(permissionEnumValue);
                 repo.Create(new RolePermission { RoleId = roleId, PermissionId = permissionEntity.Id, Extension = model_.Extension });

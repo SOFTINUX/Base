@@ -442,8 +442,10 @@ export function savePermission(extension_, roleName_, permission_) {
     makeAjaxRequest('POST', '/administration/update-role-permission', params, (responseStatus_, responseText_) => {
         if (responseStatus_ === 200) {
             window.toastr.success(responseText_, 'Changes saved');
+        } else if (responseStatus_ === 400) {
+            window.toastr.error(responseText_, 'Role extension link NOT updated');
         } else {
-            window.toastr.error('Cannot update role permissions. See logs for errors', 'Error');
+            window.toastr.error('Cannot update role-extension\'s permission. See logs for errors', 'Error');
         }
     });
 }
