@@ -3,6 +3,7 @@
 
     <reference path='../../SoftinuxBase.Barebone/Scripts/barebone_press_and_hold.js' />
 *@
+@using System.Diagnostics
 @using Microsoft.AspNetCore.Identity
 @using ExtCore.Infrastructure
 @using SoftinuxBase.Infrastructure.Interfaces
@@ -239,7 +240,14 @@
 @section Scripts {
     @* ReSharper disable once Html.PathError (from Security.Barebone's scripts) *@
     <script src="/Scripts/toolbox.js" type="module"></script>
-    <script src="/Scripts/security_user_permissions.js" type="module"></script>
+    @if (Debugger.IsAttached)
+    {
+        <script src="/Scripts/security_user_permissions.js" type="module"></script>
+    }
+    else
+    {
+        <script src="/Scripts/security_user_permissions.min.js" type="module"></script>
+    }
     <script type="module">
         import pressAndHold from '/Scripts/barebone_press_and_hold.js';
 

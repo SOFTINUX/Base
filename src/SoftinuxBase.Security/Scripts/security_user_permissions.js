@@ -209,7 +209,7 @@ function btnChevronMoveExtension(clickedElement_, transform_) {
         return;
     }
 
-    let newElts = [];
+    let newElts;
     switch (transform_) {
         case 'to-left':
             newElts = Array.from(selectedElts, createMovedElementLeft);

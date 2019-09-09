@@ -215,7 +215,7 @@ namespace SoftinuxBase.Security.Controllers
         {
             var errors = new List<string>();
 
-            foreach (var role in roleNameList_.Split(new char[] { ',' }))
+            foreach (var role in roleNameList_.Split(new[] { ',' }))
             {
                 var error = await DeleteRole.DeleteRoleAndAllLinksAsync(this.Storage, _roleManager, role);
                 if (error != null)

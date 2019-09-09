@@ -60,7 +60,7 @@ namespace SoftinuxBase.Security
 #if DEBUG
             new Script("/Scripts.security_user.js", true, 710),
 #else
-            new Script("/Scripts.security_user.min.js", 710),
+            new Script("/Scripts.security_user.min.js", true, 710),
 #endif
         };
 
