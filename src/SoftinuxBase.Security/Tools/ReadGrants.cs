@@ -141,7 +141,7 @@ namespace SoftinuxBase.Security.Tools
         /// <param name="storage_">Storage interface provided by services container.</param>
         /// <param name="roleName_">Role name.</param>
         /// <param name="extensionName_">Name of extension.</param>
-        /// <returns>bool.</returns>
+        /// <returns>True when the role is the last grant of Admin permission level to the target extension.</returns>
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1629", Justification = "Suppress warning for 'Rules:' in summary")]
         public static async Task<bool> IsRoleLastAdminPermissionLevelGrantForExtensionAsync(RoleManager<IdentityRole<string>> roleManager_, IStorage storage_, string roleName_, string extensionName_)
         {

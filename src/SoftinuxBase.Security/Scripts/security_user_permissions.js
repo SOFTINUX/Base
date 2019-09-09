@@ -48,7 +48,7 @@ window.deleteRole = deleteRole;
 window.removeRoleLink = removeRoleLink;
 
 /* ---------------------------------------------------------------- */
-/* ------------------------ Global Cosntants ---------------------- */
+/* ------------------------ Global Constants ---------------------- */
 /* ---------------------------------------------------------------- */
 
 /**
@@ -492,11 +492,13 @@ export function saveEditRole() {
 
 export function deleteRolePermissionOnExtension(extensionName_, roleName_) {
     makeAjaxRequest('DELETE', `/administration/delete-role-extension/${roleName_}/${extensionName_}`, {}, (responseStatus_, responseText_) => {
-        if (responseStatus_ === 201) {
-            window.toastr.success(responseText_, 'Role deleted');
+        if (responseStatus_ === 204) {
+            window.toastr.success(`Role ${roleName_} unlinked from extension ${extensionName_}`, 'Link deleted');
             refreshPermissionsTabs();
+        } else if (responseStatus_ === 400) {
+            window.toastr.error(responseText_, 'Role extension link NOT deleted');
         } else {
-            window.toastr.error('NO ERROR FROM TWEAKED CONTROLLER', 'Error');
+            window.toastr.error('Cannot delete link. See logs for details', 'Error');
         }
     });
 }
@@ -508,7 +510,7 @@ export function deleteRole(roleNameList_) {
             refreshPermissionsTabs();
             console.log(responseStatus_, responseText_);
         } else {
-            window.toastr.error('Cannot delete role. See logs for errors', 'Error');
+            window.toastr.error('Cannot delete role. See logs for details', 'Error');
             console.log(responseStatus_, responseText_);
         }
     });

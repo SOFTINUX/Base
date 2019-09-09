@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
+using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 
@@ -15,6 +16,7 @@ namespace SoftinuxBase.Security.Tools
         The main Deletion class.
         Contains all methods for deletions.
     */
+
     /// <summary>
     /// The main Deletion class.
     ///
@@ -23,20 +25,33 @@ namespace SoftinuxBase.Security.Tools
     internal static class DeleteRole
     {
         /// <summary>
-        /// Delete a link between a role and an extension
+        /// Delete a link between a role and an extension.
         /// </summary>
         /// <param name="storage_">Storage interface provided by services container.</param>
         /// <param name="roleManager_">Roles manager instance.</param>
         /// <param name="extensionName_">Extension name.</param>
         /// <param name="roleName_">Role name.</param>
-        /// <returns>Return null on succes, otherwise return error message.</returns>
-        internal static async Task<bool> DeleteRoleExtensionLinkAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, string extensionName_, string roleName_)
+        /// <returns>Return true on success, false when forbidde, null when not found.</returns>
+        internal static async Task<bool?> DeleteRoleExtensionLinkAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, string extensionName_, string roleName_)
         {
-            string roleId = (await roleManager_.FindByNameAsync(roleName_)).Id;
+            string roleId = (await roleManager_.FindByNameAsync(roleName_))?.Id;
+            if (roleId == null)
+            {
+                return null;
+            }
+
             IRolePermissionRepository repo = storage_.GetRepository<IRolePermissionRepository>();
             if (repo.FindBy(roleId, extensionName_) == null)
             {
-                return false;
+                return null;
+            }
+
+            if (extensionName_ == Constants.SoftinuxBaseSecurity)
+            {
+                if (await ReadGrants.IsRoleLastAdminPermissionLevelGrantForExtensionAsync(roleManager_, storage_, roleName_, extensionName_))
+                {
+                    return false;
+                }
             }
 
             repo.Delete(roleId, extensionName_);
