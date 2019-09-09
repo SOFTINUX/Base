@@ -60,32 +60,6 @@ namespace SoftinuxBase.Security.Tools
         }
 
         /// <summary>
-        /// Delete all links between a role and extensions.
-        /// </summary>
-        /// <param name="storage_">Storage interface provided by services container.</param>
-        /// <param name="roleManager_">Roles manager instance.</param>
-        /// <param name="roleName_">Role name.</param>
-        /// <returns>Return false if not found, otherwise return true.</returns>
-        internal static async Task<bool> DeleteRoleExtensionsLinksAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, string roleName_)
-        {
-            string roleId = (await roleManager_.FindByNameAsync(roleName_)).Id;
-            IRolePermissionRepository repo = storage_.GetRepository<IRolePermissionRepository>();
-            IEnumerable<RolePermission> records = repo.FilteredByRoleId(roleId).ToList();
-            if (!records.Any())
-            {
-                return false;
-            }
-
-            foreach (var record in records)
-            {
-                repo.Delete(record.RoleId, record.Extension);
-            }
-
-            await storage_.SaveAsync();
-            return true;
-        }
-
-        /// <summary>
         /// Delete role and all links to extensions.
         /// </summary>
         /// <remarks>This method is under development.</remarks>
@@ -121,7 +95,20 @@ namespace SoftinuxBase.Security.Tools
             }*/
 
             // delete the role-extensions links
-            await DeleteRoleExtensionsLinksAsync(storage_, roleManager_, roleName_);
+            string roleId = (await roleManager_.FindByNameAsync(roleName_)).Id;
+            IRolePermissionRepository repo = storage_.GetRepository<IRolePermissionRepository>();
+            IEnumerable<RolePermission> records = repo.FilteredByRoleId(roleId).ToList();
+            if (!records.Any())
+            {
+                return "Link not found";
+            }
+
+            foreach (var record in records)
+            {
+                repo.Delete(record.RoleId, record.Extension);
+            }
+
+            await storage_.SaveAsync();
 
             // TODO use UserManager.RemoveFromRoleAsync - make a new method that may be reused
 
