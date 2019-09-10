@@ -149,7 +149,7 @@ namespace SoftinuxBase.Security.Controllers
         public async Task<IActionResult> UpdateRolePermissionAsync([FromBody] UpdateRolePermissionViewModel model_)
         {
             string roleId = (await _roleManager.FindByNameAsync(model_.RoleName)).Id;
-            bool permissionEnumParsed = Enum.TryParse<Permission>(model_.PermissionValue, true, out Permission permissionEnumValue);
+            Enum.TryParse(model_.PermissionValue, true, out Permission permissionEnumValue);
 
             if (model_.Extension == Constants.SoftinuxBaseSecurity && permissionEnumValue != Permission.Admin)
             {
@@ -162,11 +162,8 @@ namespace SoftinuxBase.Security.Controllers
             IRolePermissionRepository repo = Storage.GetRepository<IRolePermissionRepository>();
             repo.Delete(roleId, model_.Extension);
 
-            if (permissionEnumParsed)
-            {
-                var permissionEntity = Storage.GetRepository<IPermissionRepository>().Find(permissionEnumValue);
-                repo.Create(new RolePermission { RoleId = roleId, PermissionId = permissionEntity.Id, Extension = model_.Extension });
-            }
+            var permissionEntity = Storage.GetRepository<IPermissionRepository>().Find(permissionEnumValue);
+            repo.Create(new RolePermission { RoleId = roleId, PermissionId = permissionEntity.Id, Extension = model_.Extension });
 
             await Storage.SaveAsync();
             return StatusCode((int)HttpStatusCode.OK);
@@ -250,7 +247,7 @@ namespace SoftinuxBase.Security.Controllers
                 return StatusCode((int)HttpStatusCode.BadRequest, errors);
             }
 
-            return StatusCode((int) HttpStatusCode.OK);
+            return StatusCode((int)HttpStatusCode.OK);
         }
 
         #endregion
