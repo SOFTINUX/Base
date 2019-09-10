@@ -32,7 +32,7 @@ namespace SoftinuxBase.Security.Tools
         /// <param name="storage_">Storage interface provided by services container.</param>
         /// <param name="roleManager_">Roles manager object.</param>
         /// <param name="model_">A <see cref="SaveNewRoleAndGrantsViewModel" /> object.</param>
-        /// <returns>Not null if failure, otherwise null.</returns>
+        /// <returns>Null if success, otherwise error message.</returns>
         public static async Task<string> CheckAndSaveNewRoleAndGrantsAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, SaveNewRoleAndGrantsViewModel model_)
         {
             if (await UpdateRoleAndGrants.CheckThatRoleOfThisNameExistsAsync(roleManager_, model_.RoleName))

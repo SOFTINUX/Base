@@ -147,6 +147,12 @@ namespace SoftinuxBase.Security.Tools
         {
             var currentRole = await roleManager_.FindByNameAsync(roleName_);
 
+            if (currentRole == null)
+            {
+                // The role has been deleted by someone else
+                return false;
+            }
+
             // Is there a user directly granted Admin for this extension?
             if (storage_.GetRepository<IUserPermissionRepository>().FindBy(extensionName_, Permission.Admin).Any())
             {
@@ -162,7 +168,6 @@ namespace SoftinuxBase.Security.Tools
                 return false;
             }
 
-            // var currentRole = await roleManager_.FindByNameAsync(roleName_);
             if (rolePermissionRecordsWithAdminLevel.Count() == 1 && rolePermissionRecordsWithAdminLevel.First().Id == currentRole.Id)
             {
                 // There is only one grant to current role

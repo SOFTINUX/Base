@@ -31,11 +31,11 @@ namespace SoftinuxBase.Security.Tools
         /// <param name="roleManager_">Roles manager instance.</param>
         /// <param name="extensionName_">Extension name.</param>
         /// <param name="roleName_">Role name.</param>
-        /// <returns>Return true on success, false when forbidde, null when not found.</returns>
+        /// <returns>Return true on success, false when forbidden, null when not found.</returns>
         internal static async Task<bool?> DeleteRoleExtensionLinkAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, string extensionName_, string roleName_)
         {
             string roleId = (await roleManager_.FindByNameAsync(roleName_))?.Id;
-            if (roleId == null)
+            if (string.IsNullOrEmpty(roleId))
             {
                 return null;
             }
@@ -65,10 +65,16 @@ namespace SoftinuxBase.Security.Tools
         /// <param name="storage_">Storage interface provided by services container.</param>
         /// <param name="roleManager_">Roles manager instance.</param>
         /// <param name="roleName_">Role name.</param>
-        /// <returns>Return false if not found, otherwise return true.</returns>
+        /// <returns>False if not data to delete found, otherwise true.</returns>
         internal static async Task<bool> DeleteRoleExtensionsLinksAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, string roleName_)
         {
-            string roleId = (await roleManager_.FindByNameAsync(roleName_)).Id;
+            string roleId = (await roleManager_.FindByNameAsync(roleName_))?.Id;
+
+            if (string.IsNullOrEmpty(roleId))
+            {
+                return false;
+            }
+
             IRolePermissionRepository repo = storage_.GetRepository<IRolePermissionRepository>();
             IEnumerable<RolePermission> records = repo.FilteredByRoleId(roleId).ToList();
             if (!records.Any())

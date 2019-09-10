@@ -26,7 +26,7 @@ namespace SoftinuxBase.Security.Tools
         /// <param name="storage_">Storage interface provided by services container.</param>
         /// <param name="value_">User name or email.</param>
         /// <param name="userManager_">Users manager instance.</param>
-        /// <returns>True if user exist, otherwise return false.</returns>
+        /// <returns>True if user exists, otherwise false.</returns>
         internal static bool IsUserExist(IStorage storage_, string value_, UserManager<User> userManager_)
         {
             return storage_.GetRepository<IAspNetUsersRepository>().FindByNormalizedUserNameOrEmail(userManager_.NormalizeKey(value_));

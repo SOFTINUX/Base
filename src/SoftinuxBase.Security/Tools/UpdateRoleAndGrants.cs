@@ -20,20 +20,20 @@ namespace SoftinuxBase.Security.Tools
     /// <summary>
     /// The main UpdateRoleAndGrants class.
     ///
-    /// Contains all methods for update roles and grants.
+    /// Contains all methods to update roles and grants.
     /// </summary>
     /// <remarks>
-    /// This class is internal to SoftinuxBase Security
+    /// This class is internal to SoftinuxBase Security.
     /// </remarks>
     internal static class UpdateRoleAndGrants
     {
         /// <summary>
-        /// Check that a role with the same normalized name exists.
+        /// Check that a role with the same name and another ID exists.
         /// </summary>
         /// <param name="roleManager_">Role manager object.</param>
         /// <param name="roleName_">Role name.</param>
         /// <param name="roleId_">Role ID.
-        /// <remarks>When not null, the found role should not have this id.</remarks></param>
+        /// <remarks>When a role is found (by name), it should not have the parameter role ID.</remarks></param>
         /// <returns>True when a role is found.</returns>
         internal static async Task<bool> CheckThatRoleOfThisNameExistsAsync(RoleManager<IdentityRole<string>> roleManager_, string roleName_, string roleId_ = null)
         {
@@ -49,7 +49,7 @@ namespace SoftinuxBase.Security.Tools
         /// <param name="storage_">Storage interface provided by services container.</param>
         /// <param name="roleManager_">Role manager.</param>
         /// <param name="model_">Model with role name and grant data (extensions and permission level).</param>
-        /// <returns>Nul if success otherwise return error message.</returns>
+        /// <returns>Null if success, otherwise error message.</returns>
         internal static async Task<string> CheckAndUpdateRoleAndGrantsAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, UpdateRoleAndGrantsViewModel model_)
         {
             if (await CheckThatRoleOfThisNameExistsAsync(roleManager_, model_.RoleName, model_.RoleId))
