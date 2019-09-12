@@ -98,7 +98,7 @@ namespace SoftinuxBase.Security.Tools
         /// <param name="storage_">Storage interface provided by services container.</param>
         /// <param name="roleManager_">Roles manager instance.</param>
         /// <param name="roleName_">Role name.</param>
-        /// <returns>null</returns>
+        /// <returns>null.</returns>
         internal static async Task<string> DeleteRoleAndAllLinksAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, string roleName_)
         {
             /*bool canDeleteRole = false;

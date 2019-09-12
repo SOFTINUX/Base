@@ -4,11 +4,6 @@
     <reference path='../../SoftinuxBase.Barebone/Scripts/barebone_press_and_hold.js' />
 *@
 @using System.Diagnostics
-@using Microsoft.AspNetCore.Identity
-@using ExtCore.Infrastructure
-@using SoftinuxBase.Infrastructure.Interfaces
-
-@inject RoleManager<IdentityRole<string>> RolesManager
 
 @section title {
     Roles & Permissions
@@ -31,7 +26,12 @@
         @* box roles *@
         <div class="box">
             <div class="box-header with-border">
-                <h3>Manage Roles</h3>
+                <h3 class="box-title">Manage Roles</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
             </div>
             <div class="box-body">
                 @* BUTTONS *@
@@ -57,25 +57,27 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group" id="add-role-group">
-                                                    <h3>New role</h3>
                                                     <div class="input-group margin">
-                                                        <input required id="role_name_input" name="role_name_input" type="text" class="form-control" placeholder="enter role name here" size="80" @Html.Raw(inputExtendAttributes)>
-                                                        <span class="help-block"></span>
-                                                        <div class="input-group-btn bs-dropdown-to-select-acl-group" style="vertical-align: top;">
-                                                            <button class="btn btn-default dropdown-toggle bs-dropdown-to-select-acl" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                <span data-bind="bs-drp-sel-acl-label">Read</span>
+                                                        <label for="role_name_input">New role name:</label>
+                                                        <div class="input-group">
+                                                            <input required id="role_name_input" name="role_name_input" type="text" class="form-control" placeholder="enter role name here" size="80" @Html.Raw(inputExtendAttributes)>
+                                                            <div class="input-group-btn bs-dropdown-to-select-acl-group">
                                                                 <input type="hidden" name="acl-selected_value" id="newRolePermission" data-bind="bs-drp-sel-acl-value" value="1">
-                                                                <span class="caret"></span>
-                                                                <span class="sr-only">Toggle Dropdown</span>
-                                                            </button>
-                                                            <ul id="acl-sel" class="dropdown-menu" role="menu">
-                                                                <li data-permissionlvl="0"><a href="#">None</a></li>
-                                                                <li data-permissionlvl="1"><a href="#">Read</a></li>
-                                                                <li data-permissionlvl="2"><a href="#">Write</a></li>
-                                                                <li role="separator" class="divider"></li>
-                                                                <li data-permissionlvl="4"><a href="#">Admin</a></li>
-                                                            </ul>
+                                                                <button class="btn btn-default dropdown-toggle bs-dropdown-to-select-acl" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    <span data-bind="bs-drp-sel-acl-label">Read</span>
+                                                                    <span class="caret"></span>
+                                                                    <span class="sr-only">Toggle Dropdown</span>
+                                                                </button>
+                                                                <ul id="acl-sel" class="dropdown-menu dropdown-menu-right" role="menu">
+                                                                    <li data-permissionlvl="0"><a href="#">None</a></li>
+                                                                    <li data-permissionlvl="1"><a href="#">Read</a></li>
+                                                                    <li data-permissionlvl="2"><a href="#">Write</a></li>
+                                                                    <li role="separator" class="divider"></li>
+                                                                    <li data-permissionlvl="4"><a href="#">Admin</a></li>
+                                                                </ul>
+                                                            </div>
                                                         </div>
+                                                        <span class="help-block"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -83,7 +85,7 @@
                                         <div class="row">
                                             <div class="col-md-5">
                                                 <div class="form-group margin">
-                                                    <label>Available extension(s)</label>
+                                                    <label>Available extension(s):</label>
                                                     <select class="form-control" multiple id="addRoleLeftExtensionsList">
                                                         @await Component.InvokeAsync("AddRoleListExtensions")
                                                     </select>
@@ -103,7 +105,7 @@
                                             </div>
                                             <div class="col-md-5">
                                                 <div class="form-group margin">
-                                                    <label>Selected extension(s)</label>
+                                                    <label>Selected extension(s):</label>
                                                     <select class="form-control" multiple="" id="addRoleRightExtensionsList" name="selectedExtensions">
                                                         @* here selected extensions options filled by javascript *@
                                                     </select>
