@@ -198,25 +198,47 @@ namespace SoftinuxBase.Security.Controllers
         /// <param name="ExtensionName">Name of linked extension.</param>
         /// <returns>Status code 204 (ok) or 400 (no deletion occurred).</returns>
         [HttpDelete]
-        [ActionName("DeleteRoleExtensionLink")]
-        [Route("administration/delete-role-extension/{RoleName}/{ExtensionName}")]
+        [ActionName("UnlinkRoleExtensionLink")]
+        [Route("administration/unlink-role-extension/{RoleName}/{ExtensionName}")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1313", Justification = "Ignore camelcase parameters")]
         public async Task<IActionResult> DeleteRoleExtensionLinkAsync(string RoleName, string ExtensionName)
         {
             bool? deleted = await DeleteRole.DeleteRoleExtensionLinkAsync(this.Storage, _roleManager, ExtensionName, RoleName);
-            if (deleted == true)
+            switch (deleted)
             {
-                return StatusCode((int)HttpStatusCode.NoContent);
+                case true:
+                    return StatusCode((int)HttpStatusCode.NoContent);
+                case false:
+                    return StatusCode((int)HttpStatusCode.BadRequest, "Link not deleted, the role is the last Admin grant to SoftinuxBase.Security extension");
+                default:
+                    return StatusCode((int)HttpStatusCode.BadRequest, "Role or link not found");
             }
+        }
 
-            if (deleted == false)
+        /// <summary>
+        /// Remove link role on all extensions.
+        /// </summary>
+        /// <returns>status code.</returns>
+        [HttpDelete]
+        [ActionName("UnlinkRoleAllExtensions")]
+        [Route("administration/unlink-role-all-extensions/{RoleName}")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1313", Justification = "Ignore camelcase parameters")]
+        public async Task<IActionResult> UnlinkRoleOnAllExtensions(string RoleName)
+        {
+            bool? deleted = await DeleteRole.DeleteRoleExtensionsLinksAsync(this.Storage, _roleManager, RoleName);
+            switch (deleted)
             {
-                return StatusCode((int)HttpStatusCode.BadRequest, "Link not deleted, the role is the last Admin grant to SoftinuxBase.Security extension");
+                case true:
+                    return StatusCode((int)HttpStatusCode.NoContent);
+                case false:
+                    return StatusCode((int)HttpStatusCode.BadRequest, "Link not deleted, the role is the last Admin grant to SoftinuxBase.Security extension");
+                default:
+                    return StatusCode((int)HttpStatusCode.BadRequest, "Role or link not found");
             }
-
-            return StatusCode((int)HttpStatusCode.BadRequest, "Role or link not found");
         }
 
         // ReSharper restore InconsistentNaming

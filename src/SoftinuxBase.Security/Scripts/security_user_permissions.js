@@ -156,6 +156,10 @@ document.getElementById('cancel-bulk-delete-btn').addEventListener('click', () =
     document.getElementById('availableRolesForDelete').selectedIndex = -1;
 });
 
+document.getElementById('unlink-role-btn').addEventListener('click', () => {
+    unlinkRolePermissionOnAllExtensions(document.getElementById('edit_role_normalizedName').value);
+});
+
 document.getElementById('role_name_input').addEventListener('change', () => {
     inputFormGroupValidator('#role_name_input');
 });
@@ -276,18 +280,7 @@ export function removeRoleLink(element_) {
     document.getElementById('moduleName').innerText = splitted[0];
     document.getElementById('selectedRoleName').innerText = splitted[1];
 
-    // eslint-disable-next-line no-undef
-    $('#myModal').modal('show');
-    document.getElementById('removeForModule').addEventListener('click', event_ => {
-        console.log(event_);
-        deleteRolePermissionOnExtension(splitted[0], splitted[1]);
-    }, false);
-
-    // eslint-disable-next-line no-undef
-    $('#myModal').modal('show');
-    document.getElementById('removeForAllModules').addEventListener('click', event_ => {
-        console.log(event_);
-    }, false);
+    unlinkRolePermissionOnExtension(splitted[0], splitted[1]);
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -346,11 +339,19 @@ export function passSelectedRoleOnEdition(roleId_) {
         // responseJson.value is ReadRoleViewModel C# class
         const role = responseDataJson.role;
 
+        console.log(role);
+
         // Role name
         document.getElementById('edit_role_name_input').value = role.name;
 
         // Role ID
-        document.getElementById('editRoleId').value = roleId_;
+        document.getElementById('edit_role_id').value = role.id;
+
+        // Role Normalized Name
+        document.getElementById('edit_role_normalizedName').value = role.normalizedName;
+
+        // Role concurrency stamp
+        document.getElementById('edit_role_concurrencyStamp').value = role.concurrencyStamp;
 
         // Available extensions (left list)
         const leftListElt = document.getElementById('editRoleLeftExtensionsList');
@@ -492,10 +493,23 @@ export function saveEditRole() {
     });
 }
 
-export function deleteRolePermissionOnExtension(extensionName_, roleName_) {
-    makeAjaxRequest('DELETE', `/administration/delete-role-extension/${roleName_}/${extensionName_}`, {}, (responseStatus_, responseText_) => {
+export function unlinkRolePermissionOnExtension(extensionName_, roleName_) {
+    makeAjaxRequest('DELETE', `/administration/unlink-role-extension/${roleName_}/${extensionName_}`, {}, (responseStatus_, responseText_) => {
         if (responseStatus_ === 204) {
             window.toastr.success(`Role ${roleName_} unlinked from extension ${extensionName_}`, 'Link deleted');
+            refreshPermissionsTabs();
+        } else if (responseStatus_ === 400) {
+            window.toastr.error(responseText_, 'Role extension link NOT deleted');
+        } else {
+            window.toastr.error('Cannot delete link. See logs for details', 'Error');
+        }
+    });
+}
+
+export function unlinkRolePermissionOnAllExtensions(roleName_) {
+    makeAjaxRequest('DELETE', `/administration/unlink-role-all-extensions/${roleName_}`, {}, (responseStatus_, responseText_) => {
+        if (responseStatus_ === 204) {
+            window.toastr.success(`Role ${roleName_} unlinked from extensions`, 'Link deleted');
             refreshPermissionsTabs();
         } else if (responseStatus_ === 400) {
             window.toastr.error(responseText_, 'Role extension link NOT deleted');
