@@ -339,8 +339,6 @@ export function passSelectedRoleOnEdition(roleId_) {
         // responseJson.value is ReadRoleViewModel C# class
         const role = responseDataJson.role;
 
-        console.log(role);
-
         // Role name
         document.getElementById('edit_role_name_input').value = role.name;
 

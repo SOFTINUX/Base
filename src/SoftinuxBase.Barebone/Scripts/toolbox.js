@@ -63,7 +63,7 @@ export function inputOnlyNumbers(event_) {
     if (event_.defaultPrevented) {
         return; // Should not do anything if the key event was already consumed.
     }
-    let charCode = parseInt(event_.keyCode);
+    const charCode = parseInt(event_.keyCode);
 
     // check number only.
     if (charCode >= 48 && charCode <= 57) {
@@ -71,7 +71,8 @@ export function inputOnlyNumbers(event_) {
     }
 
     // check special char.
-    if ((charCode >=1 && charCode <= 64) || (charCode >=121) && charCode !== 32) {
+    // eslint-disable-next-line no-mixed-operators
+    if ((charCode >= 1 && charCode <= 64) || (charCode >= 121) && charCode !== 32) {
         event_.preventDefault();
     }
 }
