@@ -5,11 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Common.Attributes;
 using SoftinuxBase.Security.Data.Abstractions;
@@ -49,20 +49,20 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/read-role")]
         [HttpGet]
         [ActionName("ReadRole")]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> ReadRoleAsync(string roleId_)
         {
             if (string.IsNullOrWhiteSpace(roleId_) || string.IsNullOrEmpty(roleId_))
             {
-                return StatusCode((int)HttpStatusCode.BadRequest, Json("No role id given"));
+                return StatusCode(StatusCodes.Status400BadRequest, Json("No role id given"));
             }
 
             var role = await _roleManager.FindByIdAsync(roleId_);
 
             if (role == null)
             {
-                return StatusCode((int)HttpStatusCode.BadRequest, Json("No such role for edition"));
+                return StatusCode(StatusCodes.Status400BadRequest, Json("No such role for edition"));
             }
 
             ReadGrants.GetExtensions(roleId_, Storage, out var availableExtensions, out var selectedExtensions);
@@ -73,7 +73,7 @@ namespace SoftinuxBase.Security.Controllers
                 SelectedExtensions = selectedExtensions,
                 AvailableExtensions = availableExtensions
             };
-            return StatusCode((int)HttpStatusCode.OK, Json(result));
+            return StatusCode(StatusCodes.Status200OK, Json(result));
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace SoftinuxBase.Security.Controllers
         /// <returns>view component.</returns>
         [Route("administration/read-permissions-grants")]
         [HttpGet]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult ReadPermissionsTable()
         {
             return ViewComponent("GrantPermissions");
@@ -94,7 +94,7 @@ namespace SoftinuxBase.Security.Controllers
         /// <returns>view component.</returns>
         [Route("administration/edit-role-tab")]
         [HttpGet]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult RefreshRoleTab()
         {
             return ViewComponent("EditRolePermissions");
@@ -106,7 +106,7 @@ namespace SoftinuxBase.Security.Controllers
         /// <returns>view component.</returns>
         [Route("administration/bulk-delete-role-tab")]
         [HttpGet]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult RefreshBulkDeleteTab()
         {
             return ViewComponent("BulkDeleteRoles");
@@ -124,12 +124,12 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/save-new-role")]
         [HttpPost]
         [ActionName("SaveNewRoleAndItsPermissions")]
-        [ProducesResponseType((int)HttpStatusCode.Created)]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> SaveNewRoleAndItsPermissionsAsync([FromBody] SaveNewRoleAndGrantsViewModel model_)
         {
             string error = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrantsAsync(Storage, _roleManager, model_);
-            return StatusCode(string.IsNullOrEmpty(error) ? (int)HttpStatusCode.Created : (int)HttpStatusCode.BadRequest, error);
+            return StatusCode(string.IsNullOrEmpty(error) ? StatusCodes.Status201Created : StatusCodes.Status400BadRequest, error);
         }
 
         #endregion
@@ -144,8 +144,8 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/update-role-permission")]
         [HttpPost]
         [ActionName("UpdateRolePermission")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateRolePermissionAsync([FromBody] UpdateRolePermissionViewModel model_)
         {
             string roleId = (await _roleManager.FindByNameAsync(model_.RoleName)).Id;
@@ -155,7 +155,7 @@ namespace SoftinuxBase.Security.Controllers
             {
                 if (await ReadGrants.IsRoleLastAdminPermissionLevelGrantForExtensionAsync(_roleManager, Storage, model_.RoleName, model_.Extension))
                 {
-                    return StatusCode((int)HttpStatusCode.BadRequest, "Permission not updated, the role is the last Admin grant to SoftinuxBase.Security extension");
+                    return StatusCode(StatusCodes.Status400BadRequest, "Permission not updated, the role is the last Admin grant to SoftinuxBase.Security extension");
                 }
             }
 
@@ -166,7 +166,7 @@ namespace SoftinuxBase.Security.Controllers
             repo.Create(new RolePermission { RoleId = roleId, PermissionId = permissionEntity.Id, Extension = model_.Extension });
 
             await Storage.SaveAsync();
-            return StatusCode((int)HttpStatusCode.OK);
+            return StatusCode(StatusCodes.Status200OK);
         }
 
         /// <summary>
@@ -177,12 +177,12 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/update-role")]
         [HttpPost]
         [ActionName("UpdateRoleAndItsPermissions")]
-        [ProducesResponseType((int)HttpStatusCode.Created)]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateRoleAndItsPermissionsAsync([FromBody] UpdateRoleAndGrantsViewModel model_)
         {
             string error = await UpdateRoleAndGrants.CheckAndUpdateRoleAndGrantsAsync(Storage, _roleManager, model_);
-            return StatusCode(string.IsNullOrEmpty(error) ? (int)HttpStatusCode.Created : (int)HttpStatusCode.BadRequest, error);
+            return StatusCode(string.IsNullOrEmpty(error) ? StatusCodes.Status201Created : StatusCodes.Status400BadRequest, error);
         }
 
         #endregion
@@ -200,8 +200,8 @@ namespace SoftinuxBase.Security.Controllers
         [HttpDelete]
         [ActionName("UnlinkRoleExtensionLink")]
         [Route("administration/unlink-role-extension/{RoleName}/{ExtensionName}")]
-        [ProducesResponseType((int)HttpStatusCode.NoContent)]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1313", Justification = "Ignore camelcase parameters")]
         public async Task<IActionResult> DeleteRoleExtensionLinkAsync(string RoleName, string ExtensionName)
         {
@@ -209,11 +209,11 @@ namespace SoftinuxBase.Security.Controllers
             switch (deleted)
             {
                 case true:
-                    return StatusCode((int)HttpStatusCode.NoContent);
+                    return StatusCode(StatusCodes.Status204NoContent);
                 case false:
-                    return StatusCode((int)HttpStatusCode.BadRequest, "Link not deleted, the role is the last Admin grant to SoftinuxBase.Security extension");
+                    return StatusCode(StatusCodes.Status400BadRequest, "Link not deleted, the role is the last Admin grant to SoftinuxBase.Security extension");
                 default:
-                    return StatusCode((int)HttpStatusCode.BadRequest, "Role or link not found");
+                    return StatusCode(StatusCodes.Status400BadRequest, "Role or link not found");
             }
         }
 
@@ -224,8 +224,8 @@ namespace SoftinuxBase.Security.Controllers
         [HttpDelete]
         [ActionName("UnlinkRoleAllExtensions")]
         [Route("administration/unlink-role-all-extensions/{RoleName}")]
-        [ProducesResponseType((int)HttpStatusCode.NoContent)]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1313", Justification = "Ignore camelcase parameters")]
         public async Task<IActionResult> UnlinkRoleOnAllExtensions(string RoleName)
         {
@@ -233,11 +233,11 @@ namespace SoftinuxBase.Security.Controllers
             switch (deleted)
             {
                 case true:
-                    return StatusCode((int)HttpStatusCode.NoContent);
+                    return StatusCode(StatusCodes.Status204NoContent);
                 case false:
-                    return StatusCode((int)HttpStatusCode.BadRequest, "Link not deleted, the role is the last Admin grant to SoftinuxBase.Security extension");
+                    return StatusCode(StatusCodes.Status400BadRequest, "Link not deleted, the role is the last Admin grant to SoftinuxBase.Security extension");
                 default:
-                    return StatusCode((int)HttpStatusCode.BadRequest, "Role or link not found");
+                    return StatusCode(StatusCodes.Status400BadRequest, "Role or link not found");
             }
         }
 
@@ -266,10 +266,10 @@ namespace SoftinuxBase.Security.Controllers
 
             if (errors.Any())
             {
-                return StatusCode((int)HttpStatusCode.BadRequest, errors);
+                return StatusCode(StatusCodes.Status400BadRequest, errors);
             }
 
-            return StatusCode((int)HttpStatusCode.OK);
+            return StatusCode(StatusCodes.Status200OK);
         }
 
         #endregion
