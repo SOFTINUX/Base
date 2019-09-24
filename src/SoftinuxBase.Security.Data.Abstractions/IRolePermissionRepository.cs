@@ -16,6 +16,8 @@ namespace SoftinuxBase.Security.Data.Abstractions
     {
         IEnumerable<RolePermission> All();
 
+        IEnumerable<RolePermission> AllRolesWithPermissions();
+
         /// <summary>
         /// Find the link between an extension and a role.
         /// </summary>

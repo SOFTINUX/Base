@@ -19,10 +19,19 @@ namespace SoftinuxBase.Security.Data.EntityFramework
     public class RolePermissionRepository : RepositoryBase<RolePermission>, IRolePermissionRepository
     {
         /// <summary>
-        /// 
+        /// Return all role permission records.
+        /// </summary>
+        /// <returns>Enumarable of RolePermission.</returns>
+        public IEnumerable<RolePermission> All()
+        {
+            return storageContext.Set<RolePermission>().ToList();
+        }
+
+        /// <summary>
+        /// Return all role permission records joining permissions from permission table.
         /// </summary>
         /// <returns>Return a <see cref="IEnumerable" /> of <see cref="RolePermission" />.</returns>
-        public IEnumerable<RolePermission> All()
+        public IEnumerable<RolePermission> AllRolesWithPermissions()
         {
             var all = from rolePermission in storageContext.Set<RolePermission>()
                       join permission in storageContext.Set<Permission>() on rolePermission.PermissionId equals permission.Id
@@ -38,13 +47,13 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         /// <inheritdoc />
         public RolePermission FindBy(string roleId_, string extensionName_)
         {
-            return All().FirstOrDefault(e_ => e_.RoleId == roleId_ && e_.Extension == extensionName_);
+            return AllRolesWithPermissions().FirstOrDefault(e_ => e_.RoleId == roleId_ && e_.Extension == extensionName_);
         }
 
         /// <inheritdoc />
         public IEnumerable<RolePermission> FindBy(string extensionName_, Common.Enums.Permission level_)
         {
-            var  data = from rolePermisson in storageContext.Set<RolePermission>()
+            var data = from rolePermisson in storageContext.Set<RolePermission>()
                    join permission in storageContext.Set<Permission>() on rolePermisson.PermissionId equals permission.Id
                    join identityRoles in storageContext.Set<IdentityRole<string>>() on rolePermisson.RoleId equals identityRoles.Id
                    where rolePermisson.Extension == extensionName_ && permission.Name == level_.GetPermissionName()
@@ -67,7 +76,7 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         /// <returns>Return a <see cref="IEnumerable" /> of <see cref="RolePermission" />.</returns>
         public IEnumerable<RolePermission> FilteredByRoleId(string roleId_)
         {
-            return All().Where(e_ => e_.RoleId == roleId_).ToList();
+            return AllRolesWithPermissions().Where(e_ => e_.RoleId == roleId_).ToList();
         }
 
         /// <summary>
@@ -89,7 +98,7 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         }
 
         /// <summary>
-        /// Delete 
+        /// Delete.
         /// </summary>
         /// <param name="roleId_"></param>
         /// <param name="extensions_"></param>
@@ -103,7 +112,7 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         }
 
         /// <summary>
-        /// Delete All
+        /// Delete All.
         /// </summary>
         public void DeleteAll()
         {

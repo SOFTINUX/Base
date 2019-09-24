@@ -54,7 +54,7 @@ namespace SoftinuxBase.Security.Tools
             HashSet<string> rolesWithPerms = new HashSet<string>();
 
             // Read role/permission/extension settings
-            List<RolePermission> allRp = storage_.GetRepository<IRolePermissionRepository>().All().ToList();
+            List<RolePermission> allRp = storage_.GetRepository<IRolePermissionRepository>().AllRolesWithPermissions().ToList();
             foreach (RolePermission rp in allRp)
             {
                 if (!model.PermissionsByRoleAndExtension.ContainsKey(rp.Extension))

@@ -220,6 +220,7 @@ namespace SoftinuxBase.Security.Controllers
         /// <summary>
         /// Remove link role on all extensions.
         /// </summary>
+        /// <param name="RoleName">Role name to unlink on all extension.</param>
         /// <returns>status code.</returns>
         [HttpDelete]
         [ActionName("UnlinkRoleAllExtensions")]

@@ -1,9 +1,9 @@
 ﻿@* Copyright © 2017-2019 SOFTINUX. All rights reserved.
     Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 *@
-
+@model (Microsoft.AspNetCore.Identity.RoleManager<Microsoft.AspNetCore.Identity.IdentityRole<string>> roleManager, HashSet<string> permissionList)
 @* here roles list *@
-@foreach (var role in Model.Roles)
+@foreach (var role in @Model.roleManager.Roles)
 {
-    <option value="@Html.Raw(role.Name)" data-id="@Html.Raw(role.Id)">@Html.Raw(role.Name)</option>
+    <option value="@Html.Raw(role.Name)" data-id="@Html.Raw(role.Id)">@(@Model.permissionList.Contains(role.Id) ? null : Html.Raw("&#xf127;")) @Html.Raw(role.Name)</option>
 }
