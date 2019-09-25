@@ -18,13 +18,10 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Available role(s)</label>
-                    <select class="form-control" id="availableRoles" onChange="passSelectedRoleOnEdition(this.options[this.selectedIndex].value);">
+                    <select class="form-control" id="availableRoles" onChange="passSelectedRoleOnEdition(this.options[this.selectedIndex].getAttribute('data-id'));">
                         <option disabled selected value="0"> -- select a role -- </option>
                         @* here roles list *@
-                        @foreach (var role in Model.Roles)
-                        {
-                            <option value="@Html.Raw(role.Id)">@Html.Raw(role.Name)</option>
-                        }
+                        @await Component.InvokeAsync("SelectOptionsListRoles")
                     </select>
                 </div>
             </div>

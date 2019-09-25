@@ -133,3 +133,7 @@ select.input-validation-error
     height: 340pt;
     font-family: 'FontAwesome', 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+
+#availableRoles {
+    font-family: 'FontAwesome', 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}

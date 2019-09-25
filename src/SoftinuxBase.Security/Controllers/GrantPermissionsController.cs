@@ -109,7 +109,7 @@ namespace SoftinuxBase.Security.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public IActionResult RefreshBulkDeleteTab()
         {
-            return ViewComponent("BulkDeleteRoles");
+            return ViewComponent("SelectOptionsListRoles");
         }
 
         #endregion

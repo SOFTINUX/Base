@@ -12,12 +12,12 @@ using SoftinuxBase.Security.Data.EntityFramework;
 
 namespace SoftinuxBase.Security.ViewComponents
 {
-    public class BulkDeleteRolesViewComponent : ViewComponentBase
+    public class SelectOptionsListRolesViewComponent : ViewComponentBase
     {
         private readonly RoleManager<IdentityRole<string>> _roleManager;
         private readonly IStorage _storage;
 
-        public BulkDeleteRolesViewComponent(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_) : base(storage_)
+        public SelectOptionsListRolesViewComponent(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_) : base(storage_)
         {
             _roleManager = roleManager_;
             _storage = storage_;
@@ -27,7 +27,7 @@ namespace SoftinuxBase.Security.ViewComponents
         {
             HashSet<string> listPermissionsRoleId = _storage.GetRepository<RolePermissionRepository>().All().Select(item_ => item_.RoleId).ToHashSet();
 
-            return Task.FromResult<IViewComponentResult>(View("_BulkDeleteRoles", (_roleManager, listPermissionsRoleId)));
+            return Task.FromResult<IViewComponentResult>(View("_SelectOptionsListRoles", (_roleManager, listPermissionsRoleId)));
         }
     }
 }

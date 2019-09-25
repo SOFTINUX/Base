@@ -331,7 +331,7 @@ export function passSelectedRoleOnEdition(roleId_) {
     document.getElementById('edit-role-group').classList.remove('has-error');
     makeAjaxRequest('GET', '/administration/read-role', { roleId_: roleId_ }, (responseStatus_, responseText_) => {
         if (responseStatus_ !== 200) {
-            window.toastr.error(`Serveur return code ${responseStatus_}`, 'Error');
+            window.toastr.error(`Serveur return code ${responseStatus_} whith response: ${responseText_}`, 'Error');
             return;
         }
 
@@ -476,7 +476,7 @@ export function saveEditRole() {
     if (!_noError) return;
 
     const postData = {
-        RoleId: document.getElementById('editRoleId').value,
+        RoleId: document.getElementById('edit_role_id').value,
         RoleName: document.getElementById('edit_role_name_input').value,
         Grants: _grants
     };

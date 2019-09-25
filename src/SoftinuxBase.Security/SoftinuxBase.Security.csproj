@@ -39,7 +39,6 @@
     <EmbeddedResource Include="Styles\**;Scripts\**\*.min.js;Views\**" />
     <None Remove="Views\Shared\Components\AddRoleListExtensions.cshtml" />
     <None Remove="Views\Shared\Components\AddRoleListExtensions\_AddRoleListExtensions.cshtml" />
-    <None Remove="Views\Shared\Components\BulkDeleteRoles.cshtml" />
     <!-- JavaScript -->
     <EmbeddedResource Include="..\..\node_modules\datatables.net\js\jquery.dataTables.js" LinkBase="node_modules\datatables.net\js\" />
     <EmbeddedResource Include="..\..\node_modules\datatables.net-bs\js\dataTables.bootstrap.js" LinkBase="node_modules\datatables.net-bs\js\" />
