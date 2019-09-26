@@ -14,8 +14,16 @@ namespace SoftinuxBase.Security.Data.Abstractions
 {
     public interface IRolePermissionRepository : IRepository
     {
+        /// <summary>
+        /// Return all role permission records.
+        /// </summary>
+        /// <returns><see cref="IEnumerable{RolePermission}" of <see cref="RolePermission".</returns>
         IEnumerable<RolePermission> All();
 
+        /// <summary>
+        /// Return all role permission records joining permissions from permission table.
+        /// </summary>
+        /// <returns>Return a <see cref="IEnumerable{RolePermission}" /> of <see cref="RolePermission" />.</returns>
         IEnumerable<RolePermission> AllRolesWithPermissions();
 
         /// <summary>
@@ -34,10 +42,35 @@ namespace SoftinuxBase.Security.Data.Abstractions
         /// <returns>List of <see cref="RolePermission"/> with role name also loaded in associated Role</returns>
         IEnumerable<RolePermission> FindBy(string extensionName_, Common.Enums.Permission level_);
 
+        /// <summary>
+        ///  Return filtered roles list.
+        /// </summary>
+        /// <param name="roleId_">role id.</param>
+        /// <returns>Return a <see cref="IEnumerable{RolePermission}" /> of <see cref="RolePermission" />.</returns>
         IEnumerable<RolePermission> FilteredByRoleId(string roleId_);
+
+        /// <summary>
+        /// Create a Role Permission record
+        /// </summary>
+        /// <param name="entity_"><see cref="RolePermission" />.</param>
         void Create(RolePermission entity_);
+
+        /// <summary>
+        /// Modify a Role Permission field
+        /// </summary>
+        /// <param name="entity_"><see cref="RolePermission" />.</param>
         void Edit(RolePermission entity_);
+
+        /// <summary>
+        /// Delete.
+        /// </summary>
+        /// <param name="roleId_"></param>
+        /// <param name="extensionName_"></param>
         void Delete(string roleId_, string extensionName_);
+
+        /// <summary>
+        /// Delete All.
+        /// </summary>
         void DeleteAll();
     }
 }

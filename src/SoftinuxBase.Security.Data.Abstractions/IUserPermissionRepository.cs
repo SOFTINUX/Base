@@ -18,7 +18,7 @@ namespace SoftinuxBase.Security.Data.Abstractions
         /// <summary>
         /// Find the links between an extension and any user, matching a permission level.
         /// </summary>
-        /// <param name="extensionName_">Name of extension</param>
+        /// <param name="extensionName_">Name of extension.</param>
         /// <param name="level_">Level of <see cref="Common.Enums.Permission"/></param>
         /// <returns>List of <see cref="UserPermission"/>.</returns>
         IEnumerable<UserPermission> FindBy(string extensionName_, Common.Enums.Permission level_);

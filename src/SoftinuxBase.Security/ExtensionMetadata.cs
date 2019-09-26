@@ -14,47 +14,37 @@ namespace SoftinuxBase.Security
 {
     public class ExtensionMetadata : IExtensionMetadata
     {
-        /// <summary>
-        /// Gets the current assembly object.
-        /// </summary>
+        /// <inheritdoc />
         public Assembly CurrentAssembly => Assembly.GetExecutingAssembly();
 
-        /// <summary>
-        /// Gets the full path with assembly name.
-        /// </summary>
+        /// <inheritdoc />
         public string CurrentAssemblyPath => CurrentAssembly.Location;
 
-        /// <summary>
-        /// Gets the name of the extension.
-        /// </summary>
+        /// <inheritdoc />
         public string Name => CurrentAssembly.GetName().Name;
 
-        /// <summary>
-        /// Gets the URL of the extension.
-        /// </summary>
+        /// <inheritdoc />
         public string Url => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyTitleAttribute)).ToString();
 
-        /// <summary>
-        /// Gets the version of the extension.
-        /// </summary>
+        /// <inheritdoc />
         public string Version => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyVersionAttribute)).ToString();
 
-        /// <summary>
-        /// Gets the authors of the extension (separated by commas).
-        /// </summary>
+        /// <inheritdoc />
         public string Authors => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyCompanyAttribute)).ToString();
 
-        /// <summary>
-        /// Gets the description of the extension (separated by commas).
-        /// </summary>
+        /// <inheritdoc />
         public string Description => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyDescriptionAttribute)).ToString();
 
+        /// <inheritdoc />
         bool IExtensionMetadata.IsAvailableForPermissions => true;
 
+        /// <inheritdoc />
         public IEnumerable<StyleSheet> StyleSheets => new[]
         {
                 new StyleSheet("/Styles.Security.css", 510),
         };
+
+        /// <inheritdoc />
         public IEnumerable<Script> Scripts => new Script[]
         {
 #if DEBUG
@@ -64,6 +54,7 @@ namespace SoftinuxBase.Security
 #endif
         };
 
+        /// <inheritdoc />
         public IEnumerable<MenuGroup> MenuGroups
         {
             get

@@ -18,19 +18,13 @@ namespace SoftinuxBase.Security.Data.EntityFramework
 {
     public class RolePermissionRepository : RepositoryBase<RolePermission>, IRolePermissionRepository
     {
-        /// <summary>
-        /// Return all role permission records.
-        /// </summary>
-        /// <returns>Enumarable of RolePermission.</returns>
+        /// <inheritdoc />
         public IEnumerable<RolePermission> All()
         {
             return storageContext.Set<RolePermission>().ToList();
         }
 
-        /// <summary>
-        /// Return all role permission records joining permissions from permission table.
-        /// </summary>
-        /// <returns>Return a <see cref="IEnumerable" /> of <see cref="RolePermission" />.</returns>
+        /// <inheritdoc />
         public IEnumerable<RolePermission> AllRolesWithPermissions()
         {
             var all = from rolePermission in storageContext.Set<RolePermission>()
@@ -69,39 +63,25 @@ namespace SoftinuxBase.Security.Data.EntityFramework
             return data.ToList();
         }
 
-        /// <summary>
-        ///  Return filtered roles list.
-        /// </summary>
-        /// <param name="roleId_">role id.</param>
-        /// <returns>Return a <see cref="IEnumerable" /> of <see cref="RolePermission" />.</returns>
+        /// <inheritdoc />
         public IEnumerable<RolePermission> FilteredByRoleId(string roleId_)
         {
             return AllRolesWithPermissions().Where(e_ => e_.RoleId == roleId_).ToList();
         }
 
-        /// <summary>
-        /// Create a Role Permission record
-        /// </summary>
-        /// <param name="entity_"><see cref="RolePermission" />.</param>
+        /// <inheritdoc />
         public virtual void Create(RolePermission entity_)
         {
             dbSet.Add(entity_);
         }
 
-        /// <summary>
-        /// Modify a Role Permission field
-        /// </summary>
-        /// <param name="entity_"><see cref="RolePermission" />.</param>
+        /// <inheritdoc />
         public virtual void Edit(RolePermission entity_)
         {
             storageContext.Entry(entity_).State = EntityState.Modified;
         }
 
-        /// <summary>
-        /// Delete.
-        /// </summary>
-        /// <param name="roleId_"></param>
-        /// <param name="extensions_"></param>
+        /// <inheritdoc />
         public void Delete(string roleId_, string extensions_)
         {
             var entity = FindBy(roleId_, extensions_);
@@ -111,9 +91,7 @@ namespace SoftinuxBase.Security.Data.EntityFramework
             }
         }
 
-        /// <summary>
-        /// Delete All.
-        /// </summary>
+        /// <inheritdoc />
         public void DeleteAll()
         {
             dbSet.RemoveRange(dbSet.ToArray());

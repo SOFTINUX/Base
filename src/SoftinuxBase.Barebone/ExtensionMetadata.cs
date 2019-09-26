@@ -12,44 +12,30 @@ namespace SoftinuxBase.Barebone
     public class ExtensionMetadata : IExtensionMetadata
     {
         /// <inheritdoc />
-        /// <summary>
-        /// Gets the current assembly object.
-        /// </summary>
-        public Assembly CurrentAssembly => Assembly.GetExecutingAssembly();
+         public Assembly CurrentAssembly => Assembly.GetExecutingAssembly();
 
         /// <inheritdoc />
-        /// <summary>
-        /// Gets the full path with assembly name.
-        /// </summary>
         public string CurrentAssemblyPath => CurrentAssembly.Location;
 
-        /// <summary>
-        /// Gets the name of the extension.
-        /// </summary>
+        /// <inheritdoc />
         public string Name => CurrentAssembly.GetName().Name;
 
-        /// <summary>
-        /// Gets the URL of the extension.
-        /// </summary>
+        /// <inheritdoc />
         public string Url => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyTitleAttribute)).ToString();
 
-        /// <summary>
-        /// Gets the version of the extension.
-        /// </summary>
+        /// <inheritdoc />
         public string Version => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyVersionAttribute)).ToString();
 
-        /// <summary>
-        /// Gets the authors of the extension (separated by commas).
-        /// </summary>
+        /// <inheritdoc />
         public string Authors => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyCompanyAttribute)).ToString();
 
-        /// <summary>
-        /// Gets the description of the extension (separated by commas).
-        /// </summary>
+        /// <inheritdoc />
         public string Description => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyDescriptionAttribute)).ToString();
 
+        /// <inheritdoc />
         bool IExtensionMetadata.IsAvailableForPermissions => true;
 
+        /// <inheritdoc />
         public IEnumerable<StyleSheet> StyleSheets => new[]
         {
             new StyleSheet("/node_modules.wfk_opensans.opensans.css", 100),
@@ -94,6 +80,7 @@ namespace SoftinuxBase.Barebone
             new StyleSheet("/css/Styles.css", 700)
         };
 
+        /// <inheritdoc />
         public IEnumerable<Script> Scripts => new[]
         {
             new Script("/node_modules.jquery.dist.jquery.min.js", false, 100),
@@ -131,6 +118,8 @@ namespace SoftinuxBase.Barebone
             new Script("/Scripts.barebone.min.js", true,  700),
             new Script("/Scripts.barebone_ajax.js", true,  701),
         };
+
+        /// <inheritdoc />
         public IEnumerable<MenuGroup> MenuGroups => null;
     }
 }
