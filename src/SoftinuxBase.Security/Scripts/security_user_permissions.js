@@ -1,6 +1,8 @@
 ﻿// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
+/* eslint-disable import/no-absolute-path */
+
 /// <reference path = '../../SoftinuxBase.Barebone/Scripts/barebone_ajax.js' />
 /// <reference path = './security_user.js' />
 
@@ -10,32 +12,6 @@ import makeAjaxRequest from '/Scripts/barebone_ajax.js';
 import { inputFormGroupSetError, inputFormGroupValidator } from '/Scripts/security_user.js';
 import { inputOnlyNumbers } from '/Scripts/toolbox.js';
 
-// Manage click on buttons
-Array.from(document.querySelectorAll('button')).forEach(
-    clickedElement_ => {
-        clickedElement_.addEventListener('click',
-            () => {
-                switch (clickedElement_.id) {
-                    // Add selected/unselected extensions management
-                    case 'addRoleBtnRight':
-                    case 'addRoleBtnAllRight':
-                    case 'addRoleBtnLeft':
-                    case 'addRoleBtnAllLeft':
-                        btnChevronMoveExtension(clickedElement_, '');
-                        break;
-                    // Edit selected/unselected extensions management
-                    case 'editRoleBtnRight':
-                    case 'editRoleBtnAllRight':
-                    case 'editRoleBtnLeft':
-                    case 'editRoleBtnAllLeft':
-                        btnChevronMoveExtension(clickedElement_, clickedElement_.id.toLowerCase().includes('left') ? 'to-left' : 'to-right');
-                        break;
-                    default:
-                        break;
-                }
-            }, false);
-    }
-);
 
 /* ---------------------------------------------------------------- */
 /* ------------------------ expose functions ---------------------- */
@@ -54,7 +30,7 @@ window.removeRoleLink = removeRoleLink;
 /**
  * make global constant of available extension.
  */
-function DefineExtensionsListOriginalState() {
+function defineExtensionsListOriginalState() {
     Object.defineProperty(window, 'RoleExtensionsListOriginalState', {
         value: document.getElementById('addRoleLeftExtensionsList').innerHTML,
         configurable: false,
@@ -65,12 +41,8 @@ function DefineExtensionsListOriginalState() {
 /* ---------------------------------------------------------------- */
 /* ------------------------ events handlers ----------------------- */
 /* ---------------------------------------------------------------- */
-window.addEventListener('DOMContentLoaded', () => {
-    if (document.getElementById('addRoleLeftExtensionsList').innerHTML)
-        DefineExtensionsListOriginalState();
-    else
-        document.getElementById('addRoleLeftExtensionsList').innerHTML = '<option value="ERROR">Error. See logs.</option>';
-});
+attachEditRoleChevronButtonsEventListener();
+attachEditEventListener();
 
 document.getElementById('editRoleRightExtensionsList').addEventListener('click', event_ => {
     rowClicked(event_.target.closest('div.row'));
@@ -530,27 +502,49 @@ export function deleteRole(roleNameList_) {
 }
 
 function reloadGrantPermissionsHtmlView() {
-    makeAjaxRequest('GET', '/administration/read-permissions-grants', null, (responseStatus_, responseText_) => {
-        document.getElementById('GrantPermissionsTable').innerHTML = responseText_;
+    return new window.Promise((resolve, reject) => {
+        makeAjaxRequest('GET', '/administration/read-permissions-grants', null, (responseStatus_, responseText_) => {
+            document.getElementById('GrantPermissionsTable').innerHTML = responseText_;
+            resolve();
+        });
     });
 }
 
 function reloadRolesHtmlView() {
-    makeAjaxRequest('GET', '/administration/edit-role-tab', null, (responseStatus_, responseText_) => {
-        document.getElementById('edit-role-tab').innerHTML = responseText_;
+    return new window.Promise((resolve, reject) => {
+        makeAjaxRequest('GET', '/administration/edit-role-tab', null, (responseStatus_, responseText_) => {
+            document.getElementById('edit-role-tab').innerHTML = responseText_;
+            resolve();
+        });
     });
 }
 
 function reloadBulkDeleteTab() {
-    makeAjaxRequest('GET', '/administration/bulk-delete-role-tab', null, (responseStatus_, responseText_) => {
-        document.getElementById('availableRolesForDelete').innerHTML = responseText_;
+    return new window.Promise((resolve, reject) => {
+        makeAjaxRequest('GET', '/administration/bulk-delete-role-tab', null, (responseStatus_, responseText_) => {
+            document.getElementById('availableRolesForDelete').innerHTML = responseText_;
+            resolve();
+        });
     });
 }
 
 function refreshPermissionsTabs() {
-    reloadGrantPermissionsHtmlView();
-    reloadRolesHtmlView();
-    reloadBulkDeleteTab();
+    Promise.all([reloadGrantPermissionsHtmlView(), reloadRolesHtmlView(), reloadBulkDeleteTab()])
+        .then(() => {
+            document.getElementById('editRoleRightExtensionsList').addEventListener('click', event_ => {
+                rowClicked(event_.target.closest('div.row'));
+            }, false);
+
+            document.getElementById('editRoleLeftExtensionsList').addEventListener('click', event_ => {
+                rowClicked(event_.target.closest('div.row'));
+            }, false);
+
+            document.getElementById('unlink-role-btn').addEventListener('click', () => {
+                unlinkRolePermissionOnAllExtensions(document.getElementById('edit_role_normalizedName').value);
+            });
+            attachEditRoleChevronButtonsEventListener();
+        })
+        .catch((error) => console.log(error));
 }
 
 function resetAddRoleForm() {
@@ -569,4 +563,41 @@ function resetEditRoleForm() {
     document.getElementById('edit_role_id').value = '';
     document.getElementById('edit_role_normalizedName').value = '';
     document.getElementById('edit_role_concurrencyStamp').value = '';
+}
+
+function attachEditEventListener() {
+    window.addEventListener('DOMContentLoaded', () => {
+        if (document.getElementById('addRoleLeftExtensionsList').innerHTML)
+            defineExtensionsListOriginalState();
+        else
+            document.getElementById('addRoleLeftExtensionsList').innerHTML = '<option value="ERROR">Error. See logs.</option>';
+    });
+}
+
+function attachEditRoleChevronButtonsEventListener() {
+    Array.from(document.querySelectorAll('button')).forEach(
+        clickedElement_ => {
+            clickedElement_.addEventListener('click',
+                () => {
+                    switch (clickedElement_.id) {
+                        // Add selected/unselected extensions management
+                    case 'addRoleBtnRight':
+                    case 'addRoleBtnAllRight':
+                    case 'addRoleBtnLeft':
+                    case 'addRoleBtnAllLeft':
+                        btnChevronMoveExtension(clickedElement_, '');
+                        break;
+                    // Edit selected/unselected extensions management
+                    case 'editRoleBtnRight':
+                    case 'editRoleBtnAllRight':
+                    case 'editRoleBtnLeft':
+                    case 'editRoleBtnAllLeft':
+                        btnChevronMoveExtension(clickedElement_, clickedElement_.id.toLowerCase().includes('left') ? 'to-left' : 'to-right');
+                        break;
+                    default:
+                        break;
+                    }
+                }, false);
+        }
+    );
 }
