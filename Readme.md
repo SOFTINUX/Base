@@ -120,7 +120,7 @@ Or refer to our [documentation](https://softinux-base.readthedocs.io/en/latest/h
 With Postman (or the program of your choice) make a POST request to this url: <http://localhost:5000/dev/seed/create-user>
 With command line:
 
-- using curl: `curl -i -X POST http://localhost:5000/dev/seed/create-user`
+- using curl: `curl -i -X POST http://localhost:5000/dev/seed/create-user -d "Content-Length: 0"`
 - using powershell: `Invoke-WebRequest -Uri http://localhost:5000/dev/seed/create-user -Method POST`
 
 This will create the demo user with general permissions.
