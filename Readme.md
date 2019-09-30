@@ -83,7 +83,7 @@ But you can still restore packages without building the application with the com
 
 #### 3. Update database with migration
 
-Go to *SoftinuxBase.Webapplication* folder and run `dotnet ef database update`.
+Go to *src/WebApplication* folder and run `dotnet ef database update`.
 This will create the database. See *appsettings.json* for database path.
 The Entity Framework database context is defined in web application's *Startup.cs*.
 We use Sqlite for development, but you can change this easily for another SGDB (see *appsettings.json* file).
@@ -96,22 +96,22 @@ but this may not work for all IDEs.
 
 #### 5. Run the app
 
-Go to *SoftinuxBase.WebApplication* folder and type `dotnet run`.
-If you prefer, you can also execute this command from solution root folder: `dotnet run --project SoftinuxBase.WebApplication\SoftinuxBase.WebApplication.csproj`
+Go to *src/WebApplication* folder and type `dotnet run`.
+If you prefer, you can also execute this command from solution root folder: `dotnet run --project src\WebApplication\SoftinuxBase.WebApplication.csproj`
 (Beware of the path if you are on Linux/MacOS).
 
-After that, the application is available on <http://localhost:5000/> or <https://localhost:5000/>
+After that, the application is available on <http://localhost:5000/> or <https://localhost:5001/>
 
 ##### :information_source: Information About Visual Studio 2017 :information_source:
 
 If you launched application from Visual Studio, this port will change,
-being randomly defined, and value is stored in *SoftinuxBase.WebApplication/Properties/launchSettings.json*
+being randomly defined, and value is stored in *src/WebApplication/Properties/launchSettings.json*
 You can edit this value in Visual Studio: WebApplication's properties > Debug tab > Web Server Settings/App URL or directly in *launchSettings.json* file.
-After, the default port used by *dotnet run* is the port defined in *SoftinuxBase.WebApplication/Properties/launchSettings.json*.
+After, the default port used by *dotnet run* is the port defined in *src/WebApplication/Properties/launchSettings.json*.
 
 ##### :information_source: Information About Rider 2017.3 :information_source:
 
-Rider 2017.3 cannot execute the PostBuild event declared in *SoftinuxBase.WebApplication.csproj*.
+Rider 2017.3 cannot execute the PostBuild event declared in *src/WebApplication.csproj*.
 You need to execute `./bp.sh copyexts` and `./bp.sh copydeps` after building the solution or project.
 Or refer to our [documentation](https://softinux-base.readthedocs.io/en/latest/howto/configure_rider.html) to see how to configure external tools that will be launched by build process.
 
