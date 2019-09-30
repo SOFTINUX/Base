@@ -97,7 +97,7 @@ but this may not work for all IDEs.
 #### 5. Run the app
 
 Go to *src/WebApplication* folder and type `dotnet run`.
-If you prefer, you can also execute this command from solution root folder: `dotnet run --project src\WebApplication\SoftinuxBase.WebApplication.csproj`
+If you prefer, you can also execute this command from solution root folder: `dotnet run --project src\WebApplication\WebApplication.csproj`
 (Beware of the path if you are on Linux/MacOS).
 
 After that, the application is available on <http://localhost:5000/> or <https://localhost:5001/>
