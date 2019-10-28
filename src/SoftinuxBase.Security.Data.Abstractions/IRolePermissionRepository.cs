@@ -17,7 +17,7 @@ namespace SoftinuxBase.Security.Data.Abstractions
         /// <summary>
         /// Return all role permission records.
         /// </summary>
-        /// <returns><see cref="IEnumerable{RolePermission}" of <see cref="RolePermission".</returns>
+        /// <returns><see cref="IEnumerable{RolePermission}" /> of <see cref="RolePermission" />.</returns>
         IEnumerable<RolePermission> All();
 
         /// <summary>
