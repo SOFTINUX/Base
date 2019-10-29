@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EfCore.GenericServices" Version="2.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SoftinuxBase.Security.DataLayer\SoftinuxBase.Security.DataLayer.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.PermissionParts\SoftinuxBase.Security.PermissionParts.csproj" />
+  </ItemGroup>
+
+</Project>
