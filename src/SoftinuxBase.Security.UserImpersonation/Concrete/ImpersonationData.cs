@@ -25,16 +25,16 @@ namespace SoftinuxBase.Security.UserImpersonation.Concrete
         /// </summary>
         public bool KeepOwnPermissions { get; }
 
-        public ImpersonationData(string userId, string userName, bool keepOwnPermissions)
+        public ImpersonationData(string userId_, string userName_, bool keepOwnPermissions_)
         {
-            UserId = userId ?? throw new ArgumentNullException(nameof(userId));
-            UserName = userName ?? throw new ArgumentNullException(nameof(userName));
-            KeepOwnPermissions = keepOwnPermissions;
+            UserId = userId_ ?? throw new ArgumentNullException(nameof(userId_));
+            UserName = userName_ ?? throw new ArgumentNullException(nameof(userName_));
+            KeepOwnPermissions = keepOwnPermissions_;
         }
 
-        public ImpersonationData(string packedString)
+        public ImpersonationData(string packedString_)
         {
-            var split = packedString.Split(',');
+            var split = packedString_.Split(',');
             if (split.Length != 3)
                 throw new ArgumentException("The string didn't unpack to three items");
 
@@ -42,7 +42,7 @@ namespace SoftinuxBase.Security.UserImpersonation.Concrete
             KeepOwnPermissions = bool.Parse(split[1]);
             UserName = split[2];
         }
-        
+
         public string GetPackImpersonationData()
         {
             return $"{UserId},{KeepOwnPermissions},{UserName}";

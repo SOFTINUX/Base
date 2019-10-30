@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 
+// TODO CHANGE ASSEMBLY TO SECURITY UNIT TEST
 [assembly: InternalsVisibleTo("Test")]
 
 namespace SoftinuxBase.Security.UserImpersonation.Concrete
@@ -20,10 +21,10 @@ namespace SoftinuxBase.Security.UserImpersonation.Concrete
 
         public string EncryptPurpose { get; private set; }
 
-        public ImpersonationCookie(HttpContext httpContext, IDataProtectionProvider protectionProvider)
+        public ImpersonationCookie(HttpContext httpContext_, IDataProtectionProvider protectionProvider_)
         {
-            _httpContext = httpContext ?? throw new ArgumentNullException(nameof(httpContext));
-            _protectionProvider = protectionProvider; //Can be null
+            _httpContext = httpContext_ ?? throw new ArgumentNullException(nameof(httpContext_));
+            _protectionProvider = protectionProvider_; //Can be null
             EncryptPurpose = "hffhegse432!&2!jbK!K3wqqqagg3bbassdewdsgfedgbfdewe13c";
             _options = new CookieOptions
             {
@@ -36,20 +37,20 @@ namespace SoftinuxBase.Security.UserImpersonation.Concrete
             };
         }
 
-        public void AddUpdateCookie(string data)
+        public void AddUpdateCookie(string data_)
         {
             if (_protectionProvider == null)
                 throw new NullReferenceException(
                     $"The {nameof(IDataProtectionProvider)} was null, which means impersonation is turned off.");
 
             var protector = _protectionProvider.CreateProtector(EncryptPurpose);
-            var encryptedString = protector.Protect(data);
+            var encryptedString = protector.Protect(data_);
             _httpContext.Response.Cookies.Append(CookieName, encryptedString, _options);
         }
 
-        public bool Exists(IRequestCookieCollection cookiesIn)
+        public bool Exists(IRequestCookieCollection cookiesIn_)
         {
-            return cookiesIn[CookieName] != null;
+            return cookiesIn_[CookieName] != null;
         }
 
         public string GetCookieInValue()
@@ -63,7 +64,7 @@ namespace SoftinuxBase.Security.UserImpersonation.Concrete
                 return null;
 
             var protector = _protectionProvider.CreateProtector(EncryptPurpose);
-            string decrypt = null;
+            string decrypt;
             try
             {
                 decrypt = protector.Unprotect(cookieData);

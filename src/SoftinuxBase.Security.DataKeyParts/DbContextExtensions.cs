@@ -10,21 +10,24 @@ namespace SoftinuxBase.Security.DataKeyParts
     {
         /// <summary>
         /// This is called in the overridden SaveChanges in the application's DbContext
-        /// Its job is to see if a entity has the IShopLevelDataKey interface and set the appropriate key 
+        /// Its job is to see if a entity has the IShopLevelDataKey interface and set the appropriate key
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="accessKey"></param>
-        public static void MarkWithDataKeyIfNeeded(this DbContext context, string accessKey)
+        /// <param name="context_"></param>
+        /// <param name="accessKey_"></param>
+        public static void MarkWithDataKeyIfNeeded(this DbContext context_, string accessKey_)
         {
             //at startup access key can be null. The demo setup sets the DataKey directly.
-            if (accessKey == null)
+            if (accessKey_ == null)
                 return;
 
-            foreach (var entityEntry in context.ChangeTracker.Entries()
+            // TODO CHECK THIS CODE BECAUSE IS NOT NEEDED ANYMORE
+            foreach (var entityEntry in context_.ChangeTracker.Entries()
                 .Where(e => e.State == EntityState.Added))
             {
-                if (entityEntry.Entity is IShopLevelDataKey hasDataKey)
-                    hasDataKey.SetShopLevelDataKey(accessKey);
+                /*
+                    if (entityEntry.Entity is IShopLevelDataKey hasDataKey)
+                        hasDataKey.SetShopLevelDataKey(accessKey_);
+                */
             }
         }
     }

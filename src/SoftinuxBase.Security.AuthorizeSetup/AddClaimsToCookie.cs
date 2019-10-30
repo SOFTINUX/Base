@@ -17,10 +17,10 @@ namespace SoftinuxBase.Security.AuthorizeSetup
         /// This configures how the user's claims get updated with the Permissions/DataKey.
         /// It used the DemoSetupOptions.AuthVersion to control things
         /// </summary>
-        /// <param name="services"></param>
-        public static void ConfigureCookiesForExtraAuth(this IServiceCollection services)
+        /// <param name="services_"></param>
+        public static void ConfigureCookiesForExtraAuth(this IServiceCollection services_)
         {
-            var sp = services.BuildServiceProvider();
+            var sp = services_.BuildServiceProvider();
             var authCookieVersion = sp.GetRequiredService<IOptions<DemoSetupOptions>>().Value.AuthVersion;
 
             IAuthCookieValidate cookieEventClass = null;
@@ -32,12 +32,12 @@ namespace SoftinuxBase.Security.AuthorizeSetup
                 case AuthCookieVersions.LoginPermissions:
                     //This uses UserClaimsPrincipal to set the claims on login - easy and quick.
                     //Simple version - see https://korzh.com/blogs/net-tricks/aspnet-identity-store-user-data-in-claims
-                    services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, AddPermissionsToUserClaims>();
+                    services_.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, AddPermissionsToUserClaims>();
                     break;
                 case AuthCookieVersions.LoginPermissionsDataKey:
                     //This uses UserClaimsPrincipal to set the claims on login - easy and quick.
                     //Simple version - see https://korzh.com/blogs/net-tricks/aspnet-identity-store-user-data-in-claims
-                    services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, AddPermissionsDataKeyToUserClaims>();
+                    services_.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, AddPermissionsDataKeyToUserClaims>();
                     break;
                 case AuthCookieVersions.PermissionsOnly:
                     //Event - only permissions set up
@@ -53,12 +53,12 @@ namespace SoftinuxBase.Security.AuthorizeSetup
                 case AuthCookieVersions.Impersonation:
                 case AuthCookieVersions.Everything:
                     // Event - Permissions and DataKey set up, provides User Impersonation + possible "RefreshClaims"
-                    services.AddDataProtection();   //DataProtection is needed to encrypt the data in the Impersonation cookie
+                    services_.AddDataProtection();   //DataProtection is needed to encrypt the data in the Impersonation cookie
                     var validateAsyncVersion = authCookieVersion == AuthCookieVersions.Impersonation
                         ? (IAuthCookieValidate)new AuthCookieValidateImpersonation()
                         : (IAuthCookieValidate)new AuthCookieValidateEverything();
                     //We set two events, so we do this here
-                    services.ConfigureApplicationCookie(options =>
+                    services_.ConfigureApplicationCookie(options =>
                     {
                         options.Events.OnValidatePrincipal = validateAsyncVersion.ValidateAsync;
                         //This ensures the impersonation cookie is deleted when a user signs out
@@ -71,7 +71,7 @@ namespace SoftinuxBase.Security.AuthorizeSetup
 
             if (cookieEventClass != null)
             {
-                services.ConfigureApplicationCookie(options =>
+                services_.ConfigureApplicationCookie(options =>
                 {
                     options.Events.OnValidatePrincipal = cookieEventClass.ValidateAsync;
                 });
@@ -80,11 +80,11 @@ namespace SoftinuxBase.Security.AuthorizeSetup
             if (authCookieVersion == AuthCookieVersions.RefreshClaims || authCookieVersion == AuthCookieVersions.Everything)
             {
                 //IAuthChanges is used to detect changes in the ExtraAuthClasses so we can update the user's permission claims
-                services.AddSingleton<IAuthChanges, AuthChanges>();
+                services_.AddSingleton<IAuthChanges, AuthChanges>();
             }
             else
             {
-                services.AddSingleton<IAuthChanges>(x => null); //This will turn off the change checks in the ExtraAuthDbContext
+                services_.AddSingleton<IAuthChanges>(x => null); //This will turn off the change checks in the ExtraAuthDbContext
             }
         }
     }

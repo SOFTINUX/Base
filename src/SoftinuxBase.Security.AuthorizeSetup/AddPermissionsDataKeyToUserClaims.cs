@@ -22,16 +22,16 @@ namespace SoftinuxBase.Security.AuthorizeSetup
     {
         private readonly ExtraAuthorizeDbContext _extraAuthDbContext;
 
-        public AddPermissionsDataKeyToUserClaims(UserManager<IdentityUser> userManager, IOptions<IdentityOptions> optionsAccessor,
-            ExtraAuthorizeDbContext extraAuthDbContext)
-            : base(userManager, optionsAccessor)
+        public AddPermissionsDataKeyToUserClaims(UserManager<IdentityUser> userManager_, IOptions<IdentityOptions> optionsAccessor_,
+            ExtraAuthorizeDbContext extraAuthDbContext_)
+            : base(userManager_, optionsAccessor_)
         {
-            _extraAuthDbContext = extraAuthDbContext;
+            _extraAuthDbContext = extraAuthDbContext_;
         }
 
-        protected override async Task<ClaimsIdentity> GenerateClaimsAsync(IdentityUser user)
+        protected override async Task<ClaimsIdentity> GenerateClaimsAsync(IdentityUser user_)
         {
-            var identity = await base.GenerateClaimsAsync(user);
+            var identity = await base.GenerateClaimsAsync(user_);
             var userId = identity.Claims.GetUserIdFromClaims();
             var rtoPCalcer = new CalcAllowedPermissions(_extraAuthDbContext);
             identity.AddClaim(new Claim(PermissionConstants.PackedPermissionClaimType, await rtoPCalcer.CalcPermissionsForUserAsync(userId)));

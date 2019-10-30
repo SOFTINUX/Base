@@ -21,19 +21,19 @@ namespace SoftinuxBase.Security.AuthorizeSetup
     /// </summary>
     public class AuthCookieValidatePermissionsDataKey : IAuthCookieValidate
     {
-        public async Task ValidateAsync(CookieValidatePrincipalContext context)
+        public async Task ValidateAsync(CookieValidatePrincipalContext context_)
         {
-            if (context.Principal.Claims.Any(x => x.Type == PermissionConstants.PackedPermissionClaimType))
+            if (context_.Principal.Claims.Any(x => x.Type == PermissionConstants.PackedPermissionClaimType))
                 return;
 
             //No permissions in the claims, so we need to add it. This is only happen once after the user has logged in
-            var extraContext = context.HttpContext.RequestServices.GetRequiredService<ExtraAuthorizeDbContext>();
+            var extraContext = context_.HttpContext.RequestServices.GetRequiredService<ExtraAuthorizeDbContext>();
             var rtoPCalcer = new CalcAllowedPermissions(extraContext);
             var dataKeyCalc = new CalcDataKey(extraContext);
 
             var claims = new List<Claim>();
-            claims.AddRange(context.Principal.Claims); //Copy over existing claims
-            var userId = context.Principal.Claims.GetUserIdFromClaims();
+            claims.AddRange(context_.Principal.Claims); //Copy over existing claims
+            var userId = context_.Principal.Claims.GetUserIdFromClaims();
             //Now calculate the Permissions Claim value and add it
             claims.Add(new Claim(PermissionConstants.PackedPermissionClaimType,
                 await rtoPCalcer.CalcPermissionsForUserAsync(userId)));
@@ -44,9 +44,9 @@ namespace SoftinuxBase.Security.AuthorizeSetup
             //Build a new ClaimsPrincipal and use it to replace the current ClaimsPrincipal
             var identity = new ClaimsIdentity(claims, "Cookie");
             var newPrincipal = new ClaimsPrincipal(identity);
-            context.ReplacePrincipal(newPrincipal);
+            context_.ReplacePrincipal(newPrincipal);
             //THIS IS IMPORTANT: This updates the cookie, otherwise this calc will be done every HTTP request
-            context.ShouldRenew = true;  
+            context_.ShouldRenew = true;
         }
     }
 }

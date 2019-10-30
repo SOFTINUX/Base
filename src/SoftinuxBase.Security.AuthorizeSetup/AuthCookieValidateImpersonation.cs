@@ -25,19 +25,19 @@ namespace SoftinuxBase.Security.AuthorizeSetup
     /// </summary>
     public class AuthCookieValidateImpersonation : IAuthCookieValidate
     {
-        public async Task ValidateAsync(CookieValidatePrincipalContext context)
+        public async Task ValidateAsync(CookieValidatePrincipalContext context_)
         {
-            var originalClaims = context.Principal.Claims.ToList();
-            var protectionProvider = context.HttpContext.RequestServices.GetService<IDataProtectionProvider>();
-            var impHandler = new ImpersonationHandler(context.HttpContext, protectionProvider, originalClaims);
-            
+            var originalClaims = context_.Principal.Claims.ToList();
+            var protectionProvider = context_.HttpContext.RequestServices.GetService<IDataProtectionProvider>();
+            var impHandler = new ImpersonationHandler(context_.HttpContext, protectionProvider, originalClaims);
+
             var newClaims = new List<Claim>();
             if (originalClaims.All(x => x.Type != PermissionConstants.PackedPermissionClaimType) ||
                 impHandler.ImpersonationChange)
             {
                 //There is no PackedPermissionClaimType or there was a change in the impersonation state
-                
-                var extraContext = context.HttpContext.RequestServices.GetRequiredService<ExtraAuthorizeDbContext>();
+
+                var extraContext = context_.HttpContext.RequestServices.GetRequiredService<ExtraAuthorizeDbContext>();
                 var rtoPCalcer = new CalcAllowedPermissions(extraContext);
                 var dataKeyCalc = new CalcDataKey(extraContext);
 
@@ -50,33 +50,33 @@ namespace SoftinuxBase.Security.AuthorizeSetup
                 //Build a new ClaimsPrincipal and use it to replace the current ClaimsPrincipal
                 var identity = new ClaimsIdentity(newClaims, "Cookie");
                 var newPrincipal = new ClaimsPrincipal(identity);
-                context.ReplacePrincipal(newPrincipal);
+                context_.ReplacePrincipal(newPrincipal);
                 //THIS IS IMPORTANT: This updates the cookie, otherwise this calc will be done every HTTP request
-                context.ShouldRenew = true;             
+                context_.ShouldRenew = true;
             }
         }
 
-        private IEnumerable<Claim> RemoveUpdatedClaimsFromOriginalClaims(List<Claim> originalClaims, List<Claim> newClaims)
+        private IEnumerable<Claim> RemoveUpdatedClaimsFromOriginalClaims(List<Claim> originalClaims_, List<Claim> newClaims_)
         {
-            var newClaimTypes = newClaims.Select(x => x.Type);
-            return originalClaims.Where(x => !newClaimTypes.Contains(x.Type));
+            var newClaimTypes = newClaims_.Select(x => x.Type);
+            return originalClaims_.Where(x => !newClaimTypes.Contains(x.Type));
         }
 
-        private async Task<List<Claim>> BuildFeatureClaimsAsync(string userId, CalcAllowedPermissions rtoP)
+        private async Task<List<Claim>> BuildFeatureClaimsAsync(string userId_, CalcAllowedPermissions rtoP_)
         {
             var claims = new List<Claim>
             {
-                new Claim(PermissionConstants.PackedPermissionClaimType, await rtoP.CalcPermissionsForUserAsync(userId)),
+                new Claim(PermissionConstants.PackedPermissionClaimType, await rtoP_.CalcPermissionsForUserAsync(userId_)),
                 new Claim(PermissionConstants.LastPermissionsUpdatedClaimType, DateTime.UtcNow.Ticks.ToString())
             };
             return claims;
         }
 
-        private List<Claim> BuildDataClaims(string userId, CalcDataKey dataKeyCalc)
+        private List<Claim> BuildDataClaims(string userId_, CalcDataKey dataKeyCalc_)
         {
             var claims = new List<Claim>
             {
-                new Claim(DataAuthConstants.HierarchicalKeyClaimName, dataKeyCalc.CalcDataKeyForUser(userId))
+                new Claim(DataAuthConstants.HierarchicalKeyClaimName, dataKeyCalc_.CalcDataKeyForUser(userId_))
             };
             return claims;
         }

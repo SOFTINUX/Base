@@ -11,9 +11,9 @@ namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
     /// </summary>
     public class UserDataAccessBase
     {
-        public UserDataAccessBase(string userId)
+        public UserDataAccessBase(string userId_)
         {
-            UserId = userId ?? throw new ArgumentNullException(nameof(userId));
+            UserId = userId_ ?? throw new ArgumentNullException(nameof(userId_));
         }
 
         [Key]

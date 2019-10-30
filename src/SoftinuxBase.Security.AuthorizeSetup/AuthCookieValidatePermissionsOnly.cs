@@ -19,27 +19,27 @@ namespace SoftinuxBase.Security.AuthorizeSetup
     /// </summary>
     public class AuthCookieValidatePermissionsOnly : IAuthCookieValidate
     {
-        public async Task ValidateAsync(CookieValidatePrincipalContext context)
+        public async Task ValidateAsync(CookieValidatePrincipalContext context_)
         {
-            if (context.Principal.Claims.Any(x => x.Type == PermissionConstants.PackedPermissionClaimType))
+            if (context_.Principal.Claims.Any(x => x.Type == PermissionConstants.PackedPermissionClaimType))
                 return;
 
             //No permissions in the claims, so we need to add it. This is only happen once after the user has logged in
-            var dbContext = context.HttpContext.RequestServices.GetRequiredService<ExtraAuthorizeDbContext>();
+            var dbContext = context_.HttpContext.RequestServices.GetRequiredService<ExtraAuthorizeDbContext>();
             var rtoPCalcer = new CalcAllowedPermissions(dbContext);
 
             var claims = new List<Claim>();
-            claims.AddRange(context.Principal.Claims); //Copy over existing claims
+            claims.AddRange(context_.Principal.Claims); //Copy over existing claims
             //Now calculate the Permissions Claim value and add it
             claims.Add(new Claim(PermissionConstants.PackedPermissionClaimType,
-                await rtoPCalcer.CalcPermissionsForUserAsync(context.Principal.Claims.GetUserIdFromClaims())));
+                await rtoPCalcer.CalcPermissionsForUserAsync(context_.Principal.Claims.GetUserIdFromClaims())));
 
             //Build a new ClaimsPrincipal and use it to replace the current ClaimsPrincipal
             var identity = new ClaimsIdentity(claims, "Cookie");
             var newPrincipal = new ClaimsPrincipal(identity);
-            context.ReplacePrincipal(newPrincipal);
+            context_.ReplacePrincipal(newPrincipal);
             //THIS IS IMPORTANT: This updates the cookie, otherwise this calc will be done every HTTP request
-            context.ShouldRenew = true;  
+            context_.ShouldRenew = true;
         }
     }
 }

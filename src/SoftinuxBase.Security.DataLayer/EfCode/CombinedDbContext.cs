@@ -4,7 +4,6 @@
 using Microsoft.EntityFrameworkCore;
 using SoftinuxBase.Security.DataLayer.EfCode.Configurations;
 using SoftinuxBase.Security.DataLayer.ExtraAuthClasses;
-using SoftinuxBase.Security.DataLayer.MultiTenantClasses;
 
 namespace SoftinuxBase.Security.DataLayer.EfCode
 {
@@ -17,24 +16,17 @@ namespace SoftinuxBase.Security.DataLayer.EfCode
         public DbSet<UserToRole> UserToRoles { get; set; }
         public DbSet<RoleToPermissions> RolesToPermissions { get; set; }
         public DbSet<ModulesForUser> ModulesForUsers { get; set; }
-        public DbSet<UserDataHierarchical> DataAccess { get; set; }
-
-        //CompanyDbContext
-        public DbSet<TenantBase> Tenants { get; set; }
-        public DbSet<ShopStock> ShopStocks { get; set; }
-        public DbSet<ShopSale> ShopSales { get; set; }
 
         //TimeStore data
         public DbSet<TimeStore> TimeStores { get; set; }
 
-        public CombinedDbContext(DbContextOptions<CombinedDbContext> options)
-            : base(options) { }
+        public CombinedDbContext(DbContextOptions<CombinedDbContext> options_)
+            : base(options_) { }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder_)
         {
-            modelBuilder.TenantBaseConfig();
-            modelBuilder.ExtraAuthorizeConfig();
-            modelBuilder.CompanyDbConfig(null);
+            modelBuilder_.TenantBaseConfig();
+            modelBuilder_.ExtraAuthorizeConfig();
         }
     }
 }

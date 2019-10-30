@@ -8,11 +8,11 @@ namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses.Support
 {
     public static class ChangeExtensions
     {
-        public static bool UserPermissionsMayHaveChanged(this DbContext context)
+        public static bool UserPermissionsMayHaveChanged(this DbContext context_)
         {
-            return context.ChangeTracker.Entries()
-                .Any(x => (x.Entity is IChangeEffectsUser && x.State == EntityState.Modified) || 
-                          (x.Entity is IAddRemoveEffectsUser && 
+            return context_.ChangeTracker.Entries()
+                .Any(x => (x.Entity is IChangeEffectsUser && x.State == EntityState.Modified) ||
+                          (x.Entity is IAddRemoveEffectsUser &&
                                 (x.State == EntityState.Added || x.State == EntityState.Deleted)));
         }
     }

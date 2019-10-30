@@ -8,9 +8,9 @@ namespace SoftinuxBase.Security.DataKeyParts
 {
     public class GetClaimsFromUser : IGetClaimsProvider
     {
-        public GetClaimsFromUser(IHttpContextAccessor accessor)
+        public GetClaimsFromUser(IHttpContextAccessor accessor_)
         {
-            DataKey = accessor.HttpContext?.User.Claims
+            DataKey = accessor_.HttpContext?.User.Claims
                 .SingleOrDefault(x => x.Type == DataAuthConstants.HierarchicalKeyClaimName)?.Value;
         }
 

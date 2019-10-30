@@ -17,16 +17,16 @@ namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
     {
         private UserToRole() { } //needed by EF Core
 
-        public UserToRole(string userId, RoleToPermissions role)
+        public UserToRole(string userId_, RoleToPermissions role_)
         {
-            UserId = userId;
-            Role = role;
+            UserId = userId_;
+            Role = role_;
         }
 
         //I use a composite key for this table: combination of UserId and RoleName
         //That has to be defined by EF Core's fluent API
         [Required(AllowEmptyStrings = false)]
-        [MaxLength(ExtraAuthConstants.UserIdSize)] 
+        [MaxLength(ExtraAuthConstants.UserIdSize)]
         public string UserId { get; private set; }
 
         [Required(AllowEmptyStrings = false)]
@@ -37,24 +37,24 @@ namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
         public RoleToPermissions Role { get; private set; }
 
 
-        public static IStatusGeneric<UserToRole> AddRoleToUser(string userId, string roleName, ExtraAuthorizeDbContext context)
+        public static IStatusGeneric<UserToRole> AddRoleToUser(string userId_, string roleName_, ExtraAuthorizeDbContext context_)
         {
-            if (roleName == null) throw new ArgumentNullException(nameof(roleName));
+            if (roleName_ == null) throw new ArgumentNullException(nameof(roleName_));
 
             var status = new StatusGenericHandler<UserToRole>();
-            if (context.Find<UserToRole>(userId, roleName) != null)
+            if (context_.Find<UserToRole>(userId_, roleName_) != null)
             {
-                status.AddError($"The user already has the Role '{roleName}'.");
+                status.AddError($"The user already has the Role '{roleName_}'.");
                 return status;
             }
-            var roleToAdd = context.Find<RoleToPermissions>(roleName);
+            var roleToAdd = context_.Find<RoleToPermissions>(roleName_);
             if (roleToAdd == null)
             {
-                status.AddError($"I could not find the Role '{roleName}'.");
+                status.AddError($"I could not find the Role '{roleName_}'.");
                 return status;
             }
 
-            return status.SetResult(new UserToRole(userId, roleToAdd));
+            return status.SetResult(new UserToRole(userId_, roleToAdd));
         }
     }
 }

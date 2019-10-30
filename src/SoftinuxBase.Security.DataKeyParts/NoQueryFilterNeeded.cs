@@ -11,6 +11,5 @@ namespace SoftinuxBase.Security.DataKeyParts
     /// </summary>
     public class NoQueryFilterNeeded : Attribute
     {
-        
     }
 }

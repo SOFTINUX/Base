@@ -11,22 +11,26 @@ namespace SoftinuxBase.Security.DataAuthorize
     {
         private readonly ExtraAuthorizeDbContext _context;
 
-        public CalcDataKey(ExtraAuthorizeDbContext context)
+        public CalcDataKey(ExtraAuthorizeDbContext context_)
         {
-            _context = context;
+            _context = context_;
         }
 
         /// <summary>
         /// This looks for a DataKey for the current user, which can be missing
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="userId_"></param>
         /// <returns>The found data key, or random guid string to stop it matching anything</returns>
-        public string CalcDataKeyForUser(string userId)
+        public string CalcDataKeyForUser(string userId_)
         {
-            return _context.DataAccess.Where(x => x.UserId == userId)
+            // TODO CHECK THIS CODE BECAUSE IS NOT NEEDED ANYMORE
+            /*
+            return _context.DataAccess.Where(x => x.UserId == userId_)
                 .Select(x => x.LinkedTenant.DataKey).SingleOrDefault()
                    //If no data key then set to random guid to stop it matching anything
                    ?? Guid.NewGuid().ToString("N");
+            */
+            throw new NotImplementedException();
         }
     }
 }

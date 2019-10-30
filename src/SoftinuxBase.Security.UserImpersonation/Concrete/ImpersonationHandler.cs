@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using SoftinuxBase.Security.FeatureAuthorize;
 
+// TODO CHANGE ASSEMBLY TO SECURITY UNIT TEST
 [assembly: InternalsVisibleTo("Test")]
 
 namespace SoftinuxBase.Security.UserImpersonation.Concrete
@@ -37,21 +38,21 @@ namespace SoftinuxBase.Security.UserImpersonation.Concrete
         /// <summary>
         /// If true then the Permissions/DataKey need recalculating due to impersonation starting/stopping
         /// </summary>
-        public bool ImpersonationChange => _impersonationState == ImpersonationStates.Starting || 
+        public bool ImpersonationChange => _impersonationState == ImpersonationStates.Starting ||
                                            _impersonationState == ImpersonationStates.Stopping;
 
         /// <summary>
         /// Creates ImpersonationHandler. NOTE: if protectionProvider is null then impersonation is turned off
         /// </summary>
-        /// <param name="httpContext"></param>
-        /// <param name="protectionProvider"></param>
-        /// <param name="originalClaims"></param>
-        public ImpersonationHandler(HttpContext httpContext, IDataProtectionProvider protectionProvider, List<Claim> originalClaims)
+        /// <param name="httpContext_"></param>
+        /// <param name="protectionProvider_"></param>
+        /// <param name="originalClaims_"></param>
+        public ImpersonationHandler(HttpContext httpContext_, IDataProtectionProvider protectionProvider_, List<Claim> originalClaims_)
         {
-            _httpContext = httpContext ?? throw new ArgumentNullException(nameof(httpContext));
-            _protectionProvider = protectionProvider;
-            _cookie = new ImpersonationCookie(httpContext, protectionProvider);
-            _originalClaims = originalClaims;
+            _httpContext = httpContext_ ?? throw new ArgumentNullException(nameof(httpContext_));
+            _protectionProvider = protectionProvider_;
+            _cookie = new ImpersonationCookie(httpContext_, protectionProvider_);
+            _originalClaims = originalClaims_;
 
             _impersonationState = GetImpersonationState();
             //I use a lazy access to the cookie value as this takes a (bit) more time
@@ -69,7 +70,7 @@ namespace SoftinuxBase.Security.UserImpersonation.Concrete
             return GetUserIdBasedOnRequirements(() => false);
         }
 
-        public void AddOrRemoveImpersonationClaim(List<Claim> claimsToGoIntoNewPrincipal)
+        public void AddOrRemoveImpersonationClaim(List<Claim> claimsToGoIntoNewPrincipal_)
         {
             switch (_impersonationState)
             {
@@ -77,11 +78,11 @@ namespace SoftinuxBase.Security.UserImpersonation.Concrete
                 case ImpersonationStates.Impersonating:
                     break; //Do nothing
                 case ImpersonationStates.Starting:
-                    claimsToGoIntoNewPrincipal.Add(new Claim(ImpersonationClaimType, _startData.Value?.UserName));
+                    claimsToGoIntoNewPrincipal_.Add(new Claim(ImpersonationClaimType, _startData.Value?.UserName));
                     break;
                 case ImpersonationStates.Stopping:
-                    var foundClaim = claimsToGoIntoNewPrincipal.Single(x => x.Type == ImpersonationClaimType);
-                    claimsToGoIntoNewPrincipal.Remove(foundClaim);
+                    var foundClaim = claimsToGoIntoNewPrincipal_.Single(x => x.Type == ImpersonationClaimType);
+                    claimsToGoIntoNewPrincipal_.Remove(foundClaim);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -94,13 +95,13 @@ namespace SoftinuxBase.Security.UserImpersonation.Concrete
         /// <summary>
         /// This returns the impersonated user's UserId if we are impersonating and the keepOwnPermissions is false
         /// </summary>
-        /// <param name="keepOwnPermissionsFunc"></param>
+        /// <param name="keepOwnPermissionsFunc_"></param>
         /// <returns></returns>
-        private string GetUserIdBasedOnRequirements(Func<bool> keepOwnPermissionsFunc)
+        private string GetUserIdBasedOnRequirements(Func<bool> keepOwnPermissionsFunc_)
         {
-            if ((_impersonationState == ImpersonationStates.Starting 
-                 || _impersonationState == ImpersonationStates.Impersonating) 
-                && keepOwnPermissionsFunc() == false)
+            if ((_impersonationState == ImpersonationStates.Starting
+                 || _impersonationState == ImpersonationStates.Impersonating)
+                && keepOwnPermissionsFunc_() == false)
             {
                 return _startData.Value.UserId;
             }

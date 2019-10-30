@@ -11,9 +11,9 @@ namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
     /// </summary>
     public class UserDataAccessKey  : UserDataAccessBase
     {
-        public UserDataAccessKey(string userId, string accessKey) : base(userId)
+        public UserDataAccessKey(string userId_, string accessKey_) : base(userId_)
         {
-            AccessKey = accessKey;
+            AccessKey = accessKey_;
         }
 
         [MaxLength(DataAuthConstants.AccessKeySize)]

@@ -10,21 +10,21 @@ namespace SoftinuxBase.Security.UserImpersonation
 {
     public static class ImpersonateExtensions
     {
-        public static bool InImpersonationMode(this ClaimsPrincipal claimsPrincipal)
+        public static bool InImpersonationMode(this ClaimsPrincipal claimsPrincipal_)
         {
-            return claimsPrincipal.Claims.Any(x => x.Type == ImpersonationHandler.ImpersonationClaimType);
+            return claimsPrincipal_.Claims.Any(x => x.Type == ImpersonationHandler.ImpersonationClaimType);
         }
 
-        public static string GetImpersonatedUserNameMode(this ClaimsPrincipal claimsPrincipal)
+        public static string GetImpersonatedUserNameMode(this ClaimsPrincipal claimsPrincipal_)
         {
-            return claimsPrincipal.Claims.SingleOrDefault(x => x.Type == ImpersonationHandler.ImpersonationClaimType)?.Value;
+            return claimsPrincipal_.Claims.SingleOrDefault(x => x.Type == ImpersonationHandler.ImpersonationClaimType)?.Value;
         }
 
-        public static HtmlString GetCurrentUserNameAsHtml(this ClaimsPrincipal claimsPrincipal)
+        public static HtmlString GetCurrentUserNameAsHtml(this ClaimsPrincipal claimsPrincipal_)
         {
-            var impersonalisedName = claimsPrincipal.GetImpersonatedUserNameMode();
+            var impersonalisedName = claimsPrincipal_.GetImpersonatedUserNameMode();
             var nameToShow = impersonalisedName ??
-                             claimsPrincipal.Claims.SingleOrDefault(x => x.Type == ClaimTypes.Name)?.Value ??
+                             claimsPrincipal_.Claims.SingleOrDefault(x => x.Type == ClaimTypes.Name)?.Value ??
                              "not logged in";
 
             return new HtmlString(

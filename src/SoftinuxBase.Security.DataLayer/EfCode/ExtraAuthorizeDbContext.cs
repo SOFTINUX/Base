@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using SoftinuxBase.Security.DataLayer.EfCode.Configurations;
 using SoftinuxBase.Security.DataLayer.ExtraAuthClasses;
 using SoftinuxBase.Security.DataLayer.ExtraAuthClasses.Support;
-using SoftinuxBase.Security.DataLayer.MultiTenantClasses;
 using SoftinuxBase.Security.RefreshClaimsParts;
 
 namespace SoftinuxBase.Security.DataLayer.EfCode
@@ -26,66 +25,61 @@ namespace SoftinuxBase.Security.DataLayer.EfCode
         /// </summary>
         public DbSet<TimeStore> TimeStores { get; set; }
 
-        //YOU ONLY NEED THESE TWO DBSET'S IF YOU WANT THE Hierarchical DATAKEY FEATURE
-        //Now links to two classes in the CompanyDbContext that hold data used to set up the user's modules and data access rights
-        public DbSet<TenantBase> Tenants { get; set; }
-        public DbSet<UserDataHierarchical> DataAccess { get; set; }
-
         //YOU ONLY NEED TO OVERRIDE SAVECHANGES IF YOU WANT THE "REFRESH USER CLAIMS" FEATURE
         //I only have to override these two versions of SaveChanges, as the other two SaveChanges versions call these
-        public override int SaveChanges(bool acceptAllChangesOnSuccess)
+        public override int SaveChanges(bool acceptAllChangesOnSuccess_)
         {
             if (_authChange == null)
                 //_authChange is null if not using UpdateCookieOnChange, so bypass permission change code
-                return base.SaveChanges(acceptAllChangesOnSuccess);
+                return base.SaveChanges(acceptAllChangesOnSuccess_);
 
             if (this.UserPermissionsMayHaveChanged())
                 _authChange.AddOrUpdate(this);
-            return base.SaveChanges(acceptAllChangesOnSuccess);
+            return base.SaveChanges(acceptAllChangesOnSuccess_);
         }
 
-        public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new CancellationToken())
+        public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess_, CancellationToken cancellationToken_ = new CancellationToken())
         {
             if (_authChange == null)
                 //_authChange is null if not using UpdateCookieOnChange, so bypass permission change code
-                return await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+                return await base.SaveChangesAsync(acceptAllChangesOnSuccess_, cancellationToken_);
 
             if (this.UserPermissionsMayHaveChanged())
                 _authChange?.AddOrUpdate(this);
-            return await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+            return await base.SaveChangesAsync(acceptAllChangesOnSuccess_, cancellationToken_);
         }
 
-        public ExtraAuthorizeDbContext(DbContextOptions<ExtraAuthorizeDbContext> options, IAuthChanges authChange)
-            : base(options)
+        public ExtraAuthorizeDbContext(DbContextOptions<ExtraAuthorizeDbContext> options_, IAuthChanges authChange_)
+            : base(options_)
         {
-            _authChange = authChange;
+            _authChange = authChange_;
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder_)
         {
-            modelBuilder.TenantBaseConfig();
-            modelBuilder.ExtraAuthorizeConfig();
+            modelBuilder_.TenantBaseConfig();
+            modelBuilder_.ExtraAuthorizeConfig();
         }
 
         //-------------------------------------------------------
         //The ITimeStore methods
 
 
-        public long? GetValueFromStore(string key)
+        public long? GetValueFromStore(string key_)
         {
-            return Find<TimeStore>(key)?.LastUpdatedTicks;
+            return Find<TimeStore>(key_)?.LastUpdatedTicks;
         }
 
-        public void AddUpdateValue(string key, long cachedTicks)
+        public void AddUpdateValue(string key_, long cachedTicks_)
         {
-            var currentEntry = Find<TimeStore>(key);
+            var currentEntry = Find<TimeStore>(key_);
             if (currentEntry != null)
             {
-                currentEntry.LastUpdatedTicks = cachedTicks;
+                currentEntry.LastUpdatedTicks = cachedTicks_;
             }
             else
             {
-                Add(new TimeStore {Key = key, LastUpdatedTicks = cachedTicks });
+                Add(new TimeStore {Key = key_, LastUpdatedTicks = cachedTicks_ });
             }
         }
     }

@@ -25,13 +25,13 @@ namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
         /// <summary>
         /// This creates the Role with its permissions
         /// </summary>
-        /// <param name="roleName"></param>
-        /// <param name="description"></param>
-        /// <param name="permissions"></param>
-        private RoleToPermissions(string roleName, string description, ICollection<Permissions> permissions)
+        /// <param name="roleName_"></param>
+        /// <param name="description_"></param>
+        /// <param name="permissions_"></param>
+        private RoleToPermissions(string roleName_, string description_, ICollection<Permissions> permissions_)
         {
-            RoleName = roleName;
-            Update(description, permissions);
+            RoleName = roleName_;
+            Update(description_, permissions_);
         }
 
         /// <summary>
@@ -53,50 +53,48 @@ namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
         /// </summary>
         public IEnumerable<Permissions> PermissionsInRole => _permissionsInRole.UnpackPermissionsFromString();
 
-        public static IStatusGeneric<RoleToPermissions> CreateRoleWithPermissions(string roleName, string description, ICollection<Permissions> permissionInRole,
-            ExtraAuthorizeDbContext context)
+        public static IStatusGeneric<RoleToPermissions> CreateRoleWithPermissions(string roleName_, string description_, ICollection<Permissions> permissionInRole_,
+            ExtraAuthorizeDbContext context_)
         {
             var status = new StatusGenericHandler<RoleToPermissions>();
-            if (context.Find<RoleToPermissions>(roleName) != null)
+            if (context_.Find<RoleToPermissions>(roleName_) != null)
             {
                 status.AddError("That role already exists");
                 return status;
             }
 
-            return status.SetResult(new RoleToPermissions(roleName, description, permissionInRole));
+            return status.SetResult(new RoleToPermissions(roleName_, description_, permissionInRole_));
         }
 
-        public void Update(string description, ICollection<Permissions> permissions)
+        public void Update(string description_, ICollection<Permissions> permissions_)
         {
-            if (permissions == null || !permissions.Any())
+            if (permissions_ == null || !permissions_.Any())
                 throw new InvalidOperationException("There should be at least one permission associated with a role.");
 
-            _permissionsInRole = permissions.PackPermissionsIntoString();
-            Description = description;
+            _permissionsInRole = permissions_.PackPermissionsIntoString();
+            Description = description_;
         }
 
-        public IStatusGeneric DeleteRole(string roleName, bool removeFromUsers,
-            ExtraAuthorizeDbContext context)
+        public IStatusGeneric DeleteRole(string roleName_, bool removeFromUsers_,
+            ExtraAuthorizeDbContext context_)
         {
             var status = new StatusGenericHandler { Message = "Deleted role successfully." };
-            var roleToUpdate = context.Find<RoleToPermissions>(roleName);
+            var roleToUpdate = context_.Find<RoleToPermissions>(roleName_);
             if (roleToUpdate == null)
                 return status.AddError("That role doesn't exists");
 
-            var usersWithRoles = context.UserToRoles.Where(x => x.RoleName == roleName).ToList();
+            var usersWithRoles = context_.UserToRoles.Where(x => x.RoleName == roleName_).ToList();
             if (usersWithRoles.Any())
             {
-                if (!removeFromUsers)
+                if (!removeFromUsers_)
                     return status.AddError($"That role is used by {usersWithRoles.Count} and you didn't ask for them to be updated.");
 
-                context.RemoveRange(usersWithRoles);
+                context_.RemoveRange(usersWithRoles);
                 status.Message = $"Removed role from {usersWithRoles.Count} user and then deleted role successfully.";
             }
 
-            context.Remove(roleToUpdate);
+            context_.Remove(roleToUpdate);
             return status;
         }
-
-
     }
 }

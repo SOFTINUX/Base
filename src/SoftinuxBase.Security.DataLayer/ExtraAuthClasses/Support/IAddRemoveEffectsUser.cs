@@ -5,6 +5,5 @@ namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses.Support
 {
     public interface IAddRemoveEffectsUser
     {
-        
     }
 }

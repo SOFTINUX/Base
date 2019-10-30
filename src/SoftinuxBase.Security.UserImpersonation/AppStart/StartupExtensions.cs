@@ -8,10 +8,10 @@ namespace SoftinuxBase.Security.UserImpersonation.AppStart
 {
     public static class StartupExtensions
     {
-        public static void UserImpersonationRegister(this IServiceCollection services)
+        public static void UserImpersonationRegister(this IServiceCollection services_)
         {
             //This registers the classes in the current assembly that end in "Service" and have a public interface
-            services.RegisterAssemblyPublicNonGenericClasses()
+            services_.RegisterAssemblyPublicNonGenericClasses()
                 .Where(c => c.Name.EndsWith("Service"))
                 .AsPublicImplementedInterfaces();
         }

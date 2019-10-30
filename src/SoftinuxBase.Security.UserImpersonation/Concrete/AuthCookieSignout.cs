@@ -11,11 +11,11 @@ namespace SoftinuxBase.Security.UserImpersonation.Concrete
         /// <summary>
         /// This will ensure any impersonation cookie is deleted when a user signs out
         /// </summary>
-        /// <param name="context"></param>
+        /// <param name="context_"></param>
         /// <returns></returns>
-        public Task SigningOutAsync(CookieSigningOutContext context)
+        public Task SigningOutAsync(CookieSigningOutContext context_)
         {
-            var cookie = new ImpersonationCookie(context.HttpContext, null);
+            var cookie = new ImpersonationCookie(context_.HttpContext, null);
             cookie.Delete();
 
             return Task.CompletedTask;

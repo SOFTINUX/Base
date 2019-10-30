@@ -16,12 +16,12 @@ namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
         /// <summary>
         /// This links modules to a user
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="allowedPaidForModules"></param>
-        public ModulesForUser(string userId, PaidForModules allowedPaidForModules)
+        /// <param name="userId_"></param>
+        /// <param name="allowedPaidForModules_"></param>
+        public ModulesForUser(string userId_, PaidForModules allowedPaidForModules_)
         {
-            UserId = userId ?? throw new ArgumentNullException(nameof(userId));
-            AllowedPaidForModules = allowedPaidForModules;
+            UserId = userId_ ?? throw new ArgumentNullException(nameof(userId_));
+            AllowedPaidForModules = allowedPaidForModules_;
         }
 
         [Key]

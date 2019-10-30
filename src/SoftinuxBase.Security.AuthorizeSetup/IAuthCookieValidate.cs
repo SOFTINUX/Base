@@ -8,6 +8,6 @@ namespace SoftinuxBase.Security.AuthorizeSetup
 {
     public interface IAuthCookieValidate
     {
-        Task ValidateAsync(CookieValidatePrincipalContext context);
+        Task ValidateAsync(CookieValidatePrincipalContext context_);
     }
 }
