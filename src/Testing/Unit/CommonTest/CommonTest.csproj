@@ -32,6 +32,7 @@
     <ProjectReference Include="../../../SoftinuxBase.Security.Data.EntityFramework\SoftinuxBase.Security.Data.EntityFramework.csproj" />
     <ProjectReference Include="../../../SoftinuxBase.SeedDatabase\SoftinuxBase.SeedDatabase.csproj" />
     <ProjectReference Include="../../../SoftinuxBase.WebApplication\SoftinuxBase.WebApplication.csproj" />
+    <ProjectReference Include="..\..\..\SoftinuxBase.Security.DataLayer\SoftinuxBase.Security.DataLayer.csproj" />
   </ItemGroup>
     <ItemGroup>
     <None Update="appsettings.json">

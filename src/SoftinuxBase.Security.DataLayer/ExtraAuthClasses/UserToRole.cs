@@ -5,7 +5,6 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using GenericServices;
-using SoftinuxBase.Security.DataLayer.EfCode;
 using SoftinuxBase.Security.DataLayer.ExtraAuthClasses.Support;
 
 namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
@@ -37,7 +36,7 @@ namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
         public RoleToPermissions Role { get; private set; }
 
 
-        public static IStatusGeneric<UserToRole> AddRoleToUser(string userId_, string roleName_, ExtraAuthorizeDbContext context_)
+        public static IStatusGeneric<UserToRole> AddRoleToUser(string userId_, string roleName_, ApplicationStorageContext context_)
         {
             if (roleName_ == null) throw new ArgumentNullException(nameof(roleName_));
 

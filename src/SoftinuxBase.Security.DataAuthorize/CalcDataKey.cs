@@ -2,16 +2,15 @@
 // Licensed under MIT license. See License.txt in the project root for license information.
 
 using System;
-using System.Linq;
-using SoftinuxBase.Security.DataLayer.EfCode;
+using SoftinuxBase.Security.DataLayer;
 
 namespace SoftinuxBase.Security.DataAuthorize
 {
     public class CalcDataKey
     {
-        private readonly ExtraAuthorizeDbContext _context;
+        private readonly ApplicationStorageContext _context;
 
-        public CalcDataKey(ExtraAuthorizeDbContext context_)
+        public CalcDataKey(ApplicationStorageContext context_)
         {
             _context = context_;
         }

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.DependencyInjection;
 using SoftinuxBase.Security.DataAuthorize;
 using SoftinuxBase.Security.DataKeyParts;
-using SoftinuxBase.Security.DataLayer.EfCode;
+using SoftinuxBase.Security.DataLayer;
 using SoftinuxBase.Security.FeatureAuthorize;
 using SoftinuxBase.Security.UserImpersonation.Concrete;
 
@@ -37,7 +37,7 @@ namespace SoftinuxBase.Security.AuthorizeSetup
             {
                 //There is no PackedPermissionClaimType or there was a change in the impersonation state
 
-                var extraContext = context_.HttpContext.RequestServices.GetRequiredService<ExtraAuthorizeDbContext>();
+                var extraContext = context_.HttpContext.RequestServices.GetRequiredService<ApplicationStorageContext>();
                 var rtoPCalcer = new CalcAllowedPermissions(extraContext);
                 var dataKeyCalc = new CalcDataKey(extraContext);
 

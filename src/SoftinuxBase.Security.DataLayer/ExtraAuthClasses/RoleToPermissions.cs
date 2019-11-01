@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using GenericServices;
-using SoftinuxBase.Security.DataLayer.EfCode;
 using SoftinuxBase.Security.DataLayer.ExtraAuthClasses.Support;
 using SoftinuxBase.Security.PermissionParts;
 
@@ -54,7 +53,7 @@ namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
         public IEnumerable<Permissions> PermissionsInRole => _permissionsInRole.UnpackPermissionsFromString();
 
         public static IStatusGeneric<RoleToPermissions> CreateRoleWithPermissions(string roleName_, string description_, ICollection<Permissions> permissionInRole_,
-            ExtraAuthorizeDbContext context_)
+            ApplicationStorageContext context_)
         {
             var status = new StatusGenericHandler<RoleToPermissions>();
             if (context_.Find<RoleToPermissions>(roleName_) != null)
@@ -76,7 +75,7 @@ namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
         }
 
         public IStatusGeneric DeleteRole(string roleName_, bool removeFromUsers_,
-            ExtraAuthorizeDbContext context_)
+            ApplicationStorageContext context_)
         {
             var status = new StatusGenericHandler { Message = "Deleted role successfully." };
             var roleToUpdate = context_.Find<RoleToPermissions>(roleName_);

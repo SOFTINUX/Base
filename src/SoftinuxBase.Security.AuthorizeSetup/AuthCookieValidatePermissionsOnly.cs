@@ -7,7 +7,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.DependencyInjection;
-using SoftinuxBase.Security.DataLayer.EfCode;
+using SoftinuxBase.Security.DataLayer;
 using SoftinuxBase.Security.FeatureAuthorize;
 
 namespace SoftinuxBase.Security.AuthorizeSetup
@@ -25,7 +25,7 @@ namespace SoftinuxBase.Security.AuthorizeSetup
                 return;
 
             //No permissions in the claims, so we need to add it. This is only happen once after the user has logged in
-            var dbContext = context_.HttpContext.RequestServices.GetRequiredService<ExtraAuthorizeDbContext>();
+            var dbContext = context_.HttpContext.RequestServices.GetRequiredService<ApplicationStorageContext>();
             var rtoPCalcer = new CalcAllowedPermissions(dbContext);
 
             var claims = new List<Claim>();

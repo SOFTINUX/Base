@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.DependencyInjection;
 using SoftinuxBase.Security.DataAuthorize;
 using SoftinuxBase.Security.DataKeyParts;
-using SoftinuxBase.Security.DataLayer.EfCode;
+using SoftinuxBase.Security.DataLayer;
 using SoftinuxBase.Security.FeatureAuthorize;
 using SoftinuxBase.Security.RefreshClaimsParts;
 using SoftinuxBase.Security.UserImpersonation.Concrete;
@@ -37,7 +37,7 @@ namespace SoftinuxBase.Security.AuthorizeSetup
         /// <returns></returns>
         public async Task ValidateAsync(CookieValidatePrincipalContext context_)
         {
-            var extraContext = context_.HttpContext.RequestServices.GetRequiredService<ExtraAuthorizeDbContext>();
+            var extraContext = context_.HttpContext.RequestServices.GetRequiredService<ApplicationStorageContext>();
             var protectionProvider = context_.HttpContext.RequestServices.GetService<IDataProtectionProvider>();
             var authChanges = new AuthChanges();
 

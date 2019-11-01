@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using SoftinuxBase.Security.DataAuthorize;
 using SoftinuxBase.Security.DataKeyParts;
-using SoftinuxBase.Security.DataLayer.EfCode;
+using SoftinuxBase.Security.DataLayer;
 using SoftinuxBase.Security.FeatureAuthorize;
 
 namespace SoftinuxBase.Security.AuthorizeSetup
@@ -20,10 +20,10 @@ namespace SoftinuxBase.Security.AuthorizeSetup
     // Thanks to https://korzh.com/blogs/net-tricks/aspnet-identity-store-user-data-in-claims
     public class AddPermissionsDataKeyToUserClaims : UserClaimsPrincipalFactory<IdentityUser>
     {
-        private readonly ExtraAuthorizeDbContext _extraAuthDbContext;
+        private readonly ApplicationStorageContext _extraAuthDbContext;
 
         public AddPermissionsDataKeyToUserClaims(UserManager<IdentityUser> userManager_, IOptions<IdentityOptions> optionsAccessor_,
-            ExtraAuthorizeDbContext extraAuthDbContext_)
+            ApplicationStorageContext extraAuthDbContext_)
             : base(userManager_, optionsAccessor_)
         {
             _extraAuthDbContext = extraAuthDbContext_;

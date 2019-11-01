@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.DependencyInjection;
 using SoftinuxBase.Security.DataAuthorize;
 using SoftinuxBase.Security.DataKeyParts;
-using SoftinuxBase.Security.DataLayer.EfCode;
+using SoftinuxBase.Security.DataLayer;
 using SoftinuxBase.Security.FeatureAuthorize;
 
 namespace SoftinuxBase.Security.AuthorizeSetup
@@ -27,7 +27,7 @@ namespace SoftinuxBase.Security.AuthorizeSetup
                 return;
 
             //No permissions in the claims, so we need to add it. This is only happen once after the user has logged in
-            var extraContext = context_.HttpContext.RequestServices.GetRequiredService<ExtraAuthorizeDbContext>();
+            var extraContext = context_.HttpContext.RequestServices.GetRequiredService<ApplicationStorageContext>();
             var rtoPCalcer = new CalcAllowedPermissions(extraContext);
             var dataKeyCalc = new CalcDataKey(extraContext);
 

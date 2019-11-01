@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using SoftinuxBase.Security.DataLayer.EfCode;
+using SoftinuxBase.Security.DataLayer;
 using SoftinuxBase.Security.PermissionParts;
 
 namespace SoftinuxBase.Security.FeatureAuthorize
@@ -15,9 +15,9 @@ namespace SoftinuxBase.Security.FeatureAuthorize
     /// </summary>
     public class CalcAllowedPermissions
     {
-        private readonly ExtraAuthorizeDbContext _context;
+        private readonly ApplicationStorageContext _context;
 
-        public CalcAllowedPermissions(ExtraAuthorizeDbContext context)
+        public CalcAllowedPermissions(ApplicationStorageContext context)
         {
             _context = context;
         }

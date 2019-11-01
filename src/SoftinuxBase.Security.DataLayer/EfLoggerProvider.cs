@@ -6,7 +6,7 @@ using System.IO;
 using System.Reflection;
 using Microsoft.Extensions.Logging;
 
-namespace SoftinuxBase.WebApplication
+namespace SoftinuxBase.Security.DataLayer
 {
     public class EfLoggerProvider : ILoggerProvider
     {

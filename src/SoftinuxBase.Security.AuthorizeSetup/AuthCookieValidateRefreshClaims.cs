@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.DependencyInjection;
 using SoftinuxBase.Security.DataAuthorize;
 using SoftinuxBase.Security.DataKeyParts;
-using SoftinuxBase.Security.DataLayer.EfCode;
+using SoftinuxBase.Security.DataLayer;
 using SoftinuxBase.Security.FeatureAuthorize;
 using SoftinuxBase.Security.RefreshClaimsParts;
 
@@ -27,7 +27,7 @@ namespace SoftinuxBase.Security.AuthorizeSetup
         public async Task ValidateAsync(CookieValidatePrincipalContext context_)
         {
             var authChanges = new AuthChanges();
-            var extraContext = context_.HttpContext.RequestServices.GetRequiredService<ExtraAuthorizeDbContext>();
+            var extraContext = context_.HttpContext.RequestServices.GetRequiredService<ApplicationStorageContext>();
 
             var newClaims = new List<Claim>();
             var originalClaims = context_.Principal.Claims.ToList();
