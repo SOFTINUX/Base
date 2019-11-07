@@ -13,6 +13,8 @@ namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
     /// </summary>
     public class ModulesForUser : IChangeEffectsUser, IAddRemoveEffectsUser
     {
+        private ModulesForUser() { }
+
         /// <summary>
         /// This links modules to a user
         /// </summary>
