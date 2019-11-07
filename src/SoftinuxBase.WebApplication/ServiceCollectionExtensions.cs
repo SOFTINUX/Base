@@ -17,6 +17,7 @@ using SoftinuxBase.Security;
 using SoftinuxBase.Security.AuthorizeSetup;
 using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.DataKeyParts;
+using SoftinuxBase.Security.DataLayer;
 using SoftinuxBase.Security.FeatureAuthorize.PolicyCode;
 using SoftinuxBase.Security.UserImpersonation.AppStart;
 
@@ -117,6 +118,8 @@ namespace SoftinuxBase.WebApplication
             //services_.ConfigureGenericServicesEntities(typeof(ApplicationStorageContext))
             //    .ScanAssemblesForDtos(Assembly.GetAssembly(typeof(ListUsersDto)))
             //    .RegisterGenericServices();
+
+            services_.AddScoped<ApplicationStorageContext, ApplicationStorageContext>();
 
             // 3. Configure the corporate logo
             services_.Configure<CorporateConfiguration>(options_ =>
