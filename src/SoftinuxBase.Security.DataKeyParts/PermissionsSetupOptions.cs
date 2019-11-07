@@ -12,7 +12,7 @@ namespace SoftinuxBase.Security.DataKeyParts
         PermissionsOnly, PermissionsDataKey, Impersonation, RefreshClaims, Everything
     }
 
-    public class DemoSetupOptions
+    public class PermissionsSetupOptions
     {
         public string DatabaseSetup { get; set; }
         public bool CreateAndSeed { get; set; }

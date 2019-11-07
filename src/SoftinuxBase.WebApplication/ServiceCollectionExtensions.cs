@@ -2,10 +2,11 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
-
 using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
 using ExtCore.WebApplication.Extensions;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +14,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SoftinuxBase.Infrastructure;
 using SoftinuxBase.Security;
+using SoftinuxBase.Security.AuthorizeSetup;
 using SoftinuxBase.Security.Data.Entities;
+using SoftinuxBase.Security.DataKeyParts;
+using SoftinuxBase.Security.FeatureAuthorize.PolicyCode;
+using SoftinuxBase.Security.UserImpersonation.AppStart;
 
 namespace SoftinuxBase.WebApplication
 {
@@ -81,7 +86,37 @@ namespace SoftinuxBase.WebApplication
                 options_.Cookie.SecurePolicy = (CookieSecurePolicy)Enum.Parse(typeof(CookieSecurePolicy), configuration_["ConfigureApplicationCookie:Cookie.SecurePolicy"], false); // should ideally be "Always"
 
                 options_.SlidingExpiration = true;
+
             });
+
+            // 2b. Configuration for new permissions system
+            services_.Configure<CookiePolicyOptions>(options_ =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options_.CheckConsentNeeded = context_ => false; // !!!!!!!!!!!!!!!!!!!!!! Turned off
+                options_.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            services_.AddSingleton(configuration_); // Needed for SuperAdmin setup
+            services_.Configure<PermissionsSetupOptions>(configuration_.GetSection("PermissionsSetup"));
+
+            // Register the Permission policy handlers
+            services_.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
+            services_.AddSingleton<IAuthorizationHandler, PermissionHandler>();
+
+            // This is needed to implement the data authorize code
+            services_.AddScoped<IGetClaimsProvider, GetClaimsFromUser>();
+
+            // This registers/sets up the services in these projects.
+            services_.UserImpersonationRegister();
+
+            // This enables Cookies for authentication and adds the feature and data claims to the user
+            services_.ConfigureCookiesForExtraAuth();
+
+            //// This has to come after the ConfigureCookiesForExtraAuth settings, which sets up the IAuthChanges
+            //services_.ConfigureGenericServicesEntities(typeof(ApplicationStorageContext))
+            //    .ScanAssemblesForDtos(Assembly.GetAssembly(typeof(ListUsersDto)))
+            //    .RegisterGenericServices();
 
             // 3. Configure the corporate logo
             services_.Configure<CorporateConfiguration>(options_ =>

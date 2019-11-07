@@ -25,11 +25,16 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.AuthorizeSetup\SoftinuxBase.Security.AuthorizeSetup.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.DataKeyParts\SoftinuxBase.Security.DataKeyParts.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.FeatureAuthorize\SoftinuxBase.Security.FeatureAuthorize.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.UserImpersonation\SoftinuxBase.Security.UserImpersonation.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security\SoftinuxBase.Security.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.Data.Entities\SoftinuxBase.Security.Data.Entities.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ExtCore.WebApplication" Version="4.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.CookiePolicy" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="2.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />

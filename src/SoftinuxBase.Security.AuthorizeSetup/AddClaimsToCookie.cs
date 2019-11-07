@@ -21,7 +21,7 @@ namespace SoftinuxBase.Security.AuthorizeSetup
         public static void ConfigureCookiesForExtraAuth(this IServiceCollection services_)
         {
             var sp = services_.BuildServiceProvider();
-            var authCookieVersion = sp.GetRequiredService<IOptions<DemoSetupOptions>>().Value.AuthVersion;
+            var authCookieVersion = sp.GetRequiredService<IOptions<PermissionsSetupOptions>>().Value.AuthVersion;
 
             IAuthCookieValidate cookieEventClass = null;
             switch (authCookieVersion)
