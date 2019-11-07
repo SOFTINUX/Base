@@ -5,6 +5,7 @@ using System;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.DataKeyParts;
 using SoftinuxBase.Security.RefreshClaimsParts;
 using SoftinuxBase.Security.UserImpersonation.Concrete;
@@ -32,12 +33,12 @@ namespace SoftinuxBase.Security.AuthorizeSetup
                 case AuthCookieVersions.LoginPermissions:
                     //This uses UserClaimsPrincipal to set the claims on login - easy and quick.
                     //Simple version - see https://korzh.com/blogs/net-tricks/aspnet-identity-store-user-data-in-claims
-                    services_.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, AddPermissionsToUserClaims>();
+                    services_.AddScoped<IUserClaimsPrincipalFactory<User>, AddPermissionsToUserClaims>();
                     break;
                 case AuthCookieVersions.LoginPermissionsDataKey:
                     //This uses UserClaimsPrincipal to set the claims on login - easy and quick.
                     //Simple version - see https://korzh.com/blogs/net-tricks/aspnet-identity-store-user-data-in-claims
-                    services_.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, AddPermissionsDataKeyToUserClaims>();
+                    services_.AddScoped<IUserClaimsPrincipalFactory<User>, AddPermissionsDataKeyToUserClaims>();
                     break;
                 case AuthCookieVersions.PermissionsOnly:
                     //Event - only permissions set up

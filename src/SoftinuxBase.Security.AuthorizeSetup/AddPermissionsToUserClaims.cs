@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
+using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.DataLayer;
 using SoftinuxBase.Security.FeatureAuthorize;
 
@@ -15,18 +16,18 @@ namespace SoftinuxBase.Security.AuthorizeSetup
     /// - Adds Permissions to the user's claims.
     /// </summary>
     // Thanks to https://korzh.com/blogs/net-tricks/aspnet-identity-store-user-data-in-claims
-    public class AddPermissionsToUserClaims : UserClaimsPrincipalFactory<IdentityUser>
+    public class AddPermissionsToUserClaims : UserClaimsPrincipalFactory<User>
     {
         private readonly ApplicationStorageContext _extraAuthDbContext;
 
-        public AddPermissionsToUserClaims(UserManager<IdentityUser> userManager_, IOptions<IdentityOptions> optionsAccessor_,
+        public AddPermissionsToUserClaims(UserManager<User> userManager_, IOptions<IdentityOptions> optionsAccessor_,
             ApplicationStorageContext extraAuthDbContext_)
             : base(userManager_, optionsAccessor_)
         {
             _extraAuthDbContext = extraAuthDbContext_;
         }
 
-        protected override async Task<ClaimsIdentity> GenerateClaimsAsync(IdentityUser user_)
+        protected override async Task<ClaimsIdentity> GenerateClaimsAsync(User user_)
         {
             var identity = await base.GenerateClaimsAsync(user_);
             var userId = identity.Claims.GetUserIdFromClaims();
