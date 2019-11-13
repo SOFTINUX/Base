@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using SoftinuxBase.Security.DataLayer;
 using SoftinuxBase.WebApplication;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -41,7 +42,7 @@ namespace WebApplication
             // Which database provider to use : Sqlite
             services_.AddDbContext<ApplicationStorageContext>(options_ =>
             {
-                options_.UseSqlite(Configuration["ConnectionStrings:Default"]);
+                options_.UseSqlite(Configuration["ConnectionStrings:Default"], o_ => o_.MigrationsAssembly(typeof(Startup).Assembly.GetName().Name));
             });
 
             // Register database-specific storage context implementation.

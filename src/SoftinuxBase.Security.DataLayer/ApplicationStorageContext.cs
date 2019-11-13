@@ -21,9 +21,12 @@ namespace SoftinuxBase.Security.DataLayer
     /// <summary>
     /// Class that holds the Entity Framework DbContext's DbSets related to some extension
     /// (entities in XXX.Data.Entities project) and that also inherits from ExtCore's IStorageContext.
+    /// It's partial so that you can add your own DbSets.
     /// </summary>
-    public class ApplicationStorageContext : IdentityDbContext<User, IdentityRole<string>, string>, IStorageContext, ITimeStore
+    public partial class ApplicationStorageContext : IdentityDbContext<User, IdentityRole<string>, string>, IStorageContext, ITimeStore
     {
+        public ApplicationStorageContext(DbContextOptions options_) : base(options_) { }
+
         protected ApplicationStorageContext(DbContextOptions options_, IAuthChanges authChange_)
             : base(options_)
         {

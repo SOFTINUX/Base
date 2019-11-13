@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebApplication;
+using SoftinuxBase.Security.DataLayer;
 
 namespace WebApplication.Migrations
 {
     [DbContext(typeof(ApplicationStorageContext))]
-    [Migration("20191107213547_NewPermissionsSystem")]
-    partial class NewPermissionsSystem
+    [Migration("20191113213828_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
