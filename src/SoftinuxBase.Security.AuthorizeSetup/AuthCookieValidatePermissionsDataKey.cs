@@ -7,8 +7,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.DependencyInjection;
-using SoftinuxBase.Security.DataAuthorize;
-using SoftinuxBase.Security.DataKeyParts;
 using SoftinuxBase.Security.DataLayer;
 using SoftinuxBase.Security.FeatureAuthorize;
 
@@ -29,7 +27,6 @@ namespace SoftinuxBase.Security.AuthorizeSetup
             //No permissions in the claims, so we need to add it. This is only happen once after the user has logged in
             var extraContext = context_.HttpContext.RequestServices.GetRequiredService<ApplicationStorageContext>();
             var rtoPCalcer = new CalcAllowedPermissions(extraContext);
-            var dataKeyCalc = new CalcDataKey(extraContext);
 
             var claims = new List<Claim>();
             claims.AddRange(context_.Principal.Claims); //Copy over existing claims
@@ -37,9 +34,6 @@ namespace SoftinuxBase.Security.AuthorizeSetup
             //Now calculate the Permissions Claim value and add it
             claims.Add(new Claim(PermissionConstants.PackedPermissionClaimType,
                 await rtoPCalcer.CalcPermissionsForUserAsync(userId)));
-            //and the same for the DataKey
-            claims.Add(new Claim(DataAuthConstants.HierarchicalKeyClaimName,
-                dataKeyCalc.CalcDataKeyForUser(userId)));
 
             //Build a new ClaimsPrincipal and use it to replace the current ClaimsPrincipal
             var identity = new ClaimsIdentity(claims, "Cookie");

@@ -8,8 +8,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.DependencyInjection;
-using SoftinuxBase.Security.DataAuthorize;
-using SoftinuxBase.Security.DataKeyParts;
 using SoftinuxBase.Security.DataLayer;
 using SoftinuxBase.Security.FeatureAuthorize;
 using SoftinuxBase.Security.RefreshClaimsParts;
@@ -37,12 +35,10 @@ namespace SoftinuxBase.Security.AuthorizeSetup
                     extraContext))
             {
                 var rtoPCalcer = new CalcAllowedPermissions(extraContext);
-                var dataKeyCalc = new CalcDataKey(extraContext);
 
                 //Handle the feature permissions
                 var userId = originalClaims.GetUserIdFromClaims();
                 newClaims.AddRange(await BuildFeatureClaimsAsync(userId, rtoPCalcer));
-                newClaims.AddRange(BuildDataClaims(userId, dataKeyCalc));
 
                 //Something has changed so we replace the current ClaimsPrincipal with a new one
 
@@ -72,13 +68,6 @@ namespace SoftinuxBase.Security.AuthorizeSetup
             return claims;
         }
 
-        private List<Claim> BuildDataClaims(string userId_, CalcDataKey dataKeyCalc_)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim(DataAuthConstants.HierarchicalKeyClaimName, dataKeyCalc_.CalcDataKeyForUser(userId_))
-            };
-            return claims;
-        }
+
     }
 }

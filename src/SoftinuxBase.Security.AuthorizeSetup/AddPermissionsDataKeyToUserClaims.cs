@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using SoftinuxBase.Security.Data.Entities;
-using SoftinuxBase.Security.DataAuthorize;
-using SoftinuxBase.Security.DataKeyParts;
 using SoftinuxBase.Security.DataLayer;
 using SoftinuxBase.Security.FeatureAuthorize;
 
@@ -36,8 +34,6 @@ namespace SoftinuxBase.Security.AuthorizeSetup
             var userId = identity.Claims.GetUserIdFromClaims();
             var rtoPCalcer = new CalcAllowedPermissions(_extraAuthDbContext);
             identity.AddClaim(new Claim(PermissionConstants.PackedPermissionClaimType, await rtoPCalcer.CalcPermissionsForUserAsync(userId)));
-            var dataKeyCalcer = new CalcDataKey(_extraAuthDbContext);
-            identity.AddClaim(new Claim(DataAuthConstants.HierarchicalKeyClaimName, dataKeyCalcer.CalcDataKeyForUser(userId)));
             return identity;
         }
     }
