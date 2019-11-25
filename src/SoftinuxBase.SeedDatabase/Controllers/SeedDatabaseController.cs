@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
-
+using SoftinuxBase.Security.PermissionParts;
 using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 
 namespace SoftinuxBase.SeedDatabase.Controllers
@@ -47,6 +47,51 @@ namespace SoftinuxBase.SeedDatabase.Controllers
             _logger.LogInformation("Access REST API \"Hello world!\"");
             return Ok("Hello world!");
         }
+
+        [HttpPost]
+        [ActionName("SetNewPermissions")]
+        [Route("/dev/seed/create-users-permissions")]
+        public async Task<IActionResult> CreateUsersPermissionsAsync()
+        {
+            try
+            {
+                var roleToPermissionsRepo = _storage.GetRepository<IRoleToPermissionsRepository>();
+
+                // Cleanup
+                roleToPermissionsRepo.DeleteAll();
+
+                // Role: Admin, permissions: all
+                roleToPermissionsRepo.SetPermissions(
+                    Role.Administrator.GetRoleName(),
+                    new List<Permissions>
+                    {
+                    Permissions.AccessAll, Permissions.AccessExtension, Permissions.Admin, Permissions.Create, Permissions.Delete,Permissions.Edit, Permissions.Read,
+                    Permissions.CreateRoles,Permissions.DeleteRoles,Permissions.EditRoles,Permissions.ListRoles,Permissions.ReadRoles,
+                    Permissions.CreateUsers,  Permissions.DeleteUsers, Permissions.EditUsers,Permissions.ListUsers,Permissions.ReadUsers,
+                     Permissions.EditUsersPermissions,
+                    });
+
+                // Role: User, permissions: list/read
+                roleToPermissionsRepo.SetPermissions(
+                    Role.User.GetRoleName(),
+                    new List<Permissions>
+                    {
+                        Permissions.Read,
+                        Permissions.ListRoles,Permissions.ReadRoles,
+                        Permissions.ListUsers,Permissions.ReadUsers,
+                    });
+
+                await _storage.SaveAsync();
+
+                return Ok("New permissions system initialization Ok.");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+
 
         [HttpPost]
         [ActionName("CreateUser")]

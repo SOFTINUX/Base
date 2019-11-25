@@ -32,5 +32,6 @@
   <ItemGroup>
     <ProjectReference Include="..\SoftinuxBase.Security.Common\SoftinuxBase.Security.Common.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.Data.Entities\SoftinuxBase.Security.Data.Entities.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.DataLayer\SoftinuxBase.Security.DataLayer.csproj" />
   </ItemGroup>
 </Project>

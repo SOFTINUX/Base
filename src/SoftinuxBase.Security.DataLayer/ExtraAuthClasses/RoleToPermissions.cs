@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using ExtCore.Data.Entities.Abstractions;
 using GenericServices;
 using SoftinuxBase.Security.DataLayer.ExtraAuthClasses.Support;
 using SoftinuxBase.Security.PermissionParts;
@@ -14,7 +15,7 @@ namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
     /// <summary>
     /// This holds each Roles, which are mapped to Permissions
     /// </summary>
-    public class RoleToPermissions : IChangeEffectsUser
+    public class RoleToPermissions : IChangeEffectsUser, IEntity
     {
         [Required(AllowEmptyStrings = false)] //A role must have at least one role in it
         private string _permissionsInRole;
@@ -27,7 +28,7 @@ namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
         /// <param name="roleName_"></param>
         /// <param name="description_"></param>
         /// <param name="permissions_"></param>
-        private RoleToPermissions(string roleName_, string description_, ICollection<Permissions> permissions_)
+        public RoleToPermissions(string roleName_, string description_, ICollection<Permissions> permissions_)
         {
             RoleName = roleName_;
             Update(description_, permissions_);
@@ -51,19 +52,6 @@ namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
         /// This returns the list of permissions in this role
         /// </summary>
         public IEnumerable<Permissions> PermissionsInRole => _permissionsInRole.UnpackPermissionsFromString();
-
-        public static IStatusGeneric<RoleToPermissions> CreateRoleWithPermissions(string roleName_, string description_, ICollection<Permissions> permissionInRole_,
-            ApplicationStorageContext context_)
-        {
-            var status = new StatusGenericHandler<RoleToPermissions>();
-            if (context_.Find<RoleToPermissions>(roleName_) != null)
-            {
-                status.AddError("That role already exists");
-                return status;
-            }
-
-            return status.SetResult(new RoleToPermissions(roleName_, description_, permissionInRole_));
-        }
 
         public void Update(string description_, ICollection<Permissions> permissions_)
         {
