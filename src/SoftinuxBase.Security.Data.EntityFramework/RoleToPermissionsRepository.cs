@@ -32,17 +32,16 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         }
 
         /// <inheritdoc/>
-        public void SetPermissions(string roleName_, ICollection<Permissions> permissions_)
+        public bool SetPermissions(string roleName_, ICollection<Permissions> permissions_)
         {
             var roleToPermission = FindBy(roleName_);
             if (roleToPermission == null)
             {
-                Create(new RoleToPermissions(roleName_, roleName_, permissions_));
+                return false;
             }
-            else
-            {
-                roleToPermission.Update(roleToPermission.Description, permissions_);
-            }
+
+            roleToPermission.Update(roleToPermission.Description, permissions_);
+            return true;
         }
     }
 }

@@ -56,7 +56,7 @@ namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
         public void Update(string description_, ICollection<Permissions> permissions_)
         {
             if (permissions_ == null || !permissions_.Any())
-                throw new InvalidOperationException("There should be at least one permission associated with a role.");
+                throw new ArgumentException("There should be at least one permission associated with a role.", nameof(permissions_));
 
             _permissionsInRole = permissions_.PackPermissionsIntoString();
             Description = description_;

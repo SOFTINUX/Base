@@ -13,6 +13,9 @@ namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
     /// </summary>
     public class ModulesForUser : IChangeEffectsUser, IAddRemoveEffectsUser
     {
+        /// <summary>
+        /// Empty constructor for migration to work.
+        /// </summary>
         private ModulesForUser() { }
 
         /// <summary>

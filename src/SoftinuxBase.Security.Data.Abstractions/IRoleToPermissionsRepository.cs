@@ -27,10 +27,11 @@ namespace SoftinuxBase.Security.Data.Abstractions
         void Create(RoleToPermissions entity_);
 
         /// <summary>
-        /// Set new permissions to a role, erasing old values.
+        /// Set new permissions to a role, erasing old values. The record for the role must already exist.
         /// </summary>
         /// <param name="roleName_">Name of role.</param>
         /// <param name="permissions_">New permissions.</param>
-        void SetPermissions(string roleName_, ICollection<PermissionParts.Permissions> permissions_);
+        /// <returns>true when an existing link was updated.</returns>
+        bool SetPermissions(string roleName_, ICollection<PermissionParts.Permissions> permissions_);
     }
 }

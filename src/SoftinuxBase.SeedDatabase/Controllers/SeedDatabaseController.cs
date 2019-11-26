@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
+using SoftinuxBase.Security.DataLayer.ExtraAuthClasses;
 using SoftinuxBase.Security.PermissionParts;
 using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 
@@ -61,25 +62,41 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                 roleToPermissionsRepo.DeleteAll();
 
                 // Role: Admin, permissions: all
-                roleToPermissionsRepo.SetPermissions(
+                roleToPermissionsRepo.Create(
+                    new RoleToPermissions(
                     Role.Administrator.GetRoleName(),
+                    "Administrator role",
                     new List<Permissions>
                     {
-                    Permissions.AccessAll, Permissions.AccessExtension, Permissions.Admin, Permissions.Create, Permissions.Delete,Permissions.Edit, Permissions.Read,
-                    Permissions.CreateRoles,Permissions.DeleteRoles,Permissions.EditRoles,Permissions.ListRoles,Permissions.ReadRoles,
-                    Permissions.CreateUsers,  Permissions.DeleteUsers, Permissions.EditUsers,Permissions.ListUsers,Permissions.ReadUsers,
-                     Permissions.EditUsersPermissions,
-                    });
+                    Permissions.AccessAll,
+                    Permissions.AccessExtension,
+                    Permissions.Admin,
+                    Permissions.Create,
+                    Permissions.Delete,
+                    Permissions.Edit,
+                    Permissions.Read,
+                    Permissions.CreateRoles,
+                    Permissions.DeleteRoles,
+                    Permissions.EditRoles,
+                    Permissions.ListRoles,
+                    Permissions.ReadRoles,
+                    Permissions.CreateUsers,
+                    Permissions.DeleteUsers,
+                    Permissions.EditUsers,
+                    Permissions.ListUsers,
+                    Permissions.ReadUsers,
+                    Permissions.EditUsersPermissions,
+                    }));
 
                 // Role: User, permissions: list/read
-                roleToPermissionsRepo.SetPermissions(
+                roleToPermissionsRepo.Create(
+                    new RoleToPermissions(
                     Role.User.GetRoleName(),
+                    "User role",
                     new List<Permissions>
                     {
-                        Permissions.Read,
-                        Permissions.ListRoles,Permissions.ReadRoles,
-                        Permissions.ListUsers,Permissions.ReadUsers,
-                    });
+                        Permissions.Read, Permissions.ListRoles, Permissions.ReadRoles, Permissions.ListUsers, Permissions.ReadUsers
+                    }));
 
                 await _storage.SaveAsync();
 
