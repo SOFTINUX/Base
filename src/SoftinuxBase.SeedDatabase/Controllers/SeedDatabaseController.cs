@@ -57,6 +57,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
             try
             {
                 var roleToPermissionsRepo = _storage.GetRepository<IRoleToPermissionsRepository>();
+                var userToRoleRepo = _storage.GetRepository<IUserToRoleRepository>();
 
                 // Cleanup
                 roleToPermissionsRepo.DeleteAll();
@@ -99,6 +100,12 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                     }));
 
                 await _storage.SaveAsync();
+
+                // User to role
+                var johnDoeUser = await _userManager.FindByNameAsync("johndoe");
+                var janeFondaUser = await _userManager.FindByNameAsync("janefonda");
+                userToRoleRepo.AddUserToRole(johnDoeUser.Id, Role.Administrator.GetRoleName());
+                userToRoleRepo.AddUserToRole(janeFondaUser.Id, Role.User.GetRoleName());
 
                 return Ok("New permissions system initialization Ok.");
             }
