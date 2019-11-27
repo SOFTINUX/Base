@@ -1,10 +1,8 @@
 ﻿// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using ExtCore.Data.EntityFramework;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.DataLayer.ExtraAuthClasses;
@@ -14,6 +12,12 @@ namespace SoftinuxBase.Security.Data.EntityFramework
 {
     public class RoleToPermissionsRepository : RepositoryBase<RoleToPermissions>, IRoleToPermissionsRepository
     {
+        /// <inheritdoc />
+        public IEnumerable<RoleToPermissions> All()
+        {
+            return dbSet.ToList();
+        }
+
         /// <inheritdoc/>
         public void DeleteAll()
         {
@@ -26,6 +30,7 @@ namespace SoftinuxBase.Security.Data.EntityFramework
             return dbSet.FirstOrDefault(role_ => role_.RoleName == roleName_);
         }
 
+        /// <inheritdoc />
         public void Create(RoleToPermissions entity_)
         {
             dbSet.Add(entity_);

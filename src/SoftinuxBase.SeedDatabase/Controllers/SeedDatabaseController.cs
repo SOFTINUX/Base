@@ -56,42 +56,98 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         {
             try
             {
-                var roleToPermissionsRepo = _storage.GetRepository<IRoleToPermissionsRepository>();
-                var userToRoleRepo = _storage.GetRepository<IUserToRoleRepository>();
+                // Save RoleToPermissions records
+                await SaveRoleToPermissions();
 
-                // Cleanup
-                roleToPermissionsRepo.DeleteAll();
+                // Save UserToRoles records
+                var saveResults = await SaveUserToRoles();
 
-                // Role: Admin, permissions: all
-                roleToPermissionsRepo.Create(
-                    new RoleToPermissions(
+                // Verify data
+                VerifySavedData(saveResults);
+
+                return Ok("New permissions system initialization Ok.");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, $"{e.Message} - {e.StackTrace}");
+            }
+        }
+
+        private void VerifySavedData(IEnumerable<bool> userToRoleSaveResults_)
+        {
+            var roleToPermissionsRepo = _storage.GetRepository<IRoleToPermissionsRepository>();
+            if (!roleToPermissionsRepo.All().Any())
+            {
+                throw new Exception("Role to permissions NOT SAVED");
+            }
+
+            foreach (var result in userToRoleSaveResults_)
+            {
+                if (!result)
+                {
+                    throw new Exception("User to roles NOT SAVED");
+                }
+            }
+        }
+
+        private async Task<IEnumerable<bool>> SaveUserToRoles()
+        {
+            var userToRoleRepo = _storage.GetRepository<IUserToRoleRepository>();
+
+            // Cleanup
+            userToRoleRepo.DeleteAll();
+
+            List<bool> saveResults = new List<bool>();
+            // John: Admin, Jane and Paul: User
+            var johnDoeUser = await _userManager.FindByNameAsync("johndoe");
+            var janeFondaUser = await _userManager.FindByNameAsync("janefonda");
+            var paulKellerUseer = await _userManager.FindByNameAsync("paulkeller");
+            saveResults.Add(userToRoleRepo.AddUserToRole(johnDoeUser.Id, Role.Administrator.GetRoleName()));
+            saveResults.Add(userToRoleRepo.AddUserToRole(janeFondaUser.Id, Role.User.GetRoleName()));
+            saveResults.Add(userToRoleRepo.AddUserToRole(paulKellerUseer.Id, Role.User.GetRoleName()));
+
+            await _storage.SaveAsync();
+
+            return saveResults;
+        }
+
+        private async Task SaveRoleToPermissions()
+        {
+            var roleToPermissionsRepo = _storage.GetRepository<IRoleToPermissionsRepository>();
+
+            // Cleanup
+            roleToPermissionsRepo.DeleteAll();
+
+            // Role: Admin, permissions: all
+            roleToPermissionsRepo.Create(
+                new RoleToPermissions(
                     Role.Administrator.GetRoleName(),
                     "Administrator role",
                     new List<Permissions>
                     {
-                    Permissions.AccessAll,
-                    Permissions.AccessExtension,
-                    Permissions.Admin,
-                    Permissions.Create,
-                    Permissions.Delete,
-                    Permissions.Edit,
-                    Permissions.Read,
-                    Permissions.CreateRoles,
-                    Permissions.DeleteRoles,
-                    Permissions.EditRoles,
-                    Permissions.ListRoles,
-                    Permissions.ReadRoles,
-                    Permissions.CreateUsers,
-                    Permissions.DeleteUsers,
-                    Permissions.EditUsers,
-                    Permissions.ListUsers,
-                    Permissions.ReadUsers,
-                    Permissions.EditUsersPermissions,
+                        Permissions.AccessAll,
+                        Permissions.AccessExtension,
+                        Permissions.Admin,
+                        Permissions.Create,
+                        Permissions.Delete,
+                        Permissions.Edit,
+                        Permissions.Read,
+                        Permissions.CreateRoles,
+                        Permissions.DeleteRoles,
+                        Permissions.EditRoles,
+                        Permissions.ListRoles,
+                        Permissions.ReadRoles,
+                        Permissions.CreateUsers,
+                        Permissions.DeleteUsers,
+                        Permissions.EditUsers,
+                        Permissions.ListUsers,
+                        Permissions.ReadUsers,
+                        Permissions.EditUsersPermissions,
                     }));
 
-                // Role: User, permissions: list/read
-                roleToPermissionsRepo.Create(
-                    new RoleToPermissions(
+            // Role: User, permissions: list/read
+            roleToPermissionsRepo.Create(
+                new RoleToPermissions(
                     Role.User.GetRoleName(),
                     "User role",
                     new List<Permissions>
@@ -99,23 +155,8 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                         Permissions.Read, Permissions.ListRoles, Permissions.ReadRoles, Permissions.ListUsers, Permissions.ReadUsers
                     }));
 
-                await _storage.SaveAsync();
-
-                // User to role
-                var johnDoeUser = await _userManager.FindByNameAsync("johndoe");
-                var janeFondaUser = await _userManager.FindByNameAsync("janefonda");
-                userToRoleRepo.AddUserToRole(johnDoeUser.Id, Role.Administrator.GetRoleName());
-                userToRoleRepo.AddUserToRole(janeFondaUser.Id, Role.User.GetRoleName());
-
-                return Ok("New permissions system initialization Ok.");
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, e.Message);
-            }
+            await _storage.SaveAsync();
         }
-
-
 
         [HttpPost]
         [ActionName("CreateUser")]

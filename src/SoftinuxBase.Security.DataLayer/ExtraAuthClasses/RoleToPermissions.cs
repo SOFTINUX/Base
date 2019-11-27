@@ -40,7 +40,7 @@ namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
         [Key]
         [Required(AllowEmptyStrings = false)]
         [MaxLength(ExtraAuthConstants.RoleNameSize)]
-        public string RoleName { get; private set; }
+        public string RoleName { get; }
 
         /// <summary>
         /// A human-friendly description of what the Role does

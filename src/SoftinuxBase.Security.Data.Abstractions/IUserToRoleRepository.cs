@@ -1,10 +1,25 @@
-﻿using ExtCore.Data.Abstractions;
+﻿// Copyright © 2017-2019 SOFTINUX. All rights reserved.
+// Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
+
+using System.Collections.Generic;
+using ExtCore.Data.Abstractions;
 using SoftinuxBase.Security.DataLayer.ExtraAuthClasses;
 
 namespace SoftinuxBase.Security.Data.Abstractions
 {
     public interface IUserToRoleRepository : IRepository
     {
+        /// <summary>
+        /// Get all the records.
+        /// </summary>
+        /// <returns>All <see cref="UserToRole"/> records.</returns>
+        IEnumerable<UserToRole> All();
+
+        /// <summary>
+        /// Delete all user to roles records.
+        /// </summary>
+        void DeleteAll();
+
         /// <summary>
         /// Link an user to a role. Does nothing if the link already exists.
         /// </summary>
