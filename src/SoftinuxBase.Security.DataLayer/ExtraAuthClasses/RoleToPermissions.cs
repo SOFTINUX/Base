@@ -40,12 +40,14 @@ namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
         [Key]
         [Required(AllowEmptyStrings = false)]
         [MaxLength(ExtraAuthConstants.RoleNameSize)]
-        public string RoleName { get; }
+        // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Local - needed by EF Core
+        public string RoleName { get; private set; }
 
         /// <summary>
         /// A human-friendly description of what the Role does
         /// </summary>
         [Required(AllowEmptyStrings = false)]
+        // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Local - needed by EF Core
         public string Description { get; private set; }
 
         /// <summary>
@@ -70,7 +72,7 @@ namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
             if (roleToUpdate == null)
                 return status.AddError("That role doesn't exists");
 
-            var usersWithRoles = context_.UserToRoles.Where(x => x.RoleName == roleName_).ToList();
+            var usersWithRoles = context_.UserToRoles.Where(x_ => x_.RoleName == roleName_).ToList();
             if (usersWithRoles.Any())
             {
                 if (!removeFromUsers_)

@@ -25,13 +25,16 @@ namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
         //That has to be defined by EF Core's fluent API
         [Required(AllowEmptyStrings = false)]
         [MaxLength(ExtraAuthConstants.UserIdSize)]
+        // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Local - needed by EF Core
         public string UserId { get; private set; }
 
         [Required(AllowEmptyStrings = false)]
         [MaxLength(ExtraAuthConstants.RoleNameSize)]
+        // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Local - needed by EF Core
         public string RoleName { get; private set; }
 
         [ForeignKey(nameof(RoleName))]
+        // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Local - needed by EF Core
         public RoleToPermissions Role { get; private set; }
 
     }

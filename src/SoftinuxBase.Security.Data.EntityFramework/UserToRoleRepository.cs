@@ -15,6 +15,8 @@ namespace SoftinuxBase.Security.Data.EntityFramework
     {
         private readonly ILogger _logger;
 
+        public UserToRoleRepository(): base() { }
+
         public UserToRoleRepository(ILoggerFactory loggerFactory_)
         {
             _logger = loggerFactory_.CreateLogger(GetType().FullName);
