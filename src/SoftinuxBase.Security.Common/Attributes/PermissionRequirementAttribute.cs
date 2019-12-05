@@ -10,6 +10,7 @@ using SoftinuxBase.Security.Common.Enums;
 
 namespace SoftinuxBase.Security.Common.Attributes
 {
+    [Obsolete]
     public class PermissionRequirementAttribute : ActionFilterAttribute
     {
         private readonly Permission _permissionLevel;

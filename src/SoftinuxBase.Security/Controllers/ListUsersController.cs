@@ -11,6 +11,8 @@ using Microsoft.Extensions.Logging;
 using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Common.Attributes;
 using SoftinuxBase.Security.Data.Entities;
+using SoftinuxBase.Security.FeatureAuthorize.PolicyCode;
+using SoftinuxBase.Security.PermissionParts;
 using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 
 namespace SoftinuxBase.Security.Controllers
@@ -40,6 +42,7 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/list-users")]
         [HttpGet]
         [ActionName("Index")]
+        [HasPermission(Permissions.ListUsers)]
         public async Task<IActionResult> IndexAsync()
         {
             ViewBag.userList = _usersmanager.Users.Select(u_ => new SelectListItem { Text = u_.UserName, Value = u_.Id }).ToList();
@@ -54,6 +57,7 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/list-users/edit-user")]
         [HttpGet]
         [ActionName("EditUser")]
+        [HasPermission(Permissions.EditUsers)]
         public async Task<IActionResult> EditUserAsync(string userId_)
         {
             var user = _usersmanager.Users.FirstOrDefault(u_ => u_.Id == userId_);

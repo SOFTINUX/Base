@@ -1,6 +1,7 @@
 // Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System;
 using System.Collections.Generic;
 using SoftinuxBase.Security.Common.Attributes;
 
@@ -19,7 +20,20 @@ namespace SoftinuxBase.Infrastructure
         /// Menu item is decorated with either Microsoft.AspNetCore.Authorization.AuthorizeAttribute with Policy
         /// or Infrastructure.Attributes.PermissionRequirementAttribute.
         /// </summary>
-        private readonly List<string> _allRequiredPermissionIdentifiers = new List<string>();
+        // private readonly List<string> _allRequiredPermissionIdentifiers = new List<string>();
+
+        public MenuItem(
+            string url_,
+            string name_,
+            uint position_,
+            string fontAwesomeClass_ = null)
+        {
+            Url = url_;
+            Name = name_;
+            Position = position_;
+
+            FontAwesomeClass = fontAwesomeClass_ ?? "fa-circle-o";
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MenuItem"/> class.
@@ -30,13 +44,14 @@ namespace SoftinuxBase.Infrastructure
         /// <param name="fontAwesomeClass_">set menu item icon. If null, "fa-circle-o" will be used.</param>
         /// <param name="infrastructureAuthorizeAttributes_">set a list of <see cref="PermissionRequirementAttribute"/>.</param>
         /// <param name="microsoftAuthorizeAttributes_">set a list of <see cref="Microsoft.AspNetCore.Authorization.AuthorizeAttribute"/>.</param>
+        [Obsolete]
         public MenuItem(
-            string url_,
-            string name_,
-            uint position_,
-            string fontAwesomeClass_ = null,
-            List<PermissionRequirementAttribute> infrastructureAuthorizeAttributes_ = null,
-            List<Microsoft.AspNetCore.Authorization.AuthorizeAttribute> microsoftAuthorizeAttributes_ = null)
+        string url_,
+        string name_,
+        uint position_,
+        string fontAwesomeClass_ = null,
+        List<PermissionRequirementAttribute> infrastructureAuthorizeAttributes_ = null,
+        List<Microsoft.AspNetCore.Authorization.AuthorizeAttribute> microsoftAuthorizeAttributes_ = null)
         {
             Url = url_;
             Name = name_;
@@ -56,7 +71,7 @@ namespace SoftinuxBase.Infrastructure
 
                     if (!string.IsNullOrWhiteSpace(attr.Policy))
                     {
-                        _allRequiredPermissionIdentifiers.Add(attr.Policy);
+                        // _allRequiredPermissionIdentifiers.Add(attr.Policy);
                     }
                 }
             }
@@ -68,7 +83,7 @@ namespace SoftinuxBase.Infrastructure
                 {
                     if (!string.IsNullOrWhiteSpace(attr.PermissionIdentifier))
                     {
-                        _allRequiredPermissionIdentifiers.Add(attr.PermissionIdentifier);
+                        // _allRequiredPermissionIdentifiers.Add(attr.PermissionIdentifier);
                     }
                 }
             }
