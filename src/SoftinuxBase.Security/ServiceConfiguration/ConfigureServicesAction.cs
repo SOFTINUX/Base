@@ -30,7 +30,7 @@ namespace SoftinuxBase.Security.ServiceConfiguration
         /// <param name="serviceProvider_"></param>
         public void Execute(IServiceCollection serviceCollection_, IServiceProvider serviceProvider_)
         {
-            serviceCollection_.AddScoped<IUserClaimsPrincipalFactory<User>, ClaimsPrincipalFactory>();
+            // serviceCollection_.AddScoped<IUserClaimsPrincipalFactory<User>, ClaimsPrincipalFactory>();
         }
 
         /// <summary>

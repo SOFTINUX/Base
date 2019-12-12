@@ -1,6 +1,7 @@
 ﻿// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
@@ -14,6 +15,7 @@ namespace SoftinuxBase.Security
     /// <summary>
     /// Overriding WIF's UserClaimsPrincipalFactory allows to add custom claims to the WIF's current user.
     /// </summary>
+    [Obsolete]
     public class ClaimsPrincipalFactory : UserClaimsPrincipalFactory<User, IdentityRole<string>>
     {
         private readonly IStorage _storage;

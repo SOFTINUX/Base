@@ -30,7 +30,7 @@ namespace SoftinuxBase.Security.Controllers
         {
             _userManager = userManager_;
             _signInManager = signInManager_;
-            _logger = LoggerFactory.CreateLogger(GetType().FullName);
+            _logger = LoggerFactory?.CreateLogger(GetType().FullName);
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace SoftinuxBase.Security.Controllers
             var result = await _signInManager.PasswordSignInAsync(signIn_.Username, signIn_.Password, signIn_.RememberMe, lockoutOnFailure: false);
             if (result.Succeeded)
             {
-                _logger.LogInformation("User logged in");
+                _logger?.LogInformation("User logged in");
 
                 // Go to dashboard, action Index of Barebone's controller
                 return await Task.Run(() => RedirectToAction("Index", "Barebone"));
@@ -124,7 +124,7 @@ namespace SoftinuxBase.Security.Controllers
             // }
             if (result.IsLockedOut)
             {
-                _logger.LogWarning("User account locked out");
+                _logger?.LogWarning("User account locked out");
 
                 // return RedirectToAction(nameof(Lockout));
                 signIn_.ErrorMessage = "User account locked out";
@@ -150,7 +150,7 @@ namespace SoftinuxBase.Security.Controllers
         public async Task<IActionResult> SignOutAsync()
         {
             await _signInManager.SignOutAsync();
-            _logger.LogInformation("User logged out.");
+            _logger?.LogInformation("User logged out.");
             return await Task.Run(() => RedirectToAction("SignIn"));
         }
 

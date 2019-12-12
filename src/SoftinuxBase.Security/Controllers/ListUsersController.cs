@@ -13,11 +13,10 @@ using SoftinuxBase.Security.Common.Attributes;
 using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.FeatureAuthorize.PolicyCode;
 using SoftinuxBase.Security.PermissionParts;
-using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 
 namespace SoftinuxBase.Security.Controllers
 {
-    [PermissionRequirement(Permission.Admin, Constants.SoftinuxBaseSecurity)]
+    // [PermissionRequirement(Permission.Admin, Constants.SoftinuxBaseSecurity)]
     public class ListUsersController : Infrastructure.ControllerBase
     {
         // private readonly ILogger _logger;

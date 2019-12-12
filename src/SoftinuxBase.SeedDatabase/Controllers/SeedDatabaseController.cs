@@ -101,10 +101,10 @@ namespace SoftinuxBase.SeedDatabase.Controllers
             // John: Admin, Jane and Paul: User
             var johnDoeUser = await _userManager.FindByNameAsync("johndoe");
             var janeFondaUser = await _userManager.FindByNameAsync("janefonda");
-            var paulKellerUseer = await _userManager.FindByNameAsync("paulkeller");
+            var paulKellerUser = await _userManager.FindByNameAsync("paulkeller");
             saveResults.Add(userToRoleRepo.AddUserToRole(johnDoeUser.Id, Role.Administrator.GetRoleName()));
             saveResults.Add(userToRoleRepo.AddUserToRole(janeFondaUser.Id, Role.User.GetRoleName()));
-            saveResults.Add(userToRoleRepo.AddUserToRole(paulKellerUseer.Id, Role.User.GetRoleName()));
+            saveResults.Add(userToRoleRepo.AddUserToRole(paulKellerUser.Id, Role.User.GetRoleName()));
 
             await _storage.SaveAsync();
 
@@ -145,14 +145,14 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                         Permissions.EditUsersPermissions,
                     }));
 
-            // Role: User, permissions: list/read
+            // Role: User, permissions: admin general access + list/read
             roleToPermissionsRepo.Create(
                 new RoleToPermissions(
                     Role.User.GetRoleName(),
                     "User role",
                     new List<Permissions>
                     {
-                        Permissions.Read, Permissions.ListRoles, Permissions.ReadRoles, Permissions.ListUsers, Permissions.ReadUsers
+                        Permissions.Admin, Permissions.Read, Permissions.ListRoles, Permissions.ReadRoles, Permissions.ListUsers, Permissions.ReadUsers
                     }));
 
             await _storage.SaveAsync();

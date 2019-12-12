@@ -23,8 +23,8 @@ namespace SoftinuxBase.Security.Controllers
         /// <param name="loggerFactory_">application logger factory instance.</param>
         public AdministrationController(IStorage storage_, ILoggerFactory loggerFactory_) : base(storage_, loggerFactory_)
         {
-            _logger = LoggerFactory.CreateLogger(GetType().FullName);
-            _logger.LogInformation("oups");
+            _logger = LoggerFactory?.CreateLogger(GetType().FullName);
+            _logger?.LogInformation("oups");
         }
 
         /// <summary>

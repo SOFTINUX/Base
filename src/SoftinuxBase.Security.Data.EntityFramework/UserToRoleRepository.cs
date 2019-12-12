@@ -19,7 +19,7 @@ namespace SoftinuxBase.Security.Data.EntityFramework
 
         public UserToRoleRepository(ILoggerFactory loggerFactory_)
         {
-            _logger = loggerFactory_.CreateLogger(GetType().FullName);
+            _logger = loggerFactory_?.CreateLogger(GetType().FullName);
         }
 
         /// <inheritdoc />
@@ -42,7 +42,7 @@ namespace SoftinuxBase.Security.Data.EntityFramework
             var userToRole = Find(userId_, roleName_);
             if (userToRole != null)
             {
-                _logger.LogWarning($"The user already has the Role '{roleName_}'.");
+                _logger?.LogWarning($"The user already has the Role '{roleName_}'.");
                 return false;
             }
 
