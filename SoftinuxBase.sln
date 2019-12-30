@@ -41,8 +41,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.Data.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.AuthorizeSetup", "src\SoftinuxBase.Security.AuthorizeSetup\SoftinuxBase.Security.AuthorizeSetup.csproj", "{3894682B-E4E2-403D-8FDF-EC1B00BB7036}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.CommonCache", "src\SoftinuxBase.Security.CommonCache\SoftinuxBase.Security.CommonCache.csproj", "{10B4F550-A931-4B47-8934-EC3F148B2387}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.DataAuthorize", "src\SoftinuxBase.Security.DataAuthorize\SoftinuxBase.Security.DataAuthorize.csproj", "{5F3CFBD2-A6C7-4160-B698-C65030C305D2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.DataKeyParts", "src\SoftinuxBase.Security.DataKeyParts\SoftinuxBase.Security.DataKeyParts.csproj", "{BAFB6A4B-0D5C-4BD9-9D78-422EDFE1A080}"
@@ -295,18 +293,6 @@ Global
 		{3894682B-E4E2-403D-8FDF-EC1B00BB7036}.Release|x64.Build.0 = Release|Any CPU
 		{3894682B-E4E2-403D-8FDF-EC1B00BB7036}.Release|x86.ActiveCfg = Release|Any CPU
 		{3894682B-E4E2-403D-8FDF-EC1B00BB7036}.Release|x86.Build.0 = Release|Any CPU
-		{10B4F550-A931-4B47-8934-EC3F148B2387}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{10B4F550-A931-4B47-8934-EC3F148B2387}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{10B4F550-A931-4B47-8934-EC3F148B2387}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{10B4F550-A931-4B47-8934-EC3F148B2387}.Debug|x64.Build.0 = Debug|Any CPU
-		{10B4F550-A931-4B47-8934-EC3F148B2387}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{10B4F550-A931-4B47-8934-EC3F148B2387}.Debug|x86.Build.0 = Debug|Any CPU
-		{10B4F550-A931-4B47-8934-EC3F148B2387}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{10B4F550-A931-4B47-8934-EC3F148B2387}.Release|Any CPU.Build.0 = Release|Any CPU
-		{10B4F550-A931-4B47-8934-EC3F148B2387}.Release|x64.ActiveCfg = Release|Any CPU
-		{10B4F550-A931-4B47-8934-EC3F148B2387}.Release|x64.Build.0 = Release|Any CPU
-		{10B4F550-A931-4B47-8934-EC3F148B2387}.Release|x86.ActiveCfg = Release|Any CPU
-		{10B4F550-A931-4B47-8934-EC3F148B2387}.Release|x86.Build.0 = Release|Any CPU
 		{5F3CFBD2-A6C7-4160-B698-C65030C305D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5F3CFBD2-A6C7-4160-B698-C65030C305D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F3CFBD2-A6C7-4160-B698-C65030C305D2}.Debug|x64.ActiveCfg = Debug|Any CPU
