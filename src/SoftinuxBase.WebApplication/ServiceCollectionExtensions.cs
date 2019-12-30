@@ -13,10 +13,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SoftinuxBase.Infrastructure;
-using SoftinuxBase.Security;
 using SoftinuxBase.Security.AuthorizeSetup;
 using SoftinuxBase.Security.Data.Entities;
-using SoftinuxBase.Security.DataLayer;
+using SoftinuxBase.Security.Data.EntityFramework;
 using SoftinuxBase.Security.FeatureAuthorize.PolicyCode;
 using SoftinuxBase.Security.UserImpersonation.AppStart;
 

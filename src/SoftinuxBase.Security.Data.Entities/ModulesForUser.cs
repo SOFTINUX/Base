@@ -3,10 +3,9 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
-using SoftinuxBase.Security.DataLayer.ExtraAuthClasses.Support;
 using SoftinuxBase.Security.PermissionParts;
 
-namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
+namespace SoftinuxBase.Security.Data.Entities
 {
     /// <summary>
     /// This holds what modules a user or tenant has

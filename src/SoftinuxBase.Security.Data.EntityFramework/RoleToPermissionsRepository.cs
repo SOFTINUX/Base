@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ExtCore.Data.EntityFramework;
 using SoftinuxBase.Security.Data.Abstractions;
-using SoftinuxBase.Security.DataLayer.ExtraAuthClasses;
+using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.PermissionParts;
 
 namespace SoftinuxBase.Security.Data.EntityFramework

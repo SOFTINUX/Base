@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 using ExtCore.Data.Abstractions;
-using SoftinuxBase.Security.DataLayer.ExtraAuthClasses;
+using SoftinuxBase.Security.Data.Entities;
 
 namespace SoftinuxBase.Security.Data.Abstractions
 {

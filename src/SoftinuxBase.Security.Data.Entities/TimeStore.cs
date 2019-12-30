@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using SoftinuxBase.Security.RefreshClaimsParts;
 
-namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
+namespace SoftinuxBase.Security.Data.Entities
 {
     [NoQueryFilterNeeded]
     public class TimeStore

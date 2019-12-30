@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SoftinuxBase.Security.Data.Entities;
-using SoftinuxBase.Security.DataLayer;
+using SoftinuxBase.Security.Data.EntityFramework;
 using SoftinuxBase.WebApplication;
 
 namespace CommonTest

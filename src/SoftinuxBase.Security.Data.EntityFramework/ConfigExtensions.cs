@@ -2,9 +2,9 @@
 // Licensed under MIT license. See License.txt in the project root for license information.
 
 using Microsoft.EntityFrameworkCore;
-using SoftinuxBase.Security.DataLayer.ExtraAuthClasses;
+using SoftinuxBase.Security.Data.Entities;
 
-namespace SoftinuxBase.Security.DataLayer.EfCode.Configurations
+namespace SoftinuxBase.Security.Data.EntityFramework
 {
     /// <summary>
     /// I need to place the configs for the databases in one place because I use context.Database.EnsureCreated to create it.

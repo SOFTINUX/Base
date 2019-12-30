@@ -41,8 +41,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.Data.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.AuthorizeSetup", "src\SoftinuxBase.Security.AuthorizeSetup\SoftinuxBase.Security.AuthorizeSetup.csproj", "{3894682B-E4E2-403D-8FDF-EC1B00BB7036}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.DataLayer", "src\SoftinuxBase.Security.DataLayer\SoftinuxBase.Security.DataLayer.csproj", "{D51A5FAB-27E7-415A-AE87-34854BD80924}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.FeatureAuthorize", "src\SoftinuxBase.Security.FeatureAuthorize\SoftinuxBase.Security.FeatureAuthorize.csproj", "{2F54BA3D-F384-45B7-9B35-2CC6D95AA275}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.PermissionParts", "src\SoftinuxBase.Security.PermissionParts\SoftinuxBase.Security.PermissionParts.csproj", "{47B5B76F-033A-44EB-AE0F-1FC0099F4BB8}"
@@ -289,18 +287,6 @@ Global
 		{3894682B-E4E2-403D-8FDF-EC1B00BB7036}.Release|x64.Build.0 = Release|Any CPU
 		{3894682B-E4E2-403D-8FDF-EC1B00BB7036}.Release|x86.ActiveCfg = Release|Any CPU
 		{3894682B-E4E2-403D-8FDF-EC1B00BB7036}.Release|x86.Build.0 = Release|Any CPU
-		{D51A5FAB-27E7-415A-AE87-34854BD80924}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D51A5FAB-27E7-415A-AE87-34854BD80924}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D51A5FAB-27E7-415A-AE87-34854BD80924}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{D51A5FAB-27E7-415A-AE87-34854BD80924}.Debug|x64.Build.0 = Debug|Any CPU
-		{D51A5FAB-27E7-415A-AE87-34854BD80924}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{D51A5FAB-27E7-415A-AE87-34854BD80924}.Debug|x86.Build.0 = Debug|Any CPU
-		{D51A5FAB-27E7-415A-AE87-34854BD80924}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D51A5FAB-27E7-415A-AE87-34854BD80924}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D51A5FAB-27E7-415A-AE87-34854BD80924}.Release|x64.ActiveCfg = Release|Any CPU
-		{D51A5FAB-27E7-415A-AE87-34854BD80924}.Release|x64.Build.0 = Release|Any CPU
-		{D51A5FAB-27E7-415A-AE87-34854BD80924}.Release|x86.ActiveCfg = Release|Any CPU
-		{D51A5FAB-27E7-415A-AE87-34854BD80924}.Release|x86.Build.0 = Release|Any CPU
 		{2F54BA3D-F384-45B7-9B35-2CC6D95AA275}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2F54BA3D-F384-45B7-9B35-2CC6D95AA275}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F54BA3D-F384-45B7-9B35-2CC6D95AA275}.Debug|x64.ActiveCfg = Debug|Any CPU

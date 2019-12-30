@@ -11,12 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SoftinuxBase.Security.Data.Entities;
-using SoftinuxBase.Security.DataLayer.EfCode.Configurations;
-using SoftinuxBase.Security.DataLayer.ExtraAuthClasses;
-using SoftinuxBase.Security.DataLayer.ExtraAuthClasses.Support;
 using SoftinuxBase.Security.RefreshClaimsParts;
 
-namespace SoftinuxBase.Security.DataLayer
+namespace SoftinuxBase.Security.Data.EntityFramework
 {
     /// <summary>
     /// Class that holds the Entity Framework DbContext's DbSets related to some extension

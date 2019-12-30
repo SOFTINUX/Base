@@ -25,4 +25,9 @@
     <ProjectReference Include="..\SoftinuxBase.Security.RefreshClaimsParts\SoftinuxBase.Security.RefreshClaimsParts.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="EfCode\Configurations\" />
+    <Folder Include="ExtraAuthClasses\Support\" />
+  </ItemGroup>
+
 </Project>

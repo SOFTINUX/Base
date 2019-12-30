@@ -6,11 +6,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using ExtCore.Data.Entities.Abstractions;
-using GenericServices;
-using SoftinuxBase.Security.DataLayer.ExtraAuthClasses.Support;
 using SoftinuxBase.Security.PermissionParts;
 
-namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
+namespace SoftinuxBase.Security.Data.Entities
 {
     /// <summary>
     /// This holds each Roles, which are mapped to Permissions
@@ -64,26 +62,26 @@ namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
             Description = description_;
         }
 
-        public IStatusGeneric DeleteRole(string roleName_, bool removeFromUsers_,
-            ApplicationStorageContext context_)
-        {
-            var status = new StatusGenericHandler { Message = "Deleted role successfully." };
-            var roleToUpdate = context_.Find<RoleToPermissions>(roleName_);
-            if (roleToUpdate == null)
-                return status.AddError("That role doesn't exists");
+        //public IStatusGeneric DeleteRole(string roleName_, bool removeFromUsers_,
+        //    ApplicationStorageContext context_)
+        //{
+        //    var status = new StatusGenericHandler { Message = "Deleted role successfully." };
+        //    var roleToUpdate = context_.Find<RoleToPermissions>(roleName_);
+        //    if (roleToUpdate == null)
+        //        return status.AddError("That role doesn't exists");
 
-            var usersWithRoles = context_.UserToRoles.Where(x_ => x_.RoleName == roleName_).ToList();
-            if (usersWithRoles.Any())
-            {
-                if (!removeFromUsers_)
-                    return status.AddError($"That role is used by {usersWithRoles.Count} and you didn't ask for them to be updated.");
+        //    var usersWithRoles = context_.UserToRoles.Where(x_ => x_.RoleName == roleName_).ToList();
+        //    if (usersWithRoles.Any())
+        //    {
+        //        if (!removeFromUsers_)
+        //            return status.AddError($"That role is used by {usersWithRoles.Count} and you didn't ask for them to be updated.");
 
-                context_.RemoveRange(usersWithRoles);
-                status.Message = $"Removed role from {usersWithRoles.Count} user and then deleted role successfully.";
-            }
+        //        context_.RemoveRange(usersWithRoles);
+        //        status.Message = $"Removed role from {usersWithRoles.Count} user and then deleted role successfully.";
+        //    }
 
-            context_.Remove(roleToUpdate);
-            return status;
-        }
+        //    context_.Remove(roleToUpdate);
+        //    return status;
+        //}
     }
 }

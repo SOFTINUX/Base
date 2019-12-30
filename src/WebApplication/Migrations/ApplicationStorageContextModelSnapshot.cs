@@ -3,7 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SoftinuxBase.Security.DataLayer;
+using SoftinuxBase.Security.Data.EntityFramework;
 
 namespace WebApplication.Migrations
 {

@@ -12,7 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
-using SoftinuxBase.Security.DataLayer;
+using SoftinuxBase.Security.Data.EntityFramework;
 using SoftinuxBase.WebApplication;
 using Swashbuckle.AspNetCore.Swagger;
 

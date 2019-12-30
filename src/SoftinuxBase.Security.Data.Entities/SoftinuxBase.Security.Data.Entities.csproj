@@ -32,5 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.PermissionParts\SoftinuxBase.Security.PermissionParts.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.RefreshClaimsParts\SoftinuxBase.Security.RefreshClaimsParts.csproj" />
   </ItemGroup>
 </Project>

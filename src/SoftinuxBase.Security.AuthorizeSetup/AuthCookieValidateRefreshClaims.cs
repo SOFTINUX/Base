@@ -8,7 +8,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.DependencyInjection;
-using SoftinuxBase.Security.DataLayer;
+using SoftinuxBase.Security.Data.EntityFramework;
 using SoftinuxBase.Security.FeatureAuthorize;
 using SoftinuxBase.Security.RefreshClaimsParts;
 

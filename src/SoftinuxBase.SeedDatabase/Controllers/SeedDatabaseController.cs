@@ -12,7 +12,6 @@ using Microsoft.Extensions.Logging;
 using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
-using SoftinuxBase.Security.DataLayer.ExtraAuthClasses;
 using SoftinuxBase.Security.PermissionParts;
 using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 

@@ -4,9 +4,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ExtCore.Data.Entities.Abstractions;
-using SoftinuxBase.Security.DataLayer.ExtraAuthClasses.Support;
 
-namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses
+namespace SoftinuxBase.Security.Data.Entities
 {
     /// <summary>
     /// This is a one-to-many relationship between the User (represented by the UserId) and their Roles (represented by RoleToPermissions)

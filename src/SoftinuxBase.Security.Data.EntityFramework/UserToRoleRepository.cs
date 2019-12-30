@@ -7,7 +7,7 @@ using System.Linq;
 using ExtCore.Data.EntityFramework;
 using Microsoft.Extensions.Logging;
 using SoftinuxBase.Security.Data.Abstractions;
-using SoftinuxBase.Security.DataLayer.ExtraAuthClasses;
+using SoftinuxBase.Security.Data.Entities;
 
 namespace SoftinuxBase.Security.Data.EntityFramework
 {

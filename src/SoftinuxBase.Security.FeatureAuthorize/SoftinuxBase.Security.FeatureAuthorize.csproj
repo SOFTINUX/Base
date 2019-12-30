@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SoftinuxBase.Security.DataLayer\SoftinuxBase.Security.DataLayer.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.Data.EntityFramework\SoftinuxBase.Security.Data.EntityFramework.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.PermissionParts\SoftinuxBase.Security.PermissionParts.csproj" />
   </ItemGroup>
 

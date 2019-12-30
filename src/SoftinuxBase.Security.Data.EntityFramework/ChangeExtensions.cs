@@ -3,8 +3,9 @@
 
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using SoftinuxBase.Security.Data.Entities;
 
-namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses.Support
+namespace SoftinuxBase.Security.Data.EntityFramework
 {
     public static class ChangeExtensions
     {

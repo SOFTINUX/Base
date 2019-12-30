@@ -3,7 +3,7 @@
 
 using System;
 
-namespace SoftinuxBase.Security.DataLayer
+namespace SoftinuxBase.Security.Data.Entities
 {
     /// <summary>
     /// This is used to mark a database class that doesn't need a query filter.

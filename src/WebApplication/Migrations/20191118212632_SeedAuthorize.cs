@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using SoftinuxBase.Security.DataLayer.ExtraAuthClasses;
+using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.RefreshClaimsParts;
 
 namespace WebApplication.Migrations

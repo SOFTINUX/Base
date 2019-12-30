@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using SoftinuxBase.Security.Data.Entities;
-using SoftinuxBase.Security.DataLayer;
+using SoftinuxBase.Security.Data.EntityFramework;
 using SoftinuxBase.Security.FeatureAuthorize;
 
 namespace SoftinuxBase.Security.AuthorizeSetup
