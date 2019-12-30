@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using SoftinuxBase.Security.Data.Entities;
-using SoftinuxBase.Security.DataKeyParts;
 using SoftinuxBase.Security.RefreshClaimsParts;
 using SoftinuxBase.Security.UserImpersonation.Concrete;
 

@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SoftinuxBase.Security.Data.Entities\SoftinuxBase.Security.Data.Entities.csproj" />
-    <ProjectReference Include="..\SoftinuxBase.Security.DataKeyParts\SoftinuxBase.Security.DataKeyParts.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.PermissionParts\SoftinuxBase.Security.PermissionParts.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.RefreshClaimsParts\SoftinuxBase.Security.RefreshClaimsParts.csproj" />
   </ItemGroup>

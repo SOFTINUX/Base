@@ -16,7 +16,6 @@ using SoftinuxBase.Infrastructure;
 using SoftinuxBase.Security;
 using SoftinuxBase.Security.AuthorizeSetup;
 using SoftinuxBase.Security.Data.Entities;
-using SoftinuxBase.Security.DataKeyParts;
 using SoftinuxBase.Security.DataLayer;
 using SoftinuxBase.Security.FeatureAuthorize.PolicyCode;
 using SoftinuxBase.Security.UserImpersonation.AppStart;
@@ -104,9 +103,6 @@ namespace SoftinuxBase.WebApplication
             // Register the Permission policy handlers
             services_.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
             services_.AddSingleton<IAuthorizationHandler, PermissionHandler>();
-
-            // This is needed to implement the data authorize code
-            services_.AddScoped<IGetClaimsProvider, GetClaimsFromUser>();
 
             // This registers/sets up the services in these projects.
             services_.UserImpersonationRegister();

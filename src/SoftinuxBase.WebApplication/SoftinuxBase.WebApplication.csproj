@@ -26,7 +26,6 @@
   <ItemGroup>
     <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.AuthorizeSetup\SoftinuxBase.Security.AuthorizeSetup.csproj" />
-    <ProjectReference Include="..\SoftinuxBase.Security.DataKeyParts\SoftinuxBase.Security.DataKeyParts.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.FeatureAuthorize\SoftinuxBase.Security.FeatureAuthorize.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.UserImpersonation\SoftinuxBase.Security.UserImpersonation.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security\SoftinuxBase.Security.csproj" />

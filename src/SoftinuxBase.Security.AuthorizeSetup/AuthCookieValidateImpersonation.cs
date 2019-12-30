@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.DependencyInjection;
-using SoftinuxBase.Security.DataKeyParts;
 using SoftinuxBase.Security.DataLayer;
 using SoftinuxBase.Security.FeatureAuthorize;
 using SoftinuxBase.Security.UserImpersonation.Concrete;

@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using SoftinuxBase.Security.DataKeyParts;
 using SoftinuxBase.Security.RefreshClaimsParts;
 
 namespace SoftinuxBase.Security.DataLayer.ExtraAuthClasses

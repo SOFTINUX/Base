@@ -10,8 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SoftinuxBase.Security.DataAuthorize\SoftinuxBase.Security.DataAuthorize.csproj" />
-    <ProjectReference Include="..\SoftinuxBase.Security.DataKeyParts\SoftinuxBase.Security.DataKeyParts.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.FeatureAuthorize\SoftinuxBase.Security.FeatureAuthorize.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.UserImpersonation\SoftinuxBase.Security.UserImpersonation.csproj" />
   </ItemGroup>
