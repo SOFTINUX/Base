@@ -41,7 +41,7 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/list-users")]
         [HttpGet]
         [ActionName("Index")]
-        [HasPermission(Permissions.ListUsers)]
+        [HasPermission((short)Permissions.ListUsers)]
         public async Task<IActionResult> IndexAsync()
         {
             ViewBag.userList = _usersmanager.Users.Select(u_ => new SelectListItem { Text = u_.UserName, Value = u_.Id }).ToList();
@@ -56,7 +56,7 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/list-users/edit-user")]
         [HttpGet]
         [ActionName("EditUser")]
-        [HasPermission(Permissions.EditUsers)]
+        [HasPermission((short)Permissions.EditUsers)]
         public async Task<IActionResult> EditUserAsync(string userId_)
         {
             var user = _usersmanager.Users.FirstOrDefault(u_ => u_.Id == userId_);

@@ -6,7 +6,7 @@
     <RootNamespace>WebApplication</RootNamespace>
   </PropertyGroup>
   <PropertyGroup>
-    <LangVersion>7</LangVersion>
+    <LangVersion>8</LangVersion>
     <DocumentationFile></DocumentationFile>
     <CodeAnalysisRuleSet>..\..\StyleCopRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>

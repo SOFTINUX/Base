@@ -14,7 +14,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <LangVersion>7</LangVersion>
+    <LangVersion>8</LangVersion>
     <CodeAnalysisRuleSet>..\..\StyleCopRules.ruleset</CodeAnalysisRuleSet>
     <RepositoryUrl>https://github.com/SOFTINUX/Base</RepositoryUrl>
   </PropertyGroup>

@@ -38,7 +38,7 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/grant-permissions")]
         [HttpGet]
         [ActionName("Index")]
-        [HasPermission(Permissions.ReadRoles)]
+        [HasPermission((short)Permissions.ReadRoles)]
         public async Task<IActionResult> IndexAsync()
         {
             return await Task.Run(() => View());
@@ -54,7 +54,7 @@ namespace SoftinuxBase.Security.Controllers
         [ActionName("ReadRole")]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        [HasPermission(Permissions.ReadRoles)]
+        [HasPermission((short)Permissions.ReadRoles)]
         public async Task<IActionResult> ReadRoleAsync(string roleId_)
         {
             if (string.IsNullOrWhiteSpace(roleId_) || string.IsNullOrEmpty(roleId_))
@@ -87,7 +87,7 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/read-permissions-grants")]
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        [HasPermission(Permissions.ReadRoles)]
+        [HasPermission((short)Permissions.ReadRoles)]
         public IActionResult ReadPermissionsTable()
         {
             return ViewComponent("GrantPermissions");
@@ -100,7 +100,7 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/edit-role-tab")]
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        [HasPermission(Permissions.ReadRoles)]
+        [HasPermission((short)Permissions.ReadRoles)]
         public IActionResult RefreshRoleTab()
         {
             return ViewComponent("EditRolePermissions");
@@ -113,7 +113,7 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/bulk-delete-role-tab")]
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        [HasPermission(Permissions.ReadRoles)]
+        [HasPermission((short)Permissions.ReadRoles)]
         public IActionResult RefreshBulkDeleteTab()
         {
             return ViewComponent("SelectOptionsListRoles");
@@ -133,7 +133,7 @@ namespace SoftinuxBase.Security.Controllers
         [ActionName("SaveNewRoleAndItsPermissions")]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        [HasPermission(Permissions.CreateRoles)]
+        [HasPermission((short)Permissions.CreateRoles)]
         public async Task<IActionResult> SaveNewRoleAndItsPermissionsAsync([FromBody] SaveNewRoleAndGrantsViewModel model_)
         {
             string error = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrantsAsync(Storage, _roleManager, model_);
@@ -154,7 +154,7 @@ namespace SoftinuxBase.Security.Controllers
         [ActionName("UpdateRolePermission")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [HasPermission(Permissions.EditRoles)]
+        [HasPermission((short)Permissions.EditRoles)]
         public async Task<IActionResult> UpdateRolePermissionAsync([FromBody] UpdateRolePermissionViewModel model_)
         {
             string roleId = (await _roleManager.FindByNameAsync(model_.RoleName)).Id;
@@ -188,7 +188,7 @@ namespace SoftinuxBase.Security.Controllers
         [ActionName("UpdateRoleAndItsPermissions")]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        [HasPermission(Permissions.EditRoles)]
+        [HasPermission((short)Permissions.EditRoles)]
         public async Task<IActionResult> UpdateRoleAndItsPermissionsAsync([FromBody] UpdateRoleAndGrantsViewModel model_)
         {
             string error = await UpdateRoleAndGrants.CheckAndUpdateRoleAndGrantsAsync(Storage, _roleManager, model_);
@@ -213,7 +213,7 @@ namespace SoftinuxBase.Security.Controllers
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1313", Justification = "Ignore camelcase parameters")]
-        [HasPermission(Permissions.EditRoles)]
+        [HasPermission((short)Permissions.EditRoles)]
         public async Task<IActionResult> DeleteRoleExtensionLinkAsync(string RoleName, string ExtensionName)
         {
             bool? deleted = await DeleteRole.DeleteRoleExtensionLinkAsync(this.Storage, _roleManager, ExtensionName, RoleName);
@@ -239,7 +239,7 @@ namespace SoftinuxBase.Security.Controllers
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1313", Justification = "Ignore camelcase parameters")]
-        [HasPermission(Permissions.EditRoles)]
+        [HasPermission((short)Permissions.EditRoles)]
         public async Task<IActionResult> UnlinkRoleOnAllExtensions(string RoleName)
         {
             bool? deleted = await DeleteRole.DeleteRoleExtensionsLinksAsync(this.Storage, _roleManager, RoleName);
@@ -264,7 +264,7 @@ namespace SoftinuxBase.Security.Controllers
         [HttpDelete]
         [ActionName("DeleteRole")]
         [Route("administration/delete-role/{roleNameList_}")]
-        [HasPermission(Permissions.DeleteRoles)]
+        [HasPermission((short)Permissions.DeleteRoles)]
         public async Task<IActionResult> DeleteRoleAsync(string roleNameList_)
         {
             var errors = new List<string>();

@@ -13,7 +13,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
   </PropertyGroup>
   <PropertyGroup>
-    <LangVersion>7.1</LangVersion>
+    <LangVersion>8</LangVersion>
     <CodeAnalysisRuleSet>..\..\StyleCopRules.ruleset</CodeAnalysisRuleSet>
     <RepositoryUrl>https://github.com/SOFTINUX/Base</RepositoryUrl>
   </PropertyGroup>

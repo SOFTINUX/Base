@@ -18,6 +18,9 @@ namespace SoftinuxBase.Barebone
         public string CurrentAssemblyPath => CurrentAssembly.Location;
 
         /// <inheritdoc />
+        public Type Permissions => null;
+
+        /// <inheritdoc />
         public string Name => CurrentAssembly.GetName().Name;
 
         /// <inheritdoc />
