@@ -2,11 +2,11 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.Linq;
-using CommonTest;
 using SoftinuxBase.Security.Data.Abstractions;
+using SoftinuxBase.Tests.Common;
 using Xunit;
 
-namespace SecurityTest
+namespace SoftinuxBase.SecurityTests
 {
     [Collection("Database collection")]
     public class BasicReadingTest : CommonTestWithDatabase

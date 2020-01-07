@@ -4,7 +4,7 @@
 using SoftinuxBase.Infrastructure.Tools;
 using Xunit;
 
-namespace SecurityTest
+namespace SoftinuxBase.SecurityTests
 {
     public class StringExtensionsTest
     {

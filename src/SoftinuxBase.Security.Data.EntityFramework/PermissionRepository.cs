@@ -11,8 +11,8 @@ using SoftinuxBase.Security.Data.Entities;
 using Permission = SoftinuxBase.Security.Data.Entities.Permission;
 
 // [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security")]
-// [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SecurityTest")]
-// [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("CommonTest")]
+// [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.SecurityTests")]
+// [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Tests.Common")]
 namespace SoftinuxBase.Security.Data.EntityFramework
 {
     public class PermissionRepository : RepositoryBase<Permission>, IPermissionRepository

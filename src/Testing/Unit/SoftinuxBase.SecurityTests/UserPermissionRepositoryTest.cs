@@ -3,13 +3,13 @@
 
 using System.Linq;
 using System.Threading.Tasks;
-using CommonTest;
 using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Common.Enums;
 using SoftinuxBase.Security.Data.Abstractions;
+using SoftinuxBase.Tests.Common;
 using Xunit;
 
-namespace SecurityTest
+namespace SoftinuxBase.SecurityTests
 {
     [Collection("Database collection")]
     public class UserPermissionRepositoryTest : CommonTestWithDatabase

@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SoftinuxBase.Security.Data.Entities;
 
-namespace CommonTest
+namespace SoftinuxBase.Tests.Common
 {
     public class DatabaseFixture : IDisposable
     {

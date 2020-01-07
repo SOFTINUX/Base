@@ -32,9 +32,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\SoftinuxBase.Security.Data.Entities\SoftinuxBase.Security.Data.Entities.csproj" />
-    <ProjectReference Include="..\CommonTest\CommonTest.csproj" />
     <ProjectReference Include="..\..\..\SoftinuxBase.Security.Data.EntityFramework\SoftinuxBase.Security.Data.EntityFramework.csproj" />
     <ProjectReference Include="..\..\..\SoftinuxBase.Security\SoftinuxBase.Security.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Tests.Common\SoftinuxBase.Tests.Common.csproj" />
   </ItemGroup>
 
 </Project>

@@ -12,7 +12,7 @@ using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.SeedDatabase;
 using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 
-namespace CommonTest
+namespace SoftinuxBase.Tests.Common
 {
     /// <summary>
     /// Base class for all test classes that should use a database.

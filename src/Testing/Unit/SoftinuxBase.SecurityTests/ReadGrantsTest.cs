@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CommonTest;
 using ExtCore.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using SoftinuxBase.Infrastructure.Interfaces;
@@ -15,11 +14,12 @@ using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.Tools;
 using SoftinuxBase.Security.ViewModels.Permissions;
 using SoftinuxBase.SeedDatabase;
+using SoftinuxBase.Tests.Common;
 using Xunit;
 using Constants = SoftinuxBase.Security.Common.Constants;
 using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 
-namespace SecurityTest
+namespace SoftinuxBase.SecurityTests
 {
     /// <summary>
     /// Note: the extensions we want to work with must be added to this project's references so that the extension is found

@@ -10,7 +10,7 @@ using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.ViewModels.Permissions;
 
-[assembly: InternalsVisibleTo("SecurityTest")]
+[assembly: InternalsVisibleTo("SoftinuxBase.SecurityTests")]
 namespace SoftinuxBase.Security.Tools
 {
     /*

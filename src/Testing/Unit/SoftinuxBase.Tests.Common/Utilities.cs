@@ -7,7 +7,7 @@ using System.IO;
 using System.Reflection;
 using ExtCore.Infrastructure;
 
-namespace CommonTest
+namespace SoftinuxBase.Tests.Common
 {
     public class Utilities
     {

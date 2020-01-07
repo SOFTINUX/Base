@@ -10,9 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.Data.EntityFramework;
-using SoftinuxBase.WebApplication;
 
-namespace CommonTest
+namespace SoftinuxBase.Tests.Common
 {
     public class ApplicationStorageContext : IdentityDbContext<User, IdentityRole<string>, string>, IStorageContext
     {

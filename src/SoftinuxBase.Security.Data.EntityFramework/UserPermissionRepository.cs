@@ -10,7 +10,7 @@ using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 
 // [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security")]
-// [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SecurityTest")]
+// [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.SecurityTests")]
 // [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.SeedDatabase")]
 
 namespace SoftinuxBase.Security.Data.EntityFramework

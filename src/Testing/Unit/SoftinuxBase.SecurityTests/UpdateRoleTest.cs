@@ -5,17 +5,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CommonTest;
 using Microsoft.AspNetCore.Identity;
 using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.Tools;
 using SoftinuxBase.Security.ViewModels.Permissions;
+using SoftinuxBase.Tests.Common;
 using Xunit;
 using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 
-namespace SecurityTest
+namespace SoftinuxBase.SecurityTests
 {
     [Collection("Database collection")]
     public class UpdateRoleTest : CommonTestWithDatabase

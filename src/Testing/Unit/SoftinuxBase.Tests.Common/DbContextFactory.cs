@@ -3,7 +3,7 @@
 
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace CommonTest
+namespace SoftinuxBase.Tests.Common
 {
     public class DbContextFactory : IDesignTimeDbContextFactory<ApplicationStorageContext>
     {

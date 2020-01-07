@@ -8,7 +8,7 @@ using SoftinuxBase.Security.Data.Entities;
 // [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security")]
 // [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.Data.EntityFramework")]
 // [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.SeedDatabase")]
-// [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SecurityTest")]
+// [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.SecurityTests")]
 namespace SoftinuxBase.Security.Data.Abstractions
 {
     public interface IUserPermissionRepository : IRepository
