@@ -10,12 +10,6 @@ namespace SoftinuxBase.Security.PermissionParts
     public static class PermissionPackers
     {
         // to be removed
-        public static string PackPermissionsIntoString(this IEnumerable<Permissions> permissions)
-        {
-            return permissions.Aggregate("", (s, permission) => s + (char)permission);
-        }
-
-        // to be removed
         public static IEnumerable<Permissions> UnpackPermissionsFromString(this string packedPermissions)
         {
             if (packedPermissions == null)
@@ -26,12 +20,11 @@ namespace SoftinuxBase.Security.PermissionParts
             }
         }
 
-        //public static Permissions? FindPermissionViaName(this string permissionName)
-        //{
-        //    return Enum.TryParse(permissionName, out Permissions permission)
-        //        ? (Permissions?)permission
-        //        : null;
-        //}
+        // to be removed
+        public static string PackPermissions(this IEnumerable<Permissions> permissions_)
+        {
+            return permissions_.Aggregate("", (s, permission) => s + (char)permission);
+        }
 
         public static string PackPermissions(this IEnumerable<short> permissions_)
         {
@@ -48,13 +41,12 @@ namespace SoftinuxBase.Security.PermissionParts
             }
         }
 
-        //TOTEST
         /// <summary>
         /// Pack permissions to compact format.
         /// </summary>
         /// <param name="dictionary_"></param>
         /// <returns></returns>
-        public static Dictionary<string, string> PackPermissionsDictionary(this PermissionsDictionary dictionary_)
+        public static Dictionary<string, string> PackPermissions(this PermissionsDictionary dictionary_)
         {
             var packedDictionary = new Dictionary<string, string>();
             foreach (var key in dictionary_.Dictionary.Keys)
@@ -70,12 +62,12 @@ namespace SoftinuxBase.Security.PermissionParts
         /// </summary>
         /// <param name="dictionary_"></param>
         /// <returns></returns>
-        public static PermissionsDictionary UnpackPermissionsDictionary(this Dictionary<string, string> dictionary_)
+        public static PermissionsDictionary UnpackPermissions(this Dictionary<string, string> dictionary_)
         {
             var unpackedDictionary = new PermissionsDictionary();
-            foreach (var values in dictionary_.Values)
+            foreach (var key in dictionary_.Keys)
             {
-                unpackedDictionary.AddGrouped(values.UnpackPermissions());
+                unpackedDictionary.AddGrouped(key, dictionary_[key].UnpackPermissions());
             }
             return unpackedDictionary;
         }

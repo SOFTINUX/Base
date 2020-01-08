@@ -11,13 +11,13 @@ namespace SoftinuxBase.Security.PermissionPartsTests
     public class PermissionsDictionaryTest
     {
         [Fact]
-        public void AddOnePermission()
+        public void Add_OnePermission()
         {
             // Arrange
             var permissionsDictionary = new PermissionsDictionary();
 
             // Act
-            permissionsDictionary.Add(Permissions.CreateRoles);
+            permissionsDictionary.Add(typeof(Permissions), (short)Permissions.CreateRoles);
 
             // Assert
             permissionsDictionary.Dictionary.Keys.Count.Should().Be(1);
@@ -26,14 +26,14 @@ namespace SoftinuxBase.Security.PermissionPartsTests
         }
 
         [Fact]
-        public void AddOnePermissionTwice()
+        public void Add_OnePermissionTwice()
         {
             // Arrange
             var permissionsDictionary = new PermissionsDictionary();
 
             // Act
-            permissionsDictionary.Add(Permissions.CreateRoles);
-            permissionsDictionary.Add(Permissions.CreateRoles);
+            permissionsDictionary.Add(typeof(Permissions), (short)Permissions.CreateRoles);
+            permissionsDictionary.Add(typeof(Permissions), (short)Permissions.CreateRoles);
 
             // Assert
             permissionsDictionary.Dictionary.Keys.Count.Should().Be(1);
@@ -42,19 +42,43 @@ namespace SoftinuxBase.Security.PermissionPartsTests
         }
 
         [Fact]
-        public void AddTwoPermissions()
+        public void Add_TwoPermissions()
         {
             // Arrange
             var permissionsDictionary = new PermissionsDictionary();
 
             // Act
-            permissionsDictionary.Add(Permissions.CreateRoles);
-            permissionsDictionary.Add(Permissions.EditRoles);
+            permissionsDictionary.Add(typeof(Permissions), (short)Permissions.CreateRoles);
+            permissionsDictionary.Add(typeof(Permissions), (short)Permissions.EditRoles);
 
             // Assert
             permissionsDictionary.Dictionary.Keys.Count.Should().Be(1);
             permissionsDictionary.Dictionary.ContainsKey("SoftinuxBase.Security.PermissionParts").Should().BeTrue();
             permissionsDictionary.Dictionary["SoftinuxBase.Security.PermissionParts"].Should().BeEquivalentTo(new HashSet<short> { (short)Permissions.CreateRoles, (short)Permissions.EditRoles });
+        }
+
+        [Fact]
+        public void Add_PermissionsFromSeveralEnums()
+        {
+            // Arrange
+            var permissionsDictionary = new PermissionsDictionary();
+
+            // Act
+            permissionsDictionary.Add(typeof(Permissions), (short)Permissions.CreateRoles);
+            permissionsDictionary.Add(typeof(OtherPermissions), (short)OtherPermissions.Read);
+
+            // Assert
+            permissionsDictionary.Dictionary.Keys.Count.Should().Be(2);
+            permissionsDictionary.Dictionary.ContainsKey("SoftinuxBase.Security.PermissionParts").Should().BeTrue();
+            permissionsDictionary.Dictionary.ContainsKey("SoftinuxBase.Security.PermissionPartsTests").Should().BeTrue();
+            permissionsDictionary.Dictionary["SoftinuxBase.Security.PermissionParts"].Should().BeEquivalentTo(new HashSet<short> { (short)Permissions.CreateRoles });
+            permissionsDictionary.Dictionary["SoftinuxBase.Security.PermissionPartsTests"].Should().BeEquivalentTo(new HashSet<short> { (short)OtherPermissions.Read });
+        }
+
+        internal enum OtherPermissions
+        {
+            Read,
+            Write
         }
 
     }

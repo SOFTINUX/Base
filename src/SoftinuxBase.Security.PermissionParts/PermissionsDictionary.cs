@@ -1,6 +1,7 @@
 ﻿// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,10 +18,11 @@ namespace SoftinuxBase.Security.PermissionParts
         /// <summary>
         /// Add a permission if it doesn't already exist.
         /// </summary>
-        /// <param name="permission_"></param>
-        public void Add(short permission_)
+        /// <param name="extensionEnumType_">The enum type</param>
+        /// <param name="permission_">Any value of <paramref name="extensionEnumType_"/></param>
+        public void Add(Type extensionEnumType_, short permission_)
         {
-            var extensionName = GetExtensionName(permission_);
+            var extensionName = GetExtensionName(extensionEnumType_);
             Dictionary.TryGetValue(extensionName, out var permissions);
             if (permissions == null)
             {
@@ -32,17 +34,17 @@ namespace SoftinuxBase.Security.PermissionParts
 
         //TOTEST
         /// <summary>
-        /// Add a group of permissions. They should be defined in the same enum (faster method, less checks).
+        /// Add a group of permissions.
         /// </summary>
-        /// <param name="permissions_"></param>
-        internal void AddGrouped(IEnumerable<short> permissions_)
+        /// <param name="extensionName_">Extension name</param>
+        /// <param name="permissions_">Any value of enum defined in <paramref name="extensionName_"/> extension</param>
+        internal void AddGrouped(string extensionName_, IEnumerable<short> permissions_)
         {
-            var extensionName = GetExtensionName(permissions_.First());
-            Dictionary.TryGetValue(extensionName, out var permissions);
+            Dictionary.TryGetValue(extensionName_, out var permissions);
             if (permissions == null)
             {
                 permissions = new HashSet<short>();
-                Dictionary.Add(extensionName, permissions);
+                Dictionary.Add(extensionName_, permissions);
             }
             foreach(var permission in permissions_)
             {
@@ -50,9 +52,9 @@ namespace SoftinuxBase.Security.PermissionParts
             }
         }
 
-        private string GetExtensionName(short permission_)
+        private string GetExtensionName(Type extensionEnumType_)
         {
-            return permission_.GetType().Assembly.GetName().Name;
+            return extensionEnumType_.Assembly.GetName().Name;
         }
 
     }

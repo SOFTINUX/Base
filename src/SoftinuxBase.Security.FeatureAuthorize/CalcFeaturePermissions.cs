@@ -49,7 +49,7 @@ namespace SoftinuxBase.Security.FeatureAuthorize
                 where moduleAttr == null || userModules.HasFlag(moduleAttr.PaidForModule)
                 select permission;
 
-            return filteredPermissions.PackPermissionsIntoString();
+            return filteredPermissions.PackPermissions();
         }
 
     }
