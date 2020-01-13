@@ -9,7 +9,7 @@ namespace SoftinuxBase.Security.PermissionPartsTests
 {
     public class PermissionPackersTest
     {
-
+        #region PackPermissions
         [Fact]
         public void PackPermissions_OnePermission()
         {
@@ -62,5 +62,59 @@ namespace SoftinuxBase.Security.PermissionPartsTests
             packedDictionary["SoftinuxBase.Security.PermissionParts"].Should().BeEquivalentTo($"{(char)Permissions.CreateRoles}{(char)Permissions.DeleteRoles}");
             packedDictionary["SoftinuxBase.Security.PermissionPartsTests"].Should().BeEquivalentTo($"{(char)PermissionsDictionaryTest.OtherPermissions.Read}");
         }
+
+        #endregion PackPermissions
+
+        #region UnpackPermissions
+
+        [Fact]
+        public void UnpackPermissions_OnePermission()
+        {
+            // Arrange
+            var permissionsDictionary = new PermissionsDictionary();
+            permissionsDictionary.Add(typeof(Permissions), (short)Permissions.CreateRoles);
+            var packedDictionary = permissionsDictionary.PackPermissions();
+
+            // Act
+            var unpackedPermissions = packedDictionary.UnpackPermissions();
+
+            // Assert
+            unpackedPermissions.Should().BeEquivalentTo(permissionsDictionary);
+        }
+
+        [Fact]
+        public void UnpackPermissions_TwoPermissions()
+        {
+            // Arrange
+            var permissionsDictionary = new PermissionsDictionary();
+            permissionsDictionary.Add(typeof(Permissions), (short)Permissions.CreateRoles);
+            permissionsDictionary.Add(typeof(Permissions), (short)Permissions.DeleteRoles);
+            var packedDictionary = permissionsDictionary.PackPermissions();
+
+            // Act
+            var unpackedPermissions = packedDictionary.UnpackPermissions();
+
+            // Assert
+            unpackedPermissions.Should().BeEquivalentTo(permissionsDictionary);
+        }
+
+        [Fact]
+        public void UnpackPermissions_PermissionsFromSeveralEnums()
+        {
+            // Arrange
+            var permissionsDictionary = new PermissionsDictionary();
+            permissionsDictionary.Add(typeof(Permissions), (short)Permissions.CreateRoles);
+            permissionsDictionary.Add(typeof(Permissions), (short)Permissions.DeleteRoles);
+            permissionsDictionary.Add(typeof(PermissionsDictionaryTest.OtherPermissions), (short)PermissionsDictionaryTest.OtherPermissions.Read);
+            var packedDictionary = permissionsDictionary.PackPermissions();
+
+            // Act
+            var unpackedPermissions = packedDictionary.UnpackPermissions();
+
+            // Assert
+            unpackedPermissions.Should().BeEquivalentTo(permissionsDictionary);
+        }
+
+        #endregion
     }
 }

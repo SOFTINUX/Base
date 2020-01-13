@@ -56,7 +56,6 @@ namespace SoftinuxBase.Security.PermissionParts
             return packedDictionary;
         }
 
-        //TOTEST
         /// <summary>
         /// Unpack permissions to human readable format.
         /// </summary>
@@ -71,6 +70,6 @@ namespace SoftinuxBase.Security.PermissionParts
             }
             return unpackedDictionary;
         }
-
+    }
     }
 }

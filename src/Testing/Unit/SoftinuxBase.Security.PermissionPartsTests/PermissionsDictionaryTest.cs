@@ -10,6 +10,7 @@ namespace SoftinuxBase.Security.PermissionPartsTests
 {
     public class PermissionsDictionaryTest
     {
+        #region Add
         [Fact]
         public void Add_OnePermission()
         {
@@ -74,6 +75,8 @@ namespace SoftinuxBase.Security.PermissionPartsTests
             permissionsDictionary.Dictionary["SoftinuxBase.Security.PermissionParts"].Should().BeEquivalentTo(new HashSet<short> { (short)Permissions.CreateRoles });
             permissionsDictionary.Dictionary["SoftinuxBase.Security.PermissionPartsTests"].Should().BeEquivalentTo(new HashSet<short> { (short)OtherPermissions.Read });
         }
+
+        #endregion
 
         internal enum OtherPermissions
         {
