@@ -71,5 +71,4 @@ namespace SoftinuxBase.Security.PermissionParts
             return unpackedDictionary;
         }
     }
-    }
 }
