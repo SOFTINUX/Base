@@ -11,7 +11,7 @@ using SoftinuxBase.Security.PermissionParts;
 namespace SoftinuxBase.Security.Controllers
 {
     // [PermissionRequirement(Permission.Admin, Constants.SoftinuxBaseSecurity)]
-    [HasPermission((short)Permissions.Admin)]
+    [HasPermission(typeof(Permissions), (short)Permissions.Admin)]
     public class AdministrationController : Infrastructure.ControllerBase
     {
         private readonly ILogger _logger;

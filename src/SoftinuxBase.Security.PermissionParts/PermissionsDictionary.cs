@@ -18,11 +18,11 @@ namespace SoftinuxBase.Security.PermissionParts
         /// <summary>
         /// Add a permission if it doesn't already exist.
         /// </summary>
-        /// <param name="extensionEnumType_">The enum type</param>
-        /// <param name="permission_">Any value of <paramref name="extensionEnumType_"/></param>
-        public void Add(Type extensionEnumType_, short permission_)
+        /// <param name="permissionEnumType_">The enum type</param>
+        /// <param name="permission_">Any value of <paramref name="permissionEnumType_"/></param>
+        public void Add(Type permissionEnumType_, short permission_)
         {
-            var extensionName = GetExtensionName(extensionEnumType_);
+            var extensionName = permissionEnumType_.GetAssemblyShortName();
             Dictionary.TryGetValue(extensionName, out var permissions);
             if (permissions == null)
             {
@@ -50,11 +50,6 @@ namespace SoftinuxBase.Security.PermissionParts
             {
                 permissions.Add(permission);
             }
-        }
-
-        private string GetExtensionName(Type extensionEnumType_)
-        {
-            return extensionEnumType_.Assembly.GetName().Name;
         }
 
     }
