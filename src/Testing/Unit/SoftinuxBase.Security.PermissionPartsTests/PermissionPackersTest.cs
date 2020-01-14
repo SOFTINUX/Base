@@ -50,7 +50,7 @@ namespace SoftinuxBase.Security.PermissionPartsTests
             var permissionsDictionary = new PermissionsDictionary();
             permissionsDictionary.Add(typeof(Permissions), (short)Permissions.CreateRoles);
             permissionsDictionary.Add(typeof(Permissions), (short)Permissions.DeleteRoles);
-            permissionsDictionary.Add(typeof(PermissionsDictionaryTest.OtherPermissions), (short)PermissionsDictionaryTest.OtherPermissions.Read);
+            permissionsDictionary.Add(typeof(OtherPermissions), (short)OtherPermissions.Read);
 
             // Act
             var packedDictionary = permissionsDictionary.PackPermissions();
@@ -60,7 +60,7 @@ namespace SoftinuxBase.Security.PermissionPartsTests
             packedDictionary.ContainsKey("SoftinuxBase.Security.PermissionParts").Should().BeTrue();
             packedDictionary.ContainsKey("SoftinuxBase.Security.PermissionPartsTests").Should().BeTrue();
             packedDictionary["SoftinuxBase.Security.PermissionParts"].Should().BeEquivalentTo($"{(char)Permissions.CreateRoles}{(char)Permissions.DeleteRoles}");
-            packedDictionary["SoftinuxBase.Security.PermissionPartsTests"].Should().BeEquivalentTo($"{(char)PermissionsDictionaryTest.OtherPermissions.Read}");
+            packedDictionary["SoftinuxBase.Security.PermissionPartsTests"].Should().BeEquivalentTo($"{(char)OtherPermissions.Read}");
         }
 
         #endregion PackPermissions
@@ -105,7 +105,7 @@ namespace SoftinuxBase.Security.PermissionPartsTests
             var permissionsDictionary = new PermissionsDictionary();
             permissionsDictionary.Add(typeof(Permissions), (short)Permissions.CreateRoles);
             permissionsDictionary.Add(typeof(Permissions), (short)Permissions.DeleteRoles);
-            permissionsDictionary.Add(typeof(PermissionsDictionaryTest.OtherPermissions), (short)PermissionsDictionaryTest.OtherPermissions.Read);
+            permissionsDictionary.Add(typeof(OtherPermissions), (short)OtherPermissions.Read);
             var packedDictionary = permissionsDictionary.PackPermissions();
 
             // Act

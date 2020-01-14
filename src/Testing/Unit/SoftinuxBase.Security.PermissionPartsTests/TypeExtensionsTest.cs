@@ -1,6 +1,7 @@
 ﻿// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System;
 using SoftinuxBase.Security.PermissionParts;
 using Xunit;
 
@@ -17,19 +18,13 @@ namespace SoftinuxBase.Security.PermissionPartsTests
         [Fact]
         public void VerifyThatTypeContainsEnumValue_NotSupportedException()
         {
-            // TODO
-        }
-
-        [Fact]
-        public void VerifyThatTypeContainsEnumValue_ArgumentNullException()
-        {
-            // TODO
+            Assert.Throws<NotSupportedException>(() => typeof(Permissions).VerifyThatTypeContainsEnumValue(Int16.MinValue));
         }
 
         [Fact]
         public void VerifyThatTypeContainsEnumValue_ArgumentException()
         {
-            // TODO
+            Assert.Throws<ArgumentException>(() => typeof(OtherPermissions).VerifyThatTypeContainsEnumValue((short)Permissions.Read));
         }
     }
 }

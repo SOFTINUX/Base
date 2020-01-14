@@ -23,7 +23,6 @@ namespace SoftinuxBase.Security.PermissionParts
         /// <param name="type_"></param>
         /// <param name="enumValue_"></param>
         /// <exception cref="ArgumentNullException"><see cref="Enum.IsDefined"/></exception>
-        /// <exception cref="ArgumentNullException"><see cref="Enum.IsDefined"/></exception>
         /// <exception cref="InvalidOperationException"><see cref="Enum.IsDefined"/></exception>
         /// <exception cref="NotSupportedException"><paramref name="enumValue_"/> is not contained in enumeration of type <paramref name="type_"/></exception>
         public static void VerifyThatTypeContainsEnumValue(this Type type_, short enumValue_)

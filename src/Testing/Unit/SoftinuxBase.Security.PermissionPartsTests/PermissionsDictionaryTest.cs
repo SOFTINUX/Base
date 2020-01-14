@@ -77,12 +77,5 @@ namespace SoftinuxBase.Security.PermissionPartsTests
         }
 
         #endregion
-
-        internal enum OtherPermissions
-        {
-            Read,
-            Write
-        }
-
     }
 }
