@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.PermissionPartsTests")]
 namespace SoftinuxBase.Security.PermissionParts
@@ -32,25 +31,39 @@ namespace SoftinuxBase.Security.PermissionParts
             permissions.Add(permission_);
         }
 
-        //TOTEST
         /// <summary>
         /// Add a group of permissions.
         /// </summary>
-        /// <param name="extensionName_">Extension name</param>
-        /// <param name="permissions_">Any value of enum defined in <paramref name="extensionName_"/> extension</param>
-        internal void AddGrouped(string extensionName_, IEnumerable<short> permissions_)
+        /// <param name="permissionEnumTypeAssemblyShortName_">Extension name</param>
+        /// <param name="permissions_">Any value of enum defined in <paramref name="permissionEnumTypeAssemblyShortName_"/> extension</param>
+        internal void AddGrouped(string permissionEnumTypeAssemblyShortName_, IEnumerable<short> permissions_)
         {
-            Dictionary.TryGetValue(extensionName_, out var permissions);
+            Dictionary.TryGetValue(permissionEnumTypeAssemblyShortName_, out var permissions);
             if (permissions == null)
             {
                 permissions = new HashSet<short>();
-                Dictionary.Add(extensionName_, permissions);
+                Dictionary.Add(permissionEnumTypeAssemblyShortName_, permissions);
             }
-            foreach(var permission in permissions_)
+            foreach (var permission in permissions_)
             {
                 permissions.Add(permission);
             }
         }
 
+        /// <summary>
+        /// Check whether the item defined by a type and a short value is present.
+        /// Or the <see cref="Permissions.AccessAll"/> permission is present.
+        /// </summary>
+        /// <param name="permissionToCheckEnumTypeFullName_">Fullname of the permission's enum Type.</param>
+        /// <param name="permissionToCheck_">Permission value.</param>
+        /// <returns></returns>
+        internal bool Contains(string permissionToCheckEnumTypeFullName_, short permissionToCheck_)
+        {
+            if (Dictionary.ContainsKey(permissionToCheckEnumTypeFullName_) && Dictionary[permissionToCheckEnumTypeFullName_].Contains(permissionToCheck_))
+                return true;
+
+            var key2 = typeof(Permissions).GetAssemblyShortName();
+            return Dictionary.ContainsKey(key2) && Dictionary[key2].Contains((short)Permissions.AccessAll);
+        }
     }
 }

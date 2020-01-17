@@ -10,6 +10,7 @@ namespace SoftinuxBase.Security.PermissionParts
     public static class PermissionPackers
     {
         // to be removed
+        [Obsolete]
         public static IEnumerable<Permissions> UnpackPermissionsFromString(this string packedPermissions)
         {
             if (packedPermissions == null)
@@ -21,6 +22,7 @@ namespace SoftinuxBase.Security.PermissionParts
         }
 
         // to be removed
+        [Obsolete]
         public static string PackPermissions(this IEnumerable<Permissions> permissions_)
         {
             return permissions_.Aggregate("", (s, permission) => s + (char)permission);

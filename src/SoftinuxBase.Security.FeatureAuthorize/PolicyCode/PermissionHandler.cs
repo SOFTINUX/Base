@@ -20,6 +20,8 @@ namespace SoftinuxBase.Security.FeatureAuthorize.PolicyCode
             if (permissionsClaim == null)
                 return Task.CompletedTask;
 
+            // TODO claim value -> PermissionsDictionary (parse JSON)
+
             if (permissionsClaim.Value.ThisPermissionIsAllowed(requirement.PermissionName))
                 context.Succeed(requirement);
 

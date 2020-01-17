@@ -13,6 +13,9 @@ namespace SoftinuxBase.Security.FeatureAuthorize.PolicyCode
             PermissionName = permissionName ?? throw new ArgumentNullException(nameof(permissionName));
         }
 
+        /// <summary>
+        /// Get the permission unique name (policy name).
+        /// </summary>
         public string PermissionName { get; }
     }
 }

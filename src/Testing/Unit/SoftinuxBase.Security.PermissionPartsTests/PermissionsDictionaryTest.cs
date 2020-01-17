@@ -77,5 +77,23 @@ namespace SoftinuxBase.Security.PermissionPartsTests
         }
 
         #endregion
+
+        #region AddGrouped
+        [Fact]
+        public void AddGrouped()
+        {
+            // Arrange
+            var permissionsDictionary = new PermissionsDictionary();
+
+            // Act
+            permissionsDictionary.AddGrouped(typeof(Permissions).GetAssemblyShortName(), new List<short>{(short)Permissions.CreateRoles, (short)Permissions.DeleteRoles});
+
+            // Assert
+            permissionsDictionary.Dictionary.Keys.Count.Should().Be(1);
+            permissionsDictionary.Dictionary.ContainsKey("SoftinuxBase.Security.PermissionParts").Should().BeTrue();
+            permissionsDictionary.Dictionary["SoftinuxBase.Security.PermissionParts"].Should().BeEquivalentTo(new HashSet<short> { (short)Permissions.CreateRoles, (short)Permissions.DeleteRoles });
+        }
+
+        #endregion
     }
 }
