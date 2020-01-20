@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2019 Jon P Smith, GitHub: JonPSmith, web: http://www.thereformedprogrammer.net/
+﻿// Copyright (c) 2019 Jon P Smith, GitHub: JonPSmith, web: http://www.thereformedprogrammer.net/ and 2017-2019 SOFTINUX.
 // Licensed under MIT license. See License.txt in the project root for license information.
 
 using System;
@@ -26,6 +26,7 @@ namespace SoftinuxBase.Security.Data.Entities
         /// <param name="roleName_"></param>
         /// <param name="description_"></param>
         /// <param name="permissions_"></param>
+        [Obsolete("Use PermissionsDictionary instead of collection")]
         public RoleToPermissions(string roleName_, string description_, ICollection<Permissions> permissions_)
         {
             RoleName = roleName_;
@@ -49,10 +50,11 @@ namespace SoftinuxBase.Security.Data.Entities
         public string Description { get; private set; }
 
         /// <summary>
-        /// This returns the list of permissions in this role
+        /// Gets the set of permissions in this role.
         /// </summary>
-        public IEnumerable<Permissions> PermissionsInRole => _permissionsInRole.UnpackPermissionsFromString();
+        public PermissionsDictionary PermissionsForRole => _permissionsInRole.ToPermissions();
 
+        [Obsolete("Use PermissionsDictionary instead of collection")]
         public void Update(string description_, ICollection<Permissions> permissions_)
         {
             if (permissions_ == null || !permissions_.Any())

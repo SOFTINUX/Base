@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace SoftinuxBase.Security.PermissionParts
 {
     /// <summary>
-    /// Permissions sorted by extension. This is used to represent user's permissions.
+    /// Permissions sorted by extension. This is used to represent role's or user's permissions.
     /// </summary>
     public class PermissionsDictionary
     {
@@ -64,6 +64,25 @@ namespace SoftinuxBase.Security.PermissionParts
 
             var key2 = typeof(Permissions).GetAssemblyShortName();
             return Dictionary.ContainsKey(key2) && Dictionary[key2].Contains((short)Permissions.AccessAll);
+        }
+
+        /// <summary>
+        /// Merge several dictionaries (for example one per role) to a single one (all user's permissions).
+        /// </summary>
+        /// <param name="dictionaries_">PermissionDictionaries</param>
+        /// <returns>Merged permissionsDictionary</returns>
+        public static PermissionsDictionary Merge(params PermissionsDictionary[] dictionaries_)
+        {
+            PermissionsDictionary merged = new PermissionsDictionary();
+            foreach (var dictionary in dictionaries_)
+            {
+                foreach(var enumTypeFullName in dictionary.Dictionary.Keys)
+                {
+                    merged.AddGrouped(enumTypeFullName, dictionary.Dictionary[enumTypeFullName]);
+                }
+            }
+
+            return merged;
         }
     }
 }

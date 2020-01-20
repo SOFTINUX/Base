@@ -95,5 +95,33 @@ namespace SoftinuxBase.Security.PermissionPartsTests
         }
 
         #endregion
+
+        #region Merge
+        [Fact]
+        public void Merge()
+        {
+            // Arrange
+            var permissionsDictionary1 = new PermissionsDictionary();
+            permissionsDictionary1.AddGrouped(typeof(Permissions).GetAssemblyShortName(), new List<short> { (short)Permissions.CreateRoles, (short)Permissions.DeleteRoles });
+
+            var permissionsDictionary2 = new PermissionsDictionary();
+            permissionsDictionary2.AddGrouped(typeof(Permissions).GetAssemblyShortName(), new List<short> { (short)Permissions.CreateRoles, (short)Permissions.CreateUsers });
+
+            var permissionsDictionary3 = new PermissionsDictionary();
+            permissionsDictionary3.AddGrouped(typeof(OtherPermissions).GetAssemblyShortName(), new List<short> { (short)OtherPermissions.Write, (short)OtherPermissions.Read });
+
+            // Act
+            var merged = PermissionsDictionary.Merge(permissionsDictionary1, permissionsDictionary2, permissionsDictionary3);
+
+            // Assert
+            merged.Dictionary.Keys.Count.Should().Be(2);
+            merged.Dictionary.ContainsKey("SoftinuxBase.Security.PermissionParts").Should().BeTrue();
+            merged.Dictionary["SoftinuxBase.Security.PermissionParts"].Should().BeEquivalentTo(new HashSet<short> { (short)Permissions.CreateRoles, (short)Permissions.DeleteRoles, (short)Permissions.CreateUsers });
+            merged.Dictionary.ContainsKey("SoftinuxBase.Security.PermissionPartsTests").Should().BeTrue();
+            merged.Dictionary["SoftinuxBase.Security.PermissionPartsTests"].Should().BeEquivalentTo(new HashSet<short> { (short)OtherPermissions.Read, (short)OtherPermissions.Write });
+
+        }
+
+        #endregion
     }
 }
