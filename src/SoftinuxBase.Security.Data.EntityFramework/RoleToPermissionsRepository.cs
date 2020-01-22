@@ -4,9 +4,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using ExtCore.Data.EntityFramework;
+using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
-using SoftinuxBase.Security.PermissionParts;
 
 namespace SoftinuxBase.Security.Data.EntityFramework
 {
@@ -37,7 +37,7 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         }
 
         /// <inheritdoc/>
-        public bool SetPermissions(string roleName_, ICollection<Permissions> permissions_)
+        public bool SetPermissions(string roleName_, PermissionsDictionary permissions_)
         {
             var roleToPermission = FindBy(roleName_);
             if (roleToPermission == null)

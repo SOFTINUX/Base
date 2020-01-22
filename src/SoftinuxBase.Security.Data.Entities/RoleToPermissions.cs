@@ -2,10 +2,9 @@
 // Licensed under MIT license. See License.txt in the project root for license information.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using ExtCore.Data.Entities.Abstractions;
+using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.PermissionParts;
 
 namespace SoftinuxBase.Security.Data.Entities
@@ -21,16 +20,16 @@ namespace SoftinuxBase.Security.Data.Entities
         private RoleToPermissions() { }
 
         /// <summary>
-        /// This creates the Role with its permissions
+        /// This creates the Role with its permissions.
         /// </summary>
         /// <param name="roleName_"></param>
         /// <param name="description_"></param>
         /// <param name="permissions_"></param>
-        [Obsolete("Use PermissionsDictionary instead of collection")]
-        public RoleToPermissions(string roleName_, string description_, ICollection<Permissions> permissions_)
+        public RoleToPermissions(string roleName_, string description_, PermissionsDictionary permissions_)
         {
             RoleName = roleName_;
-            Update(description_, permissions_);
+            Description = description_;
+            _permissionsInRole = permissions_.PackPermissions().ToPackedString();
         }
 
         /// <summary>
@@ -43,7 +42,7 @@ namespace SoftinuxBase.Security.Data.Entities
         public string RoleName { get; private set; }
 
         /// <summary>
-        /// A human-friendly description of what the Role does
+        /// A human-friendly description of what the Role does.
         /// </summary>
         [Required(AllowEmptyStrings = false)]
         // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Local - needed by EF Core
@@ -54,13 +53,12 @@ namespace SoftinuxBase.Security.Data.Entities
         /// </summary>
         public PermissionsDictionary PermissionsForRole => _permissionsInRole.ToPermissions();
 
-        [Obsolete("Use PermissionsDictionary instead of collection")]
-        public void Update(string description_, ICollection<Permissions> permissions_)
+        public void Update(string description_, PermissionsDictionary permissions_)
         {
             if (permissions_ == null || !permissions_.Any())
                 throw new ArgumentException("There should be at least one permission associated with a role.", nameof(permissions_));
 
-            _permissionsInRole = permissions_.PackPermissions();
+            _permissionsInRole = permissions_.PackPermissions().ToPackedString();
             Description = description_;
         }
 

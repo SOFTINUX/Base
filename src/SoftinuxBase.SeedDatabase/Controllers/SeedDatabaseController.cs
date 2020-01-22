@@ -10,10 +10,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SoftinuxBase.Security.Common;
+using SoftinuxBase.Security.Common.Enums;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
-using SoftinuxBase.Security.PermissionParts;
-using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 
 namespace SoftinuxBase.SeedDatabase.Controllers
 {
@@ -118,41 +117,51 @@ namespace SoftinuxBase.SeedDatabase.Controllers
             roleToPermissionsRepo.DeleteAll();
 
             // Role: Admin, permissions: all
+            var permissions = new PermissionsDictionary();
+           permissions.AddGrouped(typeof(Permissions).GetAssemblyShortName(), new List<short>
+            {
+                (short)Permissions.AccessAll,
+                (short)Permissions.AccessExtension,
+                (short)Permissions.Admin,
+                (short)Permissions.Create,
+                (short)Permissions.Delete,
+                (short)Permissions.Edit,
+                (short)Permissions.Read,
+                (short)Permissions.CreateRoles,
+                (short)Permissions.DeleteRoles,
+                (short)Permissions.EditRoles,
+                (short)Permissions.ListRoles,
+                (short)Permissions.ReadRoles,
+                (short)Permissions.CreateUsers,
+                (short)Permissions.DeleteUsers,
+                (short)Permissions.EditUsers,
+                (short)Permissions.ListUsers,
+                (short)Permissions.ReadUsers,
+                (short)Permissions.EditUsersPermissions,
+            });
             roleToPermissionsRepo.Create(
                 new RoleToPermissions(
                     Role.Administrator.GetRoleName(),
                     "Administrator role",
-                    new List<Permissions>
-                    {
-                        Permissions.AccessAll,
-                        Permissions.AccessExtension,
-                        Permissions.Admin,
-                        Permissions.Create,
-                        Permissions.Delete,
-                        Permissions.Edit,
-                        Permissions.Read,
-                        Permissions.CreateRoles,
-                        Permissions.DeleteRoles,
-                        Permissions.EditRoles,
-                        Permissions.ListRoles,
-                        Permissions.ReadRoles,
-                        Permissions.CreateUsers,
-                        Permissions.DeleteUsers,
-                        Permissions.EditUsers,
-                        Permissions.ListUsers,
-                        Permissions.ReadUsers,
-                        Permissions.EditUsersPermissions,
-                    }));
+                    permissions
+                    ));
 
             // Role: User, permissions: admin general access + list/read
+            permissions = new PermissionsDictionary();
+            permissions.AddGrouped(typeof(Permissions).GetAssemblyShortName(), new List<short>
+            {
+                (short)Permissions.Admin,
+                (short)Permissions.Read,
+                (short)Permissions.ListRoles,
+                (short)Permissions.ReadRoles,
+                (short)Permissions.ListUsers,
+                (short)Permissions.ReadUsers,
+            });
             roleToPermissionsRepo.Create(
                 new RoleToPermissions(
                     Role.User.GetRoleName(),
                     "User role",
-                    new List<Permissions>
-                    {
-                        Permissions.Admin, Permissions.Read, Permissions.ListRoles, Permissions.ReadRoles, Permissions.ListUsers, Permissions.ReadUsers
-                    }));
+                    permissions));
 
             await _storage.SaveAsync();
         }
@@ -299,7 +308,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         /// </summary>
         private async Task SaveUserPermissionAsync()
         {
-            var adminPermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Permission.Admin.ToString())?.Id;
+            var adminPermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Security.Common.Enums.Permission.Admin.ToString())?.Id;
 
             // John (admin user): Admin (globally)
             await SaveUserPermissionAsync(adminPermissionId, _createdUsers[0]);
@@ -318,9 +327,9 @@ namespace SoftinuxBase.SeedDatabase.Controllers
             var userRoleId = _createdRoles.FirstOrDefault(r_ => r_.Name == Role.User.ToString())?.Id;
             var anonymousRoleId = _createdRoles.FirstOrDefault(r_ => r_.Name == Role.Anonymous.ToString())?.Id;
 
-            var adminPermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Permission.Admin.ToString())?.Id;
-            var writePermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Permission.Write.ToString())?.Id;
-            var readPermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Permission.Read.ToString())?.Id;
+            var adminPermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Security.Common.Enums.Permission.Admin.ToString())?.Id;
+            var writePermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Security.Common.Enums.Permission.Write.ToString())?.Id;
+            var readPermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Security.Common.Enums.Permission.Read.ToString())?.Id;
 
             // 1. Admin role: admin (globally)
             await SaveRolePermissionAsync(adminRoleId, adminPermissionId);
@@ -340,7 +349,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         /// </summary>
         private async Task SavePermissionsAsync()
         {
-            Permission[] permissions = (Permission[])Enum.GetValues(typeof(Permission));
+            Security.Common.Enums.Permission[] permissions = (Security.Common.Enums.Permission[])Enum.GetValues(typeof(Security.Common.Enums.Permission));
 
             foreach (var p in permissions)
             {

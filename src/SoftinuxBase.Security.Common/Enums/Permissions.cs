@@ -4,7 +4,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace SoftinuxBase.Security.PermissionParts
+namespace SoftinuxBase.Security.Common.Enums
 {
     public enum Permissions : short
     {

@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
+using SoftinuxBase.Security.Common;
 
 namespace SoftinuxBase.Security.PermissionParts
 {

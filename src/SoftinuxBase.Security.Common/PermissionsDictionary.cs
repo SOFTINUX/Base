@@ -3,9 +3,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using SoftinuxBase.Security.Common.Enums;
 
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.PermissionParts")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.CommonTests")]
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.PermissionPartsTests")]
-namespace SoftinuxBase.Security.PermissionParts
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.SeedDatabase")]
+namespace SoftinuxBase.Security.Common
 {
     /// <summary>
     /// Permissions sorted by extension. This is used to represent role's or user's permissions.
@@ -67,6 +72,17 @@ namespace SoftinuxBase.Security.PermissionParts
         }
 
         /// <summary>
+        /// Check whether there is a permission item present.
+        /// </summary>
+        /// <returns></returns>
+        public bool Any()
+        {
+            if (Dictionary.Keys.Count == 0)
+                return false;
+            return Dictionary[Dictionary.Keys.First()].Count != 0;
+        }
+
+        /// <summary>
         /// Merge several dictionaries (for example one per role) to a single one (all user's permissions).
         /// </summary>
         /// <param name="dictionaries_">PermissionDictionaries</param>
@@ -76,7 +92,7 @@ namespace SoftinuxBase.Security.PermissionParts
             PermissionsDictionary merged = new PermissionsDictionary();
             foreach (var dictionary in dictionaries_)
             {
-                foreach(var enumTypeFullName in dictionary.Dictionary.Keys)
+                foreach (var enumTypeFullName in dictionary.Dictionary.Keys)
                 {
                     merged.AddGrouped(enumTypeFullName, dictionary.Dictionary[enumTypeFullName]);
                 }

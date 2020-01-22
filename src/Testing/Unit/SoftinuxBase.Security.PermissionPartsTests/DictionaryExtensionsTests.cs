@@ -3,7 +3,10 @@
 
 using System;
 using FluentAssertions;
+using SoftinuxBase.Security.Common;
+using SoftinuxBase.Security.Common.Enums;
 using SoftinuxBase.Security.PermissionParts;
+using SoftinuxBase.Tests.Common;
 using Xunit;
 
 namespace SoftinuxBase.Security.PermissionPartsTests

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.EntityFramework;
 using SoftinuxBase.Security.PermissionParts;
 

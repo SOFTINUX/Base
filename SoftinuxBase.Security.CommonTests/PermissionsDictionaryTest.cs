@@ -3,10 +3,12 @@
 
 using System.Collections.Generic;
 using FluentAssertions;
-using SoftinuxBase.Security.PermissionParts;
+using SoftinuxBase.Security.Common;
+using SoftinuxBase.Security.Common.Enums;
+using SoftinuxBase.Tests.Common;
 using Xunit;
 
-namespace SoftinuxBase.Security.PermissionPartsTests
+namespace SoftinuxBase.Security.CommonTests
 {
     public class PermissionsDictionaryTest
     {

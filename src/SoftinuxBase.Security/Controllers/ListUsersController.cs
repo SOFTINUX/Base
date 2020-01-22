@@ -8,11 +8,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-using SoftinuxBase.Security.Common;
-using SoftinuxBase.Security.Common.Attributes;
+using SoftinuxBase.Security.Common.Enums;
 using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.FeatureAuthorize.PolicyCode;
-using SoftinuxBase.Security.PermissionParts;
 
 namespace SoftinuxBase.Security.Controllers
 {

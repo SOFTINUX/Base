@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using ExtCore.Data.Abstractions;
+using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.Entities;
 
 namespace SoftinuxBase.Security.Data.Abstractions
@@ -39,6 +40,6 @@ namespace SoftinuxBase.Security.Data.Abstractions
         /// <param name="roleName_">Name of role.</param>
         /// <param name="permissions_">New permissions.</param>
         /// <returns>true when an existing link was updated.</returns>
-        bool SetPermissions(string roleName_, ICollection<PermissionParts.Permissions> permissions_);
+        bool SetPermissions(string roleName_, PermissionsDictionary permissions_);
     }
 }

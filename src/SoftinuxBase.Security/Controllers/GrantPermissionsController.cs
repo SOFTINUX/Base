@@ -11,11 +11,10 @@ using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SoftinuxBase.Security.Common;
-using SoftinuxBase.Security.Common.Attributes;
+using SoftinuxBase.Security.Common.Enums;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.FeatureAuthorize.PolicyCode;
-using SoftinuxBase.Security.PermissionParts;
 using SoftinuxBase.Security.Tools;
 using SoftinuxBase.Security.ViewModels.Permissions;
 

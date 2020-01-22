@@ -2,7 +2,10 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
+using SoftinuxBase.Security.Common;
+using SoftinuxBase.Security.Common.Enums;
 using SoftinuxBase.Security.PermissionParts;
+using SoftinuxBase.Tests.Common;
 using Xunit;
 
 namespace SoftinuxBase.Security.PermissionPartsTests

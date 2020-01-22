@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+using SoftinuxBase.Security.Common;
 
 namespace SoftinuxBase.Security.PermissionParts
 {

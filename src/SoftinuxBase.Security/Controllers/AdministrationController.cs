@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SoftinuxBase.Security.Common.Enums;
 using SoftinuxBase.Security.FeatureAuthorize.PolicyCode;
-using SoftinuxBase.Security.PermissionParts;
 
 namespace SoftinuxBase.Security.Controllers
 {
