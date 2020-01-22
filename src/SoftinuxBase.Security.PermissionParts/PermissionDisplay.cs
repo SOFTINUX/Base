@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2018 Jon P Smith, GitHub: JonPSmith, web: http://www.thereformedprogrammer.net/
+﻿// Copyright (c) 2018 Jon P Smith, GitHub: JonPSmith, web: http://www.thereformedprogrammer.net/ and 2017-2019 SOFTINUX.
 // Licensed under MIT license. See License.txt in the project root for license information.
 
 using System;
@@ -10,16 +10,20 @@ namespace SoftinuxBase.Security.PermissionParts
 {
     public class PermissionDisplay
     {
-        public PermissionDisplay(string groupName, string name, string description, Permissions permission,
-            string moduleName)
+        public PermissionDisplay(string groupName_, string name_, string description_, string extensionName_, short permission_,
+            string moduleName_)
         {
-            Permission = permission;
-            GroupName = groupName;
-            ShortName = name ?? throw new ArgumentNullException(nameof(name));
-            Description = description ?? throw new ArgumentNullException(nameof(description));
-            ModuleName = moduleName;
+            ExtensionName = extensionName_;
+            Permission = permission_;
+            GroupName = groupName_;
+            ShortName = name_ ?? throw new ArgumentNullException(nameof(name_));
+            Description = description_ ?? throw new ArgumentNullException(nameof(description_));
+            ModuleName = moduleName_;
         }
-
+        /// <summary>
+        /// Extension name.
+        /// </summary>
+        public string ExtensionName { get; private set; }
         /// <summary>
         /// GroupName, which groups permissions working in the same area
         /// </summary>
@@ -35,7 +39,7 @@ namespace SoftinuxBase.Security.PermissionParts
         /// <summary>
         /// Gives the actual permission
         /// </summary>
-        public Permissions Permission { get; private set; }
+        public short Permission { get; private set; }
         /// <summary>
         /// Contains an optional paidForModule that this feature is linked to
         /// </summary>
@@ -46,12 +50,12 @@ namespace SoftinuxBase.Security.PermissionParts
         /// This returns 
         /// </summary>
         /// <returns></returns>
-        public static List<PermissionDisplay> GetPermissionsToDisplay(Type enumType) 
+        public static List<PermissionDisplay> GetPermissionsToDisplay(Type enumType_) 
         {
             var result = new List<PermissionDisplay>();
-            foreach (var permissionName in Enum.GetNames(enumType))
+            foreach (var permissionName in Enum.GetNames(enumType_))
             {
-                var member = enumType.GetMember(permissionName);
+                var member = enumType_.GetMember(permissionName);
                 //This allows you to obsolete a permission and it won't be shown as a possible option, but is still there so you won't reuse the number
                 var obsoleteAttribute = member[0].GetCustomAttribute<ObsoleteAttribute>();
                 if (obsoleteAttribute != null)
@@ -64,10 +68,10 @@ namespace SoftinuxBase.Security.PermissionParts
                 //Gets the optional PaidForModule that a permission can be linked to
                 var moduleAttribute = member[0].GetCustomAttribute<LinkedToModuleAttribute>();
 
-                var permission = (Permissions)Enum.Parse(enumType, permissionName, false);
+                var permission = (short)Enum.Parse(enumType_, permissionName, false);
 
                 result.Add(new PermissionDisplay(displayAttribute.GroupName, displayAttribute.Name, 
-                        displayAttribute.Description, permission, moduleAttribute?.PaidForModule.ToString()));
+                        displayAttribute.Description, enumType_.GetAssemblyShortName(), permission, moduleAttribute?.PaidForModule.ToString()));
             }
 
             return result;
