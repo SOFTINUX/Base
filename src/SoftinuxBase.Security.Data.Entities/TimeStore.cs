@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using SoftinuxBase.Security.RefreshClaimsParts;
+using SoftinuxBase.Security.RefreshClaims;
 
 namespace SoftinuxBase.Security.Data.Entities
 {

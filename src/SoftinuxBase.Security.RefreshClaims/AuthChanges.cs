@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Test")]
 
-namespace SoftinuxBase.Security.RefreshClaimsParts
+namespace SoftinuxBase.Security.RefreshClaims
 {
     public class AuthChanges : IAuthChanges
     {

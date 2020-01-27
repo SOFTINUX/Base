@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.EntityFramework;
-using SoftinuxBase.Security.PermissionParts;
+using SoftinuxBase.Security.Permissions;
 
 namespace SoftinuxBase.Security.FeatureAuthorize
 {
@@ -40,7 +40,7 @@ namespace SoftinuxBase.Security.FeatureAuthorize
 
             PermissionsDictionary allPermissions = PermissionsDictionary.Merge(permissionsForUser.ToArray());
 
-            // TODO migrate the following code, hered too we need to manage an enum for every extension
+            // TODO migrate the following code, here too we need to manage an enum for every extension
             ////we get the modules this user is allowed to see
             //var userModules = _context.ModulesForUsers.Find(userId)
             //                      ?.AllowedPaidForModules ?? PaidForModules.None;

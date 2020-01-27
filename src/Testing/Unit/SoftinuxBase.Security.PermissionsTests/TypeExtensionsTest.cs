@@ -3,31 +3,29 @@
 
 using System;
 using SoftinuxBase.Security.Common;
-using SoftinuxBase.Security.Common.Enums;
-using SoftinuxBase.Security.PermissionParts;
 using SoftinuxBase.Tests.Common;
 using Xunit;
 
-namespace SoftinuxBase.Security.PermissionPartsTests
+namespace SoftinuxBase.Security.PermissionsTests
 {
     public class TypeExtensionsTest
     {
         [Fact]
         public void VerifyThatTypeContainsEnumValue_Ok()
         {
-            typeof(Permissions).VerifyThatTypeContainsEnumValue((short)Permissions.AccessAll);
+            typeof(Common.Enums.Permissions).VerifyThatTypeContainsEnumValue((short)Common.Enums.Permissions.AccessAll);
         }
 
         [Fact]
         public void VerifyThatTypeContainsEnumValue_NotSupportedException()
         {
-            Assert.Throws<NotSupportedException>(() => typeof(Permissions).VerifyThatTypeContainsEnumValue(Int16.MinValue));
+            Assert.Throws<NotSupportedException>(() => typeof(Common.Enums.Permissions).VerifyThatTypeContainsEnumValue(Int16.MinValue));
         }
 
         [Fact]
         public void VerifyThatTypeContainsEnumValue_ArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => typeof(OtherPermissions).VerifyThatTypeContainsEnumValue((short)Permissions.Read));
+            Assert.Throws<ArgumentException>(() => typeof(OtherPermissions).VerifyThatTypeContainsEnumValue((short)Common.Enums.Permissions.Read));
         }
     }
 }

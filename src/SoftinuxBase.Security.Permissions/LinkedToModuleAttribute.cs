@@ -3,7 +3,7 @@
 
 using System;
 
-namespace SoftinuxBase.Security.PermissionParts
+namespace SoftinuxBase.Security.Permissions
 {
     [AttributeUsage(AttributeTargets.Field)]
     public class LinkedToModuleAttribute : Attribute

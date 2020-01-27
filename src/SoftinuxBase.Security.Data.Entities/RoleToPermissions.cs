@@ -5,7 +5,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using ExtCore.Data.Entities.Abstractions;
 using SoftinuxBase.Security.Common;
-using SoftinuxBase.Security.PermissionParts;
+using SoftinuxBase.Security.Permissions;
 
 namespace SoftinuxBase.Security.Data.Entities
 {

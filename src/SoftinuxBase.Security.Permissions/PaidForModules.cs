@@ -3,7 +3,7 @@
 
 using System;
 
-namespace SoftinuxBase.Security.PermissionParts
+namespace SoftinuxBase.Security.Permissions
 {
     /// <summary>
     /// This is an example of how you would manage what optional parts of your system a user can access

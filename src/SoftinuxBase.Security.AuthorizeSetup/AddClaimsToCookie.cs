@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using SoftinuxBase.Security.Data.Entities;
-using SoftinuxBase.Security.RefreshClaimsParts;
+using SoftinuxBase.Security.RefreshClaims;
 using SoftinuxBase.Security.UserImpersonation.Concrete;
 
 namespace SoftinuxBase.Security.AuthorizeSetup

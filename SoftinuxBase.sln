@@ -39,9 +39,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.Autho
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.FeatureAuthorize", "src\SoftinuxBase.Security.FeatureAuthorize\SoftinuxBase.Security.FeatureAuthorize.csproj", "{2F54BA3D-F384-45B7-9B35-2CC6D95AA275}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.PermissionParts", "src\SoftinuxBase.Security.PermissionParts\SoftinuxBase.Security.PermissionParts.csproj", "{47B5B76F-033A-44EB-AE0F-1FC0099F4BB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.Permissions", "src\SoftinuxBase.Security.Permissions\SoftinuxBase.Security.Permissions.csproj", "{47B5B76F-033A-44EB-AE0F-1FC0099F4BB8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.RefreshClaimsParts", "src\SoftinuxBase.Security.RefreshClaimsParts\SoftinuxBase.Security.RefreshClaimsParts.csproj", "{766E756F-1EC2-4171-B84E-CF10C2C0F072}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.RefreshClaims", "src\SoftinuxBase.Security.RefreshClaims\SoftinuxBase.Security.RefreshClaims.csproj", "{766E756F-1EC2-4171-B84E-CF10C2C0F072}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.UserImpersonation", "src\SoftinuxBase.Security.UserImpersonation\SoftinuxBase.Security.UserImpersonation.csproj", "{E4F595B5-BEF8-4B22-BEDD-11595D6618A3}"
 EndProject
@@ -51,7 +51,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Tests.Common",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.SecurityTests", "src\Testing\Unit\SoftinuxBase.SecurityTests\SoftinuxBase.SecurityTests.csproj", "{B66CF3A3-D470-424E-A788-115672CE7E71}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.PermissionPartsTests", "src\Testing\Unit\SoftinuxBase.Security.PermissionPartsTests\SoftinuxBase.Security.PermissionPartsTests.csproj", "{3437B509-E066-4B7D-8609-CD37C176ED43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.PermissionsTests", "src\Testing\Unit\SoftinuxBase.Security.PermissionsTests\SoftinuxBase.Security.PermissionsTests.csproj", "{3437B509-E066-4B7D-8609-CD37C176ED43}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftinuxBase.Security.CommonTests", "SoftinuxBase.Security.CommonTests\SoftinuxBase.Security.CommonTests.csproj", "{ED629DB4-B81A-447D-8944-2B9A9F73E350}"
 EndProject

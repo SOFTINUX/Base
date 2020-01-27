@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SoftinuxBase.Security.Data.Entities;
-using SoftinuxBase.Security.RefreshClaimsParts;
+using SoftinuxBase.Security.RefreshClaims;
 
 namespace SoftinuxBase.Security.Data.EntityFramework
 {

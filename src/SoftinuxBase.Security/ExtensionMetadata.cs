@@ -76,6 +76,6 @@ namespace SoftinuxBase.Security
         /// <summary>
         /// Gets basic permissions, some are used by SoftinuxBase.Security for the administration part.
         /// </summary>
-        public Type Permissions => typeof(Permissions);
+        public Type Permissions => typeof(Common.Enums.Permissions);
     }
 }

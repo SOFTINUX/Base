@@ -3,7 +3,7 @@
 
 using System;
 using Microsoft.AspNetCore.Authorization;
-using SoftinuxBase.Security.PermissionParts;
+using SoftinuxBase.Security.Permissions;
 
 namespace SoftinuxBase.Security.FeatureAuthorize.PolicyCode
 {

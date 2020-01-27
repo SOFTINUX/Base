@@ -4,12 +4,11 @@
 using System;
 using FluentAssertions;
 using SoftinuxBase.Security.Common;
-using SoftinuxBase.Security.Common.Enums;
-using SoftinuxBase.Security.PermissionParts;
+using SoftinuxBase.Security.Permissions;
 using SoftinuxBase.Tests.Common;
 using Xunit;
 
-namespace SoftinuxBase.Security.PermissionPartsTests
+namespace SoftinuxBase.Security.PermissionsTests
 {
     public class DictionaryExtensionsTests
     {
@@ -19,15 +18,15 @@ namespace SoftinuxBase.Security.PermissionPartsTests
         {
             // Arrange
             var permissionsDictionary = new PermissionsDictionary();
-            permissionsDictionary.Add(typeof(Permissions), (short)Permissions.CreateRoles);
+            permissionsDictionary.Add(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.CreateRoles);
 
             // Act
             var packedDictionary = permissionsDictionary.PackPermissions();
 
             // Assert
             packedDictionary.Keys.Count.Should().Be(1);
-            packedDictionary.ContainsKey("SoftinuxBase.Security.PermissionParts").Should().BeTrue();
-            packedDictionary["SoftinuxBase.Security.PermissionParts"].Should().BeEquivalentTo($"{(char)Permissions.CreateRoles}");
+            packedDictionary.ContainsKey("SoftinuxBase.Security.Common").Should().BeTrue();
+            packedDictionary["SoftinuxBase.Security.Common"].Should().BeEquivalentTo($"{(char)Common.Enums.Permissions.CreateRoles}");
         }
 
         [Fact]
@@ -35,16 +34,16 @@ namespace SoftinuxBase.Security.PermissionPartsTests
         {
             // Arrange
             var permissionsDictionary = new PermissionsDictionary();
-            permissionsDictionary.Add(typeof(Permissions), (short)Permissions.CreateRoles);
-            permissionsDictionary.Add(typeof(Permissions), (short)Permissions.DeleteRoles);
+            permissionsDictionary.Add(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.CreateRoles);
+            permissionsDictionary.Add(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.DeleteRoles);
 
             // Act
             var packedDictionary = permissionsDictionary.PackPermissions();
 
             // Assert
             packedDictionary.Keys.Count.Should().Be(1);
-            packedDictionary.ContainsKey("SoftinuxBase.Security.PermissionParts").Should().BeTrue();
-            packedDictionary["SoftinuxBase.Security.PermissionParts"].Should().BeEquivalentTo($"{(char)Permissions.CreateRoles}{(char)Permissions.DeleteRoles}");
+            packedDictionary.ContainsKey("SoftinuxBase.Security.Common").Should().BeTrue();
+            packedDictionary["SoftinuxBase.Security.Common"].Should().BeEquivalentTo($"{(char)Common.Enums.Permissions.CreateRoles}{(char)Common.Enums.Permissions.DeleteRoles}");
         }
 
         [Fact]
@@ -52,8 +51,8 @@ namespace SoftinuxBase.Security.PermissionPartsTests
         {
             // Arrange
             var permissionsDictionary = new PermissionsDictionary();
-            permissionsDictionary.Add(typeof(Permissions), (short)Permissions.CreateRoles);
-            permissionsDictionary.Add(typeof(Permissions), (short)Permissions.DeleteRoles);
+            permissionsDictionary.Add(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.CreateRoles);
+            permissionsDictionary.Add(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.DeleteRoles);
             permissionsDictionary.Add(typeof(OtherPermissions), (short)OtherPermissions.Read);
 
             // Act
@@ -61,10 +60,10 @@ namespace SoftinuxBase.Security.PermissionPartsTests
 
             // Assert
             packedDictionary.Keys.Count.Should().Be(2);
-            packedDictionary.ContainsKey("SoftinuxBase.Security.PermissionParts").Should().BeTrue();
-            packedDictionary.ContainsKey("SoftinuxBase.Security.PermissionPartsTests").Should().BeTrue();
-            packedDictionary["SoftinuxBase.Security.PermissionParts"].Should().BeEquivalentTo($"{(char)Permissions.CreateRoles}{(char)Permissions.DeleteRoles}");
-            packedDictionary["SoftinuxBase.Security.PermissionPartsTests"].Should().BeEquivalentTo($"{(char)OtherPermissions.Read}");
+            packedDictionary.ContainsKey("SoftinuxBase.Security.Common").Should().BeTrue();
+            packedDictionary.ContainsKey("SoftinuxBase.Tests.Common").Should().BeTrue();
+            packedDictionary["SoftinuxBase.Security.Common"].Should().BeEquivalentTo($"{(char)Common.Enums.Permissions.CreateRoles}{(char)Common.Enums.Permissions.DeleteRoles}");
+            packedDictionary["SoftinuxBase.Tests.Common"].Should().BeEquivalentTo($"{(char)OtherPermissions.Read}");
         }
 
         #endregion PackPermissions
@@ -76,7 +75,7 @@ namespace SoftinuxBase.Security.PermissionPartsTests
         {
             // Arrange
             var permissionsDictionary = new PermissionsDictionary();
-            permissionsDictionary.Add(typeof(Permissions), (short)Permissions.CreateRoles);
+            permissionsDictionary.Add(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.CreateRoles);
             var packedDictionary = permissionsDictionary.PackPermissions();
 
             // Act
@@ -91,8 +90,8 @@ namespace SoftinuxBase.Security.PermissionPartsTests
         {
             // Arrange
             var permissionsDictionary = new PermissionsDictionary();
-            permissionsDictionary.Add(typeof(Permissions), (short)Permissions.CreateRoles);
-            permissionsDictionary.Add(typeof(Permissions), (short)Permissions.DeleteRoles);
+            permissionsDictionary.Add(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.CreateRoles);
+            permissionsDictionary.Add(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.DeleteRoles);
             var packedDictionary = permissionsDictionary.PackPermissions();
 
             // Act
@@ -107,8 +106,8 @@ namespace SoftinuxBase.Security.PermissionPartsTests
         {
             // Arrange
             var permissionsDictionary = new PermissionsDictionary();
-            permissionsDictionary.Add(typeof(Permissions), (short)Permissions.CreateRoles);
-            permissionsDictionary.Add(typeof(Permissions), (short)Permissions.DeleteRoles);
+            permissionsDictionary.Add(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.CreateRoles);
+            permissionsDictionary.Add(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.DeleteRoles);
             permissionsDictionary.Add(typeof(OtherPermissions), (short)OtherPermissions.Read);
             var packedDictionary = permissionsDictionary.PackPermissions();
 
@@ -123,14 +122,14 @@ namespace SoftinuxBase.Security.PermissionPartsTests
 
         #region UserHasThisPermission
         [Theory]
-        [InlineData("SoftinuxBase.Security.PermissionParts", (short)Permissions.Read, true)]
-        [InlineData("SoftinuxBase.Security.PermissionParts", (short)Permissions.Edit, false)]
-        [InlineData("SoftinuxBase.Security.PermissionParts", (short)Permissions.AccessAll, false)]
+        [InlineData("SoftinuxBase.Security.Common", (short)Common.Enums.Permissions.Read, true)]
+        [InlineData("SoftinuxBase.Security.Common", (short)Common.Enums.Permissions.Edit, false)]
+        [InlineData("SoftinuxBase.Security.Common", (short)Common.Enums.Permissions.AccessAll, false)]
         public void UserHasThisPermission(string typeFullName_, short permissionValue_, bool expectedFound_)
         {
             // Arrange
             PermissionsDictionary permissions = new PermissionsDictionary();
-            permissions.Add(typeof(Permissions), (short)Permissions.Read);
+            permissions.Add(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.Read);
 
             // Act
             var found = permissions.UserHasThisPermission(typeFullName_, permissionValue_);
@@ -140,15 +139,15 @@ namespace SoftinuxBase.Security.PermissionPartsTests
         }
 
         [Theory]
-        [InlineData("SoftinuxBase.Security.PermissionParts", (short)Permissions.Read, true)]
-        [InlineData("SoftinuxBase.Security.PermissionParts", (short)Permissions.Edit, true)]
-        [InlineData("SoftinuxBase.Security.PermissionParts", (short)Permissions.AccessAll, true)]
+        [InlineData("SoftinuxBase.Security.Common", (short)Common.Enums.Permissions.Read, true)]
+        [InlineData("SoftinuxBase.Security.Common", (short)Common.Enums.Permissions.Edit, true)]
+        [InlineData("SoftinuxBase.Security.Common", (short)Common.Enums.Permissions.AccessAll, true)]
         public void UserHasThisPermission_HasAccessAll(string typeFullName_, short permissionValue_, bool expectedFound_)
         {
             // Arrange
             PermissionsDictionary permissions = new PermissionsDictionary();
-            permissions.Add(typeof(Permissions), (short)Permissions.Read);
-            permissions.Add(typeof(Permissions), (short)Permissions.AccessAll);
+            permissions.Add(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.Read);
+            permissions.Add(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.AccessAll);
 
             // Act
             var found = permissions.UserHasThisPermission(typeFullName_, permissionValue_);
@@ -162,14 +161,14 @@ namespace SoftinuxBase.Security.PermissionPartsTests
         #region ThisPermissionIsAllowed
 
         [Theory]
-        [InlineData(typeof(Permissions), (short)Permissions.Read, true)]
-        [InlineData(typeof(Permissions), (short)Permissions.Edit, false)]
-        [InlineData(typeof(Permissions), (short)Permissions.AccessAll, false)]
+        [InlineData(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.Read, true)]
+        [InlineData(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.Edit, false)]
+        [InlineData(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.AccessAll, false)]
         public void ThisPermissionIsAllowed(Type type_, short permissionValue_, bool expectedAllowed_)
         {
             // Arrange
             PermissionsDictionary permissions = new PermissionsDictionary();
-            permissions.Add(typeof(Permissions), (short)Permissions.Read);
+            permissions.Add(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.Read);
             var packedPermissions = permissions.PackPermissions();
 
             // Act
@@ -180,14 +179,14 @@ namespace SoftinuxBase.Security.PermissionPartsTests
         }
 
         [Theory]
-        [InlineData(typeof(Permissions), (short)Permissions.Read, true)]
-        [InlineData(typeof(Permissions), (short)Permissions.Edit, true)]
-        [InlineData(typeof(Permissions), (short)Permissions.AccessAll, true)]
+        [InlineData(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.Read, true)]
+        [InlineData(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.Edit, true)]
+        [InlineData(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.AccessAll, true)]
         public void ThisPermissionIsAllowed_HasAccessAll(Type type_, short permissionValue_, bool expectedAllowed_)
         {
             // Arrange
             PermissionsDictionary permissions = new PermissionsDictionary();
-            permissions.Add(typeof(Permissions), (short)Permissions.AccessAll);
+            permissions.Add(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.AccessAll);
             var packedPermissions = permissions.PackPermissions();
 
             // Act

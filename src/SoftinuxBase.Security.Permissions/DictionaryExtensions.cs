@@ -6,7 +6,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using SoftinuxBase.Security.Common;
 
-namespace SoftinuxBase.Security.PermissionParts
+namespace SoftinuxBase.Security.Permissions
 {
     /// <summary>
     /// Extensions to work with packed and unpacked permissions dictionary.

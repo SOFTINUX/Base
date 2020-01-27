@@ -8,13 +8,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-using SoftinuxBase.Security.Common.Enums;
 using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.FeatureAuthorize.PolicyCode;
 
 namespace SoftinuxBase.Security.Controllers
 {
-    // [PermissionRequirement(Permission.Admin, Constants.SoftinuxBaseSecurity)]
     public class ListUsersController : Infrastructure.ControllerBase
     {
         // private readonly ILogger _logger;
@@ -39,7 +37,7 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/list-users")]
         [HttpGet]
         [ActionName("Index")]
-        [HasPermission(typeof(Permissions), (short)Permissions.ListUsers)]
+        [HasPermission(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.ListUsers)]
         public async Task<IActionResult> IndexAsync()
         {
             ViewBag.userList = _usersmanager.Users.Select(u_ => new SelectListItem { Text = u_.UserName, Value = u_.Id }).ToList();
@@ -54,7 +52,7 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/list-users/edit-user")]
         [HttpGet]
         [ActionName("EditUser")]
-        [HasPermission(typeof(Permissions), (short)Permissions.EditUsers)]
+        [HasPermission(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.EditUsers)]
         public async Task<IActionResult> EditUserAsync(string userId_)
         {
             var user = _usersmanager.Users.FirstOrDefault(u_ => u_.Id == userId_);

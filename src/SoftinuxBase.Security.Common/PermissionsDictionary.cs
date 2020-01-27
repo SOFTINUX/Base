@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using SoftinuxBase.Security.Common.Enums;
 
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.PermissionParts")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.Permissions")]
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.CommonTests")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.PermissionPartsTests")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.PermissionsTests")]
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.SeedDatabase")]
 namespace SoftinuxBase.Security.Common
 {

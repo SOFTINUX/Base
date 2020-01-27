@@ -3,7 +3,7 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
-using SoftinuxBase.Security.PermissionParts;
+using SoftinuxBase.Security.Permissions;
 
 namespace SoftinuxBase.Security.Data.Entities
 {

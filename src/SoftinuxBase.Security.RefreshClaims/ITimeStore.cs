@@ -1,4 +1,4 @@
-﻿namespace SoftinuxBase.Security.RefreshClaimsParts
+﻿namespace SoftinuxBase.Security.RefreshClaims
 {
     /// <summary>
     /// Access to the TimeStore part of the ExtraAuthorizeDbContext

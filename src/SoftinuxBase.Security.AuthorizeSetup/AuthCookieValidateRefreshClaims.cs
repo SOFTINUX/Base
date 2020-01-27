@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.DependencyInjection;
 using SoftinuxBase.Security.Data.EntityFramework;
 using SoftinuxBase.Security.FeatureAuthorize;
-using SoftinuxBase.Security.RefreshClaimsParts;
+using SoftinuxBase.Security.RefreshClaims;
 
 namespace SoftinuxBase.Security.AuthorizeSetup
 {

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.DependencyInjection;
 using SoftinuxBase.Security.Data.EntityFramework;
 using SoftinuxBase.Security.FeatureAuthorize;
-using SoftinuxBase.Security.RefreshClaimsParts;
+using SoftinuxBase.Security.RefreshClaims;
 using SoftinuxBase.Security.UserImpersonation.Concrete;
 
 namespace SoftinuxBase.Security.AuthorizeSetup

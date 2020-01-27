@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using SoftinuxBase.Security.Common;
 
-namespace SoftinuxBase.Security.PermissionParts
+namespace SoftinuxBase.Security.Permissions
 {
     public class PermissionDisplay
     {

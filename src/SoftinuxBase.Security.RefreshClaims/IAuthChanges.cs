@@ -1,4 +1,4 @@
-﻿namespace SoftinuxBase.Security.RefreshClaimsParts
+﻿namespace SoftinuxBase.Security.RefreshClaims
 {
     public interface IAuthChanges
     {
