@@ -1,5 +1,5 @@
 ﻿@using SoftinuxBase.Security.FeatureAuthorize
-@using SoftinuxBase.Security.PermissionParts
+@using SoftinuxBase.Security.Permissions
 @* Copyright © 2017-2019 SOFTINUX. All rights reserved.
     Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 *@
@@ -48,7 +48,7 @@
                     @($"[UNPACKED] {packedPermissionsClaim.Type}")
                 </td>
                 <td>
-                    @String.Join(", ", packedPermissionsClaim.Value.UnpackPermissionsFromString())
+                    @packedPermissionsClaim.Value.ToDisplayString()
                 </td>
                 <td>
                     @packedPermissionsClaim.Issuer

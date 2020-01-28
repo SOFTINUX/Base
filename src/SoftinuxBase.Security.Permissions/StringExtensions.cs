@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Newtonsoft.Json;
 using SoftinuxBase.Security.Common;
 
@@ -68,6 +69,27 @@ namespace SoftinuxBase.Security.Permissions
         public static PermissionsDictionary ToPermissions(this string roleToPermissionsDatabaseString_)
         {
             return roleToPermissionsDatabaseString_.ToPackedPermissions().UnpackPermissions();
+        }
+
+        /// <summary>
+        /// Debug helper to format a readable string from packed permissions claim value.
+        /// </summary>
+        /// <param name="packedPermissionsClaimValue_"></param>
+        /// <returns></returns>
+        public static string ToDisplayString(this string packedPermissionsClaimValue_)
+        {
+            var permissiondDictionary = packedPermissionsClaimValue_.ToPermissions();
+            StringBuilder sb = new StringBuilder();
+            foreach (var key in permissiondDictionary.Dictionary.Keys)
+            {
+                sb.Append("[[").Append(key).Append("] ");
+                foreach (var value in permissiondDictionary.Dictionary[key])
+                {
+                    sb.Append(value).Append(" ");
+                }
+                sb.Append("] ");
+            }
+            return sb.ToString();
         }
     }
 }
