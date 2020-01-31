@@ -20,69 +20,6 @@ namespace SoftinuxBase.Security.Common
         internal readonly Dictionary<string, HashSet<short>> Dictionary = new Dictionary<string, HashSet<short>>();
 
         /// <summary>
-        /// Add a permission if it doesn't already exist.
-        /// </summary>
-        /// <param name="permissionEnumType_">The enum type</param>
-        /// <param name="permission_">Any value of <paramref name="permissionEnumType_"/></param>
-        public void Add(Type permissionEnumType_, short permission_)
-        {
-            var extensionName = permissionEnumType_.GetAssemblyShortName();
-            Dictionary.TryGetValue(extensionName, out var permissions);
-            if (permissions == null)
-            {
-                permissions = new HashSet<short>();
-                Dictionary.Add(extensionName, permissions);
-            }
-            permissions.Add(permission_);
-        }
-
-        /// <summary>
-        /// Add a group of permissions.
-        /// </summary>
-        /// <param name="permissionEnumTypeAssemblyShortName_">Extension name</param>
-        /// <param name="permissions_">Any value of enum defined in <paramref name="permissionEnumTypeAssemblyShortName_"/> extension</param>
-        internal void AddGrouped(string permissionEnumTypeAssemblyShortName_, IEnumerable<short> permissions_)
-        {
-            Dictionary.TryGetValue(permissionEnumTypeAssemblyShortName_, out var permissions);
-            if (permissions == null)
-            {
-                permissions = new HashSet<short>();
-                Dictionary.Add(permissionEnumTypeAssemblyShortName_, permissions);
-            }
-            foreach (var permission in permissions_)
-            {
-                permissions.Add(permission);
-            }
-        }
-
-        /// <summary>
-        /// Check whether the item defined by a type and a short value is present.
-        /// Or the <see cref="Permissions.AccessAll"/> permission is present.
-        /// </summary>
-        /// <param name="permissionToCheckEnumTypeFullName_">Fullname of the permission's enum Type.</param>
-        /// <param name="permissionToCheck_">Permission value.</param>
-        /// <returns></returns>
-        internal bool Contains(string permissionToCheckEnumTypeFullName_, short permissionToCheck_)
-        {
-            if (Dictionary.ContainsKey(permissionToCheckEnumTypeFullName_) && Dictionary[permissionToCheckEnumTypeFullName_].Contains(permissionToCheck_))
-                return true;
-
-            var key2 = typeof(Permissions).GetAssemblyShortName();
-            return Dictionary.ContainsKey(key2) && Dictionary[key2].Contains((short)Permissions.AccessAll);
-        }
-
-        /// <summary>
-        /// Check whether there is a permission item present.
-        /// </summary>
-        /// <returns></returns>
-        public bool Any()
-        {
-            if (Dictionary.Keys.Count == 0)
-                return false;
-            return Dictionary[Dictionary.Keys.First()].Count != 0;
-        }
-
-        /// <summary>
         /// Merge several dictionaries (for example one per role) to a single one (all user's permissions).
         /// </summary>
         /// <param name="dictionaries_">PermissionDictionaries</param>
@@ -100,5 +37,74 @@ namespace SoftinuxBase.Security.Common
 
             return merged;
         }
+
+        /// <summary>
+        /// Add a permission if it doesn't already exist.
+        /// </summary>
+        /// <param name="permissionEnumType_">The enum type</param>
+        /// <param name="permission_">Any value of <paramref name="permissionEnumType_"/></param>
+        public void Add(Type permissionEnumType_, short permission_)
+        {
+            var typeName = permissionEnumType_.FullName;
+            Dictionary.TryGetValue(typeName, out var permissions);
+            if (permissions == null)
+            {
+                permissions = new HashSet<short>();
+                Dictionary.Add(typeName, permissions);
+            }
+            permissions.Add(permission_);
+        }
+
+        /// <summary>
+        /// Add a group of permissions.
+        /// </summary>
+        /// <param name="permissionEnumTypeFullName_">Type full name</param>
+        /// <param name="permissions_">Any value of enum defined in <paramref name="permissionEnumTypeFullName_"/> extension</param>
+        internal void AddGrouped(string permissionEnumTypeFullName_, IEnumerable<short> permissions_)
+        {
+            Dictionary.TryGetValue(permissionEnumTypeFullName_, out var permissions);
+            if (permissions == null)
+            {
+                permissions = new HashSet<short>();
+                Dictionary.Add(permissionEnumTypeFullName_, permissions);
+            }
+            foreach (var permission in permissions_)
+            {
+                permissions.Add(permission);
+            }
+        }
+
+        /// <summary>
+        /// Check whether the item defined by a type and a short value is present.
+        /// Or the <see cref="Permissions.AccessAll"/> permission is present.
+        /// </summary>
+        /// <param name="permissionToCheckEnumTypeFullName_">Fullname of the permission's enum Type.</param>
+        /// <param name="permissionToCheck_">Permission value.</param>
+        /// <returns>true when the item is found.</returns>
+        internal bool Contains(string permissionToCheckEnumTypeFullName_, short permissionToCheck_)
+        {
+            if (Dictionary.ContainsKey(permissionToCheckEnumTypeFullName_) && Dictionary[permissionToCheckEnumTypeFullName_].Contains(permissionToCheck_))
+            {
+                return true;
+            }
+
+            var key2 = typeof(Permissions).FullName;
+            return Dictionary.ContainsKey(key2) && Dictionary[key2].Contains((short)Permissions.AccessAll);
+        }
+
+        /// <summary>
+        /// Check whether there is a permission item present.
+        /// </summary>
+        /// <returns>true when an item is present.</returns>
+        public bool Any()
+        {
+            if (Dictionary.Keys.Count == 0)
+            {
+                return false;
+            }
+
+            return Dictionary[Dictionary.Keys.First()].Count != 0;
+        }
+
     }
 }

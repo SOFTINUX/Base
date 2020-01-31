@@ -6,7 +6,7 @@ using SoftinuxBase.Security.Common;
 using SoftinuxBase.Tests.Common;
 using Xunit;
 
-namespace SoftinuxBase.Security.PermissionsTests
+namespace SoftinuxBase.Security.CommonTests
 {
     public class TypeExtensionsTest
     {

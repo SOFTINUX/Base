@@ -33,7 +33,7 @@ namespace SoftinuxBase.Security.Permissions
         /// </summary>
         /// <param name="dictionary_">Packed permissions dictionary.</param>
         /// <returns>JSON string</returns>
-        public static string ToPackedString(this Dictionary<string, string> dictionary_)
+        public static string ToStorageString(this Dictionary<string, string> dictionary_)
         {
             return JsonConvert.SerializeObject(dictionary_);
         }
@@ -74,7 +74,7 @@ namespace SoftinuxBase.Security.Permissions
         {
             var usersPermissions = packedPermissions_.UnpackPermissions();
             var nameParts = permissionName_.ParsePolicyName();
-            return UserHasThisPermission(usersPermissions, nameParts.Item1, nameParts.Item2);
+            return UserHasThisPermission(usersPermissions, nameParts.type, nameParts.permission);
         }
 
         /// <summary>

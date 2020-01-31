@@ -25,8 +25,8 @@ namespace SoftinuxBase.Security.PermissionsTests
 
             // Assert
             packedDictionary.Keys.Count.Should().Be(1);
-            packedDictionary.ContainsKey("SoftinuxBase.Security.Common").Should().BeTrue();
-            packedDictionary["SoftinuxBase.Security.Common"].Should().BeEquivalentTo($"{(char)Common.Enums.Permissions.CreateRoles}");
+            packedDictionary.ContainsKey("SoftinuxBase.Security.Common.Permissions").Should().BeTrue();
+            packedDictionary["SoftinuxBase.Security.Common.Permissions"].Should().BeEquivalentTo($"{(char)Common.Enums.Permissions.CreateRoles}");
         }
 
         [Fact]
@@ -42,8 +42,8 @@ namespace SoftinuxBase.Security.PermissionsTests
 
             // Assert
             packedDictionary.Keys.Count.Should().Be(1);
-            packedDictionary.ContainsKey("SoftinuxBase.Security.Common").Should().BeTrue();
-            packedDictionary["SoftinuxBase.Security.Common"].Should().BeEquivalentTo($"{(char)Common.Enums.Permissions.CreateRoles}{(char)Common.Enums.Permissions.DeleteRoles}");
+            packedDictionary.ContainsKey("SoftinuxBase.Security.Common.Permissions").Should().BeTrue();
+            packedDictionary["SoftinuxBase.Security.Common.Permissions"].Should().BeEquivalentTo($"{(char)Common.Enums.Permissions.CreateRoles}{(char)Common.Enums.Permissions.DeleteRoles}");
         }
 
         [Fact]
@@ -60,10 +60,10 @@ namespace SoftinuxBase.Security.PermissionsTests
 
             // Assert
             packedDictionary.Keys.Count.Should().Be(2);
-            packedDictionary.ContainsKey("SoftinuxBase.Security.Common").Should().BeTrue();
-            packedDictionary.ContainsKey("SoftinuxBase.Tests.Common").Should().BeTrue();
-            packedDictionary["SoftinuxBase.Security.Common"].Should().BeEquivalentTo($"{(char)Common.Enums.Permissions.CreateRoles}{(char)Common.Enums.Permissions.DeleteRoles}");
-            packedDictionary["SoftinuxBase.Tests.Common"].Should().BeEquivalentTo($"{(char)OtherPermissions.Read}");
+            packedDictionary.ContainsKey("SoftinuxBase.Security.Common.Permissions").Should().BeTrue();
+            packedDictionary.ContainsKey("SoftinuxBase.Tests.Common.OtherPermissions").Should().BeTrue();
+            packedDictionary["SoftinuxBase.Security.Common.Permissions"].Should().BeEquivalentTo($"{(char)Common.Enums.Permissions.CreateRoles}{(char)Common.Enums.Permissions.DeleteRoles}");
+            packedDictionary["SoftinuxBase.Tests.Common.Permissions"].Should().BeEquivalentTo($"{(char)OtherPermissions.Read}");
         }
 
         #endregion PackPermissions
@@ -122,9 +122,9 @@ namespace SoftinuxBase.Security.PermissionsTests
 
         #region UserHasThisPermission
         [Theory]
-        [InlineData("SoftinuxBase.Security.Common", (short)Common.Enums.Permissions.Read, true)]
-        [InlineData("SoftinuxBase.Security.Common", (short)Common.Enums.Permissions.Edit, false)]
-        [InlineData("SoftinuxBase.Security.Common", (short)Common.Enums.Permissions.AccessAll, false)]
+        [InlineData("SoftinuxBase.Security.Common.Permissions", (short)Common.Enums.Permissions.Read, true)]
+        [InlineData("SoftinuxBase.Security.Common.Permissions", (short)Common.Enums.Permissions.Edit, false)]
+        [InlineData("SoftinuxBase.Security.Common.Permissions", (short)Common.Enums.Permissions.AccessAll, false)]
         public void UserHasThisPermission(string typeFullName_, short permissionValue_, bool expectedFound_)
         {
             // Arrange
@@ -139,9 +139,9 @@ namespace SoftinuxBase.Security.PermissionsTests
         }
 
         [Theory]
-        [InlineData("SoftinuxBase.Security.Common", (short)Common.Enums.Permissions.Read, true)]
-        [InlineData("SoftinuxBase.Security.Common", (short)Common.Enums.Permissions.Edit, true)]
-        [InlineData("SoftinuxBase.Security.Common", (short)Common.Enums.Permissions.AccessAll, true)]
+        [InlineData("SoftinuxBase.Security.Common.Permissions", (short)Common.Enums.Permissions.Read, true)]
+        [InlineData("SoftinuxBase.Security.Common.Permissions", (short)Common.Enums.Permissions.Edit, true)]
+        [InlineData("SoftinuxBase.Security.Common.Permissions", (short)Common.Enums.Permissions.AccessAll, true)]
         public void UserHasThisPermission_HasAccessAll(string typeFullName_, short permissionValue_, bool expectedFound_)
         {
             // Arrange

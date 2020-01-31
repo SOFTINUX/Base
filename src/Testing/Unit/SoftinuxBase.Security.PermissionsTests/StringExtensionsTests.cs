@@ -18,10 +18,12 @@ namespace SoftinuxBase.Security.PermissionsTests
             permissionsDictionary.Add(typeof(OtherPermissions), (short)OtherPermissions.Read);
 
             // Act
-            var displayString = permissionsDictionary.PackPermissions().ToPackedString().ToDisplayString();
+            var displayString = permissionsDictionary.PackPermissions().ToStorageString().ToDisplayString();
 
             // Assert
-            displayString.Should().BeEquivalentTo("[[SoftinuxBase.Security.Common] 22 24 ] [[SoftinuxBase.Tests.Common] 0 ] ");
+            displayString.Should().BeEquivalentTo("[[SoftinuxBase.Security.Common.Permissions] 22 24 ] [[SoftinuxBase.Tests.Common.OtherPermissions] 0 ] ");
+
+            
         }
     }
 }

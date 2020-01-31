@@ -72,7 +72,7 @@ namespace SoftinuxBase.Security.Permissions
                 var permission = (short)Enum.Parse(enumType_, permissionName, false);
 
                 result.Add(new PermissionDisplay(displayAttribute.GroupName, displayAttribute.Name, 
-                        displayAttribute.Description, enumType_.GetAssemblyShortName(), permission, moduleAttribute?.PaidForModule.ToString()));
+                        displayAttribute.Description, enumType_.FullName, permission, moduleAttribute?.PaidForModule.ToString()));
             }
 
             return result;

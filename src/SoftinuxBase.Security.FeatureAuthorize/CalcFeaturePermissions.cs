@@ -54,7 +54,7 @@ namespace SoftinuxBase.Security.FeatureAuthorize
 
             //return filteredPermissions.PackPermissions();
 
-            return allPermissions.PackPermissions().ToPackedString();
+            return allPermissions.PackPermissions().ToStorageString();
         }
 
     }

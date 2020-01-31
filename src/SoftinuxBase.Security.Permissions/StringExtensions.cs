@@ -34,21 +34,21 @@ namespace SoftinuxBase.Security.Permissions
         /// </summary>
         /// <param name="policyName_">Policy name.</param>
         /// <returns>The type fullname and permission short value.</returns>
-        public static (string, short) ParsePolicyName(this string policyName_)
+        public static (string type, short permission) ParsePolicyName(this string policyName_)
         {
             var splitted = policyName_.Split('|');
-            return (splitted[0], Int16.Parse(splitted[1]));
+            return (type: splitted[0], permission: Int16.Parse(splitted[1]));
         }
 
         /// <summary>
-        /// Gets The name of the policy associated to this permission: an unique identifier generated from the permission assembly and value.
+        /// Gets The name of the policy associated to this permission: an unique identifier generated from the permission type and value.
         /// </summary>
         /// <param name="permissionEnumType_"></param>
         /// <param name="permission_"></param>
         /// <returns>Policy name.</returns>
         public static string ToPolicyName(Type permissionEnumType_, short permission_)
         {
-            return $"{permissionEnumType_.GetAssemblyShortName()}|{permission_.ToString()}";
+            return $"{permissionEnumType_.FullName}|{permission_.ToString()}";
         }
 
         /// <summary>
@@ -62,13 +62,13 @@ namespace SoftinuxBase.Security.Permissions
         }
 
         /// <summary>
-        /// Converts the database string to the role to permissions dictionary representation.
+        /// Converts the (database) storage string to the role to permissions dictionary representation.
         /// </summary>
-        /// <param name="roleToPermissionsDatabaseString_"></param>
+        /// <param name="roleToPermissionsStorageString_"></param>
         /// <returns></returns>
-        public static PermissionsDictionary ToPermissions(this string roleToPermissionsDatabaseString_)
+        public static PermissionsDictionary ToPermissions(this string roleToPermissionsStorageString_)
         {
-            return roleToPermissionsDatabaseString_.ToPackedPermissions().UnpackPermissions();
+            return roleToPermissionsStorageString_.ToPackedPermissions().UnpackPermissions();
         }
 
         /// <summary>
@@ -78,12 +78,12 @@ namespace SoftinuxBase.Security.Permissions
         /// <returns></returns>
         public static string ToDisplayString(this string packedPermissionsClaimValue_)
         {
-            var permissiondDictionary = packedPermissionsClaimValue_.ToPermissions();
+            var permissionDictionary = packedPermissionsClaimValue_.ToPermissions();
             StringBuilder sb = new StringBuilder();
-            foreach (var key in permissiondDictionary.Dictionary.Keys)
+            foreach (var key in permissionDictionary.Dictionary.Keys)
             {
                 sb.Append("[[").Append(key).Append("] ");
-                foreach (var value in permissiondDictionary.Dictionary[key])
+                foreach (var value in permissionDictionary.Dictionary[key])
                 {
                     sb.Append(value).Append(" ");
                 }

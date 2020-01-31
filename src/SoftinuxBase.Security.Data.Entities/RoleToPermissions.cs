@@ -29,7 +29,7 @@ namespace SoftinuxBase.Security.Data.Entities
         {
             RoleName = roleName_;
             Description = description_;
-            _permissionsInRole = permissions_.PackPermissions().ToPackedString();
+            _permissionsInRole = permissions_.PackPermissions().ToStorageString();
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace SoftinuxBase.Security.Data.Entities
             if (permissions_ == null || !permissions_.Any())
                 throw new ArgumentException("There should be at least one permission associated with a role.", nameof(permissions_));
 
-            _permissionsInRole = permissions_.PackPermissions().ToPackedString();
+            _permissionsInRole = permissions_.PackPermissions().ToStorageString();
             Description = description_;
         }
 

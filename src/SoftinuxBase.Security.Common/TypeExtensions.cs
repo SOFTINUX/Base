@@ -8,22 +8,12 @@ namespace SoftinuxBase.Security.Common
     public static class TypeExtensions
     {
         /// <summary>
-        /// Gets the type's assembly short name.
-        /// </summary>
-        /// <param name="extensionEnumType_"></param>
-        /// <returns></returns>
-        public static string GetAssemblyShortName(this Type extensionEnumType_)
-        {
-            return extensionEnumType_.Assembly.GetName().Name;
-        }
-
-        /// <summary>
         /// Verifies that <paramref name="enumValue_"/> matches <paramref name="type_"/>.
         /// </summary>
-        /// <param name="type_"></param>
-        /// <param name="enumValue_"></param>
-        /// <exception cref="ArgumentNullException"><see cref="Enum.IsDefined"/></exception>
-        /// <exception cref="InvalidOperationException"><see cref="Enum.IsDefined"/></exception>
+        /// <param name="type_">Enum type.</param>
+        /// <param name="enumValue_">Value to check.</param>
+        /// <exception cref="ArgumentNullException"><see cref="Enum.IsDefined"/>.</exception>
+        /// <exception cref="InvalidOperationException"><see cref="Enum.IsDefined"/>.</exception>
         /// <exception cref="NotSupportedException"><paramref name="enumValue_"/> is not contained in enumeration of type <paramref name="type_"/></exception>
         public static void VerifyThatTypeContainsEnumValue(this Type type_, short enumValue_)
         {
