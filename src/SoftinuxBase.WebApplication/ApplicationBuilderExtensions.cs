@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace SoftinuxBase.WebApplication
@@ -27,7 +28,7 @@ namespace SoftinuxBase.WebApplication
         /// <param name="loggerFactory_">The logger factory passed to the Configure method of the web application's Startup class.</param>
         /// <param name="configuration_">The application configuration passed to the Configure method of the web application's Startup class.</param>
         /// <param name="antiForgery_">The anti forgery system passed to the Configure method of the web application's Startup class.</param>
-        public static void UseSoftinuxBase(this IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_, IConfiguration configuration_, IAntiforgery antiForgery_)
+        public static void UseSoftinuxBase(this IApplicationBuilder applicationBuilder_, IWebHostEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_, IConfiguration configuration_, IAntiforgery antiForgery_)
         {
             // 1. Error management
             if (hostingEnvironment_.IsDevelopment())
