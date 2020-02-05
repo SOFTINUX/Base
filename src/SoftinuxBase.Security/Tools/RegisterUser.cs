@@ -29,7 +29,7 @@ namespace SoftinuxBase.Security.Tools
         /// <returns>True if user exists, otherwise false.</returns>
         internal static bool IsUserExist(IStorage storage_, string value_, UserManager<User> userManager_)
         {
-            return storage_.GetRepository<IAspNetUsersRepository>().FindByNormalizedUserNameOrEmail(userManager_.NormalizeKey(value_));
+            return storage_.GetRepository<IAspNetUsersRepository>().FindByNormalizedUserNameOrEmail(userManager_.NormalizeName(value_));
         }
 
         /// <summary>

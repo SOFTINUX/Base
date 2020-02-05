@@ -2,9 +2,9 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
-using System.Data.SqlClient;
 using System.IO;
 using ExtCore.Data.Abstractions;
+using Microsoft.Data.SqlClient;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

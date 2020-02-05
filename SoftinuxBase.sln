@@ -53,7 +53,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.SecurityTests"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftinuxBase.Security.PermissionsTests", "src\Testing\Unit\SoftinuxBase.Security.PermissionsTests\SoftinuxBase.Security.PermissionsTests.csproj", "{3437B509-E066-4B7D-8609-CD37C176ED43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftinuxBase.Security.CommonTests", "SoftinuxBase.Security.CommonTests\SoftinuxBase.Security.CommonTests.csproj", "{ED629DB4-B81A-447D-8944-2B9A9F73E350}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftinuxBase.Security.CommonTests", "src\Testing\Unit\SoftinuxBase.Security.CommonTests\SoftinuxBase.Security.CommonTests.csproj", "{ED629DB4-B81A-447D-8944-2B9A9F73E350}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

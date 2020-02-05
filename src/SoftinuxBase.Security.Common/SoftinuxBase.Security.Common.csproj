@@ -5,7 +5,7 @@
     <Company>SOFTINUX</Company>
     <Copyright>Copyright © 2017 Softinux</Copyright>
     <Version>0.0.1</Version>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>SoftinuxBase.Security.Common</AssemblyName>
     <RootNamespace>SoftinuxBase.Security.Common</RootNamespace>
     <PackageId>SoftinuxBase.Security.Common</PackageId>

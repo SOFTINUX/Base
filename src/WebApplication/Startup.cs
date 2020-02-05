@@ -11,10 +11,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using Serilog;
 using SoftinuxBase.Security.Data.EntityFramework;
 using SoftinuxBase.WebApplication;
-using Swashbuckle.AspNetCore.Swagger;
 
 namespace WebApplication
 {
@@ -52,7 +52,7 @@ namespace WebApplication
             // Register the Swagger generator, defining 1 or more Swagger documents
             services_.AddSwaggerGen(c_ =>
             {
-                c_.SwaggerDoc("v1", new Info { Title = "Softinux Base API", Version = "v1" });
+                c_.SwaggerDoc("v1", new OpenApiInfo { Title = "Softinux Base API", Version = "v1" });
                 foreach (SoftinuxBase.Infrastructure.Interfaces.IExtensionMetadata extensionMetadata in ExtCore.Infrastructure.ExtensionManager.GetInstances<SoftinuxBase.Infrastructure.Interfaces.IExtensionMetadata>())
                 {
                     c_.IncludeXmlComments($"{extensionMetadata.CurrentAssemblyPath.Replace(@".dll", string.Empty)}.xml");

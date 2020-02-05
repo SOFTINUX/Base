@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <PropertyGroup>
     <LangVersion>8</LangVersion>
@@ -10,12 +10,13 @@
     <AdditionalFiles Include="..\..\..\..\stylecop.json" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ExtCore.Data.EntityFramework.Sqlite" Version="4.1.0" />
-    <PackageReference Include="ExtCore.Infrastructure" Version="4.1.0" />
-    <PackageReference Include="ExtCore.WebApplication" Version="4.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+    <PackageReference Include="ExtCore.Data.EntityFramework" Version="5.1.0" />
+    <PackageReference Include="ExtCore.Data.EntityFramework.Sqlite" Version="5.1.0" />
+    <PackageReference Include="ExtCore.Infrastructure" Version="5.1.0" />
+    <PackageReference Include="ExtCore.WebApplication" Version="5.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
@@ -25,9 +26,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="ExtCore.Data.EntityFramework" Version="4.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../../../SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
