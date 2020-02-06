@@ -75,7 +75,7 @@ namespace SoftinuxBase.Security.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> SignInAsync()
         {
-            return await Task.Run(() => View());
+            return await Task.Run(View);
         }
 
         /// <summary>

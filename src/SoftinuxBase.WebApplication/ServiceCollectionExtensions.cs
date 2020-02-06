@@ -140,6 +140,8 @@ namespace SoftinuxBase.WebApplication
                 options_.HeaderName = "X-XSRF-TOKEN";
                 options_.SuppressXFrameOptionsHeader = false;
             });
+
+            services_.AddRazorPages();
         }
     }
 }
