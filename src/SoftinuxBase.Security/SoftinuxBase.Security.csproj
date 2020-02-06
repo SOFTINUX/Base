@@ -1,10 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
   <PropertyGroup>
     <Authors>Benjamin Nolmans, Barbara Post</Authors>
     <Company>SOFTINUX</Company>
     <Copyright>Copyright © 2017 Softinux</Copyright>
     <Version>0.0.1</Version>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <AssemblyName>SoftinuxBase.Security</AssemblyName>
     <RootNamespace>SoftinuxBase.Security</RootNamespace>
     <PackageId>SoftinuxBase.Security</PackageId>
@@ -36,7 +37,7 @@
     <None Remove="node_modules\**" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Styles\**;Scripts\**\*.min.js;Views\**" />
+    <EmbeddedResource Include="Styles\**;Scripts\**\*.min.js" />
     <None Remove="Views\Shared\Components\AddRoleListExtensions.cshtml" />
     <None Remove="Views\Shared\Components\AddRoleListExtensions\_AddRoleListExtensions.cshtml" />
     <!-- JavaScript -->

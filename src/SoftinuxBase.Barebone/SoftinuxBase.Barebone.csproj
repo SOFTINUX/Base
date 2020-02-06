@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
   <PropertyGroup>
     <Authors>Benjamin Nolmans, Barbara Post</Authors>
     <Company>SOFTINUX</Company>
@@ -43,7 +43,7 @@
     <None Remove="node_modules\**" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Styles\**;Scripts\**;Views\**;Fonts\**" />
+    <EmbeddedResource Include="Styles\**;Scripts\**;Fonts\**" />
     <!-- Javascript -->
     <EmbeddedResource Include="..\..\node_modules\jquery\dist\jquery.min.js" LinkBase="node_modules\jquery\dist\" />
     <EmbeddedResource Include="..\..\node_modules\jquery\dist\jquery.min.map" LinkBase="node_modules\jquery\dist\" />
@@ -121,6 +121,5 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\_references.js" />
-    <Content Include="Views\Shared\_IsDebugBanner.cshtml" />
   </ItemGroup>
 </Project>
