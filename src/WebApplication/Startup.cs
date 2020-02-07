@@ -42,13 +42,14 @@ namespace WebApplication
             // Which database provider to use : Sqlite
             services_.AddDbContext<ApplicationStorageContext>(options_ =>
             {
-                options_.UseSqlite(Configuration["ConnectionStrings:Default"], o_ => o_.MigrationsAssembly(typeof(Startup).Assembly.GetName().Name));
+                options_.UseSqlite(Configuration["ConnectionStrings:Default"], sqliteOptions_ => sqliteOptions_.MigrationsAssembly(typeof(Startup).Assembly.GetName().Name));
             });
 
             // Register database-specific storage context implementation.
             services_.AddScoped<IStorageContext, ApplicationStorageContext>();
 
 #if DEBUG
+            // If application is build in debug mode,
             // Register the Swagger generator, defining 1 or more Swagger documents
             services_.AddSwaggerGen(c_ =>
             {
@@ -59,13 +60,13 @@ namespace WebApplication
                 }
             });
 #endif
-
-            services_.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
         public void Configure(IApplicationBuilder applicationBuilder_, IWebHostEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_, IConfiguration configuration_, IAntiforgery antiForgery_)
         {
 #if DEBUG
+            // If application is build in debug mode,
+            // Write Log.Information into the console
             Log.Information("#######################################################");
             Log.Information("webroot path: " + hostingEnvironment_.WebRootPath + "\n" + "Content Root path: " + hostingEnvironment_.ContentRootPath);
             Log.Information("#######################################################");
@@ -81,6 +82,7 @@ namespace WebApplication
             });
 #endif
 
+            // Call Softinux Base configuration
             applicationBuilder_.UseSoftinuxBase(hostingEnvironment_, loggerFactory_, configuration_, antiForgery_);
         }
     }
