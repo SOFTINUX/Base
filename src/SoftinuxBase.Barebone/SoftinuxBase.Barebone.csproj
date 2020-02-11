@@ -24,6 +24,9 @@
     <Import Project="..\..\documentation.props" />
   </ImportGroup>
   <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="ExtCore.Mvc.Infrastructure" Version="5.1.0" />
     <PackageReference Include="ExtCore.Data.Abstractions" Version="5.1.0" />
     <PackageReference Include="FontAwesome" Version="4.7.0" />

@@ -17,6 +17,9 @@
     <RepositoryUrl>https://github.com/SOFTINUX/Base</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Remove="Util\**" />
     <EmbeddedResource Remove="Util\**" />
     <None Remove="Util\**" />
