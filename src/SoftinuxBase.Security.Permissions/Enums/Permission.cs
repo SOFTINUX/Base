@@ -3,7 +3,7 @@
 
 using System;
 
-namespace SoftinuxBase.Security.Common.Enums
+namespace SoftinuxBase.Security.Permissions.Enums
 {
     [Obsolete]
     public enum Permission

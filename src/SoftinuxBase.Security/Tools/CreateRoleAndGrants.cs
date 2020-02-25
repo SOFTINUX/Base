@@ -48,7 +48,7 @@ namespace SoftinuxBase.Security.Tools
             try
             {
                 // Convert the string to the enum
-                if (Enum.TryParse<Common.Enums.Permission>(model_.PermissionValue, true, out var permissionEnumValue))
+                if (Enum.TryParse<Permissions.Enums.Permission>(model_.PermissionValue, true, out var permissionEnumValue))
                 {
                     var permissionEntity = storage_.GetRepository<IPermissionRepository>().Find(permissionEnumValue);
 

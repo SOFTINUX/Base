@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\SoftinuxBase.Security.Common\SoftinuxBase.Security.Common.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Tests.Common\SoftinuxBase.Tests.Common.csproj" />
   </ItemGroup>
 

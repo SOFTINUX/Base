@@ -6,7 +6,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace SoftinuxBase.Security.Common.Filters
+namespace SoftinuxBase.Security.Permissions.Filters
 {
     public class ClaimRequirementFilter : IAuthorizationFilter
     {

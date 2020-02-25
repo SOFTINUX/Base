@@ -45,7 +45,6 @@
     <ProjectReference Include="..\SoftinuxBase.Barebone\SoftinuxBase.Barebone.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security\SoftinuxBase.Security.csproj" />
-    <ProjectReference Include="..\SoftinuxBase.Security.Common\SoftinuxBase.Security.Common.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.Data.Abstractions\SoftinuxBase.Security.Data.Abstractions.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.Data.Entities\SoftinuxBase.Security.Data.Entities.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.Data.EntityFramework\SoftinuxBase.Security.Data.EntityFramework.csproj" />

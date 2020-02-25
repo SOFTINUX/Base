@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using SoftinuxBase.Infrastructure;
 using SoftinuxBase.Infrastructure.Interfaces;
-using SoftinuxBase.Security.Common.Enums;
+using SoftinuxBase.Security.Permissions.Enums;
 
 namespace SoftinuxBase.Security
 {
@@ -76,6 +76,6 @@ namespace SoftinuxBase.Security
         /// <summary>
         /// Gets basic permissions, some are used by SoftinuxBase.Security for the administration part.
         /// </summary>
-        public Type Permissions => typeof(Common.Enums.Permissions);
+        public Type Permissions => typeof(Permissions.Enums.Permissions);
     }
 }

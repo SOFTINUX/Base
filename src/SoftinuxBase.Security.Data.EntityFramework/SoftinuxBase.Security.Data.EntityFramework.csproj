@@ -31,7 +31,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SoftinuxBase.Security.Common\SoftinuxBase.Security.Common.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.Data.Abstractions\SoftinuxBase.Security.Data.Abstractions.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.Permissions\SoftinuxBase.Security.Permissions.csproj" />
   </ItemGroup>
 </Project>

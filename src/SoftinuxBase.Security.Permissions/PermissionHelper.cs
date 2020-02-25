@@ -5,9 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using SoftinuxBase.Security.Common.Enums;
+using SoftinuxBase.Security.Permissions.Enums;
 
-namespace SoftinuxBase.Security.Common
+namespace SoftinuxBase.Security.Permissions
 {
     /*
         The main permissions helper class.

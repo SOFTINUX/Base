@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 using SoftinuxBase.Security.Data.Entities;
-using Permission = SoftinuxBase.Security.Common.Enums.Permission;
+using Permission = SoftinuxBase.Security.Permissions.Enums.Permission;
 
 namespace SoftinuxBase.Security.ViewModels.Permissions
 {

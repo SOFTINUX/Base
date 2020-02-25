@@ -4,19 +4,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using SoftinuxBase.Security.Common.Enums;
 
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.Permissions")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.CommonTests")]
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.PermissionsTests")]
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.SeedDatabase")]
-namespace SoftinuxBase.Security.Common
+namespace SoftinuxBase.Security.Permissions
 {
     /// <summary>
     /// Permissions sorted by extension. This is used to represent role's or user's permissions.
+    /// This is data/storage oriented.
+    /// <seealso cref="PermissionsDisplayDictionary"/>.
     /// </summary>
     public class PermissionsDictionary
     {
+        /// <summary>
+        /// Internal dictionary which key is the extension permission enum type fullname and the values some values (linked to role/user) of this enum.
+        /// </summary>
         internal readonly Dictionary<string, HashSet<short>> Dictionary = new Dictionary<string, HashSet<short>>();
 
         /// <summary>
@@ -88,8 +90,8 @@ namespace SoftinuxBase.Security.Common
                 return true;
             }
 
-            var key2 = typeof(Permissions).FullName;
-            return Dictionary.ContainsKey(key2) && Dictionary[key2].Contains((short)Permissions.AccessAll);
+            var key2 = typeof(Enums.Permissions).FullName;
+            return Dictionary.ContainsKey(key2) && Dictionary[key2].Contains((short)Enums.Permissions.AccessAll);
         }
 
         /// <summary>

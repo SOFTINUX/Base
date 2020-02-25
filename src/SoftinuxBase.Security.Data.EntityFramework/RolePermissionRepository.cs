@@ -1,21 +1,24 @@
 ﻿// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+
 using ExtCore.Data.EntityFramework;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
+using SoftinuxBase.Security.Permissions;
 
 // [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security")]
 // [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.SecurityTests")]
 // [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.SeedDatabase")]
 namespace SoftinuxBase.Security.Data.EntityFramework
 {
+    [Obsolete]
     public class RolePermissionRepository : RepositoryBase<RolePermission>, IRolePermissionRepository
     {
         /// <inheritdoc />
@@ -45,7 +48,7 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         }
 
         /// <inheritdoc />
-        public IEnumerable<RolePermission> FindBy(string extensionName_, Common.Enums.Permission level_)
+        public IEnumerable<RolePermission> FindBy(string extensionName_, Permissions.Enums.Permission level_)
         {
             var data = from rolePermisson in storageContext.Set<RolePermission>()
                    join permission in storageContext.Set<Permission>() on rolePermisson.PermissionId equals permission.Id

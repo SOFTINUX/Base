@@ -17,7 +17,7 @@
     <RepositoryUrl>https://github.com/SOFTINUX/Base</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ImportGroup Label="Documentation">
     <Import Project="..\..\documentation.props" />
@@ -34,7 +34,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
-    <ProjectReference Include="..\SoftinuxBase.Security.Common\SoftinuxBase.Security.Common.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.Data.Entities\SoftinuxBase.Security.Data.Entities.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.Data.Abstractions\SoftinuxBase.Security.Data.Abstractions.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security\SoftinuxBase.Security.csproj" />

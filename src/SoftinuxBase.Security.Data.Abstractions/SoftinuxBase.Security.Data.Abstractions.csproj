@@ -30,7 +30,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SoftinuxBase.Security.Common\SoftinuxBase.Security.Common.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.Data.Entities\SoftinuxBase.Security.Data.Entities.csproj" />
   </ItemGroup>
 </Project>

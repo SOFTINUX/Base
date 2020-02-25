@@ -3,7 +3,7 @@
 
 using System;
 
-namespace SoftinuxBase.Security.Common
+namespace SoftinuxBase.Security.Permissions
 {
     public static class TypeExtensions
     {

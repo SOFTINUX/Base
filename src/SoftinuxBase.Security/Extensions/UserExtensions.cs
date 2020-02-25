@@ -3,8 +3,8 @@
 
 using System.Linq;
 using System.Security.Claims;
-using SoftinuxBase.Security.Common;
-using SoftinuxBase.Security.Common.Enums;
+using SoftinuxBase.Security.Permissions;
+using SoftinuxBase.Security.Permissions.Enums;
 
 namespace SoftinuxBase.Security.Extensions
 {

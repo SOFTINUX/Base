@@ -3,11 +3,12 @@
 
 using System.Collections.Generic;
 using System.Linq;
+
 using ExtCore.Data.EntityFramework;
 using Microsoft.EntityFrameworkCore;
-using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
+using SoftinuxBase.Security.Permissions;
 
 // [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security")]
 // [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.SecurityTests")]
@@ -23,7 +24,7 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         }
 
         /// <inheritdoc />
-        public IEnumerable<UserPermission> FindBy(string extensionName_, Common.Enums.Permission level_)
+        public IEnumerable<UserPermission> FindBy(string extensionName_, Permissions.Enums.Permission level_)
         {
             var data = from userPermission in storageContext.Set<UserPermission>()
                    join permission in storageContext.Set<Permission>() on userPermission.PermissionId equals permission.Id

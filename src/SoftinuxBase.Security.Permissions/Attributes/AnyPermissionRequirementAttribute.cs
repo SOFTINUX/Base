@@ -7,9 +7,9 @@ using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using SoftinuxBase.Security.Common.Enums;
+using SoftinuxBase.Security.Permissions.Enums;
 
-namespace SoftinuxBase.Security.Common.Attributes
+namespace SoftinuxBase.Security.Permissions.Attributes
 {
     public class AnyPermissionRequirementAttribute : ActionFilterAttribute
     {

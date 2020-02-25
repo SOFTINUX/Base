@@ -4,14 +4,15 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
-using SoftinuxBase.Security.Common;
-using SoftinuxBase.Security.Common.Enums;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
+using SoftinuxBase.Security.Permissions;
+using SoftinuxBase.Security.Permissions.Enums;
 
-using Permission = SoftinuxBase.Security.Common.Enums.Permission;
+using Permission = SoftinuxBase.Security.Permissions.Enums.Permission;
 
 namespace SoftinuxBase.Security
 {

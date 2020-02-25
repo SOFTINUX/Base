@@ -47,14 +47,14 @@ namespace SoftinuxBase.Security.Data.Abstractions
         /// User's own permission levels have highest priority to define effective permission levels.
         /// </summary>
         /// <param name="userId_">user ID.</param>
-        /// <returns>Set of <see cref="SoftinuxBase.Security.Common.Enums.Permission"/> associated to extensions.</returns>
-        HashSet<KeyValuePair<SoftinuxBase.Security.Common.Enums.Permission, string>> AllForUser(string userId_);
+        /// <returns>Set of <see cref="SoftinuxBase.Security.Permissions.Enums.Permission"/> associated to extensions.</returns>
+        HashSet<KeyValuePair<SoftinuxBase.Security.Permissions.Enums.Permission, string>> AllForUser(string userId_);
 
         /// <summary>
-        /// Find a <see cref="Permission"/> by <see cref="Common.Enums.Permission"/> value.
+        /// Find a <see cref="Permission"/> by <see cref="Permissions.Enums.Permission"/> value.
         /// </summary>
         /// <param name="permissionLevel_">Permission level.</param>
         /// <returns><see cref="Permission"/>.</returns>
-        Permission Find(Security.Common.Enums.Permission permissionLevel_);
+        Permission Find(Security.Permissions.Enums.Permission permissionLevel_);
     }
 }

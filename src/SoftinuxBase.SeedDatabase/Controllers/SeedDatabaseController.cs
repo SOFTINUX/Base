@@ -9,8 +9,8 @@ using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SoftinuxBase.Security.Common;
-using SoftinuxBase.Security.Common.Enums;
+using SoftinuxBase.Security.Permissions;
+using SoftinuxBase.Security.Permissions.Enums;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 
@@ -308,7 +308,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         /// </summary>
         private async Task SaveUserPermissionAsync()
         {
-            var adminPermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Security.Common.Enums.Permission.Admin.ToString())?.Id;
+            var adminPermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Security.Permissions.Enums.Permission.Admin.ToString())?.Id;
 
             // John (admin user): Admin (globally)
             await SaveUserPermissionAsync(adminPermissionId, _createdUsers[0]);
@@ -327,9 +327,9 @@ namespace SoftinuxBase.SeedDatabase.Controllers
             var userRoleId = _createdRoles.FirstOrDefault(r_ => r_.Name == Role.User.ToString())?.Id;
             var anonymousRoleId = _createdRoles.FirstOrDefault(r_ => r_.Name == Role.Anonymous.ToString())?.Id;
 
-            var adminPermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Security.Common.Enums.Permission.Admin.ToString())?.Id;
-            var writePermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Security.Common.Enums.Permission.Write.ToString())?.Id;
-            var readPermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Security.Common.Enums.Permission.Read.ToString())?.Id;
+            var adminPermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Security.Permissions.Enums.Permission.Admin.ToString())?.Id;
+            var writePermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Security.Permissions.Enums.Permission.Write.ToString())?.Id;
+            var readPermissionId = _createdPermissions.FirstOrDefault(p_ => p_.Name == Security.Permissions.Enums.Permission.Read.ToString())?.Id;
 
             // 1. Admin role: admin (globally)
             await SaveRolePermissionAsync(adminRoleId, adminPermissionId);
@@ -349,7 +349,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         /// </summary>
         private async Task SavePermissionsAsync()
         {
-            Security.Common.Enums.Permission[] permissions = (Security.Common.Enums.Permission[])Enum.GetValues(typeof(Security.Common.Enums.Permission));
+            Security.Permissions.Enums.Permission[] permissions = (Security.Permissions.Enums.Permission[])Enum.GetValues(typeof(Security.Permissions.Enums.Permission));
 
             foreach (var p in permissions)
             {
@@ -439,7 +439,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
             try
             {
                 await _storage.SaveAsync();
-                _logger.LogInformation($"\"Saving role-permission: permission: {permissionId_}, to role: {roleId_}, for extension: {extension_ ?? Security.Common.Constants.SoftinuxBaseSecurity} ok.\"");
+                _logger.LogInformation($"\"Saving role-permission: permission: {permissionId_}, to role: {roleId_}, for extension: {extension_ ?? Security.Permissions.Constants.SoftinuxBaseSecurity} ok.\"");
             }
             catch (Exception e)
             {

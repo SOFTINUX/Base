@@ -2,9 +2,10 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.Collections.Generic;
+
 using ExtCore.Data.Abstractions;
-using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.Entities;
+using SoftinuxBase.Security.Permissions;
 
 namespace SoftinuxBase.Security.Data.Abstractions
 {

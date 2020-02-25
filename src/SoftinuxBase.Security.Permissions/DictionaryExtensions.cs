@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
-using SoftinuxBase.Security.Common;
+using SoftinuxBase.Security.Permissions;
 
 namespace SoftinuxBase.Security.Permissions
 {
@@ -62,6 +62,17 @@ namespace SoftinuxBase.Security.Permissions
                 unpackedDictionary.AddGrouped(key, dictionary_[key].UnpackPermissions());
             }
             return unpackedDictionary;
+        }
+
+        /// <summary>
+        /// Transform the permission dictionary to data suitable for display and admin management.
+        /// </summary>
+        /// <param name="permissionsDictionary_"></param>
+        /// <returns></returns>
+        public static Dictionary<string, List<PermissionDisplay>> ToDisplay(this PermissionsDictionary permissionsDictionary_)
+        {
+            // TODO
+            return null;
         }
 
         /// <summary>

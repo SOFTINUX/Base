@@ -3,7 +3,7 @@
 
 using System;
 using System.Collections.Generic;
-using SoftinuxBase.Security.Common.Attributes;
+using SoftinuxBase.Security.Permissions.Attributes;
 
 namespace SoftinuxBase.Infrastructure
 {

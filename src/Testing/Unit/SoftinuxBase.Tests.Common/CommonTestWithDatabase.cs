@@ -6,11 +6,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SoftinuxBase.Security.Common;
+using SoftinuxBase.Security.Permissions;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.SeedDatabase;
-using Permission = SoftinuxBase.Security.Common.Enums.Permission;
+using Permission = SoftinuxBase.Security.Permissions.Enums.Permission;
 
 namespace SoftinuxBase.Tests.Common
 {

@@ -3,9 +3,9 @@
 
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
-using SoftinuxBase.Security.Common.Filters;
+using SoftinuxBase.Security.Permissions.Filters;
 
-namespace SoftinuxBase.Security.Common.Attributes
+namespace SoftinuxBase.Security.Permissions.Attributes
 {
     public class ClaimRequirementAttribute : TypeFilterAttribute
     {

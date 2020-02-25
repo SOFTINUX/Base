@@ -9,7 +9,7 @@ using SoftinuxBase.Security.FeatureAuthorize.PolicyCode;
 
 namespace SoftinuxBase.Security.Controllers
 {
-    [HasPermission(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.Admin)]
+    [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.Admin)]
     public class AdministrationController : Infrastructure.ControllerBase
     {
         private readonly ILogger _logger;

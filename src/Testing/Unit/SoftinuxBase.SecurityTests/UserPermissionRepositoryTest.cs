@@ -3,8 +3,8 @@
 
 using System.Linq;
 using System.Threading.Tasks;
-using SoftinuxBase.Security.Common;
-using SoftinuxBase.Security.Common.Enums;
+using SoftinuxBase.Security.Permissions;
+using SoftinuxBase.Security.Permissions.Enums;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Tests.Common;
 using Xunit;

@@ -7,13 +7,14 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.FeatureAuthorize.PolicyCode;
+using SoftinuxBase.Security.Permissions;
 using SoftinuxBase.Security.Tools;
 using SoftinuxBase.Security.ViewModels.Permissions;
 
@@ -33,7 +34,7 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/grant-permissions")]
         [HttpGet]
         [ActionName("Index")]
-        [HasPermission(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.ReadRoles)]
+        [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.ReadRoles)]
         public async Task<IActionResult> IndexAsync()
         {
             return await Task.Run(() => View());
@@ -49,7 +50,7 @@ namespace SoftinuxBase.Security.Controllers
         [ActionName("ReadRole")]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        [HasPermission(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.ReadRoles)]
+        [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.ReadRoles)]
         public async Task<IActionResult> ReadRoleAsync(string roleId_)
         {
             if (string.IsNullOrWhiteSpace(roleId_) || string.IsNullOrEmpty(roleId_))
@@ -82,7 +83,7 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/read-permissions-grants")]
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        [HasPermission(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.ReadRoles)]
+        [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.ReadRoles)]
         public IActionResult ReadPermissionsTable()
         {
             return ViewComponent("GrantPermissions");
@@ -95,7 +96,7 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/edit-role-tab")]
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        [HasPermission(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.ReadRoles)]
+        [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.ReadRoles)]
         public IActionResult RefreshRoleTab()
         {
             return ViewComponent("EditRolePermissions");
@@ -108,7 +109,7 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/bulk-delete-role-tab")]
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        [HasPermission(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.ReadRoles)]
+        [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.ReadRoles)]
         public IActionResult RefreshBulkDeleteTab()
         {
             return ViewComponent("SelectOptionsListRoles");
@@ -128,7 +129,7 @@ namespace SoftinuxBase.Security.Controllers
         [ActionName("SaveNewRoleAndItsPermissions")]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        [HasPermission(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.CreateRoles)]
+        [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.CreateRoles)]
         public async Task<IActionResult> SaveNewRoleAndItsPermissionsAsync([FromBody] SaveNewRoleAndGrantsViewModel model_)
         {
             string error = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrantsAsync(Storage, _roleManager, model_);
@@ -149,13 +150,13 @@ namespace SoftinuxBase.Security.Controllers
         [ActionName("UpdateRolePermission")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [HasPermission(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.EditRoles)]
+        [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.EditRoles)]
         public async Task<IActionResult> UpdateRolePermissionAsync([FromBody] UpdateRolePermissionViewModel model_)
         {
             string roleId = (await _roleManager.FindByNameAsync(model_.RoleName)).Id;
-            Enum.TryParse(model_.PermissionValue, true, out Common.Enums.Permission permissionEnumValue);
+            Enum.TryParse(model_.PermissionValue, true, out Permissions.Enums.Permission permissionEnumValue);
 
-            if (model_.Extension == Constants.SoftinuxBaseSecurity && permissionEnumValue != Common.Enums.Permission.Admin)
+            if (model_.Extension == Constants.SoftinuxBaseSecurity && permissionEnumValue != Permissions.Enums.Permission.Admin)
             {
                 if (await ReadGrants.IsRoleLastAdminPermissionLevelGrantForExtensionAsync(_roleManager, Storage, model_.RoleName, model_.Extension))
                 {
@@ -183,7 +184,7 @@ namespace SoftinuxBase.Security.Controllers
         [ActionName("UpdateRoleAndItsPermissions")]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        [HasPermission(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.EditRoles)]
+        [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.EditRoles)]
         public async Task<IActionResult> UpdateRoleAndItsPermissionsAsync([FromBody] UpdateRoleAndGrantsViewModel model_)
         {
             string error = await UpdateRoleAndGrants.CheckAndUpdateRoleAndGrantsAsync(Storage, _roleManager, model_);
@@ -208,7 +209,7 @@ namespace SoftinuxBase.Security.Controllers
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1313", Justification = "Ignore camelcase parameters")]
-        [HasPermission(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.EditRoles)]
+        [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.EditRoles)]
         public async Task<IActionResult> DeleteRoleExtensionLinkAsync(string RoleName, string ExtensionName)
         {
             bool? deleted = await DeleteRole.DeleteRoleExtensionLinkAsync(this.Storage, _roleManager, ExtensionName, RoleName);
@@ -234,7 +235,7 @@ namespace SoftinuxBase.Security.Controllers
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1313", Justification = "Ignore camelcase parameters")]
-        [HasPermission(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.EditRoles)]
+        [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.EditRoles)]
         public async Task<IActionResult> UnlinkRoleOnAllExtensions(string RoleName)
         {
             bool? deleted = await DeleteRole.DeleteRoleExtensionsLinksAsync(this.Storage, _roleManager, RoleName);
@@ -259,7 +260,7 @@ namespace SoftinuxBase.Security.Controllers
         [HttpDelete]
         [ActionName("DeleteRole")]
         [Route("administration/delete-role/{roleNameList_}")]
-        [HasPermission(typeof(Common.Enums.Permissions), (short)Common.Enums.Permissions.DeleteRoles)]
+        [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.DeleteRoles)]
         public async Task<IActionResult> DeleteRoleAsync(string roleNameList_)
         {
             var errors = new List<string>();

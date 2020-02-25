@@ -1,6 +1,7 @@
 ﻿// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System;
 using System.Collections.Generic;
 using ExtCore.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
@@ -12,6 +13,7 @@ using SoftinuxBase.Security.Data.Entities;
 // [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.SecurityTests")]
 namespace SoftinuxBase.Security.Data.Abstractions
 {
+    [Obsolete]
     public interface IRolePermissionRepository : IRepository
     {
         /// <summary>
@@ -38,9 +40,9 @@ namespace SoftinuxBase.Security.Data.Abstractions
         /// Find the links between an extension and any role, matching a permission level.
         /// </summary>
         /// <param name="extensionName_">Name of extension</param>
-        /// <param name="level_">Level of <see cref="Common.Enums.Permission"/></param>
+        /// <param name="level_">Level of <see cref="Permissions.Enums.Permission"/></param>
         /// <returns>List of <see cref="RolePermission"/> with role name also loaded in associated Role</returns>
-        IEnumerable<RolePermission> FindBy(string extensionName_, Common.Enums.Permission level_);
+        IEnumerable<RolePermission> FindBy(string extensionName_, Permissions.Enums.Permission level_);
 
         /// <summary>
         ///  Return filtered roles list.

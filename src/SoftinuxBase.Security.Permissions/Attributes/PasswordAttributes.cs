@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
-namespace SoftinuxBase.Security.Common.Attributes
+namespace SoftinuxBase.Security.Permissions.Attributes
 {
     public class PasswordAttributes
     {

@@ -38,7 +38,7 @@ namespace SoftinuxBase.Security.ViewComponents
 
             ViewBag.RolesList = rolesList;
 
-            GrantViewModel model = ReadGrants.ReadAll(_roleManager, Storage, roleNameByRoleId);
+            GrantViewModel model = ReadGrants.ReadAll(_roleManager, Storage);
             return Task.FromResult<IViewComponentResult>(View("_List_Roles_Extensions", model));
         }
     }

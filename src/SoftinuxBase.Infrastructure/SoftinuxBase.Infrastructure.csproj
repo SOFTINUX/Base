@@ -17,7 +17,7 @@
     <RepositoryUrl>https://github.com/SOFTINUX/Base</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Util\**" />
@@ -45,6 +45,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SoftinuxBase.Security.Common\SoftinuxBase.Security.Common.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.Permissions\SoftinuxBase.Security.Permissions.csproj" />
   </ItemGroup>
 </Project>
