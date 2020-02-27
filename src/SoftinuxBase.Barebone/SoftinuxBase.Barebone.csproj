@@ -54,7 +54,7 @@
     <EmbeddedResource Include="..\..\node_modules\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js" LinkBase="node_modules\jquery-validation-unobtrusive\dist\" />
     <EmbeddedResource Include="..\..\node_modules\js-cookie\src\js.cookie.js" LinkBase="node_modules\js-cookie\src\" />
     <EmbeddedResource Include="..\..\node_modules\icheck\icheck.js" LinkBase="node_modules\icheck\" />
-    <EmbeddedResource Include="..\..\node_modules\inputmask\dist\min\jquery.inputmask.bundle.min.js" LinkBase="node_modules\inputmask\dist\min\" />
+    <EmbeddedResource Include="..\..\node_modules\inputmask\dist\jquery.inputmask.min.js" LinkBase="node_modules\inputmask\dist\" />
     <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\js\adminlte.min.js" LinkBase="node_modules\admin-lte\dist\js\" />
     <EmbeddedResource Include="..\..\node_modules\toastr\build\toastr.min.js" LinkBase="node_modules\toastr\build\" />
     <EmbeddedResource Include="..\..\node_modules\codemirror\lib\codemirror.js" LinkBase="node_modules\codemirror\lib\" />
