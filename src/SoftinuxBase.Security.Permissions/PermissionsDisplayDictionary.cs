@@ -1,6 +1,7 @@
 ﻿// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,7 +22,15 @@ namespace SoftinuxBase.Security.Permissions
         /// </summary>
         internal readonly Dictionary<string, HashSet<PermissionDisplay>> Dictionary = new Dictionary<string, HashSet<PermissionDisplay>>();
 
-    // TODO the useful methods somewhat like for PermissionsDictionary (Add, AddGrouped...)
+        // TOTEST
+        public void FillFrom(PermissionsDictionary permissionsDictionary_)
+        {
+            foreach(var permissionEnumTypeFullName in permissionsDictionary_.Dictionary.Keys)
+            {
+                Type enumType = Type.GetType(permissionEnumTypeFullName);
+                Dictionary.Add(enumType.Assembly.GetName().Name, PermissionDisplay.GetPermissionsToDisplay(enumType, permissionsDictionary_.Dictionary[permissionEnumTypeFullName]).ToHashSet());
+            }
+        }
 
         /// <summary>
         /// Check whether there is a permission item present.

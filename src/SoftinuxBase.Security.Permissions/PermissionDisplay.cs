@@ -55,8 +55,10 @@ namespace SoftinuxBase.Security.Permissions
         /// <summary>
         /// This returns the non-obsolete permissions from an enum Type.
         /// </summary>
+        /// <param name="enumType_">Type that should be an enum with Display attribute.</param>
+        /// <param name="enumValues_">Optional values to build PermissionDisplay from these values only.</param>
         /// <returns></returns>
-        public static List<PermissionDisplay> GetPermissionsToDisplay(Type enumType_)
+        public static List<PermissionDisplay> GetPermissionsToDisplay(Type enumType_, HashSet<short> enumValues_ = null)
         {
             var result = new List<PermissionDisplay>();
             foreach (var permissionName in Enum.GetNames(enumType_))
@@ -76,8 +78,11 @@ namespace SoftinuxBase.Security.Permissions
 
                 var permission = (short)Enum.Parse(enumType_, permissionName, false);
 
-                result.Add(new PermissionDisplay(displayAttribute.GroupName, displayAttribute.Name,
-                        displayAttribute.Description, enumType_.FullName, permission, moduleAttribute?.PaidForModule.ToString()));
+                if (enumValues_ == null || enumValues_.Contains(permission))
+                {
+                    result.Add(new PermissionDisplay(displayAttribute.GroupName, displayAttribute.Name,
+                            displayAttribute.Description, enumType_.FullName, permission, moduleAttribute?.PaidForModule.ToString()));
+                }
             }
 
             return result;

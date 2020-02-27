@@ -7,6 +7,7 @@
 @model SoftinuxBase.Security.ViewModels.Permissions.GrantViewModel
 @* HTML Extension list loop *@
 @Html.AntiForgeryToken()
+@*
 @{
     int i = 1;
     foreach (var item in Model.PermissionsByRoleAndExtension)
@@ -28,7 +29,7 @@
                     </div>
                     <div class="row collapse" id=@Html.Raw("\"extension" + i + "\"") onclick="StopAccordionsPropagation(event);">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            @* html into roles list loop *@
+                            @* html into roles list loop
                             @foreach (var subitem in item.Value)
                             {
 
@@ -42,9 +43,9 @@
                                         @if (item.Value.ElementAt(0).Key.Equals(subitem.Key))
                                         {@Html.Raw("Role name: ")}
                                     </div>
-                                    @* Role name *@
+                                    @* Role name
                                     <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 cell-heigth-25 cell-role-row">@Html.Raw(subitem.Key)</div>
-                                    @* admin checkbox *@
+                                    @* admin checkbox
                                     <div class="col-lg-1 col-md-2 col-sm-2 col-xs-1 cell-heigth-25 cell-role-row">
                                         <label class="checkbox-container">
                                             <input id="@Html.Raw(item.Key + "_" + subitem.Key + "_" + "ADMIN")" type="checkbox"
@@ -52,7 +53,7 @@
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
-                                    @* write checkbox *@
+                                    @* write checkbox
                                     <div class="col-lg-1 col-md-2 col-sm-2 col-xs-1 cell-heigth-25 cell-role-row">
                                         <label class="checkbox-container">
                                             <input id="@Html.Raw(item.Key + "_" + subitem.Key + "_" + "WRITE")" type="checkbox"
@@ -61,7 +62,7 @@
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
-                                    @* read checkbox *@
+                                    @* read checkbox
                                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 cell-heigth-25 cell-role-row">
                                         <label class="checkbox-container">
                                             <input id="@Html.Raw(item.Key + "_" + subitem.Key + "_" + "READ")" type="checkbox"
@@ -75,12 +76,12 @@
                             }
                         </div>
                     </div>
-                    @* end loop roles list*@
+                    @* end loop roles list
                 </div>
             </div>
             ++i;
         }
 
-    }
+    } *@
     @* End extension list loop*@
 }
