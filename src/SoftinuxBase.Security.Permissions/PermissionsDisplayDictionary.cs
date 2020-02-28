@@ -22,8 +22,7 @@ namespace SoftinuxBase.Security.Permissions
         /// </summary>
         internal readonly Dictionary<string, HashSet<PermissionDisplay>> Dictionary = new Dictionary<string, HashSet<PermissionDisplay>>();
 
-        // TOTEST
-        public void FillFrom(PermissionsDictionary permissionsDictionary_)
+        public PermissionsDisplayDictionary(PermissionsDictionary permissionsDictionary_)
         {
             foreach(var permissionEnumTypeFullName in permissionsDictionary_.Dictionary.Keys)
             {
@@ -44,6 +43,32 @@ namespace SoftinuxBase.Security.Permissions
             }
 
             return Dictionary[Dictionary.Keys.First()].Count != 0;
+        }
+
+        /// <summary>
+        /// Lookup a PermissionDisplay by extension name and permission name.
+        /// </summary>
+        /// <param name="extensionName_">Extension name.</param>
+        /// <param name="groupName_">Expected value of permission enum value "groupName" custom attribute.</param>
+        /// <param name="permissionName_">Expected value of permission enum value "name" custom attribute.</param>
+        /// <returns>PermissionDisplay or null.</returns>
+        public PermissionDisplay Get(string extensionName_, string groupName_, string permissionName_)
+        {
+            Dictionary.TryGetValue(extensionName_, out var permissionDisplays);
+            return permissionDisplays.FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == groupName_ && permissionDisplay_.ShortName == permissionName_);
+        }
+
+        /// <summary>
+        /// Lookup a PermissionDisplay by extension name and permission name.
+        /// </summary>
+        /// <param name="extensionName_">Extension name.</param>
+        /// <param name="permissionName_">Expected value of permission enum value "name" custom attribute.</param>
+        /// <returns>PermissionDisplay or null.</returns>
+        public PermissionDisplay Get(string extensionName_, short permissionValue_)
+        {
+            Dictionary.TryGetValue(extensionName_, out var permissionDisplays);
+            return permissionDisplays.FirstOrDefault(permissionDisplay_ => permissionDisplay_.Permission == permissionValue_);
+
         }
 
     }
