@@ -5,9 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-//[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.Permissions")]
-//[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.PermissionsTests")]
-//[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.SeedDatabase")]
 namespace SoftinuxBase.Security.Permissions
 {
     /// <summary>
@@ -43,6 +40,17 @@ namespace SoftinuxBase.Security.Permissions
             }
 
             return Dictionary[Dictionary.Keys.First()].Count != 0;
+        }
+
+        /// <summary>
+        /// Get all the <see cref="PermissionDisplay"/> associated to an extension.
+        /// </summary>
+        /// <param name="extensionName_"Extension name.</param>
+        /// <returns>List of <see cref="PermissionDisplay"/>.</returns>
+        public HashSet<PermissionDisplay> Get(string extensionName_)
+        {
+            Dictionary.TryGetValue(extensionName_, out var permissionDisplays);
+            return permissionDisplays;
         }
 
         /// <summary>

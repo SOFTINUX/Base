@@ -31,6 +31,7 @@ namespace SoftinuxBase.Security.Tools
     /// </summary>
     public static class ReadGrants
     {
+        // TOTEST
         /// <summary>
         /// Read all grants:
         ///
@@ -56,35 +57,28 @@ namespace SoftinuxBase.Security.Tools
             HashSet<string> rolesWithPerms = new HashSet<string>();
 
             // Read role/permission/extension settings
-            List<RoleToPermissions> allRp = storage_.GetRepository<IRoleToPermissionsRepository>().All().ToList();
-            foreach (RoleToPermissions rp in allRp)
+            List<RoleToPermissions> rolesToPermissions = storage_.GetRepository<IRoleToPermissionsRepository>().All().ToList();
+            foreach (RoleToPermissions roleToPermission in rolesToPermissions)
             {
-                if (!model.PermissionsByRoleAndExtension.ContainsKey(rp.RoleName))
+                if (!model.PermissionsByRoleAndExtension.ContainsKey(roleToPermission.RoleName))
                 {
                     // A database record related to a not loaded extension. Ignore this.
                     continue;
                 }
 
-                var permissions = rp.PermissionsForRole;
-
-                // TODO format the PermissionsDisplayDictionary for this role.
-
-                //permissions.
-                //if (!model.PermissionsByRoleAndExtension[rp.].ContainsKey(roleName))
-                //{
-                //    model.PermissionsByRoleAndExtension[rp.Extension].Add(roleName, new List<global::SoftinuxBase.Security.Permissions.Enums.Permission>());
-                //}
-
-                //// Format the list of Permission enum values according to DB enum value
-                //model.PermissionsByRoleAndExtension[rp.Extension][roleName] = PermissionHelper.GetLowerOrEqual(PermissionHelper.FromName(rp.Permission.Name));
-                //rolesWithPerms.Add(roleName);
+                var permissions = roleToPermission.PermissionsForRole;
+                PermissionsDisplayDictionary permissionsDisplayDictionary = new PermissionsDisplayDictionary(permissions);
+                foreach (var permissionEnumTypeFullName in permissions.Dictionary.Keys)
+                {
+                    var extensionName = permissionEnumTypeFullName.Substring(0, permissionEnumTypeFullName.LastIndexOf('.'));
+                    model.PermissionsByRoleAndExtension[extensionName].Add(roleToPermission.RoleName, permissionsDisplayDictionary.Get(extensionName).ToList())
+                }
             }
-
-
 
             return model;
         }
 
+        // TODO REWRITE
         /// <summary>
         /// Get the list of all extensions associated to a role, with corresponding permissions,
         /// and also the list of extensions not linked to the role.
@@ -117,6 +111,7 @@ namespace SoftinuxBase.Security.Tools
             }
         }
 
+        // TODO REWRITE
         /// <summary>
         /// This function checks that the role is the last grant of Admin permission level to the target extension.
         ///

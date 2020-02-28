@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.PermissionsTests")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security")]
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.SeedDatabase")]
 namespace SoftinuxBase.Security.Permissions
 {
