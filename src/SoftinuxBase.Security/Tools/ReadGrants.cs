@@ -31,18 +31,17 @@ namespace SoftinuxBase.Security.Tools
     /// </summary>
     public static class ReadGrants
     {
-        // TOTEST
+        // WIP TEST
         /// <summary>
         /// Read all grants:
-        ///
+        /// 
         /// - to have a global view of permissions granting:
-        ///
+        /// 
         /// -- for a role or a user, what kind of permission is granted, for every extension.
         /// </summary>
-        /// <param name="roleManager_">Role manager instance.</param>
         /// <param name="storage_">Storage interface provided by services container.</param>
         /// <returns>Return a GrantViewModel model object.</returns>
-        public static GrantViewModel ReadAll(RoleManager<IdentityRole<string>> roleManager_, IStorage storage_)
+        public static GrantViewModel ReadAll(IStorage storage_)
         {
             GrantViewModel model = new GrantViewModel();
 
@@ -71,7 +70,7 @@ namespace SoftinuxBase.Security.Tools
                 foreach (var permissionEnumTypeFullName in permissions.Dictionary.Keys)
                 {
                     var extensionName = permissionEnumTypeFullName.Substring(0, permissionEnumTypeFullName.LastIndexOf('.'));
-                    model.PermissionsByRoleAndExtension[extensionName].Add(roleToPermission.RoleName, permissionsDisplayDictionary.Get(extensionName).ToList())
+                    model.PermissionsByRoleAndExtension[extensionName].Add(roleToPermission.RoleName, permissionsDisplayDictionary.Get(extensionName).ToList());
                 }
             }
 

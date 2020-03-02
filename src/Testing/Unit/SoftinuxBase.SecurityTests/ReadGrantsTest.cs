@@ -1,38 +1,64 @@
-//// Copyright © 2017-2019 SOFTINUX. All rights reserved.
-//// Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
+// Copyright ï¿½ 2017-2019 SOFTINUX. All rights reserved.
+// Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Threading.Tasks;
-//using ExtCore.Infrastructure;
-//using Microsoft.AspNetCore.Identity;
-//using SoftinuxBase.Infrastructure.Interfaces;
-//using SoftinuxBase.Security.Permissions;
-//using SoftinuxBase.Security.Data.Abstractions;
-//using SoftinuxBase.Security.Data.Entities;
-//using SoftinuxBase.Security.Tools;
-//using SoftinuxBase.Security.ViewModels.Permissions;
-//using SoftinuxBase.SeedDatabase;
-//using SoftinuxBase.Tests.Common;
-//using Xunit;
-//using Constants = SoftinuxBase.Security.Permissions.Constants;
-//using Permission = SoftinuxBase.Security.Permissions.Enums.Permission;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Threading.Tasks;
+using ExtCore.Data.Abstractions;
+using FluentAssertions;
+using Moq;
+using SoftinuxBase.Security.Data.Abstractions;
+using SoftinuxBase.Security.Data.Entities;
+using SoftinuxBase.Security.Tools;
+using SoftinuxBase.Tests.Common;
+using Xunit;
 
-//namespace SoftinuxBase.SecurityTests
-//{
-//    /// <summary>
-//    /// Note: the extensions we want to work with must be added to this project's references so that the extension is found
-//    /// at runtime in unit test working directory (using ExtCore's ExtensionManager and custom path).
-//    /// So we did for the Chinook extension. Security was already referenced.
-//    /// </summary>
-//    [Collection("Database collection")]
-//    public class ReadGrantsTest : CommonTestWithDatabase
-//    {
-//        public ReadGrantsTest(DatabaseFixture databaseFixture_) : base(databaseFixture_)
-//        {
-//        }
-
+namespace SoftinuxBase.SecurityTests
+{
+        [Collection("Database collection")]
+    public class ReadGrantsTest : CommonTestWithDatabase
+    {
+        public ReadGrantsTest(DatabaseFixture databaseFixture_) : base(databaseFixture_)
+        {
+        }
+        
+        /// <summary>
+        /// Uses a mock for database data.
+        /// </summary>
+        /// <returns></returns>
+        [Fact]
+        [Category("Mock")]
+        public async Task ReadAll()
+        {
+            // Arrange
+            Fakes.ExtensionManager.Setup();
+            var rolesToPermissionsTestList = new List<RoleToPermissions>();
+            // TODO add some test entities
+            
+            var storageMock = new Mock<IStorage>();
+            var roleToPermissionRepositoryMock = new Mock<IRoleToPermissionsRepository>();
+            roleToPermissionRepositoryMock.Setup(r => r.All()).Returns(rolesToPermissionsTestList);
+            storageMock.Setup(s => s.GetRepository<IRoleToPermissionsRepository>()).Returns(roleToPermissionRepositoryMock.Object);
+            
+            // Act
+            var model = ReadGrants.ReadAll(storageMock.Object);
+            
+            // Assert
+            model.Should().NotBeNull();
+            // TODO assert about model content
+        }
+        
+        /// <summary>
+        /// Uses the database to test the query to table.
+        /// </summary>
+        /// <returns></returns>
+        [Fact]
+        [Category("Database")]
+        public async Task ReadAll_QueryDatabase()
+        {
+            // TODO
+        }
+    
 //        /// <summary>
 //        /// Create base permissions, roles, one additional role "Special User".
 //        /// Then create role-extension links as following:
@@ -561,5 +587,5 @@
 //            }
 //        }
 
-//    }
-//}
+    }
+}
