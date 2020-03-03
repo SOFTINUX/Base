@@ -1,27 +1,27 @@
-// Copyright � 2017-2019 SOFTINUX. All rights reserved.
+// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
-using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using FluentAssertions;
 using Moq;
 using SoftinuxBase.Security.Data.Abstractions;
-using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.Tools;
+using SoftinuxBase.SecurityTests.Mocks;
 using SoftinuxBase.Tests.Common;
 using Xunit;
 
 namespace SoftinuxBase.SecurityTests
 {
-        [Collection("Database collection")]
+    [Collection("Database collection")]
     public class ReadGrantsTest : CommonTestWithDatabase
     {
         public ReadGrantsTest(DatabaseFixture databaseFixture_) : base(databaseFixture_)
         {
         }
-        
+
         /// <summary>
         /// Uses a mock for database data.
         /// </summary>
@@ -32,22 +32,31 @@ namespace SoftinuxBase.SecurityTests
         {
             // Arrange
             Fakes.ExtensionManager.Setup();
-            var rolesToPermissionsTestList = new List<RoleToPermissions>();
-            // TODO add some test entities
-            
+            var roleToPermissionsRepositoryMock = new RoleToPermissionsRepositoryMock();
+
             var storageMock = new Mock<IStorage>();
-            var roleToPermissionRepositoryMock = new Mock<IRoleToPermissionsRepository>();
-            roleToPermissionRepositoryMock.Setup(r => r.All()).Returns(rolesToPermissionsTestList);
-            storageMock.Setup(s => s.GetRepository<IRoleToPermissionsRepository>()).Returns(roleToPermissionRepositoryMock.Object);
-            
+            storageMock.Setup(s => s.GetRepository<IRoleToPermissionsRepository>()).Returns(roleToPermissionsRepositoryMock.Object);
+
             // Act
             var model = ReadGrants.ReadAll(storageMock.Object);
-            
+
             // Assert
             model.Should().NotBeNull();
-            // TODO assert about model content
+            model.PermissionsByRoleAndExtension.Keys.Should().NotBeEmpty();
+            model.PermissionsByRoleAndExtension.Keys.Should().Contain("SoftinuxBase.Security");
+            model.PermissionsByRoleAndExtension.Keys.Should().Contain("SampleExtension1");
+            model.PermissionsByRoleAndExtension.Keys.Should().NotContain("SoftinuxBase.Tests.Common");
+
+            model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][Roles.Administrator.ToString()].Should().HaveCount(3);
+            model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][Roles.Moderator.ToString()].Should().HaveCount(4);
+
+            model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][Roles.Administrator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Roles" && permissionDisplay_.ShortName == "CanCreate").Should().NotBeNull();
+            model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][Roles.Administrator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Roles" && permissionDisplay_.ShortName == "CanCreate").Should().NotBeNull();
+            model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][Roles.Moderator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Roles" && permissionDisplay_.ShortName == "CanList").Should().NotBeNull();
+            model.PermissionsByRoleAndExtension["SampleExtension1"][Roles.Moderator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Sample" && permissionDisplay_.ShortName == "Write").Should().NotBeNull();
+            model.PermissionsByRoleAndExtension["SampleExtension1"][Roles.Moderator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Sample" && permissionDisplay_.ShortName == "Other").Should().BeNull();
         }
-        
+
         /// <summary>
         /// Uses the database to test the query to table.
         /// </summary>
@@ -58,7 +67,7 @@ namespace SoftinuxBase.SecurityTests
         {
             // TODO
         }
-    
+
 //        /// <summary>
 //        /// Create base permissions, roles, one additional role "Special User".
 //        /// Then create role-extension links as following:
@@ -586,6 +595,5 @@ namespace SoftinuxBase.SecurityTests
 //                await DatabaseFixture.RoleManager.DeleteAsync(secondRole);
 //            }
 //        }
-
     }
 }

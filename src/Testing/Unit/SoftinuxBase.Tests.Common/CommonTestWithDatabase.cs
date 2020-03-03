@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using SoftinuxBase.Security.Permissions;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
-using SoftinuxBase.SeedDatabase;
 using Permission = SoftinuxBase.Security.Permissions.Enums.Permission;
 
 namespace SoftinuxBase.Tests.Common
@@ -67,22 +66,6 @@ namespace SoftinuxBase.Tests.Common
 
             // Can't use the async Storage.SaveAsync() because this method is called in class constructor - TODO use a helper pattern?
             DatabaseFixture.Storage.Save();
-        }
-
-        /// <summary>
-        /// Create the standard base roles, if they don't exist.
-        /// Similar to SoftinuxBase.SeedDatabase extension's job.
-        /// </summary>
-        /// <returns>The asynchronous Task.</returns>
-        protected async Task CreateBaseRolesIfNeededAsync()
-        {
-            // Get the list of the role from the enum
-            Role[] roles = (Role[])Enum.GetValues(typeof(Role));
-
-            foreach (var r in roles)
-            {
-                await CreateRoleIfNotExistingAsync(r.GetRoleName());
-            }
         }
 
         /// <summary>

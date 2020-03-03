@@ -24,7 +24,6 @@ namespace SoftinuxBase.Security.PermissionsTests
 
             // Assert
             displayString.Should().BeEquivalentTo("[[SoftinuxBase.Security.Permissions.Permissions] 22 24 ] [[SoftinuxBase.Tests.Common.OtherPermissions] 0 ] ");
-
         }
     }
 }

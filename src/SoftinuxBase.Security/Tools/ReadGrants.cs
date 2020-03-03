@@ -51,11 +51,7 @@ namespace SoftinuxBase.Security.Tools
                 model.PermissionsByRoleAndExtension.Add(extensionMetadata.Name, new Dictionary<string, List<PermissionDisplay>>());
             }
 
-            // 2. Read data from RoleToPermission table
-            // Names of roles that have permissions attributed
-            HashSet<string> rolesWithPerms = new HashSet<string>();
-
-            // Read role/permission/extension settings
+            // 2. Read role/permission/extension settings (RoleToPermissions table)
             List<RoleToPermissions> rolesToPermissions = storage_.GetRepository<IRoleToPermissionsRepository>().All().ToList();
             foreach (RoleToPermissions roleToPermission in rolesToPermissions)
             {
