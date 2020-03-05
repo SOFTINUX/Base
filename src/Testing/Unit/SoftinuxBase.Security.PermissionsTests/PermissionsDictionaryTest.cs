@@ -87,12 +87,12 @@ namespace SoftinuxBase.Security.PermissionsTests
             var permissionsDictionary = new PermissionsDictionary();
 
             // Act
-            permissionsDictionary.AddGrouped(typeof(Permissions.Enums.Permissions).FullName, new List<short>{(short)Permissions.Enums.Permissions.CreateRoles, (short)Permissions.Enums.Permissions.DeleteRoles});
+            permissionsDictionary.AddGrouped(typeof(Permissions.Enums.Permissions).AssemblyQualifiedName, new List<short>{(short)Permissions.Enums.Permissions.CreateRoles, (short)Permissions.Enums.Permissions.DeleteRoles});
 
             // Assert
             permissionsDictionary.Dictionary.Keys.Count.Should().Be(1);
-            permissionsDictionary.Dictionary.ContainsKey($"{Constants.SoftinuxBaseSecurityPermissions}.Permissions").Should().BeTrue();
-            permissionsDictionary.Dictionary[$"{Constants.SoftinuxBaseSecurityPermissions}.Permissions"].Should().BeEquivalentTo(new HashSet<short> { (short)Permissions.Enums.Permissions.CreateRoles, (short)Permissions.Enums.Permissions.DeleteRoles });
+            permissionsDictionary.Dictionary.ContainsKey($"{Constants.SoftinuxBaseSecurityPermissions}.Permissions, {Constants.SoftinuxBaseSecurityPermissions}").Should().BeTrue();
+            permissionsDictionary.Dictionary[$"{Constants.SoftinuxBaseSecurityPermissions}.Permissions, {Constants.SoftinuxBaseSecurityPermissions}"].Should().BeEquivalentTo(new HashSet<short> { (short)Permissions.Enums.Permissions.CreateRoles, (short)Permissions.Enums.Permissions.DeleteRoles });
         }
 
         #endregion
@@ -103,23 +103,23 @@ namespace SoftinuxBase.Security.PermissionsTests
         {
             // Arrange
             var permissionsDictionary1 = new PermissionsDictionary();
-            permissionsDictionary1.AddGrouped(typeof(Permissions.Enums.Permissions).FullName, new List<short> { (short)Permissions.Enums.Permissions.CreateRoles, (short)Permissions.Enums.Permissions.DeleteRoles });
+            permissionsDictionary1.AddGrouped(typeof(Permissions.Enums.Permissions).AssemblyQualifiedName, new List<short> { (short)Permissions.Enums.Permissions.CreateRoles, (short)Permissions.Enums.Permissions.DeleteRoles });
 
             var permissionsDictionary2 = new PermissionsDictionary();
-            permissionsDictionary2.AddGrouped(typeof(Permissions.Enums.Permissions).FullName, new List<short> { (short)Permissions.Enums.Permissions.CreateRoles, (short)Permissions.Enums.Permissions.CreateUsers });
+            permissionsDictionary2.AddGrouped(typeof(Permissions.Enums.Permissions).AssemblyQualifiedName, new List<short> { (short)Permissions.Enums.Permissions.CreateRoles, (short)Permissions.Enums.Permissions.CreateUsers });
 
             var permissionsDictionary3 = new PermissionsDictionary();
-            permissionsDictionary3.AddGrouped(typeof(OtherPermissions).FullName, new List<short> { (short)OtherPermissions.Write, (short)OtherPermissions.Read });
+            permissionsDictionary3.AddGrouped(typeof(OtherPermissions).AssemblyQualifiedName, new List<short> { (short)OtherPermissions.Write, (short)OtherPermissions.Read });
 
             // Act
             var merged = PermissionsDictionary.Merge(permissionsDictionary1, permissionsDictionary2, permissionsDictionary3);
 
             // Assert
             merged.Dictionary.Keys.Count.Should().Be(2);
-            merged.Dictionary.ContainsKey($"{Constants.SoftinuxBaseSecurityPermissions}.Permissions").Should().BeTrue();
-            merged.Dictionary[$"{Constants.SoftinuxBaseSecurityPermissions}.Permissions"].Should().BeEquivalentTo(new HashSet<short> { (short)Permissions.Enums.Permissions.CreateRoles, (short)Permissions.Enums.Permissions.DeleteRoles, (short)Permissions.Enums.Permissions.CreateUsers });
-            merged.Dictionary.ContainsKey("SoftinuxBase.Tests.Common.OtherPermissions").Should().BeTrue();
-            merged.Dictionary["SoftinuxBase.Tests.Common.OtherPermissions"].Should().BeEquivalentTo(new HashSet<short> { (short)OtherPermissions.Read, (short)OtherPermissions.Write });
+            merged.Dictionary.ContainsKey($"{Constants.SoftinuxBaseSecurityPermissions}.Permissions, {Constants.SoftinuxBaseSecurityPermissions}").Should().BeTrue();
+            merged.Dictionary[$"{Constants.SoftinuxBaseSecurityPermissions}.Permissions, {Constants.SoftinuxBaseSecurityPermissions}"].Should().BeEquivalentTo(new HashSet<short> { (short)Permissions.Enums.Permissions.CreateRoles, (short)Permissions.Enums.Permissions.DeleteRoles, (short)Permissions.Enums.Permissions.CreateUsers });
+            merged.Dictionary.ContainsKey("SoftinuxBase.Tests.Common.OtherPermissions, SoftinuxBase.Tests.Common").Should().BeTrue();
+            merged.Dictionary["SoftinuxBase.Tests.Common.OtherPermissions, SoftinuxBase.Tests.Common"].Should().BeEquivalentTo(new HashSet<short> { (short)OtherPermissions.Read, (short)OtherPermissions.Write });
 
         }
 

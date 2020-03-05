@@ -91,5 +91,19 @@ namespace SoftinuxBase.Security.Permissions
             }
             return sb.ToString();
         }
+        /// <summary>
+        /// Get the assembly short name, i.e. "MyAssembly" from a type fullname, i.e. MyAssembly.MyNamespace.MyType.
+        /// </summary>
+        /// <param name="typeFullName_"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException">When the string is not a type name</exception>
+        public static string GetAssemblyShortName(this string typeFullName_)
+        {
+            if(typeFullName_.IndexOf('.') == -1)
+            {
+                throw new ArgumentException("Value is not a type full name", nameof(typeFullName_));
+            }
+            return typeFullName_.Substring(0, typeFullName_.LastIndexOf('.'));
+        }
     }
 }

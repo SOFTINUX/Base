@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
-
 using ExtCore.Data.Abstractions;
 using ExtCore.Infrastructure;
 using Microsoft.AspNetCore.Identity;
@@ -15,7 +14,6 @@ using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.Permissions;
 using SoftinuxBase.Security.Permissions;
 using SoftinuxBase.Security.ViewModels.Permissions;
-
 using Permission = SoftinuxBase.Security.Permissions.Enums.Permission;
 
 namespace SoftinuxBase.Security.Tools
@@ -55,17 +53,16 @@ namespace SoftinuxBase.Security.Tools
             List<RoleToPermissions> rolesToPermissions = storage_.GetRepository<IRoleToPermissionsRepository>().All().ToList();
             foreach (RoleToPermissions roleToPermission in rolesToPermissions)
             {
-                if (!model.PermissionsByRoleAndExtension.ContainsKey(roleToPermission.RoleName))
-                {
-                    // A database record related to a not loaded extension. Ignore this.
-                    continue;
-                }
-
                 var permissions = roleToPermission.PermissionsForRole;
                 PermissionsDisplayDictionary permissionsDisplayDictionary = new PermissionsDisplayDictionary(permissions);
                 foreach (var permissionEnumTypeFullName in permissions.Dictionary.Keys)
                 {
-                    var extensionName = permissionEnumTypeFullName.Substring(0, permissionEnumTypeFullName.LastIndexOf('.'));
+                    var extensionName = permissionEnumTypeFullName.GetAssemblyShortName();
+                    if (!model.PermissionsByRoleAndExtension.ContainsKey(extensionName))
+                    {
+                        // A database record related to a not loaded extension. Ignore this.
+                        continue;
+                    }
                     model.PermissionsByRoleAndExtension[extensionName].Add(roleToPermission.RoleName, permissionsDisplayDictionary.Get(extensionName).ToList());
                 }
             }
@@ -85,12 +82,7 @@ namespace SoftinuxBase.Security.Tools
         public static void GetExtensions(string roleId_, IStorage storage_, out IList<string> availableExtensions_, out IList<SelectedExtension> selectedExtensions_)
         {
             selectedExtensions_ = storage_.GetRepository<IRolePermissionRepository>().FilteredByRoleId(roleId_).Select(
-                rp_ => new SelectedExtension
-                {
-                    ExtensionName = rp_.Extension,
-                    PermissionName = rp_.Permission.Name,
-                    PermissionId = rp_.PermissionId
-                })
+                    rp_ => new SelectedExtension {ExtensionName = rp_.Extension, PermissionName = rp_.Permission.Name, PermissionId = rp_.PermissionId})
                 .ToList();
 
             IEnumerable<string> selectedExtensionsNames = selectedExtensions_.Select(se_ => se_.ExtensionName).ToList();
