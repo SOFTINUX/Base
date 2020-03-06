@@ -8,6 +8,7 @@ using SoftinuxBase.Security.Permissions.Enums;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Tests.Common;
 using Xunit;
+using Constants = SoftinuxBase.Security.Permissions.Constants;
 
 namespace SoftinuxBase.SecurityTests
 {

@@ -4,6 +4,7 @@
 using FluentAssertions;
 using SoftinuxBase.Security.Permissions;
 using Xunit;
+using Constants = SoftinuxBase.Tests.Common.Constants;
 
 namespace SoftinuxBase.Security.PermissionsTests
 {
@@ -20,8 +21,8 @@ namespace SoftinuxBase.Security.PermissionsTests
             var permissionsDisplayDictionary = new PermissionsDisplayDictionary(permissionsDictionary);
 
             // Assert
-            permissionsDisplayDictionary.Get(Constants.SoftinuxBaseSecurityPermissions, "Roles", "CanCreate").Should().NotBeNull();
-            permissionsDisplayDictionary.Get(Constants.SoftinuxBaseSecurityPermissions, (short)Permissions.Enums.Permissions.CreateRoles).Should().NotBeNull();
+            permissionsDisplayDictionary.Get(Constants.SoftinuxBaseSecurityPermissionsAssemblyShortName, "Roles", "CanCreate").Should().NotBeNull();
+            permissionsDisplayDictionary.Get(Constants.SoftinuxBaseSecurityPermissionsAssemblyShortName, (short)Permissions.Enums.Permissions.CreateRoles).Should().NotBeNull();
         }
     }
 }

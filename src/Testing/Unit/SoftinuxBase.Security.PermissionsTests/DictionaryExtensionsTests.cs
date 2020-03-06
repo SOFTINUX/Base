@@ -7,6 +7,7 @@ using SoftinuxBase.Security.Permissions;
 using SoftinuxBase.Security.Permissions;
 using SoftinuxBase.Tests.Common;
 using Xunit;
+using Constants = SoftinuxBase.Tests.Common.Constants;
 
 namespace SoftinuxBase.Security.PermissionsTests
 {
@@ -25,8 +26,8 @@ namespace SoftinuxBase.Security.PermissionsTests
 
             // Assert
             packedDictionary.Keys.Count.Should().Be(1);
-            packedDictionary.ContainsKey($"{Constants.SoftinuxBaseSecurityPermissions}.Permissions").Should().BeTrue();
-            packedDictionary[$"{Constants.SoftinuxBaseSecurityPermissions}.Permissions"].Should().BeEquivalentTo($"{(char)Permissions.Enums.Permissions.CreateRoles}");
+            packedDictionary.ContainsKey($"{Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName}").Should().BeTrue();
+            packedDictionary[$"{Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName}"].Should().BeEquivalentTo($"{(char)Permissions.Enums.Permissions.CreateRoles}");
         }
 
         [Fact]
@@ -42,8 +43,8 @@ namespace SoftinuxBase.Security.PermissionsTests
 
             // Assert
             packedDictionary.Keys.Count.Should().Be(1);
-            packedDictionary.ContainsKey($"{Constants.SoftinuxBaseSecurityPermissions}.Permissions").Should().BeTrue();
-            packedDictionary[$"{Constants.SoftinuxBaseSecurityPermissions}.Permissions"].Should().BeEquivalentTo($"{(char)Permissions.Enums.Permissions.CreateRoles}{(char)Permissions.Enums.Permissions.DeleteRoles}");
+            packedDictionary.ContainsKey($"{Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName}").Should().BeTrue();
+            packedDictionary[$"{Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName}"].Should().BeEquivalentTo($"{(char)Permissions.Enums.Permissions.CreateRoles}{(char)Permissions.Enums.Permissions.DeleteRoles}");
         }
 
         [Fact]
@@ -60,10 +61,10 @@ namespace SoftinuxBase.Security.PermissionsTests
 
             // Assert
             packedDictionary.Keys.Count.Should().Be(2);
-            packedDictionary.ContainsKey($"{Constants.SoftinuxBaseSecurityPermissions}.Permissions").Should().BeTrue();
-            packedDictionary.ContainsKey("SoftinuxBase.Tests.Common.OtherPermissions").Should().BeTrue();
-            packedDictionary[$"{Constants.SoftinuxBaseSecurityPermissions}.Permissions"].Should().BeEquivalentTo($"{(char)Permissions.Enums.Permissions.CreateRoles}{(char)Permissions.Enums.Permissions.DeleteRoles}");
-            packedDictionary["SoftinuxBase.Tests.Common.Permissions"].Should().BeEquivalentTo($"{(char)OtherPermissions.Read}");
+            packedDictionary.ContainsKey($"{Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName}").Should().BeTrue();
+            packedDictionary.ContainsKey("SoftinuxBase.Tests.Common.OtherPermissions, SoftinuxBase.Tests.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null").Should().BeTrue();
+            packedDictionary[$"{Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName}"].Should().BeEquivalentTo($"{(char)Permissions.Enums.Permissions.CreateRoles}{(char)Permissions.Enums.Permissions.DeleteRoles}");
+            packedDictionary["SoftinuxBase.Tests.Common.Permissions, SoftinuxBase.Tests.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"].Should().BeEquivalentTo($"{(char)OtherPermissions.Read}");
         }
 
         #endregion PackPermissions

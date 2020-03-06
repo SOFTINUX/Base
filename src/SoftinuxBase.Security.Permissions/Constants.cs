@@ -5,17 +5,13 @@ using System;
 
 namespace SoftinuxBase.Security.Permissions
 {
+    [Obsolete("useless")]
     public static class Constants
     {
         /// <summary>
         /// Assembly name of SoftinuxBase.Security.
         /// </summary>
-        [Obsolete]
         public const string SoftinuxBaseSecurity = "SoftinuxBase.Security";
 
-        /// <summary>
-        /// Assembly name of SoftinuxBase.Security.Permissions.
-        /// </summary>
-        public const string SoftinuxBaseSecurityPermissions = "SoftinuxBase.Security.Permissions";
     }
 }
