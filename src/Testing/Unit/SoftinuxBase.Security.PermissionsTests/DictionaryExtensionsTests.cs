@@ -14,6 +14,7 @@ namespace SoftinuxBase.Security.PermissionsTests
     public class DictionaryExtensionsTests
     {
         #region PackPermissions
+
         [Fact]
         public void PackPermissions_OnePermission()
         {
@@ -26,8 +27,8 @@ namespace SoftinuxBase.Security.PermissionsTests
 
             // Assert
             packedDictionary.Keys.Count.Should().Be(1);
-            packedDictionary.ContainsKey($"{Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName}").Should().BeTrue();
-            packedDictionary[$"{Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName}"].Should().BeEquivalentTo($"{(char)Permissions.Enums.Permissions.CreateRoles}");
+            packedDictionary.ContainsKey(Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName).Should().BeTrue();
+            packedDictionary[Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName].Should().BeEquivalentTo($"{(char)Permissions.Enums.Permissions.CreateRoles}");
         }
 
         [Fact]
@@ -43,8 +44,8 @@ namespace SoftinuxBase.Security.PermissionsTests
 
             // Assert
             packedDictionary.Keys.Count.Should().Be(1);
-            packedDictionary.ContainsKey($"{Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName}").Should().BeTrue();
-            packedDictionary[$"{Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName}"].Should().BeEquivalentTo($"{(char)Permissions.Enums.Permissions.CreateRoles}{(char)Permissions.Enums.Permissions.DeleteRoles}");
+            packedDictionary.ContainsKey(Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName).Should().BeTrue();
+            packedDictionary[Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName].Should().BeEquivalentTo($"{(char)Permissions.Enums.Permissions.CreateRoles}{(char)Permissions.Enums.Permissions.DeleteRoles}");
         }
 
         [Fact]
@@ -61,10 +62,10 @@ namespace SoftinuxBase.Security.PermissionsTests
 
             // Assert
             packedDictionary.Keys.Count.Should().Be(2);
-            packedDictionary.ContainsKey($"{Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName}").Should().BeTrue();
-            packedDictionary.ContainsKey("SoftinuxBase.Tests.Common.OtherPermissions, SoftinuxBase.Tests.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null").Should().BeTrue();
-            packedDictionary[$"{Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName}"].Should().BeEquivalentTo($"{(char)Permissions.Enums.Permissions.CreateRoles}{(char)Permissions.Enums.Permissions.DeleteRoles}");
-            packedDictionary["SoftinuxBase.Tests.Common.Permissions, SoftinuxBase.Tests.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"].Should().BeEquivalentTo($"{(char)OtherPermissions.Read}");
+            packedDictionary.ContainsKey(Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName).Should().BeTrue();
+            packedDictionary.ContainsKey(Constants.SoftinuxBaseTestsCommonOtherPermissionsEnumAssemblyQualifiedName).Should().BeTrue();
+            packedDictionary[Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName].Should().BeEquivalentTo($"{(char)Permissions.Enums.Permissions.CreateRoles}{(char)Permissions.Enums.Permissions.DeleteRoles}");
+            packedDictionary[Constants.SoftinuxBaseTestsCommonOtherPermissionsEnumAssemblyQualifiedName].Should().BeEquivalentTo($"{(char)OtherPermissions.Read}");
         }
 
         #endregion PackPermissions
@@ -122,10 +123,11 @@ namespace SoftinuxBase.Security.PermissionsTests
         #endregion
 
         #region UserHasThisPermission
+
         [Theory]
-        [InlineData("SoftinuxBase.Security.Permissions.Permissions", (short)Permissions.Enums.Permissions.Read, true)]
-        [InlineData("SoftinuxBase.Security.Permissions.Permissions", (short)Permissions.Enums.Permissions.Edit, false)]
-        [InlineData("SoftinuxBase.Security.Permissions.Permissions", (short)Permissions.Enums.Permissions.AccessAll, false)]
+        [InlineData(Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName, (short)Permissions.Enums.Permissions.Read, true)]
+        [InlineData(Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName, (short)Permissions.Enums.Permissions.Edit, false)]
+        [InlineData(Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName, (short)Permissions.Enums.Permissions.AccessAll, false)]
         public void UserHasThisPermission(string typeFullName_, short permissionValue_, bool expectedFound_)
         {
             // Arrange
@@ -140,9 +142,9 @@ namespace SoftinuxBase.Security.PermissionsTests
         }
 
         [Theory]
-        [InlineData("SoftinuxBase.Security.Permissions.Permissions", (short)Permissions.Enums.Permissions.Read, true)]
-        [InlineData("SoftinuxBase.Security.Permissions.Permissions", (short)Permissions.Enums.Permissions.Edit, true)]
-        [InlineData("SoftinuxBase.Security.Permissions.Permissions", (short)Permissions.Enums.Permissions.AccessAll, true)]
+        [InlineData(Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName, (short)Permissions.Enums.Permissions.Read, true)]
+        [InlineData(Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName, (short)Permissions.Enums.Permissions.Edit, true)]
+        [InlineData(Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName, (short)Permissions.Enums.Permissions.AccessAll, true)]
         public void UserHasThisPermission_HasAccessAll(string typeFullName_, short permissionValue_, bool expectedFound_)
         {
             // Arrange

@@ -55,9 +55,9 @@ namespace SoftinuxBase.Security.Tools
             {
                 var permissions = roleToPermission.PermissionsForRole;
                 PermissionsDisplayDictionary permissionsDisplayDictionary = new PermissionsDisplayDictionary(permissions);
-                foreach (var permissionEnumTypeFullName in permissions.Dictionary.Keys)
+                foreach (var permissionEnumTypeAssemblyQualifiedName in permissions.Dictionary.Keys)
                 {
-                    var extensionName = permissionEnumTypeFullName.GetAssemblyShortName();
+                    var extensionName = permissionEnumTypeAssemblyQualifiedName.GetAssemblyShortName();
                     if (!model.PermissionsByRoleAndExtension.ContainsKey(extensionName))
                     {
                         // A database record related to a not loaded extension. Ignore this.

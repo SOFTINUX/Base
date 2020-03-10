@@ -1,10 +1,12 @@
 ﻿// Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System;
 using FluentAssertions;
 using SoftinuxBase.Security.Permissions;
 using SoftinuxBase.Tests.Common;
 using Xunit;
+using Constants = SoftinuxBase.Tests.Common.Constants;
 
 namespace SoftinuxBase.Security.PermissionsTests
 {
@@ -23,7 +25,21 @@ namespace SoftinuxBase.Security.PermissionsTests
             var displayString = permissionsDictionary.PackPermissions().ToStorageString().ToDisplayString();
 
             // Assert
-            displayString.Should().BeEquivalentTo("[[SoftinuxBase.Security.Permissions.Permissions] 22 24 ] [[SoftinuxBase.Tests.Common.OtherPermissions] 0 ] ");
+            displayString.Should().BeEquivalentTo($"[[{Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName}] 22 24 ] [[{Constants.SoftinuxBaseTestsCommonOtherPermissionsEnumAssemblyQualifiedName}] 0 ] ");
+        }
+        
+        [Fact]
+        public void GetAssemblyShortName()
+        {
+            // Arrange
+            var enumTypeAssemblyQualifiedName = Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName;
+            enumTypeAssemblyQualifiedName.IndexOf(',').Should().NotBe(-1);
+            
+            // Act
+            var assemblyShortName = enumTypeAssemblyQualifiedName.GetAssemblyShortName();
+            
+            // Assert
+            assemblyShortName.Should().Be(Constants.SoftinuxBaseSecurityPermissionsAssemblyShortName);
         }
     }
 }

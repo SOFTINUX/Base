@@ -14,5 +14,11 @@ namespace SoftinuxBase.Tests.Common
         /// Assembly-qualified full name of <see cref="SoftinuxBase.Security.Permissions.Enums.Permissions"/> enum.
         /// </summary>
         public const string SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName = "SoftinuxBase.Security.Permissions.Enums.Permissions, SoftinuxBase.Security.Permissions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
+        
+        /// <summary>
+        /// Assembly-qualified full name of <see cref="SoftinuxBase.Tests.Common.OtherPermissions"/> enum.
+        /// </summary>
+        public const string SoftinuxBaseTestsCommonOtherPermissionsEnumAssemblyQualifiedName = "SoftinuxBase.Tests.Common.OtherPermissions, SoftinuxBase.Tests.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
+
     }
 }

@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using Newtonsoft.Json;
 using SoftinuxBase.Security.Permissions;
@@ -33,7 +34,7 @@ namespace SoftinuxBase.Security.Permissions
         /// Gets the elements of the policy name.
         /// </summary>
         /// <param name="policyName_">Policy name.</param>
-        /// <returns>The type fullname and permission short value.</returns>
+        /// <returns>The type assembly-qualified fullname, the permission short value.</returns>
         public static (string type, short permission) ParsePolicyName(this string policyName_)
         {
             var splitted = policyName_.Split('|');
@@ -48,7 +49,7 @@ namespace SoftinuxBase.Security.Permissions
         /// <returns>Policy name.</returns>
         public static string ToPolicyName(Type permissionEnumType_, short permission_)
         {
-            return $"{permissionEnumType_.FullName}|{permission_.ToString()}";
+            return $"{permissionEnumType_.AssemblyQualifiedName}|{permission_.ToString()}";
         }
 
         /// <summary>
@@ -92,18 +93,19 @@ namespace SoftinuxBase.Security.Permissions
             return sb.ToString();
         }
         /// <summary>
-        /// Get the assembly short name, i.e. "MyAssembly" from a type fullname, i.e. MyAssembly.MyNamespace.MyType.
+        /// Get the assembly short name, i.e. "MyAssembly" from a type assembly-qualified name, i.e. "MyAssembly.MyNamespace.MyType, MyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null".
         /// </summary>
-        /// <param name="typeFullName_"></param>
+        /// <param name="typeAssemblyQualifiedName_"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">When the string is not a type name</exception>
-        public static string GetAssemblyShortName(this string typeFullName_)
+        public static string GetAssemblyShortName(this string typeAssemblyQualifiedName_)
         {
-            if(typeFullName_.IndexOf('.') == -1)
+            if(typeAssemblyQualifiedName_.IndexOf(',') == -1)
             {
-                throw new ArgumentException("Value is not a type full name", nameof(typeFullName_));
+                throw new ArgumentException($"'{typeAssemblyQualifiedName_}' is not a type assembly-qualified name", nameof(typeAssemblyQualifiedName_));
             }
-            return typeFullName_.Substring(0, typeFullName_.LastIndexOf('.'));
+            var assemblyName = new AssemblyName(typeAssemblyQualifiedName_.Substring(typeAssemblyQualifiedName_.IndexOf(',')+1));
+            return assemblyName.Name;
         }
     }
 }
