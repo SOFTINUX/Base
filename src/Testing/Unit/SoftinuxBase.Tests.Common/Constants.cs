@@ -20,5 +20,10 @@ namespace SoftinuxBase.Tests.Common
         /// </summary>
         public const string SoftinuxBaseTestsCommonOtherPermissionsEnumAssemblyQualifiedName = "SoftinuxBase.Tests.Common.OtherPermissions, SoftinuxBase.Tests.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
 
+        /// <summary>
+        /// Assembly-qualified full name of <see cref="SampleExtension1.SamplePermissions"/> enum.
+        /// </summary>
+        public const string SampleExtension1SamplePermissionsEnumAssemblyQualifiedName = "SampleExtension1.SamplePermissions, SampleExtension1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
+
     }
 }

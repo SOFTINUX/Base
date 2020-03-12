@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using FluentAssertions;
+using SampleExtension1;
 using SoftinuxBase.Security.Permissions;
 using SoftinuxBase.Tests.Common;
 using Xunit;
@@ -70,13 +71,14 @@ namespace SoftinuxBase.Security.PermissionsTests
             // Act
             permissionsDictionary.Add(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.CreateRoles);
             permissionsDictionary.Add(typeof(OtherPermissions), (short)OtherPermissions.Read);
+            permissionsDictionary.Add(typeof(SamplePermissions), (short)SamplePermissions.Write);
 
             // Assert
-            permissionsDictionary.Dictionary.Keys.Count.Should().Be(2);
+            permissionsDictionary.Dictionary.Keys.Count.Should().Be(3);
             permissionsDictionary.Dictionary.ContainsKey(Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName).Should().BeTrue();
             permissionsDictionary.Dictionary.ContainsKey(Constants.SoftinuxBaseTestsCommonOtherPermissionsEnumAssemblyQualifiedName).Should().BeTrue();
             permissionsDictionary.Dictionary[Constants.SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName].Should().BeEquivalentTo(new HashSet<short> {(short)Permissions.Enums.Permissions.CreateRoles});
-            permissionsDictionary.Dictionary[Constants.SoftinuxBaseTestsCommonOtherPermissionsEnumAssemblyQualifiedName].Should().BeEquivalentTo(new HashSet<short> {(short)OtherPermissions.Read});
+            permissionsDictionary.Dictionary[Constants.SampleExtension1SamplePermissionsEnumAssemblyQualifiedName].Should().BeEquivalentTo(new HashSet<short> {(short)SamplePermissions.Write});
         }
 
         #endregion

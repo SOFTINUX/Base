@@ -13,7 +13,7 @@ namespace SoftinuxBase.Security.PermissionsTests
     public class PermissionDisplayTest
     {
         [Fact]
-        public void GetPermissionsToDisplay()
+        public void GetPermissionsToDisplay_SecurityPermissions()
         {
             // Arrange
             Type permissionsEnum = typeof(Permissions.Enums.Permissions);
@@ -25,6 +25,19 @@ namespace SoftinuxBase.Security.PermissionsTests
             permissionsToDisplay.Should().NotBeEmpty();
             permissionsToDisplay.FirstOrDefault(p => p.GroupName == "Roles" && p.ShortName == "CanCreate").Should().NotBeNull();
             permissionsToDisplay.FirstOrDefault(p => p.GroupName == "Users" && p.ShortName == "CanRead").Should().NotBeNull();
+        }
+        
+        [Fact]
+        public void GetPermissionsToDisplay_SampleExtension1Permissions()
+        {
+            // Arrange
+            Type permissionsEnum = typeof(SampleExtension1.SamplePermissions);
+
+            // Act
+            var permissionsToDisplay = PermissionDisplay.GetPermissionsToDisplay(permissionsEnum);
+
+            // Assert
+            permissionsToDisplay.Should().NotBeEmpty();
         }
 
         [Fact]
