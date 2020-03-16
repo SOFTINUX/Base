@@ -11,9 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using Serilog;
 using SoftinuxBase.WebApplication;
-using Swashbuckle.AspNetCore.Swagger;
 
 namespace WebApplication
 {
@@ -21,7 +21,7 @@ namespace WebApplication
     {
         private readonly string _extensionsPath;
 
-        public Startup(IConfiguration configuration_, IHostingEnvironment hostingEnvironment_)
+        public Startup(IConfiguration configuration_, IWebHostEnvironment hostingEnvironment_)
         {
             Configuration = configuration_;
             _extensionsPath = hostingEnvironment_.ContentRootPath + Configuration["Extensions:Path"].Replace('/', Path.DirectorySeparatorChar).Replace('\\', Path.DirectorySeparatorChar);
@@ -41,7 +41,7 @@ namespace WebApplication
             // Which database provider to use : Sqlite
             services_.AddDbContext<ApplicationStorageContext>(options_ =>
             {
-                options_.UseSqlite(Configuration["ConnectionStrings:Default"]);
+                options_.UseSqlite(Configuration["ConnectionStrings:Default"], sqliteOptions_ => sqliteOptions_.MigrationsAssembly(typeof(Startup).Assembly.GetName().Name));
             });
 
             // Register database-specific storage context implementation.
@@ -51,7 +51,7 @@ namespace WebApplication
             // Register the Swagger generator, defining 1 or more Swagger documents
             services_.AddSwaggerGen(c_ =>
             {
-                c_.SwaggerDoc("v1", new Info { Title = "Softinux Base API", Version = "v1" });
+                c_.SwaggerDoc("v1", new OpenApiInfo { Title = "Softinux Base API", Version = "v1" });
                 foreach (SoftinuxBase.Infrastructure.Interfaces.IExtensionMetadata extensionMetadata in ExtCore.Infrastructure.ExtensionManager.GetInstances<SoftinuxBase.Infrastructure.Interfaces.IExtensionMetadata>())
                 {
                     c_.IncludeXmlComments($"{extensionMetadata.CurrentAssemblyPath.Replace(@".dll", string.Empty)}.xml");
@@ -59,10 +59,10 @@ namespace WebApplication
             });
 #endif
 
-            services_.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services_.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
-        public void Configure(IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_, IConfiguration configuration_, IAntiforgery antiForgery_)
+        public void Configure(IApplicationBuilder applicationBuilder_, IWebHostEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_, IConfiguration configuration_, IAntiforgery antiForgery_)
         {
 #if DEBUG
             Log.Information("#######################################################");

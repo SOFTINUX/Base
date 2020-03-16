@@ -4,7 +4,7 @@
     <Company>SOFTINUX</Company>
     <Copyright>Copyright © 2017 Softinux</Copyright>
     <Version>0.0.1</Version>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>SoftinuxBase.Infrastructure</AssemblyName>
     <RootNamespace>SoftinuxBase.Infrastructure</RootNamespace>
     <PackageId>SoftinuxBase.Infrastructure</PackageId>
@@ -12,7 +12,7 @@
     <PackageProjectUrl>http://www.softinux.com/</PackageProjectUrl>
   </PropertyGroup>
   <PropertyGroup>
-    <LangVersion>7</LangVersion>
+    <LangVersion>8</LangVersion>
     <CodeAnalysisRuleSet>..\..\StyleCopRules.ruleset</CodeAnalysisRuleSet>
     <RepositoryUrl>https://github.com/SOFTINUX/Base</RepositoryUrl>
   </PropertyGroup>
@@ -31,12 +31,11 @@
     <None Remove="Scripts\infrastructure.js" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ExtCore.Data.EntityFramework" Version="4.1.0" />
-    <PackageReference Include="ExtCore.Mvc.Infrastructure" Version="4.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.6" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.4" />
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="2.2.6" />
+    <PackageReference Include="ExtCore.Data.EntityFramework" Version="5.1.0" />
+    <PackageReference Include="ExtCore.Mvc.Infrastructure" Version="5.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.2" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="3.1.2" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>

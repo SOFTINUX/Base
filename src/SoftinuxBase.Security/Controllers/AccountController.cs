@@ -63,7 +63,7 @@ namespace SoftinuxBase.Security.Controllers
                 return await Task.Run(() => View(signUp_));
             }
 
-            return await Task.Run(() => View("Index"));
+            return await Task.Run(() => View(signUp_));
         }
 
         /// <summary>

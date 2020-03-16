@@ -2,7 +2,6 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
-
 using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
 using ExtCore.WebApplication.Extensions;
@@ -107,6 +106,9 @@ namespace SoftinuxBase.WebApplication
                 options_.HeaderName = "X-XSRF-TOKEN";
                 options_.SuppressXFrameOptionsHeader = false;
             });
+
+            // 6. support for ASP NET
+            services_.AddRazorPages();
         }
     }
 }

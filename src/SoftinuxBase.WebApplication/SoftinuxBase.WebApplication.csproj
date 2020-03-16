@@ -5,7 +5,7 @@
     <Company>SOFTINUX</Company>
     <Copyright>Copyright © 2017 Softinux</Copyright>
     <Version>0.0.1</Version>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>SoftinuxBase.WebApplication</AssemblyName>
     <RootNamespace>SoftinuxBase.WebApplication</RootNamespace>
     <PackageId>SoftinuxBase.WebApplication</PackageId>
@@ -13,7 +13,7 @@
     <PackageProjectUrl>http://www.softinux.com/</PackageProjectUrl>
   </PropertyGroup>
   <PropertyGroup>
-    <LangVersion>7</LangVersion>
+    <LangVersion>8</LangVersion>
     <CodeAnalysisRuleSet>..\..\StyleCopRules.ruleset</CodeAnalysisRuleSet>
     <RepositoryUrl>https://github.com/SOFTINUX/Base</RepositoryUrl>
   </PropertyGroup>
@@ -29,11 +29,12 @@
     <ProjectReference Include="..\SoftinuxBase.Security.Data.Entities\SoftinuxBase.Security.Data.Entities.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ExtCore.WebApplication" Version="4.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="2.2.1" />
-    <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
-    <PackageReference Include="NWebsec.AspNetCore.Middleware" Version="2.0.0" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ExtCore.WebApplication" Version="5.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.2" />
+    <PackageReference Include="NWebsec.AspNetCore.Middleware" Version="3.0.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>

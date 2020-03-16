@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace SoftinuxBase.WebApplication
@@ -27,7 +28,7 @@ namespace SoftinuxBase.WebApplication
         /// <param name="loggerFactory_">The logger factory passed to the Configure method of the web application's Startup class.</param>
         /// <param name="configuration_">The application configuration passed to the Configure method of the web application's Startup class.</param>
         /// <param name="antiForgery_">The anti forgery system passed to the Configure method of the web application's Startup class.</param>
-        public static void UseSoftinuxBase(this IApplicationBuilder applicationBuilder_, IHostingEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_, IConfiguration configuration_, IAntiforgery antiForgery_)
+        public static void UseSoftinuxBase(this IApplicationBuilder applicationBuilder_, IWebHostEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_, IConfiguration configuration_, IAntiforgery antiForgery_)
         {
             // 1. Error management
             if (hostingEnvironment_.IsDevelopment())
@@ -79,10 +80,18 @@ namespace SoftinuxBase.WebApplication
                     return next_(context_);
                 });
 
-            // 3. ExtCore
+            // 3. The following are handled by ExtCore as prioritized IConfigureAction:
+            // - UseRouting (built-in in ExtCore)
+            // - UseAuthorization (custom)
+            // - UseEndpoints (built-in in ExtCore and overriden)
+            applicationBuilder_.UseHttpsRedirection();
+            applicationBuilder_.UseCors();
+            applicationBuilder_.UseAuthentication();
+
+            // 4. ExtCore
             applicationBuilder_.UseExtCore();
 
-            // 4. Static files
+            // 5. Static files
             applicationBuilder_.UseStaticFiles();
         }
     }

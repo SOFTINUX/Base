@@ -1,1 +1,1 @@
-src\SoftinuxBase.SeedDatabase\bin\Debug\netcoreapp2.2\SoftinuxBase.SeedDatabase.dll
+src\SoftinuxBase.SeedDatabase\bin\Debug\netcoreapp3.1\SoftinuxBase.SeedDatabase.dll

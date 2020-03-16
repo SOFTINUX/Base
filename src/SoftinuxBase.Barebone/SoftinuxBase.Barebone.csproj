@@ -1,10 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
   <PropertyGroup>
     <Authors>Benjamin Nolmans, Barbara Post</Authors>
     <Company>SOFTINUX</Company>
     <Copyright>Copyright © 2017 Softinux</Copyright>
     <Version>0.0.1</Version>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <AssemblyName>SoftinuxBase.Barebone</AssemblyName>
     <RootNamespace>SoftinuxBase.Barebone</RootNamespace>
     <PackageId>SoftinuxBase.Barebone</PackageId>
@@ -12,7 +13,7 @@
     <PackageProjectUrl>http://www.softinux.com/</PackageProjectUrl>
   </PropertyGroup>
   <PropertyGroup>
-    <LangVersion>7</LangVersion>
+    <LangVersion>8</LangVersion>
     <CodeAnalysisRuleSet>..\..\StyleCopRules.ruleset</CodeAnalysisRuleSet>
     <RepositoryUrl>https://github.com/SOFTINUX/Base</RepositoryUrl>
   </PropertyGroup>
@@ -23,17 +24,19 @@
     <Import Project="..\..\documentation.props" />
   </ImportGroup>
   <ItemGroup>
-    <PackageReference Include="ExtCore.Mvc.Infrastructure" Version="4.1.0" />
-    <PackageReference Include="ExtCore.Data.Abstractions" Version="4.1.0" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ExtCore.Mvc.Infrastructure" Version="5.1.0" />
+    <PackageReference Include="ExtCore.Data.Abstractions" Version="5.1.0" />
     <PackageReference Include="FontAwesome" Version="4.7.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.9.406" />
+    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="3.2.435" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
@@ -42,7 +45,7 @@
     <None Remove="node_modules\**" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Styles\**;Scripts\**;Views\**;Fonts\**" />
+    <EmbeddedResource Include="Styles\**;Scripts\**;Fonts\**" />
     <!-- Javascript -->
     <EmbeddedResource Include="..\..\node_modules\jquery\dist\jquery.min.js" LinkBase="node_modules\jquery\dist\" />
     <EmbeddedResource Include="..\..\node_modules\jquery\dist\jquery.min.map" LinkBase="node_modules\jquery\dist\" />
@@ -51,7 +54,7 @@
     <EmbeddedResource Include="..\..\node_modules\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js" LinkBase="node_modules\jquery-validation-unobtrusive\dist\" />
     <EmbeddedResource Include="..\..\node_modules\js-cookie\src\js.cookie.js" LinkBase="node_modules\js-cookie\src\" />
     <EmbeddedResource Include="..\..\node_modules\icheck\icheck.js" LinkBase="node_modules\icheck\" />
-    <EmbeddedResource Include="..\..\node_modules\inputmask\dist\min\jquery.inputmask.bundle.min.js" LinkBase="node_modules\inputmask\dist\min\" />
+    <EmbeddedResource Include="..\..\node_modules\inputmask\dist\jquery.inputmask.min.js" LinkBase="node_modules\inputmask\dist\" />
     <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\js\adminlte.min.js" LinkBase="node_modules\admin-lte\dist\js\" />
     <EmbeddedResource Include="..\..\node_modules\toastr\build\toastr.min.js" LinkBase="node_modules\toastr\build\" />
     <EmbeddedResource Include="..\..\node_modules\codemirror\lib\codemirror.js" LinkBase="node_modules\codemirror\lib\" />
@@ -70,16 +73,16 @@
     <EmbeddedResource Include="..\..\node_modules\codemirror\addon\selection\active-line.js" LinkBase="node_modules\codemirror\addon\selection\" />
     <EmbeddedResource Include="..\..\node_modules\codemirror\addon\dialog\dialog.js" LinkBase="node_modules\codemirror\addon\dialog\" />
     <EmbeddedResource Include="..\..\node_modules\codemirror\addon\scroll\annotatescrollbar.js" LinkBase="node_modules\codemirror\addon\scroll\" />
+    <!-- Ionicons -->
+    <EmbeddedResource Include="..\..\node_modules\ionicons\dist\**" LinkBase="node_modules\ionicons\" />
     <!-- Css -->
     <EmbeddedResource Include="..\..\node_modules\normalize.css\normalize.css" LinkBase="node_modules\normalize.css\" />
     <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\css\bootstrap.min.css" LinkBase="node_modules\bootstrap\dist\css\" />
     <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\css\bootstrap.min.css.map" LinkBase="node_modules\bootstrap\dist\css\" />
-    <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\css\AdminLTE.min.css" LinkBase="node_modules\admin-lte\dist\css\" />
+    <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\css\adminlte.min.css" LinkBase="node_modules\admin-lte\dist\css\" />
     <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\css\adminlte.min.css.map" LinkBase="node_modules\admin-lte\dist\css\" />
     <EmbeddedResource Include="..\..\node_modules\font-awesome\css\font-awesome.min.css" LinkBase="node_modules\font-awesome\css\" />
     <EmbeddedResource Include="..\..\node_modules\font-awesome\css\font-awesome.css.map" LinkBase="node_modules\font-awesome\css\" />
-    <EmbeddedResource Include="..\..\node_modules\ionicons\dist\css\ionicons.min.css" LinkBase="node_modules\ionicons\dist\css\" />
-    <!-- <EmbeddedResource Include="node_modules\ionicons\dist\css\ionicons.min.css.map" /> -->
     <EmbeddedResource Include="..\..\node_modules\wfk-opensans\opensans.css" LinkBase="node_modules\wfk-opensans\" />
     <EmbeddedResource Include="..\..\node_modules\toastr\build\toastr.min.css" LinkBase="node_modules\toastr\build\" />
     <EmbeddedResource Include="..\..\node_modules\codemirror\lib\codemirror.css" LinkBase="node_modules\codemirror\lib\" />
@@ -99,27 +102,15 @@
     <EmbeddedResource Include="..\..\node_modules\icheck\skins\minimal\**" LinkBase="node_modules\icheck\skins\minimal\" />
     <EmbeddedResource Include="..\..\node_modules\icheck\skins\line\**" LinkBase="node_modules\icheck\skins\line\" />
     <EmbeddedResource Include="..\..\node_modules\icheck\skins\flat\**" LinkBase="node_modules\icheck\skins\flat\" />
-    <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\css\skins\**" LinkBase="node_modules\admin-lte\dist\css\skins\" />
     <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\css\alt\**" LinkBase="node_modules\admin-lte\dist\css\alt\" />
     <!-- Fonts -->
-    <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.eot" LinkBase="node_modules\bootstrap\dist\fonts\" />
-    <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.svg" LinkBase="node_modules\bootstrap\dist\fonts\" />
-    <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.ttf" LinkBase="node_modules\bootstrap\dist\fonts\" />
-    <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.woff" LinkBase="node_modules\bootstrap\dist\fonts\" />
-    <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.woff2" LinkBase="node_modules\bootstrap\dist\fonts\" />
     <EmbeddedResource Include="..\..\node_modules\font-awesome\fonts\fontawesome-webfont.woff" LinkBase="node_modules\font-awesome\fonts\" />
     <EmbeddedResource Include="..\..\node_modules\font-awesome\fonts\fontawesome-webfont.woff2" LinkBase="node_modules\font-awesome\fonts\" />
     <EmbeddedResource Include="..\..\node_modules\font-awesome\fonts\fontawesome-webfont.ttf" LinkBase="node_modules\font-awesome\fonts\" />
     <EmbeddedResource Include="..\..\node_modules\font-awesome\fonts\fontawesome-webfont.svg" LinkBase="node_modules\font-awesome\fonts\" />
     <EmbeddedResource Include="..\..\node_modules\font-awesome\fonts\FontAwesome.otf" LinkBase="node_modules\font-awesome\fonts\" />
-    <EmbeddedResource Include="..\..\node_modules\ionicons\dist\fonts\ionicons.eot" LinkBase="node_modules\ionicons\dist\fonts\" />
-    <EmbeddedResource Include="..\..\node_modules\ionicons\dist\fonts\ionicons.svg" LinkBase="node_modules\ionicons\dist\fonts\" />
-    <EmbeddedResource Include="..\..\node_modules\ionicons\dist\fonts\ionicons.ttf" LinkBase="node_modules\ionicons\dist\fonts\" />
-    <EmbeddedResource Include="..\..\node_modules\ionicons\dist\fonts\ionicons.woff" LinkBase="node_modules\ionicons\dist\fonts\" />
-    <EmbeddedResource Include="..\..\node_modules\ionicons\dist\fonts\ionicons.woff2" LinkBase="node_modules\ionicons\dist\fonts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\_references.js" />
-    <Content Include="Views\Shared\_IsDebugBanner.cshtml" />
   </ItemGroup>
 </Project>
