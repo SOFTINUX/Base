@@ -12,9 +12,9 @@
 <html
     @if (!User.Identity.IsAuthenticated)
     {
-        @Html.Raw("class=\"login-page\"")
+        @Html.Raw("lang=\"en\" style=\"height: auto;\"")
     }
-    lang="en" style="height: auto;">
+    >
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,17 +26,16 @@
 </head>
 @{
     string authClass = "";
-    authClass = !User.Identity.IsAuthenticated ? "hold-transition login-page" : "sidebar-mini";
+    authClass = !User.Identity.IsAuthenticated ? "login-page" : "sidebar-mini";
     // use typed "properties" variable else the compiler isn't able to understand the LINQ expression.
     System.Reflection.PropertyInfo[] properties = Model?.GetType().GetProperties();
-    bool hasModelWithErrorMessageProperty = properties != null && properties.Where(p => p.Name.Equals("ErrorMessage")).Any();
+    bool hasModelWithErrorMessageProperty = properties != null && properties.Any(p_ => p_.Name.Equals("ErrorMessage"));
 }
 <body class="@authClass">
-<div class="wrapper"
-@if (!User.Identity.IsAuthenticated)
-{
-    @Html.Raw("style=\"background-image: url('" + OptionsApplicationConfiguration.Value.LoginBackgroundImage + "'); background-size: cover;\"")
-}>
+<div 
+    @if (!User.Identity.IsAuthenticated) { @Html.Raw("class=\"login-box\"") }
+    else { @Html.Raw("class=\"wrapper\"")}>
+    
 @if (User.Identity.IsAuthenticated)
 {
     @* NavBar *@
