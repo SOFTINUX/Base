@@ -81,10 +81,8 @@
     <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\css\bootstrap.min.css.map" LinkBase="node_modules\bootstrap\dist\css\" />
     <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\css\adminlte.min.css" LinkBase="node_modules\admin-lte\dist\css\" />
     <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\css\adminlte.min.css.map" LinkBase="node_modules\admin-lte\dist\css\" />
-    <EmbeddedResource Include="..\..\node_modules\font-awesome\css\font-awesome.min.css" LinkBase="node_modules\font-awesome\css\" />
-    <EmbeddedResource Include="..\..\node_modules\font-awesome\css\font-awesome.css.map" LinkBase="node_modules\font-awesome\css\" />
-    <EmbeddedResource Include="..\..\node_modules\wfk-opensans\opensans.css" LinkBase="node_modules\wfk-opensans\" />
     <EmbeddedResource Include="..\..\node_modules\toastr\build\toastr.min.css" LinkBase="node_modules\toastr\build\" />
+    <!-- Code Mirror Css -->
     <EmbeddedResource Include="..\..\node_modules\codemirror\lib\codemirror.css" LinkBase="node_modules\codemirror\lib\" />
     <EmbeddedResource Include="..\..\node_modules\codemirror\addon\hint\show-hint.css" LinkBase="node_modules\codemirror\addon\hint\" />
     <EmbeddedResource Include="..\..\node_modules\codemirror\addon\display\fullscreen.css" LinkBase="node_modules\codemirror\addon\display\" />
@@ -98,17 +96,18 @@
     <EmbeddedResource Include="..\..\node_modules\codemirror\theme\monokai.css" LinkBase="node_modules\codemirror\theme\" />
     <EmbeddedResource Include="..\..\node_modules\codemirror\theme\base16-dark.css" LinkBase="node_modules\codemirror\theme\" />
     <EmbeddedResource Include="..\..\node_modules\codemirror\theme\base16-light.css" LinkBase="node_modules\codemirror\theme\" />
+    <!-- ICheck Css -->
     <EmbeddedResource Include="..\..\node_modules\icheck\skins\square\**" LinkBase="node_modules\icheck\skins\square\" />
     <EmbeddedResource Include="..\..\node_modules\icheck\skins\minimal\**" LinkBase="node_modules\icheck\skins\minimal\" />
     <EmbeddedResource Include="..\..\node_modules\icheck\skins\line\**" LinkBase="node_modules\icheck\skins\line\" />
     <EmbeddedResource Include="..\..\node_modules\icheck\skins\flat\**" LinkBase="node_modules\icheck\skins\flat\" />
+    <!-- AdminLTE Alternative CSS -->
     <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\css\alt\**" LinkBase="node_modules\admin-lte\dist\css\alt\" />
     <!-- Fonts -->
-    <EmbeddedResource Include="..\..\node_modules\font-awesome\fonts\fontawesome-webfont.woff" LinkBase="node_modules\font-awesome\fonts\" />
-    <EmbeddedResource Include="..\..\node_modules\font-awesome\fonts\fontawesome-webfont.woff2" LinkBase="node_modules\font-awesome\fonts\" />
-    <EmbeddedResource Include="..\..\node_modules\font-awesome\fonts\fontawesome-webfont.ttf" LinkBase="node_modules\font-awesome\fonts\" />
-    <EmbeddedResource Include="..\..\node_modules\font-awesome\fonts\fontawesome-webfont.svg" LinkBase="node_modules\font-awesome\fonts\" />
-    <EmbeddedResource Include="..\..\node_modules\font-awesome\fonts\FontAwesome.otf" LinkBase="node_modules\font-awesome\fonts\" />
+    <EmbeddedResource Include="..\..\node_modules\wfk-opensans\opensans.css" LinkBase="node_modules\wfk-opensans\" />
+    <EmbeddedResource Include="..\..\node_modules\@fortawesome\fontawesome-free\css\**" LinkBase="node_modules\font-awesome\css\" />
+    <EmbeddedResource Include="..\..\node_modules\@fortawesome\fontawesome-free\js\**" LinkBase="node_modules\font-awesome\js\" />
+    <EmbeddedResource Include="..\..\node_modules\@fortawesome\fontawesome-free\webfonts\**" LinkBase="webfonts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\_references.js" />

@@ -38,9 +38,12 @@ namespace SoftinuxBase.Barebone
         /// <inheritdoc />
         public IEnumerable<StyleSheet> StyleSheets => new[]
         {
+            // -- CSS Fonts
             new StyleSheet("/node_modules.wfk_opensans.opensans.css", 100),
             new StyleSheet("/node_modules.normalize.css.normalize.css", 200),
             new StyleSheet("/node_modules.font_awesome.css.all.css", 30),
+            
+            // -- Font Awesome
 
             // -- Admin LTE
             new StyleSheet("/node_modules.admin_lte.dist.css.adminlte.min.css", 410),
