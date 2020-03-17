@@ -21,20 +21,19 @@
                 @Html.AntiForgeryToken()
                 <div class="form-group has-feedback">
                     <label for="username">Username or email address</label>
-                    <input id="username" type="text" class="form-control" asp-for="Username" tabindex="1" autocapitalize="off" autocorrect="off" autofocus="autofocus">
+                    <input id="username" type="text" class="form-control" name="Username" tabindex="1" autocapitalize="off" autocorrect="off" autofocus="autofocus">
                 </div>
-                @Html.AntiForgeryToken()
                 <div class="form-group has-feedback">
                     <label for="password" class="label-password">Password
                         <a class="label-link" href="/password_reset">Forgot password?</a>
                     </label>
-                    <input id="password" type="password" class="form-control" asp-for="Password" tabindex="2">
+                    <input id="password" type="password" class="form-control" name="Password" tabindex="2">
                 </div>
                 <div class="row">
                     <div class="col-xs-8">
                         <div class="checkbox icheck">
                             <label>
-                                <input type="checkbox">&nbsp;Remember Me
+                                <input type="checkbox" name="RememberMe">&nbsp;Remember Me
                             </label>
                         </div>
                     </div>

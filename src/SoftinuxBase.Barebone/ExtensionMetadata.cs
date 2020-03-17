@@ -83,7 +83,7 @@ namespace SoftinuxBase.Barebone
             new Script("/node_modules.js_cookie.src.js.cookie.js", 500),
 
             // -- Admin LTE
-            new Script("/node_modules.inputmask.dist.inputmask.min.js", 600),
+            new Script("/node_modules.inputmask.dist.jquery.inputmask.min.js", 600),
             new Script("/node_modules.icheck.icheck.js", 650),
             new Script("/node_modules.admin_lte.dist.js.adminlte.min.js", 660),
 
@@ -109,7 +109,8 @@ namespace SoftinuxBase.Barebone
             // new Script("/node_modules.codemirror.addon.dialog.dialog.js",676),
             // new Script("/node_modules.codemirror.addon.scroll.annotatescrollbar.js",677),
             // --
-            new Script("/Scripts.barebone.min.js", 700), new Script("/Scripts.barebone_ajax.js", 701),
+            new Script("/Scripts.barebone.min.js", 700, Script.JsType.IsModule),
+            new Script("/Scripts.barebone_ajax.js", 701, Script.JsType.IsModule),
         };
 
         /// <inheritdoc />
