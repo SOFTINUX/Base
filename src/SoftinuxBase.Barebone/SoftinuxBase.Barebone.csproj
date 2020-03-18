@@ -48,12 +48,11 @@
     <EmbeddedResource Include="Styles\**;Scripts\**;Fonts\**" />
     <!-- Javascript -->
     <EmbeddedResource Include="..\..\node_modules\jquery\dist\jquery.min.js" LinkBase="node_modules\jquery\dist\" />
-    <EmbeddedResource Include="..\..\node_modules\jquery\dist\jquery.min.map" LinkBase="node_modules\jquery\dist\" />
     <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\js\bootstrap.min.js" LinkBase="node_modules\bootstrap\dist\js\" />
     <EmbeddedResource Include="..\..\node_modules\jquery-validation\dist\jquery.validate.min.js" LinkBase="node_modules\jquery-validation\dist\" />
     <EmbeddedResource Include="..\..\node_modules\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js" LinkBase="node_modules\jquery-validation-unobtrusive\dist\" />
     <EmbeddedResource Include="..\..\node_modules\js-cookie\src\js.cookie.js" LinkBase="node_modules\js-cookie\src\" />
-    <EmbeddedResource Include="..\..\node_modules\icheck\icheck.js" LinkBase="node_modules\icheck\" />
+    <EmbeddedResource Include="..\..\node_modules\icheck\icheck.min.js" LinkBase="node_modules\icheck\" />
     <EmbeddedResource Include="..\..\node_modules\inputmask\dist\jquery.inputmask.min.js" LinkBase="node_modules\inputmask\dist\" />
     <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\js\adminlte.min.js" LinkBase="node_modules\admin-lte\dist\js\" />
     <EmbeddedResource Include="..\..\node_modules\toastr\build\toastr.min.js" LinkBase="node_modules\toastr\build\" />
@@ -73,15 +72,19 @@
     <EmbeddedResource Include="..\..\node_modules\codemirror\addon\selection\active-line.js" LinkBase="node_modules\codemirror\addon\selection\" />
     <EmbeddedResource Include="..\..\node_modules\codemirror\addon\dialog\dialog.js" LinkBase="node_modules\codemirror\addon\dialog\" />
     <EmbeddedResource Include="..\..\node_modules\codemirror\addon\scroll\annotatescrollbar.js" LinkBase="node_modules\codemirror\addon\scroll\" />
+    <!-- Javascript Map -->
+    <EmbeddedResource Include="..\..\node_modules\jquery\dist\jquery.min.map" LinkBase="node_modules\jquery\dist\" />
+    <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\js\bootstrap.min.js.map" LinkBase="node_modules\bootstrap\dist\js\" />
     <!-- Ionicons -->
     <EmbeddedResource Include="..\..\node_modules\ionicons\dist\**" LinkBase="node_modules\ionicons\" />
     <!-- Css -->
     <EmbeddedResource Include="..\..\node_modules\normalize.css\normalize.css" LinkBase="node_modules\normalize.css\" />
     <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\css\bootstrap.min.css" LinkBase="node_modules\bootstrap\dist\css\" />
-    <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\css\bootstrap.min.css.map" LinkBase="node_modules\bootstrap\dist\css\" />
     <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\css\adminlte.min.css" LinkBase="node_modules\admin-lte\dist\css\" />
-    <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\css\adminlte.min.css.map" LinkBase="node_modules\admin-lte\dist\css\" />
     <EmbeddedResource Include="..\..\node_modules\toastr\build\toastr.min.css" LinkBase="node_modules\toastr\build\" />
+    <!-- Css Map -->
+    <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\css\bootstrap.min.css.map" LinkBase="node_modules\bootstrap\dist\css\" />
+    <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\css\adminlte.min.css.map" LinkBase="node_modules\admin-lte\dist\css\" />
     <!-- Code Mirror Css -->
     <EmbeddedResource Include="..\..\node_modules\codemirror\lib\codemirror.css" LinkBase="node_modules\codemirror\lib\" />
     <EmbeddedResource Include="..\..\node_modules\codemirror\addon\hint\show-hint.css" LinkBase="node_modules\codemirror\addon\hint\" />
@@ -101,8 +104,6 @@
     <EmbeddedResource Include="..\..\node_modules\icheck\skins\minimal\**" LinkBase="node_modules\icheck\skins\minimal\" />
     <EmbeddedResource Include="..\..\node_modules\icheck\skins\line\**" LinkBase="node_modules\icheck\skins\line\" />
     <EmbeddedResource Include="..\..\node_modules\icheck\skins\flat\**" LinkBase="node_modules\icheck\skins\flat\" />
-    <!-- AdminLTE Alternative CSS -->
-    <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\css\alt\**" LinkBase="node_modules\admin-lte\dist\css\alt\" />
     <!-- Fonts -->
     <EmbeddedResource Include="..\..\node_modules\wfk-opensans\opensans.css" LinkBase="node_modules\wfk-opensans\" />
     <EmbeddedResource Include="..\..\node_modules\@fortawesome\fontawesome-free\css\**" LinkBase="node_modules\font-awesome\css\" />
