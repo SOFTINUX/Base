@@ -25,7 +25,7 @@ namespace SoftinuxBase.SecurityTests
         /// <summary>
         /// Uses a mock for database data.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The unit test Task</returns>
         [Fact]
         [Category("Mock")]
         public async Task ReadAll()
@@ -43,16 +43,16 @@ namespace SoftinuxBase.SecurityTests
             // Assert
             model.Should().NotBeNull();
             model.PermissionsByRoleAndExtension.Keys.Should().NotBeEmpty();
-            model.PermissionsByRoleAndExtension.Keys.Should().Contain("SoftinuxBase.Security");
+            model.PermissionsByRoleAndExtension.Keys.Should().Contain(Constants.SoftinuxBaseSecurityAssemblyShortName);
             model.PermissionsByRoleAndExtension.Keys.Should().Contain("SampleExtension1");
-            model.PermissionsByRoleAndExtension.Keys.Should().NotContain("SoftinuxBase.Tests.Common");
+            model.PermissionsByRoleAndExtension.Keys.Should().NotContain(Constants.SoftinuxBaseTestsCommonAssemblyShortName);
 
-            model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][Roles.Administrator.ToString()].Should().HaveCount(3);
-            model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][Roles.Moderator.ToString()].Should().HaveCount(4);
+            model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurityAssemblyShortName][Roles.Administrator.ToString()].Should().HaveCount(3);
+            model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurityAssemblyShortName][Roles.Moderator.ToString()].Should().HaveCount(4);
 
-            model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][Roles.Administrator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Roles" && permissionDisplay_.ShortName == "CanCreate").Should().NotBeNull();
-            model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][Roles.Administrator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Roles" && permissionDisplay_.ShortName == "CanCreate").Should().NotBeNull();
-            model.PermissionsByRoleAndExtension["SoftinuxBase.Security"][Roles.Moderator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Roles" && permissionDisplay_.ShortName == "CanList").Should().NotBeNull();
+            model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurityAssemblyShortName][Roles.Administrator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Roles" && permissionDisplay_.ShortName == "CanCreate").Should().NotBeNull();
+            model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurityAssemblyShortName][Roles.Administrator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Roles" && permissionDisplay_.ShortName == "CanCreate").Should().NotBeNull();
+            model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurityAssemblyShortName][Roles.Moderator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Roles" && permissionDisplay_.ShortName == "CanList").Should().NotBeNull();
             model.PermissionsByRoleAndExtension["SampleExtension1"][Roles.Moderator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Sample" && permissionDisplay_.ShortName == "Write").Should().NotBeNull();
             model.PermissionsByRoleAndExtension["SampleExtension1"][Roles.Moderator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Sample" && permissionDisplay_.ShortName == "Other").Should().BeNull();
         }
@@ -60,7 +60,7 @@ namespace SoftinuxBase.SecurityTests
         /// <summary>
         /// Uses the database to test the query to table.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The unit test Task</returns>
         [Fact]
         [Category("Database")]
         public async Task ReadAll_QueryDatabase()

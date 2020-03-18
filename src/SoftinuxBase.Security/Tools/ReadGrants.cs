@@ -29,7 +29,6 @@ namespace SoftinuxBase.Security.Tools
     /// </summary>
     public static class ReadGrants
     {
-        // WIP TEST
         /// <summary>
         /// Read all grants:
         /// 
@@ -42,11 +41,15 @@ namespace SoftinuxBase.Security.Tools
         public static GrantViewModel ReadAll(IStorage storage_)
         {
             GrantViewModel model = new GrantViewModel();
+            // key : extension's permission enum type assembly-qualified name, since the enum can be in another assembly.
+            // value : extension name.
+            var enumAndExtensionDic = new Dictionary<string, string>();
 
             // 1. Get all extension names from loaded extensions, create initial dictionaries
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
             {
                 model.PermissionsByRoleAndExtension.Add(extensionMetadata.Name, new Dictionary<string, List<PermissionDisplay>>());
+                enumAndExtensionDic.Add(extensionMetadata.Permissions.AssemblyQualifiedName, extensionMetadata.Name);
             }
 
             // 2. Read role/permission/extension settings (RoleToPermissions table)
@@ -57,13 +60,14 @@ namespace SoftinuxBase.Security.Tools
                 PermissionsDisplayDictionary permissionsDisplayDictionary = new PermissionsDisplayDictionary(permissions);
                 foreach (var permissionEnumTypeAssemblyQualifiedName in permissions.Dictionary.Keys)
                 {
-                    var extensionName = permissionEnumTypeAssemblyQualifiedName.GetAssemblyShortName();
+                    enumAndExtensionDic.TryGetValue(permissionEnumTypeAssemblyQualifiedName, out var extensionName);
                     if (!model.PermissionsByRoleAndExtension.ContainsKey(extensionName))
                     {
                         // A database record related to a not loaded extension. Ignore this.
                         continue;
                     }
-                    model.PermissionsByRoleAndExtension[extensionName].Add(roleToPermission.RoleName, permissionsDisplayDictionary.Get(extensionName).ToList());
+
+                    model.PermissionsByRoleAndExtension[extensionName].Add(roleToPermission.RoleName, permissionsDisplayDictionary.Get(permissionEnumTypeAssemblyQualifiedName).ToList());
                 }
             }
 
@@ -82,7 +86,7 @@ namespace SoftinuxBase.Security.Tools
         public static void GetExtensions(string roleId_, IStorage storage_, out IList<string> availableExtensions_, out IList<SelectedExtension> selectedExtensions_)
         {
             selectedExtensions_ = storage_.GetRepository<IRolePermissionRepository>().FilteredByRoleId(roleId_).Select(
-                    rp_ => new SelectedExtension {ExtensionName = rp_.Extension, PermissionName = rp_.Permission.Name, PermissionId = rp_.PermissionId})
+                    rp_ => new SelectedExtension { ExtensionName = rp_.Extension, PermissionName = rp_.Permission.Name, PermissionId = rp_.PermissionId })
                 .ToList();
 
             IEnumerable<string> selectedExtensionsNames = selectedExtensions_.Select(se_ => se_.ExtensionName).ToList();

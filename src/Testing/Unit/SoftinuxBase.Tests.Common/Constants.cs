@@ -6,6 +6,11 @@ namespace SoftinuxBase.Tests.Common
     public class Constants
     {
         /// <summary>
+        /// Assembly short name: SoftinuxBase.Security.
+        /// </summary>
+        public const string SoftinuxBaseSecurityAssemblyShortName = "SoftinuxBase.Security";
+        
+        /// <summary>
         /// Assembly short name: SoftinuxBase.Security.Permissions.
         /// </summary>
         public const string SoftinuxBaseSecurityPermissionsAssemblyShortName = "SoftinuxBase.Security.Permissions";
@@ -15,6 +20,11 @@ namespace SoftinuxBase.Tests.Common
         /// </summary>
         public const string SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName = "SoftinuxBase.Security.Permissions.Enums.Permissions, SoftinuxBase.Security.Permissions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
         
+        /// <summary>
+        /// Assembly short name: SoftinuxBase.Security.Permissions.
+        /// </summary>
+        public const string SoftinuxBaseTestsCommonAssemblyShortName = "SoftinuxBase.Tests.Common";
+
         /// <summary>
         /// Assembly-qualified full name of <see cref="SoftinuxBase.Tests.Common.OtherPermissions"/> enum.
         /// </summary>

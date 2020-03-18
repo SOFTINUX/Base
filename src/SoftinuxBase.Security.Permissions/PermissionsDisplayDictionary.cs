@@ -19,6 +19,8 @@ namespace SoftinuxBase.Security.Permissions
         /// </summary>
         internal readonly Dictionary<string, HashSet<PermissionDisplay>> Dictionary = new Dictionary<string, HashSet<PermissionDisplay>>();
 
+        // FIXME construct PermissionsDisplayDictionary from an IEnumerable<IExtensionMetadata> and a PermissionsDictionary
+        // because the extension gives the type of the enum and I can be silly and use enum from another assembly. See code in ReadGrants for the matching.
         public PermissionsDisplayDictionary(PermissionsDictionary permissionsDictionary_)
         {
             foreach(var permissionEnumAssemblyQualifiedTypeName in permissionsDictionary_.Dictionary.Keys)
