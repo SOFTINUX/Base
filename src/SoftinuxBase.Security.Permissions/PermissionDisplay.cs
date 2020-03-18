@@ -76,7 +76,7 @@ namespace SoftinuxBase.Security.Permissions
                 // Gets the optional PaidForModule that a permission can be linked to
                 var moduleAttribute = member[0].GetCustomAttribute<LinkedToModuleAttribute>();
 
-                var permission = (short)Enum.Parse(enumType_, permissionName, false);
+                var permission = Convert.ToInt16(Enum.Parse(enumType_, permissionName, false));
 
                 if (enumValues_ == null || enumValues_.Contains(permission))
                 {
