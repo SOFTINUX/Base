@@ -8,6 +8,7 @@ using System.Linq;
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.PermissionsTests")]
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security")]
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.SeedDatabase")]
+
 namespace SoftinuxBase.Security.Permissions
 {
     /// <summary>
@@ -18,7 +19,7 @@ namespace SoftinuxBase.Security.Permissions
     public class PermissionsDictionary
     {
         /// <summary>
-        /// Internal dictionary which key is the extension permission enum type fullname and the values some values (linked to role/user) of this enum.
+        /// Internal dictionary which key is the extension permission enum type assembly-qualified fullname and the values some values (linked to role/user) of this enum.
         /// </summary>
         internal readonly Dictionary<string, HashSet<short>> Dictionary = new Dictionary<string, HashSet<short>>();
 
@@ -32,9 +33,9 @@ namespace SoftinuxBase.Security.Permissions
             PermissionsDictionary merged = new PermissionsDictionary();
             foreach (var dictionary in dictionaries_)
             {
-                foreach (var enumTypeFullName in dictionary.Dictionary.Keys)
+                foreach (var enumTypeAssemblyQualifiedFullName in dictionary.Dictionary.Keys)
                 {
-                    merged.AddGrouped(enumTypeFullName, dictionary.Dictionary[enumTypeFullName]);
+                    merged.AddGrouped(enumTypeAssemblyQualifiedFullName, dictionary.Dictionary[enumTypeAssemblyQualifiedFullName]);
                 }
             }
 
@@ -48,29 +49,32 @@ namespace SoftinuxBase.Security.Permissions
         /// <param name="permission_">Any value of <paramref name="permissionEnumType_"/></param>
         public void Add(Type permissionEnumType_, short permission_)
         {
-            var typeName = permissionEnumType_.FullName;
-            Dictionary.TryGetValue(typeName, out var permissions);
+            var assemblyQualifiedTypeName = permissionEnumType_.AssemblyQualifiedName;
+            Dictionary.TryGetValue(assemblyQualifiedTypeName, out var permissions);
             if (permissions == null)
             {
                 permissions = new HashSet<short>();
-                Dictionary.Add(typeName, permissions);
+                Dictionary.Add(assemblyQualifiedTypeName, permissions);
             }
+
             permissions.Add(permission_);
         }
 
         /// <summary>
         /// Add a group of permissions.
         /// </summary>
-        /// <param name="permissionEnumTypeFullName_">Type full name</param>
-        /// <param name="permissions_">Any value of enum defined in <paramref name="permissionEnumTypeFullName_"/> extension</param>
-        internal void AddGrouped(string permissionEnumTypeFullName_, IEnumerable<short> permissions_)
+        /// <param name="permissionEnumAssemblyQualifiedTypeName_">Assembly-qualified type full name</param>
+        /// <param name="permissions_">Any value of enum defined in <paramref name="permissionEnumAssemblyQualifiedTypeName_"/> extension</param>
+        internal void AddGrouped(string permissionEnumAssemblyQualifiedTypeName_, IEnumerable<short> permissions_)
         {
-            Dictionary.TryGetValue(permissionEnumTypeFullName_, out var permissions);
+            // TODO change the value the caller should pass as first arg
+            Dictionary.TryGetValue(permissionEnumAssemblyQualifiedTypeName_, out var permissions);
             if (permissions == null)
             {
                 permissions = new HashSet<short>();
-                Dictionary.Add(permissionEnumTypeFullName_, permissions);
+                Dictionary.Add(permissionEnumAssemblyQualifiedTypeName_, permissions);
             }
+
             foreach (var permission in permissions_)
             {
                 permissions.Add(permission);
@@ -81,17 +85,17 @@ namespace SoftinuxBase.Security.Permissions
         /// Check whether the item defined by a type and a short value is present.
         /// Or the <see cref="Permissions.AccessAll"/> permission is present.
         /// </summary>
-        /// <param name="permissionToCheckEnumTypeFullName_">Fullname of the permission's enum Type.</param>
+        /// <param name="permissionToCheckAssemblyQualifiedEnumTypeFullName_">Fullname of the permission's enum Type.</param>
         /// <param name="permissionToCheck_">Permission value.</param>
         /// <returns>true when the item is found.</returns>
-        internal bool Contains(string permissionToCheckEnumTypeFullName_, short permissionToCheck_)
+        internal bool Contains(string permissionToCheckAssemblyQualifiedEnumTypeFullName_, short permissionToCheck_)
         {
-            if (Dictionary.ContainsKey(permissionToCheckEnumTypeFullName_) && Dictionary[permissionToCheckEnumTypeFullName_].Contains(permissionToCheck_))
+            if (Dictionary.ContainsKey(permissionToCheckAssemblyQualifiedEnumTypeFullName_) && Dictionary[permissionToCheckAssemblyQualifiedEnumTypeFullName_].Contains(permissionToCheck_))
             {
                 return true;
             }
 
-            var key2 = typeof(Enums.Permissions).FullName;
+            var key2 = typeof(Enums.Permissions).AssemblyQualifiedName;
             return Dictionary.ContainsKey(key2) && Dictionary[key2].Contains((short)Enums.Permissions.AccessAll);
         }
 
@@ -108,6 +112,5 @@ namespace SoftinuxBase.Security.Permissions
 
             return Dictionary[Dictionary.Keys.First()].Count != 0;
         }
-
     }
 }

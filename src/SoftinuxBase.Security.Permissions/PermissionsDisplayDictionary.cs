@@ -21,10 +21,10 @@ namespace SoftinuxBase.Security.Permissions
 
         public PermissionsDisplayDictionary(PermissionsDictionary permissionsDictionary_)
         {
-            foreach(var permissionEnumTypeFullName in permissionsDictionary_.Dictionary.Keys)
+            foreach(var permissionEnumAssemblyQualifiedTypeName in permissionsDictionary_.Dictionary.Keys)
             {
-                Type enumType = Type.GetType(permissionEnumTypeFullName);
-                Dictionary.Add(enumType.Assembly.GetName().Name, PermissionDisplay.GetPermissionsToDisplay(enumType, permissionsDictionary_.Dictionary[permissionEnumTypeFullName]).ToHashSet());
+                Type enumType = Type.GetType(permissionEnumAssemblyQualifiedTypeName);
+                Dictionary.Add(enumType.Assembly.GetName().Name, PermissionDisplay.GetPermissionsToDisplay(enumType, permissionsDictionary_.Dictionary[permissionEnumAssemblyQualifiedTypeName]).ToHashSet());
             }
         }
 

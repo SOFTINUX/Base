@@ -5,14 +5,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SampleExtension1
 {
+    /// <summary>
+    /// Enum values are decorated with Display attribute and have short value.
+    /// </summary>
     public enum SamplePermissions
     {
         [Display(GroupName = "Sample", Name = "Read", Description = "Can read data")]
-        Read,
+        Read = 40,
         [Display(GroupName = "Sample", Name = "Write", Description = "Can write data")]
-        Write,
+        Write = 41,
         [Display(GroupName = "Sample", Name = "Admin", Description = "Is admin")]
-        Admin,
-        Other
+        Admin = 42,
+        Other = 43
     }
 }
