@@ -42,7 +42,7 @@ namespace SoftinuxBase.Security
         public IEnumerable<StyleSheet> StyleSheets => new[] { new StyleSheet("/Styles.Security.css", 510), };
 
         /// <inheritdoc />
-        public IEnumerable<Script> Scripts => new Script[]
+        public IEnumerable<Script> Scripts => new[]
         {
 #if DEBUG
             new Script("/Scripts.security_user.js", 710, Script.JsType.IsModule),
@@ -56,23 +56,27 @@ namespace SoftinuxBase.Security
         {
             get
             {
-                MenuItem[] menuItems_ = new[]
+                MenuItem[] menuItems = new[]
                 {
                     new MenuItem(
                         "/administration",
                         "Main",
                         100,
-                        MenuItem.FontAwesomeType.far,
-                        null,
-                        new List<PermissionRequirementAttribute>(new[] { new PermissionRequirementAttribute(Permission.Admin, Constants.SoftinuxBaseSecurity), }))
+                        FontAwesomeIcon.IconType.far,
+                        infrastructureAuthorizeAttributes_: new List<PermissionRequirementAttribute>(new[]
+                        {
+                            new PermissionRequirementAttribute(
+                                Permission.Admin,
+                                Constants.SoftinuxBaseSecurity),
+                        }))
                 };
-                return new MenuGroup[]
+                return new[]
                 {
                     new MenuGroup(
                         "Administration",
                         0, // Always first
-                        menuItems_,
-                        MenuGroup.FontAwesomeType.fas,
+                        menuItems,
+                        FontAwesomeIcon.IconType.fas,
                         "fa-wrench")
                 };
             }

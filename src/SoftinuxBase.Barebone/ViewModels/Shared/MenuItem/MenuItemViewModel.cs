@@ -8,7 +8,7 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.MenuItem
         public string Url { get; set; }
         public string Name { get; set; }
         public uint Position { get; set; }
-        public string FontAwesoneType { get; set; }
-        public string FontAwesomeClass { get; set; }
+        public string FontAwesoneIconType { get; set; }
+        public string FontAwesomeIconClass { get; set; }
     }
 }

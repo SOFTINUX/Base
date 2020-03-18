@@ -27,24 +27,24 @@ namespace SoftinuxBase.Infrastructure
         /// <param name="url_">set menu item route url.</param>
         /// <param name="name_">set menu item display name.</param>
         /// <param name="position_">set menu item position in menu group.</param>
-        /// <param name="fontAwesomeType_">type for font awesome icon.</param>
-        /// <param name="fontAwesomeClass_">set menu item icon. If null, "fa-circle-o" will be used.</param>
+        /// <param name="fontAwesomeIconType_">type for font awesome icon.</param>
+        /// <param name="fontAwesomeIconClass_">set menu item icon. If null, "fa-circle-o" will be used.</param>
         /// <param name="infrastructureAuthorizeAttributes_">set a list of <see cref="PermissionRequirementAttribute"/>.</param>
         /// <param name="microsoftAuthorizeAttributes_">set a list of <see cref="Microsoft.AspNetCore.Authorization.AuthorizeAttribute"/>.</param>
         public MenuItem(
             string url_,
             string name_,
             uint position_,
-            FontAwesomeType fontAwesomeType_ = FontAwesomeType.far,
-            string fontAwesomeClass_ = null,
+            FontAwesomeIcon.IconType fontAwesomeIconType_ = FontAwesomeIcon.IconType.far,
+            string fontAwesomeIconClass_ = "fa-circle",
             List<PermissionRequirementAttribute> infrastructureAuthorizeAttributes_ = null,
             List<Microsoft.AspNetCore.Authorization.AuthorizeAttribute> microsoftAuthorizeAttributes_ = null)
         {
             Url = url_;
             Name = name_;
             Position = position_;
-            FontAwesomeIconType = fontAwesomeType_;
-            FontAwesomeClass = fontAwesomeClass_ ?? "fa-circle";
+            FontAwesomeIconType = fontAwesomeIconType_;
+            FontAwesomeIconClass = fontAwesomeIconClass_;
 
             if (microsoftAuthorizeAttributes_ != null)
             {
@@ -76,14 +76,6 @@ namespace SoftinuxBase.Infrastructure
             }
         }
 
-        public enum FontAwesomeType
-        {
-            fas = 0,
-            far = 1,
-            fal = 2,
-            fad = 3
-        }
-
         /// <summary>
         /// Gets route url.
         /// </summary>
@@ -99,11 +91,14 @@ namespace SoftinuxBase.Infrastructure
         /// </summary>
         public uint Position { get; }
 
-        public FontAwesomeType FontAwesomeIconType { get; }
+        /// <summary>
+        /// Gets get the type for fontawesome
+        /// </summary>
+        public FontAwesomeIcon.IconType FontAwesomeIconType { get; }
 
         /// <summary>
         /// Gets the fa-xxx class to render the associated icon.
         /// </summary>
-        public string FontAwesomeClass { get; }
+        public string FontAwesomeIconClass { get; }
     }
 }

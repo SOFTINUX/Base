@@ -102,7 +102,7 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.Menu
 #if DEBUG
                 logger_.LogInformation($"Menu group {menuGroup_.Name} found with lower position {menuGroup_.Name}");
 #endif
-                menuGroupViewModel.FontAwesomeClass = menuGroup_.FontAwesomeClass;
+                menuGroupViewModel.FontAwesomeIconClass = menuGroup_.FontAwesomeIconClass;
                 menuGroupViewModel.Position = menuGroup_.Position;
             }
 

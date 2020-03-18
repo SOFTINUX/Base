@@ -20,8 +20,8 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.MenuItem
                 Url = menuItem_.Url,
                 Name = menuItem_.Name,
                 Position = menuItem_.Position,
-                FontAwesoneType = menuItem_.FontAwesomeIconType.ToString(),
-                FontAwesomeClass = menuItem_.FontAwesomeClass
+                FontAwesoneIconType = menuItem_.FontAwesomeIconType.ToString(),
+                FontAwesomeIconClass = menuItem_.FontAwesomeIconClass
             };
         }
     }
