@@ -4,4 +4,8 @@ Licensed under the MIT License, Version 2.0. See License.txt in the project root
 *@
 
 @model SoftinuxBase.Barebone.ViewModels.Shared.MenuItem.MenuItemViewModel
-<li><a href="@Model.Url"><i class="fa @(Model.FontAwesomeClass)"></i>@Model.Name</a></li>
+<li class="nav-item">
+    <a href="@Model.Url" class="nav-link">
+        <i class="@(Model.FontAwesoneType) @(Model.FontAwesomeClass)"></i> @Model.Name
+    </a>
+</li>

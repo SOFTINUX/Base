@@ -27,6 +27,7 @@ namespace SoftinuxBase.Infrastructure
         /// <param name="url_">set menu item route url.</param>
         /// <param name="name_">set menu item display name.</param>
         /// <param name="position_">set menu item position in menu group.</param>
+        /// <param name="fontAwesomeType_">type for font awesome icon.</param>
         /// <param name="fontAwesomeClass_">set menu item icon. If null, "fa-circle-o" will be used.</param>
         /// <param name="infrastructureAuthorizeAttributes_">set a list of <see cref="PermissionRequirementAttribute"/>.</param>
         /// <param name="microsoftAuthorizeAttributes_">set a list of <see cref="Microsoft.AspNetCore.Authorization.AuthorizeAttribute"/>.</param>
@@ -34,6 +35,7 @@ namespace SoftinuxBase.Infrastructure
             string url_,
             string name_,
             uint position_,
+            FontAwesomeType fontAwesomeType_ = FontAwesomeType.far,
             string fontAwesomeClass_ = null,
             List<PermissionRequirementAttribute> infrastructureAuthorizeAttributes_ = null,
             List<Microsoft.AspNetCore.Authorization.AuthorizeAttribute> microsoftAuthorizeAttributes_ = null)
@@ -41,8 +43,8 @@ namespace SoftinuxBase.Infrastructure
             Url = url_;
             Name = name_;
             Position = position_;
-
-            FontAwesomeClass = fontAwesomeClass_ ?? "fa-circle-o";
+            FontAwesomeIconType = fontAwesomeType_;
+            FontAwesomeClass = fontAwesomeClass_ ?? "fa-circle";
 
             if (microsoftAuthorizeAttributes_ != null)
             {
@@ -74,6 +76,14 @@ namespace SoftinuxBase.Infrastructure
             }
         }
 
+        public enum FontAwesomeType
+        {
+            fas = 0,
+            far = 1,
+            fal = 2,
+            fad = 3
+        }
+
         /// <summary>
         /// Gets route url.
         /// </summary>
@@ -88,6 +98,8 @@ namespace SoftinuxBase.Infrastructure
         /// Gets menu item position in list.
         /// </summary>
         public uint Position { get; }
+
+        public FontAwesomeType FontAwesomeIconType { get; }
 
         /// <summary>
         /// Gets the fa-xxx class to render the associated icon.

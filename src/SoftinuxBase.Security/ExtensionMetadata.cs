@@ -39,10 +39,7 @@ namespace SoftinuxBase.Security
         bool IExtensionMetadata.IsAvailableForPermissions => true;
 
         /// <inheritdoc />
-        public IEnumerable<StyleSheet> StyleSheets => new[]
-        {
-                new StyleSheet("/Styles.Security.css", 510),
-        };
+        public IEnumerable<StyleSheet> StyleSheets => new[] { new StyleSheet("/Styles.Security.css", 510), };
 
         /// <inheritdoc />
         public IEnumerable<Script> Scripts => new Script[]
@@ -60,15 +57,22 @@ namespace SoftinuxBase.Security
             get
             {
                 MenuItem[] menuItems_ = new[]
-                                    {
-                        new MenuItem("/administration", "Main", 100, null, new List<PermissionRequirementAttribute>(new[] { new PermissionRequirementAttribute(Permission.Admin, Constants.SoftinuxBaseSecurity), }))
-                                    };
+                {
+                    new MenuItem(
+                        "/administration",
+                        "Main",
+                        100,
+                        MenuItem.FontAwesomeType.far,
+                        null,
+                        new List<PermissionRequirementAttribute>(new[] { new PermissionRequirementAttribute(Permission.Admin, Constants.SoftinuxBaseSecurity), }))
+                };
                 return new MenuGroup[]
                 {
                     new MenuGroup(
                         "Administration",
                         0, // Always first
                         menuItems_,
+                        MenuGroup.FontAwesomeType.fas,
                         "fa-wrench")
                 };
             }

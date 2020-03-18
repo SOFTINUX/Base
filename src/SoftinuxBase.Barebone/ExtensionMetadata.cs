@@ -42,7 +42,7 @@ namespace SoftinuxBase.Barebone
             new StyleSheet("/node_modules.wfk_opensans.opensans.css", 100),
             new StyleSheet("/node_modules.normalize.css.normalize.css", 200),
             new StyleSheet("/node_modules.font_awesome.css.all.css", 30),
-            
+
             // -- Font Awesome
 
             // -- Admin LTE

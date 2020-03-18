@@ -21,6 +21,7 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.MenuGroup
             {
                 Name = menuGroup_.Name,
                 Position = menuGroup_.Position,
+                FontAwesomeType = menuGroup_.FontAwesomeIconType.ToString(),
                 FontAwesomeClass = menuGroup_.FontAwesomeClass,
                 MenuItems = new List<MenuItemViewModel>()
             };
