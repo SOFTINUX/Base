@@ -87,7 +87,7 @@ namespace SoftinuxBase.Barebone
 
             // -- Admin LTE
             new Script("/node_modules.inputmask.dist.jquery.inputmask.min.js", 600),
-            new Script("/node_modules.icheck.icheck.js", 650),
+            new Script("/node_modules.icheck.icheck.min.js", 650),
             new Script("/node_modules.admin_lte.dist.js.adminlte.min.js", 660),
 
             // -- Roastr
