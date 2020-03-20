@@ -1,6 +1,9 @@
 ﻿/* Copyright © 2017 SOFTINUX. All rights reserved.
  Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 */
+.cursor-pointer {
+    cursor: pointer;
+}
 .cell-heigth-25 {
     height: 35px;
     padding-top: 5px;
