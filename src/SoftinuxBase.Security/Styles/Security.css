@@ -130,6 +130,7 @@ select.input-validation-error
 .dottedLine15 {
     border-bottom: 2px dotted lightgray;
     height: 15px;
+    margin-bottom: 8px;
 }
 
 #availableRolesForDelete {
