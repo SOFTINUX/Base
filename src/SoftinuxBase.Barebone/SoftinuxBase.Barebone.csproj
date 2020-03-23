@@ -49,6 +49,7 @@
     <!-- Javascript -->
     <EmbeddedResource Include="..\..\node_modules\jquery\dist\jquery.min.js" LinkBase="node_modules\jquery\dist\" />
     <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\js\bootstrap.min.js" LinkBase="node_modules\bootstrap\dist\js\" />
+    <EmbeddedResource Include="..\..\node_modules\popper.js\dist\umd\popper.min.js" LinkBase="node_modules\popper\dist\js\" />
     <EmbeddedResource Include="..\..\node_modules\jquery-validation\dist\jquery.validate.min.js" LinkBase="node_modules\jquery-validation\dist\" />
     <EmbeddedResource Include="..\..\node_modules\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js" LinkBase="node_modules\jquery-validation-unobtrusive\dist\" />
     <EmbeddedResource Include="..\..\node_modules\js-cookie\src\js.cookie.js" LinkBase="node_modules\js-cookie\src\" />

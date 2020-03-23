@@ -66,20 +66,20 @@
                                                     <label for="role_name_input">New role name:</label>
                                                     <div class="input-group">
                                                         <input required id="role_name_input" name="role_name_input" type="text" class="form-control" placeholder="enter role name here" size="80" @Html.Raw(inputExtendAttributes)>
-                                                        <div class="input-group-btn bs-dropdown-to-select-acl-group">
+                                                        <div class="input-group-append bs-dropdown-to-select-acl-group">
                                                             <input type="hidden" name="acl-selected_value" id="newRolePermission" data-bind="bs-drp-sel-acl-value" value="1">
-                                                            <button class="btn btn-default dropdown-toggle bs-dropdown-to-select-acl" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <button class="btn btn-outline-secondary dropdown-toggle bs-dropdown-to-select-acl" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                 <span data-bind="bs-drp-sel-acl-label">Read</span>
                                                                 <span class="caret"></span>
                                                                 <span class="sr-only">Toggle Dropdown</span>
                                                             </button>
-                                                            <ul id="acl-sel" class="dropdown-menu dropdown-menu-right" role="menu">
-                                                                <li data-permissionlvl="0"><a href="#">None</a></li>
-                                                                <li data-permissionlvl="1"><a href="#">Read</a></li>
-                                                                <li data-permissionlvl="2"><a href="#">Write</a></li>
-                                                                <li role="separator" class="divider"></li>
-                                                                <li data-permissionlvl="4"><a href="#">Admin</a></li>
-                                                            </ul>
+                                                            <div id="acl-sel" class="dropdown-menu" >
+                                                                <a data-permissionlvl="0" class="dropdown-item" href="#">None</a>
+                                                                <a data-permissionlvl="1" class="dropdown-item" href="#">Read</a>
+                                                                <a data-permissionlvl="2" class="dropdown-item" href="#">Write</a>
+                                                                <div role="separator" class="dropdown-divider"></div>
+                                                                <a data-permissionlvl="4" class="dropdown-item" href="#">Admin</a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <span class="help-block"></span>
