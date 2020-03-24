@@ -42,7 +42,7 @@
 }
 
 .delete-role:after {
-    font-family: "FontAwesome", serif;
+    font-family: "Font Awesome 5 Free", serif;
     font-size: 18px;
     content: "\f014";
 }
@@ -52,7 +52,7 @@
 }
 
 .unlink-role:after {
-    font-family: "FontAwesome", serif;
+    font-family: "Font Awesome 5 Free", serif;
     font-size: 18px;
     content: "\f2ed";
 }
@@ -135,9 +135,9 @@ select.input-validation-error
 
 #availableRolesForDelete {
     height: 340pt;
-    font-family: 'FontAwesome', 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Font Awesome 5 Free', 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 #availableRoles {
-    font-family: 'FontAwesome', 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Font Awesome 5 Free', 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }

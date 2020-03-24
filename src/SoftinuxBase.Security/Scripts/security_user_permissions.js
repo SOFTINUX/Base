@@ -513,7 +513,7 @@ function reloadGrantPermissionsHtmlView() {
 function reloadRolesHtmlView() {
     return new window.Promise((resolve, reject) => {
         makeAjaxRequest('GET', '/administration/edit-role-tab', null, (responseStatus_, responseText_) => {
-            document.getElementById('edit-role-tab').innerHTML = responseText_;
+            document.getElementById('edit-role-tab-content').innerHTML = responseText_;
             resolve();
         });
     });
