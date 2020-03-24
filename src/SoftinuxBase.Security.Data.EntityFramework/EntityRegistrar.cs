@@ -2,6 +2,7 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using ExtCore.Data.EntityFramework;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SoftinuxBase.Security.Data.Entities;
 
@@ -11,6 +12,10 @@ namespace SoftinuxBase.Security.Data.EntityFramework
     {
         public void RegisterEntities(ModelBuilder modelBuilder_)
         {
+            modelBuilder_.Entity<IdentityRole>()
+                .Property(e_ => e_.Id)
+                .ValueGeneratedOnAdd();
+
             // non-WIF entities
 
             // Permission
