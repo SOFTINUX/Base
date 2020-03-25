@@ -32,10 +32,10 @@
     bool hasModelWithErrorMessageProperty = properties != null && properties.Any(p_ => p_.Name.Equals("ErrorMessage"));
 }
 <body class="@authClass">
-<div 
+<div
     @if (!User.Identity.IsAuthenticated) { @Html.Raw("class=\"login-box\"") }
     else { @Html.Raw("class=\"wrapper\"")}>
-    
+
 @if (User.Identity.IsAuthenticated)
 {
     @* NavBar *@
@@ -132,14 +132,24 @@
         }
         @* Content Header (Page header) *@
         <section class="content-header">
-            <h1>
-                @RenderSection("title", false)
-                @*<small></small>*@
-            </h1>
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>@RenderSection("title", false)</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            @* here breadcrumb items *@
+                        </ol>
+                    </div>
+                </div>
+            </div>
         </section>
         @* Main content *@
-        <section class="content container-fluid">
-            @RenderBody()
+        <section class="content">
+            <div class="container-fluid">
+               @RenderBody()
+            </div>
         </section>
         @* /.content *@
     </div>
