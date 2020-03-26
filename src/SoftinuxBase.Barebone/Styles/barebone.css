@@ -2,6 +2,59 @@
 /* Copyright © 2017 SOFTINUX. All rights reserved.
  Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 */
+#header .aui-message {
+    border-radius: 0;
+    color: #172b4d;
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    position: relative;
+}
+
+.aui-message {
+    background: #deebff;
+    border: 0 solid #0052cc;
+    border-radius: 3px;
+    color: #172b4d;
+    line-height: 20px;
+    margin: 20px 0 0;
+    overflow-wrap: break-word;
+    padding: 15px 15px 15px 40px;
+    position: relative;
+    word-wrap: break-word;
+    word-break: normal;
+}
+
+.aui-message.a {
+    color: #0052cc;
+}
+
+.aui-message-warning {
+    background: #fffae6;
+    border-color: #fffae6;
+    color: #172b4d;
+}
+
+#header .aui-message:after {
+    top: 10px;
+}
+
+.aui-message:after {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0;
+    speak: none;
+    font-size: 16px;
+    left: 15px;
+    line-height: 20px;
+    position: absolute;
+    top: 15px;
+    content: "\f071";
+    color: #ff991f;
+    font-family: 'Font Awesome 5 Free', serif;
+    font-weight: 900;
+}
+
 .login-page {
     background-image: url('/img/login_page_background.png');
     background-size: cover !important;
