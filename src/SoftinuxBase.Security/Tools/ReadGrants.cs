@@ -1,6 +1,7 @@
 // Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -41,15 +42,15 @@ namespace SoftinuxBase.Security.Tools
         public static GrantViewModel ReadAll(IStorage storage_)
         {
             GrantViewModel model = new GrantViewModel();
-            // key : extension's permission enum type assembly-qualified name, since the enum can be in another assembly.
-            // value : extension name.
-            var enumAndExtensionDic = new Dictionary<string, string>();
+            // key : extension name,
+            // value : extension's permission enum type, since the enum can be in another assembly.
+            var extensionNameAndEnumDict = new Dictionary<string, Type>();
 
             // 1. Get all extension names from loaded extensions, create initial dictionaries
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
             {
                 model.PermissionsByRoleAndExtension.Add(extensionMetadata.Name, new Dictionary<string, List<PermissionDisplay>>());
-                enumAndExtensionDic.Add(extensionMetadata.Permissions.AssemblyQualifiedName, extensionMetadata.Name);
+                extensionNameAndEnumDict.Add(extensionMetadata.Name, extensionMetadata.Permissions);
             }
 
             // 2. Read role/permission/extension settings (RoleToPermissions table)
@@ -57,17 +58,10 @@ namespace SoftinuxBase.Security.Tools
             foreach (RoleToPermissions roleToPermission in rolesToPermissions)
             {
                 var permissions = roleToPermission.PermissionsForRole;
-                PermissionsDisplayDictionary permissionsDisplayDictionary = new PermissionsDisplayDictionary(permissions);
-                foreach (var permissionEnumTypeAssemblyQualifiedName in permissions.Dictionary.Keys)
+                PermissionsDisplayDictionary permissionsDisplayDictionary = new PermissionsDisplayDictionary(extensionNameAndEnumDict, permissions);
+                foreach (var extensionName in permissionsDisplayDictionary.Dictionary.Keys)
                 {
-                    enumAndExtensionDic.TryGetValue(permissionEnumTypeAssemblyQualifiedName, out var extensionName);
-                    if (!model.PermissionsByRoleAndExtension.ContainsKey(extensionName))
-                    {
-                        // A database record related to a not loaded extension. Ignore this.
-                        continue;
-                    }
-
-                    model.PermissionsByRoleAndExtension[extensionName].Add(roleToPermission.RoleName, permissionsDisplayDictionary.Get(permissionEnumTypeAssemblyQualifiedName).ToList());
+                    model.PermissionsByRoleAndExtension[extensionName].Add(roleToPermission.RoleName, permissionsDisplayDictionary.Get(extensionName).ToList());
                 }
             }
 

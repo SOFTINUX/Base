@@ -28,14 +28,14 @@ namespace SoftinuxBase.SecurityTests
         /// <returns>The unit test Task</returns>
         [Fact]
         [Category("Mock")]
-        public async Task ReadAll()
+        public void ReadAll()
         {
             // Arrange
             Fakes.ExtensionManager.Setup();
             var roleToPermissionsRepositoryMock = new RoleToPermissionsRepositoryMock();
 
             var storageMock = new Mock<IStorage>();
-            storageMock.Setup(s => s.GetRepository<IRoleToPermissionsRepository>()).Returns(roleToPermissionsRepositoryMock.Object);
+            storageMock.Setup(s_ => s_.GetRepository<IRoleToPermissionsRepository>()).Returns(roleToPermissionsRepositoryMock.Object);
 
             // Act
             var model = ReadGrants.ReadAll(storageMock.Object);
@@ -47,12 +47,15 @@ namespace SoftinuxBase.SecurityTests
             model.PermissionsByRoleAndExtension.Keys.Should().Contain("SampleExtension1");
             model.PermissionsByRoleAndExtension.Keys.Should().NotContain(Constants.SoftinuxBaseTestsCommonAssemblyShortName);
 
-            model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurityAssemblyShortName][Roles.Administrator.ToString()].Should().HaveCount(3);
-            model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurityAssemblyShortName][Roles.Moderator.ToString()].Should().HaveCount(4);
-
+            model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurityAssemblyShortName][Roles.Administrator.ToString()].Should().HaveCount(2);
+            model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurityAssemblyShortName][Roles.Moderator.ToString()].Should().HaveCount(2);
+            model.PermissionsByRoleAndExtension["SampleExtension1"][Roles.Administrator.ToString()].Should().HaveCount(1);
+            model.PermissionsByRoleAndExtension["SampleExtension1"][Roles.Moderator.ToString()].Should().HaveCount(2);
+            
             model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurityAssemblyShortName][Roles.Administrator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Roles" && permissionDisplay_.ShortName == "CanCreate").Should().NotBeNull();
             model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurityAssemblyShortName][Roles.Administrator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Roles" && permissionDisplay_.ShortName == "CanCreate").Should().NotBeNull();
             model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurityAssemblyShortName][Roles.Moderator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Roles" && permissionDisplay_.ShortName == "CanList").Should().NotBeNull();
+            model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurityAssemblyShortName][Roles.Moderator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Roles" && permissionDisplay_.ShortName == "CanRead").Should().NotBeNull();
             model.PermissionsByRoleAndExtension["SampleExtension1"][Roles.Moderator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Sample" && permissionDisplay_.ShortName == "Write").Should().NotBeNull();
             model.PermissionsByRoleAndExtension["SampleExtension1"][Roles.Moderator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Sample" && permissionDisplay_.ShortName == "Other").Should().BeNull();
         }

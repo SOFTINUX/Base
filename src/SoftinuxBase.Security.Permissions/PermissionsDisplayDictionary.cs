@@ -15,18 +15,24 @@ namespace SoftinuxBase.Security.Permissions
     public class PermissionsDisplayDictionary
     {
         /// <summary>
-        /// Internal dictionary which key is the extension assembly fullname and the values some PermissionDisplay classes (linked to role/user).
+        /// Internal dictionary which key is the extension assembly short name and the values some PermissionDisplay classes (linked to role/user).
         /// </summary>
         internal readonly Dictionary<string, HashSet<PermissionDisplay>> Dictionary = new Dictionary<string, HashSet<PermissionDisplay>>();
 
         // FIXME construct PermissionsDisplayDictionary from an IEnumerable<IExtensionMetadata> and a PermissionsDictionary
         // because the extension gives the type of the enum and I can be silly and use enum from another assembly. See code in ReadGrants for the matching.
-        public PermissionsDisplayDictionary(PermissionsDictionary permissionsDictionary_)
+        
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="permissionEnumTypeForExtensionName_">Dictionary with key: extension name (assembly short name) and value:
+        /// permission enum type (that could be in another assembly)</param>
+        /// <param name="permissionsDictionary_">Permissions as read from database (uses permission enum type only)</param>
+        public PermissionsDisplayDictionary(Dictionary<string, Type> permissionEnumTypeForExtensionName_, PermissionsDictionary permissionsDictionary_)
         {
-            foreach(var permissionEnumAssemblyQualifiedTypeName in permissionsDictionary_.Dictionary.Keys)
+            foreach(KeyValuePair<string, Type> permissionEnumTypeForExtensionName in permissionEnumTypeForExtensionName_)
             {
-                Type enumType = Type.GetType(permissionEnumAssemblyQualifiedTypeName);
-                Dictionary.Add(enumType.Assembly.GetName().Name, PermissionDisplay.GetPermissionsToDisplay(enumType, permissionsDictionary_.Dictionary[permissionEnumAssemblyQualifiedTypeName]).ToHashSet());
+                Dictionary.Add(permissionEnumTypeForExtensionName.Key, PermissionDisplay.GetPermissionsToDisplay(permissionEnumTypeForExtensionName.Value, permissionsDictionary_.Dictionary[permissionEnumTypeForExtensionName.Value.AssemblyQualifiedName]).ToHashSet());
             }
         }
 
@@ -56,7 +62,7 @@ namespace SoftinuxBase.Security.Permissions
         }
 
         /// <summary>
-        /// Lookup a PermissionDisplay by extension name and permission name.
+        /// Lookup a PermissionDisplay by extension name, group name, permission name.
         /// </summary>
         /// <param name="extensionName_">Extension name.</param>
         /// <param name="groupName_">Expected value of permission enum value "groupName" custom attribute.</param>
@@ -65,19 +71,19 @@ namespace SoftinuxBase.Security.Permissions
         public PermissionDisplay Get(string extensionName_, string groupName_, string permissionName_)
         {
             Dictionary.TryGetValue(extensionName_, out var permissionDisplays);
-            return permissionDisplays.FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == groupName_ && permissionDisplay_.ShortName == permissionName_);
+            return permissionDisplays?.FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == groupName_ && permissionDisplay_.ShortName == permissionName_);
         }
 
         /// <summary>
-        /// Lookup a PermissionDisplay by extension name and permission name.
+        /// Lookup a PermissionDisplay by extension name and permission value.
         /// </summary>
         /// <param name="extensionName_">Extension name.</param>
-        /// <param name="permissionName_">Expected value of permission enum value "name" custom attribute.</param>
+        /// <param name="permissionValue_">Expected value of permission enum value "name" custom attribute.</param>
         /// <returns>PermissionDisplay or null.</returns>
         public PermissionDisplay Get(string extensionName_, short permissionValue_)
         {
             Dictionary.TryGetValue(extensionName_, out var permissionDisplays);
-            return permissionDisplays.FirstOrDefault(permissionDisplay_ => permissionDisplay_.Permission == permissionValue_);
+            return permissionDisplays?.FirstOrDefault(permissionDisplay_ => permissionDisplay_.Permission == permissionValue_);
 
         }
 
