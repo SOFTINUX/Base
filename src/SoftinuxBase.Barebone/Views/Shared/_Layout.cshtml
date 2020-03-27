@@ -8,13 +8,20 @@
 @using SoftinuxBase.Barebone.Tools;
 @inject IOptions<CorporateConfiguration> OptionsApplicationConfiguration
 
-<!DOCTYPE html>
-<html
+@{
+    var wrapperClass="wrapper";
+    var htmlStyle="";
+    var authClass = "sidebar-mini";
     @if (!User.Identity.IsAuthenticated)
     {
-        @Html.Raw("lang=\"en\" style=\"height: auto;\"")
+        wrapperClass="login-box";
+        htmlStyle="height: auto;";
+        authClass = "login-page";
     }
-    >
+}
+
+<!DOCTYPE html>
+<html lang="en" style="@htmlStyle">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,27 +32,18 @@
     @await RenderSectionAsync("Styles", false)
 </head>
 @{
-    string authClass = "";
-    authClass = !User.Identity.IsAuthenticated ? "login-page" : "sidebar-mini";
     // use typed "properties" variable else the compiler isn't able to understand the LINQ expression.
     System.Reflection.PropertyInfo[] properties = Model?.GetType().GetProperties();
     bool hasModelWithErrorMessageProperty = properties != null && properties.Any(p_ => p_.Name.Equals("ErrorMessage"));
 }
 <body class="@authClass">
-@{
-    var wrapperClass="wrapper";
-    if(!User.Identity.IsAuthenticated)
-    {
-        wrapperClass="login-box";
-    }
-}
-@if (@Html.IsDebug())
-{
-    <partial name="_IsDebugBanner"/>
-}
-<div class="@wrapperClass">
+    <div class="@wrapperClass">
     @if (User.Identity.IsAuthenticated)
     {
+        @if (@Html.IsDebug())
+        {
+            <partial name="_IsDebugBanner"/>
+        }
     @* NavBar *@
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             @* Left navbar links *@
@@ -103,7 +101,6 @@
                 </li>
             </ul>
         </nav>
-
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             @* Brand Logo *@
             <a href="#" class="brand-link">
@@ -162,6 +159,15 @@
                 <a href="@Url.Action("SignOut", "Account")"><i class="fas fa-power-off"></i> Logout</a>
             </div>
         </aside>
+    @* Main Footer *@
+        <footer class="main-footer">
+            @* To the right *@
+            <div class="pull-right hidden-xs">
+                DEMO
+            </div>
+            @* Default to the left *@
+            <strong>Copyright &copy; 2017 <a href="about">SOFTINUX</a>.</strong> All rights reserved.
+        </footer>
     }
     else
     {
@@ -177,36 +183,23 @@
             </div>
         </div>
     }
-
-    @if (User.Identity.IsAuthenticated)
-    {
-    @* Main Footer *@
-        <footer class="main-footer">
-            @* To the right *@
-            <div class="pull-right hidden-xs">
-                DEMO
-            </div>
-            @* Default to the left *@
-            <strong>Copyright &copy; 2017 <a href="about">SOFTINUX</a>.</strong> All rights reserved.
-        </footer>
-    }
 </div>
 @await Component.InvokeAsync("Scripts")
-@if (!User.Identity.IsAuthenticated)
-{
-    <script type="text/javascript">
-            $("input").keypress(function (event) {
-                if (event.which == 13) {
-                    event.preventDefault();
-                    $("form").submit();
-                }
-            });
-        </script>
-}
 @if (User.Identity.IsAuthenticated)
 {
     @RenderSection("Scripts", false)
 }
-@RenderSection("ScriptsUnauthenticated", false)
+else
+{
+    <script type="text/javascript">
+        $("input").keypress(function (event) {
+            if (event.which == 13) {
+                event.preventDefault();
+                $("form").submit();
+            }
+        });
+    </script>
+    @RenderSection("ScriptsUnauthenticated", false)
+}
 </body>
 </html>
