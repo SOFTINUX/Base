@@ -55,17 +55,17 @@ namespace SoftinuxBase.Tests.Common
         private void ConfigureServices(IServiceCollection services_)
         {
             Configuration = LoadConfiguration();
-
+            
             // DbContext/IStorageContext
             services_.AddDbContext<ApplicationStorageContext>(options_ =>
-                {
-                    options_.UseSqlite(GetConnectionString());
-                });
+            {
+                options_.UseSqlite(GetConnectionString());
+            });
 
             // Register UserManager & RoleManager
             services_.AddIdentity<User, IdentityRole<string>>()
-               .AddEntityFrameworkStores<ApplicationStorageContext>()
-               .AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<ApplicationStorageContext>()
+                .AddDefaultTokenProviders();
 
             // UserManager & RoleManager require logging and HttpContext dependencies
             services_.AddLogging();
@@ -73,7 +73,10 @@ namespace SoftinuxBase.Tests.Common
 
             // Register database-specific storage context implementation.
             services_.AddScoped<IStorageContext, ApplicationStorageContext>();
-
+            
+            // TODO add ExtCore else database setup fails?
+            // Scan the extensions manually since we didn't do it using ExtCore
+            Utilities.LoadExtensions();
         }
 
         private static IConfiguration LoadConfiguration()

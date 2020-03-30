@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SoftinuxBase.Security.Data.EntityFramework;
 
 namespace SoftinuxBase.Tests.Common.Migrations
 {
     [DbContext(typeof(ApplicationStorageContext))]
-    partial class ApplicationStorageContextModelSnapshot : ModelSnapshot
+    [Migration("20191118212632_SeedAuthorize")]
+    partial class SeedAuthorize
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

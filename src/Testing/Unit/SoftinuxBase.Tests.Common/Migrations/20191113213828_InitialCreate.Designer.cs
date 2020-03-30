@@ -4,19 +4,20 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SoftinuxBase.Tests.Common;
+using SoftinuxBase.Security.Data.EntityFramework;
 
-namespace CommonTest.Migrations
+namespace SoftinuxBase.Tests.Common.Migrations
 {
     [DbContext(typeof(ApplicationStorageContext))]
-    [Migration("20181123213528_InitialCreate")]
+    [Migration("20191113213828_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
+                .HasAnnotation("PropertyAccessMode", PropertyAccessMode.Field);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<string>", b =>
                 {
@@ -233,6 +234,65 @@ namespace CommonTest.Migrations
                     b.ToTable("UserPermission");
                 });
 
+            modelBuilder.Entity("SoftinuxBase.Security.DataLayer.ExtraAuthClasses.ModulesForUser", b =>
+                {
+                    b.Property<string>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(36);
+
+                    b.Property<long>("AllowedPaidForModules");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("ModulesForUsers");
+                });
+
+            modelBuilder.Entity("SoftinuxBase.Security.DataLayer.ExtraAuthClasses.RoleToPermissions", b =>
+                {
+                    b.Property<string>("RoleName")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Description")
+                        .IsRequired();
+
+                    b.Property<string>("_permissionsInRole")
+                        .IsRequired()
+                        .HasColumnName("PermissionsInRole");
+
+                    b.HasKey("RoleName");
+
+                    b.ToTable("RolesToPermissions");
+                });
+
+            modelBuilder.Entity("SoftinuxBase.Security.DataLayer.ExtraAuthClasses.TimeStore", b =>
+                {
+                    b.Property<string>("Key")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(36);
+
+                    b.Property<long>("LastUpdatedTicks");
+
+                    b.HasKey("Key");
+
+                    b.ToTable("TimeStores");
+                });
+
+            modelBuilder.Entity("SoftinuxBase.Security.DataLayer.ExtraAuthClasses.UserToRole", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasMaxLength(36);
+
+                    b.Property<string>("RoleName")
+                        .HasMaxLength(100);
+
+                    b.HasKey("UserId", "RoleName");
+
+                    b.HasIndex("RoleName");
+
+                    b.ToTable("UserToRoles");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<string>")
@@ -301,6 +361,14 @@ namespace CommonTest.Migrations
                     b.HasOne("SoftinuxBase.Security.Data.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SoftinuxBase.Security.DataLayer.ExtraAuthClasses.UserToRole", b =>
+                {
+                    b.HasOne("SoftinuxBase.Security.DataLayer.ExtraAuthClasses.RoleToPermissions", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleName")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
