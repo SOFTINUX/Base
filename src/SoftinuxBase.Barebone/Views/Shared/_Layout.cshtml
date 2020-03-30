@@ -37,13 +37,13 @@
     bool hasModelWithErrorMessageProperty = properties != null && properties.Any(p_ => p_.Name.Equals("ErrorMessage"));
 }
 <body class="@authClass">
+    @if (@Html.IsDebug())
+    {
+        <partial name="_IsDebugBanner"/>
+    }
     <div class="@wrapperClass">
     @if (User.Identity.IsAuthenticated)
     {
-        @if (@Html.IsDebug())
-        {
-            <partial name="_IsDebugBanner"/>
-        }
     @* NavBar *@
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             @* Left navbar links *@

@@ -3,32 +3,20 @@
 *@
 
 @* Profile Image *@
-@* .box *@
-
-<div class="box box-primary">
-    @* .box-body *@
-    <div class="box-body box-profile">
-        <img class="profile-user-img img-responsive img-circle" src="/img/profile-circle2-128.png" alt="User profile picture">
-
-        <h3 class="profile-username text-center">@Model.FirstName&nbsp;@Model.LastName</h3>
-
-        <p class="text-muted text-center">@Model.Email</p>
-
-        <ul class="list-group list-group-unbordered">
-            <li class="list-group-item">
-                <b>User Name: </b> <a class="pull-right">@Model.UserName</a>
-            </li>
-            <li class="list-group-item">
-                <b>Last connexion: </b> <a class="pull-right">@Model.LastConnection</a>
-            </li>
-            <li class="list-group-item">
-                <b>Two factor authentifaction enabled: </b> <a class="pull-right">@Model.TwoFactorEnabled</a>
-            </li>
-            <li class="list-group-item">
-                <b>Email confirmed: </b> <a class="pull-right">@Model.EmailConfirmed</a>
-            </li>
-        </ul>
-    </div>
-    @* /.box-body *@
-</div>
-@* /.box *@
+<img class="profile-user-img img-responsive img-circle" src="/img/profile-circle2-128.png" alt="User profile picture">
+<h3 class="profile-username text-center">@Model.FirstName&nbsp;@Model.LastName</h3>
+<p class="text-muted text-center">@Model.Email</p>
+<ul class="list-group list-group-unbordered">
+    <li class="list-group-item">
+        <b>User Name: </b> <a class="pull-right">@Model.UserName</a>
+    </li>
+    <li class="list-group-item">
+        <b>Last connexion: </b> <a class="pull-right">@Model.LastConnection</a>
+    </li>
+    <li class="list-group-item">
+        <b>Two factor authentifaction enabled: </b> <a class="pull-right">@Model.TwoFactorEnabled</a>
+    </li>
+    <li class="list-group-item">
+        <b>Email confirmed: </b> <a class="pull-right">@Model.EmailConfirmed</a>
+    </li>
+</ul>
