@@ -18,8 +18,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Available role(s)</label>
-                    <select class="form-control" id="availableRoles" onChange="passSelectedRoleOnEdition(this.options[this.selectedIndex].getAttribute('data-id'));">
-                        <option disabled selected value="0"> -- select a role -- </option>
+                    <select class="form-control select2bs4" id="availableRoles" onChange="passSelectedRoleOnEdition(this.options[this.selectedIndex].getAttribute('data-id'));">
                         @* here roles list *@
                         @await Component.InvokeAsync("SelectOptionsListRoles")
                     </select>

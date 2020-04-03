@@ -47,6 +47,8 @@ namespace SoftinuxBase.Barebone
 
             // -- Admin LTE
             new StyleSheet("/node_modules.admin_lte.dist.css.adminlte.min.css", 410),
+            new StyleSheet("/node_modules.select2.dist.css.select2.min.css", 411),
+            new StyleSheet("/node_modules.select2_theme_bootstrap4.dist.select2-bootstrap.min.css", 412),
 
             // -- iCheck
             new StyleSheet("/node_modules.icheck.skins.square.blue.css", 415),
@@ -81,7 +83,8 @@ namespace SoftinuxBase.Barebone
         {
             new Script("/node_modules.jquery.dist.jquery.min.js", 100),
             new Script("/node_modules.popper.dist.js.popper.min.js", 200),
-            new Script("/node_modules.bootstrap.dist.js.bootstrap.min.js", 201),
+            new Script("/node_modules.select2.dist.js.select2.full.min.js", 210),
+            new Script("/node_modules.bootstrap.dist.js.bootstrap.min.js", 220),
             new Script("/node_modules.jquery_validation.dist.jquery.validate.min.js", 300),
             new Script("/node_modules.jquery_validation_unobtrusive.dist.jquery.validate.unobtrusive.js", 400),
             new Script("/node_modules.js_cookie.src.js.cookie.js", 500),

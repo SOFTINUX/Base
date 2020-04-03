@@ -56,7 +56,10 @@
     <EmbeddedResource Include="..\..\node_modules\icheck\icheck.min.js" LinkBase="node_modules\icheck\" />
     <EmbeddedResource Include="..\..\node_modules\inputmask\dist\jquery.inputmask.min.js" LinkBase="node_modules\inputmask\dist\" />
     <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\js\adminlte.min.js" LinkBase="node_modules\admin-lte\dist\js\" />
+    <EmbeddedResource Include="..\..\node_modules\select2\dist\js\select2.full.min.js" LinkBase="node_modules\select2\dist\js\" />
+    <EmbeddedResource Include="..\..\node_modules\select2\dist\js\i18n\*.min.js" LinkBase="node_modules\select2\dist\js\i18n" />
     <EmbeddedResource Include="..\..\node_modules\toastr\build\toastr.min.js" LinkBase="node_modules\toastr\build\" />
+    <!-- CodeMirror -->
     <EmbeddedResource Include="..\..\node_modules\codemirror\lib\codemirror.js" LinkBase="node_modules\codemirror\lib\" />
     <EmbeddedResource Include="..\..\node_modules\codemirror\mode\sql\sql.js" LinkBase="node_modules\codemirror\mode\sql\" />
     <EmbeddedResource Include="..\..\node_modules\codemirror\addon\hint\show-hint.js" LinkBase="node_modules\codemirror\addon\hint\" />
@@ -75,7 +78,10 @@
     <EmbeddedResource Include="..\..\node_modules\codemirror\addon\scroll\annotatescrollbar.js" LinkBase="node_modules\codemirror\addon\scroll\" />
     <!-- Javascript Map -->
     <EmbeddedResource Include="..\..\node_modules\jquery\dist\jquery.min.map" LinkBase="node_modules\jquery\dist\" />
+    <EmbeddedResource Include="..\..\node_modules\popper.js\dist\umd\popper.min.js.map" LinkBase="node_modules\popper\dist\js\" />
     <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\js\bootstrap.min.js.map" LinkBase="node_modules\bootstrap\dist\js\" />
+    <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\js\adminlte.min.js.map" LinkBase="node_modules\admin-lte\dist\js\" />
+    <EmbeddedResource Include="..\..\node_modules\toastr\build\toastr.js.map" LinkBase="node_modules\toastr\build\" />
     <!-- Ionicons -->
     <EmbeddedResource Include="..\..\node_modules\ionicons\dist\**" LinkBase="node_modules\ionicons\" />
     <!-- Css -->
@@ -83,6 +89,8 @@
     <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\css\*.min.css" LinkBase="node_modules\bootstrap\dist\css\" />
     <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\css\adminlte.min.css" LinkBase="node_modules\admin-lte\dist\css\" />
     <EmbeddedResource Include="..\..\node_modules\toastr\build\toastr.min.css" LinkBase="node_modules\toastr\build\" />
+    <EmbeddedResource Include="..\..\node_modules\select2\dist\css\select2.min.css" LinkBase="node_modules\select2\dist\css\" />
+    <EmbeddedResource Include="..\..\node_modules\select2-theme-bootstrap4\dist\select2-bootstrap.min.css" LinkBase="node_modules\select2-theme-bootstrap4\dist\" />
     <!-- Css Map -->
     <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\css\bootstrap.min.css.map" LinkBase="node_modules\bootstrap\dist\css\" />
     <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\css\adminlte.min.css.map" LinkBase="node_modules\admin-lte\dist\css\" />
