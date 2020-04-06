@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
+using ExtCore.WebApplication.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -35,9 +36,7 @@ namespace SoftinuxBase.Tests.Common
             // Assign shortcuts accessors to registered components
             UserManager = serviceProvider.GetRequiredService<UserManager<User>>();
             RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<string>>>();
-
-            // Storage: create using registered db context / storage context
-            Storage = new Storage(serviceProvider.GetRequiredService<IStorageContext>());
+            Storage = serviceProvider.GetRequiredService<IStorage>();
         }
 
         /// <summary>
@@ -55,7 +54,7 @@ namespace SoftinuxBase.Tests.Common
         private void ConfigureServices(IServiceCollection services_)
         {
             Configuration = LoadConfiguration();
-            
+
             // DbContext/IStorageContext
             services_.AddDbContext<ApplicationStorageContext>(options_ =>
             {
@@ -71,12 +70,12 @@ namespace SoftinuxBase.Tests.Common
             services_.AddLogging();
             services_.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            // Add ExtCore
+            services_.AddScoped<IStorage, Storage>();
+            services_.AddExtCore();
+
             // Register database-specific storage context implementation.
             services_.AddScoped<IStorageContext, ApplicationStorageContext>();
-            
-            // TODO add ExtCore else database setup fails?
-            // Scan the extensions manually since we didn't do it using ExtCore
-            Utilities.LoadExtensions();
         }
 
         private static IConfiguration LoadConfiguration()

@@ -10,7 +10,7 @@ namespace SoftinuxBase.Tests.Common
     /// </summary>
     public class ApplicationStorageContext : SoftinuxBase.Security.Data.EntityFramework.ApplicationStorageContext
     {
-        public ApplicationStorageContext(DbContextOptions<ApplicationStorageContext> options_)
+        public ApplicationStorageContext(DbContextOptions options_)
             : base(options_)
         {
         }

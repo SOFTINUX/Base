@@ -66,7 +66,6 @@ namespace SoftinuxBase.SecurityTests
         [Category("Database")]
         public void ReadAll_QueryDatabase()
         {
-            // TODO setup the unit test startup (like the API) so that RoleToPermissions is a known DbSet
             // Arrange
 
             // Act
