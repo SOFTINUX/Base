@@ -100,7 +100,7 @@
     <EmbeddedResource Include="..\..\node_modules\wfk-opensans\opensans.css" LinkBase="node_modules\wfk-opensans\" />
     <EmbeddedResource Include="..\..\node_modules\@fortawesome\fontawesome-free\css\all.min.css" LinkBase="node_modules\font-awesome\css\" />
     <EmbeddedResource Include="..\..\node_modules\@fortawesome\fontawesome-free\js\all.min.js" LinkBase="node_modules\font-awesome\js\" />
-    <EmbeddedResource Include="..\..\node_modules\@fortawesome\fontawesome-free\webfonts\**" LinkBase="webfonts\" /> 
+    <EmbeddedResource Include="..\..\node_modules\@fortawesome\fontawesome-free\webfonts\**" LinkBase="webfonts\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="Styles\partial_css\**" />
@@ -111,5 +111,7 @@
   </ItemGroup>
   <Target Name="PreBuild" AfterTargets="BeforeBuild">
     <Exec Command="&quot;$(SolutionDir)&quot;bp.bat generateBareboneCss" Condition="'$(OS)' == 'Windows_NT'" />
+    <Exec Command="'$(SolutionDir)'bp.sh generateBareboneCss" Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'" />
+    <Exec Command="'$(SolutionDir)'bp.sh generateBareboneCss" Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'" />
   </Target>
 </Project>

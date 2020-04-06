@@ -40,6 +40,16 @@ function build
     dotnet build /property:GenerateFullPaths=true
 }
 
+function generateBareboneCss
+{
+    node ./node_modules/sass/sass.js --no-source-map --no-charset ./src/SoftinuxBase.Barebone/Styles/scss/index.scss ./src/SoftinuxBase.Barebone/Styles/barebone.css
+}
+
+function generateSecurityCss
+{
+    node ./node_modules/sass/sass.js --no-source-map --no-charset ./src/SoftinuxBase.Security/Styles/scss/index.scss ./src/SoftinuxBase.Security/Styles/Security.css
+}
+
 function copyexts
 {
     echo "###################"
@@ -111,8 +121,16 @@ case $1 in
     -h|--help)
         help
         ;;
+    generateBareboneCss)
+        generateBareboneCss
+        ;;
+    generateSecurityCss)
+        generateSecurityCss
+        ;;
     *)
         clean
+        generateBareboneCss
+        generateSecurityCss
         build
         copydeps
         copyexts

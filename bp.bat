@@ -80,14 +80,14 @@ echo #######################
 echo Generate Barebone CSS
 echo #######################
 node .\node_modules\sass\sass.js --no-source-map --no-charset .\src\SoftinuxBase.Barebone\Styles\scss\index.scss .\src\SoftinuxBase.Barebone\Styles\barebone.css
-Goto End
+IF "%1" == "generateBareboneCss" GOTO End Goto End
 
 :GenerateSecurityCss
 echo #######################
-echo Generate Barebone CSS
+echo Generate Security CSS
 echo #######################
 node .\node_modules\sass\sass.js --no-source-map --no-charset .\src\SoftinuxBase.Security\Styles\scss\index.scss .\src\SoftinuxBase.Security\Styles\Security.css
-Goto End
+IF "%1" == "generateSecurityCss" GOTO End Goto End Goto End
 
 :Publish
 echo ###################
