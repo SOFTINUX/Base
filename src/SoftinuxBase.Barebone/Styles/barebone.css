@@ -2,7 +2,7 @@
  Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 */
 /* Debug Banner */
-#header .aui-message {
+#debug-banner .aui-message {
   border-radius: 0;
   color: #172b4d;
   margin: 0;
@@ -35,7 +35,7 @@
   color: #172b4d;
 }
 
-#header .aui-message:after {
+#debug-banner .aui-message:after {
   top: 10px;
 }
 

@@ -37,7 +37,7 @@
     bool hasModelWithErrorMessageProperty = properties != null && properties.Any(p_ => p_.Name.Equals("ErrorMessage"));
 }
 <body class="@authClass">
-    @if (@Html.IsDebug())
+    @if (Html.IsDebug() & User.Identity.IsAuthenticated)
     {
         <partial name="_IsDebugBanner"/>
     }
