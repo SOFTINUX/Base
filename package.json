@@ -6,7 +6,7 @@
   "dependencies": {},
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
-    "@popperjs/core": "^2.2.0",
+    "@popperjs/core": "^2.2.1",
     "@types/jquery": "^3.3.34",
     "admin-lte": "^3.0.4",
     "bootstrap": "4.4.1",
