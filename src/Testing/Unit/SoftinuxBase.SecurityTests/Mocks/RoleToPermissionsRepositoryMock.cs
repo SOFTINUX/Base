@@ -20,6 +20,7 @@ namespace SoftinuxBase.SecurityTests.Mocks
 
         private void Setup()
         {
+            // PermissionsDictionary for Administrator role, uses Permissions, OtherPermissions and SamplePermissions enums
             var permissionsDictionary = new PermissionsDictionary();
             permissionsDictionary.Add(typeof(Security.Permissions.Enums.Permissions), (short)SoftinuxBase.Security.Permissions.Enums.Permissions.CreateRoles);
             permissionsDictionary.Add(typeof(Security.Permissions.Enums.Permissions), (short)SoftinuxBase.Security.Permissions.Enums.Permissions.DeleteRoles);
@@ -27,6 +28,7 @@ namespace SoftinuxBase.SecurityTests.Mocks
             permissionsDictionary.Add(typeof(SamplePermissions), (short)SamplePermissions.Admin);
             var administratorPermissions = new RoleToPermissions(Roles.Administrator.ToString(), Roles.Administrator.ToString(), permissionsDictionary);
 
+            // PermissionsDictionary for Moderator role, uses Permissions, OtherPermissions and SamplePermissions enums
             permissionsDictionary = new PermissionsDictionary();
             permissionsDictionary.Add(typeof(Security.Permissions.Enums.Permissions), (short)SoftinuxBase.Security.Permissions.Enums.Permissions.ListRoles);
             permissionsDictionary.Add(typeof(Security.Permissions.Enums.Permissions), (short)SoftinuxBase.Security.Permissions.Enums.Permissions.ReadRoles);
@@ -36,6 +38,8 @@ namespace SoftinuxBase.SecurityTests.Mocks
             permissionsDictionary.Add(typeof(SamplePermissions), (short)SamplePermissions.Other);
             var moderatorPermissions = new RoleToPermissions(Roles.Moderator.ToString(), Roles.Moderator.ToString(), permissionsDictionary);
 
+            // No permission using enum SamplePermissions2 is setup
+            
             Setup(m => m.All()).Returns(new List<RoleToPermissions> {administratorPermissions, moderatorPermissions});
         }
     }

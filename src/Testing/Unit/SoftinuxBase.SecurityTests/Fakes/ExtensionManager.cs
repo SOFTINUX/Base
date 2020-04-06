@@ -14,7 +14,8 @@ namespace SoftinuxBase.SecurityTests.Fakes
             ExtCore.Infrastructure.ExtensionManager.SetAssemblies(new List<Assembly>
             {
                 Assembly.LoadFrom("SoftinuxBase.Security.dll"),
-                Assembly.LoadFrom("SampleExtension1.dll")
+                Assembly.LoadFrom("SampleExtension1.dll"),
+                Assembly.LoadFrom("SampleExtension2.dll")
             });
         }
     }
