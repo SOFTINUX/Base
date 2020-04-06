@@ -41,7 +41,7 @@ namespace SoftinuxBase.Barebone
             // -- CSS Fonts
             new StyleSheet("/node_modules.wfk_opensans.opensans.css", 100),
             new StyleSheet("/node_modules.normalize.css.normalize.css", 200),
-            new StyleSheet("/node_modules.font_awesome.css.all.css", 30),
+            new StyleSheet("/node_modules.font_awesome.css.all.min.css", 30),
 
             // -- Font Awesome
 
@@ -49,12 +49,6 @@ namespace SoftinuxBase.Barebone
             new StyleSheet("/node_modules.admin_lte.dist.css.adminlte.min.css", 410),
             new StyleSheet("/node_modules.select2.dist.css.select2.min.css", 411),
             new StyleSheet("/node_modules.select2_theme_bootstrap4.dist.select2-bootstrap.min.css", 412),
-
-            // -- iCheck
-            new StyleSheet("/node_modules.icheck.skins.square.blue.css", 415),
-            new StyleSheet("/node_modules.icheck.skins.minimal.blue.css", 416),
-            new StyleSheet("/node_modules.icheck.skins.flat.blue.css", 417),
-            new StyleSheet("/node_modules.icheck.skins.line.blue.css", 418),
 
             // -- Toastr
             new StyleSheet("/node_modules.toastr.build.toastr.min.css", 417),
@@ -91,12 +85,10 @@ namespace SoftinuxBase.Barebone
 
             // -- Admin LTE
             new Script("/node_modules.inputmask.dist.jquery.inputmask.min.js", 600),
-            new Script("/node_modules.icheck.icheck.min.js", 650),
             new Script("/node_modules.admin_lte.dist.js.adminlte.min.js", 660),
 
             // -- Roastr
             new Script("/node_modules.toastr.build.toastr.min.js", 661),
-            new Script("/node_modules.ionicons.ionicons.js", 662, Script.JsType.NoModule),
 
             // -- Codemirror
             // new Script("/node_modules.codemirror.lib.codemirror.js",662),

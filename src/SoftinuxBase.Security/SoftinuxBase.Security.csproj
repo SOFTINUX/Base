@@ -19,7 +19,7 @@
     <RepositoryUrl>https://github.com/SOFTINUX/Base</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ImportGroup Label="Documentation">
     <Import Project="..\..\documentation.props" />
@@ -71,4 +71,7 @@
   <ItemGroup>
     <Folder Include="Views\Shared\Components\GrantPermissions\" />
   </ItemGroup>
+  <Target Name="PreBuild" AfterTargets="BeforeBuild">
+    <Exec Command="&quot;$(SolutionDir)&quot;bp.bat generateSecurityCss" Condition="'$(OS)' == 'Windows_NT'" />
+  </Target>
 </Project>

@@ -53,7 +53,6 @@
     <EmbeddedResource Include="..\..\node_modules\jquery-validation\dist\jquery.validate.min.js" LinkBase="node_modules\jquery-validation\dist\" />
     <EmbeddedResource Include="..\..\node_modules\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js" LinkBase="node_modules\jquery-validation-unobtrusive\dist\" />
     <EmbeddedResource Include="..\..\node_modules\js-cookie\src\js.cookie.js" LinkBase="node_modules\js-cookie\src\" />
-    <EmbeddedResource Include="..\..\node_modules\icheck\icheck.min.js" LinkBase="node_modules\icheck\" />
     <EmbeddedResource Include="..\..\node_modules\inputmask\dist\jquery.inputmask.min.js" LinkBase="node_modules\inputmask\dist\" />
     <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\js\adminlte.min.js" LinkBase="node_modules\admin-lte\dist\js\" />
     <EmbeddedResource Include="..\..\node_modules\select2\dist\js\select2.full.min.js" LinkBase="node_modules\select2\dist\js\" />
@@ -76,14 +75,6 @@
     <EmbeddedResource Include="..\..\node_modules\codemirror\addon\selection\active-line.js" LinkBase="node_modules\codemirror\addon\selection\" />
     <EmbeddedResource Include="..\..\node_modules\codemirror\addon\dialog\dialog.js" LinkBase="node_modules\codemirror\addon\dialog\" />
     <EmbeddedResource Include="..\..\node_modules\codemirror\addon\scroll\annotatescrollbar.js" LinkBase="node_modules\codemirror\addon\scroll\" />
-    <!-- Javascript Map -->
-    <EmbeddedResource Include="..\..\node_modules\jquery\dist\jquery.min.map" LinkBase="node_modules\jquery\dist\" />
-    <EmbeddedResource Include="..\..\node_modules\popper.js\dist\umd\popper.min.js.map" LinkBase="node_modules\popper\dist\js\" />
-    <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\js\bootstrap.min.js.map" LinkBase="node_modules\bootstrap\dist\js\" />
-    <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\js\adminlte.min.js.map" LinkBase="node_modules\admin-lte\dist\js\" />
-    <EmbeddedResource Include="..\..\node_modules\toastr\build\toastr.js.map" LinkBase="node_modules\toastr\build\" />
-    <!-- Ionicons -->
-    <EmbeddedResource Include="..\..\node_modules\ionicons\dist\**" LinkBase="node_modules\ionicons\" />
     <!-- Css -->
     <EmbeddedResource Include="..\..\node_modules\normalize.css\normalize.css" LinkBase="node_modules\normalize.css\" />
     <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\css\*.min.css" LinkBase="node_modules\bootstrap\dist\css\" />
@@ -91,9 +82,6 @@
     <EmbeddedResource Include="..\..\node_modules\toastr\build\toastr.min.css" LinkBase="node_modules\toastr\build\" />
     <EmbeddedResource Include="..\..\node_modules\select2\dist\css\select2.min.css" LinkBase="node_modules\select2\dist\css\" />
     <EmbeddedResource Include="..\..\node_modules\select2-theme-bootstrap4\dist\select2-bootstrap.min.css" LinkBase="node_modules\select2-theme-bootstrap4\dist\" />
-    <!-- Css Map -->
-    <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\css\bootstrap.min.css.map" LinkBase="node_modules\bootstrap\dist\css\" />
-    <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\css\adminlte.min.css.map" LinkBase="node_modules\admin-lte\dist\css\" />
     <!-- Code Mirror Css -->
     <EmbeddedResource Include="..\..\node_modules\codemirror\lib\codemirror.css" LinkBase="node_modules\codemirror\lib\" />
     <EmbeddedResource Include="..\..\node_modules\codemirror\addon\hint\show-hint.css" LinkBase="node_modules\codemirror\addon\hint\" />
@@ -108,18 +96,20 @@
     <EmbeddedResource Include="..\..\node_modules\codemirror\theme\monokai.css" LinkBase="node_modules\codemirror\theme\" />
     <EmbeddedResource Include="..\..\node_modules\codemirror\theme\base16-dark.css" LinkBase="node_modules\codemirror\theme\" />
     <EmbeddedResource Include="..\..\node_modules\codemirror\theme\base16-light.css" LinkBase="node_modules\codemirror\theme\" />
-    <!-- ICheck Css -->
-    <EmbeddedResource Include="..\..\node_modules\icheck\skins\square\**" LinkBase="node_modules\icheck\skins\square\" />
-    <EmbeddedResource Include="..\..\node_modules\icheck\skins\minimal\**" LinkBase="node_modules\icheck\skins\minimal\" />
-    <EmbeddedResource Include="..\..\node_modules\icheck\skins\line\**" LinkBase="node_modules\icheck\skins\line\" />
-    <EmbeddedResource Include="..\..\node_modules\icheck\skins\flat\**" LinkBase="node_modules\icheck\skins\flat\" />
     <!-- Fonts -->
     <EmbeddedResource Include="..\..\node_modules\wfk-opensans\opensans.css" LinkBase="node_modules\wfk-opensans\" />
-    <EmbeddedResource Include="..\..\node_modules\@fortawesome\fontawesome-free\css\**" LinkBase="node_modules\font-awesome\css\" />
-    <EmbeddedResource Include="..\..\node_modules\@fortawesome\fontawesome-free\js\**" LinkBase="node_modules\font-awesome\js\" />
-    <EmbeddedResource Include="..\..\node_modules\@fortawesome\fontawesome-free\webfonts\**" LinkBase="webfonts\" />
+    <EmbeddedResource Include="..\..\node_modules\@fortawesome\fontawesome-free\css\all.min.css" LinkBase="node_modules\font-awesome\css\" />
+    <EmbeddedResource Include="..\..\node_modules\@fortawesome\fontawesome-free\js\all.min.js" LinkBase="node_modules\font-awesome\js\" />
+    <EmbeddedResource Include="..\..\node_modules\@fortawesome\fontawesome-free\webfonts\**" LinkBase="webfonts\" /> 
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Styles\partial_css\**" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\_references.js" />
+    <Content Include="Styles\scss\index.scss" />
   </ItemGroup>
+  <Target Name="PreBuild" AfterTargets="BeforeBuild">
+    <Exec Command="&quot;$(SolutionDir)&quot;bp.bat generateBareboneCss" Condition="'$(OS)' == 'Windows_NT'" />
+  </Target>
 </Project>
