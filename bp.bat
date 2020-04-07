@@ -23,6 +23,8 @@ IF "%1" == "copydeps" GOTO CopyDeps
 IF "%1" == "publish" GOTO Publish
 IF "%1" == "bundles" GOTO Bundles
 IF "%1" == "cleanbin" GOTO CleanBuildFolder
+IF "%1" == "generateBareboneCss" GOTO GenerateBareboneCss
+IF "%1" == "generateSecurityCss" GOTO GenerateSecurityCss
 
 GOTO Clean
 
@@ -72,6 +74,20 @@ for /f "tokens=*" %%i in (extensions.txt) DO (
     xcopy "%%i" /B /F /Y  "%ext_folder%" /K
 )
 GOTO End
+
+:GenerateBareboneCss
+echo #######################
+echo Generate Barebone CSS
+echo #######################
+node .\node_modules\sass\sass.js --no-source-map --no-charset .\src\SoftinuxBase.Barebone\Styles\scss\index.scss .\src\SoftinuxBase.Barebone\Styles\barebone.css
+IF "%1" == "generateBareboneCss" GOTO End Goto End
+
+:GenerateSecurityCss
+echo #######################
+echo Generate Security CSS
+echo #######################
+node .\node_modules\sass\sass.js --no-source-map --no-charset .\src\SoftinuxBase.Security\Styles\scss\index.scss .\src\SoftinuxBase.Security\Styles\Security.css
+IF "%1" == "generateSecurityCss" GOTO End Goto End Goto End
 
 :Publish
 echo ###################

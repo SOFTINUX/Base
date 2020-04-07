@@ -12,21 +12,50 @@
     <PackageIconUrl></PackageIconUrl>
     <PackageProjectUrl>http://www.softinux.com/</PackageProjectUrl>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-  </PropertyGroup>
-  <PropertyGroup>
     <LangVersion>8</LangVersion>
     <CodeAnalysisRuleSet>..\..\StyleCopRules.ruleset</CodeAnalysisRuleSet>
     <RepositoryUrl>https://github.com/SOFTINUX/Base</RepositoryUrl>
   </PropertyGroup>
-  <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App"/>
-  </ItemGroup>
   <ImportGroup Label="Documentation">
     <Import Project="..\..\documentation.props" />
   </ImportGroup>
-  <ItemGroup>
+  <ItemGroup Label="Framework References">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup Label="Stylecop Customs Rules">
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
+  <ItemGroup Label="Packages References">
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="3.2.435" />
+  </ItemGroup>
+  <ItemGroup Label="Projects References">
+    <ProjectReference Include="..\SoftinuxBase.Barebone\SoftinuxBase.Barebone.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.Data.EntityFramework\SoftinuxBase.Security.Data.EntityFramework.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Security.FeatureAuthorize\SoftinuxBase.Security.FeatureAuthorize.csproj" />
+  </ItemGroup>
+  <ItemGroup Label="Remove Embeded Resources">
+    <None Remove="node_modules\**" />
+  </ItemGroup>
+  <ItemGroup Label="Embeded Resources">
+    <EmbeddedResource Include="Styles\**;Scripts\**\*.min.js" />
+    <EmbeddedResource Include="..\..\node_modules\datatables.net\js\jquery.dataTables.min.js" LinkBase="node_modules\datatables.net\js\" />
+    <EmbeddedResource Include="..\..\node_modules\datatables.net-bs4\js\dataTables.bootstrap4.min.js" LinkBase="node_modules\datatables.net-bs4\js\" />
+    <EmbeddedResource Include="..\..\node_modules\datatables.net-select\js\dataTables.select.min.js" LinkBase="node_modules\datatables.net-select\js\" />
+    <EmbeddedResource Include="..\..\node_modules\datatables.net-select-bs4\js\select.bootstrap4.min.js" LinkBase="node_modules\datatables.net-select-bs4\js\" />
+    <EmbeddedResource Include="..\..\node_modules\datatables.net-buttons\js\dataTables.buttons.min.js" LinkBase="node_modules\datatables.net-buttons\js\" />
+    <EmbeddedResource Include="..\..\node_modules\datatables.net-buttons-bs4\js\buttons.bootstrap4.min.js" LinkBase="node_modules\datatables.net-buttons-bs4\js\" />
+    <!-- Css -->
+    <EmbeddedResource Include="..\..\node_modules\datatables.net-bs4\css\dataTables.bootstrap4.min.css" LinkBase="node_modules\datatables.net-bs4\css\" />
+    <EmbeddedResource Include="..\..\node_modules\datatables.net-select-bs4\css\select.bootstrap4.min.css" LinkBase="node_modules\datatables.net-select-bs4\css\" />
+    <EmbeddedResource Include="..\..\node_modules\datatables.net-buttons-bs4\css\buttons.bootstrap4.min.css" LinkBase="node_modules\datatables.net-buttons-bs4\css\" />
+  </ItemGroup>
+  <!-- Select Resources if Debug or Release -->
   <Choose>
     <When Condition=" '$(Configuration)'=='Debug' ">
       <ItemGroup>
@@ -36,38 +65,9 @@
       </ItemGroup>
     </When>
   </Choose>
-  <ItemGroup>
-    <None Remove="node_modules\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Styles\**;Scripts\**\*.min.js" />
-    <None Remove="Views\Shared\Components\AddRoleListExtensions.cshtml" />
-    <None Remove="Views\Shared\Components\AddRoleListExtensions\_AddRoleListExtensions.cshtml" />
-    <!-- JavaScript -->
-    <EmbeddedResource Include="..\..\node_modules\datatables.net\js\jquery.dataTables.js" LinkBase="node_modules\datatables.net\js\" />
-    <EmbeddedResource Include="..\..\node_modules\datatables.net-bs\js\dataTables.bootstrap.js" LinkBase="node_modules\datatables.net-bs\js\" />
-    <EmbeddedResource Include="..\..\node_modules\datatables.net-select\js\dataTables.select.min.js" LinkBase="node_modules\datatables.net-select\js\" />
-    <EmbeddedResource Include="..\..\node_modules\datatables.net-buttons\js\dataTables.buttons.min.js" LinkBase="node_modules\datatables.net-buttons\js\" />
-    <EmbeddedResource Include="..\..\node_modules\datatables.net-buttons-bs\js\buttons.bootstrap.min.js" LinkBase="node_modules\datatables.net-buttons-bs\js\" />
-    <!-- Css -->
-    <EmbeddedResource Include="..\..\node_modules\datatables.net-bs\css\dataTables.bootstrap.css" LinkBase="node_modules\datatables.net-bs\css\" />
-    <EmbeddedResource Include="..\..\node_modules\datatables.net-select-bs\css\select.bootstrap.min.css" LinkBase="node_modules\datatables.net-select-bs\css\" />
-    <EmbeddedResource Include="..\..\node_modules\datatables.net-buttons-bs\css\buttons.bootstrap.min.css" LinkBase="node_modules\datatables.net-buttons-bs\css\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SoftinuxBase.Barebone\SoftinuxBase.Barebone.csproj" />
-    <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
-    <ProjectReference Include="..\SoftinuxBase.Security.Data.EntityFramework\SoftinuxBase.Security.Data.EntityFramework.csproj" />
-    <ProjectReference Include="..\SoftinuxBase.Security.FeatureAuthorize\SoftinuxBase.Security.FeatureAuthorize.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="3.2.435" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Shared\Components\GrantPermissions\" />
-  </ItemGroup>
+  <Target Name="PreBuild" AfterTargets="BeforeBuild">
+    <Exec Command="&quot;$(SolutionDir)&quot;bp.bat generateSecurityCss" Condition="'$(OS)' == 'Windows_NT'" />
+    <Exec Command="'$(SolutionDir)'bp.sh generateSecurityCss" Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'" />
+    <Exec Command="'$(SolutionDir)'bp.sh generateSecurityCss" Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'" />
+  </Target>
 </Project>

@@ -4,7 +4,6 @@
 using System;
 using FluentAssertions;
 using SoftinuxBase.Security.Permissions;
-using SoftinuxBase.Security.Permissions;
 using SoftinuxBase.Tests.Common;
 using Xunit;
 using Constants = SoftinuxBase.Tests.Common.Constants;

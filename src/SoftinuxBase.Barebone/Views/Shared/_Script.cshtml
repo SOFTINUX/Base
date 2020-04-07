@@ -3,6 +3,20 @@ Copyright © 2017 SOFTINUX. All rights reserved.
 Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 *@
 
+@using SoftinuxBase.Infrastructure
 @model SoftinuxBase.Barebone.ViewModels.Shared.Script.ScriptViewModel
 @* including script with type "module" allows it to import ES6 modules *@
-<script type=@(Model.IsJsModule ? "module" : "text/javascript" ) src="@Model.Url"></script>
+@{
+    switch (Model.JsType)
+    {
+        case Script.JsType.IsModule:
+            <script type="module" src="@Model.Url"></script>
+            break;
+        case Script.JsType.NoModule:
+            <script type="nomodule" src="@Model.Url"></script>
+            break;
+        default:
+            <script type="text/javascript" src="@Model.Url"></script>
+            break;
+    }
+}

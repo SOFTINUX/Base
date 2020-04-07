@@ -16,31 +16,32 @@
 }
 
 <div class="row">
-    <div class="col-md-3">
-        <partial name="_User_Profile_Details_Card" model="user" />
-    </div>
-    <div class="col-md-9">
-        <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-                <li class="active">
-                    <a href="#details" data-toggle="tab">Detail</a>
-                </li>
-                <li>
-                    <a href="#groups" data-toggle="tab">Groups</a>
-                </li>
-            </ul>
-            <div class="tab-content">
-                <div class="active tab-pane" id="details">
-                    <partial name="_User_Profile_Details" model="user" />
-                </div>
-                <div class="tab-pane" id="groups">
-                    <h3><i class="fa fa-users" aria-hidden="true"></i>&nbsp;&nbsp;My Groups</h3>
-                    <h4>My Claims</h4><br />
-                    <partial name="_ListClaims" />
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                @await Html.PartialAsync("_User_Profile_Details_Card", user)
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a href="#details-content" class="nav-link active" id="profile-details-tab" data-toggle="pill" aria-expanded="true">Detail</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#groups-content" class="nav-link" id="profile-groups-tab" data-toggle="pill" aria-expanded="true">Groups</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="details-content" role="tabpanel" aria-labelledby="profile-details-tab">
+                        @await Html.PartialAsync("_User_Profile_Details", user)
+                    </div>
+                    <div class="tab-pane" id="groups-content" role="tabpanel" aria-labelledby="profile-groups-tab">
+                        <h3><i class="fa fa-users" aria-hidden="true"></i>&nbsp;&nbsp;My Groups</h3>
+                        <h4>My Claims</h4><br/>
+                        @await Html.PartialAsync("_ListClaims")
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    
 </div>
 
 @section Scripts

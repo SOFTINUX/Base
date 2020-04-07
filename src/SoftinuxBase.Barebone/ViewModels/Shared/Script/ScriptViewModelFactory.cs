@@ -10,7 +10,7 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.Script
             return new ScriptViewModel()
             {
                 Url = script_.Url,
-                IsJsModule = script_.IsJsModule
+                JsType = script_.JsIsModule
             };
         }
     }

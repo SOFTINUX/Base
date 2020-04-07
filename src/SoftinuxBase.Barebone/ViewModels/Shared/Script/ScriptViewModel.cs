@@ -7,6 +7,6 @@ namespace SoftinuxBase.Barebone.ViewModels.Shared.Script
     {
         public string Url { get; set; }
 
-        public bool IsJsModule { get; set; }
+        public SoftinuxBase.Infrastructure.Script.JsType JsType { get; set; }
     }
 }

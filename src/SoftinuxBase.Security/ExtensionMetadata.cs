@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Reflection;
 using SoftinuxBase.Infrastructure;
 using SoftinuxBase.Infrastructure.Interfaces;
+using SoftinuxBase.Security.Permissions;
+using SoftinuxBase.Security.Permissions.Attributes;
 using SoftinuxBase.Security.Permissions.Enums;
 
 namespace SoftinuxBase.Security
@@ -22,33 +24,30 @@ namespace SoftinuxBase.Security
         public string Name => CurrentAssembly.GetName().Name;
 
         /// <inheritdoc />
-        public string Url => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyTitleAttribute)).ToString();
+        public string Url => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyTitleAttribute))?.ToString();
 
         /// <inheritdoc />
-        public string Version => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyVersionAttribute)).ToString();
+        public string Version => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyVersionAttribute))?.ToString();
 
         /// <inheritdoc />
-        public string Authors => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyCompanyAttribute)).ToString();
+        public string Authors => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyCompanyAttribute))?.ToString();
 
         /// <inheritdoc />
-        public string Description => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyDescriptionAttribute)).ToString();
+        public string Description => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyDescriptionAttribute))?.ToString();
 
         /// <inheritdoc />
         bool IExtensionMetadata.IsAvailableForPermissions => true;
 
         /// <inheritdoc />
-        public IEnumerable<StyleSheet> StyleSheets => new[]
-        {
-                new StyleSheet("/Styles.Security.css", 510),
-        };
+        public IEnumerable<StyleSheet> StyleSheets => new[] { new StyleSheet("/Styles.Security.css", 510), };
 
         /// <inheritdoc />
-        public IEnumerable<Script> Scripts => new Script[]
+        public IEnumerable<Script> Scripts => new[]
         {
 #if DEBUG
-            new Script("/Scripts.security_user.js", true, 710),
+            new Script("/Scripts.security_user.js", 710, Script.JsType.IsModule),
 #else
-            new Script("/Scripts.security_user.min.js", true, 710),
+            new Script("/Scripts.security_user.min.js", 710, Script.JsType.IsModule),
 #endif
         };
 
@@ -57,17 +56,27 @@ namespace SoftinuxBase.Security
         {
             get
             {
-                MenuItem[] menuItems_ = new[]
-                                    {
-                       // new MenuItem("/administration", "Main", 100, null, new List<PermissionRequirementAttribute>(new[] { new PermissionRequirementAttribute(Permission.Admin, Constants.SoftinuxBaseSecurity), }))
-                        new MenuItem("/administration", "Main", 100, null)
-                                    };
-                return new MenuGroup[]
+                MenuItem[] menuItems = new[]
+                {
+                    new MenuItem(
+                        "/administration",
+                        "Main",
+                        100,
+                        FontAwesomeIcon.IconType.far,
+                        infrastructureAuthorizeAttributes_: new List<PermissionRequirementAttribute>(new[]
+                        {
+                            new PermissionRequirementAttribute(
+                                Permission.Admin,
+                                Constants.SoftinuxBaseSecurity),
+                        }))
+                };
+                return new[]
                 {
                     new MenuGroup(
                         "Administration",
                         0, // Always first
-                        menuItems_,
+                        menuItems,
+                        FontAwesomeIcon.IconType.fas,
                         "fa-wrench")
                 };
             }

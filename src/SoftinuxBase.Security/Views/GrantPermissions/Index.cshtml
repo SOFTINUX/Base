@@ -14,9 +14,17 @@
 }
 
 @section Styles {
+    @* css hack bootstrap for tabs *@
     <style>
         .holdButtonProgress {
             height: 5px !important;
+        }
+        .nav-tabs .nav-link.active {
+            color: white;
+            background-color: #007bff;
+        }
+        .nav-tabs .nav-link:hover {
+            border-color: #007bff #007bff #e9ecef #007bff;
         }
     </style>
 }
@@ -24,161 +32,158 @@
 <div class="row">
     <div class="col-md-12">
         @* box roles *@
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">Manage Roles</h3>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+        <div class="card">
+            <div class="card-header with-border">
+                <h3 class="card-title">Manage Roles</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
                         <i class="fa fa-minus"></i>
                     </button>
                 </div>
             </div>
-            <div class="box-body">
+            <div class="card-body">
                 @* BUTTONS *@
-                <div class="nav-tabs-custom nav-tab-custom-dropshadow">
-                    <ul class="nav nav-tabs">
-                        <li class="active">
-                            <a id="add-role-tab-link" href="#add-role-tab" data-toggle="tab" aria-expanded="true">Add Role</a>
-                        </li>
-                        <li>
-                            <a id="edit-role-tab-link" href="#edit-role-tab" data-toggle="tab" aria-expanded="true">Edit Role</a>
-                        </li>
-                        <li>
-                            <a id="bulk-delete-role-tab-link" href="#bulk-delete-role-tab" data-toggle="tab" aria-expanded="true">Bulk Delete</a>
-                        </li>
-                    </ul>
-
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="add-role-tab">
-                            @* ADD ROLE *@
-                            <div class="row" id="add-role-area">
-                                <div class="col-md-12">
-                                    <form name="add-new-role-form" onsubmit="return false">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group" id="add-role-group">
-                                                    <div class="input-group margin">
-                                                        <label for="role_name_input">New role name:</label>
-                                                        <div class="input-group">
-                                                            <input required id="role_name_input" name="role_name_input" type="text" class="form-control" placeholder="enter role name here" size="80" @Html.Raw(inputExtendAttributes)>
-                                                            <div class="input-group-btn bs-dropdown-to-select-acl-group">
-                                                                <input type="hidden" name="acl-selected_value" id="newRolePermission" data-bind="bs-drp-sel-acl-value" value="1">
-                                                                <button class="btn btn-default dropdown-toggle bs-dropdown-to-select-acl" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                    <span data-bind="bs-drp-sel-acl-label">Read</span>
-                                                                    <span class="caret"></span>
-                                                                    <span class="sr-only">Toggle Dropdown</span>
-                                                                </button>
-                                                                <ul id="acl-sel" class="dropdown-menu dropdown-menu-right" role="menu">
-                                                                    <li data-permissionlvl="0"><a href="#">None</a></li>
-                                                                    <li data-permissionlvl="1"><a href="#">Read</a></li>
-                                                                    <li data-permissionlvl="2"><a href="#">Write</a></li>
-                                                                    <li role="separator" class="divider"></li>
-                                                                    <li data-permissionlvl="4"><a href="#">Admin</a></li>
-                                                                </ul>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="add-role-tab" href="#add-role-tab-content" data-toggle="pill" aria-expanded="true">Add Role</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="edit-role-tab" href="#edit-role-tab-content" data-toggle="pill" aria-expanded="true">Edit Role</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="bulk-delete-role-tab" href="#bulk-delete-role-tab-content" data-toggle="pill" aria-expanded="true">Bulk Delete</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="add-role-tab-content" role="tabpanel" aria-labelledby="add-role-tab">
+                        @* ADD ROLE *@
+                        <div class="row" id="add-role-area">
+                            <div class="col-md-12">
+                                <form name="add-new-role-form" onsubmit="return false">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group" id="add-role-group">
+                                                <div class="input-group margin">
+                                                    <label for="role_name_input">New role name:</label>
+                                                    <div class="input-group">
+                                                        <input required id="role_name_input" name="role_name_input" type="text" class="form-control" placeholder="enter role name here" size="80" @Html.Raw(inputExtendAttributes)>
+                                                        <div class="input-group-append bs-dropdown-to-select-acl-group">
+                                                            <input type="hidden" name="acl-selected_value" id="newRolePermission" data-bind="bs-drp-sel-acl-value" value="1">
+                                                            <button class="btn btn-outline-secondary dropdown-toggle bs-dropdown-to-select-acl" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                <span data-bind="bs-drp-sel-acl-label">Read</span>
+                                                                <span class="caret"></span>
+                                                                <span class="sr-only">Toggle Dropdown</span>
+                                                            </button>
+                                                            <div id="acl-sel" class="dropdown-menu" >
+                                                                <a data-permissionlvl="0" class="dropdown-item" href="#">None</a>
+                                                                <a data-permissionlvl="1" class="dropdown-item" href="#">Read</a>
+                                                                <a data-permissionlvl="2" class="dropdown-item" href="#">Write</a>
+                                                                <div role="separator" class="dropdown-divider"></div>
+                                                                <a data-permissionlvl="4" class="dropdown-item" href="#">Admin</a>
                                                             </div>
                                                         </div>
-                                                        <span class="help-block"></span>
                                                     </div>
+                                                    <span class="help-block"></span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                <div class="form-group margin">
-                                                    <label>Available extension(s):</label>
-                                                    <select class="form-control" multiple id="addRoleLeftExtensionsList">
-                                                        @await Component.InvokeAsync("AddRoleListExtensions")
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2 pagination-centered text-center">
-                                                <div class="btn-group-vertical">
-                                                    <button class="btn btn-default" type="button" id="addRoleBtnRight" data-fromlist="addRoleLeftExtensionsList" data-tolist="addRoleRightExtensionsList"><i class="fa fa-angle-right"></i></button>
-                                                    <button class="btn btn-default" type="button" id="addRoleBtnAllRight" data-fromlist="addRoleLeftExtensionsList" data-tolist="addRoleRightExtensionsList" data-bulk-move><i class="fa fa-angle-double-right"></i></button>
-                                                </div>
-                                                <br />
-                                                <br />
-                                                <div class="btn-group-vertical">
-                                                    <button class="btn btn-default" type="button" id="addRoleBtnAllLeft" data-fromlist="addRoleRightExtensionsList" data-tolist="addRoleLeftExtensionsList" data-bulk-move><i class="fa fa-angle-double-left"></i></button>
-                                                    <button class="btn btn-default" type="button" id="addRoleBtnLeft" data-fromlist="addRoleRightExtensionsList" data-tolist="addRoleLeftExtensionsList"><i class="fa fa-angle-left"></i></button>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <div class="form-group margin">
-                                                    <label>Selected extension(s):</label>
-                                                    <select class="form-control" multiple="" id="addRoleRightExtensionsList" name="selectedExtensions">
-                                                        @* here selected extensions options filled by javascript *@
-                                                    </select>
-                                                </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group margin">
+                                                <label>Available extension(s):</label>
+                                                <select class="form-control" multiple id="addRoleLeftExtensionsList">
+                                                    @await Component.InvokeAsync("AddRoleListExtensions")
+                                                </select>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="col-md-2 pagination-centered text-center">
+                                            <div class="btn-group-vertical">
+                                                <button class="btn btn-default" type="button" id="addRoleBtnRight" data-fromlist="addRoleLeftExtensionsList" data-tolist="addRoleRightExtensionsList"><i class="fa fa-angle-right"></i></button>
+                                                <button class="btn btn-default" type="button" id="addRoleBtnAllRight" data-fromlist="addRoleLeftExtensionsList" data-tolist="addRoleRightExtensionsList" data-bulk-move><i class="fa fa-angle-double-right"></i></button>
+                                            </div>
+                                            <br/>
+                                            <br/>
+                                            <div class="btn-group-vertical">
+                                                <button class="btn btn-default" type="button" id="addRoleBtnAllLeft" data-fromlist="addRoleRightExtensionsList" data-tolist="addRoleLeftExtensionsList" data-bulk-move><i class="fa fa-angle-double-left"></i></button>
+                                                <button class="btn btn-default" type="button" id="addRoleBtnLeft" data-fromlist="addRoleRightExtensionsList" data-tolist="addRoleLeftExtensionsList"><i class="fa fa-angle-left"></i></button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group margin">
+                                                <label>Selected extension(s):</label>
+                                                <select class="form-control" multiple="" id="addRoleRightExtensionsList" name="selectedExtensions">
+                                                    @* here selected extensions options filled by javascript *@
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="dottedLine15"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="margin">
                                             <div class="col-md-12">
-                                                <div class="dottedLine15"></div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="margin">
-                                                <div class="col-md-12">
-                                                    @* save btn *@
-                                                    <div class="btn-group">
-                                                        <button class="btn btn-block btn-success" id="save-add-role-btn" type="button">Save</button>
-                                                    </div>
-                                                    @* cancel btn *@
-                                                    <div class="btn-group">
-                                                        <button class="btn btn-block btn-primary" id="cancel-add-role-btn" type="reset">Reset</button>
-                                                    </div>
+                                                @* save btn *@
+                                                <div class="btn-group">
+                                                    <button class="btn btn-block btn-success" id="save-add-role-btn" type="button">Save</button>
+                                                </div>
+                                                @* cancel btn *@
+                                                <div class="btn-group">
+                                                    <button class="btn btn-block btn-primary" id="cancel-add-role-btn" type="reset">Reset</button>
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
-                                </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                        <div class="tab-pane" id="edit-role-tab">
-                            @* EDIT ROLE *@
-                            <form name="edit-role-form" onsubmit="return false">
-                                @await Component.InvokeAsync("EditRolePermissions")
-                            </form>
-                        </div>
-                        <div class="tab-pane" id="bulk-delete-role-tab">
-                            @* BULK DELETE ROLE *@
-                            <form name="bulk-delete-form" onsubmit="return false">
-                                <select class="form-control" id="availableRolesForDelete" multiple>
-                                    @* here roles list *@
-                                    @await Component.InvokeAsync("SelectOptionsListRoles")
-                                </select>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="dottedLine15"></div>
-                                    </div>
+                    </div>
+                    <div class="tab-pane" id="edit-role-tab-content" role="tabpanel" aria-labelledby="edit-role-tab">
+                        @* EDIT ROLE *@
+                        <form name="edit-role-form" onsubmit="return false">
+                            @await Component.InvokeAsync("EditRolePermissions")
+                        </form>
+                    </div>
+                    <div class="tab-pane" id="bulk-delete-role-tab-content" role="tabpanel" aria-labelledby="delete-role-tab">
+                        @* BULK DELETE ROLE *@
+                        <form name="bulk-delete-form" onsubmit="return false">
+                            <select class="form-control" id="availableRolesForDelete" multiple>
+                                @* here roles list *@
+                                @await Component.InvokeAsync("SelectOptionsListRoles")
+                            </select>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="dottedLine15"></div>
                                 </div>
-                                <div class="row">
-                                    <div class="margin">
-                                        <div class="col-md-12">
-                                            @* delete btn *@
-                                            <div class="btn-group">
-                                                <button class="btn btn-block btn-danger" id="bulk-delete-btn" type="button">DELETE</button>
-                                            </div>
-                                            @* cancel btn *@
-                                            <div class="btn-group">
-                                                <button class="btn btn-block btn-primary" id="cancel-bulk-delete-btn">Reset</button>
-                                            </div>
+                            </div>
+                            <div class="row">
+                                <div class="margin">
+                                    <div class="col-md-12">
+                                        @* delete btn *@
+                                        <div class="btn-group">
+                                            <button class="btn btn-block btn-danger" id="bulk-delete-btn" type="button">DELETE</button>
+                                        </div>
+                                        @* cancel btn *@
+                                        <div class="btn-group">
+                                            <button class="btn btn-block btn-primary" id="cancel-bulk-delete-btn">Reset</button>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
         @* box listing roles *@
-        <div class="box">
-            <div class="box-header">
-                <h3>Roles List</h3>
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Roles List</h3>
             </div>
-            <div class="box-body">
+            <div class="card-body">
                 <section class="content">
                     <div class="row">
                         @* header *@
@@ -209,11 +214,11 @@
 
 @* Modal for remove role *@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div id="login-overlay" class="modal-dialog">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header model-header-custom">
+                <h5 class="modal-title" id="myModalLabel"><i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp;<strong>CONFIRM UNLINK ROLE</strong></h5>
                 <button type="button" class="btn btn-xs pull-right alert-default alert-danger-default" data-dismiss="modal"><strong>Close</strong></button>
-                <h4 class="modal-title" id="myModalLabel" style="font-size: 12pt;"><i class="fa fa-warning"></i>&nbsp;&nbsp;<strong>CONFIRM UNLINK ROLE</strong></h4>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -253,35 +258,42 @@
     <script type="module">
         import pressAndHold from '/Scripts/barebone_press_and_hold.js';
 
-            var SuccessMessage = "@(ViewBag.SuccessMessage)";
-            window.StopAccordionsPropagation = function(e) {
-                console.log('StopAccordionsPropagation');
-                e.stopPropagation();
-            };
+        /*$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+          e.target; // newly activated tab
+          $(e.target).attr('class', 'nav-link active bg-blue');
+          e.relatedTarget; // previous active tab
+          $(e.relatedTarget).attr('class', 'nav-link');
+        });*/
 
-            @* begin pressAndHold block *@
-            Array.from(document.querySelectorAll(".removeAllRoles")).forEach(
-                (element) => {
-                    pressAndHold(element, {
-                        holdTime: 1000,
-                        progressIndicatorRemoveDelay: 900,
-                        progressIndicatorColor: "#FFFFFF;",
-                        progressIndicatorOpacity: 1,
-                        progressIndicatorPosition: "bottom"
-                    });
-                }
-            );
+        var SuccessMessage = "@(ViewBag.SuccessMessage)";
+        window.StopAccordionsPropagation = function(e) {
+            console.log('StopAccordionsPropagation');
+            e.stopPropagation();
+        };
 
-            Array.from(document.querySelectorAll(".removeAllRoles")).forEach(
-                (element) => {
-                    addEventListener("complete.pressAndHold", event_ => {
-                        @* deleteRole(); *@
-                        console.log("");
-                        console.log("complete");
-                        @* TODO hide the modal $('#myModal').modal('hide'); *@
-                    });
-                }
-            );
-            @* end pressAndHold block *@
+        @* begin pressAndHold block *@
+        Array.from(document.querySelectorAll(".removeAllRoles")).forEach(
+            (element) => {
+                pressAndHold(element, {
+                    holdTime: 1000,
+                    progressIndicatorRemoveDelay: 900,
+                    progressIndicatorColor: "#FFFFFF;",
+                    progressIndicatorOpacity: 1,
+                    progressIndicatorPosition: "bottom"
+                });
+            }
+        );
+
+        Array.from(document.querySelectorAll(".removeAllRoles")).forEach(
+            (element) => {
+                addEventListener("complete.pressAndHold", event_ => {
+                    @* deleteRole(); *@
+                    console.log("");
+                    console.log("complete");
+                    @* TODO hide the modal $('#myModal').modal('hide'); *@
+                });
+            }
+        );
+        @* end pressAndHold block *@
     </script>
 }

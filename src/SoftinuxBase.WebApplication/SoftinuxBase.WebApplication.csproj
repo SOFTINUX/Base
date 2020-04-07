@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Authors>Benjamin Nolmans, Barbara Post</Authors>
     <Company>SOFTINUX</Company>
@@ -11,8 +10,6 @@
     <PackageId>SoftinuxBase.WebApplication</PackageId>
     <PackageIconUrl></PackageIconUrl>
     <PackageProjectUrl>http://www.softinux.com/</PackageProjectUrl>
-  </PropertyGroup>
-  <PropertyGroup>
     <LangVersion>8</LangVersion>
     <CodeAnalysisRuleSet>..\..\StyleCopRules.ruleset</CodeAnalysisRuleSet>
     <RepositoryUrl>https://github.com/SOFTINUX/Base</RepositoryUrl>
@@ -20,10 +17,10 @@
   <ImportGroup Label="Documentation">
     <Import Project="..\..\documentation.props" />
   </ImportGroup>
-  <ItemGroup>
+  <ItemGroup Label="Stylecop Customs Rules">
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Label="Projects References">
     <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.AuthorizeSetup\SoftinuxBase.Security.AuthorizeSetup.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.FeatureAuthorize\SoftinuxBase.Security.FeatureAuthorize.csproj" />
@@ -31,14 +28,14 @@
     <ProjectReference Include="..\SoftinuxBase.Security\SoftinuxBase.Security.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.Data.Entities\SoftinuxBase.Security.Data.Entities.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+  <ItemGroup Label="Framework References">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Label="Packages References">
     <PackageReference Include="ExtCore.WebApplication" Version="5.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.2" />
+    <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="1.3.3" />
     <PackageReference Include="NWebsec.AspNetCore.Middleware" Version="3.0.0" />
-    <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="1.3.2" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>

@@ -13,13 +13,15 @@ namespace SoftinuxBase.Infrastructure
         /// <param name="name_">set menu group display name.</param>
         /// <param name="position_">set position of menu group.</param>
         /// <param name="menuItems_">list of menu items to add to this menu group.</param>
+        /// <param name="fontAwesomeIconType_">type for font awesome icon.</param>
         /// <param name="fontAwesomeClass_">icon linked to menu group.</param>
-        public MenuGroup(string name_, uint position_, IEnumerable<MenuItem> menuItems_, string fontAwesomeClass_ = "fa-bars")
+        public MenuGroup(string name_, uint position_, IEnumerable<MenuItem> menuItems_, FontAwesomeIcon.IconType fontAwesomeIconType_ = FontAwesomeIcon.IconType.far, string fontAwesomeClass_ = "fa-bars")
         {
             Name = name_;
             Position = position_;
             MenuItems = menuItems_;
-            FontAwesomeClass = fontAwesomeClass_;
+            FontAwesomeIconType = fontAwesomeIconType_;
+            FontAwesomeIconClass = fontAwesomeClass_;
         }
 
         /// <summary>
@@ -35,7 +37,9 @@ namespace SoftinuxBase.Infrastructure
         /// <summary>
         /// Gets the fa-xxx class to render the associated icon.
         /// </summary>
-        public string FontAwesomeClass { get; }
+        public string FontAwesomeIconClass { get; }
+
+        public FontAwesomeIcon.IconType FontAwesomeIconType { get; }
 
         /// <summary>
         /// Gets children menu items.

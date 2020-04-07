@@ -24,16 +24,16 @@ namespace SoftinuxBase.Barebone
         public string Name => CurrentAssembly.GetName().Name;
 
         /// <inheritdoc />
-        public string Url => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyTitleAttribute)).ToString();
+        public string Url => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyTitleAttribute))?.ToString();
 
         /// <inheritdoc />
-        public string Version => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyVersionAttribute)).ToString();
+        public string Version => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyVersionAttribute))?.ToString();
 
         /// <inheritdoc />
-        public string Authors => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyCompanyAttribute)).ToString();
+        public string Authors => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyCompanyAttribute))?.ToString();
 
         /// <inheritdoc />
-        public string Description => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyDescriptionAttribute)).ToString();
+        public string Description => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyDescriptionAttribute))?.ToString();
 
         /// <inheritdoc />
         bool IExtensionMetadata.IsAvailableForPermissions => true;
@@ -41,25 +41,17 @@ namespace SoftinuxBase.Barebone
         /// <inheritdoc />
         public IEnumerable<StyleSheet> StyleSheets => new[]
         {
+            // -- CSS Fonts
             new StyleSheet("/node_modules.wfk_opensans.opensans.css", 100),
             new StyleSheet("/node_modules.normalize.css.normalize.css", 200),
-            new StyleSheet("/node_modules.bootstrap.dist.css.bootstrap.min.css", 300),
+            new StyleSheet("/node_modules.font_awesome.css.all.min.css", 30),
 
-            // new StyleSheet("/node_modules.bootstrap.dist.css.bootstrap.min.css.map", 310),
-            new StyleSheet("/node_modules.font_awesome.css.font-awesome.min.css", 400),
+            // -- Font Awesome
 
             // -- Admin LTE
-            new StyleSheet("/node_modules.admin_lte.dist.css.AdminLTE.min.css", 410),
-
-            // new StyleSheet("/node_modules.admin_lte.dist.css.adminlte.min.css.map", 411),
-            new StyleSheet("/node_modules.admin_lte.dist.css.skins.skin-blue.min.css", 412),
-            new StyleSheet("/node_modules.ionicons.dist.css.ionicons.min.css", 413),
-
-            // new StyleSheet("/node_modules.ionicons.dist.css.ionicons.min.css.map", 414),
-            new StyleSheet("/node_modules.icheck.skins.square.blue.css", 415),
-            new StyleSheet("/node_modules.icheck.skins.minimal.blue.css", 416),
-            new StyleSheet("/node_modules.icheck.skins.flat.blue.css", 417),
-            new StyleSheet("/node_modules.icheck.skins.line.blue.css", 418),
+            new StyleSheet("/node_modules.admin_lte.dist.css.adminlte.min.css", 410),
+            new StyleSheet("/node_modules.select2.dist.css.select2.min.css", 411),
+            new StyleSheet("/node_modules.select2_theme_bootstrap4.dist.select2-bootstrap.min.css", 412),
 
             // -- Toastr
             new StyleSheet("/node_modules.toastr.build.toastr.min.css", 417),
@@ -86,19 +78,20 @@ namespace SoftinuxBase.Barebone
         /// <inheritdoc />
         public IEnumerable<Script> Scripts => new[]
         {
-            new Script("/node_modules.jquery.dist.jquery.min.js", false, 100),
-            new Script("/node_modules.bootstrap.dist.js.bootstrap.min.js", false, 200),
-            new Script("/node_modules.jquery_validation.dist.jquery.validate.min.js", false, 300),
-            new Script("/node_modules.jquery_validation_unobtrusive.dist.jquery.validate.unobtrusive.js", false, 400),
-            new Script("/node_modules.js_cookie.src.js.cookie.js", false, 500),
+            new Script("/node_modules.jquery.dist.jquery.min.js", 100),
+            new Script("/node_modules.popper.dist.js.popper.min.js", 200),
+            new Script("/node_modules.select2.dist.js.select2.full.min.js", 210),
+            new Script("/node_modules.bootstrap.dist.js.bootstrap.min.js", 220),
+            new Script("/node_modules.jquery_validation.dist.jquery.validate.min.js", 300),
+            new Script("/node_modules.jquery_validation_unobtrusive.dist.jquery.validate.unobtrusive.js", 400),
+            new Script("/node_modules.js_cookie.src.js.cookie.js", 500),
 
             // -- Admin LTE
-            new Script("/node_modules.inputmask.dist.min.jquery.inputmask.bundle.min.js", false, 600),
-            new Script("/node_modules.icheck.icheck.js", false, 650),
-            new Script("/node_modules.admin_lte.dist.js.adminlte.min.js", false, 660),
+            new Script("/node_modules.inputmask.dist.jquery.inputmask.min.js", 600),
+            new Script("/node_modules.admin_lte.dist.js.adminlte.min.js", 660),
 
             // -- Roastr
-            new Script("/node_modules.toastr.build.toastr.min.js", false, 661),
+            new Script("/node_modules.toastr.build.toastr.min.js", 661),
 
             // -- Codemirror
             // new Script("/node_modules.codemirror.lib.codemirror.js",662),
@@ -118,8 +111,8 @@ namespace SoftinuxBase.Barebone
             // new Script("/node_modules.codemirror.addon.dialog.dialog.js",676),
             // new Script("/node_modules.codemirror.addon.scroll.annotatescrollbar.js",677),
             // --
-            new Script("/Scripts.barebone.min.js", true,  700),
-            new Script("/Scripts.barebone_ajax.js", true,  701),
+            new Script("/Scripts.barebone.min.js", 700, Script.JsType.IsModule),
+            new Script("/Scripts.barebone_ajax.js", 701, Script.JsType.IsModule),
         };
 
         /// <inheritdoc />

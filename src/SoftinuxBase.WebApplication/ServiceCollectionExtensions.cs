@@ -141,6 +141,7 @@ namespace SoftinuxBase.WebApplication
                 options_.SuppressXFrameOptionsHeader = false;
             });
 
+            // 6. support for ASP NET
             services_.AddRazorPages();
         }
     }

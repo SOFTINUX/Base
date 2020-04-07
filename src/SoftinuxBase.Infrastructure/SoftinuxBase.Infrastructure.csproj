@@ -10,30 +10,17 @@
     <PackageId>SoftinuxBase.Infrastructure</PackageId>
     <PackageIconUrl></PackageIconUrl>
     <PackageProjectUrl>http://www.softinux.com/</PackageProjectUrl>
-  </PropertyGroup>
-  <PropertyGroup>
     <LangVersion>8</LangVersion>
     <CodeAnalysisRuleSet>..\..\StyleCopRules.ruleset</CodeAnalysisRuleSet>
     <RepositoryUrl>https://github.com/SOFTINUX/Base</RepositoryUrl>
   </PropertyGroup>
-  <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Util\**" />
-    <EmbeddedResource Remove="Util\**" />
-    <None Remove="Util\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <AdditionalFiles Include="..\..\stylecop.json" />
-  </ItemGroup>
   <ImportGroup Label="Documentation">
     <Import Project="..\..\documentation.props" />
   </ImportGroup>
-  <ItemGroup>
-    <None Remove="Scripts\infrastructure.js" />
+  <ItemGroup Label="Stylecop Customs Rules">
+    <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Label="Packages References">
     <PackageReference Include="ExtCore.Data.EntityFramework" Version="5.1.0" />
     <PackageReference Include="ExtCore.Mvc.Infrastructure" Version="5.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />

@@ -16,48 +16,30 @@ namespace SoftinuxBase.Infrastructure
         private readonly List<string> _anyRequiredRoles = new List<string>();
 
         /// <summary>
-        /// If not empty, all these values are required (access granted if all matching Permission claims are possessed by current user).
-        /// Menu item is decorated with either Microsoft.AspNetCore.Authorization.AuthorizeAttribute with Policy
-        /// or Infrastructure.Attributes.PermissionRequirementAttribute.
-        /// </summary>
-        // private readonly List<string> _allRequiredPermissionIdentifiers = new List<string>();
-
-        public MenuItem(
-            string url_,
-            string name_,
-            uint position_,
-            string fontAwesomeClass_ = null)
-        {
-            Url = url_;
-            Name = name_;
-            Position = position_;
-
-            FontAwesomeClass = fontAwesomeClass_ ?? "fa-circle-o";
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="MenuItem"/> class.
         /// </summary>
         /// <param name="url_">set menu item route url.</param>
         /// <param name="name_">set menu item display name.</param>
         /// <param name="position_">set menu item position in menu group.</param>
-        /// <param name="fontAwesomeClass_">set menu item icon. If null, "fa-circle-o" will be used.</param>
+        /// <param name="fontAwesomeIconType_">type for font awesome icon.</param>
+        /// <param name="fontAwesomeIconClass_">set menu item icon. If null, "fa-circle-o" will be used.</param>
         /// <param name="infrastructureAuthorizeAttributes_">set a list of <see cref="PermissionRequirementAttribute"/>.</param>
         /// <param name="microsoftAuthorizeAttributes_">set a list of <see cref="Microsoft.AspNetCore.Authorization.AuthorizeAttribute"/>.</param>
         [Obsolete]
         public MenuItem(
-        string url_,
-        string name_,
-        uint position_,
-        string fontAwesomeClass_ = null,
-        List<PermissionRequirementAttribute> infrastructureAuthorizeAttributes_ = null,
-        List<Microsoft.AspNetCore.Authorization.AuthorizeAttribute> microsoftAuthorizeAttributes_ = null)
+            string url_,
+            string name_,
+            uint position_,
+            FontAwesomeIcon.IconType fontAwesomeIconType_ = FontAwesomeIcon.IconType.far,
+            string fontAwesomeIconClass_ = "fa-circle",
+            List<PermissionRequirementAttribute> infrastructureAuthorizeAttributes_ = null,
+            List<Microsoft.AspNetCore.Authorization.AuthorizeAttribute> microsoftAuthorizeAttributes_ = null)
         {
             Url = url_;
             Name = name_;
             Position = position_;
-
-            FontAwesomeClass = fontAwesomeClass_ ?? "fa-circle-o";
+            FontAwesomeIconType = fontAwesomeIconType_;
+            FontAwesomeIconClass = fontAwesomeIconClass_;
 
             if (microsoftAuthorizeAttributes_ != null)
             {
@@ -105,8 +87,13 @@ namespace SoftinuxBase.Infrastructure
         public uint Position { get; }
 
         /// <summary>
+        /// Gets get the type for fontawesome
+        /// </summary>
+        public FontAwesomeIcon.IconType FontAwesomeIconType { get; }
+
+        /// <summary>
         /// Gets the fa-xxx class to render the associated icon.
         /// </summary>
-        public string FontAwesomeClass { get; }
+        public string FontAwesomeIconClass { get; }
     }
 }

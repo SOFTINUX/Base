@@ -12,6 +12,28 @@ import makeAjaxRequest from '/Scripts/barebone_ajax.js';
 import { inputFormGroupSetError, inputFormGroupValidator } from '/Scripts/security_user.js';
 import { inputOnlyNumbers } from '/Scripts/toolbox.js';
 
+/* Select 2 Boostrap 4 Theme for all Select2
+   @see https://github.com/select2/select2/issues/2927
+*/
+// $.fn.select2.defaults.set('theme', 'bootstrap');
+
+// template for unlink icon in edit role selectbox
+function iformat(icon) {
+    var originalOption = icon.element;
+    return $('<span><i class="' + $(originalOption).data('icon-base') + ' ' + $(originalOption).data('icon') + '"></i> ' + icon.text + '</span>');
+}
+
+$(document).ready(function() {
+    $('.select2bs4').select2({
+        minimumResultsForSearch: Infinity,
+        width: null,
+        theme: 'bootstrap',
+        placeholder: 'Select a role',
+        templateSelection: iformat,
+        templateResult: iformat,
+        allowHtml: true
+    });
+});
 
 /* ---------------------------------------------------------------- */
 /* ------------------------ expose functions ---------------------- */
@@ -513,7 +535,7 @@ function reloadGrantPermissionsHtmlView() {
 function reloadRolesHtmlView() {
     return new window.Promise((resolve, reject) => {
         makeAjaxRequest('GET', '/administration/edit-role-tab', null, (responseStatus_, responseText_) => {
-            document.getElementById('edit-role-tab').innerHTML = responseText_;
+            document.getElementById('edit-role-tab-content').innerHTML = responseText_;
             resolve();
         });
     });
@@ -581,21 +603,21 @@ function attachEditRoleChevronButtonsEventListener() {
                 () => {
                     switch (clickedElement_.id) {
                         // Add selected/unselected extensions management
-                    case 'addRoleBtnRight':
-                    case 'addRoleBtnAllRight':
-                    case 'addRoleBtnLeft':
-                    case 'addRoleBtnAllLeft':
-                        btnChevronMoveExtension(clickedElement_, '');
-                        break;
-                    // Edit selected/unselected extensions management
-                    case 'editRoleBtnRight':
-                    case 'editRoleBtnAllRight':
-                    case 'editRoleBtnLeft':
-                    case 'editRoleBtnAllLeft':
-                        btnChevronMoveExtension(clickedElement_, clickedElement_.id.toLowerCase().includes('left') ? 'to-left' : 'to-right');
-                        break;
-                    default:
-                        break;
+                        case 'addRoleBtnRight':
+                        case 'addRoleBtnAllRight':
+                        case 'addRoleBtnLeft':
+                        case 'addRoleBtnAllLeft':
+                            btnChevronMoveExtension(clickedElement_, '');
+                            break;
+                        // Edit selected/unselected extensions management
+                        case 'editRoleBtnRight':
+                        case 'editRoleBtnAllRight':
+                        case 'editRoleBtnLeft':
+                        case 'editRoleBtnAllLeft':
+                            btnChevronMoveExtension(clickedElement_, clickedElement_.id.toLowerCase().includes('left') ? 'to-left' : 'to-right');
+                            break;
+                        default:
+                            break;
                     }
                 }, false);
         }

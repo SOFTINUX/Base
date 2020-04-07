@@ -60,6 +60,8 @@ namespace WebApplication
                 }
             });
 #endif
+
+            services_.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
         public void Configure(IApplicationBuilder applicationBuilder_, IWebHostEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_, IConfiguration configuration_, IAntiforgery antiForgery_)

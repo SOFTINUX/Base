@@ -5,14 +5,14 @@ Licensed under the MIT License, Version 2.0. See License.txt in the project root
 
 @model SoftinuxBase.Barebone.ViewModels.Shared.MenuGroup.MenuGroupViewModel
 
-<li class="treeview">
-          <a href="#">
-            <i class="fa @(Model.FontAwesomeClass)"></i> <span>@(Model.Name)</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+<li class="nav-item has-treeview menu-open">
+          <a href="#" class="nav-link active">
+              <i class="@(Model.FontAwesomeIconType) @(Model.FontAwesomeIconClass) nav-icon"></i>
+              <p>@(Model.Name)
+                  <i class="right fas fa-angle-left"></i>
+              </p>
           </a>
-    <ul class="treeview-menu">
+    <ul class="nav nav-treeview">
         @foreach (var menuItem in Model.MenuItems)
         {
             <partial name="_MenuItem" model="menuItem" />

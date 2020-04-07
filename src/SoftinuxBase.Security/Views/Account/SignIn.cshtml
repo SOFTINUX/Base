@@ -1,51 +1,57 @@
 ﻿@* Copyright © 2017-2019 SOFTINUX. All rights reserved.
     Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 *@
-@using Microsoft.AspNetCore.Authentication
 @using Microsoft.Extensions.Options
 @using SoftinuxBase.Infrastructure
 @model SoftinuxBase.Security.ViewModels.Account.SignInViewModel
 
 @inject IOptions<CorporateConfiguration> OptionsApplicationConfiguration
 
-<div class="bgpicture">
     <div class="login-box">
         <div class="login-logo">
             <a href="#"><img src="/img/@Html.Raw(OptionsApplicationConfiguration.Value.BrandLogo)" class="brandlogo-image singin-brandlogo-image" alt="User Image">
                 <br/><strong>SOFTINUX</strong></a>
         </div>
         @* /.login-logo *@
-        <div class="login-box-body">
-
-            <form method="post" id="loginform">
-                @Html.AntiForgeryToken()
-                <div class="form-group has-feedback">
-                    <label for="username">Username or email address</label>
-                    <input id="username" type="text" class="form-control" name="Username" tabindex="1" autocapitalize="off" autocorrect="off" autofocus="autofocus">
-                </div>
-                <div class="form-group has-feedback">
-                    <label for="password" class="label-password">Password
-                        <a class="label-link" href="/password_reset">Forgot password?</a>
-                    </label>
-                    <input id="password" type="password" class="form-control" name="Password" tabindex="2">
-                </div>
-                <div class="row">
-                    <div class="col-xs-8">
-                        <div class="checkbox icheck">
-                            <label>
-                                <input type="checkbox">&nbsp;Remember Me
-                            </label>
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">Sign in to start your session</p>
+                <form method="post" id="loginform">
+                    @Html.AntiForgeryToken()
+                    <div class="input-group mb-3">
+                        <input id="username" type="text" class="form-control" name="Username" tabindex="1" autocapitalize="off" autocorrect="off" autofocus="autofocus" placeholder="Email or Username">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                              <span class="fas fa-user"></span>
+                            </div>
                         </div>
                     </div>
-                    @* /.col *@
-                    <div class="col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                    <div class="input-group mb-3">
+                        <input id="password" type="password" class="form-control" name="Password" tabindex="2" placeholder="Password">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                              <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
                     </div>
-                    @* /.col *@
-                </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                               <input type="checkbox" id="remember" name="RememberMe">
+                                <label for="remember">
+                                    Remember Me
+                                </label>
+                            </div>
+                        </div>
+                        @* /.col *@
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                        </div>
+                        @* /.col *@
+                    </div>
 
-            </form>
-
+                </form>
+            </div>
         </div>
         @* /.login-box-body *@
     </div>
@@ -59,7 +65,6 @@
         </div>
     }
 
-</div>
 
 @section ScriptsUnauthenticated {
  <script type="text/javascript">

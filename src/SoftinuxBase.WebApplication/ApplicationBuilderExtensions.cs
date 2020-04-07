@@ -81,21 +81,18 @@ namespace SoftinuxBase.WebApplication
                     return next_(context_);
                 });
 
+            // 3. The following are handled by ExtCore as prioritized IConfigureAction:
+            // - UseRouting (built-in in ExtCore)
+            // - UseAuthorization (custom)
+            // - UseEndpoints (built-in in ExtCore and overriden)
             applicationBuilder_.UseHttpsRedirection();
-            applicationBuilder_.UseRouting();
             applicationBuilder_.UseCors();
             applicationBuilder_.UseAuthentication();
-            applicationBuilder_.UseAuthorization();
 
-            applicationBuilder_.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-
-            // 3. ExtCore
+            // 4. ExtCore
             applicationBuilder_.UseExtCore();
 
-            // 4. Static files
+            // 5. Static files
             applicationBuilder_.UseStaticFiles();
         }
     }
