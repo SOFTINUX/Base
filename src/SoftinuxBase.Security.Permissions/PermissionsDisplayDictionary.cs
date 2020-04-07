@@ -21,18 +21,22 @@ namespace SoftinuxBase.Security.Permissions
 
         // FIXME construct PermissionsDisplayDictionary from an IEnumerable<IExtensionMetadata> and a PermissionsDictionary
         // because the extension gives the type of the enum and I can be silly and use enum from another assembly. See code in ReadGrants for the matching.
-        
+
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="permissionEnumTypeForExtensionName_">Dictionary with key: extension name (assembly short name) and value:
-        /// permission enum type (that could be in another assembly)</param>
+        /// permission enum type (that could be in another assembly or null if the extension doesn't define it)</param>
         /// <param name="permissionsDictionary_">Permissions as read from database (uses permission enum type only)</param>
         public PermissionsDisplayDictionary(Dictionary<string, Type> permissionEnumTypeForExtensionName_, PermissionsDictionary permissionsDictionary_)
         {
-            foreach(KeyValuePair<string, Type> permissionEnumTypeForExtensionName in permissionEnumTypeForExtensionName_)
+            foreach (KeyValuePair<string, Type> permissionEnumTypeForExtensionName in permissionEnumTypeForExtensionName_)
             {
-                Dictionary.Add(permissionEnumTypeForExtensionName.Key, PermissionDisplay.GetPermissionsToDisplay(permissionEnumTypeForExtensionName.Value, permissionsDictionary_.Dictionary[permissionEnumTypeForExtensionName.Value.AssemblyQualifiedName]).ToHashSet());
+                permissionsDictionary_.Dictionary.TryGetValue(permissionEnumTypeForExtensionName.Value?.AssemblyQualifiedName ?? "", out var permissionsForEnum);
+                if (permissionsForEnum != null)
+                {
+                    Dictionary.Add(permissionEnumTypeForExtensionName.Key, PermissionDisplay.GetPermissionsToDisplay(permissionEnumTypeForExtensionName.Value, permissionsForEnum).ToHashSet());
+                }
             }
         }
 
@@ -84,8 +88,6 @@ namespace SoftinuxBase.Security.Permissions
         {
             Dictionary.TryGetValue(extensionName_, out var permissionDisplays);
             return permissionDisplays?.FirstOrDefault(permissionDisplay_ => permissionDisplay_.Permission == permissionValue_);
-
         }
-
     }
 }

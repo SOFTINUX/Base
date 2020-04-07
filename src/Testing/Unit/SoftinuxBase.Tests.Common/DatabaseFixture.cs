@@ -105,18 +105,5 @@ namespace SoftinuxBase.Tests.Common
             optionsBuilder.UseSqlite(configuration["ConnectionStrings:Default"]);
             return optionsBuilder;
         }
-
-        /// <summary>
-        /// Utility class to use the IOptions pattern as required by IStorage implementations constructors.
-        /// </summary>
-        private class TestStorageContextOptions : IOptions<StorageContextOptions>
-        {
-            public TestStorageContextOptions(StorageContextOptions value_)
-            {
-                Value = value_;
-            }
-
-            public StorageContextOptions Value { get; }
-        }
     }
 }

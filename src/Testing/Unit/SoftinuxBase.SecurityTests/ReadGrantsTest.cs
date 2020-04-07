@@ -44,12 +44,14 @@ namespace SoftinuxBase.SecurityTests
             model.PermissionsByRoleAndExtension.Keys.Should().NotBeEmpty();
             model.PermissionsByRoleAndExtension.Keys.Should().Contain(Constants.SoftinuxBaseSecurityAssemblyShortName);
             model.PermissionsByRoleAndExtension.Keys.Should().Contain("SampleExtension1");
+            model.PermissionsByRoleAndExtension.Keys.Should().Contain("SampleExtension2");
             model.PermissionsByRoleAndExtension.Keys.Should().NotContain(Constants.SoftinuxBaseTestsCommonAssemblyShortName);
 
             model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurityAssemblyShortName][Roles.Administrator.ToString()].Should().HaveCount(2);
             model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurityAssemblyShortName][Roles.Moderator.ToString()].Should().HaveCount(2);
             model.PermissionsByRoleAndExtension["SampleExtension1"][Roles.Administrator.ToString()].Should().HaveCount(1);
             model.PermissionsByRoleAndExtension["SampleExtension1"][Roles.Moderator.ToString()].Should().HaveCount(2);
+            model.PermissionsByRoleAndExtension["SampleExtension2"].Should().HaveCount(0);
 
             model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurityAssemblyShortName][Roles.Administrator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Roles" && permissionDisplay_.ShortName == "CanCreate").Should().NotBeNull();
             model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurityAssemblyShortName][Roles.Administrator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Roles" && permissionDisplay_.ShortName == "CanCreate").Should().NotBeNull();
