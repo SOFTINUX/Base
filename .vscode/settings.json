@@ -9,12 +9,16 @@
     "workbench.sideBar.location": "left",
     "workbench.activityBar.visible": true,
     "workbench.colorCustomizations": {
-        //"editor.lineHighlightBorder": "#fdfccf",
+        //"editor.lineHighlightBorder": "#75757588",
         //"editor.lineHighlightBackground": "#fafafa",
         "tab.activeBorder": "#FFA500",
-        "activityBar.background": "#561332",
-        "titleBar.activeBackground": "#791B45",
-        "titleBar.activeForeground": "#FEFCFD"
+        "tab.activeBackground": "#e9006d6c",
+        "activityBar.background": "#ff00776e",
+        "activityBar.activeBorder": "#ffffff",
+        "activityBarBadge.background": "#ff8800ef",
+        "activityBarBadge.foreground": "#000000"
+        //"titleBar.activeBackground": "#791B45",
+        //"titleBar.activeForeground": "#FEFCFD",
     },
     // Controls if quick suggestions should show up while typing
     "editor.quickSuggestions": {
