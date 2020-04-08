@@ -62,7 +62,7 @@ namespace SoftinuxBase.Security
                         "/administration",
                         "Main",
                         100,
-                        FontAwesomeIcon.IconType.far,
+                        FontAwesomeIcon.IconType.Far,
                         infrastructureAuthorizeAttributes_: new List<PermissionRequirementAttribute>(new[]
                         {
                             new PermissionRequirementAttribute(
@@ -76,7 +76,7 @@ namespace SoftinuxBase.Security
                         "Administration",
                         0, // Always first
                         menuItems,
-                        FontAwesomeIcon.IconType.fas,
+                        FontAwesomeIcon.IconType.Fas,
                         "fa-wrench")
                 };
             }

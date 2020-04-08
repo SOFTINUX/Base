@@ -30,7 +30,7 @@ namespace SoftinuxBase.Infrastructure
             string url_,
             string name_,
             uint position_,
-            FontAwesomeIcon.IconType fontAwesomeIconType_ = FontAwesomeIcon.IconType.far,
+            FontAwesomeIcon.IconType fontAwesomeIconType_ = FontAwesomeIcon.IconType.Far,
             string fontAwesomeIconClass_ = "fa-circle",
             List<PermissionRequirementAttribute> infrastructureAuthorizeAttributes_ = null,
             List<Microsoft.AspNetCore.Authorization.AuthorizeAttribute> microsoftAuthorizeAttributes_ = null)

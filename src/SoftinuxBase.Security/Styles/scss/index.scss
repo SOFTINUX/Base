@@ -4,39 +4,49 @@
 .cursor-pointer {
     cursor: pointer;
 }
+
 .cell-heigth-25 {
     height: 35px;
     padding-top: 5px;
 }
+
 .cell-border-bottom {
     border-bottom: solid 1px;
 }
+
 .cell-border-bottom-color-gray {
     border-color: gray;
 }
+
 .cell-role-row {
     border-bottom: 1px dashed #d2d2d2;
 }
+
 .permission-label-position {
     width: auto;
 }
+
 .table-header-cell{
     border-bottom: 1px solid #ddd;
 }
+
 .extension-row-height {
     line-height: 2.42857143;
     vertical-align: top;
-
 }
+
 .extension-row .chevron:after {
     content: "\f078";
 }
+
 .extension-row.collapsed .chevron:after {
     content: "\f054";
 }
+
 .table-header .chevron-double:after {
     content: "\f103";
 }
+
 .table-header.collapsed .chevron-double:after {
     content: "\f101";
 }
@@ -140,4 +150,11 @@ select.input-validation-error
 
 #availableRoles {
     font-family: 'Font Awesome 5 Free', 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.custom-file-input ~ .custom-file-label:lang(fr)::after {
+    content: "Choisir...";
+}
+.custom-file-input ~ .custom-file-label:lang(en)::after {
+    content: "Browse...";
 }

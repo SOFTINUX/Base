@@ -15,7 +15,7 @@ namespace SoftinuxBase.Infrastructure
         /// <param name="menuItems_">list of menu items to add to this menu group.</param>
         /// <param name="fontAwesomeIconType_">type for font awesome icon.</param>
         /// <param name="fontAwesomeClass_">icon linked to menu group.</param>
-        public MenuGroup(string name_, uint position_, IEnumerable<MenuItem> menuItems_, FontAwesomeIcon.IconType fontAwesomeIconType_ = FontAwesomeIcon.IconType.far, string fontAwesomeClass_ = "fa-bars")
+        public MenuGroup(string name_, uint position_, IEnumerable<MenuItem> menuItems_, FontAwesomeIcon.IconType fontAwesomeIconType_ = FontAwesomeIcon.IconType.Far, string fontAwesomeClass_ = "fa-bars")
         {
             Name = name_;
             Position = position_;

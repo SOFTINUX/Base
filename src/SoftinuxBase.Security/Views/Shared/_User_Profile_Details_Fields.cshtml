@@ -2,40 +2,42 @@
     Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 *@
 
+@* input picture *@
 <div class="form-group">
     <label for="inputPicture" class="col-sm-2 control-label">Profile Picture </label>
     <div class="col-sm-10">
         @*<input type="file" class="form-control" id="inputAvatar" placeholder="Avatar" accept=".png, .jpg, .jpeg" />*@
-        <div class="input-group">
-            <span class="input-group-btn">
-                <button class="btn btn-default" type="button" id="file_browser">
-                    <i class="fa fa-folder-open"></i> Browse
-                </button>
-            </span>
-            <input type="text" id="file_path" class="form-control" placeholder="Browse..." readonly>
-        </div>
-        <input type="file" class="hidden" id="inputAvatar" name="file" accept="image/*">
+        <div class="custom-file" id="customFile">
+                <input type="file" name="file" class="custom-file-input" id="inputAvatar" accept="image/*" aria-describedby="fileHelp">
+                <label class="custom-file-label" for="inputAvatar">
+                    Browse for avatar
+                </label>
+            </div>
         <img src="" class="hidden" id="avatar_preview" alt=""/>
     </div>
 </div>
+@* input firstname *@
 <div class="form-group">
     <label for="inputFirstname" class="col-sm-2 control-label">First Name</label>
     <div class="col-sm-10">
         <input type="text" class="form-control" id="inputFirstname" placeholder="First Name" value="@Model.FirstName" />
     </div>
 </div>
+@* input lastname *@
 <div class="form-group">
     <label for="inputLastname" class="col-sm-2 control-label">Last Name</label>
     <div class="col-sm-10">
         <input type="text" class="form-control" id="inputLastname" placeholder="Last Name" value="@Model.LastName" />
     </div>
 </div>
+@* input mail *@
 <div class="form-group">
     <label for="inputEmail" class="col-sm-2 control-label">Email</label>
     <div class="col-sm-10">
         <input type="tel" class="form-control" id="inputEmail" placeholder="Email" value="@Model.Email" />
     </div>
 </div>
+@* input phone *@
 <div class="form-group">
     <label for="inputPhone" class="col-sm-2 control-label">Phone</label>
     <div class="col-sm-10">
