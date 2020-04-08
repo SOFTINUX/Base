@@ -65,6 +65,9 @@
       </ItemGroup>
     </When>
   </Choose>
+  <PropertyGroup>
+    <SolutionDir Condition=" '$(SolutionDir)' == '' ">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), SoftinuxBase.sln))\</SolutionDir>
+  </PropertyGroup>
   <Target Name="PreBuild" AfterTargets="BeforeBuild">
     <Exec Command="&quot;$(SolutionDir)&quot;bp.bat generateSecurityCss" Condition="'$(OS)' == 'Windows_NT'" />
     <Exec Command="'$(SolutionDir)'bp.sh generateSecurityCss" Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'" />

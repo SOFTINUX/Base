@@ -105,6 +105,9 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Styles\scss\index.scss" />
   </ItemGroup>
+  <PropertyGroup>
+    <SolutionDir Condition=" '$(SolutionDir)' == '' ">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), SoftinuxBase.sln))\</SolutionDir>
+  </PropertyGroup>
   <Target Name="PreBuild" AfterTargets="BeforeBuild">
     <Exec Command="&quot;$(SolutionDir)&quot;bp.bat generateBareboneCss" Condition="'$(OS)' == 'Windows_NT'" />
     <Exec Command="'$(SolutionDir)'bp.sh generateBareboneCss" Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'" />
