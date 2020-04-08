@@ -5,12 +5,13 @@ namespace SoftinuxBase.Infrastructure
         /// <summary>
         /// Type for font awesome icon.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1602:Enumeration items should be documented", Justification = "<En attente>")]
         public enum IconType
         {
-            fas = 0,
-            far = 1,
-            fal = 2,
-            fad = 3
+            Fas = 0,
+            Far = 1,
+            Fal = 2,
+            Fad = 3
         }
     }
 }
