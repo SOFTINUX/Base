@@ -13,9 +13,7 @@ using SoftinuxBase.Infrastructure.Interfaces;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.Permissions;
-using SoftinuxBase.Security.Permissions;
 using SoftinuxBase.Security.ViewModels.Permissions;
-using Permission = SoftinuxBase.Security.Permissions.Enums.Permission;
 
 namespace SoftinuxBase.Security.Tools
 {
@@ -68,7 +66,7 @@ namespace SoftinuxBase.Security.Tools
             return model;
         }
 
-        // TODO REWRITE
+        // TODO REWRITE for new permissions if useful
         /// <summary>
         /// Get the list of all extensions associated to a role, with corresponding permissions,
         /// and also the list of extensions not linked to the role.
@@ -79,24 +77,25 @@ namespace SoftinuxBase.Security.Tools
         /// <param name="selectedExtensions_">Output a list of selected extensions.</param>
         public static void GetExtensions(string roleId_, IStorage storage_, out IList<string> availableExtensions_, out IList<SelectedExtension> selectedExtensions_)
         {
-            selectedExtensions_ = storage_.GetRepository<IRolePermissionRepository>().FilteredByRoleId(roleId_).Select(
-                    rp_ => new SelectedExtension { ExtensionName = rp_.Extension, PermissionName = rp_.Permission.Name, PermissionId = rp_.PermissionId })
-                .ToList();
-
-            IEnumerable<string> selectedExtensionsNames = selectedExtensions_.Select(se_ => se_.ExtensionName).ToList();
-
-            availableExtensions_ = new List<string>();
-            foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
-            {
-                var extensionName = extensionMetadata.Name;
-                if (!selectedExtensionsNames.Contains(extensionName) && extensionMetadata.IsAvailableForPermissions)
-                {
-                    availableExtensions_.Add(extensionName);
-                }
-            }
+            // selectedExtensions_ = storage_.GetRepository<IRolePermissionRepository>().FilteredByRoleId(roleId_).Select(
+            //         rp_ => new SelectedExtension { ExtensionName = rp_.Extension, PermissionName = rp_.Permission.Name, PermissionId = rp_.PermissionId })
+            //     .ToList();
+            //
+            // IEnumerable<string> selectedExtensionsNames = selectedExtensions_.Select(se_ => se_.ExtensionName).ToList();
+            //
+            // availableExtensions_ = new List<string>();
+            // foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
+            // {
+            //     var extensionName = extensionMetadata.Name;
+            //     if (!selectedExtensionsNames.Contains(extensionName) && extensionMetadata.Type != null)
+            //     {
+            //         availableExtensions_.Add(extensionName);
+            //     }
+            // }
+            throw new NotImplementedException();
         }
 
-        // TODO REWRITE
+        // TODO DELETE, useless for new permissions
         /// <summary>
         /// This function checks that the role is the last grant of Admin permission level to the target extension.
         ///
@@ -118,44 +117,46 @@ namespace SoftinuxBase.Security.Tools
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1629", Justification = "Suppress warning for 'Rules:' in summary")]
         public static async Task<bool> IsRoleLastAdminPermissionLevelGrantForExtensionAsync(RoleManager<IdentityRole<string>> roleManager_, IStorage storage_, string roleName_, string extensionName_)
         {
-            var currentRole = await roleManager_.FindByNameAsync(roleName_);
-
-            if (currentRole == null)
-            {
-                // The role has been deleted by someone else
-                return false;
-            }
-
-            // Is there a user directly granted Admin for this extension?
-            if (storage_.GetRepository<IUserPermissionRepository>().FindBy(extensionName_, Permission.Admin).Any())
-            {
-                // A user is directly granted
-                return false;
-            }
-
-            var rolePermissionRecordsWithAdminLevel = storage_.GetRepository<IRolePermissionRepository>().FindBy(extensionName_, Permission.Admin);
-
-            if (!rolePermissionRecordsWithAdminLevel.Any())
-            {
-                // This method shouldn't have been called in this case :-)
-                return false;
-            }
-
-            if (rolePermissionRecordsWithAdminLevel.Count() == 1 && rolePermissionRecordsWithAdminLevel.First().Id == currentRole.Id)
-            {
-                // There is only one grant to current role
-                return true;
-            }
-
-            /*
-            The roles that have Admin right must have users linked to them
-            and if at least one user found => return false, else true
-            */
-
-            IEnumerable<User> usersHavingRoles =
-                storage_.GetRepository<IAspNetUsersRepository>().FindUsersHavingRoles(rolePermissionRecordsWithAdminLevel.Where(rp_ => rp_.RoleId != currentRole.Id).Select(rp_ => rp_.Role.NormalizedName));
-
-            return !usersHavingRoles.Any();
+            // var currentRole = await roleManager_.FindByNameAsync(roleName_);
+            //
+            // if (currentRole == null)
+            // {
+            //     // The role has been deleted by someone else
+            //     return false;
+            // }
+            //
+            // // Is there a user directly granted Admin for this extension?
+            // if (storage_.GetRepository<IUserPermissionRepository>().FindBy(extensionName_, Permission.Admin).Any())
+            // {
+            //     // A user is directly granted
+            //     return false;
+            // }
+            //
+            // var rolePermissionRecordsWithAdminLevel = storage_.GetRepository<IRolePermissionRepository>().FindBy(extensionName_, Permission.Admin);
+            //
+            // if (!rolePermissionRecordsWithAdminLevel.Any())
+            // {
+            //     // This method shouldn't have been called in this case :-)
+            //     return false;
+            // }
+            //
+            // if (rolePermissionRecordsWithAdminLevel.Count() == 1 && rolePermissionRecordsWithAdminLevel.First().Id == currentRole.Id)
+            // {
+            //     // There is only one grant to current role
+            //     return true;
+            // }
+            //
+            // /*
+            // The roles that have Admin right must have users linked to them
+            // and if at least one user found => return false, else true
+            // */
+            //
+            // IEnumerable<User> usersHavingRoles =
+            //     storage_.GetRepository<IAspNetUsersRepository>().FindUsersHavingRoles(rolePermissionRecordsWithAdminLevel.Where(rp_ => rp_.RoleId != currentRole.Id).Select(rp_ => rp_.Role.NormalizedName));
+            //
+            // return !usersHavingRoles.Any();
+            
+            throw new NotImplementedException();
         }
     }
 }

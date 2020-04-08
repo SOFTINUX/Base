@@ -9,7 +9,7 @@ using ExtCore.Infrastructure;
 namespace SoftinuxBase.Infrastructure.Interfaces
 {
     /// <summary>
-    /// Implement this interface to allow your extension to
+    /// Implement this interface to allow your extension to:
     /// <ul><li>define one or more menu items</li>
     /// <li>provide scripts and stylesheets elements to include in the main web application</li>
     /// <li>expose the enumeration that represent permissions provided and used by this extension</li>
@@ -33,12 +33,6 @@ namespace SoftinuxBase.Infrastructure.Interfaces
         IEnumerable<MenuGroup> MenuGroups { get; }
 
         /// <summary>
-        /// Gets a value indicating whether the extension is visible in permissions configuration panel.
-        /// </summary>
-        [Obsolete]
-        bool IsAvailableForPermissions { get; }
-
-        /// <summary>
         /// Gets extension's assembly.
         /// </summary>
         Assembly CurrentAssembly { get; }
@@ -50,6 +44,7 @@ namespace SoftinuxBase.Infrastructure.Interfaces
 
         /// <summary>
         /// Gets the type of the enumeration that defines permissions provided by this extension. Can be null.
+        /// When not null, the extension is visible in permissions configuration panel.
         /// </summary>
         Type Permissions { get; }
     }

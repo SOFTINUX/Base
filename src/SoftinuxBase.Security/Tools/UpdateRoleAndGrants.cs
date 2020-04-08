@@ -6,8 +6,6 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
-using SoftinuxBase.Security.Data.Abstractions;
-using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.ViewModels.Permissions;
 
 [assembly: InternalsVisibleTo("SoftinuxBase.SecurityTests")]
@@ -57,49 +55,51 @@ namespace SoftinuxBase.Security.Tools
                 return "A role with this name already exists";
             }
 
-            try
-            {
+            // try
+            // {
                 // Update the role name
                 var role = await roleManager_.FindByIdAsync(model_.RoleId);
                 await roleManager_.SetRoleNameAsync(role, model_.RoleName);
 
-                // Create the new links
-                if (model_.Grants != null)
-                {
-                    // Clear all the linked extensions, save the new links
-                    var permRepo = storage_.GetRepository<IRolePermissionRepository>();
-
-                    foreach (var rolePermission in permRepo.FilteredByRoleId(model_.RoleId))
-                    {
-                        permRepo.Delete(rolePermission.RoleId, rolePermission.Extension);
-                    }
-
-                    foreach (ExtensionPermissionValue grantData in model_.Grants)
-                    {
-                        // Convert the string to the enum
-                        if (Enum.TryParse<Permissions.Enums.Permission>(grantData.PermissionValue, true, out var permissionEnumValue))
-                        {
-                            var permissionEntity = storage_.GetRepository<IPermissionRepository>()
-                                .Find(permissionEnumValue);
-
-                            permRepo.Create(new RolePermission
-                            {
-                                RoleId = model_.RoleId,
-                                PermissionId = permissionEntity.Id,
-                                Extension = grantData.Extension
-                            });
-                        }
-                    }
-                }
-
-                await storage_.SaveAsync();
-
-                return null;
+                // TODO rewrite for new permissions
+                throw new NotImplementedException();
+            //     // Create the new links
+            //     if (model_.Grants != null)
+            //     {
+            //         // Clear all the linked extensions, save the new links
+            //         var permRepo = storage_.GetRepository<IRolePermissionRepository>();
+            //
+            //         foreach (var rolePermission in permRepo.FilteredByRoleId(model_.RoleId))
+            //         {
+            //             permRepo.Delete(rolePermission.RoleId, rolePermission.Extension);
+            //         }
+            //
+            //         foreach (ExtensionPermissionValue grantData in model_.Grants)
+            //         {
+            //             // Convert the string to the enum
+            //             if (Enum.TryParse<Permissions.Enums.Permission>(grantData.PermissionValue, true, out var permissionEnumValue))
+            //             {
+            //                 var permissionEntity = storage_.GetRepository<IPermissionRepository>()
+            //                     .Find(permissionEnumValue);
+            //
+            //                 permRepo.Create(new RolePermission
+            //                 {
+            //                     RoleId = model_.RoleId,
+            //                     PermissionId = permissionEntity.Id,
+            //                     Extension = grantData.Extension
+            //                 });
+            //             }
+            //         }
+            //     }
+            //
+            //     await storage_.SaveAsync();
+            //
+            //     return null;
+            // }
+            // catch (Exception e)
+            // {
+            //     return $"{e.Message} {e.StackTrace}";
+            // }
             }
-            catch (Exception e)
-            {
-                return $"{e.Message} {e.StackTrace}";
-            }
-        }
     }
 }

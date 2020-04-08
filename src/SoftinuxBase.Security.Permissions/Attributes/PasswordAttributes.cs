@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace SoftinuxBase.Security.Permissions.Attributes
 {
+    // TODO use or remove
     public class PasswordAttributes
     {
         public static ValidationResult PasswordStrongTest(string value_, ValidationContext validationContext_)

@@ -19,7 +19,6 @@ namespace SampleExtension1
         public IEnumerable<StyleSheet> StyleSheets { get { return null; } }
         public IEnumerable<Script> Scripts { get { return null; } }
         public IEnumerable<MenuGroup> MenuGroups { get { return null; } }
-        public bool IsAvailableForPermissions { get { return true; } }
 
         /// <inheritdoc />
         public Assembly CurrentAssembly => Assembly.GetExecutingAssembly();

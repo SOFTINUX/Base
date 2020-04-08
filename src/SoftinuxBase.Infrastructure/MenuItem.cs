@@ -1,9 +1,7 @@
 // Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
-using System;
 using System.Collections.Generic;
-using SoftinuxBase.Security.Permissions.Attributes;
 
 namespace SoftinuxBase.Infrastructure
 {
@@ -23,16 +21,13 @@ namespace SoftinuxBase.Infrastructure
         /// <param name="position_">set menu item position in menu group.</param>
         /// <param name="fontAwesomeIconType_">type for font awesome icon.</param>
         /// <param name="fontAwesomeIconClass_">set menu item icon. If null, "fa-circle-o" will be used.</param>
-        /// <param name="infrastructureAuthorizeAttributes_">set a list of <see cref="PermissionRequirementAttribute"/>.</param>
         /// <param name="microsoftAuthorizeAttributes_">set a list of <see cref="Microsoft.AspNetCore.Authorization.AuthorizeAttribute"/>.</param>
-        [Obsolete]
         public MenuItem(
             string url_,
             string name_,
             uint position_,
             FontAwesomeIcon.IconType fontAwesomeIconType_ = FontAwesomeIcon.IconType.Far,
             string fontAwesomeIconClass_ = "fa-circle",
-            List<PermissionRequirementAttribute> infrastructureAuthorizeAttributes_ = null,
             List<Microsoft.AspNetCore.Authorization.AuthorizeAttribute> microsoftAuthorizeAttributes_ = null)
         {
             Url = url_;
@@ -41,6 +36,7 @@ namespace SoftinuxBase.Infrastructure
             FontAwesomeIconType = fontAwesomeIconType_;
             FontAwesomeIconClass = fontAwesomeIconClass_;
 
+            // TODO verify this code with new permissions system (create a unit test)
             if (microsoftAuthorizeAttributes_ != null)
             {
                 // Get the authorized roles and policies
@@ -54,18 +50,6 @@ namespace SoftinuxBase.Infrastructure
                     if (!string.IsNullOrWhiteSpace(attr.Policy))
                     {
                         // _allRequiredPermissionIdentifiers.Add(attr.Policy);
-                    }
-                }
-            }
-
-            if (infrastructureAuthorizeAttributes_ != null)
-            {
-                // Get the authorized permission identifiers
-                foreach (var attr in infrastructureAuthorizeAttributes_)
-                {
-                    if (!string.IsNullOrWhiteSpace(attr.PermissionIdentifier))
-                    {
-                        // _allRequiredPermissionIdentifiers.Add(attr.PermissionIdentifier);
                     }
                 }
             }
@@ -87,7 +71,7 @@ namespace SoftinuxBase.Infrastructure
         public uint Position { get; }
 
         /// <summary>
-        /// Gets get the type for fontawesome
+        /// Gets get the type for fontawesome.
         /// </summary>
         public FontAwesomeIcon.IconType FontAwesomeIconType { get; }
 

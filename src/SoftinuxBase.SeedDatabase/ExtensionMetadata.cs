@@ -36,9 +36,6 @@ namespace SoftinuxBase.SeedDatabase
         public string Description => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyDescriptionAttribute))?.ToString();
 
         /// <inheritdoc />
-        bool IExtensionMetadata.IsAvailableForPermissions => false;
-
-        /// <inheritdoc />
         public IEnumerable<StyleSheet> StyleSheets => new StyleSheet[] { };
 
         /// <inheritdoc />

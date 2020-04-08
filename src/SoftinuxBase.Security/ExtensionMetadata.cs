@@ -6,9 +6,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using SoftinuxBase.Infrastructure;
 using SoftinuxBase.Infrastructure.Interfaces;
-using SoftinuxBase.Security.Permissions;
-using SoftinuxBase.Security.Permissions.Attributes;
-using SoftinuxBase.Security.Permissions.Enums;
 
 namespace SoftinuxBase.Security
 {
@@ -36,9 +33,6 @@ namespace SoftinuxBase.Security
         public string Description => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyDescriptionAttribute))?.ToString();
 
         /// <inheritdoc />
-        bool IExtensionMetadata.IsAvailableForPermissions => true;
-
-        /// <inheritdoc />
         public IEnumerable<StyleSheet> StyleSheets => new[] { new StyleSheet("/Styles.Security.css", 510), };
 
         /// <inheritdoc />
@@ -62,13 +56,7 @@ namespace SoftinuxBase.Security
                         "/administration",
                         "Main",
                         100,
-                        FontAwesomeIcon.IconType.Far,
-                        infrastructureAuthorizeAttributes_: new List<PermissionRequirementAttribute>(new[]
-                        {
-                            new PermissionRequirementAttribute(
-                                Permission.Admin,
-                                Constants.SoftinuxBaseSecurity),
-                        }))
+                        FontAwesomeIcon.IconType.Far)
                 };
                 return new[]
                 {

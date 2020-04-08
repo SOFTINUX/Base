@@ -8,7 +8,7 @@ using SoftinuxBase.Security.Permissions;
 namespace SoftinuxBase.Security.Data.Entities
 {
     /// <summary>
-    /// This holds what modules a user or tenant has
+    /// This holds what modules a user or tenant has.
     /// </summary>
     public class ModulesForUser : IChangeEffectsUser, IAddRemoveEffectsUser
     {

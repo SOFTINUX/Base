@@ -6,8 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
-using SoftinuxBase.Security.Data.Abstractions;
-using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.ViewModels.Permissions;
 
 namespace SoftinuxBase.Security.Tools
@@ -44,46 +42,49 @@ namespace SoftinuxBase.Security.Tools
             {
                 return "At least one extension must be selected";
             }
+            
+            // TODO rewrite for new permissions
+            throw new NotImplementedException();
 
-            try
-            {
-                // Convert the string to the enum
-                if (Enum.TryParse<Permissions.Enums.Permission>(model_.PermissionValue, true, out var permissionEnumValue))
-                {
-                    var permissionEntity = storage_.GetRepository<IPermissionRepository>().Find(permissionEnumValue);
-
-                    // Save the Role
-                    IdentityRole<string> identityRole = new IdentityRole<string>
-                    {
-                        // Auto-incremented ID
-                        Name = model_.RoleName
-                    };
-                    await roleManager_.CreateAsync(identityRole);
-
-                    // Save the role-extension-permission link
-                    if (model_.Extensions != null)
-                    {
-                        IRolePermissionRepository repo = storage_.GetRepository<IRolePermissionRepository>();
-                        foreach (string extension in model_.Extensions)
-                        {
-                            repo.Create(new RolePermission
-                            {
-                                RoleId = identityRole.Id,
-                                PermissionId = permissionEntity.Id,
-                                Extension = extension
-                            });
-                        }
-                    }
-                }
-
-                await storage_.SaveAsync();
-
-                return null;
-            }
-            catch (Exception e)
-            {
-                return $"{e.Message} {e.StackTrace}";
-            }
+            // try
+            // {
+            //     // Convert the string to the enum
+            //     if (Enum.TryParse<Permissions.Enums.Permission>(model_.PermissionValue, true, out var permissionEnumValue))
+            //     {
+            //         var permissionEntity = storage_.GetRepository<IPermissionRepository>().Find(permissionEnumValue);
+            //
+            //         // Save the Role
+            //         IdentityRole<string> identityRole = new IdentityRole<string>
+            //         {
+            //             // Auto-incremented ID
+            //             Name = model_.RoleName
+            //         };
+            //         await roleManager_.CreateAsync(identityRole);
+            //
+            //         // Save the role-extension-permission link
+            //         if (model_.Extensions != null)
+            //         {
+            //             IRolePermissionRepository repo = storage_.GetRepository<IRolePermissionRepository>();
+            //             foreach (string extension in model_.Extensions)
+            //             {
+            //                 repo.Create(new RolePermission
+            //                 {
+            //                     RoleId = identityRole.Id,
+            //                     PermissionId = permissionEntity.Id,
+            //                     Extension = extension
+            //                 });
+            //             }
+            //         }
+            //     }
+            //
+            //     await storage_.SaveAsync();
+            //
+            //     return null;
+            // }
+            // catch (Exception e)
+            // {
+            //     return $"{e.Message} {e.StackTrace}";
+            // }
         }
     }
 }

@@ -15,7 +15,8 @@ namespace SoftinuxBase.Security.Data.EntityFramework
     {
         private readonly ILogger _logger;
 
-        public UserToRoleRepository(): base() { }
+        public UserToRoleRepository()
+        { }
 
         public UserToRoleRepository(ILoggerFactory loggerFactory_)
         {
@@ -37,8 +38,16 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         /// <inheritdoc />
         public bool AddUserToRole(string userId_, string roleName_)
         {
-            if (userId_ == null) throw new ArgumentNullException(nameof(userId_));
-            if (roleName_ == null) throw new ArgumentNullException(nameof(roleName_));
+            if (userId_ == null)
+            {
+                throw new ArgumentNullException(nameof(userId_));
+            }
+
+            if (roleName_ == null)
+            {
+                throw new ArgumentNullException(nameof(roleName_));
+            }
+
             var userToRole = Find(userId_, roleName_);
             if (userToRole != null)
             {

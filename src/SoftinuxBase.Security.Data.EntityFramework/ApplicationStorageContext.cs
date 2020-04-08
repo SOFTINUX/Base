@@ -30,11 +30,6 @@ namespace SoftinuxBase.Security.Data.EntityFramework
             _authChange = authChange_;
         }
 
-        // Old permissions system - to be removed
-        public DbSet<Permission> Permission { get; set; }
-        public DbSet<RolePermission> RolePermission { get; set; }
-        public DbSet<UserPermission> UserPermission { get; set; }
-
         // New permissions system
         private readonly IAuthChanges _authChange;
 
@@ -123,8 +118,6 @@ namespace SoftinuxBase.Security.Data.EntityFramework
             modelBuilder_.TenantBaseConfig();
             modelBuilder_.ExtraAuthorizeConfig();
         }
-
-
 
         private ILoggerFactory GetLoggerFactory()
         {

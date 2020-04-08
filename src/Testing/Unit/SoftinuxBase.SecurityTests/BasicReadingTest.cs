@@ -21,7 +21,7 @@ namespace SoftinuxBase.SecurityTests
         [Fact]
         public void TestReadDatabaseWithRepository()
         {
-            var data = DatabaseFixture.Storage.GetRepository<IPermissionRepository>().All();
+            var data = DatabaseFixture.Storage.GetRepository<IRoleToPermissionsRepository>().All();
             Assert.NotNull(data);
         }
 

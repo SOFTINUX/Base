@@ -36,9 +36,6 @@ namespace SoftinuxBase.Barebone
         public string Description => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyDescriptionAttribute))?.ToString();
 
         /// <inheritdoc />
-        bool IExtensionMetadata.IsAvailableForPermissions => true;
-
-        /// <inheritdoc />
         public IEnumerable<StyleSheet> StyleSheets => new[]
         {
             // -- CSS Fonts
