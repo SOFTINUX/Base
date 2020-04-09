@@ -48,7 +48,7 @@ namespace SoftinuxBase.Barebone.Controllers
         [ActionName("Error")]
         public async Task<IActionResult> ErrorAsync()
         {
-            return await Task.Run(() => View(new Barebone.ViewModels.ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier }));
+            return await Task.Run(() => View(new ViewModels.ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier }));
         }
     }
 }

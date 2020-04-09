@@ -22,7 +22,9 @@ namespace SoftinuxBase.Security.Data.EntityFramework
     /// </summary>
     public partial class ApplicationStorageContext : IdentityDbContext<User, IdentityRole<string>, string>, IStorageContext, ITimeStore
     {
-        public ApplicationStorageContext(DbContextOptions options_) : base(options_) { }
+        public ApplicationStorageContext(DbContextOptions options_) : base(options_)
+        {
+        }
 
         protected ApplicationStorageContext(DbContextOptions options_, IAuthChanges authChange_)
             : base(options_)
@@ -47,9 +49,9 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         /// <summary>
         /// Override used only if you want the "refresh user claims" feature (active by configuration).
         /// I only have to override these two versions of SaveChanges, as the other two SaveChanges versions call these.
+        /// </summary>
         /// <param name="acceptAllChangesOnSuccess_"></param>
         /// <returns></returns>
-        /// </summary>
         public override int SaveChanges(bool acceptAllChangesOnSuccess_)
         {
             if (_authChange == null)

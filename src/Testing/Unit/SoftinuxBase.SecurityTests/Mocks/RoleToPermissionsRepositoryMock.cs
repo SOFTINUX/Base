@@ -22,16 +22,16 @@ namespace SoftinuxBase.SecurityTests.Mocks
         {
             // PermissionsDictionary for Administrator role, uses Permissions, OtherPermissions and SamplePermissions enums
             var permissionsDictionary = new PermissionsDictionary();
-            permissionsDictionary.Add(typeof(Security.Permissions.Enums.Permissions), (short)SoftinuxBase.Security.Permissions.Enums.Permissions.CreateRoles);
-            permissionsDictionary.Add(typeof(Security.Permissions.Enums.Permissions), (short)SoftinuxBase.Security.Permissions.Enums.Permissions.DeleteRoles);
+            permissionsDictionary.Add(typeof(Security.Permissions.Enums.Permissions), (short)Security.Permissions.Enums.Permissions.CreateRoles);
+            permissionsDictionary.Add(typeof(Security.Permissions.Enums.Permissions), (short)Security.Permissions.Enums.Permissions.DeleteRoles);
             permissionsDictionary.Add(typeof(OtherPermissions), (short)OtherPermissions.Write);
             permissionsDictionary.Add(typeof(SamplePermissions), (short)SamplePermissions.Admin);
             var administratorPermissions = new RoleToPermissions(Roles.Administrator.ToString(), Roles.Administrator.ToString(), permissionsDictionary);
 
             // PermissionsDictionary for Moderator role, uses Permissions, OtherPermissions and SamplePermissions enums
             permissionsDictionary = new PermissionsDictionary();
-            permissionsDictionary.Add(typeof(Security.Permissions.Enums.Permissions), (short)SoftinuxBase.Security.Permissions.Enums.Permissions.ListRoles);
-            permissionsDictionary.Add(typeof(Security.Permissions.Enums.Permissions), (short)SoftinuxBase.Security.Permissions.Enums.Permissions.ReadRoles);
+            permissionsDictionary.Add(typeof(Security.Permissions.Enums.Permissions), (short)Security.Permissions.Enums.Permissions.ListRoles);
+            permissionsDictionary.Add(typeof(Security.Permissions.Enums.Permissions), (short)Security.Permissions.Enums.Permissions.ReadRoles);
             permissionsDictionary.Add(typeof(OtherPermissions), (short)OtherPermissions.Read);
             permissionsDictionary.Add(typeof(SamplePermissions), (short)SamplePermissions.Write);
             permissionsDictionary.Add(typeof(SamplePermissions), (short)SamplePermissions.Read);
@@ -39,8 +39,7 @@ namespace SoftinuxBase.SecurityTests.Mocks
             var moderatorPermissions = new RoleToPermissions(Roles.Moderator.ToString(), Roles.Moderator.ToString(), permissionsDictionary);
 
             // No permission using enum SamplePermissions2 is setup
-            
-            Setup(m => m.All()).Returns(new List<RoleToPermissions> {administratorPermissions, moderatorPermissions});
+            Setup(m => m.All()).Returns(new List<RoleToPermissions> { administratorPermissions, moderatorPermissions });
         }
     }
 }

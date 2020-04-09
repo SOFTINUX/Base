@@ -12,7 +12,7 @@ namespace SoftinuxBase.SecurityTests
         public UpdateRoleTest(DatabaseFixture databaseFixture_) : base(databaseFixture_)
         {
         }
-        
+
         // TODO write tests once new code is written
     }
 }

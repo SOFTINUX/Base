@@ -57,7 +57,7 @@ namespace SoftinuxBase.Security.Permissions
         /// <summary>
         /// Get all the <see cref="PermissionDisplay"/> associated to an extension.
         /// </summary>
-        /// <param name="extensionName_"Extension name.</param>
+        /// <param name="extensionName_">Extension name.</param>
         /// <returns>List of <see cref="PermissionDisplay"/>.</returns>
         public HashSet<PermissionDisplay> Get(string extensionName_)
         {

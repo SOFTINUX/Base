@@ -15,7 +15,8 @@
         "licenseFile": "LICENSE"
       },
       "xmlHeader":  false,
-      "fileNamingConvention": "metadata"
+      "fileNamingConvention": "metadata",
+      "documentationCulture": "en-US"
     },
     "orderingRules": {
       "systemUsingDirectivesFirst":  true,

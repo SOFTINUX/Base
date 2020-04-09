@@ -56,7 +56,7 @@ namespace SoftinuxBase.Security.AuthorizeSetup
                     services_.AddDataProtection();   //DataProtection is needed to encrypt the data in the Impersonation cookie
                     var validateAsyncVersion = authCookieVersion == AuthCookieVersions.Impersonation
                         ? (IAuthCookieValidate)new AuthCookieValidateImpersonation()
-                        : (IAuthCookieValidate)new AuthCookieValidateEverything();
+                        : new AuthCookieValidateEverything();
                     //We set two events, so we do this here
                     services_.ConfigureApplicationCookie(options =>
                     {

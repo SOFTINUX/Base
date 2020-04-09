@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using Newtonsoft.Json;
-using SoftinuxBase.Security.Permissions;
 
 namespace SoftinuxBase.Security.Permissions
 {

@@ -32,7 +32,7 @@ namespace SoftinuxBase.Security.Tools
         internal static async Task<bool?> DeleteRoleExtensionLinkAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, string extensionName_, string roleName_)
         {
             // TODO rewrite for new permissions
-            
+
             // string roleId = (await roleManager_.FindByNameAsync(roleName_))?.Id;
             // if (string.IsNullOrEmpty(roleId))
             // {
@@ -69,7 +69,7 @@ namespace SoftinuxBase.Security.Tools
         internal static async Task<bool> DeleteRoleExtensionsLinksAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, string roleName_)
         {
             // TODO rewrite for new permissions
-            
+
             // string roleId = (await roleManager_.FindByNameAsync(roleName_))?.Id;
             //
             // if (string.IsNullOrEmpty(roleId))
@@ -91,7 +91,6 @@ namespace SoftinuxBase.Security.Tools
             //
             // await storage_.SaveAsync();
             // return true;
-            
             throw new NotImplementedException();
         }
 
@@ -106,7 +105,7 @@ namespace SoftinuxBase.Security.Tools
         internal static async Task<string> DeleteRoleAndAllLinksAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, string roleName_)
         {
             // TODO rewrite for new permissions
-            
+
             // // delete the role-extensions links
             // await DeleteRoleExtensionsLinksAsync(storage_, roleManager_, roleName_);
             //
@@ -116,7 +115,6 @@ namespace SoftinuxBase.Security.Tools
             // await roleManager_.DeleteAsync(await roleManager_.FindByNameAsync(roleName_));
             //
             // return null;
-            
             throw new NotImplementedException();
         }
     }

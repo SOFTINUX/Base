@@ -13,12 +13,8 @@ namespace SoftinuxBase.Security.Data.Entities
     public class ModulesForUser : IChangeEffectsUser, IAddRemoveEffectsUser
     {
         /// <summary>
-        /// Empty constructor for migration to work.
-        /// </summary>
-        private ModulesForUser() { }
-
-        /// <summary>
-        /// This links modules to a user
+        /// Initializes a new instance of the <see cref="ModulesForUser"/> class.
+        /// This links modules to a user.
         /// </summary>
         /// <param name="userId_"></param>
         /// <param name="allowedPaidForModules_"></param>
@@ -33,5 +29,13 @@ namespace SoftinuxBase.Security.Data.Entities
         public string UserId { get; private set; }
 
         public PaidForModules AllowedPaidForModules { get; private set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ModulesForUser"/> class.
+        /// Empty constructor for migration to work.
+        /// </summary>
+        private ModulesForUser()
+        {
+        }
     }
 }

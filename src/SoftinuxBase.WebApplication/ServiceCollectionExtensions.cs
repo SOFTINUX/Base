@@ -85,7 +85,6 @@ namespace SoftinuxBase.WebApplication
                 options_.Cookie.SecurePolicy = (CookieSecurePolicy)Enum.Parse(typeof(CookieSecurePolicy), configuration_["ConfigureApplicationCookie:Cookie.SecurePolicy"], false); // should ideally be "Always"
 
                 options_.SlidingExpiration = true;
-
             });
 
             // 2b. Configuration for new permissions system
@@ -110,10 +109,9 @@ namespace SoftinuxBase.WebApplication
             services_.ConfigureCookiesForExtraAuth();
 
             //// This has to come after the ConfigureCookiesForExtraAuth settings, which sets up the IAuthChanges
-            //services_.ConfigureGenericServicesEntities(typeof(ApplicationStorageContext))
+            // services_.ConfigureGenericServicesEntities(typeof(ApplicationStorageContext))
             //    .ScanAssemblesForDtos(Assembly.GetAssembly(typeof(ListUsersDto)))
             //    .RegisterGenericServices();
-
             services_.AddScoped<ApplicationStorageContext, ApplicationStorageContext>();
 
             // 3. Configure the corporate logo

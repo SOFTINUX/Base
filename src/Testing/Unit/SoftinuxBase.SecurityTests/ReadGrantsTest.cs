@@ -3,7 +3,6 @@
 
 using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using FluentAssertions;
 using Moq;

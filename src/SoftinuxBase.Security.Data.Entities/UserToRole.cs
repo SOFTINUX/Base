@@ -8,11 +8,14 @@ using ExtCore.Data.Entities.Abstractions;
 namespace SoftinuxBase.Security.Data.Entities
 {
     /// <summary>
-    /// This is a one-to-many relationship between the User (represented by the UserId) and their Roles (represented by RoleToPermissions)
+    /// This is a one-to-many relationship between the User (represented by the UserId) and their Roles (represented by RoleToPermissions).
     /// </summary>
     public class UserToRole : IAddRemoveEffectsUser, IChangeEffectsUser, IEntity
     {
-        private UserToRole() { } //needed by EF Core
+        // needed by EF Core
+        private UserToRole()
+        {
+        }
 
         public UserToRole(string userId_, RoleToPermissions role_)
         {
@@ -20,8 +23,8 @@ namespace SoftinuxBase.Security.Data.Entities
             Role = role_;
         }
 
-        //I use a composite key for this table: combination of UserId and RoleName
-        //That has to be defined by EF Core's fluent API
+        // I use a composite key for this table: combination of UserId and RoleName
+        // That has to be defined by EF Core's fluent API
         [Required(AllowEmptyStrings = false)]
         [MaxLength(ExtraAuthConstants.UserIdSize)]
         // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Local - needed by EF Core
@@ -35,6 +38,5 @@ namespace SoftinuxBase.Security.Data.Entities
         [ForeignKey(nameof(RoleName))]
         // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Local - needed by EF Core
         public RoleToPermissions Role { get; private set; }
-
     }
 }

@@ -11,32 +11,53 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using SoftinuxBase.Security.Data.Entities;
 
 namespace SoftinuxBase.Tests.Common
 {
-    public class DatabaseFixture : IDisposable
+    public sealed class DatabaseFixture : IDisposable
     {
-        public IConfiguration Configuration { get; private set; }
         public IStorage Storage { get; }
-        public ILoggerFactory LoggerFactory { get; }
-
-        public UserManager<User> UserManager { get; }
         public RoleManager<IdentityRole<string>> RoleManager { get; }
+        private IConfiguration Configuration { get; set; }
 
         public DatabaseFixture()
         {
-            LoggerFactory = new LoggerFactory();
             var services = new ServiceCollection();
             ConfigureServices(services);
             IServiceProvider serviceProvider = services.BuildServiceProvider();
 
             // Assign shortcuts accessors to registered components
-            UserManager = serviceProvider.GetRequiredService<UserManager<User>>();
             RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<string>>>();
             Storage = serviceProvider.GetRequiredService<IStorage>();
+        }
+
+        /// <summary>
+        /// For use by DbContextFactory.
+        /// </summary>
+        /// <returns></returns>
+        public static DbContextOptionsBuilder<ApplicationStorageContext> GetDbContextOptionsBuilder()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<ApplicationStorageContext>();
+
+            // Configure connection string
+            var configuration = LoadConfiguration();
+            optionsBuilder.UseSqlite(configuration["ConnectionStrings:Default"]);
+            return optionsBuilder;
+        }
+
+        public void Dispose()
+        {
+            // ... clean up test data from the database ...
+        }
+
+        private static IConfiguration LoadConfiguration()
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json");
+
+            return builder.Build();
         }
 
         /// <summary>
@@ -46,7 +67,7 @@ namespace SoftinuxBase.Tests.Common
         /// Override this method to redefine your own connection string when you need.
         /// </summary>
         /// <returns></returns>
-        protected virtual string GetConnectionString()
+        private string GetConnectionString()
         {
             return Configuration["ConnectionStrings:Default"].Replace("Data Source=", "Data Source=../../../");
         }
@@ -76,34 +97,6 @@ namespace SoftinuxBase.Tests.Common
 
             // Register database-specific storage context implementation.
             services_.AddScoped<IStorageContext, ApplicationStorageContext>();
-        }
-
-        private static IConfiguration LoadConfiguration()
-        {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
-
-            return builder.Build();
-        }
-
-        public void Dispose()
-        {
-            // ... clean up test data from the database ...
-        }
-
-        /// <summary>
-        /// For use by DbContextFactory.
-        /// </summary>
-        /// <returns></returns>
-        public static DbContextOptionsBuilder<ApplicationStorageContext> GetDbContextOptionsBuilder()
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationStorageContext>();
-
-            // Configure connection string
-            var configuration = LoadConfiguration();
-            optionsBuilder.UseSqlite(configuration["ConnectionStrings:Default"]);
-            return optionsBuilder;
         }
     }
 }

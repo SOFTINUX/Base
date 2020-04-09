@@ -1,20 +1,15 @@
 // Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SoftinuxBase.Security.Data.Abstractions;
-using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.FeatureAuthorize.PolicyCode;
-using SoftinuxBase.Security.Permissions;
 using SoftinuxBase.Security.Tools;
 using SoftinuxBase.Security.ViewModels.Permissions;
 
@@ -173,8 +168,7 @@ namespace SoftinuxBase.Security.Controllers
             //
             // await Storage.SaveAsync();
             // return StatusCode((int)HttpStatusCode.OK);
-            
-            return StatusCode((int) HttpStatusCode.NoContent);
+            return StatusCode((int)HttpStatusCode.NoContent);
         }
 
         /// <summary>

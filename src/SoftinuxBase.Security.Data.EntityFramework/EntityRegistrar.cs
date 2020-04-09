@@ -12,7 +12,6 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         public void RegisterEntities(ModelBuilder modelBuilder_)
         {
             // Class provided by Identity
-
             modelBuilder_.Entity<IdentityRole>()
                 .Property(e_ => e_.Id)
                 .ValueGeneratedOnAdd();

@@ -1,3 +1,6 @@
+// Copyright © 2017-2019 SOFTINUX. All rights reserved.
+// Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
+
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -13,52 +16,53 @@ namespace SoftinuxBase.WebApplication
         private readonly ILogger _logger;
         private readonly RecyclableMemoryStreamManager _recyclableMemoryStreamManager;
 
-        public RequestResponseLoggingMiddleware(RequestDelegate next,
-                                                ILoggerFactory loggerFactory)
+        public RequestResponseLoggingMiddleware(RequestDelegate next_, ILoggerFactory loggerFactory_)
         {
-            _next = next;
-            _logger = loggerFactory
+            _next = next_;
+            _logger = loggerFactory_
                       .CreateLogger<RequestResponseLoggingMiddleware>();
             _recyclableMemoryStreamManager = new RecyclableMemoryStreamManager();
         }
 
-        public async Task Invoke(HttpContext context)
+        public async Task Invoke(HttpContext context_)
         {
-            await LogRequest(context);
-            await LogResponse(context);
+            await LogRequest(context_);
+            await LogResponse(context_);
         }
-        private async Task LogResponse(HttpContext context) { }
 
-        private async Task LogRequest(HttpContext context)
-        {
-            context.Request.EnableBuffering();
-            await using var requestStream = _recyclableMemoryStreamManager.GetStream();
-            await context.Request.Body.CopyToAsync(requestStream);
-            _logger.LogInformation($"Http Request Information:{Environment.NewLine}" +
-                                   $"Schema:{context.Request.Scheme} " +
-                                   $"Host: {context.Request.Host} " +
-                                   $"Path: {context.Request.Path} " +
-                                   $"QueryString: {context.Request.QueryString} " +
-                                   $"Request Body: {ReadStreamInChunks(requestStream)}");
-            context.Request.Body.Position = 0;
-        }
-        private static string ReadStreamInChunks(Stream stream)
+        private static string ReadStreamInChunks(Stream stream_)
         {
             const int readChunkBufferLength = 4096;
-            stream.Seek(0, SeekOrigin.Begin);
+            stream_.Seek(0, SeekOrigin.Begin);
             using var textWriter = new StringWriter();
-            using var reader = new StreamReader(stream);
+            using var reader = new StreamReader(stream_);
             var readChunk = new char[readChunkBufferLength];
             int readChunkLength;
             do
             {
-                readChunkLength = reader.ReadBlock(readChunk,
-                                                   0,
-                                                   readChunkBufferLength);
+                readChunkLength = reader.ReadBlock(readChunk, 0, readChunkBufferLength);
                 textWriter.Write(readChunk, 0, readChunkLength);
-            } while (readChunkLength > 0);
+            }
+            while (readChunkLength > 0);
             return textWriter.ToString();
         }
 
+        private async Task LogResponse(HttpContext context_)
+        {
+        }
+
+        private async Task LogRequest(HttpContext context_)
+        {
+            context_.Request.EnableBuffering();
+            await using var requestStream = _recyclableMemoryStreamManager.GetStream();
+            await context_.Request.Body.CopyToAsync(requestStream);
+            _logger.LogInformation($"Http Request Information:{Environment.NewLine}" +
+                                   $"Schema:{context_.Request.Scheme} " +
+                                   $"Host: {context_.Request.Host} " +
+                                   $"Path: {context_.Request.Path} " +
+                                   $"QueryString: {context_.Request.QueryString} " +
+                                   $"Request Body: {ReadStreamInChunks(requestStream)}");
+            context_.Request.Body.Position = 0;
+        }
     }
 }

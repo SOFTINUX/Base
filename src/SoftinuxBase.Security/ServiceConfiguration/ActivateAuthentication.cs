@@ -15,7 +15,7 @@ namespace SoftinuxBase.Security.ServiceConfiguration
         public int Priority => 200;
 
         /// <summary>
-        /// TODO DOCUMENT ME
+        /// TODO DOCUMENT ME.
         /// </summary>
         /// <param name="applicationBuilder_"></param>
         /// <param name="serviceProvider_"></param>

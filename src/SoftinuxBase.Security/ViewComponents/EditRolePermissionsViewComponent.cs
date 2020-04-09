@@ -6,7 +6,6 @@ using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SoftinuxBase.Barebone.ViewComponents;
-using SoftinuxBase.Security.ViewModels.Permissions;
 
 namespace SoftinuxBase.Security.ViewComponents
 {

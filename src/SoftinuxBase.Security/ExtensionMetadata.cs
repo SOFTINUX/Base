@@ -55,8 +55,7 @@ namespace SoftinuxBase.Security
                     new MenuItem(
                         "/administration",
                         "Main",
-                        100,
-                        FontAwesomeIcon.IconType.Far)
+                        100)
                 };
                 return new[]
                 {

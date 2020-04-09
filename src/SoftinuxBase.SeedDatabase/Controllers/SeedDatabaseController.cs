@@ -9,10 +9,10 @@ using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SoftinuxBase.Security.Permissions;
-using SoftinuxBase.Security.Permissions.Enums;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
+using SoftinuxBase.Security.Permissions;
+using SoftinuxBase.Security.Permissions.Enums;
 
 namespace SoftinuxBase.SeedDatabase.Controllers
 {
@@ -42,6 +42,30 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         {
             _logger.LogInformation("Access REST API \"Hello world!\"");
             return Ok("Hello world!");
+        }
+
+        [HttpPost]
+        [ActionName("CreateUser")]
+        [Route("/dev/seed/create-user")]
+        public async Task<IActionResult> CreateUserAsync()
+        {
+            try
+            {
+                // Save ROLES
+                await SaveRolesAsync();
+
+                // Save USERS and USER-ROLE
+                await SaveUsersAsync();
+
+                // Save new PERMISSIONS
+                await SavePermissionsAsync();
+
+                return Ok("Demo database initialization Ok.");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
 
         private async Task<IActionResult> SavePermissionsAsync()
@@ -90,6 +114,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
             userToRoleRepo.DeleteAll();
 
             List<bool> saveResults = new List<bool>();
+
             // John: Admin, Jane and Paul: User
             var johnDoeUser = await _userManager.FindByNameAsync("johndoe");
             var janeFondaUser = await _userManager.FindByNameAsync("janefonda");
@@ -112,7 +137,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
 
             // Role: Admin, permissions: all
             var permissions = new PermissionsDictionary();
-           permissions.AddGrouped(typeof(Permissions).AssemblyQualifiedName, new List<short>
+            permissions.AddGrouped(typeof(Permissions).AssemblyQualifiedName, new List<short>
             {
                 (short)Permissions.AccessAll,
                 (short)Permissions.AccessExtension,
@@ -137,8 +162,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                 new RoleToPermissions(
                     Role.Administrator.GetRoleName(),
                     "Administrator role",
-                    permissions
-                    ));
+                    permissions));
 
             // Role: User, permissions: admin general access + list/read
             permissions = new PermissionsDictionary();
@@ -158,30 +182,6 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                     permissions));
 
             await _storage.SaveAsync();
-        }
-
-        [HttpPost]
-        [ActionName("CreateUser")]
-        [Route("/dev/seed/create-user")]
-        public async Task<IActionResult> CreateUserAsync()
-        {
-            try
-            {
-                // Save ROLES
-                await SaveRolesAsync();
-
-                // Save USERS and USER-ROLE
-                await SaveUsersAsync();
-
-                // Save new PERMISSIONS
-                await SavePermissionsAsync();
-
-                return Ok("Demo database initialization Ok.");
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, e.Message);
-            }
         }
 
         /// <summary>
@@ -290,14 +290,5 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                 }
             }
         }
-
-      
-
-       
-
-      
-       
-
-     
     }
 }

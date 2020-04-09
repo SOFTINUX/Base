@@ -9,7 +9,7 @@ namespace SoftinuxBase.Tests.Common
         /// Assembly short name: SoftinuxBase.Security.
         /// </summary>
         public const string SoftinuxBaseSecurityAssemblyShortName = "SoftinuxBase.Security";
-        
+
         /// <summary>
         /// Assembly short name: SoftinuxBase.Security.Permissions.
         /// </summary>
@@ -19,7 +19,7 @@ namespace SoftinuxBase.Tests.Common
         /// Assembly-qualified full name of <see cref="SoftinuxBase.Security.Permissions.Enums.Permissions"/> enum.
         /// </summary>
         public const string SoftinuxBaseSecurityPermissionsPermissionsEnumAssemblyQualifiedName = "SoftinuxBase.Security.Permissions.Enums.Permissions, SoftinuxBase.Security.Permissions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
-        
+
         /// <summary>
         /// Assembly short name: SoftinuxBase.Security.Permissions.
         /// </summary>
@@ -34,6 +34,5 @@ namespace SoftinuxBase.Tests.Common
         /// Assembly-qualified full name of <see cref="SampleExtension1.SamplePermissions"/> enum.
         /// </summary>
         public const string SampleExtension1SamplePermissionsEnumAssemblyQualifiedName = "SampleExtension1.SamplePermissions, SampleExtension1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
-
     }
 }

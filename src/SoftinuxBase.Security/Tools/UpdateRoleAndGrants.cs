@@ -15,6 +15,7 @@ namespace SoftinuxBase.Security.Tools
        The main UpdateRoleAndGrants class.
        Contains all methods for update roles and grants.
    */
+
     /// <summary>
     /// The main UpdateRoleAndGrants class.
     ///
@@ -58,12 +59,13 @@ namespace SoftinuxBase.Security.Tools
             // try
             // {
                 // Update the role name
-                var role = await roleManager_.FindByIdAsync(model_.RoleId);
-                await roleManager_.SetRoleNameAsync(role, model_.RoleName);
+            var role = await roleManager_.FindByIdAsync(model_.RoleId);
+            await roleManager_.SetRoleNameAsync(role, model_.RoleName);
 
-                // TODO rewrite for new permissions
-                throw new NotImplementedException();
-            //     // Create the new links
+            // TODO rewrite for new permissions
+            throw new NotImplementedException();
+
+            // Create the new links
             //     if (model_.Grants != null)
             //     {
             //         // Clear all the linked extensions, save the new links

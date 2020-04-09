@@ -96,6 +96,8 @@ namespace SoftinuxBase.Security.Permissions
             }
 
             var key2 = typeof(Enums.Permissions).AssemblyQualifiedName;
+            if (String.IsNullOrEmpty(key2))
+                return false;
             return Dictionary.ContainsKey(key2) && Dictionary[key2].Contains((short)Enums.Permissions.AccessAll);
         }
 

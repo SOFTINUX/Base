@@ -42,7 +42,7 @@ namespace SoftinuxBase.Security.Tools
             {
                 return "At least one extension must be selected";
             }
-            
+
             // TODO rewrite for new permissions
             throw new NotImplementedException();
 

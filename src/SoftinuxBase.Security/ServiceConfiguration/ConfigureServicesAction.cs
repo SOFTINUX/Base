@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 using ExtCore.Infrastructure.Actions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using SoftinuxBase.Security.Data.Entities;
 
 namespace SoftinuxBase.Security.ServiceConfiguration
 {
@@ -24,7 +22,7 @@ namespace SoftinuxBase.Security.ServiceConfiguration
         public int Priority => 200;
 
         /// <summary>
-        /// TODO DOCUMENT ME
+        /// TODO DOCUMENT ME.
         /// </summary>
         /// <param name="serviceCollection_"></param>
         /// <param name="serviceProvider_"></param>
@@ -34,7 +32,7 @@ namespace SoftinuxBase.Security.ServiceConfiguration
         }
 
         /// <summary>
-        /// TODO DOCUMENT ME
+        /// TODO DOCUMENT ME.
         /// </summary>
         /// <param name="statusCode_"></param>
         /// <returns></returns>

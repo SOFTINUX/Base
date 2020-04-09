@@ -1,9 +1,6 @@
 // Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
-using SoftinuxBase.Security.Permissions;
-using SoftinuxBase.Security.Permissions.Enums;
-
 namespace SoftinuxBase.SeedDatabase
 {
     public enum Role
@@ -30,6 +27,5 @@ namespace SoftinuxBase.SeedDatabase
         {
             return role.ToString();
         }
-
     }
 }

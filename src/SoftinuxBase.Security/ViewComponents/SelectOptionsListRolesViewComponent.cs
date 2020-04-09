@@ -25,6 +25,7 @@ namespace SoftinuxBase.Security.ViewComponents
         {
             // TODO rewrite for new permissions
             throw new NotImplementedException();
+
             // HashSet<string> listPermissionsRoleId = _storage.GetRepository<RolePermissionRepository>().All().Select(item_ => item_.RoleId).ToHashSet();
             //
             // return Task.FromResult<IViewComponentResult>(View("_SelectOptionsListRoles", (_roleManager, listPermissionsRoleId)));

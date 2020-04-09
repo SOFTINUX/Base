@@ -30,7 +30,6 @@ namespace SoftinuxBase.WebApplication
         /// <param name="antiForgery_">The anti forgery system passed to the Configure method of the web application's Startup class.</param>
         public static void UseSoftinuxBase(this IApplicationBuilder applicationBuilder_, IWebHostEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_, IConfiguration configuration_, IAntiforgery antiForgery_)
         {
-
             // 1. Error management
             if (hostingEnvironment_.IsDevelopment())
             {

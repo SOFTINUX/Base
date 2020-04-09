@@ -9,7 +9,7 @@ using ExtCore.Infrastructure;
 namespace SoftinuxBase.Infrastructure.Interfaces
 {
     /// <summary>
-    /// Implement this interface to allow your extension to:
+    /// Implement this interface to allow your extension to:.
     /// <ul><li>define one or more menu items</li>
     /// <li>provide scripts and stylesheets elements to include in the main web application</li>
     /// <li>expose the enumeration that represent permissions provided and used by this extension</li>

@@ -21,6 +21,7 @@ namespace SoftinuxBase.Security.Tools
         The main ReadGrants class.
         Contains all methods for reading grants permissions.
     */
+
     /// <summary>
     /// The main ReadGrants class.
     ///
@@ -30,9 +31,9 @@ namespace SoftinuxBase.Security.Tools
     {
         /// <summary>
         /// Read all grants:
-        /// 
+        ///
         /// - to have a global view of permissions granting:
-        /// 
+        ///
         /// -- for a role or a user, what kind of permission is granted, for every extension.
         /// </summary>
         /// <param name="storage_">Storage interface provided by services container.</param>
@@ -40,6 +41,7 @@ namespace SoftinuxBase.Security.Tools
         public static GrantViewModel ReadAll(IStorage storage_)
         {
             GrantViewModel model = new GrantViewModel();
+
             // key : extension name,
             // value : extension's permission enum type, since the enum can be in another assembly.
             var extensionNameAndEnumDict = new Dictionary<string, Type>();
@@ -67,6 +69,7 @@ namespace SoftinuxBase.Security.Tools
         }
 
         // TODO REWRITE for new permissions if useful
+
         /// <summary>
         /// Get the list of all extensions associated to a role, with corresponding permissions,
         /// and also the list of extensions not linked to the role.
@@ -96,6 +99,7 @@ namespace SoftinuxBase.Security.Tools
         }
 
         // TODO DELETE, useless for new permissions
+
         /// <summary>
         /// This function checks that the role is the last grant of Admin permission level to the target extension.
         ///
@@ -155,7 +159,6 @@ namespace SoftinuxBase.Security.Tools
             //     storage_.GetRepository<IAspNetUsersRepository>().FindUsersHavingRoles(rolePermissionRecordsWithAdminLevel.Where(rp_ => rp_.RoleId != currentRole.Id).Select(rp_ => rp_.Role.NormalizedName));
             //
             // return !usersHavingRoles.Any();
-            
             throw new NotImplementedException();
         }
     }
