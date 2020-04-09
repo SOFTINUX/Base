@@ -1,4 +1,4 @@
-POST https://localhost:5001/dev/seed/CreateUser HTTP/1.1
+POST https://localhost:5001/dev/seed/create-user HTTP/1.1
 Accept: */*
 Cache-Control: no-cache
 
