@@ -67,8 +67,14 @@ See LICENSE file for license information.
 
 In order you must have installed:
 
-- [.NET Core SDK](https://www.microsoft.com/net/download) version 2.2.
+- [.NET Core SDK](https://www.microsoft.com/net/download) version 3.1.
 - [Node JS](https://nodejs.org/en/)
+
+### Linux
+To avoid error `System.IO.IOException: The configured user limit (128) on the number of inotify instances has been reached.
+   at System.IO.FileSystemWatcher.StartRaisingEvents()` you must execute this command in terminal:
+
+`echo fs.inotify.max_user_instances=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p`
 
 ## Installation
 
@@ -167,7 +173,7 @@ Have a look at sample extensions, [wiki](https://github.com/SOFTINUX/Base/wiki),
 
 | ![][ie]<br />IE / Edge | ![][firefox]<br />Firefox | ![][chrome]<br />Chrome | ![][safari]<br />Safari | ![][opera]<br />Opera |
 | ---------------------- | ------------------------- | ----------------------- | ----------------------- | --------------------- |
-| IE10, IE11, Edge       | last 10 versions          | last 10 versions        | last 10 versions        | last 10 versions      |
+| IE11, Edge             | last 10 versions          | last 10 versions        | last 10 versions        | last 10 versions      |
 
 [ie]: https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/edge.png
 [firefox]: https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/firefox.png
@@ -207,7 +213,7 @@ Optional for better experience:
 - [gitignore](https://marketplace.visualstudio.com/items?itemName=codezombiech.gitignore)
 - [HTML CSS Support](https://marketplace.visualstudio.com/items?itemName=ecmel.vscode-html-css)
 - ~~[Output Colorizer](https://marketplace.visualstudio.com/items?itemName=IBM.output-colorizer)~~ not maintained.
-- [Task Explorer](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-tslint-plugin=)
+- [Task Explorer](https://marketplace.visualstudio.com/items?itemName=spmeesseman.vscode-taskexplorer)
 - ~~[Code Outline](https://marketplace.visualstudio.com/items?itemName=patrys.vscode-code-outline)~~ depreciated.Vs Code to this.
 - [TSLint](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-tslint-plugin)
 - [Can I Use](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-caniuse)
