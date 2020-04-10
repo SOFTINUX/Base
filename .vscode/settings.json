@@ -8,9 +8,10 @@
     "editor.renderControlCharacters": false,
     "workbench.sideBar.location": "left",
     "workbench.activityBar.visible": true,
+    "workbench.editor.titleScrollbarSizing": "large",
     "workbench.colorCustomizations": {
-        //"editor.lineHighlightBorder": "#75757588",
-        //"editor.lineHighlightBackground": "#fafafa",
+        "editor.lineHighlightBorder": "#75757588",
+        "editor.lineHighlightBackground": "#000000",
         "tab.activeBorder": "#FFA500",
         "tab.activeBackground": "#e9006d6c",
         "activityBar.background": "#ff00776e",
