@@ -30,11 +30,15 @@ namespace SoftinuxBase.Security.RefreshClaims
         private bool IsOutOfDate(string cacheKey, long ticksToCompare, ITimeStore timeStore)
         {
             var cachedTicks = timeStore.GetValueFromStore(cacheKey);
-            if (cachedTicks == null)
-                throw new ApplicationException(
-                    $"You must seed the database with a cache value for the key {cacheKey}.");
+            if (cachedTicks != null)
+            {
+                return ticksToCompare < cachedTicks;
+            }
 
-            return ticksToCompare < cachedTicks;
+            // seed the database with a cache value for the key
+            this.AddOrUpdate(timeStore);
+            return true;
+
         }
 
         public void AddOrUpdate(ITimeStore timeStore)
