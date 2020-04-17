@@ -71,7 +71,7 @@ namespace SoftinuxBase.Infrastructure
         public uint Position { get; }
 
         /// <summary>
-        /// Gets get the type for fontawesome.
+        /// Gets the icon type for fontawesome.
         /// </summary>
         public FontAwesomeIcon.IconType FontAwesomeIconType { get; }
 

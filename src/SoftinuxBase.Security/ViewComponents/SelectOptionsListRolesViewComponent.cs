@@ -2,6 +2,7 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
@@ -24,11 +25,11 @@ namespace SoftinuxBase.Security.ViewComponents
         public Task<IViewComponentResult> InvokeAsync()
         {
             // TODO rewrite for new permissions
-            throw new NotImplementedException();
-
+            // for now empty
+            HashSet<string> listPermissionsRoleId = new HashSet<string>();
             // HashSet<string> listPermissionsRoleId = _storage.GetRepository<RolePermissionRepository>().All().Select(item_ => item_.RoleId).ToHashSet();
-            //
-            // return Task.FromResult<IViewComponentResult>(View("_SelectOptionsListRoles", (_roleManager, listPermissionsRoleId)));
+
+            return Task.FromResult<IViewComponentResult>(View("_SelectOptionsListRoles", (_roleManager, listPermissionsRoleId)));
         }
     }
 }
