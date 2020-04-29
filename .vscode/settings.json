@@ -13,11 +13,11 @@
         "editor.lineHighlightBorder": "#75757588",
         "editor.lineHighlightBackground": "#000000",
         "tab.activeBorder": "#FFA500",
-        "tab.activeBackground": "#e9006d6c",
-        "activityBar.background": "#ff00776e",
-        "activityBar.activeBorder": "#ffffff",
-        "activityBarBadge.background": "#ff8800ef",
-        "activityBarBadge.foreground": "#000000"
+        //"tab.activeBackground": "#e9006d6c",
+        //"activityBar.background": "#ff00776e",
+        //"activityBar.activeBorder": "#ffffff",
+        //"activityBarBadge.background": "#ff8800ef",
+        //"activityBarBadge.foreground": "#000000"
         //"titleBar.activeBackground": "#791B45",
         //"titleBar.activeForeground": "#FEFCFD",
     },
