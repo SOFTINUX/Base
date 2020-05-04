@@ -2,31 +2,46 @@
     Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 *@
 
+@using SoftinuxBase.Security.Permissions
 @model SoftinuxBase.Security.ViewModels.Permissions.GrantViewModel
 @* HTML Extension list loop *@
 @Html.AntiForgeryToken()
 
 @* TODO see at bottom of this page for accordion: https://adminlte.io/themes/dev/AdminLTE/pages/UI/general.html *@
 @{
+    @* roles names *@
+                                                                                                                  
+    // TODO use a flex display to build every line
+    <div class="row">
+        <div class="col-md-4 col-xs-4"></div>
+        @foreach (var roleName in Model.RoleNames)
+        {
+        <div class="col-md-4 col-xs-4">
+            <label>@roleName</label>
+        </div>
+        }
+    </div>
+
     int i = 1;
-    foreach (var item in Model.PermissionsByRoleAndExtension)
+    foreach (var permissionsForExtension in Model.PermissionsByRoleAndExtension)
     {
-        <div class="row extension-row accordion-toggle collapsed" data-extension-id="@Html.Raw(item.Key)" data-toggle="collapse" data-target=@Html.Raw("\"#extension" + i + "\"")>
+        <div class="row extension-row accordion-toggle collapsed" data-extension-id="@Html.Raw(permissionsForExtension.Key)" data-toggle="collapse" data-target=@Html.Raw("\"#extension" + i + "\"")>
             <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
                 <div class="row">
-                    <div class="col-md-1 col-xs-1 table-extension-header"><i class="chevron fa fa-fw"></i></div>
-                    <div class="col-md-3 col-xs-3 table-extension-header">@Html.Raw(item.Key)</div>
+                    <div class="col-md-1 col-xs-1 table-extension-header">
+                        <i class="chevron fa fa-fw"></i>
+                    </div>
+                    <div class="col-md-3 col-xs-3 table-extension-header">@Html.Raw(permissionsForExtension.Key)</div>
                 </div>
                 <div class="row collapse" id=@Html.Raw("\"extension" + i + "\"") onclick="StopAccordionsPropagation(event);">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title">@Html.Raw(item.Key)</h3>
-                            </div>
-                            <div class="card-body">
-                                TODO a flex design for every permission box, each one with a Select2 multiple to list roles
-                            </div>
-                        </div>
+                        @* Permission label *@
+                        @foreach(var permissionDisplay in Model.GetPermissionDisplaysForRoles(permissionsForExtension.Key))
+                        {
+                            <div class="col-md-4 col-xs-4">@permissionDisplay.ShortName</div>
+                        }
+                        
+                        // TODO a "col" for every role
                     </div>
                 </div>
             </div>
