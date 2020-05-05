@@ -6,7 +6,9 @@ using System.Linq;
 using ExtCore.Data.Abstractions;
 using FluentAssertions;
 using Moq;
+using SampleExtension1;
 using SoftinuxBase.Security.Data.Abstractions;
+using SoftinuxBase.Security.Permissions.Enums;
 using SoftinuxBase.Security.Tools;
 using SoftinuxBase.SecurityTests.Mocks;
 using SoftinuxBase.Tests.Common;
@@ -40,24 +42,27 @@ namespace SoftinuxBase.SecurityTests
 
             // Assert
             model.Should().NotBeNull();
-            model.PermissionsByRoleAndExtension.Keys.Should().NotBeEmpty();
-            model.PermissionsByRoleAndExtension.Keys.Should().Contain(Constants.SoftinuxBaseSecurityAssemblyShortName);
-            model.PermissionsByRoleAndExtension.Keys.Should().Contain("SampleExtension1");
-            model.PermissionsByRoleAndExtension.Keys.Should().Contain("SampleExtension2");
-            model.PermissionsByRoleAndExtension.Keys.Should().NotContain(Constants.SoftinuxBaseTestsCommonAssemblyShortName);
+            model.RolesWithPermissions.Keys.Should().NotBeEmpty();
+            model.RolesWithPermissions.Keys.Should().Contain(Constants.SoftinuxBaseSecurityAssemblyShortName);
+            model.RolesWithPermissions.Keys.Should().Contain("SampleExtension1");
+            model.RolesWithPermissions.Keys.Should().Contain("SampleExtension2");
+            model.RolesWithPermissions.Keys.Should().NotContain(Constants.SoftinuxBaseTestsCommonAssemblyShortName);
 
-            model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurityAssemblyShortName][Roles.Administrator.ToString()].Should().HaveCount(2);
-            model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurityAssemblyShortName][Roles.Moderator.ToString()].Should().HaveCount(2);
-            model.PermissionsByRoleAndExtension["SampleExtension1"][Roles.Administrator.ToString()].Should().HaveCount(1);
-            model.PermissionsByRoleAndExtension["SampleExtension1"][Roles.Moderator.ToString()].Should().HaveCount(2);
-            model.PermissionsByRoleAndExtension["SampleExtension2"].Should().HaveCount(0);
+            model.RolesWithPermissions[Constants.SoftinuxBaseSecurityAssemblyShortName].First(kv => kv.Key.Permission == (short)Permissions.CreateRoles).Value.Should().HaveCount(1);
+            model.RolesWithPermissions[Constants.SoftinuxBaseSecurityAssemblyShortName].First(kv => kv.Key.Permission == (short)Permissions.CreateRoles).Value.Should().Contain(Roles.Administrator.ToString());
+            
+            model.RolesWithPermissions[Constants.SoftinuxBaseSecurityAssemblyShortName].First(kv => kv.Key.Permission == (short)Permissions.DeleteRoles).Value.Should().HaveCount(1);
+            model.RolesWithPermissions[Constants.SoftinuxBaseSecurityAssemblyShortName].First(kv => kv.Key.Permission == (short)Permissions.DeleteRoles).Value.Should().Contain(Roles.Administrator.ToString());
 
-            model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurityAssemblyShortName][Roles.Administrator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Roles" && permissionDisplay_.ShortName == "CanCreate").Should().NotBeNull();
-            model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurityAssemblyShortName][Roles.Administrator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Roles" && permissionDisplay_.ShortName == "CanCreate").Should().NotBeNull();
-            model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurityAssemblyShortName][Roles.Moderator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Roles" && permissionDisplay_.ShortName == "CanList").Should().NotBeNull();
-            model.PermissionsByRoleAndExtension[Constants.SoftinuxBaseSecurityAssemblyShortName][Roles.Moderator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Roles" && permissionDisplay_.ShortName == "CanRead").Should().NotBeNull();
-            model.PermissionsByRoleAndExtension["SampleExtension1"][Roles.Moderator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Sample" && permissionDisplay_.ShortName == "Write").Should().NotBeNull();
-            model.PermissionsByRoleAndExtension["SampleExtension1"][Roles.Moderator.ToString()].FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == "Sample" && permissionDisplay_.ShortName == "Other").Should().BeNull();
+            model.RolesWithPermissions[Constants.SoftinuxBaseSecurityAssemblyShortName].First(kv => kv.Key.Permission == (short)Permissions.ListRoles).Value.Should().HaveCount(1);
+            model.RolesWithPermissions[Constants.SoftinuxBaseSecurityAssemblyShortName].First(kv => kv.Key.Permission == (short)Permissions.ListRoles).Value.Should().Contain(Roles.Moderator.ToString());
+
+            model.RolesWithPermissions["SampleExtension1"].First(kv => kv.Key.Permission == (short)SamplePermissions.Write).Value.Should().HaveCount(1);
+            model.RolesWithPermissions["SampleExtension1"].First(kv => kv.Key.Permission == (short)SamplePermissions.Write).Value.Should().Contain(Roles.Moderator.ToString());
+
+            model.RolesWithPermissions["SampleExtension1"].FirstOrDefault(kv => kv.Key.Permission == (short)SamplePermissions.Other).Value.Should().BeNull();
+            
+            model.RolesWithPermissions["SampleExtension2"].Should().HaveCount(0);
         }
 
         /// <summary>
@@ -74,7 +79,7 @@ namespace SoftinuxBase.SecurityTests
 
             // Assert
             model.Should().NotBeNull();
-            model.PermissionsByRoleAndExtension.Keys.Should().NotBeEmpty();
+            model.RolesWithPermissions.Keys.Should().NotBeEmpty();
         }
     }
 }

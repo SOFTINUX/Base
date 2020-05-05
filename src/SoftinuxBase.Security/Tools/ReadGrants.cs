@@ -49,19 +49,31 @@ namespace SoftinuxBase.Security.Tools
             // 1. Get all extension names from loaded extensions, create initial dictionaries
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
             {
-                model.PermissionsByRoleAndExtension.Add(extensionMetadata.Name, new Dictionary<string, List<PermissionDisplay>>());
+                model.RolesWithPermissions.Add(extensionMetadata.Name, new Dictionary<PermissionDisplay, List<string>>());
                 extensionNameAndEnumDict.Add(extensionMetadata.Name, extensionMetadata.Permissions);
             }
 
             // 2. Read role/permission/extension settings (RoleToPermissions table)
             List<RoleToPermissions> rolesToPermissions = storage_.GetRepository<IRoleToPermissionsRepository>().All().ToList();
+
             foreach (RoleToPermissions roleToPermission in rolesToPermissions)
             {
                 var permissions = roleToPermission.PermissionsForRole;
                 PermissionsDisplayDictionary permissionsDisplayDictionary = new PermissionsDisplayDictionary(extensionNameAndEnumDict, permissions);
                 foreach (var extensionName in permissionsDisplayDictionary.Dictionary.Keys)
                 {
-                    model.PermissionsByRoleAndExtension[extensionName].Add(roleToPermission.RoleName, permissionsDisplayDictionary.Get(extensionName).ToList());
+                    var permissionDisplays = permissionsDisplayDictionary.Get(extensionName);
+                    foreach (var permissionDisplay in permissionDisplays)
+                    {
+                        model.RolesWithPermissions[extensionName].TryGetValue(permissionDisplay, out var roleNames);
+                        if (roleNames == null)
+                        {
+                            roleNames = new List<string>();
+                            model.RolesWithPermissions[extensionName].Add(permissionDisplay, roleNames);
+                        }
+
+                        roleNames.Add(roleToPermission.RoleName);
+                    }
                 }
             }
 
