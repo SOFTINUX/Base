@@ -22,6 +22,8 @@ namespace SoftinuxBase.SecurityTests.Mocks
         {
             // PermissionsDictionary for Administrator role, uses Permissions, OtherPermissions and SamplePermissions enums
             var permissionsDictionary = new PermissionsDictionary();
+            permissionsDictionary.Add(typeof(Security.Permissions.Enums.Permissions), (short)Security.Permissions.Enums.Permissions.ListRoles);
+            permissionsDictionary.Add(typeof(Security.Permissions.Enums.Permissions), (short)Security.Permissions.Enums.Permissions.ReadRoles);
             permissionsDictionary.Add(typeof(Security.Permissions.Enums.Permissions), (short)Security.Permissions.Enums.Permissions.CreateRoles);
             permissionsDictionary.Add(typeof(Security.Permissions.Enums.Permissions), (short)Security.Permissions.Enums.Permissions.DeleteRoles);
             permissionsDictionary.Add(typeof(OtherPermissions), (short)OtherPermissions.Write);

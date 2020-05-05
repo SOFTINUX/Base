@@ -87,5 +87,10 @@ namespace SoftinuxBase.Security.Permissions
 
             return result;
         }
+        
+        public override String ToString()
+        {
+            return $"[{ExtensionName}][{GroupName}][{ShortName}][{Permission.ToString()}]";
+        }
     }
 }

@@ -54,8 +54,12 @@ namespace SoftinuxBase.SecurityTests
             model.RolesWithPermissions[Constants.SoftinuxBaseSecurityAssemblyShortName].First(kv => kv.Key.Permission == (short)Permissions.DeleteRoles).Value.Should().HaveCount(1);
             model.RolesWithPermissions[Constants.SoftinuxBaseSecurityAssemblyShortName].First(kv => kv.Key.Permission == (short)Permissions.DeleteRoles).Value.Should().Contain(Roles.Administrator.ToString());
 
-            model.RolesWithPermissions[Constants.SoftinuxBaseSecurityAssemblyShortName].First(kv => kv.Key.Permission == (short)Permissions.ListRoles).Value.Should().HaveCount(1);
+            model.RolesWithPermissions[Constants.SoftinuxBaseSecurityAssemblyShortName].First(kv => kv.Key.Permission == (short)Permissions.ListRoles).Value.Should().HaveCount(2);
             model.RolesWithPermissions[Constants.SoftinuxBaseSecurityAssemblyShortName].First(kv => kv.Key.Permission == (short)Permissions.ListRoles).Value.Should().Contain(Roles.Moderator.ToString());
+            model.RolesWithPermissions[Constants.SoftinuxBaseSecurityAssemblyShortName].First(kv => kv.Key.Permission == (short)Permissions.ListRoles).Value.Should().Contain(Roles.Administrator.ToString());
+
+            model.RolesWithPermissions["SampleExtension1"].First(kv => kv.Key.Permission == (short)SamplePermissions.Admin).Value.Should().HaveCount(1);
+            model.RolesWithPermissions["SampleExtension1"].First(kv => kv.Key.Permission == (short)SamplePermissions.Admin).Value.Should().Contain(Roles.Administrator.ToString());
 
             model.RolesWithPermissions["SampleExtension1"].First(kv => kv.Key.Permission == (short)SamplePermissions.Write).Value.Should().HaveCount(1);
             model.RolesWithPermissions["SampleExtension1"].First(kv => kv.Key.Permission == (short)SamplePermissions.Write).Value.Should().Contain(Roles.Moderator.ToString());
