@@ -24,32 +24,32 @@ namespace SoftinuxBase.Security.Permissions
         /// <summary>
         /// Extension name.
         /// </summary>
-        public string ExtensionName { get; private set; }
+        public string ExtensionName { get; }
 
         /// <summary>
         /// GroupName, which groups permissions working in the same area.
         /// </summary>
-        public string GroupName { get; private set; }
+        public string GroupName { get; }
 
         /// <summary>
         /// ShortName of the permission - often says what it does, e.g. Read.
         /// </summary>
-        public string ShortName { get; private set; }
+        public string ShortName { get; }
 
         /// <summary>
         /// Long description of what action this permission allows.
         /// </summary>
-        public string Description { get; private set; }
+        public string Description { get; }
 
         /// <summary>
         /// Gives the actual permission.
         /// </summary>
-        public short Permission { get; private set; }
+        public short Permission { get; }
 
         /// <summary>
         /// Contains an optional paidForModule that this feature is linked to.
         /// </summary>
-        public string ModuleName { get; private set; }
+        public string ModuleName { get; }
 
 
         /// <summary>
@@ -81,13 +81,29 @@ namespace SoftinuxBase.Security.Permissions
                 if (enumValues_ == null || enumValues_.Contains(permission))
                 {
                     result.Add(new PermissionDisplay(displayAttribute.GroupName, displayAttribute.Name,
-                            displayAttribute.Description, enumType_.FullName, permission, moduleAttribute?.PaidForModule.ToString()));
+                        displayAttribute.Description, enumType_.FullName, permission, moduleAttribute?.PaidForModule.ToString()));
                 }
             }
 
             return result;
         }
-        
+
+        public override bool Equals(object? obj)
+        {
+            var other = obj as PermissionDisplay;
+            if (other == null)
+            {
+                return false;
+            }
+
+            return this.ExtensionName == other.ExtensionName && this.GroupName == other.GroupName && this.ShortName == other.ShortName && this.Permission == other.Permission;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.ExtensionName, this.GroupName, this.ShortName, this.Permission);
+        }
+
         public override String ToString()
         {
             return $"[{ExtensionName}][{GroupName}][{ShortName}][{Permission.ToString()}]";
