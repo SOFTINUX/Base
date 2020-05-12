@@ -4,56 +4,58 @@
 
 @using SoftinuxBase.Security.Permissions
 @model SoftinuxBase.Security.ViewModels.Permissions.GrantViewModel
-@* HTML Extension list loop *@
+
 @Html.AntiForgeryToken()
 
-@* TODO make a table with sticky row headers: https://adrianroselli.com/2020/01/fixed-table-headers.html
+@* 
   - table head : the role names
   - table row : the extension name and all its permission
   - the cells : the checkbox for the role-permission
  
  *@
 @{
-    @* roles names *@
-                                                                                                                  
-    // TODO rework this all
-@*     <div class="row"> *@
-@*         <div class="col-md-4 col-xs-4"></div> *@
-@*         @foreach (var roleName in Model.RoleNames) *@
-@*         { *@
-@*         <div class="col-md-4 col-xs-4"> *@
-@*             <label>@roleName</label> *@
-@*         </div> *@
-@*         } *@
-@*     </div> *@
+    var roleCount = Model.RoleNames.Count;
+    <table class="table table-head-fixed">
+        <thead>
+        <tr>
+            <th></th>
+            @foreach (var roleName in Model.RoleNames)
+            {
+                <th>
+                    @roleName
+                </th>
+            }
+        </tr>
+        </thead>
+        <tbody>
 
-    int i = 1;
-    foreach (var permissionsForExtension in Model.RolesWithPermissions)
-    {
-        <div class="row extension-row accordion-toggle collapsed" data-extension-id="@Html.Raw(permissionsForExtension.Key)" data-toggle="collapse" data-target=@Html.Raw("\"#extension" + i + "\"")>
-            <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
-                <div class="row">
-                    <div class="col-md-1 col-xs-1 table-extension-header">
-                        <i class="chevron fa fa-fw"></i>
-                    </div>
-                    <div class="col-md-3 col-xs-3 table-extension-header">@Html.Raw(permissionsForExtension.Key)</div>
-                </div>
-                <div class="row collapse" id=@Html.Raw("\"extension" + i + "\"") onclick="StopAccordionsPropagation(event);">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        @* Permission label *@
-@*                         @foreach(var permissionDisplay in Model.GetPermissionDisplaysForRoles(permissionsForExtension.Key)) *@
-@*                         { *@
-@*                             <div class="col-md-4 col-xs-4">@permissionDisplay.ShortName</div> *@
-@*                         } *@
-                        
-                        // TODO a "col" for every role
-                    </div>
-                </div>
-            </div>
-        </div>
-        i++;
-    }
-
+        @foreach (var permissionsForExtension in Model.RolesWithPermissions)
+        {
+            <tr data-extension-id="@Html.Raw(permissionsForExtension.Key)">
+                <td colspan="@roleCount">
+                    <i class="fas fa-cubes"></i>
+                    <span>@Html.Raw(permissionsForExtension.Key)</span>
+                </td>
+            </tr>
+            @foreach (var permissionData in permissionsForExtension.Value)
+            {
+                <tr>
+                    <td>
+                        <div><i class="fas fa-key"></i>
+                            @permissionData.Key.ShortName</div>
+                        <div class="text-muted">@permissionData.Key.Description</div>
+                    </td>
+                    @foreach (var roleName in Model.RoleNames)
+                    {
+                        <td>
+                            <input type="checkbox" checked="@permissionData.Value.Contains(roleName)">
+                        </td>
+                    }
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
 
     @*
         @{
