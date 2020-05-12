@@ -58,6 +58,8 @@ namespace SoftinuxBase.Security.Tools
 
             foreach (RoleToPermissions roleToPermission in rolesToPermissions)
             {
+                model.RoleNames.Add(roleToPermission.RoleName);
+
                 var permissions = roleToPermission.PermissionsForRole;
                 PermissionsDisplayDictionary permissionsDisplayDictionary = new PermissionsDisplayDictionary(extensionNameAndEnumDict, permissions);
                 foreach (var extensionName in permissionsDisplayDictionary.Dictionary.Keys)
