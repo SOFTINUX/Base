@@ -18,7 +18,7 @@
     <table class="table table-head-fixed">
         <thead>
         <tr>
-            <th></th>
+            <th colspan="2"></th>
             @foreach (var roleName in Model.RoleNames)
             {
                 <th>
@@ -32,14 +32,16 @@
         @foreach (var permissionsForExtension in Model.RolesWithPermissions)
         {
             <tr data-extension-id="@Html.Raw(permissionsForExtension.Key)">
-                <td colspan="@roleCount">
+                <td>
                     <i class="fas fa-cubes"></i>
                     <span>@Html.Raw(permissionsForExtension.Key)</span>
                 </td>
+                <td colspan="@(roleCount+1)"></td>
             </tr>
             @foreach (var permissionData in permissionsForExtension.Value)
             {
                 <tr>
+                    <td></td>
                     <td>
                         <div><i class="fas fa-key"></i>
                             @permissionData.Key.ShortName</div>
