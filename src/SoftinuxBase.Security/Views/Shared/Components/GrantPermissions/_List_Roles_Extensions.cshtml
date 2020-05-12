@@ -13,6 +13,7 @@
   - the cells : the checkbox for the role-permission
  
  *@
+
 @{
     var roleCount = Model.RoleNames.Count;
     <table class="table table-head-fixed table-hover">
@@ -36,15 +37,19 @@
                     <i class="fas fa-cubes"></i>
                     <span>@Html.Raw(permissionsForExtension.Key)</span>
                 </td>
-                <td colspan="@(roleCount+1)"></td>
+                <td colspan="@(roleCount + 1)"></td>
             </tr>
             @foreach (var permissionData in permissionsForExtension.Value)
             {
-                <tr>
-                    <td></td>
+                <tr class="permission">
+                    <td class="permissionExtension">
+                        <i class="fas fa-cubes"></i>
+                        <span>@Html.Raw(permissionsForExtension.Key)</span>
+                    </td>
                     <td>
-                        <div><i class="fas fa-key"></i>
-                            @permissionData.Key.ShortName</div>
+                        <div>
+                            @permissionData.Key.ShortName
+                        </div>
                         <div class="text-muted">@permissionData.Key.Description</div>
                     </td>
                     @foreach (var roleName in Model.RoleNames)
