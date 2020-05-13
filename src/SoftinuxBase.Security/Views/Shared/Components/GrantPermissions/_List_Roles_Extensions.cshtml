@@ -19,7 +19,7 @@
     <table class="table table-head-fixed table-hover">
         <thead>
         <tr>
-            <th colspan="2"></th>
+            <th class="text-muted" colspan="2">Extension</th>
             @foreach (var roleName in Model.RoleNames)
             {
                 <th>
@@ -42,7 +42,7 @@
             @foreach (var permissionData in permissionsForExtension.Value)
             {
                 <tr class="permission">
-                    <td class="permissionExtension">
+                    <td class="permissionInfo">
                         <i class="fas fa-cubes"></i>
                         <span>@Html.Raw(permissionsForExtension.Key)</span>
                     </td>
