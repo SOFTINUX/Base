@@ -7,12 +7,10 @@
 
 @Html.AntiForgeryToken()
 
-@* 
-  - table head : the role names
-  - table row : the extension name and all its permission
-  - the cells : the checkbox for the role-permission
- 
- *@
+<div>Testing: 
+    @* TODO https://select2.org/ *@
+    <select id="roles" multiple="multiple"></select>
+</div>
 
 @{
     var roleCount = Model.RoleNames.Count;
@@ -39,6 +37,9 @@
                 </td>
                 <td colspan="@(roleCount + 1)"></td>
             </tr>
+            @* TODO replace this row by a cell that contains an accordion of permissions grouped by their category
+            see https://getbootstrap.com/docs/4.0/components/collapse/
+             *@
             @foreach (var permissionData in permissionsForExtension.Value)
             {
                 <tr class="permission">
