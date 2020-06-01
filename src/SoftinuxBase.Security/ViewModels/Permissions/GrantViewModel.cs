@@ -2,7 +2,7 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Identity;
+using System.Linq;
 using SoftinuxBase.Security.Permissions;
 
 namespace SoftinuxBase.Security.ViewModels.Permissions
@@ -25,17 +25,40 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
         /// Only the permission display objects and users linked together are present in this data set.
         /// </summary>
         public SortedDictionary<string, Dictionary<PermissionDisplay, List<string>>> UsersWithPermissions { get; set; }
-        
+
         /// <summary>
         /// All names of the roles that have associated permissions (roles found in RoleToPermissions table).
         /// </summary>
-        public List<string> RoleNames {get; set;}
+        public List<string> RoleNames { get; set; }
 
         public GrantViewModel()
         {
             RolesWithPermissions = new SortedDictionary<string, Dictionary<PermissionDisplay, List<string>>>();
             UsersWithPermissions = new SortedDictionary<string, Dictionary<PermissionDisplay, List<string>>>();
             RoleNames = new List<string>();
+        }
+
+        /// <summary>
+        /// Get all the <see cref="string"/> permission sections associated to an extension, for roles.
+        /// </summary>
+        /// <param name="extensionName_">Extension name.</param>
+        /// <returns>List of <see cref="string"/> sections.</returns>
+        public HashSet<string> GetPermissionSectionsForRoles(string extensionName_)
+        {
+            RolesWithPermissions.TryGetValue(extensionName_, out var permissionDisplaysWithRoles);
+            return permissionDisplaysWithRoles.Keys.Select(permissionDisplay_ => permissionDisplay_.Section).ToHashSet();
+        }
+
+        /// <summary>
+        /// Get all the <see cref="PermissionDisplay"/> associated to an extension and a permission section, for roles.
+        /// </summary>
+        /// <param name="extensionName_">Extension name.</param>
+        /// <param name="section_">Permission section</param>
+        /// <returns>List of <see cref="PermissionDisplay"/>.</returns>
+        public HashSet<PermissionDisplay> GetForRoles(string extensionName_, string section_)
+        {
+            RolesWithPermissions.TryGetValue(extensionName_, out var permissionDisplaysWithRoles);
+            return permissionDisplaysWithRoles.Keys.Where(permissionDisplay_ => permissionDisplay_.Section == section_).ToHashSet();
         }
     }
 }

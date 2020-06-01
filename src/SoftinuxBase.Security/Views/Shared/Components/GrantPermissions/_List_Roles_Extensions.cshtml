@@ -7,7 +7,8 @@
 
 @Html.AntiForgeryToken()
 
-<div>Testing: 
+<div>
+    Testing select2.org:
     @* TODO https://select2.org/ *@
     <select id="roles" multiple="multiple"></select>
 </div>
@@ -17,129 +18,51 @@
     <table class="table table-head-fixed table-hover">
         <thead>
         <tr>
-            <th class="text-muted" colspan="2">Extension</th>
-            @foreach (var roleName in Model.RoleNames)
-            {
-                <th>
-                    @roleName
-                </th>
-            }
+            <th class="text-muted">Extension</th>
+            <th class="text-muted">Permissions and roles</th>
         </tr>
         </thead>
         <tbody>
 
-        @foreach (var permissionsForExtension in Model.RolesWithPermissions)
+        @foreach (var extensionName in Model.RolesWithPermissions.Keys)
         {
-            <tr data-extension-id="@Html.Raw(permissionsForExtension.Key)">
+            <tr data-extension-id="@Html.Raw(extensionName)">
                 <td>
                     <i class="fas fa-cubes"></i>
-                    <span>@Html.Raw(permissionsForExtension.Key)</span>
+                    <span>@Html.Raw(extensionName)</span>
                 </td>
-                <td colspan="@(roleCount + 1)"></td>
+                <td>
+                    <div id="accordion">
+                        @foreach (var permissionSection in Model.GetPermissionSectionsForRoles(extensionName))
+                        {
+                            <div class="card">
+                                <div class="card-header" id="@Html.Raw(permissionSection.ToId())">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#@Html.Raw(permissionSection.ToId())-data" aria-expanded="false" aria-controls="@Html.Raw(permissionSection.ToId())-data">
+                                            @Html.Raw(permissionSection)
+                                        </button>
+                                    </h5>
+                                </div>
+
+                                <div id="@Html.Raw(permissionSection.ToId())-data" class="collapse" aria-labelledby="@Html.Raw(permissionSection.ToId())" data-parent="#accordion">
+                                    <div class="card-body">
+                                        @foreach (var permissionDisplay in Model.GetForRoles(extensionName, permissionSection))
+                                        {
+                                            <div>
+                                                @permissionDisplay.ShortName
+                                            </div>
+                                            <div class="text-muted">@permissionDisplay.Description</div>
+                                            <br/>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                </td>
             </tr>
-            @* TODO replace this row by a cell that contains an accordion of permissions grouped by their category
-            see https://getbootstrap.com/docs/4.0/components/collapse/
-             *@
-            @foreach (var permissionData in permissionsForExtension.Value)
-            {
-                <tr class="permission">
-                    <td class="permissionInfo">
-                        <i class="fas fa-cubes"></i>
-                        <span>@Html.Raw(permissionsForExtension.Key)</span>
-                    </td>
-                    <td>
-                        <div>
-                            @permissionData.Key.ShortName
-                        </div>
-                        <div class="text-muted">@permissionData.Key.Description</div>
-                    </td>
-                    @foreach (var roleName in Model.RoleNames)
-                    {
-                        <td>
-                            <input type="checkbox" checked="@permissionData.Value.Contains(roleName)">
-                        </td>
-                    }
-                </tr>
-            }
         }
         </tbody>
     </table>
-
-    @*
-        @{
-            int i = 1;
-            foreach (var item in Model.PermissionsByRoleAndExtension)
-            {
-                bool hasNotNeverPermission = false;
-                @foreach (var kvpRolePermissions in from kvpRolePermissions in item.Value from permission in kvpRolePermissions.Value.Where(permission_ => permission_ != Permission.Never)
-                    select kvpRolePermissions)
-                {
-                    hasNotNeverPermission = true;
-                }
-
-                if (hasNotNeverPermission)
-                {
-                    <div class="row extension-row accordion-toggle collapsed" data-extension-id="@Html.Raw(item.Key)" data-toggle="collapse" data-target=@Html.Raw("\"#extension" + i + "\"")>
-                        <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
-                            <div class="row">
-                                <div class="col-md-1 col-xs-1 table-extension-header"><i class="chevron fa fa-fw"></i></div>
-                                <div class="col-md-3 col-xs-3 table-extension-header">@Html.Raw(item.Key)</div>
-                            </div>
-                            <div class="row collapse" id=@Html.Raw("\"extension" + i + "\"") onclick="StopAccordionsPropagation(event);">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    @* html into roles list loop
-                                    @foreach (var subitem in item.Value)
-                                    {
-
-                                        @if (!subitem.Value.Any() || subitem.Value.All(permission_ => permission_ == Permission.Never))
-                                        {
-                                            continue;
-                                        }
-
-                                        <div class="row" data-role-id="@Html.Raw(item.Key+ "_" + subitem.Key)">
-                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 cell-heigth-25" align="right">
-                                                @if (item.Value.ElementAt(0).Key.Equals(subitem.Key))
-                                                {@Html.Raw("Role name: ")}
-                                            </div>
-                                            @* Role name
-                                            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 cell-heigth-25 cell-role-row">@Html.Raw(subitem.Key)</div>
-                                            @* admin checkbox
-                                            <div class="col-lg-1 col-md-2 col-sm-2 col-xs-1 cell-heigth-25 cell-role-row">
-                                                <label class="checkbox-container">
-                                                    <input id="@Html.Raw(item.Key + "_" + subitem.Key + "_" + "ADMIN")" type="checkbox"
-                                                           @if (subitem.Value.Contains(Permission.Admin)) { @Html.Raw("checked") } onclick="permissionCheckBoxClick(this)">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            @* write checkbox
-                                            <div class="col-lg-1 col-md-2 col-sm-2 col-xs-1 cell-heigth-25 cell-role-row">
-                                                <label class="checkbox-container">
-                                                    <input id="@Html.Raw(item.Key + "_" + subitem.Key + "_" + "WRITE")" type="checkbox"
-                                                           @if (subitem.Value.Contains(Permission.Write)) { @Html.Raw("checked") }
-                                                           @if (subitem.Value.Contains(Permission.Admin)) { @Html.Raw("disabled=\"true\"") } onclick="permissionCheckBoxClick(this)">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            @* read checkbox
-                                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 cell-heigth-25 cell-role-row">
-                                                <label class="checkbox-container">
-                                                    <input id="@Html.Raw(item.Key + "_" + subitem.Key + "_" + "READ")" type="checkbox"
-                                                           @if (subitem.Value.Contains(Permission.Read)) { @Html.Raw("checked") }
-                                                           @if (subitem.Value.Contains(Permission.Write)) { @Html.Raw("disabled=\"true\"") } onclick="permissionCheckBoxClick(this)">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 cell-heigth-25 cell-role-row unlink-role" onclick="removeRoleLink(this)"></div>
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-                            @* end loop roles list
-                        </div>
-                    </div>
-                    ++i;
-                }
-
-            } *@
-    @* End extension list loop*@
 }

@@ -19,9 +19,6 @@ namespace SoftinuxBase.Security.Permissions
         /// </summary>
         internal readonly Dictionary<string, HashSet<PermissionDisplay>> Dictionary = new Dictionary<string, HashSet<PermissionDisplay>>();
 
-        // FIXME construct PermissionsDisplayDictionary from an IEnumerable<IExtensionMetadata> and a PermissionsDictionary
-        // because the extension gives the type of the enum and I can be silly and use enum from another assembly. See code in ReadGrants for the matching.
-
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -75,7 +72,7 @@ namespace SoftinuxBase.Security.Permissions
         public PermissionDisplay Get(string extensionName_, string groupName_, string permissionName_)
         {
             Dictionary.TryGetValue(extensionName_, out var permissionDisplays);
-            return permissionDisplays?.FirstOrDefault(permissionDisplay_ => permissionDisplay_.GroupName == groupName_ && permissionDisplay_.ShortName == permissionName_);
+            return permissionDisplays?.FirstOrDefault(permissionDisplay_ => permissionDisplay_.Section == groupName_ && permissionDisplay_.ShortName == permissionName_);
         }
 
         /// <summary>

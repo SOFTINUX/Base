@@ -23,8 +23,8 @@ namespace SoftinuxBase.Security.PermissionsTests
 
             // Assert
             permissionsToDisplay.Should().NotBeEmpty();
-            permissionsToDisplay.FirstOrDefault(p => p.GroupName == "Roles" && p.ShortName == "CanCreate").Should().NotBeNull();
-            permissionsToDisplay.FirstOrDefault(p => p.GroupName == "Users" && p.ShortName == "CanRead").Should().NotBeNull();
+            permissionsToDisplay.FirstOrDefault(p => p.Section == "Roles" && p.ShortName == "CanCreate").Should().NotBeNull();
+            permissionsToDisplay.FirstOrDefault(p => p.Section == "User management" && p.ShortName == "CanRead").Should().NotBeNull();
         }
         
         [Fact]
@@ -53,8 +53,8 @@ namespace SoftinuxBase.Security.PermissionsTests
 
             // Assert
             permissionsToDisplay.Should().NotBeEmpty();
-            permissionsToDisplay.FirstOrDefault(p => p.GroupName == "Roles" && p.ShortName == "CanCreate").Should().NotBeNull();
-            permissionsToDisplay.FirstOrDefault(p => p.GroupName == "Users" && p.ShortName == "CanRead").Should().BeNull();
+            permissionsToDisplay.FirstOrDefault(p => p.Section == "Roles" && p.ShortName == "CanCreate").Should().NotBeNull();
+            permissionsToDisplay.FirstOrDefault(p => p.Section == "User management" && p.ShortName == "CanRead").Should().BeNull();
         }
     }
 }

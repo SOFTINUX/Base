@@ -87,10 +87,13 @@ namespace SoftinuxBase.Security.Permissions
                 {
                     sb.Append(value).Append(" ");
                 }
+
                 sb.Append("] ");
             }
+
             return sb.ToString();
         }
+
         /// <summary>
         /// Get the assembly short name, i.e. "MyAssembly" from a type assembly-qualified name, i.e. "MyAssembly.MyNamespace.MyType, MyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null".
         /// </summary>
@@ -99,12 +102,18 @@ namespace SoftinuxBase.Security.Permissions
         /// <exception cref="ArgumentException">When the string is not a type name</exception>
         public static string GetAssemblyShortName(this string typeAssemblyQualifiedName_)
         {
-            if(typeAssemblyQualifiedName_.IndexOf(',') == -1)
+            if (typeAssemblyQualifiedName_.IndexOf(',') == -1)
             {
                 throw new ArgumentException($"'{typeAssemblyQualifiedName_}' is not a type assembly-qualified name", nameof(typeAssemblyQualifiedName_));
             }
-            var assemblyName = new AssemblyName(typeAssemblyQualifiedName_.Substring(typeAssemblyQualifiedName_.IndexOf(',')+1));
+
+            var assemblyName = new AssemblyName(typeAssemblyQualifiedName_.Substring(typeAssemblyQualifiedName_.IndexOf(',') + 1));
             return assemblyName.Name;
         }
+
+        /// <summary>
+        /// Transform a label to a string suitable for an html ID.
+        /// </summary>
+        public static string ToId(this string label_) { return label_.ToLowerInvariant().Replace('.', '-').Replace(' ', '-'); }
     }
 }

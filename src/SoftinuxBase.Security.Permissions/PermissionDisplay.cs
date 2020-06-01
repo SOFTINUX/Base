@@ -10,12 +10,12 @@ namespace SoftinuxBase.Security.Permissions
 {
     public class PermissionDisplay
     {
-        public PermissionDisplay(string groupName_, string name_, string description_, string extensionName_, short permission_,
+        public PermissionDisplay(string section_, string name_, string description_, string extensionName_, short permission_,
             string moduleName_)
         {
             ExtensionName = extensionName_;
             Permission = permission_;
-            GroupName = groupName_;
+            Section = section_;
             ShortName = name_ ?? throw new ArgumentNullException(nameof(name_));
             Description = description_ ?? throw new ArgumentNullException(nameof(description_));
             ModuleName = moduleName_;
@@ -27,10 +27,10 @@ namespace SoftinuxBase.Security.Permissions
         public string ExtensionName { get; }
 
         /// <summary>
-        /// GroupName, which groups permissions working in the same area.
+        /// Label of section, which groups permissions in a functionality area.
         /// </summary>
-        public string GroupName { get; }
-
+        public string Section { get; }
+        
         /// <summary>
         /// ShortName of the permission - often says what it does, e.g. Read.
         /// </summary>
@@ -96,17 +96,17 @@ namespace SoftinuxBase.Security.Permissions
                 return false;
             }
 
-            return this.ExtensionName == other.ExtensionName && this.GroupName == other.GroupName && this.ShortName == other.ShortName && this.Permission == other.Permission;
+            return this.ExtensionName == other.ExtensionName && this.Section == other.Section && this.ShortName == other.ShortName && this.Permission == other.Permission;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(this.ExtensionName, this.GroupName, this.ShortName, this.Permission);
+            return HashCode.Combine(this.ExtensionName, this.Section, this.ShortName, this.Permission);
         }
 
         public override String ToString()
         {
-            return $"[{ExtensionName}][{GroupName}][{ShortName}][{Permission.ToString()}]";
+            return $"[{ExtensionName}][{Section}][{ShortName}][{Permission.ToString()}]";
         }
     }
 }
