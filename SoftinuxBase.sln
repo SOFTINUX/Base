@@ -55,6 +55,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleExtension2", "src\Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftinuxBase.Tests.Common", "src\Testing\Unit\SoftinuxBase.Tests.Common\SoftinuxBase.Tests.Common.csproj", "{B74DB2A5-4AF6-4CEC-9140-6653C8044FEE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "conf", "conf", "{F38231AE-1F64-4FDC-9200-0B13560665D2}"
+ProjectSection(SolutionItems) = preProject
+	package.json = package.json
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
