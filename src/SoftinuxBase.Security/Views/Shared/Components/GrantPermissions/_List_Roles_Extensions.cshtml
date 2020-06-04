@@ -2,6 +2,7 @@
     Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 *@
 
+@using System.Collections.Specialized
 @using SoftinuxBase.Security.Permissions
 @model SoftinuxBase.Security.ViewModels.Permissions.GrantViewModel
 
@@ -9,8 +10,13 @@
 
 <div>
     Testing select2.org:
-    @* TODO https://select2.org/ *@
-    <select id="roles" multiple="multiple"></select>
+    @* https://select2.org/ *@
+    <select id="testSelect2" multiple="multiple">
+        <option value="role1">Role1</option>
+        <option value="role2">Role2</option>
+        <option value="role3" selected>Role3</option>
+        <option value="role4" selected>Role4</option>
+    </select>
 </div>
 
 @{
@@ -65,4 +71,14 @@
         }
         </tbody>
     </table>
+}
+
+
+@section Scripts {
+    <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        $(document.getElementById("testSelect2")).select2();
+    });
+    </script>
+
 }

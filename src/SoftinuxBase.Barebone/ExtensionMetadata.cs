@@ -67,6 +67,10 @@ namespace SoftinuxBase.Barebone
             // new StyleSheet("/node_modules.codemirror.theme.monokai.css", 425),
             // new StyleSheet("/node_modules.codemirror.theme.base16-dark.css", 426),
             // new StyleSheet("/node_modules.codemirror.theme.base16-light.css", 427),
+            
+            // -- Select2.org
+            new StyleSheet("/node_modules.select2.dist.css.select2.min.css", 420),
+            
             // --
             new StyleSheet("/Styles.barebone.css", 600),
             new StyleSheet("/css/Styles.css", 700)
@@ -107,6 +111,10 @@ namespace SoftinuxBase.Barebone
             // new Script("/node_modules.codemirror.addon.selection.active-line.js",675),
             // new Script("/node_modules.codemirror.addon.dialog.dialog.js",676),
             // new Script("/node_modules.codemirror.addon.scroll.annotatescrollbar.js",677),
+            
+            // -- Select2
+            new Script("/node_modules.select2.dist.js.select2.full.min.js", 671),
+            
             // --
             new Script("/Scripts.barebone.min.js", 700, Script.JsType.IsModule),
             new Script("/Scripts.barebone_ajax.js", 701, Script.JsType.IsModule),
