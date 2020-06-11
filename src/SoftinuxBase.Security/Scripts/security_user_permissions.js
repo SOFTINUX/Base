@@ -24,6 +24,8 @@ function iformat(icon) {
 }
 
 $(document).ready(function() {
+    console.log('.select2bs4')
+    console.log($('.select2bs4'))
     $('.select2bs4').select2({
         minimumResultsForSearch: Infinity,
         width: null,
@@ -36,6 +38,8 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
+    console.log('#testSelect2')
+    console.log($('#testSelect2'))
     $('#testSelect2').select2({
         minimumResultsForSearch: Infinity,
         width: null,
