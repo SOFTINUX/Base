@@ -80,7 +80,7 @@
     <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\css\adminlte.min.css" LinkBase="node_modules\admin-lte\dist\css\" />
     <EmbeddedResource Include="..\..\node_modules\toastr\build\toastr.min.css" LinkBase="node_modules\toastr\build\" />
     <EmbeddedResource Include="..\..\node_modules\select2\dist\css\select2.min.css" LinkBase="node_modules\select2\dist\css\" />
-    <EmbeddedResource Include="..\..\node_modules\select2-theme-bootstrap4\dist\select2-bootstrap.min.css" LinkBase="node_modules\select2-theme-bootstrap4\dist\" />
+    <EmbeddedResource Include="..\..\node_modules\@ttskch\select2-bootstrap4-theme\dist\select2-bootstrap4.min.css" LinkBase="node_modules\@ttskch\select2-bootstrap4-theme\dist\" />
     <!-- Code Mirror Css -->
     <EmbeddedResource Include="..\..\node_modules\codemirror\lib\codemirror.css" LinkBase="node_modules\codemirror\lib\" />
     <EmbeddedResource Include="..\..\node_modules\codemirror\addon\hint\show-hint.css" LinkBase="node_modules\codemirror\addon\hint\" />
