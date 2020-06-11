@@ -50,7 +50,7 @@ namespace SoftinuxBase.Barebone
             
             // -- Select2.org
             new StyleSheet("/node_modules.select2.dist.css.select2.min.css", 411),
-            new StyleSheet("/node_modules._ttskch.select2_bootstrap4_theme.dist.select2_bootstrap4.min.css", 412),
+            new StyleSheet("/node_modules._ttskch.select2_bootstrap4_theme.dist.select2-bootstrap4.min.css", 412),
 
             // -- Toastr
             new StyleSheet("/node_modules.toastr.build.toastr.min.css", 417),

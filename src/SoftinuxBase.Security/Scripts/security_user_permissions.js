@@ -27,8 +27,20 @@ $(document).ready(function() {
     $('.select2bs4').select2({
         minimumResultsForSearch: Infinity,
         width: null,
-        theme: 'bootstrap',
+        theme: 'bootstrap4',
         placeholder: 'Select a role',
+        templateSelection: iformat,
+        templateResult: iformat,
+        allowHtml: true
+    });
+});
+
+$(document).ready(function() {
+    $('#testSelect2').select2({
+        minimumResultsForSearch: Infinity,
+        width: null,
+        theme: 'bootstrap4',
+        placeholder: 'Testing',
         templateSelection: iformat,
         templateResult: iformat,
         allowHtml: true
