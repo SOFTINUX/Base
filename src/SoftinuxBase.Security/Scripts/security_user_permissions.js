@@ -28,7 +28,6 @@ $(document).ready(function() {
         minimumResultsForSearch: Infinity,
         width: null,
         theme: 'bootstrap4',
-        placeholder: 'Select a role',
         templateSelection: iformat,
         templateResult: iformat,
         allowHtml: true
