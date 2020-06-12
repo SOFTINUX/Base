@@ -91,44 +91,6 @@ document.getElementById('editRoleLeftExtensionsList').addEventListener('click', 
 }, false);
 
 /**
-* Toggle collapsed state for permissions administration table.
-*/
-document.getElementById('collapse').addEventListener('click', event_ => {
-    let element = event_.target;
-    if (element.tagName === 'I')
-        element = element.parentNode;
-    const subEl = document.getElementsByClassName('row collapse');
-
-    if (element.dataset.state === 'closed') {
-        element.dataset.state = 'open';
-        // TODO change icon to open double chevron
-
-        // open all the collapsed children
-        const elements = Array.from(document.getElementsByClassName('extension-row collapsed'));
-        for (const item of elements) {
-            item.classList.remove('collapsed');
-            item.setAttribute('aria-expanded', 'true');
-        }
-        for (const item of subEl) {
-            item.classList.add('in');
-        }
-    } else {
-        element.dataset.state = 'closed';
-        // TODO change icon to closed double chevron
-
-        // collapse all the children
-        const elementRow = Array.from(document.getElementsByClassName('extension-row'));
-        for (const item of elementRow) {
-            item.classList.add('collapsed');
-            item.setAttribute('aria-expanded', 'false');
-        }
-        for (const item of subEl) {
-            item.classList.remove('in');
-        }
-    }
-}, false);
-
-/**
  * Handle the click on pseudo-dropdown that displays permission level:
  * set the label, set the value to hidden input.
  */
