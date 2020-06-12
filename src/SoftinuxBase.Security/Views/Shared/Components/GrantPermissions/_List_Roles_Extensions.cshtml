@@ -8,17 +8,6 @@
 
 @Html.AntiForgeryToken()
 
-<div>
-    Testing select2.org:
-    @* https://select2.org/ *@
-    <select id="testSelect2" multiple="multiple">
-        <option value="role1">Role1</option>
-        <option value="role2">Role2</option>
-        <option value="role3" selected>Role3</option>
-        <option value="role4" selected>Role4</option>
-    </select>
-</div>
-
 @{
     var roleCount = Model.RoleNames.Count;
     <table class="table table-head-fixed table-hover">
