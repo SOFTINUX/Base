@@ -9,7 +9,6 @@
 @Html.AntiForgeryToken()
 
 @{
-    var roleCount = Model.RoleNames.Count;
     <table class="table table-head-fixed table-hover">
         <thead>
         <tr>
@@ -41,16 +40,26 @@
 
                                 <div id="@Html.Raw(permissionSection.ToId())-data" class="collapse" aria-labelledby="@Html.Raw(permissionSection.ToId())" data-parent="#accordion">
                                     <div class="card-body">
-                                        @foreach (var permissionDisplay in Model.GetForRoles(extensionName, permissionSection))
+                                        @foreach (var permissionDisplayWithRoles in Model.GetPermissionDisplaysWithRoles(extensionName, permissionSection))
                                         {
                                             <div>
-                                                @permissionDisplay.ShortName
+                                                @permissionDisplayWithRoles.Key.ShortName
+                                                <span class="text-muted">: @permissionDisplayWithRoles.Key.Description</span>
                                             </div>
-                                            <div class="text-muted">@permissionDisplay.Description</div>
+                                            
                                             <br/>
                                             <select class="form-control select2bs4" multiple data-placeholder="Select roles">
-                                                <option value="test">Test</option>
-                                                <option value="test2">Test 2</option>
+                                                @foreach (var role in Model.RoleNames)
+                                                {
+                                                    if (permissionDisplayWithRoles.Value.Contains(role))
+                                                    {
+                                                        <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key)" selected="selected">@(role)</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key)">@(role)</option>
+                                                    }
+                                                }
                                             </select>
                                         }
                                     </div>

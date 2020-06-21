@@ -10,11 +10,12 @@ namespace SoftinuxBase.Security.Permissions
 {
     public class PermissionDisplay
     {
-        public PermissionDisplay(string section_, string name_, string description_, string extensionName_, short permission_,
-            string moduleName_)
+        public PermissionDisplay(string section_, string name_, string description_, string extensionName_, short permissionEnumValue_,
+            Type permissionEnumType_, string moduleName_)
         {
             ExtensionName = extensionName_;
-            Permission = permission_;
+            PermissionEnumValue = permissionEnumValue_;
+            PermissionEnumType = permissionEnumType_;
             Section = section_;
             ShortName = name_ ?? throw new ArgumentNullException(nameof(name_));
             Description = description_ ?? throw new ArgumentNullException(nameof(description_));
@@ -30,7 +31,7 @@ namespace SoftinuxBase.Security.Permissions
         /// Label of section, which groups permissions in a functionality area.
         /// </summary>
         public string Section { get; }
-        
+
         /// <summary>
         /// ShortName of the permission - often says what it does, e.g. Read.
         /// </summary>
@@ -42,9 +43,14 @@ namespace SoftinuxBase.Security.Permissions
         public string Description { get; }
 
         /// <summary>
-        /// Gives the actual permission.
+        /// Gives the actual permission (enum value).
         /// </summary>
-        public short Permission { get; }
+        public short PermissionEnumValue { get; }
+
+        /// <summary>
+        /// The C# Type that defines the actual permission (enum assembly-qualified type).
+        /// </summary>
+        public Type PermissionEnumType { get; }
 
         /// <summary>
         /// Contains an optional paidForModule that this feature is linked to.
@@ -55,10 +61,11 @@ namespace SoftinuxBase.Security.Permissions
         /// <summary>
         /// This returns the non-obsolete permissions from an enum Type.
         /// </summary>
+        /// <param name="extensionName_">The name of the extension, since permissions can be defined anywhere in assemblies.</param>
         /// <param name="enumType_">Type that should be an enum with Display attribute.</param>
         /// <param name="enumValues_">Optional values to build PermissionDisplay from these values only.</param>
         /// <returns></returns>
-        public static List<PermissionDisplay> GetPermissionsToDisplay(Type enumType_, HashSet<short> enumValues_ = null)
+        public static List<PermissionDisplay> GetPermissionsToDisplay(string extensionName_, Type enumType_, HashSet<short> enumValues_ = null)
         {
             var result = new List<PermissionDisplay>();
             foreach (var permissionName in Enum.GetNames(enumType_))
@@ -81,7 +88,8 @@ namespace SoftinuxBase.Security.Permissions
                 if (enumValues_ == null || enumValues_.Contains(permission))
                 {
                     result.Add(new PermissionDisplay(displayAttribute.GroupName, displayAttribute.Name,
-                        displayAttribute.Description, enumType_.FullName, permission, moduleAttribute?.PaidForModule.ToString()));
+                        displayAttribute.Description, extensionName_, permission, enumType_,
+                        moduleAttribute?.PaidForModule.ToString()));
                 }
             }
 
@@ -96,17 +104,17 @@ namespace SoftinuxBase.Security.Permissions
                 return false;
             }
 
-            return this.ExtensionName == other.ExtensionName && this.Section == other.Section && this.ShortName == other.ShortName && this.Permission == other.Permission;
+            return this.ExtensionName == other.ExtensionName && this.Section == other.Section && this.ShortName == other.ShortName && this.PermissionEnumValue == other.PermissionEnumValue;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(this.ExtensionName, this.Section, this.ShortName, this.Permission);
+            return HashCode.Combine(this.ExtensionName, this.Section, this.ShortName, this.PermissionEnumValue);
         }
 
         public override String ToString()
         {
-            return $"[{ExtensionName}][{Section}][{ShortName}][{Permission.ToString()}]";
+            return $"[{ExtensionName}][{Section}][{ShortName}][{PermissionEnumValue.ToString()}]";
         }
     }
 }

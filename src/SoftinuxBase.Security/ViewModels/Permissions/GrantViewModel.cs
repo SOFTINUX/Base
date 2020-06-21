@@ -46,6 +46,10 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
         public HashSet<string> GetPermissionSectionsForRoles(string extensionName_)
         {
             RolesWithPermissions.TryGetValue(extensionName_, out var permissionDisplaysWithRoles);
+            if (permissionDisplaysWithRoles == null)
+            {
+                return new HashSet<string>();
+            }
             return permissionDisplaysWithRoles.Keys.Select(permissionDisplay_ => permissionDisplay_.Section).ToHashSet();
         }
 
@@ -55,10 +59,21 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
         /// <param name="extensionName_">Extension name.</param>
         /// <param name="section_">Permission section</param>
         /// <returns>List of <see cref="PermissionDisplay"/>.</returns>
-        public HashSet<PermissionDisplay> GetForRoles(string extensionName_, string section_)
+        public IEnumerable<KeyValuePair<PermissionDisplay, List<string>>> GetPermissionDisplaysWithRoles(string extensionName_, string section_)
         {
             RolesWithPermissions.TryGetValue(extensionName_, out var permissionDisplaysWithRoles);
-            return permissionDisplaysWithRoles.Keys.Where(permissionDisplay_ => permissionDisplay_.Section == section_).ToHashSet();
+            if (permissionDisplaysWithRoles == null)
+            {
+                yield break;
+            }
+
+            foreach (var permissionDisplaysWithRole in permissionDisplaysWithRoles)
+            {
+                if (permissionDisplaysWithRole.Key.ExtensionName == extensionName_ && permissionDisplaysWithRole.Key.Section == section_)
+                {
+                    yield return permissionDisplaysWithRole;
+                }
+            }
         }
     }
 }

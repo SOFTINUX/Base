@@ -32,7 +32,7 @@ namespace SoftinuxBase.Security.Permissions
                 permissionsDictionary_.Dictionary.TryGetValue(permissionEnumTypeForExtensionName.Value?.AssemblyQualifiedName ?? "", out var permissionsForEnum);
                 if (permissionsForEnum != null)
                 {
-                    Dictionary.Add(permissionEnumTypeForExtensionName.Key, PermissionDisplay.GetPermissionsToDisplay(permissionEnumTypeForExtensionName.Value, permissionsForEnum).ToHashSet());
+                    Dictionary.Add(permissionEnumTypeForExtensionName.Key, PermissionDisplay.GetPermissionsToDisplay(permissionEnumTypeForExtensionName.Key, permissionEnumTypeForExtensionName.Value, permissionsForEnum).ToHashSet());
                 }
             }
         }
@@ -84,7 +84,7 @@ namespace SoftinuxBase.Security.Permissions
         public PermissionDisplay Get(string extensionName_, short permissionValue_)
         {
             Dictionary.TryGetValue(extensionName_, out var permissionDisplays);
-            return permissionDisplays?.FirstOrDefault(permissionDisplay_ => permissionDisplay_.Permission == permissionValue_);
+            return permissionDisplays?.FirstOrDefault(permissionDisplay_ => permissionDisplay_.PermissionEnumValue == permissionValue_);
         }
     }
 }
