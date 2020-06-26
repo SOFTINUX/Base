@@ -12,7 +12,7 @@
 }
 
 @{
-    User user = UserManager.GetUserAsync(User).Result;
+    var user = await UserManager.GetUserAsync(User);
 }
 
 <div class="row">
