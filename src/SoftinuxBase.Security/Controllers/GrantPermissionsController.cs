@@ -136,7 +136,7 @@ namespace SoftinuxBase.Security.Controllers
         #region UPDATE
 
         /// <summary>
-        /// Update a record indicating with which permission this role is linked to an extension.
+        /// Add or remove a role from a permission.
         /// </summary>
         /// <param name="model_">object representing values passed from ajax.</param>
         /// <returns>Status code 200 (ok) or 400 (update not permitted).</returns>
@@ -146,27 +146,11 @@ namespace SoftinuxBase.Security.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.EditRoles)]
-        public async Task<IActionResult> UpdateRolePermissionAsync([FromBody] UpdateRolePermissionViewModel model_)
+        public async Task<IActionResult> UpdateRoleToPermissionsAsync([FromBody] UpdateRolePermissionViewModel model_)
         {
-            // TODO version for new permissions
-            // string roleId = (await _roleManager.FindByNameAsync(model_.RoleName)).Id;
-            // Enum.TryParse(model_.PermissionValue, true, out Permissions.Enums.Permission permissionEnumValue);
-            //
-            // if (model_.Extension == Constants.SoftinuxBaseSecurity && permissionEnumValue != Permissions.Enums.Permission.Admin)
-            // {
-            //     if (await ReadGrants.IsRoleLastAdminPermissionLevelGrantForExtensionAsync(_roleManager, Storage, model_.RoleName, model_.Extension))
-            //     {
-            //         return StatusCode((int)HttpStatusCode.BadRequest, "Permission not updated, the role is the last Admin grant to SoftinuxBase.Security extension");
-            //     }
-            // }
-            //
-            // IRolePermissionRepository repo = Storage.GetRepository<IRolePermissionRepository>();
-            // repo.Delete(roleId, model_.Extension);
-            //
-            // var permissionEntity = Storage.GetRepository<IPermissionRepository>().Find(permissionEnumValue);
-            // repo.Create(new RolePermission { RoleId = roleId, PermissionId = permissionEntity.Id, Extension = model_.Extension });
-            //
-            // await Storage.SaveAsync();
+
+            // TODO version for new permissions: call UpdateRoleAndGrants.UpdateRoleToPermissionsAsync
+            
             // return StatusCode((int)HttpStatusCode.OK);
             return StatusCode((int)HttpStatusCode.NoContent);
         }

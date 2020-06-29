@@ -6,6 +6,8 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
+using SoftinuxBase.Security.Data.Abstractions;
+using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.ViewModels.Permissions;
 
 [assembly: InternalsVisibleTo("SoftinuxBase.SecurityTests")]
@@ -38,6 +40,50 @@ namespace SoftinuxBase.Security.Tools
         {
             var role = await roleManager_.FindByNameAsync(roleName_);
             return roleId_ == null ? (role != null) : (role != null && role.Id != roleId_);
+        }
+        
+        // TOTEST
+        /// <summary>
+        /// Update or create the RoleToPermissions record, for the given role, adding or removing a permission.
+        /// </summary>
+        /// <param name="roleManager_">Role manager object.</param>
+        /// <param name="storage_">Storage interface provided by services container.</param>
+        /// <param name="roleName_">Role Name.</param>
+        /// <param name="permissionEnumTypeAssemblyQualifiedName_">Assembly-qualified permission type full name.</param>
+        /// <param name="permissionValue_">Permission value.</param>
+        /// <param name="add_">True to add the permission, false to remove.</param>
+        /// <returns>Error message, else null.</returns>
+        internal static async Task<string> UpdateRoleToPermissionsAsync(RoleManager<IdentityRole<string>> roleManager_, IStorage storage_, string roleName_, string permissionEnumTypeAssemblyQualifiedName_, short permissionValue_, bool add_)
+        {
+            // Lookup for the role and RoleToPermission
+            var role = await roleManager_.FindByNameAsync(roleName_);
+            if(role == null)
+            {
+                return $"Role {roleName_} does not exist";
+            }
+            var repository = storage_.GetRepository<IRoleToPermissionsRepository>();
+            var roleToPermissions = repository.FindBy(roleName_);
+            if(roleToPermissions == null)
+            {
+                if(!add_)
+                {
+                    return $"Cannot remove permission for role {roleName_} that has no permissions";
+                }
+                // TODO fix the constructor roleToPermissions = new RoleToPermissions();
+            }
+            // Unpack and update the permissions
+            // if(add_) {
+            //     // TODO find again the code that get a Type from a type assembly-qualified name.
+            //     roleToPermissions.PermissionsForRole.Add();
+            //         }
+            // else
+            // {
+            //     // TODO create and test the Remove method for PermissionDictionary
+            // }
+            // And finally save back to database...
+            // TODO
+            
+            return null;
         }
 
         /// <summary>
