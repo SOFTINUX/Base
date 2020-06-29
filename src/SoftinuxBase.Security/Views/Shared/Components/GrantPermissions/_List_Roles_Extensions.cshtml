@@ -5,17 +5,18 @@
 @using System.Collections.Specialized
 @using Microsoft.AspNetCore.Identity
 @using SoftinuxBase.Security.Data.Entities
+@using SoftinuxBase.Security.FeatureAuthorize.Extensions
 @using SoftinuxBase.Security.Permissions
+@using SoftinuxBase.Security.Permissions.Enums
 @model SoftinuxBase.Security.ViewModels.Permissions.GrantViewModel
 
 @Html.AntiForgeryToken()
 @inject UserManager<User> UserManager
 
 @{
-    var user = this.User;
-    // TODO define boolean canEditRoles to make select field readonly when false.
-    // see SoftinuxBase.Security.FeatureAuthorize.Extensions.UserExtensions (to test)
-    
+    var canEditRoles = this.User.HasPermission(typeof(Permissions), (short) Permissions.EditRoles);
+    var isDisabled = !canEditRoles;
+
     <table class="table table-head-fixed table-hover">
         <thead>
         <tr>
@@ -53,9 +54,7 @@
                                                 @permissionDisplayWithRoles.Key.ShortName
                                                 <span class="text-muted">: @permissionDisplayWithRoles.Key.Description</span>
                                             </div>
-                                            
-                                            <br/>
-                                            <select class="form-control select2bs4" multiple data-placeholder="Select roles">
+                                            <select class="form-control select2bs4" multiple data-placeholder="Select roles" disabled="@isDisabled">
                                                 @foreach (var role in Model.RoleNames)
                                                 {
                                                     if (permissionDisplayWithRoles.Value.Contains(role))
@@ -68,6 +67,7 @@
                                                     }
                                                 }
                                             </select>
+                                            <br/>
                                         }
                                     </div>
                                 </div>
@@ -89,3 +89,4 @@
     </script>
 
 }
+
