@@ -25,7 +25,7 @@ namespace SoftinuxBase.Security.PermissionsTests
             var permissionsDisplayDictionary = new PermissionsDisplayDictionary(dictionary, permissionsDictionary);
 
             // Assert
-            permissionsDisplayDictionary.Get(Constants.SoftinuxBaseSecurityPermissionsAssemblyShortName, "Roles", "CanCreate").Should().NotBeNull();
+            permissionsDisplayDictionary.Get(Constants.SoftinuxBaseSecurityPermissionsAssemblyShortName, "Role management", "CanCreate").Should().NotBeNull();
             permissionsDisplayDictionary.Get(Constants.SoftinuxBaseSecurityPermissionsAssemblyShortName, (short)Permissions.Enums.Permissions.CreateRoles).Should().NotBeNull();
         }
         

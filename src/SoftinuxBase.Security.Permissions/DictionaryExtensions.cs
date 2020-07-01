@@ -64,17 +64,6 @@ namespace SoftinuxBase.Security.Permissions
         }
 
         /// <summary>
-        /// Transform the permission dictionary to data suitable for display and admin management.
-        /// </summary>
-        /// <param name="permissionsDictionary_"></param>
-        /// <returns></returns>
-        public static Dictionary<string, List<PermissionDisplay>> ToDisplay(this PermissionsDictionary permissionsDictionary_)
-        {
-            // TODO
-            return null;
-        }
-
-        /// <summary>
         /// This is used by the policy provider to check the permission name string.
         /// </summary>
         /// <param name="packedPermissions_">Packed permissions dictionary.</param>

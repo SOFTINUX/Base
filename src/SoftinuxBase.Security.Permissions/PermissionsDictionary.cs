@@ -7,7 +7,6 @@ using System.Linq;
 
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security.PermissionsTests")]
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.Security")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SoftinuxBase.SeedDatabase")]
 
 namespace SoftinuxBase.Security.Permissions
 {
@@ -19,7 +18,7 @@ namespace SoftinuxBase.Security.Permissions
     public class PermissionsDictionary
     {
         /// <summary>
-        /// Internal dictionary which key is the extension permission enum type assembly-qualified fullname and the values some values (linked to role/user) of this enum.
+        /// Internal dictionary which key is the assembly-qualified fullname of extension's permission enum type, and the values some values (linked to role/user) of this enum.
         /// </summary>
         internal readonly Dictionary<string, HashSet<short>> Dictionary = new Dictionary<string, HashSet<short>>();
 
@@ -46,8 +45,9 @@ namespace SoftinuxBase.Security.Permissions
         /// Add a permission if it doesn't already exist.
         /// </summary>
         /// <param name="permissionEnumType_">The enum type</param>
-        /// <param name="permission_">Any value of <paramref name="permissionEnumType_"/></param>
-        public void Add(Type permissionEnumType_, short permission_)
+        /// <param name="permission_">Any value defined in <paramref name="permissionEnumType_"/>enum type.</param>
+        /// <returns>True when successfully added (not already present).</returns>
+        public bool Add(Type permissionEnumType_, short permission_)
         {
             var assemblyQualifiedTypeName = permissionEnumType_.AssemblyQualifiedName;
             Dictionary.TryGetValue(assemblyQualifiedTypeName, out var permissions);
@@ -57,17 +57,39 @@ namespace SoftinuxBase.Security.Permissions
                 Dictionary.Add(assemblyQualifiedTypeName, permissions);
             }
 
-            permissions.Add(permission_);
+            return permissions.Add(permission_);
+        }
+        
+        /// <summary>
+        /// Remove a permission if it exists.
+        /// </summary>
+        /// <param name="permissionEnumType_">The enum type</param>
+        /// <param name="permission_">Any value defined in <paramref name="permissionEnumType_"/>enum type.</param>
+        /// <returns>True when successfully removed (was present).</returns>
+        public bool Remove(Type permissionEnumType_, short permission_)
+        {
+            var assemblyQualifiedTypeName = permissionEnumType_.AssemblyQualifiedName;
+            Dictionary.TryGetValue(assemblyQualifiedTypeName, out var permissions);
+            return permissions != null && permissions.Remove(permission_);
+        }
+        
+        /// <summary>
+        /// Add a group of permissions.
+        /// </summary>
+        /// <param name="permissionEnumType_">The enum type</param>
+        /// <param name="permissions_">Any value defined in <paramref name="permissionEnumType_"/> enum type.</param>
+        public void AddGrouped(Type permissionEnumType_, IEnumerable<short> permissions_)
+        {
+            AddGrouped(permissionEnumType_.AssemblyQualifiedName, permissions_);
         }
 
         /// <summary>
         /// Add a group of permissions.
         /// </summary>
         /// <param name="permissionEnumAssemblyQualifiedTypeName_">Assembly-qualified type full name</param>
-        /// <param name="permissions_">Any value of enum defined in <paramref name="permissionEnumAssemblyQualifiedTypeName_"/> extension</param>
+        /// <param name="permissions_">Any value defined in <paramref name="permissionEnumAssemblyQualifiedTypeName_"/> enum type.</param>
         internal void AddGrouped(string permissionEnumAssemblyQualifiedTypeName_, IEnumerable<short> permissions_)
         {
-            // TODO change the value the caller should pass as first arg
             Dictionary.TryGetValue(permissionEnumAssemblyQualifiedTypeName_, out var permissions);
             if (permissions == null)
             {

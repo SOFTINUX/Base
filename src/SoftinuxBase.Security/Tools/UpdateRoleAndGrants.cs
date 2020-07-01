@@ -2,15 +2,20 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
+using ExtCore.Infrastructure;
 using Microsoft.AspNetCore.Identity;
+using SoftinuxBase.Infrastructure.Interfaces;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
+using SoftinuxBase.Security.Permissions;
 using SoftinuxBase.Security.ViewModels.Permissions;
 
 [assembly: InternalsVisibleTo("SoftinuxBase.SecurityTests")]
+
 namespace SoftinuxBase.Security.Tools
 {
     /*
@@ -41,7 +46,7 @@ namespace SoftinuxBase.Security.Tools
             var role = await roleManager_.FindByNameAsync(roleName_);
             return roleId_ == null ? (role != null) : (role != null && role.Id != roleId_);
         }
-        
+
         // TOTEST
         /// <summary>
         /// Update or create the RoleToPermissions record, for the given role, adding or removing a permission.
@@ -49,40 +54,65 @@ namespace SoftinuxBase.Security.Tools
         /// <param name="roleManager_">Role manager object.</param>
         /// <param name="storage_">Storage interface provided by services container.</param>
         /// <param name="roleName_">Role Name.</param>
-        /// <param name="permissionEnumTypeAssemblyQualifiedName_">Assembly-qualified permission type full name.</param>
-        /// <param name="permissionValue_">Permission value.</param>
+        /// <param name="extensionName_">Name of the extension, which a Type is associated to hold the permissions.</param>
+        /// <param name="permissionValue_">Permission value (in extension's permissions enum type).</param>
         /// <param name="add_">True to add the permission, false to remove.</param>
         /// <returns>Error message, else null.</returns>
-        internal static async Task<string> UpdateRoleToPermissionsAsync(RoleManager<IdentityRole<string>> roleManager_, IStorage storage_, string roleName_, string permissionEnumTypeAssemblyQualifiedName_, short permissionValue_, bool add_)
+        internal static async Task<string> UpdateRoleToPermissionsAsync(RoleManager<IdentityRole<string>> roleManager_, IStorage storage_, string roleName_, string extensionName_, short permissionValue_, bool add_)
         {
+            // Lookup for the extension permissions Type.
+            var extensionMetadata = ExtensionManager.GetInstances<IExtensionMetadata>().FirstOrDefault((em_) => em_.Name == extensionName_);
+            if (extensionMetadata == null)
+            {
+                return $"Extension {extensionName_} does not exist";
+            }
+
+            if (extensionMetadata.Permissions == null)
+            {
+                return $"Extension {extensionName_} doesn't define a Type to hold permissions";
+            }
+
             // Lookup for the role and RoleToPermission
             var role = await roleManager_.FindByNameAsync(roleName_);
-            if(role == null)
+            if (role == null)
             {
                 return $"Role {roleName_} does not exist";
             }
+
             var repository = storage_.GetRepository<IRoleToPermissionsRepository>();
             var roleToPermissions = repository.FindBy(roleName_);
-            if(roleToPermissions == null)
+            if (roleToPermissions == null)
             {
-                if(!add_)
+                if (!add_)
                 {
                     return $"Cannot remove permission for role {roleName_} that has no permissions";
                 }
-                // TODO fix the constructor roleToPermissions = new RoleToPermissions();
+
+                roleToPermissions = new RoleToPermissions(roleName_, roleName_, new PermissionsDictionary());
+                repository.Create(roleToPermissions);
             }
+
             // Unpack and update the permissions
-            // if(add_) {
-            //     // TODO find again the code that get a Type from a type assembly-qualified name.
-            //     roleToPermissions.PermissionsForRole.Add();
-            //         }
-            // else
-            // {
-            //     // TODO create and test the Remove method for PermissionDictionary
-            // }
+            if (add_)
+            {
+                var result = roleToPermissions.PermissionsForRole.Add(extensionMetadata.Permissions, permissionValue_);
+                if (!result)
+                {
+                    return "Permission was already associated to role";
+                }
+            }
+            else
+            {
+                var result = roleToPermissions.PermissionsForRole.Remove(extensionMetadata.Permissions, permissionValue_);
+                if (!result)
+                {
+                    return "Permission was already not associated to role anymore";
+                }
+            }
+
             // And finally save back to database...
-            // TODO
-            
+            await storage_.SaveAsync();
+
             return null;
         }
 
@@ -104,7 +134,7 @@ namespace SoftinuxBase.Security.Tools
 
             // try
             // {
-                // Update the role name
+            // Update the role name
             var role = await roleManager_.FindByIdAsync(model_.RoleId);
             await roleManager_.SetRoleNameAsync(role, model_.RoleName);
 
@@ -148,6 +178,6 @@ namespace SoftinuxBase.Security.Tools
             // {
             //     return $"{e.Message} {e.StackTrace}";
             // }
-            }
+        }
     }
 }

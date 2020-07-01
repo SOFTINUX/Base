@@ -137,7 +137,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
 
             // Role: Admin, permissions: all
             var permissions = new PermissionsDictionary();
-            permissions.AddGrouped(typeof(Permissions).AssemblyQualifiedName, new List<short>
+            permissions.AddGrouped(typeof(Permissions), new List<short>
             {
                 (short)Permissions.AccessAll,
                 (short)Permissions.AccessExtension,
@@ -166,7 +166,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
 
             // Role: User, permissions: admin general access + list/read
             permissions = new PermissionsDictionary();
-            permissions.AddGrouped(typeof(Permissions).AssemblyQualifiedName, new List<short>
+            permissions.AddGrouped(typeof(Permissions), new List<short>
             {
                 (short)Permissions.Admin,
                 (short)Permissions.Read,
