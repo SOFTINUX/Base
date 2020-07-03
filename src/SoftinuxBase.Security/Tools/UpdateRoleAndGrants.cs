@@ -47,7 +47,6 @@ namespace SoftinuxBase.Security.Tools
             return roleId_ == null ? (role != null) : (role != null && role.Id != roleId_);
         }
         
-        // TOTEST
         /// <summary>
         /// Update or create the RoleToPermissions record, for the given role, adding or removing a permission.
         /// </summary>
