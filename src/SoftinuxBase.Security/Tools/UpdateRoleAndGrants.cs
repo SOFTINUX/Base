@@ -46,7 +46,7 @@ namespace SoftinuxBase.Security.Tools
             var role = await roleManager_.FindByNameAsync(roleName_);
             return roleId_ == null ? (role != null) : (role != null && role.Id != roleId_);
         }
-
+        
         // TOTEST
         /// <summary>
         /// Update or create the RoleToPermissions record, for the given role, adding or removing a permission.

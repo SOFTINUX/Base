@@ -40,6 +40,7 @@
     <ProjectReference Include="../../../SoftinuxBase.WebApplication\SoftinuxBase.WebApplication.csproj" />
     <ProjectReference Include="../../Extensions/SampleExtension1/SampleExtension1.csproj" />
     <ProjectReference Include="../../Extensions/SampleExtension2/SampleExtension2.csproj" />
+    <ProjectReference Include="..\..\Extensions\SampleExtension3\SampleExtension3.csproj" />
   </ItemGroup>
     <ItemGroup>
     <None Update="appsettings.json">

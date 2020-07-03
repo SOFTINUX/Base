@@ -44,9 +44,10 @@ namespace SoftinuxBase.SecurityTests
             model.Should().NotBeNull();
             model.RolesWithPermissions.Keys.Should().NotBeEmpty();
             model.RolesWithPermissions.Keys.Should().Contain(Constants.SoftinuxBaseSecurityAssemblyShortName);
-            model.RolesWithPermissions.Keys.Should().Contain("SampleExtension1");
-            model.RolesWithPermissions.Keys.Should().Contain("SampleExtension2");
+            model.RolesWithPermissions.Keys.Should().Contain(Constants.SampleExtension1AssemblyShortName);
+            model.RolesWithPermissions.Keys.Should().Contain(Constants.SampleExtension2AssemblyShortName);
             model.RolesWithPermissions.Keys.Should().NotContain(Constants.SoftinuxBaseTestsCommonAssemblyShortName);
+            model.RolesWithPermissions.Keys.Should().NotContain(Constants.SampleExtension3AssemblyShortName);
 
             model.RolesWithPermissions[Constants.SoftinuxBaseSecurityAssemblyShortName].First(kv => kv.Key.PermissionEnumValue == (short)Permissions.CreateRoles).Value.Should().HaveCount(1);
             model.RolesWithPermissions[Constants.SoftinuxBaseSecurityAssemblyShortName].First(kv => kv.Key.PermissionEnumValue == (short)Permissions.CreateRoles).Value.Should().Contain(Roles.Administrator.ToString());
@@ -58,15 +59,15 @@ namespace SoftinuxBase.SecurityTests
             model.RolesWithPermissions[Constants.SoftinuxBaseSecurityAssemblyShortName].First(kv => kv.Key.PermissionEnumValue == (short)Permissions.ListRoles).Value.Should().Contain(Roles.Moderator.ToString());
             model.RolesWithPermissions[Constants.SoftinuxBaseSecurityAssemblyShortName].First(kv => kv.Key.PermissionEnumValue == (short)Permissions.ListRoles).Value.Should().Contain(Roles.Administrator.ToString());
 
-            model.RolesWithPermissions["SampleExtension1"].First(kv => kv.Key.PermissionEnumValue == (short)SamplePermissions.Admin).Value.Should().HaveCount(1);
-            model.RolesWithPermissions["SampleExtension1"].First(kv => kv.Key.PermissionEnumValue == (short)SamplePermissions.Admin).Value.Should().Contain(Roles.Administrator.ToString());
+            model.RolesWithPermissions[Constants.SampleExtension1AssemblyShortName].First(kv => kv.Key.PermissionEnumValue == (short)SamplePermissions.Admin).Value.Should().HaveCount(1);
+            model.RolesWithPermissions[Constants.SampleExtension1AssemblyShortName].First(kv => kv.Key.PermissionEnumValue == (short)SamplePermissions.Admin).Value.Should().Contain(Roles.Administrator.ToString());
 
-            model.RolesWithPermissions["SampleExtension1"].First(kv => kv.Key.PermissionEnumValue == (short)SamplePermissions.Write).Value.Should().HaveCount(1);
-            model.RolesWithPermissions["SampleExtension1"].First(kv => kv.Key.PermissionEnumValue == (short)SamplePermissions.Write).Value.Should().Contain(Roles.Moderator.ToString());
+            model.RolesWithPermissions[Constants.SampleExtension1AssemblyShortName].First(kv => kv.Key.PermissionEnumValue == (short)SamplePermissions.Write).Value.Should().HaveCount(1);
+            model.RolesWithPermissions[Constants.SampleExtension1AssemblyShortName].First(kv => kv.Key.PermissionEnumValue == (short)SamplePermissions.Write).Value.Should().Contain(Roles.Moderator.ToString());
 
-            model.RolesWithPermissions["SampleExtension1"].FirstOrDefault(kv => kv.Key.PermissionEnumValue == (short)SamplePermissions.Other).Value.Should().BeNull();
+            model.RolesWithPermissions[Constants.SampleExtension1AssemblyShortName].FirstOrDefault(kv => kv.Key.PermissionEnumValue == (short)SamplePermissions.Other).Value.Should().BeNull();
 
-            model.RolesWithPermissions["SampleExtension2"].Should().HaveCount(0);
+            model.RolesWithPermissions[Constants.SampleExtension2AssemblyShortName].Should().HaveCount(0);
 
             model.RoleNames.Should().HaveCount(2);
             model.RoleNames.Should().Contain(Roles.Administrator.ToString());

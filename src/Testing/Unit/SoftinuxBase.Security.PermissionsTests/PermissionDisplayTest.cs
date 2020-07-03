@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using SoftinuxBase.Security.Permissions;
+using SoftinuxBase.Tests.Common;
 using Xunit;
 
 namespace SoftinuxBase.Security.PermissionsTests
@@ -19,7 +20,7 @@ namespace SoftinuxBase.Security.PermissionsTests
             Type permissionsEnum = typeof(Permissions.Enums.Permissions);
 
             // Act
-            var permissionsToDisplay = PermissionDisplay.GetPermissionsToDisplay(Constants.SoftinuxBaseSecurity, permissionsEnum);
+            var permissionsToDisplay = PermissionDisplay.GetPermissionsToDisplay(Constants.SoftinuxBaseSecurityAssemblyShortName, permissionsEnum);
 
             // Assert
             permissionsToDisplay.Should().NotBeEmpty();

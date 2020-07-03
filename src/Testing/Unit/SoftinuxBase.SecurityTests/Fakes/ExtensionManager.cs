@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Reflection;
+using SoftinuxBase.Tests.Common;
 
 namespace SoftinuxBase.SecurityTests.Fakes
 {
@@ -13,9 +14,10 @@ namespace SoftinuxBase.SecurityTests.Fakes
             ExtCore.Infrastructure.ExtensionManager.SetAssemblies(new List<Assembly>
             {
                 // Assemblies with IExtensionMetadata
-                Assembly.LoadFrom("SoftinuxBase.Security.dll"),
-                Assembly.LoadFrom("SampleExtension1.dll"),
-                Assembly.LoadFrom("SampleExtension2.dll"),
+                Assembly.LoadFrom($"{Constants.SoftinuxBaseSecurityAssemblyShortName}.dll"),
+                Assembly.LoadFrom($"{Constants.SampleExtension1AssemblyShortName}.dll"),
+                Assembly.LoadFrom($"{Constants.SampleExtension2AssemblyShortName}.dll"),
+                Assembly.LoadFrom($"{Constants.SampleExtension3AssemblyShortName}.dll"),
 
                 // Assemblies with IEntityRegistrar
                 Assembly.LoadFrom("SoftinuxBase.Security.Data.EntityFramework.dll"),
