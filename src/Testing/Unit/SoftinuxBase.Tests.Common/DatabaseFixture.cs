@@ -6,12 +6,17 @@ using System.IO;
 using ExtCore.Data.Abstractions;
 using ExtCore.Data.EntityFramework;
 using ExtCore.WebApplication.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SoftinuxBase.Security.AuthorizeSetup;
 using SoftinuxBase.Security.Data.Entities;
+using SoftinuxBase.Security.FeatureAuthorize.PolicyCode;
+using SoftinuxBase.Security.UserImpersonation.AppStart;
+using SoftinuxBase.WebApplication;
 
 namespace SoftinuxBase.Tests.Common
 {
@@ -75,28 +80,56 @@ namespace SoftinuxBase.Tests.Common
         private void ConfigureServices(IServiceCollection services_)
         {
             Configuration = LoadConfiguration();
+            services_.AddSingleton(Configuration);
 
-            // DbContext/IStorageContext
+            // SoftinuxBase/db context
+            services_.AddSoftinuxBase<ApplicationStorageContext>(Configuration, ".");
+
+            // Which database provider to use : Sqlite
             services_.AddDbContext<ApplicationStorageContext>(options_ =>
             {
                 options_.UseSqlite(GetConnectionString());
             });
 
-            // Register UserManager & RoleManager
-            services_.AddIdentity<User, IdentityRole<string>>()
-                .AddEntityFrameworkStores<ApplicationStorageContext>()
-                .AddDefaultTokenProviders();
-
-            // UserManager & RoleManager require logging and HttpContext dependencies
-            services_.AddLogging();
-            services_.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-            // Add ExtCore
-            services_.AddScoped<IStorage, Storage>();
-            services_.AddExtCore();
-
             // Register database-specific storage context implementation.
             services_.AddScoped<IStorageContext, ApplicationStorageContext>();
+
+            // // 1. Register UserManager & RoleManager
+            //  services_.AddIdentity<User, IdentityRole<string>>()
+            //      .AddEntityFrameworkStores<ApplicationStorageContext>()
+            //      .AddDefaultTokenProviders();
+            //
+            //  // UserManager & RoleManager require logging and HttpContext dependencies
+            //  services_.AddLogging();
+            //  services_.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            //
+            //  // 2. New permission system
+            //  services_.Configure<PermissionsSetupOptions>(Configuration.GetSection("PermissionsSetup"));
+            //  // This has to come after the ConfigureCookiesForExtraAuth settings, which sets up the IAuthChanges
+            //  services_.AddScoped<ApplicationStorageContext, ApplicationStorageContext>();
+            //
+            //  // 3. Add ExtCore
+            //  services_.AddScoped<IStorage, Storage>();
+            //  services_.AddExtCore();
+            //
+            //  // Register database-specific storage context implementation.
+            //  services_.AddScoped<IStorageContext, ApplicationStorageContext>();
+            //  
+            //  // Register the Permission policy handlers
+            //  services_.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
+            //  services_.AddSingleton<IAuthorizationHandler, PermissionHandler>();
+            //
+            //  // This registers/sets up the services in these projects.
+            //  services_.UserImpersonationRegister();
+            //
+            //  // This enables Cookies for authentication and adds the feature and data claims to the user
+            //  services_.ConfigureCookiesForExtraAuth();
+            //
+            //  // 4. DbContext/IStorageContext
+            //  services_.AddDbContext<ApplicationStorageContext>(options_ =>
+            //  {
+            //      options_.UseSqlite(GetConnectionString());
+            //  });
         }
     }
 }

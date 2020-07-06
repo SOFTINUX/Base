@@ -33,7 +33,7 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         }
 
         // New permissions system
-        private readonly IAuthChanges _authChange;
+        protected IAuthChanges _authChange;
 
         public DbSet<UserToRole> UserToRoles { get; set; }
         public DbSet<RoleToPermissions> RolesToPermissions { get; set; }

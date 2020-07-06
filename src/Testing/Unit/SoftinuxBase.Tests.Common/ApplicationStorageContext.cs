@@ -2,6 +2,7 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using Microsoft.EntityFrameworkCore;
+using SoftinuxBase.Security.RefreshClaims;
 
 namespace SoftinuxBase.Tests.Common
 {
@@ -12,6 +13,16 @@ namespace SoftinuxBase.Tests.Common
     {
         public ApplicationStorageContext(DbContextOptions options_)
             : base(options_)
+        {
+        }
+
+        protected ApplicationStorageContext(DbContextOptions options_, IAuthChanges authChange_)
+            : base(options_)
+        {
+            _authChange = authChange_;
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder_)
         {
         }
     }
