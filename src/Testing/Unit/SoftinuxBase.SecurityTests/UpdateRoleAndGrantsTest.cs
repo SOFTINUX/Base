@@ -2,12 +2,11 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.ComponentModel;
-using System.Linq;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using FluentAssertions;
 using Moq;
-using SampleExtension1;
+using SoftinuxBase.Infrastructure.Interfaces;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.Permissions.Enums;
@@ -39,13 +38,13 @@ namespace SoftinuxBase.SecurityTests
 
             var storageMock = new Mock<IStorage>();
             storageMock.Setup(s_ => s_.GetRepository<IRoleToPermissionsRepository>()).Returns(roleToPermissionsRepositoryMock.Object);
-            var roleManager = DatabaseFixture.RoleManager;
+            var roleManager = new Mock<IAspNetRolesManager>();
             var roleName = "RoleXXX";
             var extensionName = "ExtensionXXX";
             short permissionValue = 1;
 
             // Act
-            var result = UpdateRoleAndGrants.UpdateRoleToPermissionsAsync(roleManager, storageMock.Object, roleName, extensionName, permissionValue, true);
+            var result = UpdateRoleAndGrants.UpdateRoleToPermissionsAsync(storageMock.Object, roleManager.Object, roleName, extensionName, permissionValue, true);
 
             // Assert
             result.Should().Be($"Extension {extensionName} does not exist");
@@ -67,13 +66,13 @@ namespace SoftinuxBase.SecurityTests
 
             var storageMock = new Mock<IStorage>();
             storageMock.Setup(s_ => s_.GetRepository<IRoleToPermissionsRepository>()).Returns(roleToPermissionsRepositoryMock.Object);
-            var roleManager = DatabaseFixture.RoleManager;
+            var roleManager = new Mock<IAspNetRolesManager>();
             var roleName = "RoleXXX";
             var extensionName = Constants.SampleExtension3AssemblyShortName;
             short permissionValue = 1;
 
             // Act
-            var result = await UpdateRoleAndGrants.UpdateRoleToPermissionsAsync(roleManager, storageMock.Object, roleName, extensionName, permissionValue, true);
+            var result = await UpdateRoleAndGrants.UpdateRoleToPermissionsAsync(storageMock.Object, roleManager.Object, roleName, extensionName, permissionValue, true);
 
             // Assert
             result.Should().Be($"Extension {extensionName} does not exist");
@@ -95,13 +94,13 @@ namespace SoftinuxBase.SecurityTests
 
             var storageMock = new Mock<IStorage>();
             storageMock.Setup(s_ => s_.GetRepository<IRoleToPermissionsRepository>()).Returns(roleToPermissionsRepositoryMock.Object);
-            var roleManager = DatabaseFixture.RoleManager;
+            var roleManager = new Mock<IAspNetRolesManager>();
             var roleName = "RoleXXX";
             var extensionName = Constants.SoftinuxBaseSecurityAssemblyShortName;
             short permissionValue = 1;
 
             // Act
-            var result = await UpdateRoleAndGrants.UpdateRoleToPermissionsAsync(roleManager, storageMock.Object, roleName, extensionName, permissionValue, true);
+            var result = await UpdateRoleAndGrants.UpdateRoleToPermissionsAsync(storageMock.Object, roleManager.Object, roleName, extensionName, permissionValue, true);
 
             // Assert
             result.Should().Be($"Role {roleName} does not exist");
@@ -123,13 +122,13 @@ namespace SoftinuxBase.SecurityTests
 
             var storageMock = new Mock<IStorage>();
             storageMock.Setup(s_ => s_.GetRepository<IRoleToPermissionsRepository>()).Returns(roleToPermissionsRepositoryMock.Object);
-            var roleManager = DatabaseFixture.RoleManager;
+            var roleManager = new Mock<IAspNetRolesManager>();
             var roleName = Roles.Administrator.ToString();
             var extensionName = Constants.SoftinuxBaseSecurityAssemblyShortName;
             short permissionValue = (short)Permissions.Read;
 
             // Act
-            var result = await UpdateRoleAndGrants.UpdateRoleToPermissionsAsync(roleManager, storageMock.Object, roleName, extensionName, permissionValue, true);
+            var result = await UpdateRoleAndGrants.UpdateRoleToPermissionsAsync(storageMock.Object, roleManager.Object, roleName, extensionName, permissionValue, true);
 
             // Assert
             result.Should().Be(null);
@@ -151,14 +150,14 @@ namespace SoftinuxBase.SecurityTests
 
             var storageMock = new Mock<IStorage>();
             storageMock.Setup(s_ => s_.GetRepository<IRoleToPermissionsRepository>()).Returns(roleToPermissionsRepositoryMock.Object);
-            var roleManager = DatabaseFixture.RoleManager;
+            var roleManager = new Mock<IAspNetRolesManager>();
             var roleName = Roles.Administrator.ToString();
             roleToPermissionsRepositoryMock.Setup(m => m.FindBy(roleName)).Returns(default(RoleToPermissions));
             var extensionName = Constants.SoftinuxBaseSecurityAssemblyShortName;
             short permissionValue = (short)Permissions.Read;
 
             // Act
-            var result = await UpdateRoleAndGrants.UpdateRoleToPermissionsAsync(roleManager, storageMock.Object, roleName, extensionName, permissionValue, false);
+            var result = await UpdateRoleAndGrants.UpdateRoleToPermissionsAsync(storageMock.Object, roleManager.Object, roleName, extensionName, permissionValue, false);
 
             // Assert
             result.Should().Be($"Cannot remove permission for role {roleName} that has no permissions");

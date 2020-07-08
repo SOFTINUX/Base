@@ -9,6 +9,7 @@ using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SoftinuxBase.Infrastructure.Interfaces;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.Permissions;
@@ -20,7 +21,7 @@ namespace SoftinuxBase.SeedDatabase.Controllers
     public class SeedDatabaseController : Controller
     {
         private readonly UserManager<User> _userManager;
-        private readonly RoleManager<IdentityRole<string>> _roleManager;
+        private readonly IAspNetRolesManager _rolesManager;
         private readonly IStorage _storage;
         private readonly ILogger _logger;
 
@@ -29,11 +30,11 @@ namespace SoftinuxBase.SeedDatabase.Controllers
         // 0: John, 1: Jane, 2: Paul
         private User[] _createdUsers = new User[3];
 
-        public SeedDatabaseController(UserManager<User> userManager_, RoleManager<IdentityRole<string>> roleManager_, ILoggerFactory loggerFactory_, IStorage storage_)
+        public SeedDatabaseController(UserManager<User> userManager_, ILoggerFactory loggerFactory_, IStorage storage_, IAspNetRolesManager rolesManager_)
         {
             _userManager = userManager_;
-            _roleManager = roleManager_;
             _storage = storage_;
+            _rolesManager = rolesManager_;
             _logger = loggerFactory_?.CreateLogger(GetType().FullName);
         }
 
@@ -276,9 +277,9 @@ namespace SoftinuxBase.SeedDatabase.Controllers
                 };
                 _createdRoles.Add(identityRole);
 
-                if (!await _roleManager.RoleExistsAsync(identityRole.Name))
+                if (!await _rolesManager.RoleExistsAsync(identityRole.Name))
                 {
-                    var result = await _roleManager.CreateAsync(identityRole);
+                    var result = await _rolesManager.CreateAsync(identityRole);
 
                     // return 500 if fail
                     if (!result.Succeeded)

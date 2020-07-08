@@ -36,28 +36,28 @@ namespace SoftinuxBase.Security.Tools
         /// <summary>
         /// Check that a role with the same name and another ID exists.
         /// </summary>
-        /// <param name="roleManager_">Role manager object.</param>
+        /// <param name="rolesManager_">Base's custom interface to <see cref="RoleManager{TRole}"/>.</param>
         /// <param name="roleName_">Role name.</param>
         /// <param name="roleId_">Role ID.
         /// <remarks>When a role is found (by name), it should not have the parameter role ID.</remarks></param>
         /// <returns>True when a role is found.</returns>
-        internal static async Task<bool> CheckThatRoleOfThisNameExistsAsync(RoleManager<IdentityRole<string>> roleManager_, string roleName_, string roleId_ = null)
+        internal static async Task<bool> CheckThatRoleOfThisNameExistsAsync(IAspNetRolesManager rolesManager_, string roleName_, string roleId_ = null)
         {
-            var role = await roleManager_.FindByNameAsync(roleName_);
+            var role = await rolesManager_.FindByNameAsync(roleName_);
             return roleId_ == null ? (role != null) : (role != null && role.Id != roleId_);
         }
-        
+
         /// <summary>
         /// Update or create the RoleToPermissions record, for the given role, adding or removing a permission.
         /// </summary>
-        /// <param name="roleManager_">Role manager object.</param>
         /// <param name="storage_">Storage interface provided by services container.</param>
+        /// <param name="rolesManager_">Base's custom interface to <see cref="RoleManager{TRole}"/>.</param>
         /// <param name="roleName_">Role Name.</param>
         /// <param name="extensionName_">Name of the extension, which a Type is associated to hold the permissions.</param>
         /// <param name="permissionValue_">Permission value (in extension's permissions enum type).</param>
         /// <param name="add_">True to add the permission, false to remove.</param>
         /// <returns>Error message, else null.</returns>
-        internal static async Task<string> UpdateRoleToPermissionsAsync(RoleManager<IdentityRole<string>> roleManager_, IStorage storage_, string roleName_, string extensionName_, short permissionValue_, bool add_)
+        internal static async Task<string> UpdateRoleToPermissionsAsync(IStorage storage_, IAspNetRolesManager rolesManager_, string roleName_, string extensionName_, short permissionValue_, bool add_)
         {
             // Lookup for the extension permissions Type.
             var extensionMetadata = ExtensionManager.GetInstances<IExtensionMetadata>().FirstOrDefault((em_) => em_.Name == extensionName_);
@@ -72,7 +72,7 @@ namespace SoftinuxBase.Security.Tools
             }
 
             // Lookup for the role and RoleToPermission
-            var role = await roleManager_.FindByNameAsync(roleName_);
+            var role = await rolesManager_.FindByNameAsync(roleName_);
             if (role == null)
             {
                 return $"Role {roleName_} does not exist";
@@ -121,12 +121,12 @@ namespace SoftinuxBase.Security.Tools
         /// Second, save new data into database.
         /// </summary>
         /// <param name="storage_">Storage interface provided by services container.</param>
-        /// <param name="roleManager_">Role manager.</param>
+        /// <param name="rolesManager_">Base's custom interface to <see cref="RoleManager{TRole}"/>.</param>
         /// <param name="model_">Model with role name and grant data (extensions and permission level).</param>
         /// <returns>Null if success, otherwise error message.</returns>
-        internal static async Task<string> CheckAndUpdateRoleAndGrantsAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, UpdateRoleAndGrantsViewModel model_)
+        internal static async Task<string> CheckAndUpdateRoleAndGrantsAsync(IStorage storage_, IAspNetRolesManager rolesManager_, UpdateRoleAndGrantsViewModel model_)
         {
-            if (await CheckThatRoleOfThisNameExistsAsync(roleManager_, model_.RoleName, model_.RoleId))
+            if (await CheckThatRoleOfThisNameExistsAsync(rolesManager_, model_.RoleName, model_.RoleId))
             {
                 return "A role with this name already exists";
             }
@@ -134,8 +134,8 @@ namespace SoftinuxBase.Security.Tools
             // try
             // {
             // Update the role name
-            var role = await roleManager_.FindByIdAsync(model_.RoleId);
-            await roleManager_.SetRoleNameAsync(role, model_.RoleName);
+            var role = await rolesManager_.FindByIdAsync(model_.RoleId);
+            await rolesManager_.SetRoleNameAsync(role, model_.RoleName);
 
             // TODO rewrite for new permissions
             throw new NotImplementedException();

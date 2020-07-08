@@ -6,15 +6,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
+using SoftinuxBase.Infrastructure.Interfaces;
 using SoftinuxBase.Security.ViewModels.Permissions;
 
 namespace SoftinuxBase.Security.Tools
 {
-    /*
-        The main CreateRoleAndGrants class.
-        Contains all methods for reading granting permissions.
-    */
-
     /// <summary>
     /// The main CreateRoleAndGrants class.
     ///
@@ -28,12 +24,12 @@ namespace SoftinuxBase.Security.Tools
         /// Second, save new data into database.
         /// </summary>
         /// <param name="storage_">Storage interface provided by services container.</param>
-        /// <param name="roleManager_">Roles manager object.</param>
+        /// <param name="rolesManager_">Base's custom interface to <see cref="RoleManager{TRole}"/>.</param>
         /// <param name="model_">A <see cref="SaveNewRoleAndGrantsViewModel" /> object.</param>
         /// <returns>Null if success, otherwise error message.</returns>
-        public static async Task<string> CheckAndSaveNewRoleAndGrantsAsync(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_, SaveNewRoleAndGrantsViewModel model_)
+        public static async Task<string> CheckAndSaveNewRoleAndGrantsAsync(IStorage storage_, IAspNetRolesManager rolesManager_, SaveNewRoleAndGrantsViewModel model_)
         {
-            if (await UpdateRoleAndGrants.CheckThatRoleOfThisNameExistsAsync(roleManager_, model_.RoleName))
+            if (await UpdateRoleAndGrants.CheckThatRoleOfThisNameExistsAsync(rolesManager_, model_.RoleName))
             {
                 return "A role with this name already exists";
             }

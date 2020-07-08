@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SoftinuxBase.Infrastructure;
+using SoftinuxBase.Infrastructure.Interfaces;
 using SoftinuxBase.Security.AuthorizeSetup;
 using SoftinuxBase.Security.Data.Entities;
 using SoftinuxBase.Security.Data.EntityFramework;
@@ -65,7 +66,7 @@ namespace SoftinuxBase.WebApplication
             })
             .AddEntityFrameworkStores<T>()
             .AddDefaultTokenProviders(); // Tell Identity which EF DbContext to use
-
+            
             // 2. Configure the application cookie
             services_.ConfigureApplicationCookie(options_ =>
             {
@@ -141,6 +142,9 @@ namespace SoftinuxBase.WebApplication
 
             // 6. support for ASP NET
             services_.AddRazorPages();
+            
+            // Also register the Identity RoleManager with our custom interface
+            services_.AddScoped<IAspNetRolesManager, AspNetRolesManager>();
         }
     }
 }

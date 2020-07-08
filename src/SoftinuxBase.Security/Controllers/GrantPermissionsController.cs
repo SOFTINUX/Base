@@ -7,8 +7,8 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SoftinuxBase.Infrastructure.Interfaces;
 using SoftinuxBase.Security.FeatureAuthorize.PolicyCode;
 using SoftinuxBase.Security.Tools;
 using SoftinuxBase.Security.ViewModels.Permissions;
@@ -17,11 +17,11 @@ namespace SoftinuxBase.Security.Controllers
 {
     public class GrantPermissionsController : Infrastructure.ControllerBase
     {
-        private readonly RoleManager<IdentityRole<string>> _roleManager;
+        private readonly IAspNetRolesManager _aspNetRolesManager;
 
-        public GrantPermissionsController(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_) : base(storage_)
+        public GrantPermissionsController(IStorage storage_, IAspNetRolesManager aspNetRolesManager_) : base(storage_)
         {
-            _roleManager = roleManager_;
+            _aspNetRolesManager = aspNetRolesManager_;
         }
 
         #region READ
@@ -53,7 +53,7 @@ namespace SoftinuxBase.Security.Controllers
                 return StatusCode((int)HttpStatusCode.BadRequest, Json("No role id given"));
             }
 
-            var role = await _roleManager.FindByIdAsync(roleId_);
+            var role = await _aspNetRolesManager.FindByIdAsync(roleId_);
 
             if (role == null)
             {
@@ -127,7 +127,7 @@ namespace SoftinuxBase.Security.Controllers
         [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.CreateRoles)]
         public async Task<IActionResult> SaveNewRoleAndItsPermissionsAsync([FromBody] SaveNewRoleAndGrantsViewModel model_)
         {
-            string error = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrantsAsync(Storage, _roleManager, model_);
+            string error = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrantsAsync(Storage, _aspNetRolesManager, model_);
             return StatusCode(string.IsNullOrEmpty(error) ? (int)HttpStatusCode.Created : (int)HttpStatusCode.BadRequest, error);
         }
 
@@ -168,7 +168,7 @@ namespace SoftinuxBase.Security.Controllers
         [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.EditRoles)]
         public async Task<IActionResult> UpdateRoleAndItsPermissionsAsync([FromBody] UpdateRoleAndGrantsViewModel model_)
         {
-            string error = await UpdateRoleAndGrants.CheckAndUpdateRoleAndGrantsAsync(Storage, _roleManager, model_);
+            string error = await UpdateRoleAndGrants.CheckAndUpdateRoleAndGrantsAsync(Storage, _aspNetRolesManager, model_);
             return StatusCode(string.IsNullOrEmpty(error) ? (int)HttpStatusCode.Created : (int)HttpStatusCode.BadRequest, error);
         }
 
@@ -193,7 +193,7 @@ namespace SoftinuxBase.Security.Controllers
         [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.EditRoles)]
         public async Task<IActionResult> DeleteRoleExtensionLinkAsync(string RoleName, string ExtensionName)
         {
-            bool? deleted = await DeleteRole.DeleteRoleExtensionLinkAsync(this.Storage, _roleManager, ExtensionName, RoleName);
+            bool? deleted = await DeleteRole.DeleteRoleExtensionLinkAsync(this.Storage, ExtensionName, RoleName);
             switch (deleted)
             {
                 case true:
@@ -219,7 +219,7 @@ namespace SoftinuxBase.Security.Controllers
         [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.EditRoles)]
         public async Task<IActionResult> UnlinkRoleOnAllExtensions(string RoleName)
         {
-            bool? deleted = await DeleteRole.DeleteRoleExtensionsLinksAsync(this.Storage, _roleManager, RoleName);
+            bool? deleted = await DeleteRole.DeleteRoleExtensionsLinksAsync(this.Storage, RoleName);
             switch (deleted)
             {
                 case true:
@@ -248,7 +248,7 @@ namespace SoftinuxBase.Security.Controllers
 
             foreach (var role in roleNameList_.Split(new[] { ',' }))
             {
-                var error = await DeleteRole.DeleteRoleAndAllLinksAsync(this.Storage, _roleManager, role);
+                var error = await DeleteRole.DeleteRoleAndAllLinksAsync(this.Storage, role);
                 if (error != null)
                 {
                     errors.Add(error);

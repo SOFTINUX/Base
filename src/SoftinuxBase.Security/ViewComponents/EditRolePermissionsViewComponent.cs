@@ -3,7 +3,6 @@
 
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SoftinuxBase.Barebone.ViewComponents;
 
@@ -11,16 +10,13 @@ namespace SoftinuxBase.Security.ViewComponents
 {
     public class EditRolePermissionsViewComponent : ViewComponentBase
     {
-        private readonly RoleManager<IdentityRole<string>> _roleManager;
-
-        public EditRolePermissionsViewComponent(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_) : base(storage_)
+        public EditRolePermissionsViewComponent(IStorage storage_) : base(storage_)
         {
-            _roleManager = roleManager_;
         }
 
         public Task<IViewComponentResult> InvokeAsync()
         {
-            return Task.FromResult<IViewComponentResult>(View("_Edit_Role_Permissions", _roleManager));
+            return Task.FromResult<IViewComponentResult>(View("_Edit_Role_Permissions"));
         }
     }
 }

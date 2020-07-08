@@ -7,6 +7,7 @@ using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SoftinuxBase.Barebone.ViewComponents;
+using SoftinuxBase.Infrastructure.Interfaces;
 using SoftinuxBase.Security.Tools;
 using SoftinuxBase.Security.ViewModels.Permissions;
 
@@ -14,11 +15,11 @@ namespace SoftinuxBase.Security.ViewComponents
 {
     public class GrantPermissionsViewComponent : ViewComponentBase
     {
-        private readonly RoleManager<IdentityRole<string>> _roleManager;
+        private readonly IAspNetRolesManager _rolesManager;
 
-        public GrantPermissionsViewComponent(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_) : base(storage_)
+        public GrantPermissionsViewComponent(IStorage storage_, IAspNetRolesManager rolesManager_) : base(storage_)
         {
-            _roleManager = roleManager_;
+            _rolesManager = rolesManager_;
         }
 
         public Task<IViewComponentResult> InvokeAsync()
@@ -30,7 +31,7 @@ namespace SoftinuxBase.Security.ViewComponents
             // and we have role id in RolePermission table.
             Dictionary<string, string> roleNameByRoleId = new Dictionary<string, string>();
 
-            foreach (var role in _roleManager.Roles)
+            foreach (var role in _rolesManager.Roles)
             {
                 roleNameByRoleId.Add(role.Id, role.Name);
                 rolesList.Add(role.Id, role);
