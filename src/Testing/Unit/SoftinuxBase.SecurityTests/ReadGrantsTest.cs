@@ -16,13 +16,8 @@ using Xunit;
 
 namespace SoftinuxBase.SecurityTests
 {
-    [Collection("Database collection")]
-    public class ReadGrantsTest : CommonTestWithDatabase
+    public class ReadGrantsTest
     {
-        public ReadGrantsTest(DatabaseFixture databaseFixture_) : base(databaseFixture_)
-        {
-        }
-
         /// <summary>
         /// Uses a mock for database data.
         /// </summary>
@@ -72,23 +67,6 @@ namespace SoftinuxBase.SecurityTests
             model.RoleNames.Should().HaveCount(2);
             model.RoleNames.Should().Contain(Roles.Administrator.ToString());
             model.RoleNames.Should().Contain(Roles.Moderator.ToString());
-        }
-
-        /// <summary>
-        /// Uses the database to test the query to table.
-        /// </summary>
-        [Fact]
-        [Category("Database")]
-        public void ReadAll_QueryDatabase()
-        {
-            // Arrange
-
-            // Act
-            var model = ReadGrants.ReadAll(DatabaseFixture.Storage);
-
-            // Assert
-            model.Should().NotBeNull();
-            model.RolesWithPermissions.Keys.Should().NotBeEmpty();
         }
     }
 }

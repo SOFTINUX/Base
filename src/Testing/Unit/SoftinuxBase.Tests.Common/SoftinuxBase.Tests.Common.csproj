@@ -42,10 +42,5 @@
     <ProjectReference Include="../../Extensions/SampleExtension2/SampleExtension2.csproj" />
     <ProjectReference Include="..\..\Extensions\SampleExtension3\SampleExtension3.csproj" />
   </ItemGroup>
-    <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
 
 </Project>

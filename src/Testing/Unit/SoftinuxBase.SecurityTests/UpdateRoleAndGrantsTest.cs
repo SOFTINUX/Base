@@ -17,13 +17,8 @@ using Xunit;
 
 namespace SoftinuxBase.SecurityTests
 {
-    [Collection("Database collection")]
-    public class UpdateRoleAndGrantsTest : CommonTestWithDatabase
+    public class UpdateRoleAndGrantsTest
     {
-        public UpdateRoleAndGrantsTest(DatabaseFixture databaseFixture_) : base(databaseFixture_)
-        {
-        }
-
         /// <summary>
         /// Test with incorrect extension name.
         /// Uses a mock for database data.

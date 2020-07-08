@@ -6,13 +6,8 @@ using Xunit;
 
 namespace SoftinuxBase.SecurityTests
 {
-    [Collection("Database collection")]
-    public class CreateRoleTest : CommonTestWithDatabase
+    public class CreateRoleTest
     {
-        public CreateRoleTest(DatabaseFixture databaseFixture_) : base(databaseFixture_)
-        {
-        }
-
         // TODO write tests once new code is written
     }
 }
