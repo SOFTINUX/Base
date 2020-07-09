@@ -49,6 +49,11 @@ namespace SoftinuxBase.Security.Tools
             // 1. Get all extension names from loaded extensions, create initial dictionaries
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
             {
+                if(extensionMetadata.Permissions == null)
+                {
+                    // Ignore extension when it doesn't define its permissions
+                    continue;
+                }
                 model.RolesWithPermissions.Add(extensionMetadata.Name, new Dictionary<PermissionDisplay, List<string>>());
                 extensionNameAndEnumDict.Add(extensionMetadata.Name, extensionMetadata.Permissions);
             }
