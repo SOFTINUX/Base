@@ -20,21 +20,18 @@ namespace SoftinuxBase.Security.Permissions
         internal readonly Dictionary<string, HashSet<PermissionDisplay>> Dictionary = new Dictionary<string, HashSet<PermissionDisplay>>();
 
         /// <summary>
-        /// Constructor.
+        /// Add data to internal dictionary that contains the <see cref="PermissionDisplay"/> related to an extension.
         /// </summary>
-        /// <param name="permissionEnumTypeForExtensionName_">Dictionary with key: extension name (assembly short name) and value:
-        /// permission enum type (that could be in another assembly or null if the extension doesn't define it)</param>
-        /// <param name="permissionsDictionary_">Permissions as read from database (uses permission enum type only)</param>
-        public PermissionsDisplayDictionary(Dictionary<string, Type> permissionEnumTypeForExtensionName_, PermissionsDictionary permissionsDictionary_)
+        /// <param name="extensionName_">The extension name.</param>
+        /// <param name="permissionEnumType_">The permission enum type for this extension.</param>
+        public void Add(string extensionName_, Type permissionEnumType_)
         {
-            foreach (KeyValuePair<string, Type> permissionEnumTypeForExtensionName in permissionEnumTypeForExtensionName_)
+            Dictionary.TryGetValue(extensionName_, out var permissionDisplays);
+            if (permissionDisplays != null)
             {
-                permissionsDictionary_.Dictionary.TryGetValue(permissionEnumTypeForExtensionName.Value?.AssemblyQualifiedName ?? "", out var permissionsForEnum);
-                if (permissionsForEnum != null)
-                {
-                    Dictionary.Add(permissionEnumTypeForExtensionName.Key, PermissionDisplay.GetPermissionsToDisplay(permissionEnumTypeForExtensionName.Key, permissionEnumTypeForExtensionName.Value, permissionsForEnum).ToHashSet());
-                }
+                return;
             }
+            Dictionary[extensionName_] = PermissionDisplay.GetPermissionsToDisplay(extensionName_, permissionEnumType_).ToHashSet();
         }
 
         /// <summary>

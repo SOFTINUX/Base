@@ -112,7 +112,7 @@ namespace SoftinuxBase.Security.Permissions
             return HashCode.Combine(this.ExtensionName, this.Section, this.ShortName, this.PermissionEnumValue);
         }
 
-        public override String ToString()
+        public override string ToString()
         {
             return $"[{ExtensionName}][{Section}][{ShortName}][{PermissionEnumValue.ToString()}]";
         }

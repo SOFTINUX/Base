@@ -42,20 +42,23 @@ namespace SoftinuxBase.Security.Tools
         {
             GrantViewModel model = new GrantViewModel();
 
-            // key : extension name,
-            // value : extension's permission enum type, since the enum can be in another assembly.
-            var extensionNameAndEnumDict = new Dictionary<string, Type>();
-
+            // key : extension's permission enum type assembly-qualified name, since the enum can be in another assembly,
+            // value : extension name
+            var extensionEnumAndNameDict = new Dictionary<string, string>();
+            var permissionsDisplayDictionary = new PermissionsDisplayDictionary();
             // 1. Get all extension names from loaded extensions, create initial dictionaries
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
             {
-                if(extensionMetadata.Permissions == null)
+                if (extensionMetadata.Permissions == null)
                 {
                     // Ignore extension when it doesn't define its permissions
                     continue;
                 }
+                // Create the dictionary entry for the extension
                 model.RolesWithPermissions.Add(extensionMetadata.Name, new Dictionary<PermissionDisplay, List<string>>());
-                extensionNameAndEnumDict.Add(extensionMetadata.Name, extensionMetadata.Permissions);
+                extensionEnumAndNameDict.Add(extensionMetadata.Permissions.AssemblyQualifiedName, extensionMetadata.Name);
+                // Initialize the permissions displays
+                permissionsDisplayDictionary.Add(extensionMetadata.Name, extensionMetadata.Permissions);
             }
 
             // 2. Read role/permission/extension settings (RoleToPermissions table)
@@ -66,19 +69,36 @@ namespace SoftinuxBase.Security.Tools
                 model.RoleNames.Add(roleToPermission.RoleName);
 
                 var permissions = roleToPermission.PermissionsForRole;
-                PermissionsDisplayDictionary permissionsDisplayDictionary = new PermissionsDisplayDictionary(extensionNameAndEnumDict, permissions);
-                foreach (var extensionName in permissionsDisplayDictionary.Dictionary.Keys)
+                // Loop over all permission enums given by loaded extensions
+                foreach (var permissionEnumType in extensionEnumAndNameDict.Keys)
                 {
-                    var permissionDisplays = permissionsDisplayDictionary.Get(extensionName);
-                    foreach (var permissionDisplay in permissionDisplays)
+                    extensionEnumAndNameDict.TryGetValue(permissionEnumType, out var extensionName);
+                    if (extensionName == null)
                     {
+                        // Record related to a removed extension
+                        // TODO add unit test case
+                        continue;
+                    }
+                    permissions.Dictionary.TryGetValue(permissionEnumType, out var permissionValues);
+                    if(permissionValues == null)
+                    {
+                        // TODO add unit test case
+                        continue;
+                    }
+                    foreach (var permissionValue in permissionValues)
+                    {
+                        var permissionDisplay = permissionsDisplayDictionary.Get(extensionName).FirstOrDefault((permissionDisplay_ => permissionDisplay_.PermissionEnumValue == permissionValue));
+                        if (permissionDisplay == null)
+                        {
+                            // TODO fixme
+                            continue;
+                        }
                         model.RolesWithPermissions[extensionName].TryGetValue(permissionDisplay, out var roleNames);
                         if (roleNames == null)
                         {
                             roleNames = new List<string>();
                             model.RolesWithPermissions[extensionName].Add(permissionDisplay, roleNames);
                         }
-
                         roleNames.Add(roleToPermission.RoleName);
                     }
                 }
@@ -116,5 +136,5 @@ namespace SoftinuxBase.Security.Tools
             // }
             throw new NotImplementedException();
         }
-     }
+    }
 }

@@ -59,7 +59,7 @@ namespace SoftinuxBase.Security.Permissions
 
             return permissions.Add(permission_);
         }
-        
+
         /// <summary>
         /// Remove a permission if it exists.
         /// </summary>
@@ -72,7 +72,7 @@ namespace SoftinuxBase.Security.Permissions
             Dictionary.TryGetValue(assemblyQualifiedTypeName, out var permissions);
             return permissions != null && permissions.Remove(permission_);
         }
-        
+
         /// <summary>
         /// Add a group of permissions.
         /// </summary>
