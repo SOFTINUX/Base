@@ -91,7 +91,7 @@ namespace SoftinuxBase.Security.Permissions.Enums
                Feature2Access = 1001,
                */
 
-        [Display(GroupName = "SuperAdmin", Name = "AccessAll", Description = "This allows the user to access every feature")]
+        // Should not be managed in administration interface
         AccessAll = Int16.MaxValue,
     }
 }

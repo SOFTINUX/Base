@@ -75,7 +75,7 @@ namespace SoftinuxBase.Security.Permissions
                 var obsoleteAttribute = member[0].GetCustomAttribute<ObsoleteAttribute>();
                 if (obsoleteAttribute != null)
                     continue;
-                // If there is no DisplayAttribute then the Enum is not used
+                // If there is no DisplayAttribute then the value is not managed in administration interface
                 var displayAttribute = member[0].GetCustomAttribute<DisplayAttribute>();
                 if (displayAttribute == null)
                     continue;
