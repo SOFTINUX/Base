@@ -3,12 +3,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using ExtCore.Infrastructure;
-using Microsoft.AspNetCore.Identity;
 using SoftinuxBase.Infrastructure.Interfaces;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
@@ -32,7 +29,7 @@ namespace SoftinuxBase.Security.Tools
         /// <summary>
         /// Read all grants:
         ///
-        /// - to have a global view of permissions granting:
+        /// - to have a global view of grantable permissions and their effective granting:
         ///
         /// -- for a role or a user, what kind of permission is granted, for every extension.
         /// </summary>
@@ -45,7 +42,6 @@ namespace SoftinuxBase.Security.Tools
             // key : extension's permission enum type assembly-qualified name, since the enum can be in another assembly,
             // value : extension name
             var extensionEnumAndNameDict = new Dictionary<string, string>();
-            var permissionsDisplayDictionary = new PermissionsDisplayDictionary();
             // 1. Get all extension names from loaded extensions, create initial dictionaries
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
             {
@@ -54,14 +50,19 @@ namespace SoftinuxBase.Security.Tools
                     // Ignore extension when it doesn't define its permissions
                     continue;
                 }
-                // Create the dictionary entry for the extension
+                // 1a. Create the dictionary entry for the extension
                 model.RolesWithPermissions.Add(extensionMetadata.Name, new Dictionary<PermissionDisplay, List<string>>());
                 extensionEnumAndNameDict.Add(extensionMetadata.Permissions.AssemblyQualifiedName, extensionMetadata.Name);
-                // Initialize the permissions displays
-                permissionsDisplayDictionary.Add(extensionMetadata.Name, extensionMetadata.Permissions);
+                // 1b. Build the permissions displays
+                var permissionDisplays = PermissionDisplay.GetPermissionsToDisplay(extensionMetadata.Name, extensionMetadata.Permissions).ToHashSet();
+                // 1c. Create the list of roles entry, for the permission display
+                foreach (var permissionDisplay in permissionDisplays)
+                {
+                    model.RolesWithPermissions[permissionDisplay.ExtensionName].Add(permissionDisplay, new List<string>());
+                }
             }
 
-            // 2. Read role/permission/extension settings (RoleToPermissions table)
+            // 2. Read role/permission/extension settings (RoleToPermissions table) to add the role items
             List<RoleToPermissions> rolesToPermissions = storage_.GetRepository<IRoleToPermissionsRepository>().All().ToList();
 
             foreach (RoleToPermissions roleToPermission in rolesToPermissions)
@@ -80,17 +81,17 @@ namespace SoftinuxBase.Security.Tools
                         continue;
                     }
                     permissions.Dictionary.TryGetValue(permissionEnumType, out var permissionValues);
-                    if(permissionValues == null)
+                    if (permissionValues == null)
                     {
                         // TODO add unit test case
                         continue;
                     }
                     foreach (var permissionValue in permissionValues)
                     {
-                        var permissionDisplay = permissionsDisplayDictionary.Get(extensionName).FirstOrDefault((permissionDisplay_ => permissionDisplay_.PermissionEnumValue == permissionValue));
+                        var permissionDisplay = model.RolesWithPermissions[extensionName].Keys.FirstOrDefault(permissionDisplay_ => permissionDisplay_.PermissionEnumValue == permissionValue);
                         if (permissionDisplay == null)
                         {
-                            // TODO fixme
+                            // A granted permission value that does not correspond to a permission display: not managed value
                             continue;
                         }
                         model.RolesWithPermissions[extensionName].TryGetValue(permissionDisplay, out var roleNames);

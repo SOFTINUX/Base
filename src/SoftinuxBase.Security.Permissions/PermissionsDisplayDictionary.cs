@@ -15,7 +15,7 @@ namespace SoftinuxBase.Security.Permissions
     public class PermissionsDisplayDictionary
     {
         /// <summary>
-        /// Internal dictionary which key is the extension assembly short name and the values some PermissionDisplay classes (linked to role/user).
+        /// Internal dictionary which key is the extension assembly short name and the values some <see cref="PermissionDisplay"/>.
         /// </summary>
         internal readonly Dictionary<string, HashSet<PermissionDisplay>> Dictionary = new Dictionary<string, HashSet<PermissionDisplay>>();
 

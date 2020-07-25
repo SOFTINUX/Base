@@ -7,6 +7,7 @@ using ExtCore.Data.Abstractions;
 using FluentAssertions;
 using Moq;
 using SampleExtension1;
+using SampleExtension2;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Permissions.Enums;
 using SoftinuxBase.Security.Tools;
@@ -44,6 +45,11 @@ namespace SoftinuxBase.SecurityTests
             model.RolesWithPermissions.Keys.Should().NotContain(Constants.SoftinuxBaseTestsCommonAssemblyShortName);
             model.RolesWithPermissions.Keys.Should().NotContain(Constants.SampleExtension3AssemblyShortName);
 
+            model.RolesWithPermissions[Constants.SoftinuxBaseSecurityAssemblyShortName].Should().HaveCount(24);
+            model.RolesWithPermissions[Constants.SampleExtension1AssemblyShortName].Should().HaveCount(3);
+            model.RolesWithPermissions[Constants.SampleExtension2AssemblyShortName].Should().HaveCount(3);
+
+            // Detailed assertions about SoftinuxBaseSecurityAssemblyShortName's permissions/roles
             model.RolesWithPermissions[Constants.SoftinuxBaseSecurityAssemblyShortName].First(kv => kv.Key.PermissionEnumValue == (short)Permissions.CreateRoles).Value.Should().HaveCount(1);
             model.RolesWithPermissions[Constants.SoftinuxBaseSecurityAssemblyShortName].First(kv => kv.Key.PermissionEnumValue == (short)Permissions.CreateRoles).Value.Should().Contain(Roles.Administrator.ToString());
 
@@ -54,6 +60,7 @@ namespace SoftinuxBase.SecurityTests
             model.RolesWithPermissions[Constants.SoftinuxBaseSecurityAssemblyShortName].First(kv => kv.Key.PermissionEnumValue == (short)Permissions.ListRoles).Value.Should().Contain(Roles.Moderator.ToString());
             model.RolesWithPermissions[Constants.SoftinuxBaseSecurityAssemblyShortName].First(kv => kv.Key.PermissionEnumValue == (short)Permissions.ListRoles).Value.Should().Contain(Roles.Administrator.ToString());
 
+            // Detailed assertions about SampleExtension1AssemblyShortName's permissions/roles
             model.RolesWithPermissions[Constants.SampleExtension1AssemblyShortName].First(kv => kv.Key.PermissionEnumValue == (short)SamplePermissions.Admin).Value.Should().HaveCount(1);
             model.RolesWithPermissions[Constants.SampleExtension1AssemblyShortName].First(kv => kv.Key.PermissionEnumValue == (short)SamplePermissions.Admin).Value.Should().Contain(Roles.Administrator.ToString());
 
@@ -62,7 +69,8 @@ namespace SoftinuxBase.SecurityTests
 
             model.RolesWithPermissions[Constants.SampleExtension1AssemblyShortName].FirstOrDefault(kv => kv.Key.PermissionEnumValue == (short)SamplePermissions.Other).Value.Should().BeNull();
 
-            model.RolesWithPermissions[Constants.SampleExtension2AssemblyShortName].Should().HaveCount(0);
+            // Detailed assertions about SampleExtension2AssemblyShortName's permissions/roles
+            model.RolesWithPermissions[Constants.SampleExtension2AssemblyShortName].First(kv => kv.Key.PermissionEnumValue == (short)SamplePermissions2.Admin).Value.Should().HaveCount(0);
 
             model.RoleNames.Should().HaveCount(2);
             model.RoleNames.Should().Contain(Roles.Administrator.ToString());
