@@ -8,6 +8,7 @@ using System.Net;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Mvc;
+using SoftinuxBase.Barebone.Extensions;
 using SoftinuxBase.Infrastructure.Interfaces;
 using SoftinuxBase.Security.FeatureAuthorize.PolicyCode;
 using SoftinuxBase.Security.Tools;
@@ -139,20 +140,22 @@ namespace SoftinuxBase.Security.Controllers
         /// Add or remove a role from a permission.
         /// </summary>
         /// <param name="model_">object representing values passed from ajax.</param>
-        /// <returns>Status code 200 (ok) or 400 (update not permitted).</returns>
+        /// <returns>Status code 204 (no content) when update is ok or 400 (update went wrong, with message).</returns>
         [Route("administration/update-role-permission")]
         [HttpPost]
         [ActionName("UpdateRolePermission")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.EditRoles)]
         public async Task<IActionResult> UpdateRoleToPermissionsAsync([FromBody] UpdateRolePermissionViewModel model_)
         {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState.AllErrors());
+            }
+            var result = await UpdateRoleAndGrants.UpdateRoleToPermissionsAsync(Storage, _aspNetRolesManager, model_.RoleName, model_.ExtensionName, model_.PermissionValue, model_.Add);
 
-            // TODO version for new permissions: call UpdateRoleAndGrants.UpdateRoleToPermissionsAsync
-            
-            // return StatusCode((int)HttpStatusCode.OK);
-            return StatusCode((int)HttpStatusCode.NoContent);
+            return result == null ? (IActionResult)StatusCode((int)HttpStatusCode.NoContent) : new BadRequestObjectResult(result);
         }
 
         /// <summary>
