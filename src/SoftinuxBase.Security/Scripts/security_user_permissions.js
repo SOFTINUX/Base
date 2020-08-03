@@ -115,6 +115,10 @@ document.getElementById('unlink-role-btn').addEventListener('click', () => {
     unlinkRolePermissionOnAllExtensions(document.getElementById('edit_role_normalizedName').value);
 });
 
+document.querySelectorAll('select.update-role-permission').addEventListener('change', (event) => {
+    updateRolePermission(event);
+});
+
 document.getElementById('role_name_input').addEventListener('change', () => {
     inputFormGroupValidator('#role_name_input');
 });
@@ -338,7 +342,34 @@ export function passSelectedRoleOnEdition(roleId_) {
     });
 }
 
+// TODO document
+function updateRolePermission(event_) {
+    // TODO check event data
+    console.log(event_);
+
+    /*
+    TODO uncomment when params determination is ok
+    const params = {
+        RoleName: roleName_,
+        PermissionValue: permission_,
+        ExtensionName: extension_,
+        Add: true // or false, from event
+    };
+
+    makeAjaxRequest('POST', '/administration/update-role-permission', params, (responseStatus_, responseText_) => {
+        if (responseStatus_ === 204) {
+            window.toastr.success(responseText_, 'Changes saved');
+        } else if (responseStatus_ === 400) {
+            window.toastr.error(responseText_, 'Permission to role link NOT updated');
+        } else {
+            window.toastr.error('Cannot update permission to role link. See logs for errors', 'Error');
+        }
+    });
+    */
+}
+
 /**
+ * TODO remove - obsolete function
  * Click in permission checkbox. Calls savePermission().
  * @param {HTMLCheckboxElement} clickedCheckbox_ - permission level checkbox
  */
@@ -381,6 +412,7 @@ export function permissionCheckBoxClick(clickedCheckbox_) {
 }
 
 /**
+ * TODO remove - obsolete function if not reused (see new function updateRolePermission())
  * Ajax call to update data: role-extension-permission link update. Ajax POST.
  * @param {any} extension_ - extension
  * @param {any} roleName_ - role name

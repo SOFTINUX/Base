@@ -54,7 +54,7 @@
                                                 @permissionDisplayWithRoles.Key.ShortName
                                                 <span class="text-muted">: @permissionDisplayWithRoles.Key.Description</span>
                                             </div>
-                                            <select class="form-control select2bs4" multiple data-placeholder="Select roles" disabled="@isDisabled">
+                                            <select class="form-control select2bs4 update-role-permission" multiple data-placeholder="Select roles" disabled="@isDisabled">
                                                 @foreach (var role in Model.RoleNames)
                                                 {
                                                     if (permissionDisplayWithRoles.Value.Contains(role))
