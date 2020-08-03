@@ -20,10 +20,9 @@ namespace SoftinuxBase.SecurityTests
     public class ReadGrantsTest
     {
         /// <summary>
-        /// Uses a mock for database data.
+        /// Test the reading of permissions and grants, from test extensions and mocked database role to permission data.
         /// </summary>
         [Fact]
-        [Category("Mock")]
         public void ReadAll()
         {
             // Arrange
