@@ -45,9 +45,9 @@ namespace SoftinuxBase.SecurityTests
             model.RolesWithPermissions.Keys.Should().NotContain(Constants.SoftinuxBaseTestsCommonAssemblyShortName);
             model.RolesWithPermissions.Keys.Should().NotContain(Constants.SampleExtension3AssemblyShortName);
 
-            model.RolesWithPermissions[Constants.SoftinuxBaseSecurityAssemblyShortName].Should().HaveCount(24);
-            model.RolesWithPermissions[Constants.SampleExtension1AssemblyShortName].Should().HaveCount(3);
-            model.RolesWithPermissions[Constants.SampleExtension2AssemblyShortName].Should().HaveCount(3);
+            model.RolesWithPermissions[Constants.SoftinuxBaseSecurityAssemblyShortName].Should().HaveCount(17, "17 enum values with Display attribute");
+            model.RolesWithPermissions[Constants.SampleExtension1AssemblyShortName].Should().HaveCount(3, "3 enum values with Display attribute");
+            model.RolesWithPermissions[Constants.SampleExtension2AssemblyShortName].Should().HaveCount(3, "3 enum values with Display attribute");
 
             // Detailed assertions about SoftinuxBaseSecurityAssemblyShortName's permissions/roles
             model.RolesWithPermissions[Constants.SoftinuxBaseSecurityAssemblyShortName].First(kv => kv.Key.PermissionEnumValue == (short)Permissions.CreateRoles).Value.Should().HaveCount(1);
