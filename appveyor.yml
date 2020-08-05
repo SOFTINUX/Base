@@ -13,5 +13,6 @@ install:
     nvm install $nodejs_version
     npm install --loglevel=error # no warnings
 build:
-  verbosity: normal
-test: off
+  verbosity: minimal
+test_script:
+- sh: dotnet test --no-build

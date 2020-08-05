@@ -1,6 +1,6 @@
 # Project overview
 
-![Build status](https://ci.appveyor.com/api/projects/status/mktm6ae3csndb9ma?svg=true) ![Line of code](https://tokei.rs/b1/github/SOFTINUX/Base) ![Documentation Status](https://readthedocs.org/projects/softinux-base/badge/?version=latest) [![Gitter chat](https://badges.gitter.im/SOFTINUX/Base/repo.png)](https://gitter.im/softinux-base/Lobby) ![License](https://img.shields.io/badge/License-MIT-blue.svg)
+[![Build status](https://ci.appveyor.com/api/projects/status/mktm6ae3csndb9ma?svg=true)](https://ci.appveyor.com/project/Xarkam/base) [![Build Status](https://softinux.visualstudio.com/Softinux%20Base/_apis/build/status/Softinux%20Base-ASP.NET%20Core-CI?branchName=master)](https://softinux.visualstudio.com/Softinux%20Base/_build/latest?definitionId=1&branchName=master) ![Line of code](https://tokei.rs/b1/github/SOFTINUX/Base) ![Documentation Status](https://readthedocs.org/projects/softinux-base/badge/?version=latest) [![Gitter chat](https://badges.gitter.im/SOFTINUX/Base/repo.png)](https://gitter.im/softinux-base/Lobby) ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 
 *SoftinuxBase* is a free, open source, and cross-platform framework with built-in security access support and management for creating modular and extendable [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/) Core web applications.
 
@@ -68,7 +68,7 @@ See LICENSE file for license information.
 In order you must have installed:
 
 - [.NET Core SDK](https://www.microsoft.com/net/download) version 3.1.
-- [Node JS](https://nodejs.org/en/)
+- [Node JS](https://nodejs.org/en/) to get javascript dependencies with npm.
 
 ### Linux
 To avoid error `System.IO.IOException: The configured user limit (128) on the number of inotify instances has been reached.
