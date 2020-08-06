@@ -1,4 +1,10 @@
 {
+    // this section is for linux os.
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/*/**": true
+    },
     "editor.formatOnSave": false,
     // "dotnet-test-explorer.testProjectPath": "./src/Testing/Unit/SecurityTest",
     "dotnet-test-explorer.enableTelemetry": false,
