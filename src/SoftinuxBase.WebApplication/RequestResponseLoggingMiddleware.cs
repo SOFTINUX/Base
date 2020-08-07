@@ -49,6 +49,7 @@ namespace SoftinuxBase.WebApplication
 
         private async Task LogResponse(HttpContext context_)
         {
+            // TODO Need code this logger.
         }
 
         private async Task LogRequest(HttpContext context_)

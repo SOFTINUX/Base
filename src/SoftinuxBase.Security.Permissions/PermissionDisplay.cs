@@ -96,7 +96,7 @@ namespace SoftinuxBase.Security.Permissions
             return result;
         }
 
-        public override bool Equals(object? obj)
+        public override bool Equals(object obj)
         {
             var other = obj as PermissionDisplay;
             if (other == null)

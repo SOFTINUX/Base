@@ -172,8 +172,9 @@ namespace SoftinuxBase.Infrastructure
             {
                 _logger.LogInformation("####### ExecuteSqlFileWithTransaction - begin transaction #######");
                 ((DbContext)_storage.StorageContext).Database.BeginTransaction();
-                ((DbContext)_storage.StorageContext).Database.ExecuteSqlCommand(File.ReadAllText(filePath_));
+                var affectedRows = ((DbContext)_storage.StorageContext).Database.ExecuteSqlRaw(File.ReadAllText(filePath_));
                 ((DbContext)_storage.StorageContext).Database.CommitTransaction();
+                _logger.LogInformation($"####### Affected row(s) : {affectedRows} #######");
                 _logger.LogInformation("####### ExecuteSqlFileWithTransaction - end transaction #######");
             }
             catch (Exception e)

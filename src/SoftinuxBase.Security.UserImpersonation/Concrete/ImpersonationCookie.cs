@@ -5,6 +5,7 @@ using System;
 using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
 // TODO CHANGE ASSEMBLY TO SECURITY UNIT TEST
 [assembly: InternalsVisibleTo("Test")]
@@ -14,11 +15,10 @@ namespace SoftinuxBase.Security.UserImpersonation.Concrete
     public class ImpersonationCookie
     {
         private const string CookieName = "UserImpersonation";
-
         private readonly HttpContext _httpContext;
         private readonly IDataProtectionProvider _protectionProvider;
         private readonly CookieOptions _options;
-
+        private readonly ILogger _logger;
         public string EncryptPurpose { get; private set; }
 
         public ImpersonationCookie(HttpContext httpContext_, IDataProtectionProvider protectionProvider_)
@@ -71,7 +71,7 @@ namespace SoftinuxBase.Security.UserImpersonation.Concrete
             }
             catch (Exception e)
             {
-                //_logger.LogError(e, "Error decoding a cookie. Have deleted cookie to stop any further problems.");
+                _logger.LogError(e, "Error decoding a cookie. Have deleted cookie to stop any further problems.");
                 Delete();
                 throw;
             }
