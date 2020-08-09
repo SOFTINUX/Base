@@ -9,8 +9,8 @@
 'use strict';
 
 import makeAjaxRequest from '/Scripts/barebone_ajax.js';
-import { inputFormGroupSetError, inputFormGroupValidator } from '/Scripts/security_user.js';
-import { inputOnlyNumbers } from '/Scripts/toolbox.js';
+import {inputFormGroupSetError, inputFormGroupValidator} from '/Scripts/security_user.js';
+import {inputOnlyNumbers} from '/Scripts/toolbox.js';
 
 /* Select 2 Boostrap 4 Theme for all Select2
    @see https://github.com/select2/select2/issues/2927
@@ -23,7 +23,7 @@ function iformat(icon) {
     return $('<span><i class="' + $(originalOption).data('icon-base') + ' ' + $(originalOption).data('icon') + '"></i> ' + icon.text + '</span>');
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('.select2bs4').select2({
         minimumResultsForSearch: Infinity,
         width: null,
@@ -46,6 +46,7 @@ window.removeRoleLink = removeRoleLink;
 
 /* ---------------------------------------------------------------- */
 /* ------------------------ Global Constants ---------------------- */
+
 /* ---------------------------------------------------------------- */
 
 /**
@@ -115,9 +116,10 @@ document.getElementById('unlink-role-btn').addEventListener('click', () => {
     unlinkRolePermissionOnAllExtensions(document.getElementById('edit_role_normalizedName').value);
 });
 
-document.querySelectorAll('select.update-role-permission').addEventListener('change', (event) => {
-    updateRolePermission(event);
-});
+Array.prototype.forEach.call(document.querySelectorAll('select.update-role-permission', element_ => element_.addEventListener('change', (event_) => {
+        updateRolePermission(event_);
+    })
+));
 
 document.getElementById('role_name_input').addEventListener('change', () => {
     inputFormGroupValidator('#role_name_input');
@@ -134,6 +136,7 @@ document.getElementById('role_name_input').addEventListener('keypress', event_ =
 }, false);
 /* ---------------------------------------------------------------- */
 /* ------------------------ functions ----------------------------- */
+
 /* ---------------------------------------------------------------- */
 
 function rowClicked(event_) {
@@ -288,7 +291,7 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
  */
 export function passSelectedRoleOnEdition(roleId_) {
     document.getElementById('edit-role-group').classList.remove('has-error');
-    makeAjaxRequest('GET', '/administration/read-role', { roleId_: roleId_ }, (responseStatus_, responseText_) => {
+    makeAjaxRequest('GET', '/administration/read-role', {roleId_: roleId_}, (responseStatus_, responseText_) => {
         if (responseStatus_ !== 200) {
             window.toastr.error(`Serveur return code ${responseStatus_} whith response: ${responseText_}`, 'Error');
             return;
@@ -453,7 +456,7 @@ export function saveEditRole() {
         });
 
         if (_extension && _permission)
-            _grants.push({ Extension: _extension, PermissionValue: _permission });
+            _grants.push({Extension: _extension, PermissionValue: _permission});
         else {
             window.toastr.error('Cannot update role from client', 'Error');
             _noError = false;
