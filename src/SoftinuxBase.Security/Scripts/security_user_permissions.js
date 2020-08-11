@@ -116,10 +116,11 @@ document.getElementById('unlink-role-btn').addEventListener('click', () => {
     unlinkRolePermissionOnAllExtensions(document.getElementById('edit_role_normalizedName').value);
 });
 
-Array.prototype.forEach.call(document.querySelectorAll('select.update-role-permission', element_ => element_.addEventListener('change', (event_) => {
+Array.prototype.forEach.call(document.querySelectorAll('select.update-role-permission'), (element_) => {
+    element_.addEventListener('change', (event_) => {
         updateRolePermission(event_);
     })
-));
+});
 
 document.getElementById('role_name_input').addEventListener('change', () => {
     inputFormGroupValidator('#role_name_input');
