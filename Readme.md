@@ -38,6 +38,7 @@ Join our team!
         - [Add a new project](#add-a-new-project)
         - [Add project reference to the solution](#add-project-reference-to-the-solution)
         - [Write your code](#write-your-code)
+    - [Code coverage](#Code-coverage)
 - [Browsers Support](browsers-support)
 - [Using Visual Studio Code For Developing](#using-visual-studio-code-for-developing)
 
@@ -169,6 +170,16 @@ Your extension will depend on `SoftinuxBase.Infrastructure`.
 
 Have a look at sample extensions, [wiki](https://github.com/SOFTINUX/Base/wiki), feel free to open issues for questions.
 
+# Code coverage
+
+We give simple code covering with [coverlet coverage](https://github.com/coverlet-coverage/coverlet).
+But to use it with Visual Studio Code, you need two extensions:
+
+- [Net Core Test Explorer](https://marketplace.visualstudio.com/items?itemName=formulahendry.dotnet-test-explorer)
+- [Coverage Gutters](https://marketplace.visualstudio.com/items?itemName=ryanluker.vscode-coverage-gutters)
+
+We also provide many test watchers script in TestWatchesr folders.
+
 # Browsers support
 
 | ![][ie]<br />IE / Edge | ![][firefox]<br />Firefox | ![][chrome]<br />Chrome | ![][safari]<br />Safari | ![][opera]<br />Opera |
@@ -195,7 +206,7 @@ Very recommended for this project
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [Visual Studio Code Solution Explorer](https://marketplace.visualstudio.com/items?itemName=fernandoescolar.vscode-solution-explorer)
 - [Visual IntelliCode](https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.vscodeintellicode)
-- [Bracket Pair Colorizer](https://marketplace.visualstudio.com/items?itemName=CoenraadS.bracket-pair-colorizer)
+- [Bracket Pair Colorizer 2](https://marketplace.visualstudio.com/items?itemName=CoenraadS.bracket-pair-colorizer-2)
 - [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
 - [Rest Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
 - [Better Comments](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments)
