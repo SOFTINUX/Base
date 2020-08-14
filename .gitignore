@@ -354,3 +354,7 @@ package-lock.json
 #Ignore generated css from sass
 src/SoftinuxBase.Barebone/[Ss]tyles/*.css
 src/SoftinuxBase.Security/[Ss]tyles/*.css
+
+# Code Coverage
+[Cc]overage.json
+[Ll]cov.info
