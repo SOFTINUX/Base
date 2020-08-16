@@ -191,6 +191,15 @@ We also provide many test watchers script in TestWatchesr folders.
 
 :warning: Don't forget to add "coverlet" package in your tests projets.
 
+## Watchers
+If you have the error :
+
+    System.IO.IOException: The configured user limit (128) on the number of inotify instances has been reached, or the per-process limit on the number of open file descriptors has been reached.
+
+Execute:
+- Ubuntu, Debian and derivativbe: `echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p`
+- Macos:
+
 # Browsers support
 
 | ![][ie]<br />IE / Edge | ![][firefox]<br />Firefox | ![][chrome]<br />Chrome | ![][safari]<br />Safari | ![][opera]<br />Opera |
