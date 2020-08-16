@@ -178,7 +178,18 @@ But to use it with Visual Studio Code, you need two extensions:
 - [Net Core Test Explorer](https://marketplace.visualstudio.com/items?itemName=formulahendry.dotnet-test-explorer)
 - [Coverage Gutters](https://marketplace.visualstudio.com/items?itemName=ryanluker.vscode-coverage-gutters)
 
+## .NET Test Explorer configuration
+
+If you want code coverage automatically in .NET Test Explorer, you must configure `dotnet-test-explorer.testArguments`
+and add `/p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=./lcov.info` in text field.
+
+Configuratrion by Json value :
+
+    "dotnet-test-explorer.testArguments": "/p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=./lcov.info"
+
 We also provide many test watchers script in TestWatchesr folders.
+
+:warning: Don't forget to add "coverlet" package in your tests projets.
 
 # Browsers support
 
