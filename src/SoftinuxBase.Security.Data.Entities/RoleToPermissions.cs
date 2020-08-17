@@ -48,10 +48,11 @@ namespace SoftinuxBase.Security.Data.Entities
 
         /// <summary>
         /// Gets the set of permissions in this role.
+        /// Intended for reading. To set permissions, use <see cref="Update"/>.
         /// </summary>
         public PermissionsDictionary PermissionsForRole => _permissionsInRole.ToPermissions();
 
-        public void Update(string description_, PermissionsDictionary permissions_)
+        public void Update(PermissionsDictionary permissions_)
         {
             if (permissions_ == null || !permissions_.Any())
             {
@@ -59,7 +60,6 @@ namespace SoftinuxBase.Security.Data.Entities
             }
 
             _permissionsInRole = permissions_.PackPermissions().ToStorageString();
-            Description = description_;
         }
 
         /*public IStatusGeneric DeleteRole(string roleName_, bool removeFromUsers_,

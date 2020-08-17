@@ -310,7 +310,6 @@ __pycache__/
 *.orig
 
 # Unit Test
-[Tt]ests/[Aa]rtefacts/*.sqlite
 [Tt]ests/[Ww]orkDir/*
 ![Tt]ests/[Ww]orkDir/.workdir
 
@@ -323,6 +322,7 @@ src/WebApplication/Extensions/*
 
 #App/tests EF Database
 basedb*.sqlite
+basedb*.sqlite-*
 
 #Visual Studio localhistory addon
 .localhistory

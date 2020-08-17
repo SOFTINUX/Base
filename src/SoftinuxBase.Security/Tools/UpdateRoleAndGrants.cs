@@ -91,10 +91,11 @@ namespace SoftinuxBase.Security.Tools
                 repository.Create(roleToPermissions);
             }
 
-            // Unpack and update the permissions
+            // Unpack and update the permissions dictionary
+            var permissionDictionary = roleToPermissions.PermissionsForRole;
             if (add_)
             {
-                var result = roleToPermissions.PermissionsForRole.Add(extensionMetadata.Permissions, permissionValue_);
+                var result = permissionDictionary.Add(extensionMetadata.Permissions, permissionValue_);
                 if (!result)
                 {
                     return "Permission was already associated to role";
@@ -102,7 +103,7 @@ namespace SoftinuxBase.Security.Tools
             }
             else
             {
-                var result = roleToPermissions.PermissionsForRole.Remove(extensionMetadata.Permissions, permissionValue_);
+                var result = permissionDictionary.Remove(extensionMetadata.Permissions, permissionValue_);
                 if (!result)
                 {
                     return "Permission was already not associated to role anymore";
@@ -110,6 +111,7 @@ namespace SoftinuxBase.Security.Tools
             }
 
             // And finally save back to database...
+            repository.SetPermissions(roleName_, permissionDictionary);
             await storage_.SaveAsync();
 
             return null;

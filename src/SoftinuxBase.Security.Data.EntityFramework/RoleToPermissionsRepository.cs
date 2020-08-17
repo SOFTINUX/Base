@@ -46,7 +46,7 @@ namespace SoftinuxBase.Security.Data.EntityFramework
                 return false;
             }
 
-            roleToPermission.Update(roleToPermission.Description, permissions_);
+            roleToPermission.Update(permissions_);
             return true;
         }
     }

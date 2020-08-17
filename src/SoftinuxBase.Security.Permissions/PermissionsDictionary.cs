@@ -13,7 +13,6 @@ namespace SoftinuxBase.Security.Permissions
     /// <summary>
     /// Permissions sorted by extension. This is used to represent role's or user's permissions.
     /// This is data/storage oriented.
-    /// <seealso cref="PermissionsDisplayDictionary"/>.
     /// </summary>
     public class PermissionsDictionary
     {

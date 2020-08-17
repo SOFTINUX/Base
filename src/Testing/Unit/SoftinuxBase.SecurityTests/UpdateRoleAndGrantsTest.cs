@@ -9,6 +9,7 @@ using Moq;
 using SoftinuxBase.Infrastructure.Interfaces;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
+using SoftinuxBase.Security.Permissions;
 using SoftinuxBase.Security.Permissions.Enums;
 using SoftinuxBase.Security.Tools;
 using SoftinuxBase.SecurityTests.Mocks;
@@ -44,8 +45,9 @@ namespace SoftinuxBase.SecurityTests
             // Assert
             result.Should().Be($"Extension {extensionName} does not exist");
 
-            roleToPermissionsRepositoryMock.Verify(m => m.FindBy(It.IsAny<string>()), Times.Never);
-            storageMock.Verify(m => m.SaveAsync(), Times.Never);
+            roleToPermissionsRepositoryMock.Verify(m_ => m_.FindBy(It.IsAny<string>()), Times.Never);
+            roleToPermissionsRepositoryMock.Verify(m_ => m_.SetPermissions(It.IsAny<string>(), It.IsAny<PermissionsDictionary>()), Times.Never);
+            storageMock.Verify(m_ => m_.SaveAsync(), Times.Never);
         }
 
         /// <summary>
@@ -73,8 +75,9 @@ namespace SoftinuxBase.SecurityTests
             // Assert
             result.Should().Be($"Extension {extensionName} doesn't define a Type to hold permissions");
 
-            roleToPermissionsRepositoryMock.Verify(m => m.FindBy(It.IsAny<string>()), Times.Never);
-            storageMock.Verify(m => m.SaveAsync(), Times.Never);
+            roleToPermissionsRepositoryMock.Verify(m_ => m_.FindBy(It.IsAny<string>()), Times.Never);
+            roleToPermissionsRepositoryMock.Verify(m_ => m_.SetPermissions(It.IsAny<string>(), It.IsAny<PermissionsDictionary>()), Times.Never);
+            storageMock.Verify(m_ => m_.SaveAsync(), Times.Never);
         }
 
         /// <summary>
@@ -102,8 +105,9 @@ namespace SoftinuxBase.SecurityTests
             // Assert
             result.Should().Be($"Role {roleName} does not exist");
 
-            roleToPermissionsRepositoryMock.Verify(m => m.FindBy(It.IsAny<string>()), Times.Never);
-            storageMock.Verify(m => m.SaveAsync(), Times.Never);
+            roleToPermissionsRepositoryMock.Verify(m_ => m_.FindBy(It.IsAny<string>()), Times.Never);
+            roleToPermissionsRepositoryMock.Verify(m_ => m_.SetPermissions(It.IsAny<string>(), It.IsAny<PermissionsDictionary>()), Times.Never);
+            storageMock.Verify(m_ => m_.SaveAsync(), Times.Never);
         }
 
         /// <summary>
@@ -132,9 +136,10 @@ namespace SoftinuxBase.SecurityTests
             // Assert
             result.Should().Be(null);
 
-            roleManager.Verify(m => m.FindByNameAsync(roleName), Times.Once);
-            roleToPermissionsRepositoryMock.Verify(m => m.FindBy(roleName), Times.Once);
-            storageMock.Verify(m => m.SaveAsync(), Times.Once);
+            roleManager.Verify(m_ => m_.FindByNameAsync(roleName), Times.Once);
+            roleToPermissionsRepositoryMock.Verify(m_ => m_.FindBy(roleName), Times.Once);
+            roleToPermissionsRepositoryMock.Verify(m_ => m_.SetPermissions(roleName, It.IsAny<PermissionsDictionary>()), Times.Once);
+            storageMock.Verify(m_ => m_.SaveAsync(), Times.Once);
         }
 
         /// <summary>
@@ -155,7 +160,7 @@ namespace SoftinuxBase.SecurityTests
             short permissionValue = (short)Permissions.Read;
 
             roleManager.Setup(m_ => m_.FindByNameAsync(It.IsAny<string>())).ReturnsAsync(new IdentityRole<string>(roleName));
-            roleToPermissionsRepositoryMock.Setup(m => m.FindBy(roleName)).Returns(default(RoleToPermissions));
+            roleToPermissionsRepositoryMock.Setup(m_ => m_.FindBy(roleName)).Returns(default(RoleToPermissions));
             storageMock.Setup(s_ => s_.GetRepository<IRoleToPermissionsRepository>()).Returns(roleToPermissionsRepositoryMock.Object);
 
             // Act
@@ -164,9 +169,10 @@ namespace SoftinuxBase.SecurityTests
             // Assert
             result.Should().Be($"Cannot remove permission for role {roleName} that has no permissions");
 
-            roleManager.Verify(m => m.FindByNameAsync(roleName), Times.Once);
-            roleToPermissionsRepositoryMock.Verify(m => m.FindBy(roleName), Times.Once);
-            storageMock.Verify(m => m.SaveAsync(), Times.Never);
+            roleManager.Verify(m_ => m_.FindByNameAsync(roleName), Times.Once);
+            roleToPermissionsRepositoryMock.Verify(m_ => m_.FindBy(roleName), Times.Once);
+            roleToPermissionsRepositoryMock.Verify(m_ => m_.SetPermissions(It.IsAny<string>(), It.IsAny<PermissionsDictionary>()), Times.Never);
+            storageMock.Verify(m_ => m_.SaveAsync(), Times.Never);
         }
     }
 }
