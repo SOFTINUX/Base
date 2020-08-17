@@ -116,10 +116,16 @@ document.getElementById('unlink-role-btn').addEventListener('click', () => {
     unlinkRolePermissionOnAllExtensions(document.getElementById('edit_role_normalizedName').value);
 });
 
-Array.prototype.forEach.call(document.querySelectorAll('select.update-role-permission'), (element_) => {
-    element_.addEventListener('change', (event_) => {
+Array.prototype.forEach.call(document.querySelectorAll('select.update-role-permission'), function (element_) {
+    $(element_).on('select2:select', function (event_) {
+        // we should use jQuery event system here
         updateRolePermission(event_);
-    })
+    });
+    $(element_).on('select2:unselect', function (event_) {
+        // we should use jQuery event system here
+        console.log('unselected', event_.params);
+        updateRolePermission(event_);
+    });
 });
 
 document.getElementById('role_name_input').addEventListener('change', () => {
@@ -346,20 +352,18 @@ export function passSelectedRoleOnEdition(roleId_) {
     });
 }
 
-// TODO document
+/**
+ * Call the API (Ajax POST) to add or remove a link between a role and a permission (for an extension).
+ *  @param {any} event_ - the Select2 event (https://select2.org/programmatic-control/events).
+ **/
 function updateRolePermission(event_) {
-    // TODO check event data
-    console.log(event_);
-
-    /*
-    TODO uncomment when params determination is ok
     const params = {
-        RoleName: roleName_,
-        PermissionValue: permission_,
-        ExtensionName: extension_,
-        Add: true // or false, from event
+        RoleName: event_.params.data.id,
+        PermissionValue: Number(event_.params.data.element.attributes['data-permission'].value),
+        ExtensionName: event_.params.data.element.attributes['data-extension'].value,
+        Add: event_.params.data.selected
     };
-
+    
     makeAjaxRequest('POST', '/administration/update-role-permission', params, (responseStatus_, responseText_) => {
         if (responseStatus_ === 204) {
             window.toastr.success(responseText_, 'Changes saved');
@@ -369,7 +373,6 @@ function updateRolePermission(event_) {
             window.toastr.error('Cannot update permission to role link. See logs for errors', 'Error');
         }
     });
-    */
 }
 
 /**

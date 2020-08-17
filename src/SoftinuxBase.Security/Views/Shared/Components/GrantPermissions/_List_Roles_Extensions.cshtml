@@ -59,11 +59,11 @@
                                                 {
                                                     if (permissionDisplayWithRoles.Value.Contains(role))
                                                     {
-                                                        <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key)" selected="selected">@(role)</option>
+                                                        <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue)" data-extension="@(extensionName)" selected="selected">@(role)</option>
                                                     }
                                                     else
                                                     {
-                                                        <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key)">@(role)</option>
+                                                        <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue)" data-extension="@(extensionName)">@(role)</option>
                                                     }
                                                 }
                                             </select>
