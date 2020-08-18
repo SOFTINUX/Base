@@ -113,7 +113,6 @@ namespace SoftinuxBase.Security.Tools
             return model;
         }
 
-        // TOTEST
         /// <summary>
         /// Get the list of all extensions associated to a role, with corresponding permissions,
         /// and also the list of extensions not linked to the role.
@@ -130,6 +129,11 @@ namespace SoftinuxBase.Security.Tools
 
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
             {
+                if (extensionMetadata.Permissions == null)
+                {
+                    continue;
+                }
+
                 if (rolePermissions.Contains(extensionMetadata.Permissions.AssemblyQualifiedName))
                 {
                     // The extension permission enum is present

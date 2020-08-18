@@ -41,7 +41,11 @@ namespace SoftinuxBase.SecurityTests.Mocks
             var moderatorPermissions = new RoleToPermissions(Roles.Moderator.ToString(), Roles.Moderator.ToString(), permissionsDictionary);
 
             // No permission using enum SamplePermissions2 is setup
+            
+            // Setup methods to return data
             Setup(m => m.All()).Returns(new List<RoleToPermissions> { administratorPermissions, moderatorPermissions });
+            Setup(m => m.FindBy(Roles.Administrator.ToString())).Returns(administratorPermissions);
+            Setup(m => m.FindBy(Roles.Moderator.ToString())).Returns(moderatorPermissions);
         }
     }
 }

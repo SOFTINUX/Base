@@ -75,5 +75,44 @@ namespace SoftinuxBase.SecurityTests
             model.RoleNames.Should().Contain(Roles.Administrator.ToString());
             model.RoleNames.Should().Contain(Roles.Moderator.ToString());
         }
+
+        /// <summary>
+        /// Test the reading of permissions and grants, for the Administrator role, from test extensions and mocked database role to permission data.
+        /// </summary>
+        [Fact]
+        public void GetExtensions_AdministratorRole()
+        {
+            // Arrange
+            var roleName = Roles.Administrator.ToString();
+            Fakes.ExtensionManager.Setup();
+            var roleToPermissionsRepositoryMock = new RoleToPermissionsRepositoryMock();
+
+            var storageMock = new Mock<IStorage>();
+            storageMock.Setup(s_ => s_.GetRepository<IRoleToPermissionsRepository>()).Returns(roleToPermissionsRepositoryMock.Object);
+
+            // Act
+            ReadGrants.GetExtensions(roleName, storageMock.Object, out var availableExtensions, out var selectedExtensions);
+
+            // Assert
+            availableExtensions.Should().NotBeNull();
+            availableExtensions.Should().NotBeEmpty();
+            selectedExtensions.Should().NotBeNull();
+            selectedExtensions.Should().NotBeEmpty();
+
+            // Extension not linked to any role
+            availableExtensions.Should().Contain(Constants.SampleExtension2AssemblyShortName);
+            selectedExtensions.FirstOrDefault(e_ => e_.ExtensionName == Constants.SampleExtension2AssemblyShortName).Should().BeNull();
+
+            // Extension and permission linked to Administrator role
+            selectedExtensions.FirstOrDefault(e_ => e_.ExtensionName == Constants.SoftinuxBaseSecurityAssemblyShortName)?.GroupedBySectionPermissionDisplays.Should().ContainKey("Role management");
+            selectedExtensions.FirstOrDefault(e_ => e_.ExtensionName == Constants.SoftinuxBaseSecurityAssemblyShortName)?.GroupedBySectionPermissionDisplays["Role management"].FirstOrDefault(d_ => d_.PermissionEnumValue == (short)Permissions.ListRoles).Should().NotBeNull();
+            selectedExtensions.FirstOrDefault(e_ => e_.ExtensionName == Constants.SoftinuxBaseSecurityAssemblyShortName)?.GroupedBySectionPermissionDisplays["Role management"].FirstOrDefault(d_ => d_.PermissionEnumValue == (short)Permissions.ListRoles)?.Selected.Should().BeTrue();
+
+            // Extension linked to Administrator role but permission not linked
+            selectedExtensions.FirstOrDefault(e_ => e_.ExtensionName == Constants.SoftinuxBaseSecurityAssemblyShortName)?.GroupedBySectionPermissionDisplays.Should().ContainKey("User management");
+            selectedExtensions.FirstOrDefault(e_ => e_.ExtensionName == Constants.SoftinuxBaseSecurityAssemblyShortName)?.GroupedBySectionPermissionDisplays["User management"].FirstOrDefault(d_ => d_.PermissionEnumValue == (short)Permissions.ListUsers).Should().BeNull();
+        }
+
+        // TODO unit test for role that has no record in RoleToPermissions (IRoleToPermissionsRepository>().FindBy(roleName_) returns null)
     }
 }
