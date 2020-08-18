@@ -10,6 +10,16 @@ namespace SoftinuxBase.Security.Permissions
 {
     public class PermissionDisplay
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="section_">Permission section.</param>
+        /// <param name="name_">Permission short name.</param>
+        /// <param name="description_">Permission description.</param>
+        /// <param name="extensionName_">Extension name.</param>
+        /// <param name="permissionEnumValue_">Permission enum value.</param>
+        /// <param name="permissionEnumType_">Permission enum Type.</param>
+        /// <param name="moduleName_">Module name.</param>
         public PermissionDisplay(string section_, string name_, string description_, string extensionName_, short permissionEnumValue_,
             Type permissionEnumType_, string moduleName_)
         {

@@ -123,6 +123,16 @@ namespace SoftinuxBase.Security.Permissions
         }
 
         /// <summary>
+        /// Check whether the item defined by a type is present (internal dictionary entry is initaliazed).
+        /// </summary>
+        /// <param name="permissionToCheckAssemblyQualifiedEnumTypeFullName_">Fullname of the permission's enum Type.</param>
+        /// <returns>true when the item is found.</returns>
+        internal bool Contains(string permissionToCheckAssemblyQualifiedEnumTypeFullName_)
+        {
+            return Dictionary.ContainsKey(permissionToCheckAssemblyQualifiedEnumTypeFullName_);
+        }
+
+        /// <summary>
         /// Check whether there is a permission item present.
         /// </summary>
         /// <returns>true when an item is present.</returns>

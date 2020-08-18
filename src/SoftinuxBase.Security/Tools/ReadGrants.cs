@@ -50,6 +50,7 @@ namespace SoftinuxBase.Security.Tools
                     // Ignore extension when it doesn't define its permissions
                     continue;
                 }
+
                 // 1a. Create the dictionary entry for the extension
                 model.RolesWithPermissions.Add(extensionMetadata.Name, new Dictionary<PermissionDisplay, List<string>>());
                 extensionEnumAndNameDict.Add(extensionMetadata.Permissions.AssemblyQualifiedName, extensionMetadata.Name);
@@ -80,12 +81,14 @@ namespace SoftinuxBase.Security.Tools
                         // TODO add unit test case
                         continue;
                     }
+
                     permissions.Dictionary.TryGetValue(permissionEnumType, out var permissionValues);
                     if (permissionValues == null)
                     {
                         // TODO add unit test case
                         continue;
                     }
+
                     foreach (var permissionValue in permissionValues)
                     {
                         var permissionDisplay = model.RolesWithPermissions[extensionName].Keys.FirstOrDefault(permissionDisplay_ => permissionDisplay_.PermissionEnumValue == permissionValue);
@@ -94,12 +97,14 @@ namespace SoftinuxBase.Security.Tools
                             // A granted permission value that does not correspond to a permission display: not managed value
                             continue;
                         }
+
                         model.RolesWithPermissions[extensionName].TryGetValue(permissionDisplay, out var roleNames);
                         if (roleNames == null)
                         {
                             roleNames = new List<string>();
                             model.RolesWithPermissions[extensionName].Add(permissionDisplay, roleNames);
                         }
+
                         roleNames.Add(roleToPermission.RoleName);
                     }
                 }
@@ -108,34 +113,51 @@ namespace SoftinuxBase.Security.Tools
             return model;
         }
 
-        // TODO REWRITE for new permissions if useful
-
+        // TOTEST
         /// <summary>
         /// Get the list of all extensions associated to a role, with corresponding permissions,
         /// and also the list of extensions not linked to the role.
         /// </summary>
-        /// <param name="roleId_">Id of a role.</param>
+        /// <param name="roleName_">Name of a role.</param>
         /// <param name="storage_">Storage interface provided by services container.</param>
         /// <param name="availableExtensions_">Output a list of available extensions.</param>
         /// <param name="selectedExtensions_">Output a list of selected extensions.</param>
-        public static void GetExtensions(string roleId_, IStorage storage_, out IList<string> availableExtensions_, out IList<SelectedExtension> selectedExtensions_)
+        public static void GetExtensions(string roleName_, IStorage storage_, out IList<string> availableExtensions_, out IList<SelectedExtension> selectedExtensions_)
         {
-            // selectedExtensions_ = storage_.GetRepository<IRolePermissionRepository>().FilteredByRoleId(roleId_).Select(
-            //         rp_ => new SelectedExtension { ExtensionName = rp_.Extension, PermissionName = rp_.Permission.Name, PermissionId = rp_.PermissionId })
-            //     .ToList();
-            //
-            // IEnumerable<string> selectedExtensionsNames = selectedExtensions_.Select(se_ => se_.ExtensionName).ToList();
-            //
-            // availableExtensions_ = new List<string>();
-            // foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
-            // {
-            //     var extensionName = extensionMetadata.Name;
-            //     if (!selectedExtensionsNames.Contains(extensionName) && extensionMetadata.Type != null)
-            //     {
-            //         availableExtensions_.Add(extensionName);
-            //     }
-            // }
-            throw new NotImplementedException();
+            var rolePermissions = storage_.GetRepository<IRoleToPermissionsRepository>().FindBy(roleName_).PermissionsForRole;
+            availableExtensions_ = new List<string>();
+            selectedExtensions_ = new List<SelectedExtension>();
+
+            foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
+            {
+                if (rolePermissions.Contains(extensionMetadata.Permissions.AssemblyQualifiedName))
+                {
+                    // The extension permission enum is present
+                    var selectedExtension = new SelectedExtension(extensionMetadata.Name);
+                    selectedExtensions_.Add(selectedExtension);
+                    var permissionDisplays = PermissionDisplay.GetPermissionsToDisplay(extensionMetadata.Name, extensionMetadata.Permissions).ToHashSet();
+
+                    foreach (var permissionDisplay in permissionDisplays)
+                    {
+                        // Permission section initialization if necessary
+                        selectedExtension.GroupedBySectionPermissionDisplays.TryGetValue(permissionDisplay.Section, out var selectablePermissionDisplays);
+                        if (selectablePermissionDisplays == null)
+                        {
+                            selectablePermissionDisplays = new List<SelectablePermissionDisplay>();
+                            selectedExtension.GroupedBySectionPermissionDisplays.Add(permissionDisplay.Section, selectablePermissionDisplays);
+                        }
+
+                        // SelectablePermissionDisplay
+                        var selectablePermissionDisplay = new SelectablePermissionDisplay(permissionDisplay, rolePermissions.Contains(extensionMetadata.Permissions.AssemblyQualifiedName, permissionDisplay.PermissionEnumValue));
+                        selectablePermissionDisplays.Add(selectablePermissionDisplay);
+                    }
+                }
+                else
+                {
+                    // The extension permission enum is absent
+                    availableExtensions_.Add(extensionMetadata.Name);
+                }
+            }
         }
     }
 }
