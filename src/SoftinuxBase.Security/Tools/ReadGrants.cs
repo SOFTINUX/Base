@@ -123,7 +123,7 @@ namespace SoftinuxBase.Security.Tools
         /// <param name="selectedExtensions_">Output a list of selected extensions.</param>
         public static void GetExtensions(string roleName_, IStorage storage_, out IList<string> availableExtensions_, out IList<SelectedExtension> selectedExtensions_)
         {
-            var rolePermissions = storage_.GetRepository<IRoleToPermissionsRepository>().FindBy(roleName_).PermissionsForRole;
+            var rolePermissions = storage_.GetRepository<IRoleToPermissionsRepository>().FindBy(roleName_)?.PermissionsForRole;
             availableExtensions_ = new List<string>();
             selectedExtensions_ = new List<SelectedExtension>();
 
@@ -134,7 +134,7 @@ namespace SoftinuxBase.Security.Tools
                     continue;
                 }
 
-                if (rolePermissions.Contains(extensionMetadata.Permissions.AssemblyQualifiedName))
+                if (rolePermissions != null && rolePermissions.Contains(extensionMetadata.Permissions.AssemblyQualifiedName))
                 {
                     // The extension permission enum is present
                     var selectedExtension = new SelectedExtension(extensionMetadata.Name);

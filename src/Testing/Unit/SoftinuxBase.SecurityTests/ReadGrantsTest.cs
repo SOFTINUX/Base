@@ -78,6 +78,7 @@ namespace SoftinuxBase.SecurityTests
 
         /// <summary>
         /// Test the reading of permissions and grants, for the Administrator role, from test extensions and mocked database role to permission data.
+        /// Administrator role has a record in RoleToPermission table.
         /// </summary>
         [Fact]
         public void GetExtensions_AdministratorRole()
@@ -114,6 +115,32 @@ namespace SoftinuxBase.SecurityTests
             selectedExtensions.FirstOrDefault(e_ => e_.ExtensionName == Constants.SoftinuxBaseSecurityAssemblyShortName)?.GroupedBySectionPermissionDisplays["User management"].FirstOrDefault(d_ => d_.PermissionEnumValue == (short)Permissions.ListUsers)?.Selected.Should().BeFalse();
         }
 
-        // TODO unit test for role that has no record in RoleToPermissions (IRoleToPermissionsRepository>().FindBy(roleName_) returns null)
+        /// <summary>
+        /// Test the reading of permissions and grants, for the User role, from test extensions and mocked database role to permission data.
+        /// User role has no record in RoleToPermission table.
+        /// </summary>
+        [Fact]
+        public void GetExtensions_UserRole()
+        {
+            // Arrange
+            var roleName = Roles.User.ToString();
+            Fakes.ExtensionManager.Setup();
+            var roleToPermissionsRepositoryMock = new RoleToPermissionsRepositoryMock();
+
+            var storageMock = new Mock<IStorage>();
+            storageMock.Setup(s_ => s_.GetRepository<IRoleToPermissionsRepository>()).Returns(roleToPermissionsRepositoryMock.Object);
+
+            // Act
+            ReadGrants.GetExtensions(roleName, storageMock.Object, out var availableExtensions, out var selectedExtensions);
+
+            // Assert
+            availableExtensions.Should().NotBeNull();
+            availableExtensions.Should().NotBeEmpty();
+            selectedExtensions.Should().NotBeNull();
+            selectedExtensions.Should().BeEmpty();
+
+            availableExtensions.Should().Contain(Constants.SampleExtension2AssemblyShortName);
+            availableExtensions.Should().Contain(Constants.SoftinuxBaseSecurityAssemblyShortName);
+        }
     }
 }
