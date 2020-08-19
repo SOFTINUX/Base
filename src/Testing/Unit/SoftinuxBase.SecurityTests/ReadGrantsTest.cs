@@ -110,7 +110,8 @@ namespace SoftinuxBase.SecurityTests
 
             // Extension linked to Administrator role but permission not linked
             selectedExtensions.FirstOrDefault(e_ => e_.ExtensionName == Constants.SoftinuxBaseSecurityAssemblyShortName)?.GroupedBySectionPermissionDisplays.Should().ContainKey("User management");
-            selectedExtensions.FirstOrDefault(e_ => e_.ExtensionName == Constants.SoftinuxBaseSecurityAssemblyShortName)?.GroupedBySectionPermissionDisplays["User management"].FirstOrDefault(d_ => d_.PermissionEnumValue == (short)Permissions.ListUsers).Should().BeNull();
+            selectedExtensions.FirstOrDefault(e_ => e_.ExtensionName == Constants.SoftinuxBaseSecurityAssemblyShortName)?.GroupedBySectionPermissionDisplays["User management"].FirstOrDefault(d_ => d_.PermissionEnumValue == (short)Permissions.ListUsers).Should().NotBeNull();
+            selectedExtensions.FirstOrDefault(e_ => e_.ExtensionName == Constants.SoftinuxBaseSecurityAssemblyShortName)?.GroupedBySectionPermissionDisplays["User management"].FirstOrDefault(d_ => d_.PermissionEnumValue == (short)Permissions.ListUsers)?.Selected.Should().BeFalse();
         }
 
         // TODO unit test for role that has no record in RoleToPermissions (IRoleToPermissionsRepository>().FindBy(roleName_) returns null)
