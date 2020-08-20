@@ -38,7 +38,6 @@ namespace SoftinuxBase.SecurityTests
 
             storageMock.Setup(s_ => s_.GetRepository<IRoleToPermissionsRepository>()).Returns(roleToPermissionsRepositoryMock.Object);
 
-
             // Act
             var result = await UpdateRoleAndGrants.UpdateRoleToPermissionsAsync(storageMock.Object, roleManager.Object, roleName, extensionName, permissionValue, true);
 

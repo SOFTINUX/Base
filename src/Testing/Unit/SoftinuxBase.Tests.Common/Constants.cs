@@ -24,22 +24,22 @@ namespace SoftinuxBase.Tests.Common
         /// Assembly short name: SoftinuxBase.Tests.Common.
         /// </summary>
         public const string SoftinuxBaseTestsCommonAssemblyShortName = "SoftinuxBase.Tests.Common";
-        
+
         /// <summary>
         /// Assembly short name: SampleExtension1.
         /// </summary>
         public const string SampleExtension1AssemblyShortName = "SampleExtension1";
-        
+
         /// <summary>
         /// Assembly short name: SampleExtension2.
         /// </summary>
         public const string SampleExtension2AssemblyShortName = "SampleExtension2";
-        
+
         /// <summary>
         /// Assembly short name: SampleExtension3.
         /// </summary>
         public const string SampleExtension3AssemblyShortName = "SampleExtension3";
-        
+
         /// <summary>
         /// Assembly-qualified full name of <see cref="SoftinuxBase.Tests.Common.OtherPermissions"/> enum.
         /// </summary>

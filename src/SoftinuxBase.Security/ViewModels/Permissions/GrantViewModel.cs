@@ -27,7 +27,7 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
         public SortedDictionary<string, Dictionary<PermissionDisplay, List<string>>> UsersWithPermissions { get; set; }
 
         /// <summary>
-        /// All names of the roles that have associated permissions (roles found in RoleToPermissions table).
+        /// Get or set all names of the roles that have associated permissions (roles found in RoleToPermissions table).
         /// </summary>
         public List<string> RoleNames { get; set; }
 
@@ -50,6 +50,7 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
             {
                 return new HashSet<string>();
             }
+
             return permissionDisplaysWithRoles.Keys.Select(permissionDisplay_ => permissionDisplay_.Section).ToHashSet();
         }
 
@@ -57,7 +58,7 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
         /// Get all the <see cref="PermissionDisplay"/> associated to an extension and a permission section, for roles.
         /// </summary>
         /// <param name="extensionName_">Extension name.</param>
-        /// <param name="section_">Permission section</param>
+        /// <param name="section_">Permission section.</param>
         /// <returns>List of <see cref="PermissionDisplay"/>.</returns>
         public IEnumerable<KeyValuePair<PermissionDisplay, List<string>>> GetPermissionDisplaysWithRoles(string extensionName_, string section_)
         {

@@ -47,7 +47,7 @@ namespace SoftinuxBase.Barebone
 
             // -- Admin LTE
             new StyleSheet("/node_modules.admin_lte.dist.css.adminlte.min.css", 410),
-            
+
             // -- Select2.org
             new StyleSheet("/node_modules.select2.dist.css.select2.min.css", 411),
             new StyleSheet("/node_modules._ttskch.select2_bootstrap4_theme.dist.select2-bootstrap4.min.css", 412),
@@ -69,7 +69,7 @@ namespace SoftinuxBase.Barebone
             // new StyleSheet("/node_modules.codemirror.theme.monokai.css", 425),
             // new StyleSheet("/node_modules.codemirror.theme.base16-dark.css", 426),
             // new StyleSheet("/node_modules.codemirror.theme.base16-light.css", 427),
-            
+
             // --
             new StyleSheet("/Styles.barebone.css", 600),
             new StyleSheet("/css/Styles.css", 700)
@@ -88,9 +88,10 @@ namespace SoftinuxBase.Barebone
             // -- Admin LTE
             new Script("/node_modules.inputmask.dist.jquery.inputmask.min.js", 600),
             new Script("/node_modules.admin_lte.dist.js.adminlte.min.js", 660),
+
             // -- Select2
             new Script("/node_modules.select2.dist.js.select2.full.min.js", 661),
-            
+
             // -- Roastr
             new Script("/node_modules.toastr.build.toastr.min.js", 662),
 
@@ -111,7 +112,7 @@ namespace SoftinuxBase.Barebone
             // new Script("/node_modules.codemirror.addon.selection.active-line.js",675),
             // new Script("/node_modules.codemirror.addon.dialog.dialog.js",676),
             // new Script("/node_modules.codemirror.addon.scroll.annotatescrollbar.js",677),
-            
+
             // --
             new Script("/Scripts.barebone.min.js", 700, Script.JsType.IsModule),
             new Script("/Scripts.barebone_ajax.js", 701, Script.JsType.IsModule),

@@ -7,6 +7,7 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
 {
     public class UpdateRolePermissionViewModel
     {
+        #pragma warning disable SA1623 // PropertySummaryDocumentationMustMatchAccessors
         /// <summary>
         /// Name of role.
         /// </summary>
@@ -18,7 +19,7 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
         /// </summary>
         [Required]
         public string ExtensionName { get; set; }
-        
+
         /// <summary>
         /// Permission value (a value of the enum associated to the extension).
         /// </summary>
@@ -28,5 +29,7 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
         /// When true, add a role to permission link, else remove.
         /// </summary>
         public bool Add { get; set; }
+
+        #pragma warning restore SA1623 // PropertySummaryDocumentationMustMatchAccessors
     }
 }

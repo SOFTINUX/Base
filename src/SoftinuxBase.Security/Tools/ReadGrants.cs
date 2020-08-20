@@ -42,6 +42,7 @@ namespace SoftinuxBase.Security.Tools
             // key : extension's permission enum type assembly-qualified name, since the enum can be in another assembly,
             // value : extension name
             var extensionEnumAndNameDict = new Dictionary<string, string>();
+
             // 1. Get all extension names from loaded extensions, create initial dictionaries
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
             {
@@ -54,8 +55,10 @@ namespace SoftinuxBase.Security.Tools
                 // 1a. Create the dictionary entry for the extension
                 model.RolesWithPermissions.Add(extensionMetadata.Name, new Dictionary<PermissionDisplay, List<string>>());
                 extensionEnumAndNameDict.Add(extensionMetadata.Permissions.AssemblyQualifiedName, extensionMetadata.Name);
+
                 // 1b. Build the permissions displays
                 var permissionDisplays = PermissionDisplay.GetPermissionsToDisplay(extensionMetadata.Name, extensionMetadata.Permissions).ToHashSet();
+
                 // 1c. Create the list of roles entry, for the permission display
                 foreach (var permissionDisplay in permissionDisplays)
                 {
@@ -71,6 +74,7 @@ namespace SoftinuxBase.Security.Tools
                 model.RoleNames.Add(roleToPermission.RoleName);
 
                 var permissions = roleToPermission.PermissionsForRole;
+
                 // Loop over all permission enums given by loaded extensions
                 foreach (var permissionEnumType in extensionEnumAndNameDict.Keys)
                 {

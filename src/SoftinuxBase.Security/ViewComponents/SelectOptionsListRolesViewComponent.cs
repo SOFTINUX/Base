@@ -22,10 +22,11 @@ namespace SoftinuxBase.Security.ViewComponents
         public Task<IViewComponentResult> InvokeAsync()
         {
             // TODO rewrite for new permissions
+
             // for now empty
             HashSet<string> listPermissionsRoleId = new HashSet<string>();
-            // HashSet<string> listPermissionsRoleId = _storage.GetRepository<RolePermissionRepository>().All().Select(item_ => item_.RoleId).ToHashSet();
 
+            // HashSet<string> listPermissionsRoleId = _storage.GetRepository<RolePermissionRepository>().All().Select(item_ => item_.RoleId).ToHashSet();
             return Task.FromResult<IViewComponentResult>(View("_SelectOptionsListRoles", (_rolesManager, listPermissionsRoleId)));
         }
     }

@@ -14,10 +14,10 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
         /// <summary>
         /// Indicates that this PermissionDisplay is selected, in current context (for example the PermissionDisplay associated to a role).
         /// </summary>
-        public bool Selected {get; set;}
-        
+        public bool Selected { get; }
+
         /// <summary>
-        /// Constructor.
+        /// Initializes a new instance of the SelectablePermissionDisplay class.
         /// </summary>
         /// <param name="section_">Permission section.</param>
         /// <param name="name_">Permission short name.</param>
@@ -27,14 +27,14 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
         /// <param name="permissionEnumType_">Permission enum Type.</param>
         /// <param name="moduleName_">Module name.</param>
         /// <param name="selected_">Selection indicator.</param>
-        public SelectablePermissionDisplay(string section_, string name_, string description_, string extensionName_, short permissionEnumValue_,
-            Type permissionEnumType_, string moduleName_, bool selected_) : base(section_, name_, description_, extensionName_, permissionEnumValue_, permissionEnumType_, moduleName_)
+        public SelectablePermissionDisplay(string section_, string name_, string description_, string extensionName_, short permissionEnumValue_, Type permissionEnumType_, string moduleName_, bool selected_)
+            : base(section_, name_, description_, extensionName_, permissionEnumValue_, permissionEnumType_, moduleName_)
         {
             Selected = selected_;
         }
-        
+
         /// <summary>
-        /// Constructor, from a <see cref="PermissionDisplay"/>.
+        /// Initializes a new instance of the SelectablePermissionDisplay class from a <see cref="PermissionDisplay"/>.
         /// </summary>
         /// <param name="permissionDisplay_">Permission display.</param>
         /// <param name="selected_">Selection indicator.</param>
