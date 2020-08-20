@@ -12,7 +12,7 @@ namespace SoftinuxBase.Security.Data.Abstractions
     public interface IRoleToPermissionsRepository : IRepository
     {
         /// <summary>
-        /// Get all the records.
+        /// Gets all the records.
         /// </summary>
         /// <returns>All <see cref="RoleToPermissions"/> records.</returns>
         IEnumerable<RoleToPermissions> All();

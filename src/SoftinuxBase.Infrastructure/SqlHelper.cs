@@ -102,7 +102,7 @@ namespace SoftinuxBase.Infrastructure
         }
 
         /// <summary>
-        /// Get the Entity Framework provider.
+        /// Gets the Entity Framework provider.
         /// </summary>
         /// <returns>Return a <see cref="ProviderCode" />.</returns>
         public ProviderCode GetProvider()

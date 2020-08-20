@@ -51,7 +51,8 @@ namespace SoftinuxBase.Security.Tools
             // }
             //
             // repo.Delete(roleId, extensionName_);
-            // await storage_.SaveAsync();
+            await storage_.SaveAsync();
+
             // return true;
             throw new NotImplementedException();
         }
@@ -84,8 +85,8 @@ namespace SoftinuxBase.Security.Tools
             // {
             //     repo.Delete(record.RoleId, record.Extension);
             // }
-            //
-            // await storage_.SaveAsync();
+            await storage_.SaveAsync();
+
             // return true;
             throw new NotImplementedException();
         }
@@ -110,6 +111,7 @@ namespace SoftinuxBase.Security.Tools
             // await roleManager_.DeleteAsync(await roleManager_.FindByNameAsync(roleName_));
             //
             // return null;
+            await storage_.SaveAsync();
             throw new NotImplementedException();
         }
     }

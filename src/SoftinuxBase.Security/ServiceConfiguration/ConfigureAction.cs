@@ -14,13 +14,10 @@ namespace SoftinuxBase.Security.ServiceConfiguration
     /// </summary>
     public class ConfigureAction : IConfigureAction
     {
+        /// <inheritdoc />
         public int Priority => 200;
 
-        /// <summary>
-        /// TODO DOCUMENT ME.
-        /// </summary>
-        /// <param name="applicationBuilder_"></param>
-        /// <param name="serviceProvider_"></param>
+        /// <inheritdoc />
         public void Execute(IApplicationBuilder applicationBuilder_, IServiceProvider serviceProvider_)
         {
             applicationBuilder_.UseAuthentication();

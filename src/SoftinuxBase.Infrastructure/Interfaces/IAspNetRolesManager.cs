@@ -14,7 +14,7 @@ namespace SoftinuxBase.Infrastructure.Interfaces
     public interface IAspNetRolesManager
     {
         /// <summary>
-        /// Get all the roles, as an IQueryable collection.
+        /// Gets all the roles, as an IQueryable collection.
         /// </summary>
         IQueryable<IdentityRole<string>> Roles { get; }
 
@@ -22,14 +22,14 @@ namespace SoftinuxBase.Infrastructure.Interfaces
         /// Find a role by id.
         /// </summary>
         /// <param name="roleId_">Role (GU)ID.</param>
-        /// <returns></returns>
+        /// <returns>The found role or null.</returns>
         Task<IdentityRole<string>> FindByIdAsync(string roleId_);
 
         /// <summary>
         /// Find a role by name, ignoring case.
         /// </summary>
         /// <param name="roleName_">Role name.</param>
-        /// <returns></returns>
+        /// <returns>The found role or null.</returns>
         Task<IdentityRole<string>> FindByNameAsync(string roleName_);
 
         /// <summary>

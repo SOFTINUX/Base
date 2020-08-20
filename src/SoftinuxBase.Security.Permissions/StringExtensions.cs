@@ -95,7 +95,7 @@ namespace SoftinuxBase.Security.Permissions
         }
 
         /// <summary>
-        /// Get the assembly short name, i.e. "MyAssembly" from a type assembly-qualified name, i.e. "MyAssembly.MyNamespace.MyType, MyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null".
+        /// Gets the assembly short name, i.e. "MyAssembly" from a type assembly-qualified name, i.e. "MyAssembly.MyNamespace.MyType, MyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null".
         /// </summary>
         /// <param name="typeAssemblyQualifiedName_"></param>
         /// <returns></returns>

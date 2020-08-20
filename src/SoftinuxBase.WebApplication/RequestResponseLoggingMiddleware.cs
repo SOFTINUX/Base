@@ -46,11 +46,12 @@ namespace SoftinuxBase.WebApplication
             while (readChunkLength > 0);
             return textWriter.ToString();
         }
-
+#pragma warning disable CS1998
         private async Task LogResponse(HttpContext context_)
         {
             // TODO Need code this logger.
         }
+#pragma warning restore CS1998
 
         private async Task LogRequest(HttpContext context_)
         {

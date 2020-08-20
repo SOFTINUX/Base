@@ -10,7 +10,7 @@ namespace SoftinuxBase.Security.Data.Abstractions
     public interface IUserToRoleRepository : IRepository
     {
         /// <summary>
-        /// Get all the records.
+        /// Gets all the records.
         /// </summary>
         /// <returns>All <see cref="UserToRole"/> records.</returns>
         IEnumerable<UserToRole> All();

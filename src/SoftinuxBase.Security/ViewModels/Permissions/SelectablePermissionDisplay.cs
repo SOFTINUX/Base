@@ -7,17 +7,20 @@ using SoftinuxBase.Security.Permissions;
 namespace SoftinuxBase.Security.ViewModels.Permissions
 {
     /// <summary>
-    /// A <see cref="PermissionDisplay"/> with an additional property that allows to have two groups.
+    /// <see cref="PermissionDisplay"/> with an additional property that allows to have two groups.
     /// </summary>
     public class SelectablePermissionDisplay : PermissionDisplay
     {
         /// <summary>
-        /// Indicates that this PermissionDisplay is selected, in current context (for example the PermissionDisplay associated to a role).
+        /// Gets a value indicating whether this PermissionDisplay is selected, in current context.
         /// </summary>
+        /// <remarks>
+        /// For example retrieve all PermissionDisplay defined in the application by loaded extensions, then the PermissionDisplay associated to a certain role will be selected, the other not.
+        /// </remarks>
         public bool Selected { get; }
 
         /// <summary>
-        /// Initializes a new instance of the SelectablePermissionDisplay class.
+        /// Initializes a new instance of the <see cref="SelectablePermissionDisplay"/> class.
         /// </summary>
         /// <param name="section_">Permission section.</param>
         /// <param name="name_">Permission short name.</param>
@@ -34,7 +37,7 @@ namespace SoftinuxBase.Security.ViewModels.Permissions
         }
 
         /// <summary>
-        /// Initializes a new instance of the SelectablePermissionDisplay class from a <see cref="PermissionDisplay"/>.
+        /// Initializes a new instance of the <see cref="SelectablePermissionDisplay"/> class from a <see cref="PermissionDisplay"/>.
         /// </summary>
         /// <param name="permissionDisplay_">Permission display.</param>
         /// <param name="selected_">Selection indicator.</param>

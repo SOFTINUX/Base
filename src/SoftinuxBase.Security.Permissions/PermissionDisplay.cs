@@ -11,7 +11,7 @@ namespace SoftinuxBase.Security.Permissions
     public class PermissionDisplay
     {
         /// <summary>
-        /// Constructor.
+        /// Initializes a new instance of the <see cref="PermissionDisplay"/> class.
         /// </summary>
         /// <param name="section_">Permission section.</param>
         /// <param name="name_">Permission short name.</param>

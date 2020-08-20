@@ -19,20 +19,18 @@ namespace SoftinuxBase.Security.ServiceConfiguration
     {
         public int Priority => 200;
 
-        /// <summary>
-        /// Do nothing.
-        /// </summary>
-        /// <param name="serviceCollection_"></param>
-        /// <param name="serviceProvider_"></param>
+        /// <inheritdoc />
         public void Execute(IServiceCollection serviceCollection_, IServiceProvider serviceProvider_)
         {
         }
 
+        // TODO duplicate code - remove if unused
+
         /// <summary>
         /// Suppress redirect on API URLs.
         /// </summary>
-        /// <param name="statusCode_"></param>
-        /// <returns></returns>
+        /// <param name="statusCode_">Status code.</param>
+        /// <returns>Function.</returns>
         private static Func<RedirectContext<CookieAuthenticationOptions>, Task> ReplaceRedirectorWithStatusCode(
             HttpStatusCode statusCode_) => context_ =>
         {

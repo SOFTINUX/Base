@@ -14,7 +14,7 @@ namespace SoftinuxBase.Security.FeatureAuthorize.PolicyCode
         }
 
         /// <summary>
-        /// Get the permission unique name (policy name).
+        /// Gets the permission unique name (policy name).
         /// </summary>
         public string PermissionName { get; }
     }

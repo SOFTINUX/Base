@@ -118,7 +118,7 @@ namespace SoftinuxBase.Security.Tools
         }
 
         /// <summary>
-        /// Get the list of all extensions associated to a role, with corresponding permissions,
+        /// Gets the list of all extensions associated to a role, with corresponding permissions,
         /// and also the list of extensions not linked to the role.
         /// </summary>
         /// <param name="roleName_">Name of a role.</param>
