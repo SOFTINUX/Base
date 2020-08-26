@@ -334,23 +334,25 @@ export function passSelectedRoleOnEdition(roleId_) {
         // Clear
         rightListElt.innerHTML = '';
         // Fill
-        console.log(responseDataJson.selectedExtensions)
-        
         for (const selectedExtension of responseDataJson.selectedExtensions) {
             rightListElt.insertAdjacentHTML('beforeend', `<div class="row">
                             <div class="col-md-6">
                                 <span name="${selectedExtension.extensionName}">${selectedExtension.extensionName}</span>
                             </div>
                             <div class="col-md-6">
-                                <select>`);
-            for (const sectionPermissionDisplays in selectedExtension.groupedBySectionPermissionDisplay) {
-                rightListElt.insertAdjacentHTML('beforeend',`<optgroup label="${sectionPermissionDisplays}">`);
-
-                rightListElt.insertAdjacentHTML('beforeend',`</optgroup>`);
-            }
-            rightListElt.insertAdjacentHTML('beforeend',`</select>
+                                <select multiple></select>
                             </div>
                         </div>`);
+            // TODO get the just inserted select (add an id) to insert into it
+            const selectElt = "todo";
+            for (const sectionName of Object.keys(selectedExtension.groupedBySectionPermissionDisplays)) {
+                selectElt.insertAdjacentHTML('beforeend',`<optgroup label="${sectionName}"></optgroup>`);
+                // TODO get the just inserted optgroup (add an id) to insert the options into it
+                const optGroupElt = "todo 2";
+                for (const permissionDisplay in selectedExtension.groupedBySectionPermissionDisplays[sectionName]) {
+                    optGroupElt.insertAdjacentHTML('beforeend',`<option value="${permissionDisplay.permissionEnumValue}" selected="${permissionDisplay.selected}">${permissionDisplay.shortName}</option>`);
+                }
+            }
         }
     });
 }
