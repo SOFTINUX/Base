@@ -334,18 +334,21 @@ export function passSelectedRoleOnEdition(roleId_) {
         // Clear
         rightListElt.innerHTML = '';
         // Fill
-        for (const extension of responseDataJson.selectedExtensions) {
+        console.log(responseDataJson.selectedExtensions)
+        
+        for (const selectedExtension of responseDataJson.selectedExtensions) {
             rightListElt.insertAdjacentHTML('beforeend', `<div class="row">
                             <div class="col-md-6">
-                                <span name="${extension.extensionName}">${extension.extensionName}</span>
+                                <span name="${selectedExtension.extensionName}">${selectedExtension.extensionName}</span>
                             </div>
                             <div class="col-md-6">
-                                <select>
-                                    <option value="None" ${extension.permissionName === 'None' ? 'selected' : ''}>None</option>
-                                    <option value="Read" ${extension.permissionName === 'Read' ? 'selected' : ''}>Read</option>
-                                    <option value="Write" ${extension.permissionName === 'Write' ? 'selected' : ''}>Write</option>
-                                    <option value="Admin" ${extension.permissionName === 'Admin' ? 'selected' : ''}>Admin</option>
-                                </select>
+                                <select>`);
+            for (const sectionPermissionDisplays in selectedExtension.groupedBySectionPermissionDisplay) {
+                rightListElt.insertAdjacentHTML('beforeend',`<optgroup label="${sectionPermissionDisplays}">`);
+
+                rightListElt.insertAdjacentHTML('beforeend',`</optgroup>`);
+            }
+            rightListElt.insertAdjacentHTML('beforeend',`</select>
                             </div>
                         </div>`);
         }

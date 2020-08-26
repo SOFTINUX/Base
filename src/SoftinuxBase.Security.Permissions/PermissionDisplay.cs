@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+using System.Text.Json.Serialization;
 
 namespace SoftinuxBase.Security.Permissions
 {
@@ -60,6 +61,7 @@ namespace SoftinuxBase.Security.Permissions
         /// <summary>
         /// The C# Type that defines the actual permission (enum assembly-qualified type).
         /// </summary>
+        [JsonIgnore]
         public Type PermissionEnumType { get; }
 
         /// <summary>

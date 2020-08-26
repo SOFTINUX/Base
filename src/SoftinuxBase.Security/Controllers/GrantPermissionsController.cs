@@ -61,7 +61,7 @@ namespace SoftinuxBase.Security.Controllers
                 return StatusCode((int)HttpStatusCode.BadRequest, Json("No such role for edition"));
             }
 
-            ReadGrants.GetExtensions(roleId_, Storage, out var availableExtensions, out var selectedExtensions);
+            ReadGrants.GetExtensions(role.Name, Storage, out var availableExtensions, out var selectedExtensions);
 
             ReadRoleViewModel result = new ReadRoleViewModel
             {
