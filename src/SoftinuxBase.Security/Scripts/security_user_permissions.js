@@ -24,14 +24,7 @@ function iformat(icon) {
 }
 
 $(document).ready(function () {
-    $('.select2bs4').select2({
-        minimumResultsForSearch: Infinity,
-        width: null,
-        theme: 'bootstrap4',
-        templateSelection: iformat,
-        templateResult: iformat,
-        allowHtml: true
-    });
+    useSelect2();
 });
 
 /* ---------------------------------------------------------------- */
@@ -65,10 +58,6 @@ function defineExtensionsListOriginalState() {
 /* ---------------------------------------------------------------- */
 attachEditRoleChevronButtonsEventListener();
 attachEditEventListener();
-
-document.getElementById('editRoleRightExtensionsList').addEventListener('click', event_ => {
-    rowClicked(event_.target.closest('div.row'));
-}, false);
 
 document.getElementById('editRoleLeftExtensionsList').addEventListener('click', event_ => {
     rowClicked(event_.target.closest('div.row'));
@@ -329,28 +318,31 @@ export function passSelectedRoleOnEdition(roleId_) {
             leftListElt.insertAdjacentHTML('beforeend', `<div class="row"><div class="col-md-12"><span name="${extension}">${extension}</span></div></div>`);
         }
 
-        // Selected extensions (right list)
+        // Selected extensions/permissions (right list)
         const rightListElt = document.getElementById('editRoleRightExtensionsList');
         // Clear
         rightListElt.innerHTML = '';
         // Fill
+        let indexSelect = -1;
         for (const selectedExtension of responseDataJson.selectedExtensions) {
+            indexSelect++;
             rightListElt.insertAdjacentHTML('beforeend', `<div class="row">
                             <div class="col-md-6">
+                            <i class="fas fa-cubes"></i>
                                 <span name="${selectedExtension.extensionName}">${selectedExtension.extensionName}</span>
                             </div>
                             <div class="col-md-6">
-                                <select multiple></select>
+                                <select multiple style="width:100%;" id="selected-extension-${indexSelect}"></select>
                             </div>
                         </div>`);
-            // TODO get the just inserted select (add an id) to insert into it
-            const selectElt = "todo";
+            const selectElt = document.getElementById(`selected-extension-${indexSelect}`);
+            let indexOptGroup = -1;
             for (const sectionName of Object.keys(selectedExtension.groupedBySectionPermissionDisplays)) {
-                selectElt.insertAdjacentHTML('beforeend',`<optgroup label="${sectionName}"></optgroup>`);
-                // TODO get the just inserted optgroup (add an id) to insert the options into it
-                const optGroupElt = "todo 2";
-                for (const permissionDisplay in selectedExtension.groupedBySectionPermissionDisplays[sectionName]) {
-                    optGroupElt.insertAdjacentHTML('beforeend',`<option value="${permissionDisplay.permissionEnumValue}" selected="${permissionDisplay.selected}">${permissionDisplay.shortName}</option>`);
+                indexOptGroup++;
+                selectElt.insertAdjacentHTML('beforeend', `<optgroup label="${sectionName}" id="selected-extension-${indexSelect}-optgroup-${indexOptGroup}"></optgroup>`);
+                const optGroupElt = document.getElementById(`selected-extension-${indexSelect}-optgroup-${indexOptGroup}`);
+                for (const permissionDisplay of selectedExtension.groupedBySectionPermissionDisplays[sectionName]) {
+                    optGroupElt.insertAdjacentHTML('beforeend', `<option value="${permissionDisplay.permissionEnumValue}" selected="${permissionDisplay.selected}">${permissionDisplay.shortName} (${permissionDisplay.description})</option>`);
                 }
             }
         }
@@ -368,7 +360,7 @@ function updateRolePermission(event_) {
         ExtensionName: event_.params.data.element.attributes['data-extension'].value,
         Add: event_.params.data.selected
     };
-    
+
     makeAjaxRequest('POST', '/administration/update-role-permission', params, (responseStatus_, responseText_) => {
         if (responseStatus_ === 204) {
             window.toastr.success(responseText_, 'Changes saved');
@@ -558,10 +550,6 @@ function reloadBulkDeleteTab() {
 function refreshPermissionsTabs() {
     Promise.all([reloadGrantPermissionsHtmlView(), reloadRolesHtmlView(), reloadBulkDeleteTab()])
         .then(() => {
-            document.getElementById('editRoleRightExtensionsList').addEventListener('click', event_ => {
-                rowClicked(event_.target.closest('div.row'));
-            }, false);
-
             document.getElementById('editRoleLeftExtensionsList').addEventListener('click', event_ => {
                 rowClicked(event_.target.closest('div.row'));
             }, false);
@@ -570,6 +558,8 @@ function refreshPermissionsTabs() {
                 unlinkRolePermissionOnAllExtensions(document.getElementById('edit_role_normalizedName').value);
             });
             attachEditRoleChevronButtonsEventListener();
+
+            useSelect2();
         })
         .catch((error) => console.log(error));
 }
@@ -627,4 +617,16 @@ function attachEditRoleChevronButtonsEventListener() {
                 }, false);
         }
     );
+}
+
+// Initialize Select2.org select elements.
+function useSelect2() {
+    $('.select2bs4').select2({
+        minimumResultsForSearch: Infinity,
+        width: null,
+        theme: 'bootstrap4',
+        templateSelection: iformat,
+        templateResult: iformat,
+        allowHtml: true
+    });
 }
