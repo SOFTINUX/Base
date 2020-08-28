@@ -38,55 +38,8 @@ window.deleteRole = deleteRole;
 window.removeRoleLink = removeRoleLink;
 
 /* ---------------------------------------------------------------- */
-/* ------------------------ Global Constants ---------------------- */
-
-/* ---------------------------------------------------------------- */
-
-/**
- * make global constant of available extension.
- */
-function defineExtensionsListOriginalState() {
-    Object.defineProperty(window, 'RoleExtensionsListOriginalState', {
-        value: document.getElementById('addRoleLeftExtensionsList').innerHTML,
-        configurable: false,
-        writable: false
-    });
-}
-
-/* ---------------------------------------------------------------- */
 /* ------------------------ events handlers ----------------------- */
 /* ---------------------------------------------------------------- */
-attachEditRoleChevronButtonsEventListener();
-attachEditEventListener();
-
-document.getElementById('editRoleLeftExtensionsList').addEventListener('click', event_ => {
-    rowClicked(event_.target.closest('div.row'));
-}, false);
-
-/**
- * Handle the click on pseudo-dropdown that displays permission level:
- * set the label, set the value to hidden input.
- */
-document.getElementById('acl-sel').addEventListener('click', event_ => {
-    const clickedLiElt = event_.target.closest('li');
-    clickedLiElt.closest('.bs-dropdown-to-select-acl-group').querySelectorAll('[data-bind="bs-drp-sel-acl-label"]')[0].innerText = clickedLiElt.innerText;
-    document.getElementById('newRolePermission').value = clickedLiElt.dataset.permissionlvl;
-}, false);
-
-document.getElementById('save-edit-role-btn').addEventListener('click', () => {
-    if (!document.getElementById('edit_role_name_input').value) {
-        window.toastr.warning('No new role name given.', 'Role not updated!');
-        inputFormGroupValidator('#edit_role_name_input');
-        return;
-    }
-
-    saveEditRole();
-    resetEditRoleForm();
-});
-
-document.getElementById('cancel-add-role-btn').addEventListener('click', () => {
-    resetAddRoleForm();
-});
 
 document.getElementById('bulk-delete-btn').addEventListener('click', () => {
     if (document.getElementById('availableRolesForDelete').selectedOptions.length === 0)
@@ -286,10 +239,9 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
  * @param {any} roleId_ - roleId
  */
 export function passSelectedRoleOnEdition(roleId_) {
-    document.getElementById('edit-role-group').classList.remove('has-error');
     makeAjaxRequest('GET', '/administration/read-role', {roleId_: roleId_}, (responseStatus_, responseText_) => {
         if (responseStatus_ !== 200) {
-            window.toastr.error(`Serveur return code ${responseStatus_} whith response: ${responseText_}`, 'Error');
+            window.toastr.error(`Server return code ${responseStatus_} whith response: ${responseText_}`, 'Error');
             return;
         }
 
@@ -297,27 +249,10 @@ export function passSelectedRoleOnEdition(roleId_) {
         // responseJson.value is ReadRoleViewModel C# class
         const role = responseDataJson.role;
 
-        // Role name
-        document.getElementById('edit_role_name_input').value = role.name;
-
-        // Role ID
-        document.getElementById('edit_role_id').value = role.id;
-
-        // Role Normalized Name
-        document.getElementById('edit_role_normalizedName').value = role.normalizedName;
-
-        // Role concurrency stamp
-        document.getElementById('edit_role_concurrencyStamp').value = role.concurrencyStamp;
-
-        // Available extensions (left list)
-        const leftListElt = document.getElementById('editRoleLeftExtensionsList');
-        // Clear
-        leftListElt.innerHTML = '';
-        // Fill
-        for (const extension of responseDataJson.availableExtensions) {
-            leftListElt.insertAdjacentHTML('beforeend', `<div class="row"><div class="col-md-12"><span name="${extension}">${extension}</span></div></div>`);
-        }
-
+        // Use role name
+        document.getElementById('unlink-role-btn').innerText = `Remove all permissions of role ${role.name}`
+        document.getElementById('unlink-role-row').style.display = 'none';
+        
         // Selected extensions/permissions (right list)
         const rightListElt = document.getElementById('editRoleRightExtensionsList');
         // Clear
@@ -550,10 +485,6 @@ function reloadBulkDeleteTab() {
 function refreshPermissionsTabs() {
     Promise.all([reloadGrantPermissionsHtmlView(), reloadRolesHtmlView(), reloadBulkDeleteTab()])
         .then(() => {
-            document.getElementById('editRoleLeftExtensionsList').addEventListener('click', event_ => {
-                rowClicked(event_.target.closest('div.row'));
-            }, false);
-
             document.getElementById('unlink-role-btn').addEventListener('click', () => {
                 unlinkRolePermissionOnAllExtensions(document.getElementById('edit_role_normalizedName').value);
             });
@@ -566,29 +497,12 @@ function refreshPermissionsTabs() {
 
 function resetAddRoleForm() {
     document.getElementById('role_name_input').value = '';
-    document.getElementById('newRolePermission').value = 1;
-    document.querySelector('[data-bind="bs-drp-sel-acl-label"]').innerText = 'Read';
     document.getElementById('addRoleRightExtensionsList').innerHTML = '';
-    document.getElementById('addRoleLeftExtensionsList').innerHTML = window.RoleExtensionsListOriginalState;
 }
 
 function resetEditRoleForm() {
-    document.getElementById('editRoleLeftExtensionsList').innerHTML = '';
     document.getElementById('editRoleRightExtensionsList').innerHTML = '';
     document.getElementById('edit_role_name_input').value = '';
-    document.getElementById('editRoleId').value = '';
-    document.getElementById('edit_role_id').value = '';
-    document.getElementById('edit_role_normalizedName').value = '';
-    document.getElementById('edit_role_concurrencyStamp').value = '';
-}
-
-function attachEditEventListener() {
-    window.addEventListener('DOMContentLoaded', () => {
-        if (document.getElementById('addRoleLeftExtensionsList').innerHTML)
-            defineExtensionsListOriginalState();
-        else
-            document.getElementById('addRoleLeftExtensionsList').innerHTML = '<option value="ERROR">Error. See logs.</option>';
-    });
 }
 
 function attachEditRoleChevronButtonsEventListener() {

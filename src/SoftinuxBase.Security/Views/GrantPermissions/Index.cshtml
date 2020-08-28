@@ -40,29 +40,18 @@
     <div class="col-md-12">
         @* box roles *@
         <div class="card">
-            <div class="card-header with-border">
-                <h3 class="card-title">Manage Roles</h3>
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fa fa-minus"></i>
-                    </button>
-                </div>
-            </div>
             <div class="card-body">
                 @* BUTTONS *@
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="add-role-tab" href="#add-role-tab-content" data-toggle="pill" aria-expanded="true">Add Role</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="edit-role-tab" href="#edit-role-tab-content" data-toggle="pill" aria-expanded="true">Edit Role</a>
+                        <a class="nav-link active" id="edit-role-tab" href="#edit-role-tab-content" data-toggle="pill" aria-expanded="true">Manage Roles</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="bulk-delete-role-tab" href="#bulk-delete-role-tab-content" data-toggle="pill" aria-expanded="true">Bulk Delete</a>
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane active" id="add-role-tab-content" role="tabpanel" aria-labelledby="add-role-tab">
+                    <div class="tab-pane active" id="manage-role-tab-content" role="tabpanel" aria-labelledby="manage-role-tab">
                         @* ADD ROLE *@
                         <div class="row" id="add-role-area">
                             <div class="col-md-12">
@@ -74,54 +63,13 @@
                                                     <label for="role_name_input">New role name:</label>
                                                     <div class="input-group">
                                                         <input required id="role_name_input" name="role_name_input" type="text" class="form-control" placeholder="enter role name here" size="80" @Html.Raw(inputExtendAttributes)>
-                                                        <div class="input-group-append bs-dropdown-to-select-acl-group">
-                                                            <input type="hidden" name="acl-selected_value" id="newRolePermission" data-bind="bs-drp-sel-acl-value" value="1">
-                                                            <button class="btn btn-outline-secondary dropdown-toggle bs-dropdown-to-select-acl" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                <span data-bind="bs-drp-sel-acl-label">Read</span>
-                                                                <span class="caret"></span>
-                                                                <span class="sr-only">Toggle Dropdown</span>
-                                                            </button>
-                                                            <div id="acl-sel" class="dropdown-menu" >
-                                                                <a data-permissionlvl="0" class="dropdown-item" href="#">None</a>
-                                                                <a data-permissionlvl="1" class="dropdown-item" href="#">Read</a>
-                                                                <a data-permissionlvl="2" class="dropdown-item" href="#">Write</a>
-                                                                <div role="separator" class="dropdown-divider"></div>
-                                                                <a data-permissionlvl="4" class="dropdown-item" href="#">Admin</a>
-                                                            </div>
+                                                        @* save btn *@
+                                                        <div class="btn-group">
+                                                            <button class="btn btn-block btn-success" id="save-add-role-btn" type="button">Add</button>
                                                         </div>
                                                     </div>
                                                     <span class="help-block"></span>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <div class="form-group margin">
-                                                <label>Available extension(s):</label>
-                                                <select class="form-control" multiple id="addRoleLeftExtensionsList">
-                                                    @await Component.InvokeAsync("AddRoleListExtensions")
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 pagination-centered text-center">
-                                            <div class="btn-group-vertical">
-                                                <button class="btn btn-default" type="button" id="addRoleBtnRight" data-fromlist="addRoleLeftExtensionsList" data-tolist="addRoleRightExtensionsList"><i class="fa fa-angle-right"></i></button>
-                                                <button class="btn btn-default" type="button" id="addRoleBtnAllRight" data-fromlist="addRoleLeftExtensionsList" data-tolist="addRoleRightExtensionsList" data-bulk-move><i class="fa fa-angle-double-right"></i></button>
-                                            </div>
-                                            <br/>
-                                            <br/>
-                                            <div class="btn-group-vertical">
-                                                <button class="btn btn-default" type="button" id="addRoleBtnAllLeft" data-fromlist="addRoleRightExtensionsList" data-tolist="addRoleLeftExtensionsList" data-bulk-move><i class="fa fa-angle-double-left"></i></button>
-                                                <button class="btn btn-default" type="button" id="addRoleBtnLeft" data-fromlist="addRoleRightExtensionsList" data-tolist="addRoleLeftExtensionsList"><i class="fa fa-angle-left"></i></button>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <div class="form-group margin">
-                                                <label>Selected extension(s):</label>
-                                                <select class="form-control" multiple="" id="addRoleRightExtensionsList" name="selectedExtensions">
-                                                    @* here selected extensions options filled by javascript *@
-                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -133,22 +81,12 @@
                                     <div class="row">
                                         <div class="margin">
                                             <div class="col-md-12">
-                                                @* save btn *@
-                                                <div class="btn-group">
-                                                    <button class="btn btn-block btn-success" id="save-add-role-btn" type="button">Save</button>
-                                                </div>
-                                                @* cancel btn *@
-                                                <div class="btn-group">
-                                                    <button class="btn btn-block btn-primary" id="cancel-add-role-btn" type="reset">Reset</button>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                         </div>
-                    </div>
-                    <div class="tab-pane" id="edit-role-tab-content" role="tabpanel" aria-labelledby="edit-role-tab">
                         @* EDIT ROLE *@
                         <form name="edit-role-form" onsubmit="return false">
                             @await Component.InvokeAsync("EditRolePermissions")
@@ -209,25 +147,47 @@
         <div class="modal-content">
             <div class="modal-header model-header-custom">
                 <h5 class="modal-title" id="myModalLabel"><i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp;<strong>CONFIRM UNLINK ROLE</strong></h5>
-                <button type="button" class="btn btn-xs pull-right alert-default alert-danger-default" data-dismiss="modal"><strong>Close</strong></button>
+                <button type="button" class="btn btn-xs pull-right alert-default alert-danger-default" data-dismiss="modal">
+                    <strong>Close</strong>
+                </button>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-12">You are about to unlink the <strong><span id="selectedRoleName"></span></strong> role for :</div>
+                    <div class="col-md-12">
+                        You are about to unlink the
+                        <strong>
+                            <span id="selectedRoleName"></span>
+                        </strong> role for :
+                    </div>
                 </div>
                 <div class="row top-buffer">
                     <div class="col-md-12 vertical-align-center">
-                        <span class="valign-center">&#9679; module: <strong><span id="moduleName"></span></strong></span>
-                        <button Id="removeForModule" class="btn btn-default pull-right"><span aria-hidden="true"><i class="fa fa-trash-o"></i></span>&nbsp; Unlink for this module</button>
+                        <span class="valign-center">
+                            &#9679; module:
+                            <strong>
+                                <span id="moduleName"></span>
+                            </strong>
+                        </span>
+                        <button Id="removeForModule" class="btn btn-default pull-right">
+                            <span aria-hidden="true">
+                                <i class="fa fa-trash-o"></i>
+                            </span>&nbsp; Unlink for this module
+                        </button>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12"><hr /></div>
+                    <div class="col-md-12">
+                        <hr/>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 vertical-align-center">
                         <span class="valign-center">&#9679; all modules!</span>
-                        <button id="removeForAllModules" class="btn btn-danger pull-right removeAllRoles"><span aria-hidden="true"><i class="fa fa-trash-o" style="color: #ffffff;"></i></span>&nbsp; Unlink on all modules</button>
+                        <button id="removeForAllModules" class="btn btn-danger pull-right removeAllRoles">
+                            <span aria-hidden="true">
+                                <i class="fa fa-trash-o" style="color: #ffffff;"></i>
+                            </span>&nbsp; Unlink on all modules
+                        </button>
                     </div>
                 </div>
             </div>

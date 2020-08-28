@@ -10,94 +10,37 @@
 
 <div class="row" id="edit-role-area">
     <div class="col-md-12">
-        <h3>Edit role</h3>
+        <label for="availableRoles">View assigned permissions for:</label>
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <label>Available role(s)</label>
                     <select class="form-control select2bs4" id="availableRoles" data-placeholder="Select a role" onChange="passSelectedRoleOnEdition(this.options[this.selectedIndex].getAttribute('data-id'));">
                         @* here roles list *@
                         @await Component.InvokeAsync("SelectOptionsListRoles")
                     </select>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="form-group" id="edit-role-group">
-                    <label>Role Name:</label>
-                    <input id="edit_role_name_input" name="edit_role_name_input" type="text" class="form-control" @Html.Raw(inputExtendAttributes) />
-                </div>
-                <div class="form-group">
-                    <label>Role Id:</label>
-                    <input type="hidden" name="editRoleId" id="editRoleId" />
-                    <input id="edit_role_id" name="edit_role_id" type="text" class="form-control" disabled="disabled" />
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label>Role Normalized Name:</label>
-                    <input id="edit_role_normalizedName" type="text" class="form-control" disabled="disabled" />
-                </div>
-                <div class="form-group">
-                    <label>Role Concurrency Stamp:</label>
-                    <input id="edit_role_concurrencyStamp" type="text" class="form-control" disabled="disabled" />
-                </div>
-            </div>
         </div>
 
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-12">
                 <div class="form-group margin">
-                    <label>Available extension(s)</label>
-                    <div id="editRoleLeftExtensionsList" class="form-control" style="height:100%">
-                        @* here available extensions filled by javascript *@
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2 pagination-centered text-center">
-                <div class="btn-group-vertical">
-                    <button class="btn btn-default" type="button" id="editRoleBtnRight" data-fromlist="editRoleLeftExtensionsList" data-tolist="editRoleRightExtensionsList"><i class="fa fa-angle-right"></i></button>
-                    <button class="btn btn-default" type="button" id="editRoleBtnAllRight" data-fromlist="editRoleLeftExtensionsList" data-tolist="editRoleRightExtensionsList" data-bulk-move="true"><i class="fa fa-angle-double-right"></i></button>
-                </div>
-                <br />
-                <br />
-                <div class="btn-group-vertical">
-                    <button class="btn btn-default" type="button" id="editRoleBtnAllLeft" data-fromlist="editRoleRightExtensionsList" data-tolist="editRoleLeftExtensionsList" data-bulk-move="true"><i class="fa fa-angle-double-left"></i></button>
-                    <button class="btn btn-default" type="button" id="editRoleBtnLeft" data-fromlist="editRoleRightExtensionsList" data-tolist="editRoleLeftExtensionsList"><i class="fa fa-angle-left"></i></button>
-                </div>
-            </div>
-            <div class="col-md-5">
-                <div class="form-group margin">
-                    <label>Selected extension(s) and permission(s)</label>
                     <div id="editRoleRightExtensionsList" class="form-control" style="height:100%">
                         @* here selected extensions filled by javascript *@
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="unlink-role-row" style="display:none;">
             <div class="col-md-3">
                 <div class="btn-group">
-                    <button class="btn btn-block btn-warning" id="unlink-role-btn">Unlink on all extensions</button>
+                    <button class="btn btn-block btn-warning" id="unlink-role-btn">@* dynamic label*@Remove all permissions of selected role</button>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="dottedLine15"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="margin">
-                <div class="col-md-12">
-                    @* save btn *@
-                    <div class="btn-group">
-                        <button class="btn btn-block btn-success" id="save-edit-role-btn" type="button">Save</button>
-                    </div>
-                    @* cancel btn *@
-                    <div class="btn-group">
-                        <button class="btn btn-block btn-primary" id="cancel-edit-role-btn" type="reset">Reset</button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
