@@ -10,7 +10,7 @@
 
 import makeAjaxRequest from '/Scripts/barebone_ajax.js';
 import {inputFormGroupSetError, inputFormGroupValidator} from '/Scripts/security_user.js';
-import {inputOnlyNumbers} from '/Scripts/toolbox.js';
+import {inputOnlyAlphanumeric} from '/Scripts/toolbox.js';
 
 /* Select 2 Boostrap 4 Theme for all Select2
    @see https://github.com/select2/select2/issues/2927
@@ -80,7 +80,7 @@ document.getElementById('role_name_input').addEventListener('focusout', () => {
 
 // Keypress: only numbers
 document.getElementById('role_name_input').addEventListener('keypress', event_ => {
-    inputOnlyNumbers(event_);
+    inputOnlyAlphanumeric(event_);
 }, false);
 /* ---------------------------------------------------------------- */
 /* ------------------------ Exported functions ----------------------------- */

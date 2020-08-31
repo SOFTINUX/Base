@@ -48,9 +48,9 @@ export function getElementType(element_) {
     }
 }
 
-export function inputOnlyNumbers(event_) {
+export function inputOnlyAlphanumeric(event_) {
     /*
-        accept only numerics and underscore
+        accept only alphanumeric and underscore
             8 - (backspace)
             32 - (space)
             46 - (delete)
