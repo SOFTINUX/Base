@@ -31,7 +31,7 @@ $(document).ready(function () {
 /* ------------------------ expose functions ---------------------- */
 /* ---------------------------------------------------------------- */
 window.viewSelectedRole = viewSelectedRole;
-window.saveEditRole = saveEditRole;
+window.editRoleName = editRoleName;
 window.deleteRole = deleteRole;
 
 /* ---------------------------------------------------------------- */
@@ -51,9 +51,8 @@ document.getElementById('cancel-bulk-delete-btn').addEventListener('click', () =
     document.getElementById('availableRolesForDelete').selectedIndex = -1;
 });
 
-document.getElementById('unlink-role-btn').addEventListener('click', () => {
-    // TODO get the selected role name from select component
-    unlinkRolePermissionOnAllExtensions(document.getElementById('edit_role_normalizedName').value);
+document.getElementById('unlink-role-btn').addEventListener('click', (event_) => {
+    unlinkRolePermissionOnAllExtensions(event_.target.attributes['data-name']);
 });
 
 Array.prototype.forEach.call(document.querySelectorAll('select.update-role-permission'), function (element_) {
@@ -138,9 +137,13 @@ export function viewSelectedRole(roleId_) {
         // responseJson.value is ReadRoleViewModel C# class
         const role = responseDataJson.role;
 
-        // Use role name
+        // Use role name for dynamic buttons
         document.getElementById('unlink-role-btn').innerText = `Remove all permissions of role ${role.name}`
+        document.getElementById('unlink-role-btn').attributes['data-name'] = role.name;
         document.getElementById('unlink-role-row').style.display = 'block';
+        document.getElementById('rename-role-btn').innerText = `Rename role ${role.name}`
+        document.getElementById('rename-role-btn').attributes['data-name'] = role.name;
+        document.getElementById('rename-role-div').style.display = 'block';
 
         // Selected extensions/permissions
         const rightListElt = document.getElementById('selectedRoleAssignedExtensionsList');
@@ -197,11 +200,18 @@ function updateRolePermission(event_) {
 }
 
 /**
- * Ajax call to update data: role with its related data update. Ajax POST.
+ * Open a modal window to enter new role name.
+ * @param {HTMLButtonElement} renameRoleBtn_ - the clicked button.
  */
-export function saveEditRole() {
-    // TODO 1: put this feature available back: icon to rename selected role +... popup ? Think of what's praactical.
-    // TODO 2: update code: only update role name.
+export function editRoleName(renameRoleBtn_) {
+    alert(`TODO open a modal to enter new name for role ${renameRoleBtn_.attributes['data-name']}`)
+}
+
+/**
+ * Ajax call to update role name. Ajax POST.
+ */
+export function saveEditRoleName() {
+    // TODO 2: update code: only update role name. Make this be called by the modal confirmation.
     const _grants = [];
     let _noError = true;
 
