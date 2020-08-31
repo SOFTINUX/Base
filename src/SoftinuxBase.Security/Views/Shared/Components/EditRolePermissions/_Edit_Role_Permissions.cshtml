@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <select class="form-control select2bs4" id="availableRoles" data-placeholder="Select a role" onChange="passSelectedRoleOnEdition(this.options[this.selectedIndex].getAttribute('data-id'));">
+                    <select class="form-control select2bs4" id="availableRoles" data-placeholder="Select a role" onChange="viewSelectedRole(this.options[this.selectedIndex].getAttribute('data-id'));">
                         @* here roles list *@
                         @await Component.InvokeAsync("SelectOptionsListRoles")
                     </select>
@@ -25,7 +25,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group margin">
-                    <div id="editRoleRightExtensionsList" class="form-control" style="height:100%">
+                    <div id="selectedRoleAssignedExtensionsList" class="form-control" style="height:100%">
                         @* here selected extensions filled by javascript *@
                     </div>
                 </div>

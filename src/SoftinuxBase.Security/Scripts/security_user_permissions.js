@@ -17,7 +17,7 @@ import {inputOnlyNumbers} from '/Scripts/toolbox.js';
 */
 // $.fn.select2.defaults.set('theme', 'bootstrap');
 
-// template for unlink icon in edit role selectbox
+// Select2: template for unlink icon in edit role selectbox
 function iformat(icon) {
     var originalOption = icon.element;
     return $('<span><i class="' + $(originalOption).data('icon-base') + ' ' + $(originalOption).data('icon') + '"></i> ' + icon.text + '</span>');
@@ -30,12 +30,9 @@ $(document).ready(function () {
 /* ---------------------------------------------------------------- */
 /* ------------------------ expose functions ---------------------- */
 /* ---------------------------------------------------------------- */
-window.passSelectedRoleOnEdition = passSelectedRoleOnEdition;
-window.permissionCheckBoxClick = permissionCheckBoxClick;
-window.savePermission = savePermission;
+window.viewSelectedRole = viewSelectedRole;
 window.saveEditRole = saveEditRole;
 window.deleteRole = deleteRole;
-window.removeRoleLink = removeRoleLink;
 
 /* ---------------------------------------------------------------- */
 /* ------------------------ events handlers ----------------------- */
@@ -55,6 +52,7 @@ document.getElementById('cancel-bulk-delete-btn').addEventListener('click', () =
 });
 
 document.getElementById('unlink-role-btn').addEventListener('click', () => {
+    // TODO get the selected role name from select component
     unlinkRolePermissionOnAllExtensions(document.getElementById('edit_role_normalizedName').value);
 });
 
@@ -70,6 +68,7 @@ Array.prototype.forEach.call(document.querySelectorAll('select.update-role-permi
     });
 });
 
+// Change
 document.getElementById('role_name_input').addEventListener('change', () => {
     inputFormGroupValidator('#role_name_input');
 });
@@ -79,127 +78,22 @@ document.getElementById('role_name_input').addEventListener('focusout', () => {
     inputFormGroupValidator('#role_name_input');
 });
 
-// only numbers
+// Keypress: only numbers
 document.getElementById('role_name_input').addEventListener('keypress', event_ => {
     inputOnlyNumbers(event_);
 }, false);
 /* ---------------------------------------------------------------- */
-/* ------------------------ functions ----------------------------- */
-
+/* ------------------------ Exported functions ----------------------------- */
 /* ---------------------------------------------------------------- */
 
-function rowClicked(event_) {
-    if (event_.classList.contains('active')) {
-        event_.classList.remove('active');
-    } else {
-        event_.classList.add('active');
-    }
-}
-
-/**
- * Move selected item(s) over left listbox to right listbox.
- *
- * @param {object} clickedElement_ - clicked HTML Button element
- * @param {string} transform_ - how to transform the event target :
- * - "to-left": transform a html option element to a html span element
- * - "to-right": transform a html span element to an html option element
- * - other value: clone the target.
- */
-function btnChevronMoveExtension(clickedElement_, transform_) {
-    if (clickedElement_.tagName === 'I')
-        clickedElement_ = clickedElement_.parentNode;
-
-    const bulk = clickedElement_.hasAttribute('data-bulk-move');
-
-    const rootElt = document.getElementById(`${clickedElement_.dataset.fromlist}`);
-    const selectedElts = transform_
-        // if transform_ is defined, the selected list items are div elements, else select's options
-        ? bulk ? rootElt.querySelectorAll(' div.row') : rootElt.querySelectorAll(' div.row.active')
-        : bulk ? rootElt.querySelectorAll('option') : rootElt.selectedOptions;
-
-    if (selectedElts.length === 0) {
-        const emptyExtensionList = bulk ? 'You must have at least one extension in the list' : 'You must select at least one extension in the list';
-        const emptyExtensionListTitle = 'No extension to move';
-        window.toastr.warning(emptyExtensionList, emptyExtensionListTitle);
-        return;
-    }
-
-    let newElts;
-    switch (transform_) {
-        case 'to-left':
-            newElts = Array.from(selectedElts, createMovedElementLeft);
-            break;
-        case 'to-right':
-            newElts = Array.from(selectedElts, createMovedElementRight);
-            break;
-        default:
-            newElts = Array.from(selectedElts, currentElt_ => currentElt_.outerHTML);
-            break;
-    }
-
-    for (const newElt of newElts) {
-        document.getElementById(`${clickedElement_.dataset.tolist}`).insertAdjacentHTML('beforeend', newElt);
-    }
-
-    for (const item of selectedElts) {
-        item.remove();
-    }
-}
-
-/**
- * Create a html fragment containing mostly a span element styled as "modified",
- * using text from a html fragment containing mostly a span element.
- * @param {Object} target_ - html div element
- * @return {string} html div element outer html
- */
-function createMovedElementLeft(target_) {
-    return `<div class="row modified">
-                <div class="col-md-12">${target_.querySelectorAll('span')[0].outerHTML}</div>
-            </div>`;
-}
-
-/**
- * Create a html fragment containing mostly a span and a select elements styled as "modified",
- * using text from a html fragment containing mostly a span and a select elements.
- * @param {object} target_ - html div element
- * @return {string} html div element outer html
- */
-function createMovedElementRight(target_) {
-    const extension = target_.querySelectorAll('span')[0].getAttribute('name');
-    return `<div class="row modified">
-                <div class="col-md-6">
-                    <span name="${extension}">${extension}</span>
-                </div>
-                <div class="col-md-6">
-                    <select>
-                        <option value="None">None</option>
-                        <option value="Read" selected>Read</option>
-                        <option value="Write">Write</option>
-                        <option value="Admin">Admin</option>
-                    </select>
-                </div>
-            </div>`;
-}
-
-export function removeRoleLink(element_) {
-    if (!element_) {
-        console.log('You must pass this as argument of removeRoleLink onlick.');
-        return;
-    }
-    const splitted = element_.parentNode.dataset.roleId.split('_');
-
-    document.getElementById('moduleName').innerText = splitted[0];
-    document.getElementById('selectedRoleName').innerText = splitted[1];
-
-    unlinkRolePermissionOnExtension(splitted[0], splitted[1]);
-}
+// None yet
 
 /* --------------------------------------------------------------------------------------------- */
 /* ------------------------ User interactions that trigger ajax calls -------------------------- */
 /* --------------------------------------------------------------------------------------------- */
 
 /**
- * Save new role with its extensions and permission.
+ * Save new role.
  */
 document.getElementById('save-add-role-btn').addEventListener('click', () => {
     const roleNameInputElt = document.getElementById('role_name_input');
@@ -209,15 +103,10 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
         return;
     }
 
-    const selectedExtensions = [];
-    const addRoleRightExtensionsList = document.getElementById('addRoleRightExtensionsList');
-    for (const listOption of addRoleRightExtensionsList.querySelectorAll('option')) {
-        selectedExtensions.push(listOption.value);
-    }
-
+    // TODO update backend: post only roleName
     const postData = {
         RoleName: roleNameInputElt.value,
-        Extensions: selectedExtensions,
+        Extensions: [],
         PermissionValue: document.getElementById('newRolePermission').value
     };
 
@@ -238,10 +127,10 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
  * Update the UI with selected role information. Ajax GET.
  * @param {any} roleId_ - roleId
  */
-export function passSelectedRoleOnEdition(roleId_) {
+export function viewSelectedRole(roleId_) {
     makeAjaxRequest('GET', '/administration/read-role', {roleId_: roleId_}, (responseStatus_, responseText_) => {
         if (responseStatus_ !== 200) {
-            window.toastr.error(`Server return code ${responseStatus_} whith response: ${responseText_}`, 'Error');
+            window.toastr.error(`Server return code: ${responseStatus_} with response: ${responseText_}`, 'Error');
             return;
         }
 
@@ -252,9 +141,9 @@ export function passSelectedRoleOnEdition(roleId_) {
         // Use role name
         document.getElementById('unlink-role-btn').innerText = `Remove all permissions of role ${role.name}`
         document.getElementById('unlink-role-row').style.display = 'none';
-        
-        // Selected extensions/permissions (right list)
-        const rightListElt = document.getElementById('editRoleRightExtensionsList');
+
+        // Selected extensions/permissions
+        const rightListElt = document.getElementById('selectedRoleAssignedExtensionsList');
         // Clear
         rightListElt.innerHTML = '';
         // Fill
@@ -308,81 +197,15 @@ function updateRolePermission(event_) {
 }
 
 /**
- * TODO remove - obsolete function
- * Click in permission checkbox. Calls savePermission().
- * @param {HTMLCheckboxElement} clickedCheckbox_ - permission level checkbox
- */
-export function permissionCheckBoxClick(clickedCheckbox_) {
-    const splittedId = clickedCheckbox_.id.split('_');
-    const baseId = splittedId[0] + '_' + splittedId[1];
-    const writeCheckbox = document.getElementById(`${baseId}_WRITE`);
-    const readCheckbox = document.getElementById(`${baseId}_READ`);
-    let _activeCheckedPermissions = 'NEVER';
-
-    if (clickedCheckbox_.checked) {
-        // when checking, impacted checkboxes become checked and disabled
-        switch (splittedId[2]) {
-            case 'ADMIN':
-                writeCheckbox.checked = true;
-                writeCheckbox.disabled = true;
-                readCheckbox.checked = true;
-                readCheckbox.disabled = true;
-                break;
-            case 'WRITE':
-                readCheckbox.checked = true;
-                readCheckbox.disabled = true;
-                break;
-        }
-        savePermission(splittedId[0], splittedId[1], splittedId[2]);
-    } else {
-        // when unchecking, first next checkbox becomes enabled
-        switch (splittedId[2]) {
-            case 'ADMIN':
-                writeCheckbox.disabled = false;
-                _activeCheckedPermissions = 'WRITE';
-                break;
-            case 'WRITE':
-                readCheckbox.disabled = false;
-                _activeCheckedPermissions = 'READ';
-                break;
-        }
-        savePermission(splittedId[0], splittedId[1], _activeCheckedPermissions);
-    }
-}
-
-/**
- * TODO remove - obsolete function if not reused (see new function updateRolePermission())
- * Ajax call to update data: role-extension-permission link update. Ajax POST.
- * @param {any} extension_ - extension
- * @param {any} roleName_ - role name
- * @param {any} permission_ - permission (enum value)
- */
-export function savePermission(extension_, roleName_, permission_) {
-    const params = {
-        RoleName: roleName_,
-        PermissionValue: permission_,
-        Extension: extension_
-    };
-
-    makeAjaxRequest('POST', '/administration/update-role-permission', params, (responseStatus_, responseText_) => {
-        if (responseStatus_ === 200) {
-            window.toastr.success(responseText_, 'Changes saved');
-        } else if (responseStatus_ === 400) {
-            window.toastr.error(responseText_, 'Role extension link NOT updated');
-        } else {
-            window.toastr.error('Cannot update role-extension\'s permission. See logs for errors', 'Error');
-        }
-    });
-}
-
-/**
  * Ajax call to update data: role with its related data update. Ajax POST.
  */
 export function saveEditRole() {
+    // TODO 1: put this feature available back: icon to rename selected role +... popup ? Think of what's praactical.
+    // TODO 2: update code: only update role name.
     const _grants = [];
     let _noError = true;
 
-    Array.prototype.forEach.call(document.querySelectorAll('#editRoleRightExtensionsList>div.row'), function (elt_) {
+    Array.prototype.forEach.call(document.querySelectorAll('#selectedRoleAssignedExtensionsList>div.row'), function (elt_) {
         let _extension, _permission;
         Array.prototype.forEach.call(elt_.querySelectorAll('div'), function (subElt_) {
             if (subElt_.querySelector('span'))
@@ -413,19 +236,6 @@ export function saveEditRole() {
             refreshPermissionsTabs();
         } else {
             window.toastr.error('Cannot update role. See logs for errors', 'Error');
-        }
-    });
-}
-
-export function unlinkRolePermissionOnExtension(extensionName_, roleName_) {
-    makeAjaxRequest('DELETE', `/administration/unlink-role-extension/${roleName_}/${extensionName_}`, {}, (responseStatus_, responseText_) => {
-        if (responseStatus_ === 204) {
-            window.toastr.success(`Role ${roleName_} unlinked from extension ${extensionName_}`, 'Link deleted');
-            refreshPermissionsTabs();
-        } else if (responseStatus_ === 400) {
-            window.toastr.error(responseText_, 'Role extension link NOT deleted');
-        } else {
-            window.toastr.error('Cannot delete link. See logs for details', 'Error');
         }
     });
 }
@@ -467,7 +277,7 @@ function reloadGrantPermissionsHtmlView() {
 function reloadRolesHtmlView() {
     return new window.Promise((resolve, reject) => {
         makeAjaxRequest('GET', '/administration/edit-role-tab', null, (responseStatus_, responseText_) => {
-            document.getElementById('edit-role-tab-content').innerHTML = responseText_;
+            document.getElementById('manage-role-tab-content').innerHTML = responseText_;
             resolve();
         });
     });
@@ -488,8 +298,6 @@ function refreshPermissionsTabs() {
             document.getElementById('unlink-role-btn').addEventListener('click', () => {
                 unlinkRolePermissionOnAllExtensions(document.getElementById('edit_role_normalizedName').value);
             });
-            attachEditRoleChevronButtonsEventListener();
-
             useSelect2();
         })
         .catch((error) => console.log(error));
@@ -497,40 +305,11 @@ function refreshPermissionsTabs() {
 
 function resetAddRoleForm() {
     document.getElementById('role_name_input').value = '';
-    document.getElementById('addRoleRightExtensionsList').innerHTML = '';
 }
 
 function resetEditRoleForm() {
-    document.getElementById('editRoleRightExtensionsList').innerHTML = '';
+    // TODO reuse?
     document.getElementById('edit_role_name_input').value = '';
-}
-
-function attachEditRoleChevronButtonsEventListener() {
-    Array.from(document.querySelectorAll('button')).forEach(
-        clickedElement_ => {
-            clickedElement_.addEventListener('click',
-                () => {
-                    switch (clickedElement_.id) {
-                        // Add selected/unselected extensions management
-                        case 'addRoleBtnRight':
-                        case 'addRoleBtnAllRight':
-                        case 'addRoleBtnLeft':
-                        case 'addRoleBtnAllLeft':
-                            btnChevronMoveExtension(clickedElement_, '');
-                            break;
-                        // Edit selected/unselected extensions management
-                        case 'editRoleBtnRight':
-                        case 'editRoleBtnAllRight':
-                        case 'editRoleBtnLeft':
-                        case 'editRoleBtnAllLeft':
-                            btnChevronMoveExtension(clickedElement_, clickedElement_.id.toLowerCase().includes('left') ? 'to-left' : 'to-right');
-                            break;
-                        default:
-                            break;
-                    }
-                }, false);
-        }
-    );
 }
 
 // Initialize Select2.org select elements.

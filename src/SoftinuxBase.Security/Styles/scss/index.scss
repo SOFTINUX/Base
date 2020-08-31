@@ -114,24 +114,24 @@ select.input-validation-error
     box-shadow: 0 4px 14px rgba(0,0,0,0.1) !important;
 }
 /* role edition: right table */
-#editRoleRightExtensionsList>div.row, #editRoleLeftExtensionsList>div {
+#selectedRoleAssignedExtensionsList>div.row, #editRoleLeftExtensionsList>div {
     margin-left: 0;
     margin-right: 0;
 }
 
 /* selected lines: override modified lines style  */
-#editRoleRightExtensionsList>div.row.active, #editRoleLeftExtensionsList>div.active {
+#selectedRoleAssignedExtensionsList>div.row.active, #editRoleLeftExtensionsList>div.active {
     background-color: #2196F3 !important;
     color: white !important;
 }
 
 /* selected lines's select */
-#editRoleRightExtensionsList>div.row.active select {
+#selectedRoleAssignedExtensionsList>div.row.active select {
     color: black;
 }
 
 /* modified lines */
-#editRoleRightExtensionsList>div.row.modified, #editRoleLeftExtensionsList>div.modified {
+#selectedRoleAssignedExtensionsList>div.row.modified, #editRoleLeftExtensionsList>div.modified {
     background-color: #FAFFBD;
     color: black;
 }
