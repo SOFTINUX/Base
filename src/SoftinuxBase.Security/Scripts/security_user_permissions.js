@@ -156,7 +156,7 @@ export function viewSelectedRole(roleId_) {
                                 <span name="${selectedExtension.extensionName}">${selectedExtension.extensionName}</span>
                             </div>
                             <div class="col-md-6">
-                                <select multiple style="width:100%;" id="selected-extension-${indexSelect}"></select>
+                                <select multiple disabled style="width:100%;color:black !important;" id="selected-extension-${indexSelect}"></select>
                             </div>
                         </div>`);
             const selectElt = document.getElementById(`selected-extension-${indexSelect}`);
