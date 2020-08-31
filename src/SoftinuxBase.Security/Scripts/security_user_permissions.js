@@ -140,7 +140,7 @@ export function viewSelectedRole(roleId_) {
 
         // Use role name
         document.getElementById('unlink-role-btn').innerText = `Remove all permissions of role ${role.name}`
-        document.getElementById('unlink-role-row').style.display = 'none';
+        document.getElementById('unlink-role-row').style.display = 'block';
 
         // Selected extensions/permissions
         const rightListElt = document.getElementById('selectedRoleAssignedExtensionsList');
