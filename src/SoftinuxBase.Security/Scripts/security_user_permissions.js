@@ -150,27 +150,27 @@ export function viewSelectedRole(roleId_) {
         // Clear
         rightListElt.innerHTML = '';
         // Fill
-        let indexSelect = -1;
+        let indexExtension = -1;
         for (const selectedExtension of responseDataJson.selectedExtensions) {
-            indexSelect++;
+            indexExtension++;
             rightListElt.insertAdjacentHTML('beforeend', `<tr><td>
                             <i class="fas fa-cubes"></i>
                                 ${selectedExtension.extensionName}
-                            </td><td>
-                                <select multiple disabled style="width:100%;color:black !important;" id="selected-extension-${indexSelect}"></select>
-                            </td>
+                            </td><td id="selected-extension-${indexExtension}"></td>
                         </tr>`);
-            const selectElt = document.getElementById(`selected-extension-${indexSelect}`);
-            let indexOptGroup = -1;
+            const cellElt = document.getElementById(`selected-extension-${indexExtension}`);
+            let indexSection = -1;
             for (const sectionName of Object.keys(selectedExtension.groupedBySectionPermissionDisplays)) {
-                indexOptGroup++;
-                selectElt.insertAdjacentHTML('beforeend', `<optgroup label="${sectionName}" id="selected-extension-${indexSelect}-optgroup-${indexOptGroup}"></optgroup>`);
-                const optGroupElt = document.getElementById(`selected-extension-${indexSelect}-optgroup-${indexOptGroup}`);
+                indexSection++;
+                cellElt.insertAdjacentHTML('beforeend', `<span class="text-muted">${sectionName}</span>
+                <select multiple disabled class="select2bs4" id="selected-extension-${indexExtension}-section-${indexSection}"></select>`);
+                const selectElt = document.getElementById(`selected-extension-${indexExtension}-section-${indexSection}`);
                 for (const permissionDisplay of selectedExtension.groupedBySectionPermissionDisplays[sectionName]) {
-                    optGroupElt.insertAdjacentHTML('beforeend', `<option value="${permissionDisplay.permissionEnumValue}" selected="${permissionDisplay.selected}">${permissionDisplay.shortName} (${permissionDisplay.description})</option>`);
+                    selectElt.insertAdjacentHTML('beforeend', `<option value="${permissionDisplay.permissionEnumValue}" selected="${permissionDisplay.selected}">${permissionDisplay.shortName} (${permissionDisplay.description})</option>`);
                 }
             }
         }
+        useSelect2();
     });
 }
 

@@ -99,6 +99,14 @@ select.input-validation-error
     font-family: 'Font Awesome 5 Free', 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+#selectedRoleAssignedExtensionsList span.select2-selection {
+    background-color: white !important;
+}
+
+#assigned-permissions-table > thead > tr > th.extension {
+    min-width: 600px; /* TODO make this responsive for smaller screens, use @media */
+}
+
 .custom-file-input ~ .custom-file-label:lang(fr)::after {
     content: "Choisir...";
 }
