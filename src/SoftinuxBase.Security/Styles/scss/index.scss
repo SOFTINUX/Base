@@ -5,11 +5,6 @@
     cursor: pointer;
 }
 
-.cell-heigth-25 {
-    height: 35px;
-    padding-top: 5px;
-}
-
 .cell-border-bottom {
     border-bottom: solid 1px;
 }
@@ -22,33 +17,8 @@
     border-bottom: 1px dashed #d2d2d2;
 }
 
-.permission-label-position {
-    width: auto;
-}
-
 .table-header-cell{
     border-bottom: 1px solid #ddd;
-}
-
-.extension-row-height {
-    line-height: 2.42857143;
-    vertical-align: top;
-}
-
-.extension-row .chevron:after {
-    content: "\f078";
-}
-
-.extension-row.collapsed .chevron:after {
-    content: "\f054";
-}
-
-.table-header .chevron-double:after {
-    content: "\f103";
-}
-
-.table-header.collapsed .chevron-double:after {
-    content: "\f101";
 }
 
 .delete-role:after {
@@ -113,29 +83,6 @@ select.input-validation-error
 .nav-tab-custom-dropshadow {
     box-shadow: 0 4px 14px rgba(0,0,0,0.1) !important;
 }
-/* role edition: right table */
-#selectedRoleAssignedExtensionsList>div.row, #editRoleLeftExtensionsList>div {
-    margin-left: 0;
-    margin-right: 0;
-}
-
-/* selected lines: override modified lines style  */
-#selectedRoleAssignedExtensionsList>div.row.active, #editRoleLeftExtensionsList>div.active {
-    background-color: #2196F3 !important;
-    color: white !important;
-}
-
-/* selected lines's select */
-#selectedRoleAssignedExtensionsList>div.row.active select {
-    color: black;
-}
-
-/* modified lines */
-#selectedRoleAssignedExtensionsList>div.row.modified, #editRoleLeftExtensionsList>div.modified {
-    background-color: #FAFFBD;
-    color: black;
-}
-/* end role edition */
 
 .dottedLine15 {
     border-bottom: 2px dotted lightgray;

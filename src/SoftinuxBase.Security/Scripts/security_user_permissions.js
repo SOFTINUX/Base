@@ -138,10 +138,10 @@ export function viewSelectedRole(roleId_) {
         const role = responseDataJson.role;
 
         // Use role name for dynamic buttons
-        document.getElementById('unlink-role-btn').innerText = `Remove all permissions of role ${role.name}`
+        document.getElementById('unlink-role-btn').innerHTML = `Remove all permissions of role <b>${role.name}</b>`
         document.getElementById('unlink-role-btn').attributes['data-name'] = role.name;
         document.getElementById('unlink-role-row').style.display = 'block';
-        document.getElementById('rename-role-btn').innerText = `Rename role ${role.name}`
+        document.getElementById('rename-role-btn').innerHTML = `Rename role <b>${role.name}</b>`
         document.getElementById('rename-role-btn').attributes['data-name'] = role.name;
         document.getElementById('rename-role-div').style.display = 'block';
 
