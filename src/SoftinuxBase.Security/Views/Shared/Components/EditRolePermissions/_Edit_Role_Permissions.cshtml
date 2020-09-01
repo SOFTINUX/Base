@@ -30,9 +30,17 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group margin">
-                    <div id="selectedRoleAssignedExtensionsList" class="form-control" style="height:100%">
-                        @* here selected extensions filled by javascript *@
-                    </div>
+                     <table class="table table-head-fixed table-hover">
+                            <thead>
+                            <tr>
+                                <th class="text-muted">Extension</th>
+                                <th class="text-muted">Assigned permissions</th>
+                            </tr>
+                            </thead>
+                            <tbody id="selectedRoleAssignedExtensionsList">
+                            @* here selected extensions filled by javascript *@
+                            </tbody>
+                    </table>
                 </div>
             </div>
         </div>

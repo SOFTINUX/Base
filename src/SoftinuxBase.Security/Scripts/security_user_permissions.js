@@ -153,15 +153,13 @@ export function viewSelectedRole(roleId_) {
         let indexSelect = -1;
         for (const selectedExtension of responseDataJson.selectedExtensions) {
             indexSelect++;
-            rightListElt.insertAdjacentHTML('beforeend', `<div class="row">
-                            <div class="col-md-6">
+            rightListElt.insertAdjacentHTML('beforeend', `<tr><td>
                             <i class="fas fa-cubes"></i>
-                                <span name="${selectedExtension.extensionName}">${selectedExtension.extensionName}</span>
-                            </div>
-                            <div class="col-md-6">
+                                ${selectedExtension.extensionName}
+                            </td><td>
                                 <select multiple disabled style="width:100%;color:black !important;" id="selected-extension-${indexSelect}"></select>
-                            </div>
-                        </div>`);
+                            </td>
+                        </tr>`);
             const selectElt = document.getElementById(`selected-extension-${indexSelect}`);
             let indexOptGroup = -1;
             for (const sectionName of Object.keys(selectedExtension.groupedBySectionPermissionDisplays)) {
