@@ -102,11 +102,8 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
         return;
     }
 
-    // TODO update backend: post only roleName
     const postData = {
         RoleName: roleNameInputElt.value,
-        Extensions: [],
-        PermissionValue: document.getElementById('newRolePermission').value
     };
 
     makeAjaxRequest('POST', '/administration/save-new-role', postData, (responseStatus_, responseText_) => {
