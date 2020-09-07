@@ -116,19 +116,19 @@ namespace SoftinuxBase.Security.Controllers
         #region CREATE
 
         /// <summary>
-        /// Create a role. Then create a set of records indicating to which extensions with which permission this role is linked to.
+        /// Create a role.
         /// </summary>
         /// <param name="model_">object representing values passed from ajax.</param>
         /// <returns>Http status code.</returns>
         [Route("administration/save-new-role")]
         [HttpPost]
-        [ActionName("SaveNewRoleAndItsPermissions")]
+        [ActionName("SaveNewRole")]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.CreateRoles)]
-        public async Task<IActionResult> SaveNewRoleAndItsPermissionsAsync([FromBody] SaveNewRoleAndGrantsViewModel model_)
+        public async Task<IActionResult> SaveNewRoleAsync([FromBody] SaveNewRoleViewModel model_)
         {
-            string error = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrantsAsync(Storage, _aspNetRolesManager, model_);
+            string error = await CreateRole.CheckAndSaveNewRoleAsync(_aspNetRolesManager, model_);
             return StatusCode(string.IsNullOrEmpty(error) ? (int)HttpStatusCode.Created : (int)HttpStatusCode.BadRequest, error);
         }
 
