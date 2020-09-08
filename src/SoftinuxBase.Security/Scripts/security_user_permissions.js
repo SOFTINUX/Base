@@ -279,10 +279,10 @@ function reloadGrantPermissionsHtmlView() {
     });
 }
 
-function reloadRolesHtmlView() {
+function reloadEditRoleHtmlView() {
     return new window.Promise((resolve, reject) => {
         makeAjaxRequest('GET', '/administration/edit-role-tab', null, (responseStatus_, responseText_) => {
-            document.getElementById('manage-role-tab-content').innerHTML = responseText_;
+            document.getElementById('edit_role_form').innerHTML = responseText_;
             resolve();
         });
     });
@@ -298,7 +298,7 @@ function reloadBulkDeleteTab() {
 }
 
 function refreshPermissionsTabs() {
-    Promise.all([reloadGrantPermissionsHtmlView(), reloadRolesHtmlView(), reloadBulkDeleteTab()])
+    Promise.all([reloadGrantPermissionsHtmlView(), reloadEditRoleHtmlView(), reloadBulkDeleteTab()])
         .then(() => {
             document.getElementById('unlink-role-btn').addEventListener('click', () => {
                 unlinkRolePermissionOnAllExtensions(document.getElementById('edit_role_normalizedName').value);
