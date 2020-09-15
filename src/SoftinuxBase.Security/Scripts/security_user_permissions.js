@@ -163,12 +163,22 @@ export function viewSelectedRole(roleId_) {
                 <select multiple disabled class="assigned-permissions" id="selected-extension-${indexExtension}-section-${indexSection}"></select>`);
                 const selectElt = document.getElementById(`selected-extension-${indexExtension}-section-${indexSection}`);
                 for (const permissionDisplay of selectedExtension.groupedBySectionPermissionDisplays[sectionName]) {
-                    selectElt.insertAdjacentHTML('beforeend', `<option value="${permissionDisplay.permissionEnumValue}" selected="${permissionDisplay.selected}">${permissionDisplay.shortName} (${permissionDisplay.description})</option>`);
-                }
+                    selectElt.insertAdjacentHTML('beforeend', `<option value="${permissionDisplay.permissionEnumValue}" selected="${permissionDisplay.selected}" data-tooltip="${permissionDisplay.description}">${permissionDisplay.shortName < /option>`);
+                    }
             }
         }
-        $(document).ready(function () {
+        $(document).ready(function() {
             useSelect2('assigned-permissions');
+            
+            Array.prototype.forEach.call(document.querySelectorAll('select.assigned-permissions'), function (elt_) {
+                elt_.nextSibling.tooltip({
+                    title: function() {
+                        return this.attributes['data-tooltip'];
+                    },
+                    placement: "auto",
+                    //container: 'body'
+                });    
+            });
         });
     });
 }
@@ -201,7 +211,15 @@ function updateRolePermission(event_) {
  * @param {HTMLButtonElement} renameRoleBtn_ - the clicked button.
  */
 export function editRoleName(renameRoleBtn_) {
-    alert(`TODO open a modal to enter new name for role ${renameRoleBtn_.attributes['data-name']}`)
+    alert(`
+                    TODO
+                    open
+                    a
+                    modal
+                    to
+                    enter
+                    new name
+                    for role ${renameRoleBtn_.attributes['data-name']}`)
 }
 
 /**
@@ -248,9 +266,12 @@ export function saveEditRoleName() {
 }
 
 export function unlinkRolePermissionOnAllExtensions(roleName_) {
-    makeAjaxRequest('DELETE', `/administration/unlink-role-all-extensions/${roleName_}`, {}, (responseStatus_, responseText_) => {
+    makeAjaxRequest('DELETE', ` / administration / unlink - role - all - extensions /${roleName_}`, {}, (responseStatus_, responseText_) => {
         if (responseStatus_ === 204) {
-            window.toastr.success(`Role ${roleName_} unlinked from extensions`, 'Link deleted');
+            window.toastr.success(`Role ${roleName_}
+                    unlinked
+                    from
+                    extensions`, 'Link deleted');
             refreshPermissionsTabs();
         } else if (responseStatus_ === 400) {
             window.toastr.error(responseText_, 'Role extension link NOT deleted');
@@ -261,7 +282,7 @@ export function unlinkRolePermissionOnAllExtensions(roleName_) {
 }
 
 export function deleteRole(roleNameList_) {
-    makeAjaxRequest('DELETE', `/administration/delete-role/${roleNameList_}`, {}, (responseStatus_, responseText_) => {
+    makeAjaxRequest('DELETE', ` / administration / delete -role /${roleNameList_}`, {}, (responseStatus_, responseText_) => {
         if (responseStatus_ === 200) {
             window.toastr.success(`${roleNameList_}`, 'Role(s) deleted');
             refreshPermissionsTabs();
@@ -323,7 +344,11 @@ function resetEditRoleForm() {
 // @param {class_} optional selector class instead of 'select2bs4'
 function useSelect2(class_) {
     let selectorClass = class_ ?? 'select2bs4';
-    $(`.${selectorClass}`).select2({
+    $(`.$
+                    {
+                        selectorClass
+                    }
+                    `).select2({
         minimumResultsForSearch: Infinity,
         width: null,
         theme: 'bootstrap4',
