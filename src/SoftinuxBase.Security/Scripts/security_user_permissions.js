@@ -160,14 +160,16 @@ export function viewSelectedRole(roleId_) {
             for (const sectionName of Object.keys(selectedExtension.groupedBySectionPermissionDisplays)) {
                 indexSection++;
                 cellElt.insertAdjacentHTML('beforeend', `<span class="text-muted">${sectionName}</span>
-                <select multiple disabled class="select2bs4" id="selected-extension-${indexExtension}-section-${indexSection}"></select>`);
+                <select multiple disabled class="assigned-permissions" id="selected-extension-${indexExtension}-section-${indexSection}"></select>`);
                 const selectElt = document.getElementById(`selected-extension-${indexExtension}-section-${indexSection}`);
                 for (const permissionDisplay of selectedExtension.groupedBySectionPermissionDisplays[sectionName]) {
                     selectElt.insertAdjacentHTML('beforeend', `<option value="${permissionDisplay.permissionEnumValue}" selected="${permissionDisplay.selected}">${permissionDisplay.shortName} (${permissionDisplay.description})</option>`);
                 }
             }
         }
-        useSelect2();
+        $(document).ready(function () {
+            useSelect2('assigned-permissions');
+        });
     });
 }
 
@@ -318,8 +320,10 @@ function resetEditRoleForm() {
 }
 
 // Initialize Select2.org select elements.
-function useSelect2() {
-    $('.select2bs4').select2({
+// @param {class_} optional selector class instead of 'select2bs4'
+function useSelect2(class_) {
+    let selectorClass = class_ ?? 'select2bs4';
+    $(`.${selectorClass}`).select2({
         minimumResultsForSearch: Infinity,
         width: null,
         theme: 'bootstrap4',
