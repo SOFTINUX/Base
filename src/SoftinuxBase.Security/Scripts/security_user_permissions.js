@@ -9,8 +9,8 @@
 'use strict';
 
 import makeAjaxRequest from '/Scripts/barebone_ajax.js';
-import {inputFormGroupSetError, inputFormGroupValidator} from '/Scripts/security_user.js';
-import {inputOnlyAlphanumeric} from '/Scripts/toolbox.js';
+import { inputFormGroupSetError, inputFormGroupValidator } from '/Scripts/security_user.js';
+import { inputOnlyAlphanumeric } from '/Scripts/toolbox.js';
 
 /* Select 2 Boostrap 4 Theme for all Select2
    @see https://github.com/select2/select2/issues/2927
@@ -124,7 +124,7 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
  * @param {any} roleId_ - roleId
  */
 export function viewSelectedRole(roleId_) {
-    makeAjaxRequest('GET', '/administration/read-role', {roleId_: roleId_}, (responseStatus_, responseText_) => {
+    makeAjaxRequest('GET', '/administration/read-role', { roleId_: roleId_ }, (responseStatus_, responseText_) => {
         if (responseStatus_ !== 200) {
             window.toastr.error(`Server return code: ${responseStatus_} with response: ${responseText_}`, 'Error');
             return;
@@ -163,23 +163,11 @@ export function viewSelectedRole(roleId_) {
                 <select multiple disabled class="assigned-permissions" id="selected-extension-${indexExtension}-section-${indexSection}"></select>`);
                 const selectElt = document.getElementById(`selected-extension-${indexExtension}-section-${indexSection}`);
                 for (const permissionDisplay of selectedExtension.groupedBySectionPermissionDisplays[sectionName]) {
-                    selectElt.insertAdjacentHTML('beforeend', `<option value="${permissionDisplay.permissionEnumValue}" selected="${permissionDisplay.selected}" data-tooltip="${permissionDisplay.description}">${permissionDisplay.shortName < /option>`);
-                    }
+                    selectElt.insertAdjacentHTML('beforeend', `<option value="${permissionDisplay.permissionEnumValue}" selected="${permissionDisplay.selected}" title="${permissionDisplay.description}">${permissionDisplay.shortName}</option>`);
+                }
             }
         }
-        $(document).ready(function() {
-            useSelect2('assigned-permissions');
-            
-            Array.prototype.forEach.call(document.querySelectorAll('select.assigned-permissions'), function (elt_) {
-                elt_.nextSibling.tooltip({
-                    title: function() {
-                        return this.attributes['data-tooltip'];
-                    },
-                    placement: "auto",
-                    //container: 'body'
-                });    
-            });
-        });
+        useSelect2('assigned-permissions');
     });
 }
 
@@ -240,7 +228,7 @@ export function saveEditRoleName() {
         });
 
         if (_extension && _permission)
-            _grants.push({Extension: _extension, PermissionValue: _permission});
+            _grants.push({ Extension: _extension, PermissionValue: _permission });
         else {
             window.toastr.error('Cannot update role from client', 'Error');
             _noError = false;
@@ -343,12 +331,8 @@ function resetEditRoleForm() {
 // Initialize Select2.org select elements.
 // @param {class_} optional selector class instead of 'select2bs4'
 function useSelect2(class_) {
-    let selectorClass = class_ ?? 'select2bs4';
-    $(`.$
-                    {
-                        selectorClass
-                    }
-                    `).select2({
+    const selectorClass = class_ || 'select2bs4';
+    $(`.${selectorClass}`).select2({
         minimumResultsForSearch: Infinity,
         width: null,
         theme: 'bootstrap4',
