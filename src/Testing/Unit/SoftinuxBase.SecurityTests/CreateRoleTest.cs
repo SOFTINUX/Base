@@ -22,7 +22,7 @@ namespace SoftinuxBase.SecurityTests
             var mockAspNetRolesManager = new Mock<IAspNetRolesManager>();
 
             // Act
-            var errorMessage = await CreateRole.CheckAndSaveNewRoleAsync(mockAspNetRolesManager.Object, new SaveNewRoleViewModel {RoleName = newRoleName});
+            var errorMessage = await CreateRole.CheckAndSaveNewRoleAsync(mockAspNetRolesManager.Object, new SaveNewRoleViewModel { RoleName = newRoleName });
 
             // Assert
             errorMessage.Should().BeNull();
@@ -38,7 +38,7 @@ namespace SoftinuxBase.SecurityTests
             mockAspNetRolesManager.Setup(m_ => m_.FindByNameAsync(It.IsAny<string>())).ReturnsAsync(new IdentityRole<string>());
 
             // Act
-            var errorMessage = await CreateRole.CheckAndSaveNewRoleAsync(mockAspNetRolesManager.Object, new SaveNewRoleViewModel {RoleName = newRoleName});
+            var errorMessage = await CreateRole.CheckAndSaveNewRoleAsync(mockAspNetRolesManager.Object, new SaveNewRoleViewModel { RoleName = newRoleName });
 
             // Assert
             errorMessage.Should().NotBeNull();

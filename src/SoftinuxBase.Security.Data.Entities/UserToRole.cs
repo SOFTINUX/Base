@@ -1,5 +1,7 @@
-﻿// Copyright (c) 2019 Jon P Smith, GitHub: JonPSmith, web: http://www.thereformedprogrammer.net/
-// Licensed under MIT license. See License.txt in the project root for license information.
+﻿#pragma warning disable SA1636
+#pragma warning disable SA1515
+/* Copyright (c) 2019 Jon P Smith, GitHub: JonPSmith, web: http://www.thereformedprogrammer.net/
+ Licensed under MIT license. See License.txt in the project root for license information. */
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,6 +15,7 @@ namespace SoftinuxBase.Security.Data.Entities
     public class UserToRole : IAddRemoveEffectsUser, IChangeEffectsUser, IEntity
     {
         // needed by EF Core
+        // ReSharper disable once UnusedMember.Local
         private UserToRole()
         {
         }
@@ -27,6 +30,7 @@ namespace SoftinuxBase.Security.Data.Entities
         // That has to be defined by EF Core's fluent API
         [Required(AllowEmptyStrings = false)]
         [MaxLength(ExtraAuthConstants.UserIdSize)]
+        // ReSharper disable once SA1515
         // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Local - needed by EF Core
         public string UserId { get; private set; }
 

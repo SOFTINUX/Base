@@ -19,31 +19,31 @@ namespace SoftinuxBase.Infrastructure
         {
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc cref="IAspNetRolesManager.FindByIdAsync" />
         public async override Task<IdentityRole<string>> FindByIdAsync(string roleId_)
         {
             return await base.FindByIdAsync(roleId_);
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc cref="IAspNetRolesManager.FindByNameAsync" />
         public async override Task<IdentityRole<string>> FindByNameAsync(string roleName_)
         {
             return await base.FindByNameAsync(roleName_);
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc cref="IAspNetRolesManager.SetRoleNameAsync" />
         public async override Task<IdentityResult> SetRoleNameAsync(IdentityRole<string> role_, string roleName_)
         {
             return await base.SetRoleNameAsync(role_, roleName_);
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc cref="IAspNetRolesManager.RoleExistsAsync" />
         public async override Task<bool> RoleExistsAsync(string roleName_)
         {
             return await base.RoleExistsAsync(roleName_);
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc cref="IAspNetRolesManager.CreateAsync" />
         public async override Task<IdentityResult> CreateAsync(IdentityRole<string> role_)
         {
             return await base.CreateAsync(role_);

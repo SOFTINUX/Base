@@ -1,5 +1,6 @@
-﻿// Copyright (c) 2019 Jon P Smith, GitHub: JonPSmith, web: http://www.thereformedprogrammer.net/ and 2017-2019 SOFTINUX.
-// Licensed under MIT license. See License.txt in the project root for license information.
+﻿#pragma warning disable SA1636
+/* Copyright (c) 2019 Jon P Smith, GitHub: JonPSmith, web: http://www.thereformedprogrammer.net/ and 2017-2019 SOFTINUX.
+ Licensed under MIT license. See License.txt in the project root for license information. */
 
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -36,6 +37,7 @@ namespace SoftinuxBase.Security.Data.Entities
         [Key]
         [Required(AllowEmptyStrings = false)]
         [MaxLength(ExtraAuthConstants.RoleNameSize)]
+
         // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Local - needed by EF Core
         public string RoleName { get; private set; }
 
@@ -43,6 +45,7 @@ namespace SoftinuxBase.Security.Data.Entities
         /// Gets a human-friendly description of what the Role does.
         /// </summary>
         [Required(AllowEmptyStrings = false)]
+
         // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Local - needed by EF Core
         public string Description { get; private set; }
 

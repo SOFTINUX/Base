@@ -1,5 +1,6 @@
-﻿// Copyright (c) 2019 Jon P Smith, GitHub: JonPSmith, web: http://www.thereformedprogrammer.net/
-// Licensed under MIT license. See License.txt in the project root for license information.
+﻿#pragma warning disable SA1636
+/* Copyright (c) 2019 Jon P Smith, GitHub: JonPSmith, web: http://www.thereformedprogrammer.net/
+ Licensed under MIT license. See License.txt in the project root for license information. */
 
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -34,8 +35,12 @@ namespace SoftinuxBase.Security.Data.Entities
         /// Initializes a new instance of the <see cref="ModulesForUser"/> class.
         /// Empty constructor for migration to work.
         /// </summary>
+#pragma warning disable SA1201
+
+        // ReSharper disable once UnusedMember.Local
         private ModulesForUser()
         {
         }
+#pragma warning restore SA1201
     }
 }
