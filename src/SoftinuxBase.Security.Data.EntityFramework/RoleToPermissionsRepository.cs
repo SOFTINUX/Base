@@ -3,7 +3,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-
 using ExtCore.Data.EntityFramework;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
