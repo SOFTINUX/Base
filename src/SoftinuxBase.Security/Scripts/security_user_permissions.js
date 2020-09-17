@@ -103,7 +103,7 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
     }
 
     const postData = {
-        RoleName: roleNameInputElt.value,
+        RoleName: roleNameInputElt.value
     };
 
     makeAjaxRequest('POST', '/administration/save-new-role', postData, (responseStatus_, responseText_) => {
