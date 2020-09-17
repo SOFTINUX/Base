@@ -2,16 +2,10 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using ExtCore.Data.Abstractions;
-using ExtCore.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using SoftinuxBase.Infrastructure.Interfaces;
-using SoftinuxBase.Security.Data.Abstractions;
-using SoftinuxBase.Security.Data.Entities;
-using SoftinuxBase.Security.Permissions;
 using SoftinuxBase.Security.ViewModels.Permissions;
 
 [assembly: InternalsVisibleTo("SoftinuxBase.SecurityTests")]
@@ -27,21 +21,6 @@ namespace SoftinuxBase.Security.Tools
     internal static class UpdateRole
     {
         /// <summary>
-        /// Check that a role with the same name and another ID doesn't exists.
-        /// </summary>
-        /// <param name="rolesManager_">Base's custom interface to <see cref="RoleManager{TRole}"/>.</param>
-        /// <param name="roleName_">Role name.</param>
-        /// <param name="roleId_">Role ID.</param>
-        /// <returns>True when a role is not found or is found with parameter ID.</returns>
-        internal static async Task<bool> IsRoleNameAvailableAsync(IAspNetRolesManager rolesManager_, string roleName_, string roleId_)
-        {
-            var role = await rolesManager_.FindByNameAsync(roleName_);
-            return role == null || role.Id == roleId_;
-        }
-
-        // TOTEST
-
-        /// <summary>
         /// Check that a role with this name and another ID doesn't already exist.
         /// Then save new data into database.
         /// </summary>
@@ -50,7 +29,9 @@ namespace SoftinuxBase.Security.Tools
         /// <returns>Null if success, otherwise error message.</returns>
         internal static async Task<string> CheckAndUpdateRoleAsync(IAspNetRolesManager rolesManager_, UpdateRoleViewModel model_)
         {
-            if (!(await IsRoleNameAvailableAsync(rolesManager_, model_.RoleName, model_.RoleId)))
+            var role = await rolesManager_.FindByNameAsync(model_.RoleName);
+
+            if (role != null && role.Id != model_.RoleId)
             {
                 return "This name is already used by another role";
             }
@@ -58,8 +39,8 @@ namespace SoftinuxBase.Security.Tools
             try
             {
                 // Update the role name
-                var role = await rolesManager_.FindByIdAsync(model_.RoleId);
-                await rolesManager_.SetRoleNameAsync(role, model_.RoleName);
+                var roleToUpdate = await rolesManager_.FindByIdAsync(model_.RoleId);
+                await rolesManager_.SetRoleNameAsync(roleToUpdate, model_.RoleName);
 
                 return null;
             }
