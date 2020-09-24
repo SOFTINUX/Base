@@ -140,8 +140,37 @@
         @* /.box *@
     </div>
 </div>
-
-@* Modal for remove role *@
+@* Modal for renaming role *@
+<div class="modal fade" id="renameRoleModal" tabindex="-1" role="dialog" aria-labelledby="renameRoleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header model-header-custom">
+                <h5 class="modal-title" id="renameRoleModalLabel"><i class="far fa-edit"></i>&nbsp;&nbsp;<strong>Edit role name</strong></h5>
+                <button type="button" class="btn btn-xs pull-right alert-default alert-danger-default" data-dismiss="modal">
+                    <strong>Close</strong>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group margin">
+                            <label for="role_rename_input">New role name:</label>
+                            <div class="input-group">
+                                <input required id="role_rename_input" name="role_name_input" type="text" class="form-control" placeholder="enter new role name here" size="80" @Html.Raw(inputExtendAttributes)>
+                                @* save btn *@
+                                <div class="btn-group">
+                                    <button class="btn btn-block btn-success" id="save-rename-role-btn" type="button">Save</button>
+                                </div>
+                            </div>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@* Modal for unlinking role *@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

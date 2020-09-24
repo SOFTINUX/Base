@@ -31,7 +31,6 @@ $(document).ready(function () {
 /* ------------------------ expose functions ---------------------- */
 /* ---------------------------------------------------------------- */
 window.viewSelectedRole = viewSelectedRole;
-window.editRoleName = editRoleName;
 window.deleteRole = deleteRole;
 
 /* ---------------------------------------------------------------- */
@@ -49,6 +48,10 @@ document.getElementById('bulk-delete-btn').addEventListener('click', () => {
 
 document.getElementById('cancel-bulk-delete-btn').addEventListener('click', () => {
     document.getElementById('availableRolesForDelete').selectedIndex = -1;
+});
+
+document.getElementById('save-rename-role-btn').addEventListener('click', (event_) => {
+    saveEditRoleName();
 });
 
 document.getElementById('unlink-role-btn').addEventListener('click', (event_) => {
@@ -135,10 +138,10 @@ export function viewSelectedRole(roleId_) {
         const role = responseDataJson.role;
 
         // Use role name for dynamic buttons
-        document.getElementById('unlink-role-btn').innerHTML = `Remove all permissions of role <b>${role.name}</b>`
+        document.getElementById('unlink-role-btn').innerHTML = `Remove all permissions of role <b>${role.name}</b>`;
         document.getElementById('unlink-role-btn').attributes['data-name'] = role.name;
         document.getElementById('unlink-role-row').style.display = 'block';
-        document.getElementById('rename-role-btn').innerHTML = `Rename role <b>${role.name}</b>`
+        document.getElementById('rename-role-btn').innerHTML = `Rename role <b>${role.name}</b>`;
         document.getElementById('rename-role-btn').attributes['data-name'] = role.name;
         document.getElementById('rename-role-div').style.display = 'block';
 
@@ -195,52 +198,14 @@ function updateRolePermission(event_) {
 }
 
 /**
- * Open a modal window to enter new role name.
- * @param {HTMLButtonElement} renameRoleBtn_ - the clicked button.
- */
-export function editRoleName(renameRoleBtn_) {
-    alert(`
-                    TODO
-                    open
-                    a
-                    modal
-                    to
-                    enter
-                    new name
-                    for role ${renameRoleBtn_.attributes['data-name']}`)
-}
-
-/**
  * Ajax call to update role name. Ajax POST.
  */
 export function saveEditRoleName() {
-    // TODO 2: update code: only update role name. Make this be called by the modal confirmation.
-    const _grants = [];
-    let _noError = true;
-
-    Array.prototype.forEach.call(document.querySelectorAll('#selectedRoleAssignedExtensionsList>div.row'), function (elt_) {
-        let _extension, _permission;
-        Array.prototype.forEach.call(elt_.querySelectorAll('div'), function (subElt_) {
-            if (subElt_.querySelector('span'))
-                _extension = elt_.querySelector('span').getAttribute('name');
-            if (subElt_.querySelector('select'))
-                _permission = subElt_.querySelector('select option:checked').value;
-        });
-
-        if (_extension && _permission)
-            _grants.push({ Extension: _extension, PermissionValue: _permission });
-        else {
-            window.toastr.error('Cannot update role from client', 'Error');
-            _noError = false;
-        }
-    });
-
-    if (!_noError) return;
-
+    const roleSelectElt = document.getElementById('availableRoles');
+    const roleId = roleSelectElt.options[roleSelectElt.selectedIndex].getAttribute('data-id');
     const postData = {
-        RoleId: document.getElementById('edit_role_id').value,
-        RoleName: document.getElementById('edit_role_name_input').value,
-        Grants: _grants
+        RoleId: roleId,
+        RoleName: document.getElementById('role_rename_input').value
     };
 
     makeAjaxRequest('POST', '/administration/update-role', postData, (responseStatus_, responseText_) => {
