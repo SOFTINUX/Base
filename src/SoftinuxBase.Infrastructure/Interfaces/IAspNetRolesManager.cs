@@ -41,6 +41,13 @@ namespace SoftinuxBase.Infrastructure.Interfaces
         Task<IdentityResult> SetRoleNameAsync(IdentityRole<string> role_, string roleName_);
 
         /// <summary>
+        /// Save to database the modified data of this role.
+        /// </summary>
+        /// <param name="role_">Role.</param>
+        /// <returns>Operation result.</returns>
+        Task<IdentityResult> UpdateRoleAsync(IdentityRole<string> role_);
+
+        /// <summary>
         /// Check existence of a role, by name, ignoring case.
         /// </summary>
         /// <param name="roleName_">Role name.</param>

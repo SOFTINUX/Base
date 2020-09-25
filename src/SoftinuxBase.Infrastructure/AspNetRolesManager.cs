@@ -48,5 +48,11 @@ namespace SoftinuxBase.Infrastructure
         {
             return await base.CreateAsync(role_);
         }
+
+        /// <inheritdoc cref="IAspNetRolesManager.UpdateRoleAsync" />
+        public async new Task<IdentityResult> UpdateRoleAsync(IdentityRole<string> role_)
+        {
+            return await base.UpdateRoleAsync(role_);
+        }
     }
 }

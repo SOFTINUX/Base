@@ -84,9 +84,19 @@ document.getElementById('role_name_input').addEventListener('focusout', () => {
 document.getElementById('role_name_input').addEventListener('keypress', event_ => {
     inputOnlyAlphanumeric(event_);
 }, false);
-/* ---------------------------------------------------------------- */
-/* ------------------------ Exported functions ----------------------------- */
-/* ---------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------------------------- */
+/* ------------------------ Modal initialization ---------------------------------------------- */
+/* -------------------------------------------------------------------------------------------- */
+
+$('#renameRoleModal').on('show.bs.modal', function (event) {
+    const roleNameInputElt = document.getElementById('role_rename_input');
+    roleNameInputElt.value = '';
+});
+
+/* --------------------------------------------------------------------------------------------- */
+/* ------------------------ Exported functions ------------------------------------------------- */
+/* --------------------------------------------------------------------------------------------- */
 
 // None yet
 
@@ -201,17 +211,26 @@ function updateRolePermission(event_) {
  * Ajax call to update role name. Ajax POST.
  */
 export function saveEditRoleName() {
+    const roleNameInputElt = document.getElementById('role_rename_input');
+    if (!roleNameInputElt.value) {
+        window.toastr.warning('No new role name given.', 'Changes not saved!');
+        inputFormGroupValidator('#role_rename_input');
+        return;
+    }
     const roleSelectElt = document.getElementById('availableRoles');
     const roleId = roleSelectElt.options[roleSelectElt.selectedIndex].getAttribute('data-id');
     const postData = {
         RoleId: roleId,
-        RoleName: document.getElementById('role_rename_input').value
+        RoleName: roleNameInputElt.value
     };
 
     makeAjaxRequest('POST', '/administration/update-role', postData, (responseStatus_, responseText_) => {
         if (responseStatus_ === 201) {
             window.toastr.success(responseText_, 'Changes saved');
+            $('#renameRoleModal').modal('hide');
             refreshPermissionsTabs();
+        } else if (responseStatus_ === 400) {
+            window.toastr.error(responseText_, 'Cannot update role');
         } else {
             window.toastr.error('Cannot update role. See logs for errors', 'Error');
         }

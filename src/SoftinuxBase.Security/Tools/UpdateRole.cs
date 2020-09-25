@@ -2,10 +2,13 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using SoftinuxBase.Infrastructure.Interfaces;
+using SoftinuxBase.Security.Data.EntityFramework;
 using SoftinuxBase.Security.ViewModels.Permissions;
 
 [assembly: InternalsVisibleTo("SoftinuxBase.SecurityTests")]
@@ -38,10 +41,10 @@ namespace SoftinuxBase.Security.Tools
 
             try
             {
-                // Update the role name
+                // Update the role name and save back to database
                 var roleToUpdate = await rolesManager_.FindByIdAsync(model_.RoleId);
                 await rolesManager_.SetRoleNameAsync(roleToUpdate, model_.RoleName);
-
+                await rolesManager_.UpdateRoleAsync(roleToUpdate);
                 return null;
             }
             catch (Exception e)

@@ -153,16 +153,18 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="input-group margin">
-                            <label for="role_rename_input">New role name:</label>
-                            <div class="input-group">
-                                <input required id="role_rename_input" name="role_name_input" type="text" class="form-control" placeholder="enter new role name here" size="80" @Html.Raw(inputExtendAttributes)>
-                                @* save btn *@
-                                <div class="btn-group">
-                                    <button class="btn btn-block btn-success" id="save-rename-role-btn" type="button">Save</button>
+                        <div class="form-group">
+                            <div class="input-group margin">
+                                <label for="role_rename_input">New role name:</label>
+                                <div class="input-group">
+                                    <input required id="role_rename_input" name="role_rename_input" type="text" class="form-control" placeholder="enter new role name here" size="80" @Html.Raw(inputExtendAttributes)>
+                                    @* save btn *@
+                                    <div class="btn-group">
+                                        <button class="btn btn-block btn-success" id="save-rename-role-btn" type="button">Save</button>
+                                    </div>
                                 </div>
+                                <span class="help-block"></span>
                             </div>
-                            <span class="help-block"></span>
                         </div>
                     </div>
                 </div>
