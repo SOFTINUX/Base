@@ -58,6 +58,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "conf", "conf", "{F38231AE-1F64-4FDC-9200-0B13560665D2}"
 ProjectSection(SolutionItems) = preProject
 	package.json = package.json
+	documentation.props = documentation.props
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleExtension3", "src\Testing\Extensions\SampleExtension3\SampleExtension3.csproj", "{52A08A05-6DD3-48C0-8E06-DDF1D55E84F8}"
