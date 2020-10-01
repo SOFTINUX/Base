@@ -20,6 +20,7 @@ namespace SoftinuxBase.Security.Data.EntityFramework
     /// (entities in XXX.Data.Entities project) and that also inherits from ExtCore's IStorageContext.
     /// It's partial so that you can add your own DbSets.
     /// </summary>
+    // ReSharper disable once PartialTypeWithSinglePart
     public partial class ApplicationStorageContext : IdentityDbContext<User, IdentityRole<string>, string>, IStorageContext, ITimeStore
     {
         public ApplicationStorageContext(DbContextOptions options_) : base(options_)

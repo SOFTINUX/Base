@@ -14,16 +14,16 @@ namespace SoftinuxBase.Security.Data.Entities
     /// </summary>
     public class UserToRole : IAddRemoveEffectsUser, IChangeEffectsUser, IEntity
     {
-        // needed by EF Core
-        // ReSharper disable once UnusedMember.Local
-        private UserToRole()
-        {
-        }
-
         public UserToRole(string userId_, RoleToPermissions role_)
         {
             UserId = userId_;
             Role = role_;
+        }
+
+        // needed by EF Core
+        // ReSharper disable once UnusedMember.Local
+        private UserToRole()
+        {
         }
 
         // I use a composite key for this table: combination of UserId and RoleName

@@ -31,6 +31,10 @@ namespace SoftinuxBase.Security.Data.Entities
             _permissionsInRole = permissions_.PackPermissions().ToStorageString();
         }
 
+        private RoleToPermissions()
+        {
+        }
+
         /// <summary>
         /// Gets shortName of the role.
         /// </summary>
@@ -86,9 +90,5 @@ namespace SoftinuxBase.Security.Data.Entities
             context_.Remove(roleToUpdate);
             return status;
         }*/
-
-        private RoleToPermissions()
-        {
-        }
     }
 }
