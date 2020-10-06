@@ -114,7 +114,11 @@ namespace SoftinuxBase.Barebone
             // new Script("/node_modules.codemirror.addon.scroll.annotatescrollbar.js",677),
 
             // --
+#if DEBUG
+            new Script("/Scripts.barebone.js", 700, Script.JsType.IsModule),
+#else
             new Script("/Scripts.barebone.min.js", 700, Script.JsType.IsModule),
+#endif
             new Script("/Scripts.barebone_ajax.js", 701, Script.JsType.IsModule),
         };
 
