@@ -47,5 +47,32 @@ namespace SoftinuxBase.Infrastructure.Interfaces
         /// When not null, the extension is visible in permissions configuration panel.
         /// </summary>
         Type Permissions { get; }
+
+        /// <summary>
+        /// Gets a file extension prefix.
+        /// Useful to manage a variable embedded resource path that would use .js or .css file extension when unminified
+        /// and .min.js or .min.css when minified.
+        /// </summary>
+        /// <remarks>
+        /// Typical usage: use minified resources when extension is compiled in RELEASE mode.
+        /// Sample implementation in your ExtensionMetadata:
+        /// 
+        ///public string FileExtensionPrefix
+        ///{
+        ///    get
+        ///    {
+        ///#if DEBUG
+        ///        return string.Empty;
+        ///#else
+        ///    return ".min";
+        ///#endif
+        ///    }
+        ///}
+        ///
+        /// public IEnumerable<Script> Scripts => new[] {
+        ///     new Script($"/Scripts.myScript{FileExtensionPrefix}.js", 710, Script.JsType.IsModule),
+        /// };
+        /// </remarks>
+        string FileExtensionPrefix { get; }
     }
 }
