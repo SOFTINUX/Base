@@ -124,12 +124,11 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
             window.toastr.success(responseText_, 'New role created');
             inputFormGroupSetError('#role_name_input', null);
             refreshPermissionsTabs();
+            resetAddRoleForm();
         } else {
             inputFormGroupSetError('#role_name_input', responseText_ || responseStatus_);
         }
     });
-
-    resetAddRoleForm();
 });
 
 /**
