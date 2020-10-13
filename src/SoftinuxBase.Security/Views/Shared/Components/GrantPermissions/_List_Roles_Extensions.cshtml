@@ -12,10 +12,14 @@
 
 @Html.AntiForgeryToken()
 @inject UserManager<User> UserManager
+@inject RoleManager<IdentityRole<string>> RoleManager
 
 @{
     var canEditRoles = this.User.HasPermission(typeof(Permissions), (short) Permissions.EditRoles);
     var isDisabled = !canEditRoles;
+    var allRoles = RoleManager.Roles;
+    var additionalRoleNames = allRoles.Select(r_ => r_.Name).ToList().Except(Model.RoleNames);
+    var additionalRoles = allRoles.Where(r_ => additionalRoleNames.Contains(r_.Name));
 
     <table class="table table-head-fixed table-hover">
         <thead>
@@ -66,6 +70,11 @@
                                                         <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue)" data-extension="@(extensionName)">@(role)</option>
                                                     }
                                                 }
+                                                @* Additional roles *@
+                                                @foreach (var role in additionalRoles)
+                                                {
+                                                    <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue)" data-extension="@(extensionName)">@(role)</option>
+                                                }
                                             </select>
                                             <br/>
                                         }
@@ -84,10 +93,10 @@
 
 
 @* ReSharper disable once Razor.SectionNotResolved *@
+
 @section Scripts {
     <script type="text/javascript">
    
     </script>
 
 }
-
