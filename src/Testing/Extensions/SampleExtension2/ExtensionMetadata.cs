@@ -26,5 +26,8 @@ namespace SampleExtension2
         public string CurrentAssemblyPath => CurrentAssembly.Location;
 
         public Type Permissions { get { return typeof(SamplePermissions2); } }
+        
+        /// <inheritdoc />
+        public string FileExtensionPrefix { get { return string.Empty;} }
     }
 }

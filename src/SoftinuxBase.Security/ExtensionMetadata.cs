@@ -33,17 +33,10 @@ namespace SoftinuxBase.Security
         public string Description => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyDescriptionAttribute))?.ToString();
 
         /// <inheritdoc />
-        public IEnumerable<StyleSheet> StyleSheets => new[] { new StyleSheet("/Styles.Security.css", 510), };
+        public IEnumerable<StyleSheet> StyleSheets => new[] {new StyleSheet("/Styles.Security.css", 510)};
 
         /// <inheritdoc />
-        public IEnumerable<Script> Scripts => new[]
-        {
-#if DEBUG
-            new Script("/Scripts.security_user.js", 710, Script.JsType.IsModule),
-#else
-            new Script("/Scripts.security_user.min.js", 710, Script.JsType.IsModule),
-#endif
-        };
+        public IEnumerable<Script> Scripts => new[] {new Script($"/Scripts.security_user{FileExtensionPrefix}.js", 710, Script.JsType.IsModule)};
 
         /// <inheritdoc />
         public IEnumerable<MenuGroup> MenuGroups
@@ -73,5 +66,18 @@ namespace SoftinuxBase.Security
         /// Gets basic permissions, some are used by SoftinuxBase.Security for the administration part.
         /// </summary>
         public Type Permissions => typeof(Permissions.Enums.Permissions);
+
+        /// <inheritdoc />
+        public string FileExtensionPrefix
+        {
+            get
+            {
+#if DEBUG
+                return string.Empty;
+#else
+            return ".min";
+#endif
+            }
+        }
     }
 }

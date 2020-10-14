@@ -113,3 +113,16 @@ select.input-validation-error
 .custom-file-input ~ .custom-file-label:lang(en)::after {
     content: "Browse...";
 }
+
+.select2-selection__choice {
+    background-color: #e2e2e2 !important;
+    border: 0 !important;
+}
+
+.select2-selection__choice__remove {
+    color: #000000 !important;
+}
+
+.select2-selection__choice__remove:hover {
+    color: #ff0048 !important;
+}
