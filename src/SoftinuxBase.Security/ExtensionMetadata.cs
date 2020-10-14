@@ -75,7 +75,7 @@ namespace SoftinuxBase.Security
 #if DEBUG
                 return string.Empty;
 #else
-            return ".min";
+                return ".min";
 #endif
             }
         }

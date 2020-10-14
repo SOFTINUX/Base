@@ -56,7 +56,7 @@ namespace SoftinuxBase.Infrastructure.Interfaces
         /// <remarks>
         /// Typical usage: use minified resources when extension is compiled in RELEASE mode.
         /// Sample implementation in your ExtensionMetadata:
-        /// 
+        ///
         ///public string FileExtensionPrefix
         ///{
         ///    get
@@ -64,12 +64,12 @@ namespace SoftinuxBase.Infrastructure.Interfaces
         ///#if DEBUG
         ///        return string.Empty;
         ///#else
-        ///    return ".min";
+        ///        return ".min";
         ///#endif
         ///    }
         ///}
         ///
-        /// public IEnumerable<Script> Scripts => new[] {
+        /// public IEnumerable&lt;Script&gt; Scripts => new[] {
         ///     new Script($"/Scripts.myScript{FileExtensionPrefix}.js", 710, Script.JsType.IsModule),
         /// };
         /// </remarks>
