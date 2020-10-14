@@ -48,6 +48,7 @@ namespace SoftinuxBase.Infrastructure.Interfaces
         /// </summary>
         Type Permissions { get; }
 
+#pragma warning disable SA1629 // Documentation text should end with a period
         /// <summary>
         /// Gets a file extension prefix.
         /// Useful to manage a variable embedded resource path that would use .js or .css file extension when unminified
@@ -57,22 +58,23 @@ namespace SoftinuxBase.Infrastructure.Interfaces
         /// Typical usage: use minified resources when extension is compiled in RELEASE mode.
         /// Sample implementation in your ExtensionMetadata:
         ///
-        ///public string FileExtensionPrefix
-        ///{
-        ///    get
-        ///    {
-        ///#if DEBUG
-        ///        return string.Empty;
-        ///#else
-        ///        return ".min";
-        ///#endif
-        ///    }
-        ///}
+        /// public string FileExtensionPrefix
+        /// {
+        ///     get
+        ///     {
+        /// #if DEBUG
+        ///         return string.Empty;
+        /// #else
+        ///         return ".min";
+        /// #endif
+        ///     }
+        /// }
         ///
         /// public IEnumerable&lt;Script&gt; Scripts => new[] {
         ///     new Script($"/Scripts.myScript{FileExtensionPrefix}.js", 710, Script.JsType.IsModule),
         /// };
         /// </remarks>
         string FileExtensionPrefix { get; }
+#pragma warning restore SA1629 // Documentation text should end with a period
     }
 }
