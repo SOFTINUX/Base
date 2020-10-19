@@ -9,8 +9,8 @@
 'use strict';
 
 import makeAjaxRequest from '/Scripts/barebone_ajax.js';
-import { inputFormGroupSetError, inputFormGroupValidator } from '/Scripts/security_user.js';
-import { inputOnlyAlphanumeric } from '/Scripts/toolbox.js';
+import {inputFormGroupSetError, inputFormGroupValidator} from '/Scripts/security_user.js';
+import {inputOnlyAlphanumeric} from '/Scripts/toolbox.js';
 
 /* Select 2 Boostrap 4 Theme for all Select2
    @see https://github.com/select2/select2/issues/2927
@@ -124,12 +124,11 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
             window.toastr.success(responseText_, 'New role created');
             inputFormGroupSetError('#role_name_input', null);
             refreshPermissionsTabs();
+            resetAddRoleForm();
         } else {
             inputFormGroupSetError('#role_name_input', responseText_ || responseStatus_);
         }
     });
-
-    resetAddRoleForm();
 });
 
 /**
@@ -137,7 +136,7 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
  * @param {any} roleId_ - roleId
  */
 export function viewSelectedRole(roleId_) {
-    makeAjaxRequest('GET', '/administration/read-role', { roleId_: roleId_ }, (responseStatus_, responseText_) => {
+    makeAjaxRequest('GET', '/administration/read-role', {roleId_: roleId_}, (responseStatus_, responseText_) => {
         if (responseStatus_ !== 200) {
             window.toastr.error(`Server return code: ${responseStatus_} with response: ${responseText_}`, 'Error');
             return;
@@ -171,12 +170,18 @@ export function viewSelectedRole(roleId_) {
             const cellElt = document.getElementById(`selected-extension-${indexExtension}`);
             let indexSection = -1;
             for (const sectionName of Object.keys(selectedExtension.groupedBySectionPermissionDisplays)) {
+                const permissionDisplays = selectedExtension.groupedBySectionPermissionDisplays[sectionName];
+                if (permissionDisplays.filter(p_ => p_.selected).length === 0) {
+                    continue;
+                }
                 indexSection++;
                 cellElt.insertAdjacentHTML('beforeend', `<span class="text-muted">${sectionName}</span>
                 <select multiple disabled class="assigned-permissions" id="selected-extension-${indexExtension}-section-${indexSection}"></select>`);
                 const selectElt = document.getElementById(`selected-extension-${indexExtension}-section-${indexSection}`);
-                for (const permissionDisplay of selectedExtension.groupedBySectionPermissionDisplays[sectionName]) {
-                    selectElt.insertAdjacentHTML('beforeend', `<option value="${permissionDisplay.permissionEnumValue}" selected="${permissionDisplay.selected}" title="${permissionDisplay.description}">${permissionDisplay.shortName}</option>`);
+                for (const permissionDisplay of permissionDisplays) {
+                    if (permissionDisplay.selected) {
+                        selectElt.insertAdjacentHTML('beforeend', `<option value="${permissionDisplay.permissionEnumValue}" selected="true" title="${permissionDisplay.description}">${permissionDisplay.shortName}</option>`);
+                    }
                 }
             }
         }

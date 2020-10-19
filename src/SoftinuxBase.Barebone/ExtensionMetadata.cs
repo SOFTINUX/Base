@@ -41,7 +41,7 @@ namespace SoftinuxBase.Barebone
             // -- CSS Fonts
             new StyleSheet("/node_modules.wfk_opensans.opensans.css", 100),
             new StyleSheet("/node_modules.normalize.css.normalize.css", 200),
-            new StyleSheet("/node_modules.font_awesome.css.all.min.css", 30),
+            new StyleSheet("/node_modules.font_awesome.css.all.min.css", 300),
 
             // -- Font Awesome
 
@@ -114,15 +114,23 @@ namespace SoftinuxBase.Barebone
             // new Script("/node_modules.codemirror.addon.scroll.annotatescrollbar.js",677),
 
             // --
-#if DEBUG
-            new Script("/Scripts.barebone.js", 700, Script.JsType.IsModule),
-#else
-            new Script("/Scripts.barebone.min.js", 700, Script.JsType.IsModule),
-#endif
-            new Script("/Scripts.barebone_ajax.js", 701, Script.JsType.IsModule),
+            new Script($"/Scripts.barebone{FileExtensionPrefix}.js", 700, Script.JsType.IsModule)
         };
 
         /// <inheritdoc />
         public IEnumerable<MenuGroup> MenuGroups => null;
+
+        /// <inheritdoc />
+        public string FileExtensionPrefix
+        {
+            get
+            {
+#if DEBUG
+                return string.Empty;
+#else
+                return ".min";
+#endif
+            }
+        }
     }
 }

@@ -30,5 +30,8 @@ namespace SampleExtension3
         public string CurrentAssemblyPath => CurrentAssembly.Location;
 
         public Type Permissions { get { return null; } }
+        
+        /// <inheritdoc />
+        public string FileExtensionPrefix { get { return string.Empty;} }
     }
 }

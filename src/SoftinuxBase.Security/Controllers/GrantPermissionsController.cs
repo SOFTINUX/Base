@@ -33,6 +33,12 @@ namespace SoftinuxBase.Security.Controllers
         [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.ReadRoles)]
         public async Task<IActionResult> IndexAsync()
         {
+            bool isDebug = false;
+
+#if DEBUG
+    isDebug = true;
+#endif
+            ViewBag.IsDebug = isDebug;
             return await Task.Run(() => View());
         }
 

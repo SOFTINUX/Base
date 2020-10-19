@@ -8,7 +8,7 @@
 
 'use strict';
 
-import { findDomElement, getElementType } from '/Scripts/toolbox.js';
+import {findDomElement, getElementType} from '/Scripts/toolbox.js';
 
 /* ---------------------------------------------------------------- */
 /* ------------------------ on page load ------------------------ */
@@ -21,6 +21,7 @@ window.toastr.options.positionClass = 'toast-top-right';
 
 /* ---------------------------------------------------------------- */
 /* ------------------------ functions ------------------------ */
+
 /* ---------------------------------------------------------------- */
 
 /**
@@ -33,17 +34,18 @@ export function inputFormGroupValidator(element_) {
         if (!Object.is(getElementType(element), 'input')) {
             continue;
         }
-
+        
+        const formGroupEl = element.closest('.form-group');
         const helpBlockElt = formGroupEl.querySelectorAll('span.help-block')[0];
 
         if (element.value) {
             element.classList.remove('is-invalid');
             helpBlockElt.classList.remove('invalid-feedback');
-            helpBlockElts.style.display = 'none';
+            helpBlockElt.style.display = 'none';
         } else {
             element.classList.add('is-invalid');
             helpBlockElt.classList.add('invalid-feedback');
-            helpBlockElts.style.display = 'block';
+            helpBlockElt.style.display = 'block';
         }
     }
 }

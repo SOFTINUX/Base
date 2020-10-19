@@ -232,7 +232,7 @@
 @section Scripts {
     @* ReSharper disable once Html.PathError (from Security.Barebone's scripts) *@
     <script src="/Scripts/toolbox.js" type="module"></script>
-    @if (Debugger.IsAttached)
+    @if (ViewBag.IsDebug)
     {
         <script src="/Scripts.security_user_permissions.js" type="module"></script>
     }
