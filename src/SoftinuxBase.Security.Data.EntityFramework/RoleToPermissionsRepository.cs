@@ -25,6 +25,12 @@ namespace SoftinuxBase.Security.Data.EntityFramework
         }
 
         /// <inheritdoc/>
+        public void Delete(RoleToPermissions entity_)
+        {
+            dbSet.Remove(entity_);
+        }
+
+        /// <inheritdoc/>
         public RoleToPermissions FindBy(string roleName_)
         {
             return dbSet.FirstOrDefault(role_ => role_.RoleName == roleName_);

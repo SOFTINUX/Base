@@ -36,7 +36,7 @@ namespace SoftinuxBase.Security.Controllers
             bool isDebug = false;
 
 #if DEBUG
-    isDebug = true;
+            isDebug = true;
 #endif
             ViewBag.IsDebug = isDebug;
             return await Task.Run(() => View());
@@ -186,58 +186,29 @@ namespace SoftinuxBase.Security.Controllers
 
         #region DELETE
 
-        // ReSharper disable InconsistentNaming
-
         /// <summary>
-        /// Delete the record linking a role to an extension.
+        /// Remove all granted permissions of a role.
         /// </summary>
-        /// <param name="RoleName">Name of role to delete.</param>
-        /// <param name="ExtensionName">Name of linked extension.</param>
-        /// <returns>Status code 204 (ok) or 400 (no deletion occurred).</returns>
-        [HttpDelete]
-        [ActionName("UnlinkRoleExtensionLink")]
-        [Route("administration/unlink-role-extension/{RoleName}/{ExtensionName}")]
-        [ProducesResponseType((int)HttpStatusCode.NoContent)]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1313", Justification = "Ignore camelcase parameters")]
-        [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.EditRoles)]
-        public async Task<IActionResult> DeleteRoleExtensionLinkAsync(string RoleName, string ExtensionName)
-        {
-            bool? deleted = await DeleteRole.DeleteRoleExtensionLinkAsync(this.Storage, ExtensionName, RoleName);
-            switch (deleted)
-            {
-                case true:
-                    return StatusCode((int)HttpStatusCode.NoContent);
-                case false:
-                    return StatusCode((int)HttpStatusCode.BadRequest, "Link not deleted, the role is the last Admin grant to SoftinuxBase.Security extension");
-                default:
-                    return StatusCode((int)HttpStatusCode.BadRequest, "Role or link not found");
-            }
-        }
-
-        /// <summary>
-        /// Remove link role on all extensions.
-        /// </summary>
-        /// <param name="RoleName">Role name to unlink on all extension.</param>
+        /// <param name="RoleName">Role name to delete granted permissions for.</param>
         /// <returns>status code.</returns>
         [HttpDelete]
-        [ActionName("UnlinkRoleAllExtensions")]
-        [Route("administration/unlink-role-all-extensions/{RoleName}")]
+        [ActionName("RemoveAllRolePermissions")]
+        [Route("administration/remove-role-permissions/{RoleName}")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1313", Justification = "Ignore camelcase parameters")]
         [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.EditRoles)]
-        public async Task<IActionResult> UnlinkRoleOnAllExtensions(string RoleName)
+        public async Task<IActionResult> RemoveAllRolePermissionsAsync(string RoleName)
         {
-            bool? deleted = await DeleteRole.DeleteRoleExtensionsLinksAsync(this.Storage, RoleName);
+            bool? deleted = await DeleteRole.DeleteRolePermissionsAsync(this._aspNetRolesManager, this.Storage, RoleName);
             switch (deleted)
             {
                 case true:
                     return StatusCode((int)HttpStatusCode.NoContent);
                 case false:
-                    return StatusCode((int)HttpStatusCode.BadRequest, "Link not deleted, the role is the last Admin grant to SoftinuxBase.Security extension");
+                    return StatusCode((int)HttpStatusCode.BadRequest, "Permissions not deleted");
                 default:
-                    return StatusCode((int)HttpStatusCode.BadRequest, "Role or link not found");
+                    return StatusCode((int)HttpStatusCode.NotFound, "Role or permissions not found");
             }
         }
 

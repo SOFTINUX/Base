@@ -33,10 +33,10 @@ namespace SoftinuxBase.Security
         public string Description => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyDescriptionAttribute))?.ToString();
 
         /// <inheritdoc />
-        public IEnumerable<StyleSheet> StyleSheets => new[] {new StyleSheet("/Styles.Security.css", 510)};
+        public IEnumerable<StyleSheet> StyleSheets => new[] { new StyleSheet("/Styles.Security.css", 510) };
 
         /// <inheritdoc />
-        public IEnumerable<Script> Scripts => new[] {new Script($"/Scripts.security_user{FileExtensionPrefix}.js", 710, Script.JsType.IsModule)};
+        public IEnumerable<Script> Scripts => new[] { new Script($"/Scripts.security_user{FileExtensionPrefix}.js", 710, Script.JsType.IsModule) };
 
         /// <inheritdoc />
         public IEnumerable<MenuGroup> MenuGroups

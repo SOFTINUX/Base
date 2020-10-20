@@ -21,7 +21,7 @@ namespace SoftinuxBase.SeedDatabase
         public Type Permissions => null;
 
         /// <inheritdoc />
-        public string FileExtensionPrefix { get { return string.Empty; } }
+        public string FileExtensionPrefix => string.Empty;
 
         /// <inheritdoc />
         public string Name => CurrentAssembly.GetName().Name;

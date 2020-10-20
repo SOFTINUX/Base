@@ -23,6 +23,12 @@ namespace SoftinuxBase.Security.Data.Abstractions
         void DeleteAll();
 
         /// <summary>
+        /// Delete a record.
+        /// </summary>
+        /// <param name="entity_"></param>
+        void Delete(RoleToPermissions entity_);
+
+        /// <summary>
         /// Find a record by role name.
         /// </summary>
         /// <param name="roleName_">Name of role.</param>
