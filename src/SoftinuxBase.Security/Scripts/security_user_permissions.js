@@ -159,32 +159,37 @@ export function viewSelectedRole(roleId_) {
         // Clear
         rightListElt.innerHTML = '';
         // Fill
-        let indexExtension = -1;
-        for (const selectedExtension of responseDataJson.selectedExtensions) {
-            indexExtension++;
-            rightListElt.insertAdjacentHTML('beforeend', `<tr><td>
+        if(responseDataJson.selectedExtensions.length) {
+            let indexExtension = -1;
+            for (const selectedExtension of responseDataJson.selectedExtensions) {
+                indexExtension++;
+                rightListElt.insertAdjacentHTML('beforeend', `<tr><td>
                             <i class="fas fa-cubes"></i>
                                 ${selectedExtension.extensionName}
                             </td><td id="selected-extension-${indexExtension}"></td>
                         </tr>`);
-            const cellElt = document.getElementById(`selected-extension-${indexExtension}`);
-            let indexSection = -1;
-            for (const sectionName of Object.keys(selectedExtension.groupedBySectionPermissionDisplays)) {
-                const permissionDisplays = selectedExtension.groupedBySectionPermissionDisplays[sectionName];
-                if (permissionDisplays.filter(p_ => p_.selected).length === 0) {
-                    continue;
-                }
-                indexSection++;
-                cellElt.insertAdjacentHTML('beforeend', `<span class="text-muted">${sectionName}</span>
+                const cellElt = document.getElementById(`selected-extension-${indexExtension}`);
+                let indexSection = -1;
+                for (const sectionName of Object.keys(selectedExtension.groupedBySectionPermissionDisplays)) {
+                    const permissionDisplays = selectedExtension.groupedBySectionPermissionDisplays[sectionName];
+                    if (permissionDisplays.filter(p_ => p_.selected).length === 0) {
+                        continue;
+                    }
+                    indexSection++;
+                    cellElt.insertAdjacentHTML('beforeend', `<span class="text-muted">${sectionName}</span>
                 <select multiple disabled class="assigned-permissions" id="selected-extension-${indexExtension}-section-${indexSection}"></select>`);
-                const selectElt = document.getElementById(`selected-extension-${indexExtension}-section-${indexSection}`);
-                for (const permissionDisplay of permissionDisplays) {
-                    if (permissionDisplay.selected) {
-                        selectElt.insertAdjacentHTML('beforeend', `<option value="${permissionDisplay.permissionEnumValue}" selected="true" title="${permissionDisplay.description}">${permissionDisplay.shortName}</option>`);
+                    const selectElt = document.getElementById(`selected-extension-${indexExtension}-section-${indexSection}`);
+                    for (const permissionDisplay of permissionDisplays) {
+                        if (permissionDisplay.selected) {
+                            selectElt.insertAdjacentHTML('beforeend', `<option value="${permissionDisplay.permissionEnumValue}" selected="true" title="${permissionDisplay.description}">${permissionDisplay.shortName}</option>`);
+                        }
                     }
                 }
             }
+        } else {
+            rightListElt.insertAdjacentHTML('beforeend', `<tr><td colspan="2"><i class="fas fa-folder-open"></i> No assigned permission</td></tr>`);
         }
+        
         useSelect2('assigned-permissions');
     });
 }
