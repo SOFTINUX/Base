@@ -31,9 +31,8 @@ namespace SoftinuxBase.Security.Tools
         /// <returns>False if not data to delete found, otherwise true.</returns>
         internal static async Task<bool?> DeleteRolePermissionsAsync(IAspNetRolesManager rolesManager_, IStorage storage_, string roleName_)
         {
-            // TOTEST
-            string roleId = (await rolesManager_.FindByNameAsync(roleName_))?.Id;
-            if (string.IsNullOrEmpty(roleId))
+            var role = await rolesManager_.FindByNameAsync(roleName_);
+            if (role == null)
             {
                 return null;
             }
