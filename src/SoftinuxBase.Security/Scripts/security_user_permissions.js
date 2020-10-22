@@ -55,7 +55,7 @@ document.getElementById('save-rename-role-btn').addEventListener('click', (event
 });
 
 document.getElementById('unlink-role-btn').addEventListener('click', (event_) => {
-    unlinkRolePermissionOnAllExtensions(event_.target.attributes['data-name']);
+    deleteAllPermissionsOfRole(event_.target.attributes['data-name']);
 });
 
 Array.prototype.forEach.call(document.querySelectorAll('select.update-role-permission'), function (element_) {
@@ -149,7 +149,7 @@ export function viewSelectedRole(roleId_) {
         // Use role name for dynamic buttons
         document.getElementById('unlink-role-btn').innerHTML = `Remove all permissions of role <b>${role.name}</b>`;
         document.getElementById('unlink-role-btn').attributes['data-name'] = role.name;
-        document.getElementById('unlink-role-row').style.display = 'block';
+        document.getElementById('unlink-role-row').style.display = responseDataJson.selectedExtensions.length ? 'block': 'none';
         document.getElementById('rename-role-btn').innerHTML = `Rename role <b>${role.name}</b>`;
         document.getElementById('rename-role-btn').attributes['data-name'] = role.name;
         document.getElementById('rename-role-div').style.display = 'block';
@@ -242,24 +242,21 @@ export function saveEditRoleName() {
     });
 }
 
-export function unlinkRolePermissionOnAllExtensions(roleName_) {
-    makeAjaxRequest('DELETE', ` / administration / unlink - role - all - extensions /${roleName_}`, {}, (responseStatus_, responseText_) => {
+export function deleteAllPermissionsOfRole(roleName_) {
+    makeAjaxRequest('DELETE', `/administration/remove-role-permissions/${roleName_}`, {}, (responseStatus_, responseText_) => {
         if (responseStatus_ === 204) {
-            window.toastr.success(`Role ${roleName_}
-                    unlinked
-                    from
-                    extensions`, 'Link deleted');
+            window.toastr.success(`All permissions removed from role ${roleName_}`, 'Delete OK');
             refreshPermissionsTabs();
         } else if (responseStatus_ === 400) {
-            window.toastr.error(responseText_, 'Role extension link NOT deleted');
+            window.toastr.error(responseText_, 'Role\'s permissions NOT deleted');
         } else {
-            window.toastr.error('Cannot delete link. See logs for details', 'Error');
+            window.toastr.error('Cannot delete role\'s permissions. See logs for details', 'Error');
         }
     });
 }
 
 export function deleteRole(roleNameList_) {
-    makeAjaxRequest('DELETE', ` / administration / delete -role /${roleNameList_}`, {}, (responseStatus_, responseText_) => {
+    makeAjaxRequest('DELETE', `/administration/delete-role/${roleNameList_}`, {}, (responseStatus_, responseText_) => {
         if (responseStatus_ === 200) {
             window.toastr.success(`${roleNameList_}`, 'Role(s) deleted');
             refreshPermissionsTabs();
@@ -301,7 +298,7 @@ function refreshPermissionsTabs() {
     Promise.all([reloadGrantPermissionsHtmlView(), reloadEditRoleHtmlView(), reloadBulkDeleteTab()])
         .then(() => {
             document.getElementById('unlink-role-btn').addEventListener('click', () => {
-                unlinkRolePermissionOnAllExtensions(document.getElementById('edit_role_normalizedName').value);
+                deleteAllPermissionsOfRole(document.getElementById('edit_role_normalizedName').value);
             });
             useSelect2();
         })
