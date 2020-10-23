@@ -103,7 +103,33 @@ namespace SoftinuxBase.Security.Controllers
                 var userForEmail = await _userManager.FindByEmailAsync(signIn_.Username);
                 if (userForEmail != null)
                 {
+                    _logger.LogInformation($"User found by e-mail '{signIn_.Username}' in AspNetUsers table");
                     signIn_.Username = userForEmail.UserName;
+                }
+                else
+                {
+                    _logger.LogInformation($"No user e-mail '{signIn_.Username}' in AspNetUsers table");
+                    var userForName = await _userManager.FindByNameAsync(signIn_.Username);
+                    if (userForName == null)
+                    {
+                        _logger.LogError($"No user name '{signIn_.Username}' in AspNetUsers table");
+                    }
+                    else
+                    {
+                        _logger.LogInformation($"User found by name '{signIn_.Username}' in AspNetUsers table");
+                    }
+                }
+            }
+            else
+            {
+                var userForName = await _userManager.FindByNameAsync(signIn_.Username);
+                if (userForName == null)
+                {
+                    _logger.LogError($"No user name '{signIn_.Username}' in AspNetUsers table");
+                }
+                else
+                {
+                    _logger.LogInformation($"User found by name '{signIn_.Username}' in AspNetUsers table");
                 }
             }
 
@@ -117,6 +143,8 @@ namespace SoftinuxBase.Security.Controllers
                 // Go to dashboard, action Index of Barebone's controller
                 return await Task.Run(() => RedirectToAction("Index", "Barebone"));
             }
+
+            _logger.LogError($"Could not sign in with user name {signIn_.Username}, wrong password?");
 
             // if (result.RequiresTwoFactor)
             // {
@@ -132,7 +160,6 @@ namespace SoftinuxBase.Security.Controllers
             }
             else
             {
-                // ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 signIn_.ErrorMessage = "Invalid login attempt";
                 ModelState.AddModelError("BadUserPassword", signIn_.ErrorMessage);
             }
