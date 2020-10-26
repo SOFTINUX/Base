@@ -9,8 +9,8 @@
 'use strict';
 
 import makeAjaxRequest from '/Scripts/barebone_ajax.js';
-import {inputFormGroupSetError, inputFormGroupValidator} from '/Scripts/security_user.js';
-import {inputOnlyAlphanumeric} from '/Scripts/toolbox.js';
+import { inputFormGroupSetError, inputFormGroupValidator } from '/Scripts/security_user.js';
+import { inputOnlyAlphanumeric } from '/Scripts/toolbox.js';
 
 /* Select 2 Boostrap 4 Theme for all Select2
    @see https://github.com/select2/select2/issues/2927
@@ -136,7 +136,7 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
  * @param {any} roleId_ - roleId
  */
 export function viewSelectedRole(roleId_) {
-    makeAjaxRequest('GET', '/administration/read-role', {roleId_: roleId_}, (responseStatus_, responseText_) => {
+    makeAjaxRequest('GET', '/administration/read-role', { roleId_: roleId_ }, (responseStatus_, responseText_) => {
         if (responseStatus_ !== 200) {
             window.toastr.error(`Server return code: ${responseStatus_} with response: ${responseText_}`, 'Error');
             return;
@@ -149,7 +149,7 @@ export function viewSelectedRole(roleId_) {
         // Use role name for dynamic buttons
         document.getElementById('unlink-role-btn').innerHTML = `Remove all permissions of role <b>${role.name}</b>`;
         document.getElementById('unlink-role-btn').attributes['data-name'] = role.name;
-        document.getElementById('unlink-role-row').style.display = responseDataJson.selectedExtensions.length ? 'block': 'none';
+        document.getElementById('unlink-role-row').style.display = responseDataJson.selectedExtensions.length ? 'block' : 'none';
         document.getElementById('rename-role-btn').innerHTML = `Rename role <b>${role.name}</b>`;
         document.getElementById('rename-role-btn').attributes['data-name'] = role.name;
         document.getElementById('rename-role-div').style.display = 'block';
@@ -159,7 +159,7 @@ export function viewSelectedRole(roleId_) {
         // Clear
         rightListElt.innerHTML = '';
         // Fill
-        if(responseDataJson.selectedExtensions.length) {
+        if (responseDataJson.selectedExtensions.length) {
             let indexExtension = -1;
             for (const selectedExtension of responseDataJson.selectedExtensions) {
                 indexExtension++;
@@ -187,9 +187,9 @@ export function viewSelectedRole(roleId_) {
                 }
             }
         } else {
-            rightListElt.insertAdjacentHTML('beforeend', `<tr><td colspan="2"><i class="fas fa-folder-open"></i> No assigned permission</td></tr>`);
+            rightListElt.insertAdjacentHTML('beforeend', '<tr><td colspan="2"><i class="fas fa-folder-open"></i> No assigned permission</td></tr>');
         }
-        
+
         useSelect2('assigned-permissions');
     });
 }
@@ -209,6 +209,15 @@ function updateRolePermission(event_) {
     makeAjaxRequest('POST', '/administration/update-role-permission', params, (responseStatus_, responseText_) => {
         if (responseStatus_ === 204) {
             window.toastr.success(responseText_, 'Changes saved');
+            // If this role's permissions are currently viewed, refresh
+            const viewedRoleDropdown = document.getElementById('availableRoles');
+            const viewedRole = viewedRoleDropdown.options[viewedRoleDropdown.selectedIndex];
+            const viewedRoleName = viewedRole.value;
+            const viewedRoleId = viewedRole.attributes['data-id'].value;
+
+            if (event_.params.data.id === viewedRoleName) {
+                viewSelectedRole(viewedRoleId);
+            }
         } else if (responseStatus_ === 400) {
             window.toastr.error(responseText_, 'Permission to role link NOT updated');
         } else {
@@ -312,11 +321,6 @@ function refreshPermissionsTabs() {
 
 function resetAddRoleForm() {
     document.getElementById('role_name_input').value = '';
-}
-
-function resetEditRoleForm() {
-    // TODO reuse?
-    document.getElementById('edit_role_name_input').value = '';
 }
 
 // Initialize Select2.org select elements.
