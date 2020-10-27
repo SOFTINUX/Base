@@ -55,6 +55,7 @@ document.getElementById('save-rename-role-btn').addEventListener('click', (event
 });
 
 document.getElementById('unlink-role-btn').addEventListener('click', (event_) => {
+    console.log(event_.target);
     deleteAllPermissionsOfRole(event_.target.attributes['data-name']);
 });
 
@@ -285,6 +286,18 @@ function reloadGrantPermissionsHtmlView() {
     return new window.Promise((resolve, reject) => {
         makeAjaxRequest('GET', '/administration/read-permissions-grants', null, (responseStatus_, responseText_) => {
             document.getElementById('GrantPermissionsTable').innerHTML = responseText_;
+            // Reattach the event listeners
+            Array.prototype.forEach.call(document.querySelectorAll('select.update-role-permission'), function (element_) {
+                $(element_).on('select2:select', function (event_) {
+                    // we should use jQuery event system here
+                    updateRolePermission(event_);
+                });
+                $(element_).on('select2:unselect', function (event_) {
+                    // we should use jQuery event system here
+                    console.log('unselected', event_.params);
+                    updateRolePermission(event_);
+                });
+            });
             resolve();
         });
     });
