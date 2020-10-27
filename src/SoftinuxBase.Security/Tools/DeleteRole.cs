@@ -4,6 +4,9 @@
 using System;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
+using Microsoft.AspNetCore.Identity;
+using SoftinuxBase.Infrastructure.Interfaces;
+using SoftinuxBase.Security.Data.Abstractions;
 
 namespace SoftinuxBase.Security.Tools
 {
@@ -20,75 +23,33 @@ namespace SoftinuxBase.Security.Tools
     internal static class DeleteRole
     {
         /// <summary>
-        /// Delete a link between a role and an extension.
+        /// Delete all permissions granted to a role.
         /// </summary>
-        /// <param name="storage_">Storage interface provided by services container.</param>
-        /// <param name="extensionName_">Extension name.</param>
-        /// <param name="roleName_">Role name.</param>
-        /// <returns>Return true on success, false when forbidden, null when not found.</returns>
-        internal static async Task<bool?> DeleteRoleExtensionLinkAsync(IStorage storage_, string extensionName_, string roleName_)
-        {
-            // TODO rewrite for new permissions
-
-            // string roleId = (await roleManager_.FindByNameAsync(roleName_))?.Id;
-            // if (string.IsNullOrEmpty(roleId))
-            // {
-            //     return null;
-            // }
-            //
-            // IRolePermissionRepository repo = storage_.GetRepository<IRolePermissionRepository>();
-            // if (repo.FindBy(roleId, extensionName_) == null)
-            // {
-            //     return null;
-            // }
-            //
-            // if (extensionName_ == Constants.SoftinuxBaseSecurity)
-            // {
-            //     if (await ReadGrants.IsRoleLastAdminPermissionLevelGrantForExtensionAsync(roleManager_, storage_, roleName_, extensionName_))
-            //     {
-            //         return false;
-            //     }
-            // }
-            //
-            // repo.Delete(roleId, extensionName_);
-            await storage_.SaveAsync();
-
-            // return true;
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Delete all links between a role and extensions.
-        /// </summary>
+        /// <param name="rolesManager_">Base's custom interface to <see cref="RoleManager{TRole}"/>.</param>
         /// <param name="storage_">Storage interface provided by services container.</param>
         /// <param name="roleName_">Role name.</param>
         /// <returns>False if not data to delete found, otherwise true.</returns>
-        internal static async Task<bool> DeleteRoleExtensionsLinksAsync(IStorage storage_, string roleName_)
+        internal static async Task<bool?> DeleteRolePermissionsAsync(IAspNetRolesManager rolesManager_, IStorage storage_, string roleName_)
         {
-            // TODO rewrite for new permissions
+            var role = await rolesManager_.FindByNameAsync(roleName_);
+            if (role == null)
+            {
+                return null;
+            }
 
-            // string roleId = (await roleManager_.FindByNameAsync(roleName_))?.Id;
-            //
-            // if (string.IsNullOrEmpty(roleId))
-            // {
-            //     return false;
-            // }
-            //
-            // IRolePermissionRepository repo = storage_.GetRepository<IRolePermissionRepository>();
-            // IEnumerable<RolePermission> records = repo.FilteredByRoleId(roleId).ToList();
-            // if (!records.Any())
-            // {
-            //     return false;
-            // }
-            //
-            // foreach (var record in records)
-            // {
-            //     repo.Delete(record.RoleId, record.Extension);
-            // }
+            IRoleToPermissionsRepository repo = storage_.GetRepository<IRoleToPermissionsRepository>();
+            var record = repo.FindBy(roleName_);
+
+            if (record == null)
+            {
+                return null;
+            }
+
+            repo.Delete(record);
+
             await storage_.SaveAsync();
 
-            // return true;
-            throw new NotImplementedException();
+            return true;
         }
 
         /// <summary>

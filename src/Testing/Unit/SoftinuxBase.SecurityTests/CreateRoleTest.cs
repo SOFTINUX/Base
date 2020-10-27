@@ -19,14 +19,14 @@ namespace SoftinuxBase.SecurityTests
         {
             // Arrange
             var newRoleName = "New Role 1";
-            var mockAspNetRolesManager = new Mock<IAspNetRolesManager>();
+            var aspNetRolesManagerMock = new Mock<IAspNetRolesManager>();
 
             // Act
-            var errorMessage = await CreateRole.CheckAndSaveNewRoleAsync(mockAspNetRolesManager.Object, new SaveNewRoleViewModel { RoleName = newRoleName });
+            var errorMessage = await CreateRole.CheckAndSaveNewRoleAsync(aspNetRolesManagerMock.Object, new SaveNewRoleViewModel { RoleName = newRoleName });
 
             // Assert
             errorMessage.Should().BeNull();
-            mockAspNetRolesManager.Verify(m_ => m_.FindByNameAsync(newRoleName), Times.Once);
+            aspNetRolesManagerMock.Verify(m_ => m_.FindByNameAsync(newRoleName), Times.Once);
         }
 
         [Fact]
@@ -34,15 +34,15 @@ namespace SoftinuxBase.SecurityTests
         {
             // Arrange
             var newRoleName = "New Role 1";
-            var mockAspNetRolesManager = new Mock<IAspNetRolesManager>();
-            mockAspNetRolesManager.Setup(m_ => m_.FindByNameAsync(It.IsAny<string>())).ReturnsAsync(new IdentityRole<string>());
+            var aspNetRolesManagerMock = new Mock<IAspNetRolesManager>();
+            aspNetRolesManagerMock.Setup(m_ => m_.FindByNameAsync(It.IsAny<string>())).ReturnsAsync(new IdentityRole<string>());
 
             // Act
-            var errorMessage = await CreateRole.CheckAndSaveNewRoleAsync(mockAspNetRolesManager.Object, new SaveNewRoleViewModel { RoleName = newRoleName });
+            var errorMessage = await CreateRole.CheckAndSaveNewRoleAsync(aspNetRolesManagerMock.Object, new SaveNewRoleViewModel { RoleName = newRoleName });
 
             // Assert
             errorMessage.Should().NotBeNull();
-            mockAspNetRolesManager.Verify(m_ => m_.FindByNameAsync(newRoleName), Times.Once);
+            aspNetRolesManagerMock.Verify(m_ => m_.FindByNameAsync(newRoleName), Times.Once);
         }
     }
 }

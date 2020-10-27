@@ -9,8 +9,8 @@
 'use strict';
 
 import makeAjaxRequest from '/Scripts/barebone_ajax.js';
-import {inputFormGroupSetError, inputFormGroupValidator} from '/Scripts/security_user.js';
-import {inputOnlyAlphanumeric} from '/Scripts/toolbox.js';
+import { inputFormGroupSetError, inputFormGroupValidator } from '/Scripts/security_user.js';
+import { inputOnlyAlphanumeric } from '/Scripts/toolbox.js';
 
 /* Select 2 Boostrap 4 Theme for all Select2
    @see https://github.com/select2/select2/issues/2927
@@ -55,7 +55,7 @@ document.getElementById('save-rename-role-btn').addEventListener('click', (event
 });
 
 document.getElementById('unlink-role-btn').addEventListener('click', (event_) => {
-    unlinkRolePermissionOnAllExtensions(event_.target.attributes['data-name']);
+    deleteAllPermissionsOfRole(event_.target.attributes['data-name']);
 });
 
 Array.prototype.forEach.call(document.querySelectorAll('select.update-role-permission'), function (element_) {
@@ -136,7 +136,7 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
  * @param {any} roleId_ - roleId
  */
 export function viewSelectedRole(roleId_) {
-    makeAjaxRequest('GET', '/administration/read-role', {roleId_: roleId_}, (responseStatus_, responseText_) => {
+    makeAjaxRequest('GET', '/administration/read-role', { roleId_: roleId_ }, (responseStatus_, responseText_) => {
         if (responseStatus_ !== 200) {
             window.toastr.error(`Server return code: ${responseStatus_} with response: ${responseText_}`, 'Error');
             return;
@@ -149,7 +149,7 @@ export function viewSelectedRole(roleId_) {
         // Use role name for dynamic buttons
         document.getElementById('unlink-role-btn').innerHTML = `Remove all permissions of role <b>${role.name}</b>`;
         document.getElementById('unlink-role-btn').attributes['data-name'] = role.name;
-        document.getElementById('unlink-role-row').style.display = 'block';
+        document.getElementById('unlink-role-row').style.display = responseDataJson.selectedExtensions.length ? 'block' : 'none';
         document.getElementById('rename-role-btn').innerHTML = `Rename role <b>${role.name}</b>`;
         document.getElementById('rename-role-btn').attributes['data-name'] = role.name;
         document.getElementById('rename-role-div').style.display = 'block';
@@ -159,32 +159,37 @@ export function viewSelectedRole(roleId_) {
         // Clear
         rightListElt.innerHTML = '';
         // Fill
-        let indexExtension = -1;
-        for (const selectedExtension of responseDataJson.selectedExtensions) {
-            indexExtension++;
-            rightListElt.insertAdjacentHTML('beforeend', `<tr><td>
+        if (responseDataJson.selectedExtensions.length) {
+            let indexExtension = -1;
+            for (const selectedExtension of responseDataJson.selectedExtensions) {
+                indexExtension++;
+                rightListElt.insertAdjacentHTML('beforeend', `<tr><td>
                             <i class="fas fa-cubes"></i>
                                 ${selectedExtension.extensionName}
                             </td><td id="selected-extension-${indexExtension}"></td>
                         </tr>`);
-            const cellElt = document.getElementById(`selected-extension-${indexExtension}`);
-            let indexSection = -1;
-            for (const sectionName of Object.keys(selectedExtension.groupedBySectionPermissionDisplays)) {
-                const permissionDisplays = selectedExtension.groupedBySectionPermissionDisplays[sectionName];
-                if (permissionDisplays.filter(p_ => p_.selected).length === 0) {
-                    continue;
-                }
-                indexSection++;
-                cellElt.insertAdjacentHTML('beforeend', `<span class="text-muted">${sectionName}</span>
+                const cellElt = document.getElementById(`selected-extension-${indexExtension}`);
+                let indexSection = -1;
+                for (const sectionName of Object.keys(selectedExtension.groupedBySectionPermissionDisplays)) {
+                    const permissionDisplays = selectedExtension.groupedBySectionPermissionDisplays[sectionName];
+                    if (permissionDisplays.filter(p_ => p_.selected).length === 0) {
+                        continue;
+                    }
+                    indexSection++;
+                    cellElt.insertAdjacentHTML('beforeend', `<span class="text-muted">${sectionName}</span>
                 <select multiple disabled class="assigned-permissions" id="selected-extension-${indexExtension}-section-${indexSection}"></select>`);
-                const selectElt = document.getElementById(`selected-extension-${indexExtension}-section-${indexSection}`);
-                for (const permissionDisplay of permissionDisplays) {
-                    if (permissionDisplay.selected) {
-                        selectElt.insertAdjacentHTML('beforeend', `<option value="${permissionDisplay.permissionEnumValue}" selected="true" title="${permissionDisplay.description}">${permissionDisplay.shortName}</option>`);
+                    const selectElt = document.getElementById(`selected-extension-${indexExtension}-section-${indexSection}`);
+                    for (const permissionDisplay of permissionDisplays) {
+                        if (permissionDisplay.selected) {
+                            selectElt.insertAdjacentHTML('beforeend', `<option value="${permissionDisplay.permissionEnumValue}" selected="true" title="${permissionDisplay.description}">${permissionDisplay.shortName}</option>`);
+                        }
                     }
                 }
             }
+        } else {
+            rightListElt.insertAdjacentHTML('beforeend', '<tr><td colspan="2"><i class="fas fa-folder-open"></i> No assigned permission</td></tr>');
         }
+
         useSelect2('assigned-permissions');
     });
 }
@@ -204,6 +209,15 @@ function updateRolePermission(event_) {
     makeAjaxRequest('POST', '/administration/update-role-permission', params, (responseStatus_, responseText_) => {
         if (responseStatus_ === 204) {
             window.toastr.success(responseText_, 'Changes saved');
+            // If this role's permissions are currently viewed, refresh
+            const viewedRoleDropdown = document.getElementById('availableRoles');
+            const viewedRole = viewedRoleDropdown.options[viewedRoleDropdown.selectedIndex];
+            const viewedRoleName = viewedRole.value;
+            const viewedRoleId = viewedRole.attributes['data-id'].value;
+
+            if (event_.params.data.id === viewedRoleName) {
+                viewSelectedRole(viewedRoleId);
+            }
         } else if (responseStatus_ === 400) {
             window.toastr.error(responseText_, 'Permission to role link NOT updated');
         } else {
@@ -242,24 +256,21 @@ export function saveEditRoleName() {
     });
 }
 
-export function unlinkRolePermissionOnAllExtensions(roleName_) {
-    makeAjaxRequest('DELETE', ` / administration / unlink - role - all - extensions /${roleName_}`, {}, (responseStatus_, responseText_) => {
+export function deleteAllPermissionsOfRole(roleName_) {
+    makeAjaxRequest('DELETE', `/administration/remove-role-permissions/${roleName_}`, {}, (responseStatus_, responseText_) => {
         if (responseStatus_ === 204) {
-            window.toastr.success(`Role ${roleName_}
-                    unlinked
-                    from
-                    extensions`, 'Link deleted');
+            window.toastr.success(`All permissions removed from role ${roleName_}`, 'Delete OK');
             refreshPermissionsTabs();
         } else if (responseStatus_ === 400) {
-            window.toastr.error(responseText_, 'Role extension link NOT deleted');
+            window.toastr.error(responseText_, 'Role\'s permissions NOT deleted');
         } else {
-            window.toastr.error('Cannot delete link. See logs for details', 'Error');
+            window.toastr.error('Cannot delete role\'s permissions. See logs for details', 'Error');
         }
     });
 }
 
 export function deleteRole(roleNameList_) {
-    makeAjaxRequest('DELETE', ` / administration / delete -role /${roleNameList_}`, {}, (responseStatus_, responseText_) => {
+    makeAjaxRequest('DELETE', `/administration/delete-role/${roleNameList_}`, {}, (responseStatus_, responseText_) => {
         if (responseStatus_ === 200) {
             window.toastr.success(`${roleNameList_}`, 'Role(s) deleted');
             refreshPermissionsTabs();
@@ -301,7 +312,7 @@ function refreshPermissionsTabs() {
     Promise.all([reloadGrantPermissionsHtmlView(), reloadEditRoleHtmlView(), reloadBulkDeleteTab()])
         .then(() => {
             document.getElementById('unlink-role-btn').addEventListener('click', () => {
-                unlinkRolePermissionOnAllExtensions(document.getElementById('edit_role_normalizedName').value);
+                deleteAllPermissionsOfRole(document.getElementById('edit_role_normalizedName').value);
             });
             useSelect2();
         })
@@ -310,11 +321,6 @@ function refreshPermissionsTabs() {
 
 function resetAddRoleForm() {
     document.getElementById('role_name_input').value = '';
-}
-
-function resetEditRoleForm() {
-    // TODO reuse?
-    document.getElementById('edit_role_name_input').value = '';
 }
 
 // Initialize Select2.org select elements.
