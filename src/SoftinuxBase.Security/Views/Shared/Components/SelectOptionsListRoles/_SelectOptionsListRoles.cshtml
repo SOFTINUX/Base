@@ -1,11 +1,11 @@
 ﻿@* Copyright © 2017-2019 SOFTINUX. All rights reserved.
     Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 *@
-@model (SoftinuxBase.Infrastructure.Interfaces.IAspNetRolesManager roleManager, HashSet<string> permissionList)
+@model (SoftinuxBase.Infrastructure.Interfaces.IAspNetRolesManager roleManager, HashSet<string> listNamesOfRolesWithPermissions)
 
 <option></option>
 @* here roles list *@
-@foreach (var role in Model.roleManager.Roles)
+@foreach (var role in Model.roleManager.Roles.OrderBy(role => role.Name))
 {
-    <option value="@Html.Raw(role.Name)" data-id="@Html.Raw(role.Id)" @(Model.permissionList.Contains(role.Id) ? null : Html.Raw("data-icon-base=\"fas\" data-icon=\"fa-unlink\""))>@Html.Raw(role.Name)</option>
+    <option value="@Html.Raw(role.Name)" data-id="@Html.Raw(role.Id)" @(Model.listNamesOfRolesWithPermissions.Contains(role.Name) ? null : Html.Raw("data-icon-base=\"fas\" data-icon=\"fa-unlink\""))>@Html.Raw(role.Name)</option>
 }
