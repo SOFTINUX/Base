@@ -2,6 +2,46 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrome",
+            "runtimeArgs": [
+                "--incognito"
+            ],
+            "url": "https://localhost:5001",
+            "webRoot": "${workspaceFolder}",
+            "presentation": {
+                "hidden": true,
+            }
+        },
+        {
+            "type": "edge",
+            "request": "launch",
+            "name": "Launch Edge",
+            "runtimeArgs": [
+                "--incognito"
+            ],
+            "url": "https://localhost:5001",
+            "webRoot": "${workspaceFolder}",
+            "presentation": {
+                "hidden": true,
+            }
+        },
+        {
+            "type": "firefox",
+            "request": "launch",
+            "reAttach": true,
+            "name": "Launch Firefox",
+            "url": "https://localhost:5001",
+            "pathMappings": [{
+                "url": "https://localhost:5001",
+                "path": "${workspaceFolder}"
+            }],
+            "presentation": {
+                "hidden": true,
+            }
+        },
+        {
             "name": ".NET Core Launch (console)",
             "type": "coreclr",
             "request": "launch",
@@ -48,14 +88,10 @@
             }
         },
         {
-            "type": "chrome",
-            "request": "launch",
-            "name": "Launch Chrome",
-            "runtimeArgs": [
-                "--incognito"
-            ],
-            "url": "http://localhost:5000",
-            "webRoot": "${workspaceFolder}",
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
         },
         {
             "name": "Build only & Run",
@@ -88,20 +124,28 @@
                 "/Views": "${workspaceRoot}/Views"
             }
         },
-        {
-            "name": ".NET Core Attach",
-            "type": "coreclr",
-            "request": "attach",
-            "processId": "${command:pickProcess}"
-        },
     ],
     "compounds": [
         {
-            "name": "Launch & Debug",
+            "name": "Chrome Launch & Debug",
             "configurations": [
                 ".NET Core Launch (console)",
                 "Launch Chrome"
             ]
-        }
+        },
+        {
+            "name": "Edge Launch & Debug",
+            "configurations": [
+                ".NET Core Launch (console)",
+                "Launch Edge"
+            ]
+        },
+        {
+            "name": "Firefox Launch & Debug",
+            "configurations": [
+                ".NET Core Launch (console)",
+                "Launch Firefox"
+            ]
+        },
     ]
 }
