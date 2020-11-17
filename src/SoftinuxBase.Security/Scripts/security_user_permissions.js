@@ -139,7 +139,7 @@ document.getElementById('save-add-role-btn').addEventListener('click', () => {
 export function viewSelectedRole(roleId_) {
     makeAjaxRequest('GET', '/administration/read-role', { roleId_: roleId_ }, (responseStatus_, responseText_) => {
         if (responseStatus_ !== 200) {
-            window.toastr.error(`Server return code: ${responseStatus_} with response: ${responseText_}`, 'Error');
+            window.toastr.error(responseText_, 'Error reading role');
             return;
         }
 

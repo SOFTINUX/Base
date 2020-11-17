@@ -14,6 +14,8 @@ import {findDomElement, getElementType} from '/Scripts/toolbox.js';
 /* ------------------------ on page load ------------------------ */
 /* ---------------------------------------------------------------- */
 window.toastr.options.positionClass = 'toast-top-right';
+window.toastr.options.timeOut = 5000; // How long the toast will display without user interaction
+window.toastr.options.extendedTimeOut = 20000; // How long the toast will display after a user hovers over it
 
 /* ---------------------------------------------------------------- */
 /* ------------------------ events handler ------------------------ */
