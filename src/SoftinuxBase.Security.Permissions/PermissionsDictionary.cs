@@ -69,7 +69,13 @@ namespace SoftinuxBase.Security.Permissions
         {
             var assemblyQualifiedTypeName = permissionEnumType_.AssemblyQualifiedName;
             Dictionary.TryGetValue(assemblyQualifiedTypeName, out var permissions);
-            return permissions != null && permissions.Remove(permission_);
+            var removedOk = permissions != null && permissions.Remove(permission_);
+            if (permissions != null && !permissions.Any())
+            {
+                // No more permissions for this extension, remove key too
+                Dictionary.Remove(assemblyQualifiedTypeName);
+            }
+            return removedOk;
         }
 
         /// <summary>

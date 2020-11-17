@@ -107,7 +107,7 @@ namespace SoftinuxBase.Security.PermissionsTests
 
             // Assert
             removed.Should().BeTrue();
-            permissionsDictionary.Dictionary.Keys.Count.Should().Be(1);
+            permissionsDictionary.Dictionary.Keys.Count.Should().Be(0);
         }
         
         [Fact]
@@ -126,11 +126,11 @@ namespace SoftinuxBase.Security.PermissionsTests
             // Assert
             removed.Should().BeTrue();
             removedAgain.Should().BeFalse();
-            permissionsDictionary.Dictionary.Keys.Count.Should().Be(1);
+            permissionsDictionary.Dictionary.Keys.Count.Should().Be(0);
         }
         
         [Fact]
-        public void Add_Remove_TwoPermissions()
+        public void Add_Remove_TwoPermissions_SameEnum()
         {
             // Arrange
             var permissionsDictionary = new PermissionsDictionary();
@@ -139,6 +139,25 @@ namespace SoftinuxBase.Security.PermissionsTests
             var secondAdded = permissionsDictionary.Add(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.EditRoles);
             secondAdded.Should().BeTrue();
             permissionsDictionary.Dictionary.Keys.Count.Should().Be(1);
+
+            // Act
+            var removed = permissionsDictionary.Remove(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.CreateRoles);
+
+            // Assert
+            removed.Should().BeTrue();
+            permissionsDictionary.Dictionary.Keys.Count.Should().Be(1);
+        }
+
+        [Fact]
+        public void Add_Remove_TwoPermissions_DifferentEnum()
+        {
+            // Arrange
+            var permissionsDictionary = new PermissionsDictionary();
+            var added = permissionsDictionary.Add(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.CreateRoles);
+            added.Should().BeTrue();
+            var secondAdded = permissionsDictionary.Add(typeof(SamplePermissions), (short)SamplePermissions.Admin);
+            secondAdded.Should().BeTrue();
+            permissionsDictionary.Dictionary.Keys.Count.Should().Be(2);
 
             // Act
             var removed = permissionsDictionary.Remove(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.CreateRoles);

@@ -15,6 +15,19 @@ namespace SoftinuxBase.Security.PermissionsTests
         #region PackPermissions
 
         [Fact]
+        public void PackPermissions_NoPermission()
+        {
+            // Arrange
+            var permissionsDictionary = new PermissionsDictionary();
+
+            // Act
+            var packedDictionary = permissionsDictionary.PackPermissions();
+
+            // Assert
+            packedDictionary.Keys.Count.Should().Be(0);
+        }
+
+        [Fact]
         public void PackPermissions_OnePermission()
         {
             // Arrange
