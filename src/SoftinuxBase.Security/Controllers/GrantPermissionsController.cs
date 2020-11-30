@@ -166,7 +166,7 @@ namespace SoftinuxBase.Security.Controllers
         }
 
         /// <summary>
-        /// Update role name.
+        /// Update role name in AspNetRoles table and also in RolesToPermissions table.
         /// </summary>
         /// <param name="model_">object representing values passed from ajax.</param>
         /// <returns>Status code 201, or 400 with an error message.</returns>
@@ -178,7 +178,13 @@ namespace SoftinuxBase.Security.Controllers
         [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.EditRoles)]
         public async Task<IActionResult> UpdateRoleAsync([FromBody] UpdateRoleViewModel model_)
         {
+            var role = await _aspNetRolesManager.FindByIdAsync(model_.RoleId);
             string error = await UpdateRole.CheckAndUpdateRoleAsync(_aspNetRolesManager, model_);
+            if (string.IsNullOrEmpty(error))
+            {
+                await UpdateRoleAndGrants.UpdateRoleToPermissionsAsync(Storage, role.Name, model_.RoleName);
+            }
+
             return StatusCode(string.IsNullOrEmpty(error) ? (int)HttpStatusCode.Created : (int)HttpStatusCode.BadRequest, error);
         }
 
