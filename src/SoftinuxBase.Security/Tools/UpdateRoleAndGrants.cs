@@ -93,5 +93,30 @@ namespace SoftinuxBase.Security.Tools
 
             return null;
         }
+
+        /// <summary>
+        /// Update the RoleToPermissions record, when it exists, for the given role, when role name changes.
+        /// </summary>
+        /// <param name="storage_">Storage interface provided by services container.</param>
+        /// <param name="roleName_">Role Name.</param>
+        /// <param name="newRoleName_">New role name.</param>
+        /// <returns>Success or not found indicator.</returns>
+        internal static async Task<bool?> UpdateRoleToPermissionsAsync(IStorage storage_, string roleName_, string newRoleName_)
+        {
+
+            var repository = storage_.GetRepository<IRoleToPermissionsRepository>();
+            var roleToPermissions = repository.FindBy(roleName_);
+            if (roleToPermissions == null)
+            {
+                // Nothing to update
+                return null;
+            }
+
+            roleToPermissions.RoleName = newRoleName_;
+            // And finally save back to database...
+            await storage_.SaveAsync();
+
+            return true;
+        }
     }
 }

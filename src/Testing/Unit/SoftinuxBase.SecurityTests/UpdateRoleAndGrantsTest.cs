@@ -20,6 +20,7 @@ namespace SoftinuxBase.SecurityTests
 {
     public class UpdateRoleAndGrantsTest
     {
+        #region update role's permissions
         /// <summary>
         /// Test with incorrect extension name.
         /// </summary>
@@ -173,5 +174,67 @@ namespace SoftinuxBase.SecurityTests
             roleToPermissionsRepositoryMock.Verify(m_ => m_.SetPermissions(It.IsAny<string>(), It.IsAny<PermissionsDictionary>()), Times.Never);
             storageMock.Verify(m_ => m_.SaveAsync(), Times.Never);
         }
+
+        #endregion
+
+        #region update permissions on role's name change
+
+        /// <summary>
+        /// A renamed role has some permissions.
+        /// </summary>
+        [Fact]
+        public async Task UpdateRoleToPermissionsAsync_RenameRole_HasPermissions()
+        {
+            // Arrange
+            Fakes.ExtensionManager.Setup();
+            var roleToPermissionsRepositoryMock = new RoleToPermissionsRepositoryMock();
+
+            var storageMock = new Mock<IStorage>();
+
+            var roleName = Roles.Administrator.ToString();
+            var newRoleName = "testAdmin";
+            var existingRecord = new RoleToPermissions(roleName, roleName, new PermissionsDictionary());
+
+            roleToPermissionsRepositoryMock.Setup(m_ => m_.FindBy(roleName)).Returns(existingRecord);
+            storageMock.Setup(s_ => s_.GetRepository<IRoleToPermissionsRepository>()).Returns(roleToPermissionsRepositoryMock.Object);
+
+            // Act
+            var result = await UpdateRoleAndGrants.UpdateRoleToPermissionsAsync(storageMock.Object, roleName, newRoleName);
+
+            // Assert
+            result.Should().Be(true);
+
+            roleToPermissionsRepositoryMock.Verify(m_ => m_.FindBy(roleName), Times.Once);
+            storageMock.Verify(m_ => m_.SaveAsync(), Times.Once);
+        }
+
+        /// <summary>
+        /// A renamed role has no permissions.
+        /// </summary>
+        [Fact]
+        public async Task UpdateRoleToPermissionsAsync_RenameRole_HasNoPermissions()
+        {
+            // Arrange
+            Fakes.ExtensionManager.Setup();
+            var roleToPermissionsRepositoryMock = new RoleToPermissionsRepositoryMock();
+
+            var storageMock = new Mock<IStorage>();
+
+            var roleName = Roles.Administrator.ToString();
+            var newRoleName = "testAdmin";
+
+            roleToPermissionsRepositoryMock.Setup(m_ => m_.FindBy(roleName)).Returns(default(RoleToPermissions));
+            storageMock.Setup(s_ => s_.GetRepository<IRoleToPermissionsRepository>()).Returns(roleToPermissionsRepositoryMock.Object);
+
+            // Act
+            var result = await UpdateRoleAndGrants.UpdateRoleToPermissionsAsync(storageMock.Object, roleName, newRoleName);
+
+            // Assert
+            result.Should().Be(null);
+
+            roleToPermissionsRepositoryMock.Verify(m_ => m_.FindBy(roleName), Times.Once);
+            storageMock.Verify(m_ => m_.SaveAsync(), Times.Never);
+        }
+        #endregion
     }
 }

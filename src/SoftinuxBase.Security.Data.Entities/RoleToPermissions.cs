@@ -4,8 +4,11 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 using ExtCore.Data.Entities.Abstractions;
 using SoftinuxBase.Security.Permissions;
+
+[assembly: InternalsVisibleTo("SoftinuxBase.Security")]
 
 namespace SoftinuxBase.Security.Data.Entities
 {
@@ -43,7 +46,7 @@ namespace SoftinuxBase.Security.Data.Entities
         [MaxLength(ExtraAuthConstants.RoleNameSize)]
 
         // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Local - needed by EF Core
-        public string RoleName { get; private set; }
+        public string RoleName { get; internal set; }
 
         /// <summary>
         /// Gets a human-friendly description of what the Role does.
