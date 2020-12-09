@@ -17,7 +17,8 @@ namespace SoftinuxBase.Security.Data.Entities
     /// </summary>
     public class RoleToPermissions : IChangeEffectsUser, IEntity
     {
-        [Required(AllowEmptyStrings = false)] // A role must have at least one role in it
+        // Value stored in database that represents permissions.
+        [Required(AllowEmptyStrings = false)] // A role must have at least one permission in it
         private string _permissionsInRole;
 
         /// <summary>
@@ -67,26 +68,16 @@ namespace SoftinuxBase.Security.Data.Entities
              _permissionsInRole = permissions_.PackPermissions().ToStorageString();
         }
 
-        /*public IStatusGeneric DeleteRole(string roleName_, bool removeFromUsers_,
-            ApplicationStorageContext context_)
-        {
-            var status = new StatusGenericHandler { Message = "Deleted role successfully." };
-            var roleToUpdate = context_.Find<RoleToPermissions>(roleName_);
-            if (roleToUpdate == null)
-                return status.AddError("That role doesn't exists");
-
-            var usersWithRoles = context_.UserToRoles.Where(x_ => x_.RoleName == roleName_).ToList();
-            if (usersWithRoles.Any())
-            {
-                if (!removeFromUsers_)
-                    return status.AddError($"That role is used by {usersWithRoles.Count} and you didn't ask for them to be updated.");
-
-                context_.RemoveRange(usersWithRoles);
-                status.Message = $"Removed role from {usersWithRoles.Count} user and then deleted role successfully.";
-            }
-
-            context_.Remove(roleToUpdate);
-            return status;
-        }*/
+        /// <summary>
+        /// Creates a (transient) copy of current, with a new role name.
+        /// </summary>
+        /// <param name="newRoleName_">New role name.</param>
+        public RoleToPermissions Copy(string newRoleName_) {
+            return new RoleToPermissions {
+                RoleName = newRoleName_,
+                _permissionsInRole = _permissionsInRole,
+                Description = newRoleName_,
+            };
+        }
     }
 }

@@ -111,8 +111,9 @@ namespace SoftinuxBase.Security.Tools
                 // Nothing to update
                 return null;
             }
-
-            roleToPermissions.RoleName = newRoleName_;
+            var newRoleToPermissions = roleToPermissions.Copy(newRoleName_);
+            repository.Delete(roleToPermissions);
+            repository.Create(newRoleToPermissions);
             // And finally save back to database...
             await storage_.SaveAsync();
 

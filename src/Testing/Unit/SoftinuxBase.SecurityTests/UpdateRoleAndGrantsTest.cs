@@ -205,6 +205,8 @@ namespace SoftinuxBase.SecurityTests
             result.Should().Be(true);
 
             roleToPermissionsRepositoryMock.Verify(m_ => m_.FindBy(roleName), Times.Once);
+            roleToPermissionsRepositoryMock.Verify(m_ => m_.Delete(existingRecord), Times.Once);
+            roleToPermissionsRepositoryMock.Verify(m_ => m_.Create(It.Is<RoleToPermissions>(rtp_ => rtp_.RoleName == newRoleName)), Times.Once);
             storageMock.Verify(m_ => m_.SaveAsync(), Times.Once);
         }
 
@@ -233,6 +235,8 @@ namespace SoftinuxBase.SecurityTests
             result.Should().Be(null);
 
             roleToPermissionsRepositoryMock.Verify(m_ => m_.FindBy(roleName), Times.Once);
+            roleToPermissionsRepositoryMock.Verify(m_ => m_.Delete(It.IsAny<RoleToPermissions>()), Times.Never);
+            roleToPermissionsRepositoryMock.Verify(m_ => m_.Create(It.IsAny<RoleToPermissions>()), Times.Never);
             storageMock.Verify(m_ => m_.SaveAsync(), Times.Never);
         }
         #endregion
