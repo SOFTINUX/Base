@@ -179,10 +179,11 @@ namespace SoftinuxBase.Security.Controllers
         public async Task<IActionResult> UpdateRoleAsync([FromBody] UpdateRoleViewModel model_)
         {
             var role = await _aspNetRolesManager.FindByIdAsync(model_.RoleId);
+            var oldRoleName = role.Name;
             string error = await UpdateRole.CheckAndUpdateRoleAsync(_aspNetRolesManager, model_);
             if (string.IsNullOrEmpty(error))
             {
-                await UpdateRoleAndGrants.UpdateRoleToPermissionsAsync(Storage, role.Name, model_.RoleName);
+                await UpdateRoleAndGrants.UpdateRoleToPermissionsAsync(Storage, oldRoleName, model_.RoleName);
             }
 
             return StatusCode(string.IsNullOrEmpty(error) ? (int)HttpStatusCode.Created : (int)HttpStatusCode.BadRequest, error);
