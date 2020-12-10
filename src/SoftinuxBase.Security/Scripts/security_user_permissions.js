@@ -248,7 +248,10 @@ export function saveEditRoleName() {
         if (responseStatus_ === 201) {
             window.toastr.success(responseText_, 'Changes saved');
             $('#renameRoleModal').modal('hide');
-            refreshPermissionsTabs();
+            refreshPermissionsTabs().then(() => {
+                $('#availableRoles').val(roleNameInputElt.value); // Select the option with value of new role name
+                $('#availableRoles').trigger('change'); // Notify any JS components that the value changed
+            });
         } else if (responseStatus_ === 400) {
             window.toastr.error(responseText_, 'Cannot update role');
         } else {
@@ -321,8 +324,9 @@ function reloadBulkDeleteTab() {
     });
 }
 
+// Refresh the permissions tabs and return the promise used for this operation
 function refreshPermissionsTabs() {
-    Promise.all([reloadGrantPermissionsHtmlView(), reloadEditRoleHtmlView(), reloadBulkDeleteTab()])
+    return Promise.all([reloadGrantPermissionsHtmlView(), reloadEditRoleHtmlView(), reloadBulkDeleteTab()])
         .then(() => {
             document.getElementById('unlink-role-btn').addEventListener('click', () => {
                 deleteAllPermissionsOfRole(document.getElementById('edit_role_normalizedName').value);
