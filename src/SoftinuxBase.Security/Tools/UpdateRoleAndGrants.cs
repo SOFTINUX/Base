@@ -103,7 +103,6 @@ namespace SoftinuxBase.Security.Tools
         /// <returns>Success or not found indicator.</returns>
         internal static async Task<bool?> UpdateRoleToPermissionsAsync(IStorage storage_, string roleName_, string newRoleName_)
         {
-
             var repository = storage_.GetRepository<IRoleToPermissionsRepository>();
             var roleToPermissions = repository.FindBy(roleName_);
             if (roleToPermissions == null)
@@ -112,7 +111,10 @@ namespace SoftinuxBase.Security.Tools
                 return null;
             }
 
-            roleToPermissions.RoleName = newRoleName_;
+            var newRoleToPermissions = roleToPermissions.Copy(newRoleName_);
+            repository.Delete(roleToPermissions);
+            repository.Create(newRoleToPermissions);
+            
             // And finally save back to database...
             await storage_.SaveAsync();
 

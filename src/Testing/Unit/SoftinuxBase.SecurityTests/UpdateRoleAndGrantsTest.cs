@@ -111,10 +111,10 @@ namespace SoftinuxBase.SecurityTests
         }
 
         /// <summary>
-        /// Test that should pass.
+        /// Add a permission to a role that already has permissions.
         /// </summary>
         [Fact]
-        public async Task UpdateRoleToPermissionsAsync_Add_Ok()
+        public async Task UpdateRoleToPermissionsAsync_Add_AlreadyPermissions_Ok()
         {
             // Arrange
             Fakes.ExtensionManager.Setup();
@@ -124,6 +124,38 @@ namespace SoftinuxBase.SecurityTests
             var roleManager = new Mock<IAspNetRolesManager>();
 
             var roleName = Roles.Administrator.ToString();
+            var extensionName = Constants.SoftinuxBaseSecurityAssemblyShortName;
+            short permissionValue = (short)Permissions.Read;
+
+            roleManager.Setup(m_ => m_.FindByNameAsync(It.IsAny<string>())).ReturnsAsync(new IdentityRole<string>(roleName));
+            storageMock.Setup(s_ => s_.GetRepository<IRoleToPermissionsRepository>()).Returns(roleToPermissionsRepositoryMock.Object);
+
+            // Act
+            var result = await UpdateRoleAndGrants.UpdateRoleToPermissionsAsync(storageMock.Object, roleManager.Object, roleName, extensionName, permissionValue, true);
+
+            // Assert
+            result.Should().Be(null);
+
+            roleManager.Verify(m_ => m_.FindByNameAsync(roleName), Times.Once);
+            roleToPermissionsRepositoryMock.Verify(m_ => m_.FindBy(roleName), Times.Once);
+            roleToPermissionsRepositoryMock.Verify(m_ => m_.SetPermissions(roleName, It.IsAny<PermissionsDictionary>()), Times.Once);
+            storageMock.Verify(m_ => m_.SaveAsync(), Times.Once);
+        }
+
+        /// <summary>
+        /// Add a permission to a role that has no permissions.
+        /// </summary>
+        [Fact]
+        public async Task UpdateRoleToPermissionsAsync_Add_FirstPermission_Ok()
+        {
+            // Arrange
+            Fakes.ExtensionManager.Setup();
+            var roleToPermissionsRepositoryMock = new RoleToPermissionsRepositoryMock();
+
+            var storageMock = new Mock<IStorage>();
+            var roleManager = new Mock<IAspNetRolesManager>();
+
+            var roleName = Roles.User.ToString();
             var extensionName = Constants.SoftinuxBaseSecurityAssemblyShortName;
             short permissionValue = (short)Permissions.Read;
 
@@ -205,6 +237,8 @@ namespace SoftinuxBase.SecurityTests
             result.Should().Be(true);
 
             roleToPermissionsRepositoryMock.Verify(m_ => m_.FindBy(roleName), Times.Once);
+            roleToPermissionsRepositoryMock.Verify(m_ => m_.Delete(existingRecord), Times.Once);
+            roleToPermissionsRepositoryMock.Verify(m_ => m_.Create(It.Is<RoleToPermissions>(rtp_ => rtp_.RoleName == newRoleName)), Times.Once);
             storageMock.Verify(m_ => m_.SaveAsync(), Times.Once);
         }
 
@@ -233,6 +267,8 @@ namespace SoftinuxBase.SecurityTests
             result.Should().Be(null);
 
             roleToPermissionsRepositoryMock.Verify(m_ => m_.FindBy(roleName), Times.Once);
+            roleToPermissionsRepositoryMock.Verify(m_ => m_.Delete(It.IsAny<RoleToPermissions>()), Times.Never);
+            roleToPermissionsRepositoryMock.Verify(m_ => m_.Create(It.IsAny<RoleToPermissions>()), Times.Never);
             storageMock.Verify(m_ => m_.SaveAsync(), Times.Never);
         }
         #endregion
