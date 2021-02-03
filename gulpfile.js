@@ -1,8 +1,9 @@
+/* eslint-disable no-var */
 'use strict';
 
 var gulp = require('gulp');
 var concat = require('gulp-concat');
-var cssmin = require('gulp-cssmin');
+var cleanCSS = require('gulp-clean-css');
 var htmlmin = require('gulp-htmlmin');
 var uglify = require('gulp-uglify');
 var terser = require('gulp-terser');
@@ -130,7 +131,7 @@ gulp.task('min:css', async function () {
     merge(getBundles(regex.css).map(bundle => {
         return gulp.src(bundle.inputFiles, { base: '.' })
             .pipe(concat(bundle.outputFileName))
-            .pipe(cssmin())
+            .pipe(cleanCSS())
             .pipe(gulp.dest('.'));
     }));
 });
