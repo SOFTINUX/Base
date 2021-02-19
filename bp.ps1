@@ -26,7 +26,7 @@ param(
 )
 
 # set .NET output folder name (use .NET Core version defined into csproj files)
-$netVersion="netcoreapp3.1"
+$netVersion="net5.0"
 # Extensions folder
 $ext_folder=".\src\WebApplication\Extensions\"
 # Dependencies folder
