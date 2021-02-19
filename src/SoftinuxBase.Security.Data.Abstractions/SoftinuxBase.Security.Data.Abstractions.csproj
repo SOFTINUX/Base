@@ -4,7 +4,7 @@
     <Company>SOFTINUX</Company>
     <Copyright>Copyright © 2017 Softinux</Copyright>
     <Version>0.0.1</Version>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <AssemblyName>SoftinuxBase.Security.Data.Abstractions</AssemblyName>
     <RootNamespace>SoftinuxBase.Security.Data.Abstractions</RootNamespace>
     <PackageId>SoftinuxBase.Security.Data.Abstractions</PackageId>
@@ -23,7 +23,7 @@
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ExtCore.Data.Abstractions" Version="5.1.0" />
+    <PackageReference Include="ExtCore.Data.Abstractions" Version="6.0.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>

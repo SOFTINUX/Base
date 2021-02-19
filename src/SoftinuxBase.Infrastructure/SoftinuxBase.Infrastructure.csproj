@@ -4,7 +4,7 @@
     <Company>SOFTINUX</Company>
     <Copyright>Copyright © 2017 Softinux</Copyright>
     <Version>0.0.1</Version>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <AssemblyName>SoftinuxBase.Infrastructure</AssemblyName>
     <RootNamespace>SoftinuxBase.Infrastructure</RootNamespace>
     <PackageId>SoftinuxBase.Infrastructure</PackageId>
@@ -21,11 +21,11 @@
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
   <ItemGroup Label="Packages References">
-    <PackageReference Include="ExtCore.Data.EntityFramework" Version="5.1.0" />
-    <PackageReference Include="ExtCore.Mvc.Infrastructure" Version="5.1.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="3.1.6" />
+    <PackageReference Include="ExtCore.Data.EntityFramework" Version="6.0.0" />
+    <PackageReference Include="ExtCore.Mvc.Infrastructure" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.3" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.2" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="5.0.3" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>

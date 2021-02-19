@@ -4,7 +4,7 @@
     <Company>SOFTINUX</Company>
     <Copyright>Copyright © 2017 Softinux</Copyright>
     <Version>0.0.1</Version>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <AssemblyName>SoftinuxBase.Security.Data.Entities</AssemblyName>
     <RootNamespace>SoftinuxBase.Security.Data.Entities</RootNamespace>
     <PackageId>SoftinuxBase.Security.Data.Entities</PackageId>
@@ -23,8 +23,8 @@
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ExtCore.Data.Entities.Abstractions" Version="5.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="3.1.6" />
+    <PackageReference Include="ExtCore.Data.Entities.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.3" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
