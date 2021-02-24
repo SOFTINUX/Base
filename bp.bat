@@ -40,11 +40,7 @@ IF "%1" == "" GOTO Build
 echo ###################
 echo Updating bundles
 echo ###################
-for /f "tokens=*" %%i in (bundles.txt) DO (
-    pushd ".\%%i"
-    dotnet bundle
-    popd
-)
+gulp
 IF "%1" == "bundles" GOTO End
 
 :Build

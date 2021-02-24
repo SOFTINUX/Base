@@ -1,0 +1,47 @@
+[
+  {
+    "outputFileName": "src/SoftinuxBase.Barebone/Scripts/barebone.min.js",
+    "inputFiles": [
+      "src/SoftinuxBase.Barebone/Scripts/barebone.js",
+      "src/SoftinuxBase.Barebone/Scripts/infrastructure.js"
+    ],
+    "minify": {
+      "enabled": false,
+      "renameLocals": true
+    },
+    "sourceMap": true
+  },
+  {
+    "outputFileName": "src/SoftinuxBase.Security/Scripts/security_user.min.js",
+    "inputFiles": [
+      "src/SoftinuxBase.Security/Scripts/security_user.js"
+    ],
+    "minify": {
+      "enabled": false,
+      "renameLocals": true
+    },
+    "sourceMap": true
+  },
+  {
+    "outputFileName": "src/SoftinuxBase.Security/Scripts/security_user_permissions.min.js",
+    "inputFiles": [
+      "src/SoftinuxBase.Security/Scripts/security_user_permissions.js"
+    ],
+    "minify": {
+      "enabled": false,
+      "renameLocals": true
+    },
+    "sourceMap": true
+  },
+  {
+    "outputFileName": "src/SoftinuxBase.Security/Scripts/security_edit_user.min.js",
+    "inputFiles": [
+      "src/SoftinuxBase.Security/Scripts/security_edit_user.js"
+    ],
+    "minify": {
+      "enabled": false,
+      "renameLocals": true
+    },
+    "sourceMap": true
+  }
+]

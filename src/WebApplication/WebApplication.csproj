@@ -46,8 +46,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.0.7" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SoftinuxBase.Barebone\SoftinuxBase.Barebone.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Bundles\SoftinuxBase.Bundles.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Barebone\SoftinuxBase.Barebone.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security\SoftinuxBase.Security.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.Data.Abstractions\SoftinuxBase.Security.Data.Abstractions.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.Data.Entities\SoftinuxBase.Security.Data.Entities.csproj" />
@@ -63,15 +64,14 @@
   <PropertyGroup>
     <SolutionDir Condition=" '$(SolutionDir)' == '' ">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), SoftinuxBase.sln))\</SolutionDir>
   </PropertyGroup>
-  <Target Name="PreBuild" AfterTargets="BeforeBuild">
-    <Exec Command="&quot;$(SolutionDir)&quot;bp.bat bundles" Condition="'$(OS)' == 'Windows_NT'" />
-    <Exec Command="'$(SolutionDir)'bp.sh bundles" Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'" />
-    <Exec Command="'$(SolutionDir)'bp.sh bundles" Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'" />
-  </Target>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="&quot;$(SolutionDir)&quot;bp.bat copydeps| &quot;$(SolutionDir)&quot;bp.bat copyexts" Condition="'$(OS)' == 'Windows_NT'" />
     <Exec Command="'$(SolutionDir)'bp.sh copydeps" Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'" />
     <Exec Command="'$(SolutionDir)'bp.sh copydeps" Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'" />
   </Target>
-  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties properties_4launchsettings_1json__JsonSchema="" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

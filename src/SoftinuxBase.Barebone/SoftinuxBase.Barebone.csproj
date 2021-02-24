@@ -33,9 +33,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup Label="DotNetCliToolReference">
-    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="3.2.447" />
-  </ItemGroup>
   <ItemGroup Label="Projects References">
     <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
   </ItemGroup>
@@ -108,9 +105,9 @@
   <PropertyGroup>
     <SolutionDir Condition=" '$(SolutionDir)' == '' ">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), SoftinuxBase.sln))\</SolutionDir>
   </PropertyGroup>
-  <Target Name="PreBuild" AfterTargets="BeforeBuild">
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="&quot;$(SolutionDir)&quot;bp.bat generateBareboneCss" Condition="'$(OS)' == 'Windows_NT'" />
-    <Exec Command="'$(SolutionDir)'bp.sh generateBareboneCss" Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'" />
+    <Exec Command="'$(SolutionDir)'bp.sh generateBareboneCss" Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'false'" />
     <Exec Command="'$(SolutionDir)'bp.sh generateBareboneCss" Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'" />
   </Target>
 </Project>

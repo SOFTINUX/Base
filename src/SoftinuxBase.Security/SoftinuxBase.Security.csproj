@@ -31,11 +31,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="3.2.435" />
   </ItemGroup>
   <ItemGroup Label="Projects References">
-    <ProjectReference Include="..\SoftinuxBase.Barebone\SoftinuxBase.Barebone.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Infrastructure\SoftinuxBase.Infrastructure.csproj" />
+    <ProjectReference Include="..\SoftinuxBase.Barebone\SoftinuxBase.Barebone.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.Data.EntityFramework\SoftinuxBase.Security.Data.EntityFramework.csproj" />
     <ProjectReference Include="..\SoftinuxBase.Security.FeatureAuthorize\SoftinuxBase.Security.FeatureAuthorize.csproj" />
   </ItemGroup>

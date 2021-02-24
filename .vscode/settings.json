@@ -18,7 +18,6 @@
     },
     // Controls if suggestions should automatically show up when typing trigger characters
     "editor.suggestOnTriggerCharacters": true,
-    "editor.wordWrap": "on",
     "editor.wordWrapColumn": 350,
     "editor.tokenColorCustomizations": {
         "textMateRules": [

@@ -31,7 +31,4 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SoftinuxBase.Security.Permissions\SoftinuxBase.Security.Permissions.csproj" />
-  </ItemGroup>
 </Project>
