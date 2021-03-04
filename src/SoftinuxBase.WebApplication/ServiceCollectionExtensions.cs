@@ -41,6 +41,7 @@ namespace SoftinuxBase.WebApplication
         public static void AddSoftinuxBase<T>(this IServiceCollection services_, IConfiguration configuration_, string extensionsPath_)
             where T : DbContext
         {
+            services_.AddDatabaseDeveloperPageExceptionFilter();
             // services_.AddTransient<IUserClaimsPrincipalFactory<User>, ClaimsPrincipalFactory>();
 
             // Configure Identity (cannot move this to Security extension because of ApplicationStorageContext).
