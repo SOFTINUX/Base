@@ -175,5 +175,6 @@
 
     // Enable/disable autoclosing of HTML tags.
     "html.autoClosingTags": true,
+    "jupyter.jupyterServerType": "local",
 
 }

@@ -3,7 +3,11 @@
     "outputFileName": "src/SoftinuxBase.Barebone/Scripts/barebone.min.js",
     "inputFiles": [
       "src/SoftinuxBase.Barebone/Scripts/barebone.js",
-      "src/SoftinuxBase.Barebone/Scripts/infrastructure.js"
+      "src/SoftinuxBase.Barebone/Scripts/infrastructure.js",
+      "src/SoftinuxBase.Barebone/Scripts/barebone_press_and_hold.js",
+      "src/SoftinuxBase.Barebone/Scripts/CustomLogging.js",
+      "src/SoftinuxBase.Barebone/Scripts/toolbox.js",
+      "src/SoftinuxBase.Barebone/Scripts/barebone_ajax.js"
     ],
     "minify": {
       "enabled": false,
@@ -12,31 +16,11 @@
     "sourceMap": true
   },
   {
-    "outputFileName": "src/SoftinuxBase.Security/Scripts/security_user.min.js",
+    "outputFileName": "src/SoftinuxBase.Security/Scripts/security.min.js",
     "inputFiles": [
-      "src/SoftinuxBase.Security/Scripts/security_user.js"
-    ],
-    "minify": {
-      "enabled": false,
-      "renameLocals": true
-    },
-    "sourceMap": true
-  },
-  {
-    "outputFileName": "src/SoftinuxBase.Security/Scripts/security_user_permissions.min.js",
-    "inputFiles": [
+      "src/SoftinuxBase.Security/Scripts/security_user.js",
+      "src/SoftinuxBase.Security/Scripts/security_edit_user.js",
       "src/SoftinuxBase.Security/Scripts/security_user_permissions.js"
-    ],
-    "minify": {
-      "enabled": false,
-      "renameLocals": true
-    },
-    "sourceMap": true
-  },
-  {
-    "outputFileName": "src/SoftinuxBase.Security/Scripts/security_edit_user.min.js",
-    "inputFiles": [
-      "src/SoftinuxBase.Security/Scripts/security_edit_user.js"
     ],
     "minify": {
       "enabled": false,
