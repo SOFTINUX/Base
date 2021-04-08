@@ -89,6 +89,65 @@
         }
         </tbody>
     </table>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="invoice p-3 mb-3">
+                <div class="row">
+                    @* Card *@
+                    @foreach (var extensionName in Model.RolesWithPermissions.Keys)
+                    {
+                        <div class="col-md-6">
+                            <div class="card card-secondary collapsed-card" id="@Html.Raw(extensionName)">
+                                <div class="card-header">
+                                    <h3 class="card-title">@Html.Raw(extensionName)</h3>
+
+                                    <div class="card-tools">
+                                        @* This will cause the card to collapse when clicked *@
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
+                                    </div>
+                                </div>
+                               
+                                <div class="card-body">
+                                    <h6>Roles: </h6>
+                                    @foreach (var permissionSection in Model.GetPermissionSectionsForRoles(extensionName))
+                                    {
+                                        @foreach (var permissionDisplayWithRoles in Model.GetPermissionDisplaysWithRoles(extensionName, permissionSection))
+                                            {
+                                                <div>
+                                                    @permissionDisplayWithRoles.Key.ShortName
+                                                    <span class="text-muted">: @permissionDisplayWithRoles.Key.Description</span>
+                                                </div>
+                                                <select class="form-control select2bs4 update-role-permission" multiple data-placeholder="Select roles" disabled="@isDisabled">
+                                                    @foreach (var role in Model.RoleNames)
+                                                    {
+                                                        if (permissionDisplayWithRoles.Value.Contains(role))
+                                                        {
+                                                            <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue)" data-extension="@(extensionName)" selected="selected">@(role)</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue)" data-extension="@(extensionName)">@(role)</option>
+                                                        }
+                                                    }
+                                                    @* Additional roles *@
+                                                    @foreach (var role in additionalRoles)
+                                                    {
+                                                        <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue)" data-extension="@(extensionName)">@(role)</option>
+                                                    }
+                                                </select>
+                                                <br/>
+                                            }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
 }
 
 
