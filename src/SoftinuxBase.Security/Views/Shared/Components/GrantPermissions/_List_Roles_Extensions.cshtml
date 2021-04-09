@@ -17,9 +17,9 @@
 @{
     var canEditRoles = this.User.HasPermission(typeof(Permissions), (short) Permissions.EditRoles);
     var isDisabled = !canEditRoles;
-    var allRoles = RoleManager.Roles;
-    var additionalRoleNames = allRoles.Select(r_ => r_.Name).ToList().Except(Model.RoleNames);
-    var additionalRoles = allRoles.Where(r_ => additionalRoleNames.Contains(r_.Name));
+    //var allRoles = RoleManager.Roles;
+    //var additionalRoleNames = RoleManager.Roles.Select(r_ => r_.Name).ToList().Except(Model.RoleNames);
+    var additionalRoles = RoleManager.Roles.Where(r_ => RoleManager.Roles.Select(rn_ => rn_.Name).ToList().Except(Model.RoleNames).Contains(r_.Name));
 
     <table class="table table-head-fixed table-hover">
         <thead>
