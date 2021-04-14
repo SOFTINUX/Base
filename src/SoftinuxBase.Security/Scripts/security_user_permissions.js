@@ -6,10 +6,20 @@
 /// <reference path = '../../SoftinuxBase.Barebone/Scripts/barebone_ajax.js' />
 /// <reference path = './security_user.js' />
 
+let makeAjaxRequest;
+try {
+    makeAjaxRequest = await import('/Scripts.barebone_ajax.js');
+} catch (err) {
+    try {
+        makeAjaxRequest = await import('/Scripts.barebone.min.js');
+    } catch (err) {
+        throw err;
+    }
+}
+
 'use strict';
 
-import makeAjaxRequest from '/Scripts/barebone_ajax.js';
-import { inputFormGroupSetError, inputFormGroupValidator } from '/Scripts/security_user.js';
+//import { inputFormGroupSetError, inputFormGroupValidator } from '/Scripts/security_user.js';
 import { inputOnlyAlphanumeric } from '/Scripts/toolbox.js';
 
 /* Select 2 Boostrap 4 Theme for all Select2
@@ -19,7 +29,7 @@ import { inputOnlyAlphanumeric } from '/Scripts/toolbox.js';
 
 // Select2: template for unlink icon in edit role selectbox
 function iformat(icon) {
-    var originalOption = icon.element;
+    const originalOption = icon.element;
     return $('<span><i class="' + $(originalOption).data('icon-base') + ' ' + $(originalOption).data('icon') + '"></i> ' + icon.text + '</span>');
 }
 
@@ -37,27 +47,44 @@ window.deleteRole = deleteRole;
 /* ------------------------ events handlers ----------------------- */
 /* ---------------------------------------------------------------- */
 
-document.getElementById('bulk-delete-btn').addEventListener('click', () => {
-    if (document.getElementById('availableRolesForDelete').selectedOptions.length === 0)
-        window.toastr.warning('No role selected', 'Warning');
-    else {
-        deleteRole(Array.from(document.getElementById('availableRolesForDelete').options).filter(option => option.selected).map(option => option.value));
-    }
-    console.log(Array.from(document.getElementById('availableRolesForDelete').options).filter(option => option.selected).map(option => option.value));
-});
+const bulkDeleteBtn = document.getElementById('bulk-delete-btn');
+if (bulkDeleteBtn) {
+    bulkDeleteBtn.addEventListener('click',
+        () => {
+            if (document.getElementById('availableRolesForDelete').selectedOptions.length === 0)
+                window.toastr.warning('No role selected', 'Warning');
+            else {
+                deleteRole(Array.from(document.getElementById('availableRolesForDelete').options)
+                    .filter(option => option.selected).map(option => option.value));
+            }
+            console.log(Array.from(document.getElementById('availableRolesForDelete').options)
+                .filter(option => option.selected).map(option => option.value));
+        });
+}
+const cancelBulkDeleteBtn = document.getElementById('cancel-bulk-delete-btn');
+if (cancelBulkDeleteBtn) {
+    cancelBulkDeleteBtn.addEventListener('click',
+        () => {
+            document.getElementById('availableRolesForDelete').selectedIndex = -1;
+        });
+}
 
-document.getElementById('cancel-bulk-delete-btn').addEventListener('click', () => {
-    document.getElementById('availableRolesForDelete').selectedIndex = -1;
-});
+const saveRenameRoleBtn = document.getElementById('save-rename-role-btn');
+if (saveRenameRoleBtn) {
+    saveRenameRoleBtn.addEventListener('click',
+        (event_) => {
+            saveEditRoleName();
+        });
+}
 
-document.getElementById('save-rename-role-btn').addEventListener('click', (event_) => {
-    saveEditRoleName();
-});
-
-document.getElementById('unlink-role-btn').addEventListener('click', (event_) => {
-    console.log(event_.target);
-    deleteAllPermissionsOfRole(event_.target.attributes['data-name']);
-});
+const unkinkRoleBtn = document.getElementById('unlink-role-btn');
+if (unkinkRoleBtn) {
+    unkinkRoleBtn.addEventListener('click',
+        (event_) => {
+            console.log(event_.target);
+            deleteAllPermissionsOfRole(event_.target.attributes['data-name']);
+        });
+}
 
 Array.prototype.forEach.call(document.querySelectorAll('select.update-role-permission'), function (element_) {
     $(element_).on('select2:select', function (event_) {
@@ -72,28 +99,43 @@ Array.prototype.forEach.call(document.querySelectorAll('select.update-role-permi
 });
 
 // Change
-document.getElementById('role_name_input').addEventListener('change', () => {
-    inputFormGroupValidator('#role_name_input');
-});
+const roleNameInput = document.getElementById('role_name_input');
+if (roleNameInput) {
+    roleNameInput.addEventListener('change',
+        () => {
+            inputFormGroupValidator('#role_name_input');
+        });
+}
 
 // Focusout
-document.getElementById('role_name_input').addEventListener('focusout', () => {
-    inputFormGroupValidator('#role_name_input');
-});
+if (roleNameInput) {
+    roleNameInput.addEventListener('focusout',
+        () => {
+            inputFormGroupValidator('#role_name_input');
+        });
+}
 
 // Keypress: only numbers
-document.getElementById('role_name_input').addEventListener('keypress', event_ => {
-    inputOnlyAlphanumeric(event_);
-}, false);
+if (roleNameInput) {
+    roleNameInput.addEventListener('keypress',
+        event_ => {
+            inputOnlyAlphanumeric(event_);
+        },
+        false);
+}
 
 /* -------------------------------------------------------------------------------------------- */
 /* ------------------------ Modal initialization ---------------------------------------------- */
 /* -------------------------------------------------------------------------------------------- */
 
-$('#renameRoleModal').on('show.bs.modal', function (event) {
-    const roleNameInputElt = document.getElementById('role_rename_input');
-    roleNameInputElt.value = '';
-});
+const renameRoleModal = $('#renameRoleModal');
+if (renameRoleModal.length) {
+    renameRoleModal.on('show.bs.modal',
+        function (event) {
+            const roleNameInputElt = document.getElementById('role_rename_input');
+            roleNameInputElt.value = '';
+        });
+}
 
 /* --------------------------------------------------------------------------------------------- */
 /* ------------------------ Exported functions ------------------------------------------------- */
@@ -108,29 +150,36 @@ $('#renameRoleModal').on('show.bs.modal', function (event) {
 /**
  * Save new role.
  */
-document.getElementById('save-add-role-btn').addEventListener('click', () => {
-    const roleNameInputElt = document.getElementById('role_name_input');
-    if (!roleNameInputElt.value) {
-        window.toastr.warning('No role name given.', 'Role not saved!');
-        inputFormGroupValidator('#role_name_input');
-        return;
-    }
+const saveAddRoleBtn = document.getElementById('save-add-role-btn');
+if (saveAddRoleBtn) {
+    saveAddRoleBtn.addEventListener('click',
+        () => {
+            const roleNameInputElt = document.getElementById('role_name_input');
+            if (!roleNameInputElt.value) {
+                window.toastr.warning('No role name given.', 'Role not saved!');
+                inputFormGroupValidator('#role_name_input');
+                return;
+            }
 
-    const postData = {
-        RoleName: roleNameInputElt.value
-    };
+            const postData = {
+                RoleName: roleNameInputElt.value
+            };
 
-    makeAjaxRequest('POST', '/administration/save-new-role', postData, (responseStatus_, responseText_) => {
-        if (responseStatus_ === 201) {
-            window.toastr.success(responseText_, 'New role created');
-            inputFormGroupSetError('#role_name_input', null);
-            refreshPermissionsTabs();
-            resetAddRoleForm();
-        } else {
-            inputFormGroupSetError('#role_name_input', responseText_ || responseStatus_);
-        }
-    });
-});
+            makeAjaxRequest('POST',
+                '/administration/save-new-role',
+                postData,
+                (responseStatus_, responseText_) => {
+                    if (responseStatus_ === 201) {
+                        window.toastr.success(responseText_, 'New role created');
+                        inputFormGroupSetError('#role_name_input', null);
+                        refreshPermissionsTabs();
+                        resetAddRoleForm();
+                    } else {
+                        inputFormGroupSetError('#role_name_input', responseText_ || responseStatus_);
+                    }
+                });
+        });
+}
 
 /**
  * Update the UI with selected role information. Ajax GET.

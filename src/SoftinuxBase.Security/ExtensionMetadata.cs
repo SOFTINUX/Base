@@ -36,7 +36,24 @@ namespace SoftinuxBase.Security
         public IEnumerable<StyleSheet> StyleSheets => new[] { new StyleSheet("/Styles.Security.css", 510) };
 
         /// <inheritdoc />
-        public IEnumerable<Script> Scripts => new[] { new Script($"/Scripts.security_user{FileExtensionPrefix}.js", 710, Script.JsType.IsModule) };
+        public IEnumerable<Script> Scripts
+        {
+            get
+            {
+#if DEBUG
+         return new[]
+                {
+                    new Script($"/Scripts.security_user.js", 710, Script.JsType.IsModule)
+                };     
+#else
+                return new[]
+                {
+                    new Script($"/Scripts.security.min.js", 710, Script.JsType.IsModule)
+                };
+#endif
+
+            }
+        }
 
         /// <inheritdoc />
         public IEnumerable<MenuGroup> MenuGroups
@@ -70,6 +87,7 @@ namespace SoftinuxBase.Security
         /// <inheritdoc />
         public string FileExtensionPrefix
         {
+            // TO BE REMOVED
             get
             {
 #if DEBUG

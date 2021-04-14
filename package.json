@@ -67,6 +67,7 @@
     "gulp-htmlmin": "^5.0.1",
     "gulp-terser": "^2.0.1",
     "merge-stream": "^2.0.0",
-    "sass": "^1.32.8"
+    "sass": "^1.32.8",
+    "terser": "^5.6.1"
   }
 }
