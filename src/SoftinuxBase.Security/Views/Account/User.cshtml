@@ -5,7 +5,6 @@
 @using SoftinuxBase.Security.Data.Entities
 
 @inject UserManager<User> UserManager
-
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section title
 {
@@ -35,18 +34,25 @@
                     </div>
                     <div class="tab-pane" id="groups-content" role="tabpanel" aria-labelledby="profile-groups-tab">
                         <h3><i class="fa fa-users" aria-hidden="true"></i>&nbsp;&nbsp;My Groups</h3>
-                        <h4>My Claims</h4><br/>
+                        <h4>My Claims</h4><br />
                         @await Html.PartialAsync("_ListClaims")
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
 </div>
 
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section Scripts
 {
-    <script type="text/javascript" src="/Scripts/security_edit_user.js"></script>
+    @if (ViewBag.IsDebug ?? false)
+    {
+        <script src="/Scripts.security_edit_user.js"></script>
+    }
+    else
+    {
+        <script src="/Scripts.security_edit_user.min.js"></script>
+    }
 }

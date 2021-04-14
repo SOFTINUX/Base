@@ -39,22 +39,26 @@ addEventListenersForAvatarSelection();
 
 // Keyup, change, paste
 const profileForm = document.getElementById('profile_form');
-if (profileForm !== null) {
+if (profileForm) {
     const inputFields = profileForm.getElementsByTagName('input');
-    for (const inputField of inputFields) {
-        inputField.addEventListener('keyup', () => inputChanged('save_profile_btn'));
-        inputField.addEventListener('paste', () => inputChanged('save_profile_btn'));
-        inputField.addEventListener('change', () => inputChanged('save_profile_btn'));
+    if (inputFields) {
+        for (const inputField of inputFields) {
+            inputField.addEventListener('keyup', () => inputChanged('save_profile_btn'));
+            inputField.addEventListener('paste', () => inputChanged('save_profile_btn'));
+            inputField.addEventListener('change', () => inputChanged('save_profile_btn'));
+        }
     }
 }
 
 const changePasswordForm = document.getElementById('pwd_form');
-if (changePasswordForm !== null) {
+if (changePasswordForm) {
     const inputFields = changePasswordForm.getElementsByTagName('input');
-    for (const pwdField of inputFields) {
-        pwdField.addEventListener('keyup', () => inputChanged('change_pwd-btn'));
-        pwdField.addEventListener('paste', () => inputChanged('change_pwd-btn'));
-        pwdField.addEventListener('change', () => inputChanged('change_pwd-btn'));
+    if (inputFields) {
+        for (const pwdField of inputFields) {
+            pwdField.addEventListener('keyup', () => inputChanged('change_pwd-btn'));
+            pwdField.addEventListener('paste', () => inputChanged('change_pwd-btn'));
+            pwdField.addEventListener('change', () => inputChanged('change_pwd-btn'));
+        }
     }
 }
 

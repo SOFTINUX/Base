@@ -41,6 +41,9 @@ namespace SoftinuxBase.Security.Controllers
         public async Task<IActionResult> IndexAsync()
         {
             ViewBag.userList = _usersmanager.Users.Select(u_ => new SelectListItem { Text = u_.UserName, Value = u_.Id }).ToList();
+#if DEBUG
+            ViewBag.IsDebug = true;
+#endif
             return await Task.Run(() => View("ListUsers"));
         }
 
