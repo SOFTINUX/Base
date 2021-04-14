@@ -58,22 +58,22 @@
                                                 @permissionDisplayWithRoles.Key.ShortName
                                                 <span class="text-muted">: @permissionDisplayWithRoles.Key.Description</span>
                                             </div>
-                                            <select class="form-control select2bs4 update-role-permission" multiple data-placeholder="Select roles" disabled="@isDisabled">
+                                            <select class="form-control select2bs4 update-role-permission" multiple data-placeholder="Select roles" disabled="@(isDisabled.ToString())">
                                                 @foreach (var role in Model.RoleNames)
                                                 {
                                                     if (permissionDisplayWithRoles.Value.Contains(role))
                                                     {
-                                                        <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue)" data-extension="@(extensionName)" selected="selected">@(role)</option>
+                                                        <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue.ToString())" data-extension="@(extensionName)" selected="selected">@(role)</option>
                                                     }
                                                     else
                                                     {
-                                                        <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue)" data-extension="@(extensionName)">@(role)</option>
+                                                        <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue.ToString())" data-extension="@(extensionName)">@(role)</option>
                                                     }
                                                 }
                                                 @* Additional roles *@
                                                 @foreach (var role in additionalRoles)
                                                 {
-                                                    <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue)" data-extension="@(extensionName)">@(role)</option>
+                                                    <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue.ToString())" data-extension="@(extensionName)">@(role)</option>
                                                 }
                                             </select>
                                             <br/>
@@ -118,22 +118,22 @@
                                                     @permissionDisplayWithRoles.Key.ShortName
                                                     <span class="text-muted">: @permissionDisplayWithRoles.Key.Description</span>
                                                 </div>
-                                                <select class="form-control select2bs4 update-role-permission" multiple data-placeholder="Select roles" disabled="@isDisabled">
+                                                <select class="form-control select2bs4 update-role-permission" multiple data-placeholder="Select roles" disabled="@(isDisabled.ToString())">
                                                     @foreach (var role in Model.RoleNames)
                                                     {
                                                         if (permissionDisplayWithRoles.Value.Contains(role))
                                                         {
-                                                            <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue)" data-extension="@(extensionName)" selected="selected">@(role)</option>
+                                                            <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue.ToString())" data-extension="@(extensionName)" selected="selected">@(role)</option>
                                                         }
                                                         else
                                                         {
-                                                            <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue)" data-extension="@(extensionName)">@(role)</option>
+                                                            <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue.ToString())" data-extension="@(extensionName)">@(role)</option>
                                                         }
                                                     }
                                                     @* Additional roles *@
                                                     @foreach (var role in additionalRoles)
                                                     {
-                                                        <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue)" data-extension="@(extensionName)">@(role)</option>
+                                                        <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue.ToString())" data-extension="@(extensionName)">@(role)</option>
                                                     }
                                                 </select>
                                                 <br/>
