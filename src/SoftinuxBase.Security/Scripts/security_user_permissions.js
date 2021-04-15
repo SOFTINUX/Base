@@ -81,9 +81,9 @@ if (saveRenameRoleBtn) {
         });
 }
 
-const unkinkRoleBtn = document.getElementById('unlink-role-btn');
-if (unkinkRoleBtn) {
-    unkinkRoleBtn.addEventListener('click',
+const unlinkRoleBtn = document.getElementById('unlink-role-btn');
+if (unlinkRoleBtn) {
+    unlinkRoleBtn.addEventListener('click',
         (event_) => {
             console.log(event_.target);
             deleteAllPermissionsOfRole(event_.target.attributes['data-name']);
@@ -381,8 +381,9 @@ function reloadBulkDeleteTab() {
 function refreshPermissionsTabs() {
     return Promise.all([reloadGrantPermissionsHtmlView(), reloadEditRoleHtmlView(), reloadBulkDeleteTab()])
         .then(() => {
-            document.getElementById('unlink-role-btn').addEventListener('click', () => {
-                deleteAllPermissionsOfRole(document.getElementById('edit_role_normalizedName').value);
+            let unlinkRoleBtn = document.getElementById('unlink-role-btn');
+            unlinkRoleBtn.addEventListener('click', () => {
+                deleteAllPermissionsOfRole(unlinkRoleBtn.attributes['data-name']);
             });
             useSelect2();
         })
