@@ -6,13 +6,17 @@
 /// <reference path = '../../SoftinuxBase.Barebone/Scripts/barebone_ajax.js' />
 /// <reference path = './security_user.js' />
 
-let makeAjaxRequest;
+let bareboneModule;
 try {
-    makeAjaxRequest = await import('/Scripts.barebone_ajax.js');
+    bareboneModule = await import('/Scripts.barebone_ajax.js');
 } catch (err) {
+    console.debug('No /Scripts.barebone_ajax.js');
+    console.error(err);
     try {
-        makeAjaxRequest = await import('/Scripts.barebone.min.js');
+        bareboneModule = await import('/Scripts.barebone.min.js');
     } catch (err) {
+        console.debug('No /Scripts.barebone.min.js');
+        console.error(err);
         throw err;
     }
 }
@@ -165,7 +169,7 @@ if (saveAddRoleBtn) {
                 RoleName: roleNameInputElt.value
             };
 
-            makeAjaxRequest('POST',
+            bareboneModule.makeAjaxRequest('POST',
                 '/administration/save-new-role',
                 postData,
                 (responseStatus_, responseText_) => {
@@ -186,7 +190,7 @@ if (saveAddRoleBtn) {
  * @param {any} roleId_ - roleId
  */
 export function viewSelectedRole(roleId_) {
-    makeAjaxRequest('GET', '/administration/read-role', { roleId_: roleId_ }, (responseStatus_, responseText_) => {
+    bareboneModule.makeAjaxRequest('GET', '/administration/read-role', { roleId_: roleId_ }, (responseStatus_, responseText_) => {
         if (responseStatus_ !== 200) {
             window.toastr.error(responseText_, 'Error reading role');
             return;
@@ -256,7 +260,7 @@ function updateRolePermission(event_) {
         Add: event_.params.data.selected
     };
 
-    makeAjaxRequest('POST', '/administration/update-role-permission', params, (responseStatus_, responseText_) => {
+    bareboneModule.makeAjaxRequest('POST', '/administration/update-role-permission', params, (responseStatus_, responseText_) => {
         if (responseStatus_ === 204) {
             window.toastr.success(responseText_, 'Changes saved');
             // If this role's permissions are currently viewed, refresh
@@ -293,7 +297,7 @@ export function saveEditRoleName() {
         RoleName: roleNameInputElt.value
     };
 
-    makeAjaxRequest('POST', '/administration/update-role', postData, (responseStatus_, responseText_) => {
+    bareboneModule.makeAjaxRequest('POST', '/administration/update-role', postData, (responseStatus_, responseText_) => {
         if (responseStatus_ === 201) {
             window.toastr.success(responseText_, 'Changes saved');
             $('#renameRoleModal').modal('hide');
@@ -310,7 +314,7 @@ export function saveEditRoleName() {
 }
 
 export function deleteAllPermissionsOfRole(roleName_) {
-    makeAjaxRequest('DELETE', `/administration/remove-role-permissions/${roleName_}`, {}, (responseStatus_, responseText_) => {
+    bareboneModule.makeAjaxRequest('DELETE', `/administration/remove-role-permissions/${roleName_}`, {}, (responseStatus_, responseText_) => {
         if (responseStatus_ === 204) {
             window.toastr.success(`All permissions removed from role ${roleName_}`, 'Delete OK');
             refreshPermissionsTabs();
@@ -323,7 +327,7 @@ export function deleteAllPermissionsOfRole(roleName_) {
 }
 
 export function deleteRole(roleNameList_) {
-    makeAjaxRequest('DELETE', `/administration/delete-role/${roleNameList_}`, {}, (responseStatus_, responseText_) => {
+    bareboneModule.makeAjaxRequest('DELETE', `/administration/delete-role/${roleNameList_}`, {}, (responseStatus_, responseText_) => {
         if (responseStatus_ === 200) {
             window.toastr.success(`${roleNameList_}`, 'Role(s) deleted');
             refreshPermissionsTabs();
@@ -336,7 +340,7 @@ export function deleteRole(roleNameList_) {
 
 function reloadGrantPermissionsHtmlView() {
     return new window.Promise((resolve, reject) => {
-        makeAjaxRequest('GET', '/administration/read-permissions-grants', null, (responseStatus_, responseText_) => {
+        bareboneModule.makeAjaxRequest('GET', '/administration/read-permissions-grants', null, (responseStatus_, responseText_) => {
             document.getElementById('GrantPermissionsTable').innerHTML = responseText_;
             // Reattach the event listeners
             Array.prototype.forEach.call(document.querySelectorAll('select.update-role-permission'), function (element_) {
@@ -357,7 +361,7 @@ function reloadGrantPermissionsHtmlView() {
 
 function reloadEditRoleHtmlView() {
     return new window.Promise((resolve, reject) => {
-        makeAjaxRequest('GET', '/administration/edit-role-tab', null, (responseStatus_, responseText_) => {
+        bareboneModule.makeAjaxRequest('GET', '/administration/edit-role-tab', null, (responseStatus_, responseText_) => {
             document.getElementById('edit_role_form').innerHTML = responseText_;
             resolve();
         });
@@ -366,7 +370,7 @@ function reloadEditRoleHtmlView() {
 
 function reloadBulkDeleteTab() {
     return new window.Promise((resolve, reject) => {
-        makeAjaxRequest('GET', '/administration/bulk-delete-role-tab', null, (responseStatus_, responseText_) => {
+        bareboneModule.makeAjaxRequest('GET', '/administration/bulk-delete-role-tab', null, (responseStatus_, responseText_) => {
             document.getElementById('availableRolesForDelete').innerHTML = responseText_;
             resolve();
         });
