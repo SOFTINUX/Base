@@ -69,7 +69,7 @@ if (changePasswordForm) {
 /*
  * Add events listeners for file selection : button and hidden file input.
 */
-function addEventListenersForAvatarSelection() {
+export function addEventListenersForAvatarSelection() {
     // When a file is chosen using file selector, put the selected file's name into the "file_path" text input
     const inputAvatar = document.getElementById('inputAvatar');
     if (inputAvatar) {
