@@ -232,10 +232,10 @@
 @section Scripts {
     @* ReSharper disable once Html.PathError (from Security.Barebone's scripts) *@
     <script src="/Scripts/toolbox.js" type="module"></script>
-    @{var pressAndHoldScript = "barebone.min.js"; }
+    @{var barebonePressAndHoldModule = "barebone.min.js"; }
     @if (ViewBag.IsDebug ?? false)
     {
-        pressAndHoldScript = "barebone_press_and_hold.js";
+        barebonePressAndHoldModule = "barebone_press_and_hold.js";
         <script src="/Scripts.security_user_permissions.js" type="module"></script>
     }
     else
@@ -244,7 +244,7 @@
     }
 
     <script type="module">
-        import { pressAndHold } from '/Scripts.@(pressAndHoldScript)';
+        import { pressAndHold } from '/Scripts.@(barebonePressAndHoldModule)';
 
         /*$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
           e.target; // newly activated tab
