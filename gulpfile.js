@@ -6,7 +6,8 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     cssmin = require('gulp-clean-css'),
     htmlmin = require('gulp-htmlmin'),
-    uglify = require('gulp-terser'),
+    terser = require('terser'),
+    gulpTerser = require('gulp-terser'),
     merge = require('merge-stream'),
     del = require('del'),
     bundleconfig = require('./bundleconfig.json');
@@ -21,7 +22,7 @@ gulp.task('min:js', async function () {
     merge(getBundles(regex.js).map(bundle => {
         return gulp.src(bundle.inputFiles, { base: '.' })
             .pipe(concat(bundle.outputFileName))
-            .pipe(uglify())
+            .pipe(gulpTerser({}, terser.minify))
             .pipe(gulp.dest('.'));
     }));
 });

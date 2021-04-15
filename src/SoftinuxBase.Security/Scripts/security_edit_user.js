@@ -69,7 +69,7 @@ if (changePasswordForm) {
 /*
  * Add events listeners for file selection : button and hidden file input.
 */
-function addEventListenersForAvatarSelection() {
+export function addEventListenersForAvatarSelection() {
     // When a file is chosen using file selector, put the selected file's name into the "file_path" text input
     const inputAvatar = document.getElementById('inputAvatar');
     if (inputAvatar) {
@@ -104,8 +104,10 @@ function editState(fieldsetid_, editbtnid_, event_) {
     editbtnId.classList.add('hidden');
     if (editbtnid_ === 'save_profile_btn') {
         const fileBrowser = document.getElementById('file_browser');
-        fileBrowser.classList.remove('btn-primary');
-        fileBrowser.classList.add('btn-default');
+        if (fileBrowser) {
+            fileBrowser.classList.remove('btn-primary');
+            fileBrowser.classList.add('btn-default');
+        }
     }
     if (fieldSetId.disabled) {
         fieldSetId.disabled = false;
@@ -132,7 +134,10 @@ function cancelEditState(formid_, fieldsetid_, editbtnid_, editbtntxt_, event_) 
 
     document.getElementById(fieldsetid_).disabled = true;
     document.getElementById(`cancel_${editbtnid_}`).classList.add('hidden');
-    document.getElementById('file_browser').classList.remove('btn-primary');
+    const fileBrowser = document.getElementById('file_browser');
+    if (fileBrowser) {
+        fileBrowser.classList.remove('btn-primary');
+    }
     document.getElementById(formid_).reset();
 }
 

@@ -210,7 +210,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <hr/>
+                        <hr />
                     </div>
                 </div>
                 <div class="row">
@@ -232,16 +232,19 @@
 @section Scripts {
     @* ReSharper disable once Html.PathError (from Security.Barebone's scripts) *@
     <script src="/Scripts/toolbox.js" type="module"></script>
+    @{var barebonePressAndHoldModule = "barebone.min.js"; }
     @if (ViewBag.IsDebug ?? false)
     {
+        barebonePressAndHoldModule = "barebone_press_and_hold.js";
         <script src="/Scripts.security_user_permissions.js" type="module"></script>
     }
     else
     {
-        <script src="/Scripts.security_user_permissions.min.js" type="module"></script>
+        <script src="/Scripts.security.min.js" type="module"></script>
     }
+
     <script type="module">
-        import pressAndHold from '/Scripts/barebone_press_and_hold.js';
+        import { pressAndHold } from '/Scripts.@(barebonePressAndHoldModule)';
 
         /*$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
           e.target; // newly activated tab
@@ -256,7 +259,7 @@
             e.stopPropagation();
         };
 
-        @* begin pressAndHold block *@
+@* begin pressAndHold block *@
         Array.from(document.querySelectorAll(".removeAllRoles")).forEach(
             (element) => {
                 pressAndHold(element, {
@@ -272,16 +275,17 @@
         Array.from(document.querySelectorAll(".removeAllRoles")).forEach(
             (element) => {
                 addEventListener("complete.pressAndHold", event_ => {
-                    @* deleteRole(); *@
+    @* deleteRole(); *@
                     console.log("");
                     console.log("complete");
-                    @* TODO hide the modal $('#myModal').modal('hide'); *@
+@* TODO hide the modal $('#myModal').modal('hide'); *@
                 });
             }
         );
-        @* end pressAndHold block *@
-        
-        @* Select2 *@
-        @* TODO sample use for select#roles *@
+@* end pressAndHold block *@
+
+@* Select2 *@
+    @* TODO sample use for select#roles *@
+
     </script>
 }

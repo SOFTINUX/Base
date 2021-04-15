@@ -34,7 +34,7 @@ const pressHoldEvent = new CustomEvent('pressHold');
             progressIndicatorOpacity: 0.6
         }
  */
-export default function pressAndHold(htmlElement_, settings_) {
+export function pressAndHold(htmlElement_, settings_) {
     // set pressed element
     pressedHtmlElement = htmlElement_;
 

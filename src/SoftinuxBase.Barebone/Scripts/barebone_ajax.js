@@ -17,7 +17,7 @@
  * @param {json} data_ - json data
  * @param {function(number, string)} responseCallback_ - function that is executed with 2 parameters: response status (number), response text (string). Optional
  */
-export default function makeAjaxRequest(type_, url_, data_, responseCallback_) {
+export function makeAjaxRequest(type_, url_, data_, responseCallback_) {
     type_ = type_.toUpperCase();
     const httpRequest = new XMLHttpRequest();
 

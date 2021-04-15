@@ -74,6 +74,7 @@ namespace SoftinuxBase.Infrastructure.Interfaces
         ///     new Script($"/Scripts.myScript{FileExtensionPrefix}.js", 710, Script.JsType.IsModule),
         /// };
         /// </remarks>
+        // TODO remove this and document IEnumerable<Script> Scripts { get; } with an example.
         string FileExtensionPrefix { get; }
 #pragma warning restore SA1629 // Documentation text should end with a period
     }

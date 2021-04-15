@@ -49,10 +49,10 @@
 {
     @if (ViewBag.IsDebug ?? false)
     {
-        <script src="/Scripts.security_edit_user.js"></script>
+        <script src="/Scripts.security_edit_user.js" type="module"></script>
     }
     else
     {
-        <script src="/Scripts.security_edit_user.min.js"></script>
+        <script src="/Scripts.security.min.js" type="module"></script>
     }
 }
