@@ -114,7 +114,7 @@ select.input-validation-error
     content: "Browse...";
 }
 
-.select2-selection__choice {
+.select2-selection__choice, .select2-selection__choice__remove {
     background-color: #e2e2e2 !important;
     border: 0 !important;
 }
