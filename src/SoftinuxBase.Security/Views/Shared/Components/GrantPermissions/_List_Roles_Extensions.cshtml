@@ -58,7 +58,7 @@
                                                 @permissionDisplayWithRoles.Key.ShortName
                                                 <span class="text-muted">: @permissionDisplayWithRoles.Key.Description</span>
                                             </div>
-                                            <select class="form-control select2bs4 update-role-permission" multiple data-placeholder="Select roles" disabled="@(isDisabled.ToString())">
+                                            <select class="form-control select2bs4 update-role-permission" multiple data-placeholder="Select roles" disabled="@isDisabled">
                                                 @foreach (var role in Model.RoleNames)
                                                 {
                                                     if (permissionDisplayWithRoles.Value.Contains(role))
@@ -107,7 +107,7 @@
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
                                     </div>
                                 </div>
-                               
+
                                 <div class="card-body">
                                     <h6>Roles: </h6>
                                     @foreach (var permissionSection in Model.GetPermissionSectionsForRoles(extensionName))
@@ -118,7 +118,7 @@
                                                     @permissionDisplayWithRoles.Key.ShortName
                                                     <span class="text-muted">: @permissionDisplayWithRoles.Key.Description</span>
                                                 </div>
-                                                <select class="form-control select2bs4 update-role-permission" multiple data-placeholder="Select roles" disabled="@(isDisabled.ToString())">
+                                                <select class="form-control select2bs4 update-role-permission" multiple data-placeholder="Select roles" disabled="@isDisabled">
                                                     @foreach (var role in Model.RoleNames)
                                                     {
                                                         if (permissionDisplayWithRoles.Value.Contains(role))
@@ -155,7 +155,7 @@
 
 @section Scripts {
     <script type="text/javascript">
-   
+
     </script>
 
 }
