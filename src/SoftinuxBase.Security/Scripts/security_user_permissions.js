@@ -7,15 +7,20 @@
 /// <reference path = './security_user.js' />
 
 let bareboneAjaxModule;
+let securityUserModule;
 try {
     bareboneAjaxModule = await import('/Scripts.barebone.min.js');
 } catch (err) {
     bareboneAjaxModule = await import('/Scripts.barebone_ajax.js');
 }
 
+try {
+    securityUserModule = await import('/Scripts.security_user.js');
+} catch (err) {
+}
+
 'use strict';
 
-//import { inputFormGroupSetError, inputFormGroupValidator } from '/Scripts/security_user.js';
 import { inputOnlyAlphanumeric } from '/Scripts/toolbox.js';
 
 /* Select 2 Boostrap 4 Theme for all Select2
@@ -99,7 +104,7 @@ const roleNameInput = document.getElementById('role_name_input');
 if (roleNameInput) {
     roleNameInput.addEventListener('change',
         () => {
-            inputFormGroupValidator('#role_name_input');
+            securityUserModule ? securityUserModule.inputFormGroupValidator('#role_name_input') : inputFormGroupValidator('#role_name_input');
         });
 }
 
@@ -107,7 +112,7 @@ if (roleNameInput) {
 if (roleNameInput) {
     roleNameInput.addEventListener('focusout',
         () => {
-            inputFormGroupValidator('#role_name_input');
+            securityUserModule ?securityUserModule.inputFormGroupValidator('#role_name_input') : inputFormGroupValidator('#role_name_input');
         });
 }
 
@@ -153,7 +158,7 @@ if (saveAddRoleBtn) {
             const roleNameInputElt = document.getElementById('role_name_input');
             if (!roleNameInputElt.value) {
                 window.toastr.warning('No role name given.', 'Role not saved!');
-                inputFormGroupValidator('#role_name_input');
+                securityUserModule ? securityUserModule.inputFormGroupValidator('#role_name_input') : inputFormGroupValidator('#role_name_input');
                 return;
             }
 
@@ -167,11 +172,11 @@ if (saveAddRoleBtn) {
                 (responseStatus_, responseText_) => {
                     if (responseStatus_ === 201) {
                         window.toastr.success(responseText_, 'New role created');
-                        inputFormGroupSetError('#role_name_input', null);
+                        securityUserModule ? securityUserModule.inputFormGroupSetError('#role_name_input', null) : inputFormGroupSetError('#role_name_input', null);
                         refreshPermissionsTabs();
                         resetAddRoleForm();
                     } else {
-                        inputFormGroupSetError('#role_name_input', responseText_ || responseStatus_);
+                        securityUserModule ? securityUserModule.inputFormGroupSetError('#role_name_input', responseText_ || responseStatus_) : inputFormGroupSetError('#role_name_input', responseText_ || responseStatus_);
                     }
                 });
         });
@@ -279,7 +284,7 @@ export function saveEditRoleName() {
     const roleNameInputElt = document.getElementById('role_rename_input');
     if (!roleNameInputElt.value) {
         window.toastr.warning('No new role name given.', 'Changes not saved!');
-        inputFormGroupValidator('#role_rename_input');
+        securityUserModule ? securityUserModule.inputFormGroupValidator('#role_rename_input') : inputFormGroupValidator('#role_rename_input');
         return;
     }
     const roleSelectElt = document.getElementById('availableRoles');
