@@ -1,0 +1,27 @@
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    @* Brand Logo *@
+    <a href="#" class="brand-link">
+        <img src="/img/@Html.Raw(Model.Value.BrandLogo)" class="brand-image img-circle elevation-3" alt="Brand Logo">
+        @* TODO add brand title here *@
+        <span class="brand-text font-weight-light">@Model.Value.Name</span>
+    </a>
+    @* Side bar *@
+    <div class="sidebar">
+        @* Sidebar use panel *@
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="/img/profile-circle2-128.png" class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info">
+                <a href="@Url.Action("UpdateProfile", "Account")" class="d-block">@User.Identity.Name</a>
+            </div>
+        </div>
+        @* Side menu *@
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                @* <li class="header">HEADER</li> *@
+                @await Component.InvokeAsync("Menu")
+            </ul>
+        </nav>
+    </div>
+</aside>

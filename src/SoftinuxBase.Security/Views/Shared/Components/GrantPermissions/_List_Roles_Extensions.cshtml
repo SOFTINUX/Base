@@ -2,7 +2,6 @@
     Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 *@
 
-@using System.Collections.Specialized
 @using Microsoft.AspNetCore.Identity
 @using SoftinuxBase.Security.Data.Entities
 @using SoftinuxBase.Security.FeatureAuthorize.Extensions
@@ -20,7 +19,7 @@
     //var allRoles = RoleManager.Roles;
     //var additionalRoleNames = RoleManager.Roles.Select(r_ => r_.Name).ToList().Except(Model.RoleNames);
     var additionalRoles = RoleManager.Roles.Where(r_ => RoleManager.Roles.ToList().Select(rn_ => rn_.Name).Except(Model.RoleNames).Contains(r_.Name)).ToList();
-
+}
     <table class="table table-head-fixed table-hover">
         <thead>
         <tr>
@@ -113,31 +112,31 @@
                                     @foreach (var permissionSection in Model.GetPermissionSectionsForRoles(extensionName))
                                     {
                                         @foreach (var permissionDisplayWithRoles in Model.GetPermissionDisplaysWithRoles(extensionName, permissionSection))
-                                            {
-                                                <div>
-                                                    @permissionDisplayWithRoles.Key.ShortName
-                                                    <span class="text-muted">: @permissionDisplayWithRoles.Key.Description</span>
-                                                </div>
-                                                <select class="form-control select2bs4 update-role-permission" multiple data-placeholder="Select roles" disabled="@(isDisabled.ToString())">
-                                                    @foreach (var role in Model.RoleNames)
+                                        {
+                                            <div>
+                                                @permissionDisplayWithRoles.Key.ShortName
+                                                <span class="text-muted">: @permissionDisplayWithRoles.Key.Description</span>
+                                            </div>
+                                            <select class="form-control select2bs4 update-role-permission" multiple data-placeholder="Select roles" disabled="@(isDisabled.ToString())">
+                                                @foreach (var role in Model.RoleNames)
+                                                {
+                                                    if (permissionDisplayWithRoles.Value.Contains(role))
                                                     {
-                                                        if (permissionDisplayWithRoles.Value.Contains(role))
-                                                        {
-                                                            <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue.ToString())" data-extension="@(extensionName)" selected="selected">@(role)</option>
-                                                        }
-                                                        else
-                                                        {
-                                                            <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue.ToString())" data-extension="@(extensionName)">@(role)</option>
-                                                        }
+                                                        <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue.ToString())" data-extension="@(extensionName)" selected="selected">@(role)</option>
                                                     }
-                                                    @* Additional roles *@
-                                                    @foreach (var role in additionalRoles)
+                                                    else
                                                     {
                                                         <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue.ToString())" data-extension="@(extensionName)">@(role)</option>
                                                     }
-                                                </select>
-                                                <br/>
-                                            }
+                                                }
+                                                @* Additional roles *@
+                                                @foreach (var role in additionalRoles)
+                                                {
+                                                    <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue.ToString())" data-extension="@(extensionName)">@(role)</option>
+                                                }
+                                            </select>
+                                            <br/>
+                                        }
                                     }
                                 </div>
                             </div>
@@ -147,8 +146,6 @@
             </div>
         </div>
     </div>
-
-}
 
 
 @* ReSharper disable once Razor.SectionNotResolved *@
