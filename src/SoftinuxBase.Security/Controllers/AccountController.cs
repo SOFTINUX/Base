@@ -177,7 +177,7 @@ namespace SoftinuxBase.Security.Controllers
         public async Task<IActionResult> SignOutAsync()
         {
             await _signInManager.SignOutAsync();
-            _logger?.LogInformation("User logged out.");
+            _logger?.LogInformation("User logged out");
             return await Task.Run(() => RedirectToAction("SignIn"));
         }
 
@@ -233,6 +233,7 @@ namespace SoftinuxBase.Security.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> CheckUserNameExistAsync(string userName_)
         {
+            // ReSharper disable once HeapView.BoxingAllocation
             return await Task.Run(() => Json(!RegisterUser.IsUserExist(Storage, userName_, _userManager)));
         }
     }
