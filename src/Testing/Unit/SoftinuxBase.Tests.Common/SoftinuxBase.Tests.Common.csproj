@@ -1,34 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
   <PropertyGroup>
-    <LangVersion>8</LangVersion>
+    <LangVersion>11</LangVersion>
     <CodeAnalysisRuleSet>..\..\..\..\StyleCopRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
     <ItemGroup>
     <AdditionalFiles Include="..\..\..\..\stylecop.json" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ExtCore.Data.EntityFramework" Version="6.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.7">
+    <PackageReference Include="ExtCore.Data.EntityFramework" Version="7.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="ExtCore.Data.EntityFramework.Sqlite" Version="6.0.0" />
-    <PackageReference Include="ExtCore.Infrastructure" Version="6.0.0" />
-    <PackageReference Include="ExtCore.WebApplication" Version="6.0.0" />
-    <PackageReference Include="FluentAssertions" Version="5.10.3" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="5.0.7" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
-    <PackageReference Include="Moq" Version="4.16.1" />
+    <PackageReference Include="ExtCore.Data.EntityFramework.Sqlite" Version="7.1.3" />
+    <PackageReference Include="ExtCore.Infrastructure" Version="7.1.3" />
+    <PackageReference Include="ExtCore.WebApplication" Version="7.1.3" />
+    <PackageReference Include="FluentAssertions" Version="6.8.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
+    <PackageReference Include="Moq" Version="4.18.2" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+    <PackageReference Include="xunit" Version="2.4.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

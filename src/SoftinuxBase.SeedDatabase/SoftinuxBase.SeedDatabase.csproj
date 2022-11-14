@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-  <TargetFramework>net5.0</TargetFramework>
+  <TargetFramework>net7.0</TargetFramework>
     <AssemblyName>SoftinuxBase.SeedDatabase</AssemblyName>
     <RootNamespace>SoftinuxBase.SeedDatabase</RootNamespace>
     <PackageId>SoftinuxBase.SeedDatabase</PackageId>
@@ -9,7 +9,7 @@
     <Company>SOFTINUX</Company>
   </PropertyGroup>
   <PropertyGroup>
-    <LangVersion>8</LangVersion>
+    <LangVersion>11</LangVersion>
     <CodeAnalysisRuleSet>..\..\StyleCopRules.ruleset</CodeAnalysisRuleSet>
     <Description>Extension to create fake users for developping phase</Description>
     <PackageProjectUrl>http://www.softinux.com/</PackageProjectUrl>
@@ -26,7 +26,7 @@
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ExtCore.Data.Entities.Abstractions" Version="6.0.0" />
+    <PackageReference Include="ExtCore.Data.Entities.Abstractions" Version="7.1.3" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>

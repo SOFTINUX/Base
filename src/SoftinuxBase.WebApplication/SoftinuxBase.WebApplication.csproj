@@ -4,13 +4,13 @@
     <Company>SOFTINUX</Company>
     <Copyright>Copyright © 2017 Softinux</Copyright>
     <Version>0.0.1</Version>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <AssemblyName>SoftinuxBase.WebApplication</AssemblyName>
     <RootNamespace>SoftinuxBase.WebApplication</RootNamespace>
     <PackageId>SoftinuxBase.WebApplication</PackageId>
     <PackageIconUrl></PackageIconUrl>
     <PackageProjectUrl>http://www.softinux.com/</PackageProjectUrl>
-    <LangVersion>8</LangVersion>
+    <LangVersion>11</LangVersion>
     <CodeAnalysisRuleSet>..\..\StyleCopRules.ruleset</CodeAnalysisRuleSet>
     <RepositoryUrl>https://github.com/SOFTINUX/Base</RepositoryUrl>
   </PropertyGroup>
@@ -32,9 +32,9 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup Label="Packages References">
-    <PackageReference Include="ExtCore.WebApplication" Version="6.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.7" />
-    <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="2.1.2" />
+    <PackageReference Include="ExtCore.WebApplication" Version="7.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.0" />
+    <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="2.2.1" />
     <PackageReference Include="NWebsec.AspNetCore.Middleware" Version="3.0.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
