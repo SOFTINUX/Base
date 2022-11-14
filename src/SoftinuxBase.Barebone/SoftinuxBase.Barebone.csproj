@@ -48,29 +48,20 @@
     <EmbeddedResource Include="..\..\node_modules\popper.js\dist\umd\popper.min.js" LinkBase="node_modules\popper\dist\js\" />
     <EmbeddedResource Include="..\..\node_modules\jquery-validation\dist\jquery.validate.min.js" LinkBase="node_modules\jquery-validation\dist\" />
     <EmbeddedResource Include="..\..\node_modules\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js" LinkBase="node_modules\jquery-validation-unobtrusive\dist\" />
-    <EmbeddedResource Include="..\..\node_modules\js-cookie\src\js.cookie.js" LinkBase="node_modules\js-cookie\src\" />
+    <EmbeddedResource Include="..\..\node_modules\js-cookie\dist\js.cookie.js" LinkBase="node_modules\js-cookie\dist\" />
     <EmbeddedResource Include="..\..\node_modules\inputmask\dist\jquery.inputmask.min.js" LinkBase="node_modules\inputmask\dist\" />
     <EmbeddedResource Include="..\..\node_modules\admin-lte\dist\js\adminlte.min.js" LinkBase="node_modules\admin-lte\dist\js\" />
     <EmbeddedResource Include="..\..\node_modules\select2\dist\js\select2.full.min.js" LinkBase="node_modules\select2\dist\js\" />
     <EmbeddedResource Include="..\..\node_modules\select2\dist\js\i18n\*.min.js" LinkBase="node_modules\select2\dist\js\i18n" />
     <EmbeddedResource Include="..\..\node_modules\toastr\build\toastr.min.js" LinkBase="node_modules\toastr\build\" />
     <!-- CodeMirror -->
-    <EmbeddedResource Include="..\..\node_modules\codemirror\lib\codemirror.js" LinkBase="node_modules\codemirror\lib\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\mode\sql\sql.js" LinkBase="node_modules\codemirror\mode\sql\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\hint\show-hint.js" LinkBase="node_modules\codemirror\addon\hint\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\hint\sql-hint.js" LinkBase="node_modules\codemirror\addon\hint\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\hint\css-hint.js" LinkBase="node_modules\codemirror\addon\hint\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\edit\trailingspace.js" LinkBase="node_modules\codemirror\addon\edit\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\edit\matchbrackets.js" LinkBase="node_modules\codemirror\addon\edit\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\edit\closebrackets.js" LinkBase="node_modules\codemirror\addon\edit\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\display\fullscreen.js" LinkBase="node_modules\codemirror\addon\display\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\search\search.js" LinkBase="node_modules\codemirror\addon\search\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\search\searchcursor.js" LinkBase="node_modules\codemirror\addon\search\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\search\matchesonscrollbar.js" LinkBase="node_modules\codemirror\addon\search\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\search\match-highlighter.js" LinkBase="node_modules\codemirror\addon\search\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\selection\active-line.js" LinkBase="node_modules\codemirror\addon\selection\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\dialog\dialog.js" LinkBase="node_modules\codemirror\addon\dialog\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\scroll\annotatescrollbar.js" LinkBase="node_modules\codemirror\addon\scroll\" />
+    <EmbeddedResource Include="..\..\node_modules\@codemirror\autocomplete\dist\index.js" LinkBase="node_modules\codemirror\autocomplete\" />
+    <EmbeddedResource Include="..\..\node_modules\@codemirror\commands\dist\index.js" LinkBase="node_modules\codemirror\commands\" />
+    <EmbeddedResource Include="..\..\node_modules\@codemirror\language\dist\index.js" LinkBase="node_modules\codemirror\language\" />
+    <EmbeddedResource Include="..\..\node_modules\@codemirror\lint\dist\index.js" LinkBase="node_modules\codemirror\lint\" />
+    <EmbeddedResource Include="..\..\node_modules\@codemirror\search\dist\index.js" LinkBase="node_modules\codemirror\search\" />
+    <EmbeddedResource Include="..\..\node_modules\@codemirror\state\dist\index.js" LinkBase="node_modules\codemirror\state\" />
+    <EmbeddedResource Include="..\..\node_modules\@codemirror\view\dist\index.js" LinkBase="node_modules\codemirror\view\" />
     <!-- Css -->
     <EmbeddedResource Include="..\..\node_modules\normalize.css\normalize.css" LinkBase="node_modules\normalize.css\" />
     <EmbeddedResource Include="..\..\node_modules\bootstrap\dist\css\*.min.css" LinkBase="node_modules\bootstrap\dist\css\" />
@@ -78,20 +69,6 @@
     <EmbeddedResource Include="..\..\node_modules\toastr\build\toastr.min.css" LinkBase="node_modules\toastr\build\" />
     <EmbeddedResource Include="..\..\node_modules\select2\dist\css\select2.min.css" LinkBase="node_modules\select2\dist\css\" />
     <EmbeddedResource Include="..\..\node_modules\@ttskch\select2-bootstrap4-theme\dist\select2-bootstrap4.min.css" LinkBase="node_modules\@ttskch\select2-bootstrap4-theme\dist\" />
-    <!-- Code Mirror Css -->
-    <EmbeddedResource Include="..\..\node_modules\codemirror\lib\codemirror.css" LinkBase="node_modules\codemirror\lib\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\hint\show-hint.css" LinkBase="node_modules\codemirror\addon\hint\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\display\fullscreen.css" LinkBase="node_modules\codemirror\addon\display\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\search\matchesonscrollbar.css" LinkBase="node_modules\codemirror\addon\search\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\addon\dialog\dialog.css" LinkBase="node_modules\codemirror\addon\dialog\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\theme\dracula.css" LinkBase="node_modules\codemirror\theme\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\theme\eclipse.css" LinkBase="node_modules\codemirror\theme\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\theme\idea.css" LinkBase="node_modules\codemirror\theme\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\theme\lesser-dark.css" LinkBase="node_modules\codemirror\theme\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\theme\material.css" LinkBase="node_modules\codemirror\theme\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\theme\monokai.css" LinkBase="node_modules\codemirror\theme\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\theme\base16-dark.css" LinkBase="node_modules\codemirror\theme\" />
-    <EmbeddedResource Include="..\..\node_modules\codemirror\theme\base16-light.css" LinkBase="node_modules\codemirror\theme\" />
     <!-- Fonts -->
     <EmbeddedResource Include="..\..\node_modules\wfk-opensans\opensans.css" LinkBase="node_modules\wfk-opensans\" />
     <EmbeddedResource Include="..\..\node_modules\@fortawesome\fontawesome-free\css\all.min.css" LinkBase="node_modules\font-awesome\css\" />

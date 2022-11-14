@@ -9,7 +9,7 @@ var gulp = require('gulp'),
     terser = require('terser'),
     gulpTerser = require('gulp-terser'),
     merge = require('merge-stream'),
-    del = require('del'),
+    del = import('del'),
     bundleconfig = require('./bundleconfig.json');
 
 const regex = {
