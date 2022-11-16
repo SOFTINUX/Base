@@ -34,7 +34,7 @@ namespace SoftinuxBase.WebApplication
             if (hostingEnvironment_.IsDevelopment())
             {
                 applicationBuilder_.UseDeveloperExceptionPage();
-                applicationBuilder_.UseDatabaseErrorPage();
+                applicationBuilder_.UseMigrationsEndPoint();
             }
             else
             {

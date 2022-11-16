@@ -1,34 +1,28 @@
 // Copyright © 2017-2019 SOFTINUX. All rights reserved.
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SoftinuxBase.Security.Common;
-using SoftinuxBase.Security.Common.Attributes;
-using SoftinuxBase.Security.Data.Abstractions;
-using SoftinuxBase.Security.Data.Entities;
+using SoftinuxBase.Barebone.Extensions;
+using SoftinuxBase.Infrastructure.Interfaces;
+using SoftinuxBase.Security.FeatureAuthorize.PolicyCode;
 using SoftinuxBase.Security.Tools;
 using SoftinuxBase.Security.ViewModels.Permissions;
 
-using Permission = SoftinuxBase.Security.Common.Enums.Permission;
-
 namespace SoftinuxBase.Security.Controllers
 {
-    [PermissionRequirement(Permission.Admin, Constants.SoftinuxBaseSecurity)]
     public class GrantPermissionsController : Infrastructure.ControllerBase
     {
-        private readonly RoleManager<IdentityRole<string>> _roleManager;
+        private readonly IAspNetRolesManager _aspNetRolesManager;
 
-        public GrantPermissionsController(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_) : base(storage_)
+        public GrantPermissionsController(IStorage storage_, IAspNetRolesManager aspNetRolesManager_) : base(storage_)
         {
-            _roleManager = roleManager_;
+            _aspNetRolesManager = aspNetRolesManager_;
         }
 
         #region READ
@@ -36,8 +30,12 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/grant-permissions")]
         [HttpGet]
         [ActionName("Index")]
+        [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.ReadRoles)]
         public async Task<IActionResult> IndexAsync()
         {
+#if DEBUG
+            ViewBag.IsDebug = true;
+#endif
             return await Task.Run(() => View());
         }
 
@@ -51,6 +49,7 @@ namespace SoftinuxBase.Security.Controllers
         [ActionName("ReadRole")]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.ReadRoles)]
         public async Task<IActionResult> ReadRoleAsync(string roleId_)
         {
             if (string.IsNullOrWhiteSpace(roleId_) || string.IsNullOrEmpty(roleId_))
@@ -58,14 +57,14 @@ namespace SoftinuxBase.Security.Controllers
                 return StatusCode((int)HttpStatusCode.BadRequest, Json("No role id given"));
             }
 
-            var role = await _roleManager.FindByIdAsync(roleId_);
+            var role = await _aspNetRolesManager.FindByIdAsync(roleId_);
 
             if (role == null)
             {
                 return StatusCode((int)HttpStatusCode.BadRequest, Json("No such role for edition"));
             }
 
-            ReadGrants.GetExtensions(roleId_, Storage, out var availableExtensions, out var selectedExtensions);
+            ReadGrants.GetExtensions(role.Name, Storage, out var availableExtensions, out var selectedExtensions);
 
             ReadRoleViewModel result = new ReadRoleViewModel
             {
@@ -83,6 +82,7 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/read-permissions-grants")]
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
+        [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.ReadRoles)]
         public IActionResult ReadPermissionsTable()
         {
             return ViewComponent("GrantPermissions");
@@ -95,6 +95,7 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/edit-role-tab")]
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
+        [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.ReadRoles)]
         public IActionResult RefreshRoleTab()
         {
             return ViewComponent("EditRolePermissions");
@@ -107,6 +108,7 @@ namespace SoftinuxBase.Security.Controllers
         [Route("administration/bulk-delete-role-tab")]
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
+        [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.ReadRoles)]
         public IActionResult RefreshBulkDeleteTab()
         {
             return ViewComponent("SelectOptionsListRoles");
@@ -117,18 +119,19 @@ namespace SoftinuxBase.Security.Controllers
         #region CREATE
 
         /// <summary>
-        /// Create a role. Then create a set of records indicating to which extensions with which permission this role is linked to.
+        /// Create a role.
         /// </summary>
         /// <param name="model_">object representing values passed from ajax.</param>
         /// <returns>Http status code.</returns>
         [Route("administration/save-new-role")]
         [HttpPost]
-        [ActionName("SaveNewRoleAndItsPermissions")]
+        [ActionName("SaveNewRole")]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> SaveNewRoleAndItsPermissionsAsync([FromBody] SaveNewRoleAndGrantsViewModel model_)
+        [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.CreateRoles)]
+        public async Task<IActionResult> SaveNewRoleAsync([FromBody] SaveNewRoleViewModel model_)
         {
-            string error = await CreateRoleAndGrants.CheckAndSaveNewRoleAndGrantsAsync(Storage, _roleManager, model_);
+            string error = await CreateRole.CheckAndSaveNewRoleAsync(_aspNetRolesManager, model_);
             return StatusCode(string.IsNullOrEmpty(error) ? (int)HttpStatusCode.Created : (int)HttpStatusCode.BadRequest, error);
         }
 
@@ -137,51 +140,49 @@ namespace SoftinuxBase.Security.Controllers
         #region UPDATE
 
         /// <summary>
-        /// Update a record indicating with which permission this role is linked to an extension.
+        /// Add or remove a role from a permission.
         /// </summary>
         /// <param name="model_">object representing values passed from ajax.</param>
-        /// <returns>Status code 200 (ok) or 400 (update not permitted).</returns>
+        /// <returns>Status code 204 (no content) when update is ok or 400 (update went wrong, with message).</returns>
         [Route("administration/update-role-permission")]
         [HttpPost]
         [ActionName("UpdateRolePermission")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> UpdateRolePermissionAsync([FromBody] UpdateRolePermissionViewModel model_)
+        [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.EditRoles)]
+        public async Task<IActionResult> UpdateRoleToPermissionsAsync([FromBody] UpdateRolePermissionViewModel model_)
         {
-            string roleId = (await _roleManager.FindByNameAsync(model_.RoleName)).Id;
-            Enum.TryParse(model_.PermissionValue, true, out Permission permissionEnumValue);
-
-            if (model_.Extension == Constants.SoftinuxBaseSecurity && permissionEnumValue != Permission.Admin)
+            if (!ModelState.IsValid)
             {
-                if (await ReadGrants.IsRoleLastAdminPermissionLevelGrantForExtensionAsync(_roleManager, Storage, model_.RoleName, model_.Extension))
-                {
-                    return StatusCode((int)HttpStatusCode.BadRequest, "Permission not updated, the role is the last Admin grant to SoftinuxBase.Security extension");
-                }
+                return new BadRequestObjectResult(ModelState.AllErrors());
             }
 
-            IRolePermissionRepository repo = Storage.GetRepository<IRolePermissionRepository>();
-            repo.Delete(roleId, model_.Extension);
+            var result = await UpdateRoleAndGrants.UpdateRoleToPermissionsAsync(Storage, _aspNetRolesManager, model_.RoleName, model_.ExtensionName, model_.PermissionValue, model_.Add);
 
-            var permissionEntity = Storage.GetRepository<IPermissionRepository>().Find(permissionEnumValue);
-            repo.Create(new RolePermission { RoleId = roleId, PermissionId = permissionEntity.Id, Extension = model_.Extension });
-
-            await Storage.SaveAsync();
-            return StatusCode((int)HttpStatusCode.OK);
+            return result == null ? (IActionResult)StatusCode((int)HttpStatusCode.NoContent) : new BadRequestObjectResult(result);
         }
 
         /// <summary>
-        /// Update role name and linked extensions with permission level.
+        /// Update role name in AspNetRoles table and also in RolesToPermissions table.
         /// </summary>
         /// <param name="model_">object representing values passed from ajax.</param>
         /// <returns>Status code 201, or 400 with an error message.</returns>
         [Route("administration/update-role")]
         [HttpPost]
-        [ActionName("UpdateRoleAndItsPermissions")]
+        [ActionName("UpdateRole")]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> UpdateRoleAndItsPermissionsAsync([FromBody] UpdateRoleAndGrantsViewModel model_)
+        [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.EditRoles)]
+        public async Task<IActionResult> UpdateRoleAsync([FromBody] UpdateRoleViewModel model_)
         {
-            string error = await UpdateRoleAndGrants.CheckAndUpdateRoleAndGrantsAsync(Storage, _roleManager, model_);
+            var role = await _aspNetRolesManager.FindByIdAsync(model_.RoleId);
+            var oldRoleName = role.Name;
+            string error = await UpdateRole.CheckAndUpdateRoleAsync(_aspNetRolesManager, model_);
+            if (string.IsNullOrEmpty(error))
+            {
+                await UpdateRoleAndGrants.UpdateRoleToPermissionsAsync(Storage, oldRoleName, model_.RoleName);
+            }
+
             return StatusCode(string.IsNullOrEmpty(error) ? (int)HttpStatusCode.Created : (int)HttpStatusCode.BadRequest, error);
         }
 
@@ -189,56 +190,29 @@ namespace SoftinuxBase.Security.Controllers
 
         #region DELETE
 
-        // ReSharper disable InconsistentNaming
-
         /// <summary>
-        /// Delete the record linking a role to an extension.
+        /// Remove all granted permissions of a role.
         /// </summary>
-        /// <param name="RoleName">Name of role to delete.</param>
-        /// <param name="ExtensionName">Name of linked extension.</param>
-        /// <returns>Status code 204 (ok) or 400 (no deletion occurred).</returns>
-        [HttpDelete]
-        [ActionName("UnlinkRoleExtensionLink")]
-        [Route("administration/unlink-role-extension/{RoleName}/{ExtensionName}")]
-        [ProducesResponseType((int)HttpStatusCode.NoContent)]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1313", Justification = "Ignore camelcase parameters")]
-        public async Task<IActionResult> DeleteRoleExtensionLinkAsync(string RoleName, string ExtensionName)
-        {
-            bool? deleted = await DeleteRole.DeleteRoleExtensionLinkAsync(this.Storage, _roleManager, ExtensionName, RoleName);
-            switch (deleted)
-            {
-                case true:
-                    return StatusCode((int)HttpStatusCode.NoContent);
-                case false:
-                    return StatusCode((int)HttpStatusCode.BadRequest, "Link not deleted, the role is the last Admin grant to SoftinuxBase.Security extension");
-                default:
-                    return StatusCode((int)HttpStatusCode.BadRequest, "Role or link not found");
-            }
-        }
-
-        /// <summary>
-        /// Remove link role on all extensions.
-        /// </summary>
-        /// <param name="RoleName">Role name to unlink on all extension.</param>
+        /// <param name="RoleName">Role name to delete granted permissions for.</param>
         /// <returns>status code.</returns>
         [HttpDelete]
-        [ActionName("UnlinkRoleAllExtensions")]
-        [Route("administration/unlink-role-all-extensions/{RoleName}")]
+        [ActionName("RemoveAllRolePermissions")]
+        [Route("administration/remove-role-permissions/{RoleName}")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1313", Justification = "Ignore camelcase parameters")]
-        public async Task<IActionResult> UnlinkRoleOnAllExtensions(string RoleName)
+        [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.EditRoles)]
+        public async Task<IActionResult> RemoveAllRolePermissionsAsync(string RoleName)
         {
-            bool? deleted = await DeleteRole.DeleteRoleExtensionsLinksAsync(this.Storage, _roleManager, RoleName);
+            bool? deleted = await DeleteRole.DeleteRolePermissionsAsync(this._aspNetRolesManager, this.Storage, RoleName);
             switch (deleted)
             {
                 case true:
                     return StatusCode((int)HttpStatusCode.NoContent);
                 case false:
-                    return StatusCode((int)HttpStatusCode.BadRequest, "Link not deleted, the role is the last Admin grant to SoftinuxBase.Security extension");
+                    return StatusCode((int)HttpStatusCode.BadRequest, "Permissions not deleted");
                 default:
-                    return StatusCode((int)HttpStatusCode.BadRequest, "Role or link not found");
+                    return StatusCode((int)HttpStatusCode.NotFound, "Role or permissions not found");
             }
         }
 
@@ -252,13 +226,14 @@ namespace SoftinuxBase.Security.Controllers
         [HttpDelete]
         [ActionName("DeleteRole")]
         [Route("administration/delete-role/{roleNameList_}")]
+        [HasPermission(typeof(Permissions.Enums.Permissions), (short)Permissions.Enums.Permissions.DeleteRoles)]
         public async Task<IActionResult> DeleteRoleAsync(string roleNameList_)
         {
             var errors = new List<string>();
 
             foreach (var role in roleNameList_.Split(new[] { ',' }))
             {
-                var error = await DeleteRole.DeleteRoleAndAllLinksAsync(this.Storage, _roleManager, role);
+                var error = await DeleteRole.DeleteRoleAndAllLinksAsync(this.Storage, role);
                 if (error != null)
                 {
                     errors.Add(error);

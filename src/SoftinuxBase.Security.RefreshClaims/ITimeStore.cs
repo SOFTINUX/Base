@@ -1,0 +1,25 @@
+﻿// Copyright (c) 2019 Jon P Smith, GitHub: JonPSmith, web: http://www.thereformedprogrammer.net/
+// Licensed under MIT license. See License.txt in the project root for license information.
+
+namespace SoftinuxBase.Security.RefreshClaims
+{
+    /// <summary>
+    /// Access to the TimeStore part of the ExtraAuthorizeDbContext
+    /// </summary>
+    public interface ITimeStore
+    {
+        /// <summary>
+        /// This reads the TimeStore entry with the given key.
+        /// </summary>
+        /// <param name="key">the cache key</param>
+        /// <returns>DateTime ticks value, or null if not set.</returns>
+        long? GetValueFromStore(string key);
+
+        /// <summary>
+        /// This adds or updates the TimeStore entry defined by the key
+        /// </summary>
+        /// <param name="key">the cache key</param>
+        /// <param name="ticks">the new DateTime ticks value</param>
+        void AddUpdateValue(string key, long ticks);
+    }
+}

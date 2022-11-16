@@ -6,9 +6,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using SoftinuxBase.Infrastructure;
 using SoftinuxBase.Infrastructure.Interfaces;
-using SoftinuxBase.Security.Common;
-using SoftinuxBase.Security.Common.Attributes;
-using SoftinuxBase.Security.Common.Enums;
 
 namespace SoftinuxBase.Security
 {
@@ -36,20 +33,27 @@ namespace SoftinuxBase.Security
         public string Description => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyDescriptionAttribute))?.ToString();
 
         /// <inheritdoc />
-        bool IExtensionMetadata.IsAvailableForPermissions => true;
+        public IEnumerable<StyleSheet> StyleSheets => new[] { new StyleSheet("/Styles.Security.css", 510) };
 
         /// <inheritdoc />
-        public IEnumerable<StyleSheet> StyleSheets => new[] { new StyleSheet("/Styles.Security.css", 510), };
-
-        /// <inheritdoc />
-        public IEnumerable<Script> Scripts => new[]
+        public IEnumerable<Script> Scripts
         {
+            get
+            {
 #if DEBUG
-            new Script("/Scripts.security_user.js", 710, Script.JsType.IsModule),
+         return new[]
+                {
+                    new Script($"/Scripts.security_user.js", 710, Script.JsType.IsModule)
+                };     
 #else
-            new Script("/Scripts.security_user.min.js", 710, Script.JsType.IsModule),
+                return new[]
+                {
+                    new Script($"/Scripts.security.min.js", 710, Script.JsType.IsModule)
+                };
 #endif
-        };
+
+            }
+        }
 
         /// <inheritdoc />
         public IEnumerable<MenuGroup> MenuGroups
@@ -61,14 +65,7 @@ namespace SoftinuxBase.Security
                     new MenuItem(
                         "/administration",
                         "Main",
-                        100,
-                        FontAwesomeIcon.IconType.Far,
-                        infrastructureAuthorizeAttributes_: new List<PermissionRequirementAttribute>(new[]
-                        {
-                            new PermissionRequirementAttribute(
-                                Permission.Admin,
-                                Constants.SoftinuxBaseSecurity),
-                        }))
+                        100)
                 };
                 return new[]
                 {
@@ -79,6 +76,25 @@ namespace SoftinuxBase.Security
                         FontAwesomeIcon.IconType.Fas,
                         "fa-wrench")
                 };
+            }
+        }
+
+        /// <summary>
+        /// Gets basic permissions, some are used by SoftinuxBase.Security for the administration part.
+        /// </summary>
+        public Type Permissions => typeof(Permissions.Enums.Permissions);
+
+        /// <inheritdoc />
+        public string FileExtensionPrefix
+        {
+            // TO BE REMOVED
+            get
+            {
+#if DEBUG
+                return string.Empty;
+#else
+                return ".min";
+#endif
             }
         }
     }

@@ -4,7 +4,7 @@
 @echo off
 
 :: set .NET output folder name (use .NET Core version defined into csproj files)
-set netVersion="netcoreapp3.1"
+set netVersion="net7.0"
 :: Extensions folder
 set ext_folder=".\src\WebApplication\Extensions\"
 :: Dependencies folder
@@ -40,11 +40,7 @@ IF "%1" == "" GOTO Build
 echo ###################
 echo Updating bundles
 echo ###################
-for /f "tokens=*" %%i in (bundles.txt) DO (
-    pushd ".\%%i"
-    dotnet bundle
-    popd
-)
+gulp
 IF "%1" == "bundles" GOTO End
 
 :Build

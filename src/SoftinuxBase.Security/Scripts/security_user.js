@@ -8,12 +8,14 @@
 
 'use strict';
 
-import { findDomElement, getElementType } from '/Scripts/toolbox.js';
+import {findDomElement, getElementType} from '/Scripts/toolbox.js';
 
 /* ---------------------------------------------------------------- */
 /* ------------------------ on page load ------------------------ */
 /* ---------------------------------------------------------------- */
 window.toastr.options.positionClass = 'toast-top-right';
+window.toastr.options.timeOut = 5000; // How long the toast will display without user interaction
+window.toastr.options.extendedTimeOut = 20000; // How long the toast will display after a user hovers over it
 
 /* ---------------------------------------------------------------- */
 /* ------------------------ events handler ------------------------ */
@@ -21,6 +23,7 @@ window.toastr.options.positionClass = 'toast-top-right';
 
 /* ---------------------------------------------------------------- */
 /* ------------------------ functions ------------------------ */
+
 /* ---------------------------------------------------------------- */
 
 /**
@@ -33,12 +36,18 @@ export function inputFormGroupValidator(element_) {
         if (!Object.is(getElementType(element), 'input')) {
             continue;
         }
-
+        
         const formGroupEl = element.closest('.form-group');
+        const helpBlockElt = formGroupEl.querySelectorAll('span.help-block')[0];
+
         if (element.value) {
-            formGroupEl.classList.remove('has-error', 'has-feedback');
+            element.classList.remove('is-invalid');
+            helpBlockElt.classList.remove('invalid-feedback');
+            helpBlockElt.style.display = 'none';
         } else {
-            formGroupEl.classList.add('has-error', 'has-feedback');
+            element.classList.add('is-invalid');
+            helpBlockElt.classList.add('invalid-feedback');
+            helpBlockElt.style.display = 'block';
         }
     }
 }
@@ -56,11 +65,19 @@ export function inputFormGroupSetError(element_, errMsg_) {
         }
         const formGroupEl = element.closest('.form-group');
         if (!errMsg_) {
-            formGroupEl.classList.remove('has-error', 'has-feedback');
-            formGroupEl.querySelectorAll('span.help-block')[0].innerHTML = '';
+            element.classList.remove('is-valid');
+            element.classList.remove('is-invalid');
+            const helpBlockElt = formGroupEl.querySelectorAll('span.help-block')[0];
+            helpBlockElt.innerHTML = '';
+            helpBlockElt.style.display = 'none';
+            helpBlockElt.classList.remove('invalid-feedback');
         } else {
-            formGroupEl.classList.add('has-error', 'has-feedback');
-            formGroupEl.querySelectorAll('span.help-block')[0].innerHTML = errMsg_;
+            element.classList.remove('is-valid');
+            element.classList.add('is-invalid');
+            const helpBlockElt = formGroupEl.querySelectorAll('span.help-block')[0];
+            helpBlockElt.innerHTML = errMsg_;
+            helpBlockElt.classList.add('invalid-feedback');
+            helpBlockElt.style.display = 'block';
         }
     }
 }

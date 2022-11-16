@@ -5,29 +5,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SoftinuxBase.Barebone.ViewComponents;
-using SoftinuxBase.Security.Data.EntityFramework;
+using SoftinuxBase.Infrastructure.Interfaces;
+using SoftinuxBase.Security.Data.Abstractions;
 
 namespace SoftinuxBase.Security.ViewComponents
 {
     public class SelectOptionsListRolesViewComponent : ViewComponentBase
     {
-        private readonly RoleManager<IdentityRole<string>> _roleManager;
-        private readonly IStorage _storage;
+        private readonly IAspNetRolesManager _rolesManager;
 
-        public SelectOptionsListRolesViewComponent(IStorage storage_, RoleManager<IdentityRole<string>> roleManager_) : base(storage_)
+        public SelectOptionsListRolesViewComponent(IStorage storage_, IAspNetRolesManager rolesManager_) : base(storage_)
         {
-            _roleManager = roleManager_;
-            _storage = storage_;
+            _rolesManager = rolesManager_;
         }
 
         public Task<IViewComponentResult> InvokeAsync()
         {
-            HashSet<string> listPermissionsRoleId = _storage.GetRepository<RolePermissionRepository>().All().Select(item_ => item_.RoleId).ToHashSet();
-
-            return Task.FromResult<IViewComponentResult>(View("_SelectOptionsListRoles", (_roleManager, listPermissionsRoleId)));
+            HashSet<string> listNamesOfRolesWithPermissions = Storage.GetRepository<IRoleToPermissionsRepository>().All().Where(rp_ => rp_.PermissionsForRole.Any()).Select(rp_ => rp_.RoleName).ToHashSet();
+            return Task.FromResult<IViewComponentResult>(View("_SelectOptionsListRoles", (_rolesManager, listNamesOfRolesWithPermissions)));
         }
     }
 }

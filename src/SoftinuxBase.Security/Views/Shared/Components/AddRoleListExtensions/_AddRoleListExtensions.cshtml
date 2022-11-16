@@ -9,7 +9,7 @@
     foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
     {
         var scope = extensionMetadata.Name;
-        if (extensionMetadata.IsAvailableForPermissions)
+        if (extensionMetadata.Permissions != null)
         {
             <option value="@Html.Raw(scope)">@Html.Raw(scope)</option>
         }

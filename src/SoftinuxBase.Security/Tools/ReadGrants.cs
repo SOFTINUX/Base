@@ -2,18 +2,14 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Threading.Tasks;
 using ExtCore.Data.Abstractions;
 using ExtCore.Infrastructure;
-using Microsoft.AspNetCore.Identity;
 using SoftinuxBase.Infrastructure.Interfaces;
-using SoftinuxBase.Security.Common;
 using SoftinuxBase.Security.Data.Abstractions;
 using SoftinuxBase.Security.Data.Entities;
+using SoftinuxBase.Security.Permissions;
 using SoftinuxBase.Security.ViewModels.Permissions;
-using Permission = SoftinuxBase.Security.Common.Enums.Permission;
 
 namespace SoftinuxBase.Security.Tools
 {
@@ -21,6 +17,7 @@ namespace SoftinuxBase.Security.Tools
         The main ReadGrants class.
         Contains all methods for reading grants permissions.
     */
+
     /// <summary>
     /// The main ReadGrants class.
     ///
@@ -31,61 +28,88 @@ namespace SoftinuxBase.Security.Tools
         /// <summary>
         /// Read all grants:
         ///
-        /// - to have a global view of permissions granting:
+        /// - to have a global view of grantable permissions and their effective granting:
         ///
-        /// -- for a role or a user, what kind of permission is granted, for every extensions.
+        /// -- for a role or a user, what kind of permission is granted, for every extension.
         /// </summary>
-        /// <param name="roleManager_">Role manager instance.</param>
         /// <param name="storage_">Storage interface provided by services container.</param>
-        /// <param name="roleNameByRoleId_">Dictionary of all roles with id.</param>
         /// <returns>Return a GrantViewModel model object.</returns>
-        public static GrantViewModel ReadAll(RoleManager<IdentityRole<string>> roleManager_, IStorage storage_, Dictionary<string, string> roleNameByRoleId_)
+        public static GrantViewModel ReadAll(IStorage storage_)
         {
             GrantViewModel model = new GrantViewModel();
 
-            // 1. Get all scopes from available extensions, create initial dictionaries
+            // key : extension's permission enum type assembly-qualified name, since the enum can be in another assembly,
+            // value : extension name
+            var extensionEnumAndNameDict = new Dictionary<string, string>();
+
+            // 1. Get all extension names from loaded extensions, create initial dictionaries
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
             {
-                model.PermissionsByRoleAndExtension.Add(extensionMetadata.Name, new Dictionary<string, List<global::SoftinuxBase.Security.Common.Enums.Permission>>());
-            }
-
-            // 2. Read data from RolePermission table
-            // Names of roles that have permissions attributed
-            HashSet<string> rolesWithPerms = new HashSet<string>();
-
-            // Read role/permission/extension settings
-            List<RolePermission> allRp = storage_.GetRepository<IRolePermissionRepository>().AllRolesWithPermissions().ToList();
-            foreach (RolePermission rp in allRp)
-            {
-                if (!model.PermissionsByRoleAndExtension.ContainsKey(rp.Extension))
+                if (extensionMetadata.Permissions == null)
                 {
-                    // A database record related to a not loaded extension (scope). Ignore this.
+                    // Ignore extension when it doesn't define its permissions
                     continue;
                 }
 
-                string roleName = roleNameByRoleId_.ContainsKey(rp.RoleId) ? roleNameByRoleId_[rp.RoleId] : null;
-                if (!model.PermissionsByRoleAndExtension[rp.Extension].ContainsKey(roleName))
-                {
-                    model.PermissionsByRoleAndExtension[rp.Extension].Add(roleName, new List<global::SoftinuxBase.Security.Common.Enums.Permission>());
-                }
+                // 1a. Create the dictionary entry for the extension
+                model.RolesWithPermissions.Add(extensionMetadata.Name, new Dictionary<PermissionDisplay, List<string>>());
+                extensionEnumAndNameDict.Add(extensionMetadata.Permissions.AssemblyQualifiedName, extensionMetadata.Name);
 
-                // Format the list of Permission enum values according to DB enum value
-                model.PermissionsByRoleAndExtension[rp.Extension][roleName] = PermissionHelper.GetLowerOrEqual(PermissionHelper.FromName(rp.Permission.Name));
-                rolesWithPerms.Add(roleName);
+                // 1b. Build the permissions displays
+                var permissionDisplays = PermissionDisplay.GetPermissionsToDisplay(extensionMetadata.Name, extensionMetadata.Permissions).ToHashSet();
+
+                // 1c. Create the list of roles entry, for the permission display
+                foreach (var permissionDisplay in permissionDisplays)
+                {
+                    model.RolesWithPermissions[permissionDisplay.ExtensionName].Add(permissionDisplay, new List<string>());
+                }
             }
 
-            // 3. Also read roles for which no permissions were set
-            IList<string> roleNames = roleManager_.Roles.Select(r_ => r_.Name).ToList();
-            foreach (string role in roleNames)
-            {
-                if (rolesWithPerms.Contains(role))
-                {
-                    continue;
-                }
+            // 2. Read role/permission/extension settings (RoleToPermissions table) to add the role items
+            List<RoleToPermissions> rolesToPermissions = storage_.GetRepository<IRoleToPermissionsRepository>().All().ToList();
 
-                foreach (string scope in model.PermissionsByRoleAndExtension.Keys)
+            foreach (RoleToPermissions roleToPermission in rolesToPermissions)
+            {
+                model.RoleNames.Add(roleToPermission.RoleName);
+
+                var permissions = roleToPermission.PermissionsForRole;
+
+                // Loop over all permission enums given by loaded extensions
+                foreach (var permissionEnumType in extensionEnumAndNameDict.Keys)
                 {
-                    model.PermissionsByRoleAndExtension[scope].Add(role, new List<global::SoftinuxBase.Security.Common.Enums.Permission>());
+                    extensionEnumAndNameDict.TryGetValue(permissionEnumType, out var extensionName);
+                    if (extensionName == null)
+                    {
+                        // Record related to a removed extension
+                        // TODO add unit test case
+                        continue;
+                    }
+
+                    permissions.Dictionary.TryGetValue(permissionEnumType, out var permissionValues);
+                    if (permissionValues == null)
+                    {
+                        // TODO add unit test case
+                        continue;
+                    }
+
+                    foreach (var permissionValue in permissionValues)
+                    {
+                        var permissionDisplay = model.RolesWithPermissions[extensionName].Keys.FirstOrDefault(permissionDisplay_ => permissionDisplay_.PermissionEnumValue == permissionValue);
+                        if (permissionDisplay == null)
+                        {
+                            // A granted permission value that does not correspond to a permission display: not managed value
+                            continue;
+                        }
+
+                        model.RolesWithPermissions[extensionName].TryGetValue(permissionDisplay, out var roleNames);
+                        if (roleNames == null)
+                        {
+                            roleNames = new List<string>();
+                            model.RolesWithPermissions[extensionName].Add(permissionDisplay, roleNames);
+                        }
+
+                        roleNames.Add(roleToPermission.RoleName);
+                    }
                 }
             }
 
@@ -93,96 +117,54 @@ namespace SoftinuxBase.Security.Tools
         }
 
         /// <summary>
-        /// Get the list of all extensions associated to a role, with corresponding permissions,
+        /// Gets the list of all extensions associated to a role, with corresponding permissions,
         /// and also the list of extensions not linked to the role.
         /// </summary>
-        /// <param name="roleId_">Id of a role.</param>
+        /// <param name="roleName_">Name of a role.</param>
         /// <param name="storage_">Storage interface provided by services container.</param>
         /// <param name="availableExtensions_">Output a list of available extensions.</param>
         /// <param name="selectedExtensions_">Output a list of selected extensions.</param>
-        public static void GetExtensions(string roleId_, IStorage storage_, out IList<string> availableExtensions_, out IList<SelectedExtension> selectedExtensions_)
+        public static void GetExtensions(string roleName_, IStorage storage_, out IList<string> availableExtensions_, out IList<SelectedExtension> selectedExtensions_)
         {
-            selectedExtensions_ = storage_.GetRepository<IRolePermissionRepository>().FilteredByRoleId(roleId_).Select(
-                rp_ => new SelectedExtension
-                {
-                    ExtensionName = rp_.Extension,
-                    PermissionName = rp_.Permission.Name,
-                    PermissionId = rp_.PermissionId
-                })
-                .ToList();
-
-            IEnumerable<string> selectedExtensionsNames = selectedExtensions_.Select(se_ => se_.ExtensionName).ToList();
-
+            var rolePermissions = storage_.GetRepository<IRoleToPermissionsRepository>().FindBy(roleName_)?.PermissionsForRole;
             availableExtensions_ = new List<string>();
+            selectedExtensions_ = new List<SelectedExtension>();
+
             foreach (IExtensionMetadata extensionMetadata in ExtensionManager.GetInstances<IExtensionMetadata>())
             {
-                var extensionName = extensionMetadata.Name;
-                if (!selectedExtensionsNames.Contains(extensionName) && extensionMetadata.IsAvailableForPermissions)
+                if (extensionMetadata.Permissions == null)
                 {
-                    availableExtensions_.Add(extensionName);
+                    continue;
+                }
+
+                if (rolePermissions != null && rolePermissions.Contains(extensionMetadata.Permissions.AssemblyQualifiedName))
+                {
+                    // The extension permission enum is present
+                    var selectedExtension = new SelectedExtension(extensionMetadata.Name);
+                    selectedExtensions_.Add(selectedExtension);
+                    var permissionDisplays = PermissionDisplay.GetPermissionsToDisplay(extensionMetadata.Name, extensionMetadata.Permissions).ToHashSet();
+
+                    foreach (var permissionDisplay in permissionDisplays)
+                    {
+                        // Permission section initialization if necessary
+                        selectedExtension.GroupedBySectionPermissionDisplays.TryGetValue(permissionDisplay.Section, out var selectablePermissionDisplays);
+                        if (selectablePermissionDisplays == null)
+                        {
+                            selectablePermissionDisplays = new List<SelectablePermissionDisplay>();
+                            selectedExtension.GroupedBySectionPermissionDisplays.Add(permissionDisplay.Section, selectablePermissionDisplays);
+                        }
+
+                        // SelectablePermissionDisplay
+                        var selectablePermissionDisplay = new SelectablePermissionDisplay(permissionDisplay, rolePermissions.Contains(extensionMetadata.Permissions.AssemblyQualifiedName, permissionDisplay.PermissionEnumValue));
+                        selectablePermissionDisplays.Add(selectablePermissionDisplay);
+                    }
+                }
+                else
+                {
+                    // The extension permission enum is absent
+                    availableExtensions_.Add(extensionMetadata.Name);
                 }
             }
-        }
-
-        /// <summary>
-        /// This function checks that the role is the last grant of Admin permission level to the target extension.
-        ///
-        /// This allows to warn the user in case no user would be granted Admin anymore for this extension after we remove the grant from this role.
-        ///
-        /// In case the extension is SoftinuxBase.Security, this check will be used to prevent the delete action.
-        ///
-        /// Rules:
-        /// <ul>
-        /// <li>No user should be granted admin permission level for this role and extension.</li>
-        /// <li>The other roles linked to the extension, with Admin permission level, should be an empty list or not linked to aany user.</li>
-        /// </ul>
-        /// </summary>
-        /// <param name="roleManager_">ASP.NET Core identity role manager.</param>
-        /// <param name="storage_">Storage interface provided by services container.</param>
-        /// <param name="roleName_">Role name.</param>
-        /// <param name="extensionName_">Name of extension.</param>
-        /// <returns>True when the role is the last grant of Admin permission level to the target extension.</returns>
-        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1629", Justification = "Suppress warning for 'Rules:' in summary")]
-        public static async Task<bool> IsRoleLastAdminPermissionLevelGrantForExtensionAsync(RoleManager<IdentityRole<string>> roleManager_, IStorage storage_, string roleName_, string extensionName_)
-        {
-            var currentRole = await roleManager_.FindByNameAsync(roleName_);
-
-            if (currentRole == null)
-            {
-                // The role has been deleted by someone else
-                return false;
-            }
-
-            // Is there a user directly granted Admin for this extension?
-            if (storage_.GetRepository<IUserPermissionRepository>().FindBy(extensionName_, Permission.Admin).Any())
-            {
-                // A user is directly granted
-                return false;
-            }
-
-            var rolePermissionRecordsWithAdminLevel = storage_.GetRepository<IRolePermissionRepository>().FindBy(extensionName_, Permission.Admin);
-
-            if (!rolePermissionRecordsWithAdminLevel.Any())
-            {
-                // This method shouldn't have been called in this case :-)
-                return false;
-            }
-
-            if (rolePermissionRecordsWithAdminLevel.Count() == 1 && rolePermissionRecordsWithAdminLevel.First().Id == currentRole.Id)
-            {
-                // There is only one grant to current role
-                return true;
-            }
-
-            /*
-            The roles that have Admin right must have users linked to them
-            and if at least one user found => return false, else true
-            */
-
-            IEnumerable<User> usersHavingRoles =
-                storage_.GetRepository<IAspNetUsersRepository>().FindUsersHavingRoles(rolePermissionRecordsWithAdminLevel.Where(rp_ => rp_.RoleId != currentRole.Id).Select(rp_ => rp_.Role.NormalizedName));
-
-            return !usersHavingRoles.Any();
         }
     }
 }

@@ -2,7 +2,6 @@
 // Licensed under the MIT License, Version 2.0. See LICENSE file in the project root for license information.
 
 using System;
-using System.Data.SqlClient;
 using System.IO;
 using ExtCore.Data.Abstractions;
 using Microsoft.Data.SqlClient;
@@ -103,7 +102,7 @@ namespace SoftinuxBase.Infrastructure
         }
 
         /// <summary>
-        /// Get the Entity Framework provider.
+        /// Gets the Entity Framework provider.
         /// </summary>
         /// <returns>Return a <see cref="ProviderCode" />.</returns>
         public ProviderCode GetProvider()
@@ -173,8 +172,9 @@ namespace SoftinuxBase.Infrastructure
             {
                 _logger.LogInformation("####### ExecuteSqlFileWithTransaction - begin transaction #######");
                 ((DbContext)_storage.StorageContext).Database.BeginTransaction();
-                ((DbContext)_storage.StorageContext).Database.ExecuteSqlCommand(File.ReadAllText(filePath_));
+                var affectedRows = ((DbContext)_storage.StorageContext).Database.ExecuteSqlRaw(File.ReadAllText(filePath_));
                 ((DbContext)_storage.StorageContext).Database.CommitTransaction();
+                _logger.LogInformation($"####### Affected row(s) : {affectedRows} #######");
                 _logger.LogInformation("####### ExecuteSqlFileWithTransaction - end transaction #######");
             }
             catch (Exception e)

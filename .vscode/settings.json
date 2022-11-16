@@ -1,21 +1,15 @@
 {
+    // Configure glob patterns of file paths to exclude from file watching. Patterns must match on absolute paths (i.e. prefix with ** or the full path to match properly). Changing this setting requires a restart. When you experience Code consuming lots of CPU time on startup, you can exclude large folders to reduce the initial load.
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/*/**": true,
+        "**/.hg/store/**": true
+    },
     "editor.formatOnSave": false,
-    "dotnet-test-explorer.testProjectPath": "./src/Testing/Unit/SecurityTest",
-    "dotnet-test-explorer.enableTelemetry": false,
-    //"dotnet-test-explorer.pathForResultFile": "${workspaceFolder}",
     "editor.showFoldingControls": "always",
     "editor.fontLigatures": true,
     "editor.renderControlCharacters": false,
-    "workbench.sideBar.location": "left",
-    "workbench.activityBar.visible": true,
-    "workbench.colorCustomizations": {
-        //"editor.lineHighlightBorder": "#fdfccf",
-        //"editor.lineHighlightBackground": "#fafafa",
-        "tab.activeBorder": "#FFA500",
-        "activityBar.background": "#561332",
-        "titleBar.activeBackground": "#791B45",
-        "titleBar.activeForeground": "#FEFCFD"
-    },
     // Controls if quick suggestions should show up while typing
     "editor.quickSuggestions": {
         "other": true,
@@ -24,38 +18,6 @@
     },
     // Controls if suggestions should automatically show up when typing trigger characters
     "editor.suggestOnTriggerCharacters": true,
-    "cSpell.enabledLanguageIds": [
-        "asciidoc",
-        "c",
-        "cpp",
-        "csharp",
-        "css",
-        "go",
-        "handlebars",
-        "html",
-        "jade",
-        "javascript",
-        "javascriptreact",
-        "latex",
-        "less",
-        "markdown",
-        "php",
-        "plaintext",
-        "pub",
-        "python",
-        "restructuredtext",
-        "rust",
-        "scss",
-        "text",
-        "typescript",
-        "typescriptreact",
-        "yml"
-    ],
-    "cSpell.enabled": false,
-    "eslint.options": {
-        "configFile": ".eslintrc.json"
-    },
-    "editor.wordWrap": "on",
     "editor.wordWrapColumn": 350,
     "editor.tokenColorCustomizations": {
         "textMateRules": [
@@ -68,5 +30,151 @@
                 }
             }
         ]
-    }
+    },
+    "workbench.sideBar.location": "left",
+    "workbench.activityBar.visible": true,
+    "workbench.editor.titleScrollbarSizing": "large",
+    "workbench.colorCustomizations": {
+        "editor.lineHighlightBorder": "#75757588",
+        "editor.lineHighlightBackground": "#000000",
+        "tab.activeBorder": "#FFA500"
+    },
+    "eslint.options": {
+        "configFile": ".eslintrc.json"
+    },
+    "dotnet-test-explorer.enableTelemetry": false,
+
+    // ###### File Explorer ######
+
+    // Controls whether the explorer should automatically reveal and select files when opening them.
+    //  - true: Files will be revealed and selected.
+    //  - false: Files will not be revealed and selected.
+    //  - focusNoScroll: Files will not be scrolled into view, but will still be focused.
+    "explorer.autoReveal": true,
+
+    // Controls whether the explorer should render folders in a compact form. In such a form, single child folders will be compressed in a combined tree element. Useful for Java package structures, for example.
+    "explorer.compactFolders": true,
+
+    // Controls whether the explorer should ask for confirmation when deleting a file via the trash.
+    "explorer.confirmDelete": true,
+
+    // Controls whether the explorer should ask for confirmation to move files and folders via drag and drop.
+    "explorer.confirmDragAndDrop": true,
+
+    // Controls whether file decorations should use badges.
+    "explorer.decorations.badges": true,
+
+    // Controls whether file decorations should use colors.
+    "explorer.decorations.colors": true,
+
+    // Controls whether the explorer should allow to move files and folders via drag and drop.
+    "explorer.enableDragAndDrop": true,
+
+    // Controls what naming strategy to use when a giving a new name to a duplicated explorer item on paste.
+    //  - simple: Appends the word "copy" at the end of the duplicated name potentially followed by a number
+    //  - smart: Adds a number at the end of the duplicated name. If some number is already part of the name, tries to increase that number
+    "explorer.incrementalNaming": "simple",
+
+    // Number of editors shown in the Open Editors pane.
+    "explorer.openEditors.visible": 9,
+
+    // Controls sorting order of files and folders in the explorer.
+    //  - default: Files and folders are sorted by their names, in alphabetical order. Folders are displayed before files.
+    //  - mixed: Files and folders are sorted by their names, in alphabetical order. Files are interwoven with folders.
+    //  - filesFirst: Files and folders are sorted by their names, in alphabetical order. Files are displayed before folders.
+    //  - type: Files and folders are sorted by their extensions, in alphabetical order. Folders are displayed before files.
+    //  - modified: Files and folders are sorted by last modified date, in descending order. Folders are displayed before files.
+    "explorer.sortOrder": "default",
+
+    // ###### Search ######
+
+    // Controls the positioning of the actionbar on rows in the search view.
+    //  - auto: Position the actionbar to the right when the search view is narrow, and immediately after the content when the search view is wide.
+    //  - right: Always position the actionbar to the right.
+    "search.actionsPosition": "auto",
+
+    // Controls whether the search results will be collapsed or expanded.
+    //  - auto: Files with less than 10 results are expanded. Others are collapsed.
+    //  - alwaysCollapse
+    //  - alwaysExpand
+    "search.collapseResults": "alwaysExpand",
+
+    // Configure glob patterns for excluding files and folders in fulltext searches and quick open. Inherits all glob patterns from the `files.exclude` setting.
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/*.code-search": true
+    },
+
+    // Controls whether to follow symlinks while searching.
+    "search.followSymlinks": true,
+
+    // Controls whether the search view should read or modify the shared find clipboard on macOS.
+    "search.globalFindClipboard": false,
+
+    // Controls sorting order of editor history in quick open when filtering.
+    //  - default: History entries are sorted by relevance based on the filter value used. More relevant entries appear first.
+    //  - recency: History entries are sorted by recency. More recently opened entries appear first.
+    "search.quickOpen.history.filterSortOrder": "default",
+
+    // Whether to include results from recently opened files in the file results for Quick Open.
+    "search.quickOpen.includeHistory": true,
+
+    // Whether to include results from a global symbol search in the file results for Quick Open.
+    "search.quickOpen.includeSymbols": false,
+
+    // The default number of surrounding context lines to use when creating new Search Editors. If using `search.searchEditor.reusePriorSearchConfiguration`, this can be set to `null` (empty) to use the prior Search Editor's configuration.
+    "search.searchEditor.defaultNumberOfContextLines": 1,
+
+    // Configure effect of double clicking a result in a search editor.
+    //  - selectWord: Double clicking selects the word under the cursor.
+    //  - goToLocation: Double clicking opens the result in the active editor group.
+    //  - openLocationToSide: Double clicking opens the result in the editor group to the side, creating one if it does not yet exist.
+    "search.searchEditor.doubleClickBehaviour": "goToLocation",
+
+    // When enabled, new Search Editors will reuse the includes, excludes, and flags of the previously opened Search Editor.
+    "search.searchEditor.reusePriorSearchConfiguration": false,
+
+    // Search all files as you type.
+    "search.searchOnType": true,
+
+    // When `search.searchOnType` is enabled, controls the timeout in milliseconds between a character being typed and the search starting. Has no effect when `search.searchOnType` is disabled.
+    "search.searchOnTypeDebouncePeriod": 300,
+
+    // Update workspace search query to the editor's selected text when focusing the search view. This happens either on click or when triggering the `workbench.views.search.focus` command.
+    "search.seedOnFocus": false,
+
+    // Enable seeding search from the word nearest the cursor when the active editor has no selection.
+    "search.seedWithNearestWord": false,
+
+    // Controls whether to show line numbers for search results.
+    "search.showLineNumbers": false,
+
+    // Search case-insensitively if the pattern is all lowercase, otherwise, search case-sensitively.
+    "search.smartCase": false,
+
+    // Controls sorting order of search results.
+    //  - default: Results are sorted by folder and file names, in alphabetical order.
+    //  - fileNames: Results are sorted by file names ignoring folder order, in alphabetical order.
+    //  - type: Results are sorted by file extensions, in alphabetical order.
+    //  - modified: Results are sorted by file last modified date, in descending order.
+    //  - countDescending: Results are sorted by count per file, in descending order.
+    //  - countAscending: Results are sorted by count per file, in ascending order.
+    "search.sortOrder": "default",
+
+    // Controls whether to use global `.gitignore` and `.ignore` files when searching for files.
+    "search.useGlobalIgnoreFiles": false,
+
+    // Controls whether to use `.gitignore` and `.ignore` files when searching for files.
+    "search.useIgnoreFiles": true,
+
+    // Controls whether to open Replace Preview when selecting or replacing a match.
+    "search.useReplacePreview": true,
+
+    // ###### HTML ######
+
+    // Enable/disable autoclosing of HTML tags.
+    "html.autoClosingTags": true,
+    "jupyter.jupyterServerType": "local",
+
 }

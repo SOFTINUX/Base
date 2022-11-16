@@ -9,8 +9,10 @@ namespace SoftinuxBase.Barebone.Actions
 {
     public class UseAuthorizationAction : IConfigureAction
     {
+        /// <inheritdoc />
         public int Priority => 10001;
 
+       /// <inheritdoc />
         public void Execute(IApplicationBuilder applicationBuilder_, IServiceProvider serviceProvider_)
         {
             applicationBuilder_.UseAuthorization();

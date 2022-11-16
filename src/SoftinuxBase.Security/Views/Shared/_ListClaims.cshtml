@@ -1,4 +1,6 @@
-﻿@* Copyright © 2017-2019 SOFTINUX. All rights reserved.
+﻿@using SoftinuxBase.Security.FeatureAuthorize
+@using SoftinuxBase.Security.Permissions
+@* Copyright © 2017-2019 SOFTINUX. All rights reserved.
     Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 *@
 
@@ -38,5 +40,26 @@
                 </td>
             </tr>
         }
+    @{
+        var packedPermissionsClaim = claimslist.FirstOrDefault(c_ => c_.Type == PermissionConstants.PackedPermissionClaimType);
+        <tr>
+                <th scope="row">&nbsp;</th>
+                <td>
+                    @($"[UNPACKED] {packedPermissionsClaim.Type}")
+                </td>
+                <td>
+                    @packedPermissionsClaim.Value.ToDisplayString()
+                </td>
+                <td>
+                    @packedPermissionsClaim.Issuer
+                </td>
+                <td>
+                    @packedPermissionsClaim.OriginalIssuer
+                </td>
+                <td>
+                    @packedPermissionsClaim.Subject
+                </td>
+            </tr>
+    }
     </tbody>
 </table>

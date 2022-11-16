@@ -1,6 +1,6 @@
 # Project overview
 
-![Build status](https://ci.appveyor.com/api/projects/status/mktm6ae3csndb9ma?svg=true) ![Line of code](https://tokei.rs/b1/github/SOFTINUX/Base) ![Documentation Status](https://readthedocs.org/projects/softinux-base/badge/?version=latest) [![Gitter chat](https://badges.gitter.im/SOFTINUX/Base/repo.png)](https://gitter.im/softinux-base/Lobby) ![License](https://img.shields.io/badge/License-MIT-blue.svg)
+[![Build status](https://ci.appveyor.com/api/projects/status/mktm6ae3csndb9ma?svg=true)](https://ci.appveyor.com/project/Xarkam/base) [![Build Status](https://softinux.visualstudio.com/Softinux%20Base/_apis/build/status/Softinux%20Base-ASP.NET%20Core-CI?branchName=master)](https://softinux.visualstudio.com/Softinux%20Base/_build/latest?definitionId=1&branchName=master) ![Line of code](https://tokei.rs/b1/github/SOFTINUX/Base) ![Documentation Status](https://readthedocs.org/projects/softinux-base/badge/?version=latest) [![Gitter chat](https://badges.gitter.im/SOFTINUX/Base/repo.png)](https://gitter.im/softinux-base/Lobby) ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 
 *SoftinuxBase* is a free, open source, and cross-platform framework with built-in security access support and management for creating modular and extendable [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/) Core web applications.
 
@@ -38,6 +38,7 @@ Join our team!
         - [Add a new project](#add-a-new-project)
         - [Add project reference to the solution](#add-project-reference-to-the-solution)
         - [Write your code](#write-your-code)
+    - [Code coverage](#Code-coverage)
 - [Browsers Support](browsers-support)
 - [Using Visual Studio Code For Developing](#using-visual-studio-code-for-developing)
 
@@ -67,8 +68,14 @@ See LICENSE file for license information.
 
 In order you must have installed:
 
-- [.NET Core SDK](https://www.microsoft.com/net/download) version 2.2.
-- [Node JS](https://nodejs.org/en/)
+- [.NET Core SDK](https://www.microsoft.com/net/download) version 3.1.
+- [Node JS](https://nodejs.org/en/) to get javascript dependencies with npm.
+
+### Linux
+To avoid error `System.IO.IOException: The configured user limit (128) on the number of inotify instances has been reached.
+   at System.IO.FileSystemWatcher.StartRaisingEvents()` you must execute this command in terminal:
+
+`echo fs.inotify.max_user_instances=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p`
 
 ## Installation
 
@@ -163,11 +170,41 @@ Your extension will depend on `SoftinuxBase.Infrastructure`.
 
 Have a look at sample extensions, [wiki](https://github.com/SOFTINUX/Base/wiki), feel free to open issues for questions.
 
+# Code coverage
+
+We give simple code covering with [coverlet coverage](https://github.com/coverlet-coverage/coverlet).
+But to use it with Visual Studio Code, you need two extensions:
+
+- [Net Core Test Explorer](https://marketplace.visualstudio.com/items?itemName=formulahendry.dotnet-test-explorer)
+- [Coverage Gutters](https://marketplace.visualstudio.com/items?itemName=ryanluker.vscode-coverage-gutters)
+
+## .NET Test Explorer configuration
+
+If you want code coverage automatically in .NET Test Explorer, you must configure `dotnet-test-explorer.testArguments`
+and add `/p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=./lcov.info` in text field.
+
+Configuratrion by Json value :
+
+    "dotnet-test-explorer.testArguments": "/p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=./lcov.info"
+
+We also provide many test watchers script in TestWatchesr folders.
+
+:warning: Don't forget to add "coverlet" package in your tests projets.
+
+## Watchers
+If you have the error :
+
+    System.IO.IOException: The configured user limit (128) on the number of inotify instances has been reached, or the per-process limit on the number of open file descriptors has been reached.
+
+Execute:
+- Ubuntu, Debian and derivativbe: `echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p`
+- Macos:
+
 # Browsers support
 
 | ![][ie]<br />IE / Edge | ![][firefox]<br />Firefox | ![][chrome]<br />Chrome | ![][safari]<br />Safari | ![][opera]<br />Opera |
 | ---------------------- | ------------------------- | ----------------------- | ----------------------- | --------------------- |
-| IE10, IE11, Edge       | last 10 versions          | last 10 versions        | last 10 versions        | last 10 versions      |
+| IE11, Edge             | last 10 versions          | last 10 versions        | last 10 versions        | last 10 versions      |
 
 [ie]: https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/edge.png
 [firefox]: https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/firefox.png
@@ -189,7 +226,7 @@ Very recommended for this project
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [Visual Studio Code Solution Explorer](https://marketplace.visualstudio.com/items?itemName=fernandoescolar.vscode-solution-explorer)
 - [Visual IntelliCode](https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.vscodeintellicode)
-- [Bracket Pair Colorizer](https://marketplace.visualstudio.com/items?itemName=CoenraadS.bracket-pair-colorizer)
+- [Bracket Pair Colorizer 2](https://marketplace.visualstudio.com/items?itemName=CoenraadS.bracket-pair-colorizer-2)
 - [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
 - [Rest Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
 - [Better Comments](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments)
@@ -207,7 +244,7 @@ Optional for better experience:
 - [gitignore](https://marketplace.visualstudio.com/items?itemName=codezombiech.gitignore)
 - [HTML CSS Support](https://marketplace.visualstudio.com/items?itemName=ecmel.vscode-html-css)
 - ~~[Output Colorizer](https://marketplace.visualstudio.com/items?itemName=IBM.output-colorizer)~~ not maintained.
-- [Task Explorer](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-tslint-plugin=)
+- [Task Explorer](https://marketplace.visualstudio.com/items?itemName=spmeesseman.vscode-taskexplorer)
 - ~~[Code Outline](https://marketplace.visualstudio.com/items?itemName=patrys.vscode-code-outline)~~ depreciated.Vs Code to this.
 - [TSLint](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-tslint-plugin)
 - [Can I Use](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-caniuse)

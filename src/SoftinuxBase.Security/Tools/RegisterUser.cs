@@ -13,6 +13,7 @@ namespace SoftinuxBase.Security.Tools
         The main RegsiterUser class.
         Contains all methods for registering new users.
     */
+
     /// <summary>
     /// The main RegsiterUser class.
     ///

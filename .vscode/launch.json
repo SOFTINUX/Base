@@ -2,11 +2,51 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrome",
+            "runtimeArgs": [
+                "--incognito"
+            ],
+            "url": "https://localhost:5001",
+            "webRoot": "${workspaceFolder}",
+            "presentation": {
+                "hidden": true,
+            }
+        },
+        {
+            "type": "edge",
+            "request": "launch",
+            "name": "Launch Edge",
+            "runtimeArgs": [
+                "--incognito"
+            ],
+            "url": "https://localhost:5001",
+            "webRoot": "${workspaceFolder}",
+            "presentation": {
+                "hidden": true,
+            }
+        },
+        {
+            "type": "firefox",
+            "request": "launch",
+            "reAttach": true,
+            "name": "Launch Firefox",
+            "url": "https://localhost:5001",
+            "pathMappings": [{
+                "url": "https://localhost:5001",
+                "path": "${workspaceFolder}"
+            }],
+            "presentation": {
+                "hidden": true,
+            }
+        },
+        {
             "name": ".NET Core Launch (console)",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceRoot}/src/WebApplication/bin/Debug/netcoreapp3.1/WebApplication.dll",
+            "program": "${workspaceRoot}/src/WebApplication/bin/Debug/net5.0/WebApplication.dll",
             "args": [],
             "cwd": "${workspaceRoot}/src/WebApplication/",
             "stopAtEntry": false,
@@ -17,7 +57,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build & prepare",
-            "program": "${workspaceRoot}/src/WebApplication/bin/Debug/netcoreapp3.1/WebApplication.dll",
+            "program": "${workspaceRoot}/src/WebApplication/bin/Debug/net5.0/WebApplication.dll",
             "args": [],
             "cwd": "${workspaceRoot}/src/WebApplication/",
             "stopAtEntry": false,
@@ -41,28 +81,24 @@
             },
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_URLS": "https://localhost:5000"
+                "ASPNETCORE_URLS": "https://localhost:5001"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceRoot}/src/SoftinuxBase.Security/Views"
             }
         },
         {
-            "type": "chrome",
-            "request": "launch",
-            "name": "Launch Chrome",
-            "runtimeArgs": [
-                "--incognito"
-            ],
-            "url": "http://localhost:5000",
-            "webRoot": "${workspaceFolder}",
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
         },
         {
             "name": "Build only & Run",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceRoot}/src/WebApplication/bin/Debug/netcoreapp3.1/WebApplication.dll",
+            "program": "${workspaceRoot}/src/WebApplication/bin/Debug/net5.0/WebApplication.dll",
             "args": [],
             "cwd": "${workspaceRoot}/src/WebApplication/",
             "stopAtEntry": false,
@@ -88,20 +124,28 @@
                 "/Views": "${workspaceRoot}/Views"
             }
         },
-        {
-            "name": ".NET Core Attach",
-            "type": "coreclr",
-            "request": "attach",
-            "processId": "${command:pickProcess}"
-        },
     ],
     "compounds": [
         {
-            "name": "Launch & Debug",
+            "name": "Chrome Launch & Debug",
             "configurations": [
                 ".NET Core Launch (console)",
                 "Launch Chrome"
             ]
-        }
+        },
+        {
+            "name": "Edge Launch & Debug",
+            "configurations": [
+                ".NET Core Launch (console)",
+                "Launch Edge"
+            ]
+        },
+        {
+            "name": "Firefox Launch & Debug",
+            "configurations": [
+                ".NET Core Launch (console)",
+                "Launch Firefox"
+            ]
+        },
     ]
 }

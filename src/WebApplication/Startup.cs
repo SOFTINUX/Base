@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using SoftinuxBase.Security.Data.EntityFramework;
 using SoftinuxBase.WebApplication;
 
 namespace WebApplication
@@ -48,6 +49,7 @@ namespace WebApplication
             services_.AddScoped<IStorageContext, ApplicationStorageContext>();
 
 #if DEBUG
+            // If application is build in debug mode,
             // Register the Swagger generator, defining 1 or more Swagger documents
             services_.AddSwaggerGen(c_ =>
             {
@@ -65,6 +67,8 @@ namespace WebApplication
         public void Configure(IApplicationBuilder applicationBuilder_, IWebHostEnvironment hostingEnvironment_, ILoggerFactory loggerFactory_, IConfiguration configuration_, IAntiforgery antiForgery_)
         {
 #if DEBUG
+            // If application is build in debug mode,
+            // Write Log.Information into the console
             Log.Information("#######################################################");
             Log.Information("webroot path: " + hostingEnvironment_.WebRootPath + "\n" + "Content Root path: " + hostingEnvironment_.ContentRootPath);
             Log.Information("#######################################################");
@@ -80,6 +84,7 @@ namespace WebApplication
             });
 #endif
 
+            // Call Softinux Base configuration
             applicationBuilder_.UseSoftinuxBase(hostingEnvironment_, loggerFactory_, configuration_, antiForgery_);
         }
     }

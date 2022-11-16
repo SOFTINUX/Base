@@ -3,7 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebApplication;
+using SoftinuxBase.Security.Data.EntityFramework;
 
 namespace WebApplication.Migrations
 {
@@ -14,7 +14,8 @@ namespace WebApplication.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.2");
+                .HasAnnotation("ProductVersion", "3.1.3")
+                .HasAnnotation("PropertyAccessMode", PropertyAccessMode.Field);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<string>", b =>
                 {
@@ -151,43 +152,52 @@ namespace WebApplication.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("SoftinuxBase.Security.Data.Entities.Permission", b =>
+            modelBuilder.Entity("SoftinuxBase.Security.Data.Entities.ModulesForUser", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(36);
 
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                    b.Property<long>("AllowedPaidForModules")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("NormalizedName")
-                        .HasColumnType("TEXT");
+                    b.HasKey("UserId");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("Permission");
+                    b.ToTable("ModulesForUsers");
                 });
 
-            modelBuilder.Entity("SoftinuxBase.Security.Data.Entities.RolePermission", b =>
+            modelBuilder.Entity("SoftinuxBase.Security.Data.Entities.RoleToPermissions", b =>
                 {
-                    b.Property<string>("RoleId")
+                    b.Property<string>("RoleName")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("PermissionId")
+                    b.Property<string>("_permissionsInRole")
+                        .IsRequired()
+                        .HasColumnName("PermissionsInRole")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Extension")
-                        .HasColumnType("TEXT");
+                    b.HasKey("RoleName");
 
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                    b.ToTable("RolesToPermissions");
+                });
 
-                    b.HasKey("RoleId", "PermissionId", "Extension");
+            modelBuilder.Entity("SoftinuxBase.Security.Data.Entities.TimeStore", b =>
+                {
+                    b.Property<string>("Key")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(36);
 
-                    b.HasIndex("PermissionId");
+                    b.Property<long>("LastUpdatedTicks")
+                        .HasColumnType("INTEGER");
 
-                    b.ToTable("RolePermission");
+                    b.HasKey("Key");
+
+                    b.ToTable("TimeStores");
                 });
 
             modelBuilder.Entity("SoftinuxBase.Security.Data.Entities.User", b =>
@@ -266,22 +276,21 @@ namespace WebApplication.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("SoftinuxBase.Security.Data.Entities.UserPermission", b =>
+            modelBuilder.Entity("SoftinuxBase.Security.Data.Entities.UserToRole", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(36);
 
-                    b.Property<string>("PermissionId")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("RoleName")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(100);
 
-                    b.Property<string>("Extension")
-                        .HasColumnType("TEXT");
+                    b.HasKey("UserId", "RoleName");
 
-                    b.HasKey("UserId", "PermissionId", "Extension");
+                    b.HasIndex("RoleName");
 
-                    b.HasIndex("PermissionId");
-
-                    b.ToTable("UserPermission");
+                    b.ToTable("UserToRoles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -342,32 +351,11 @@ namespace WebApplication.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SoftinuxBase.Security.Data.Entities.RolePermission", b =>
+            modelBuilder.Entity("SoftinuxBase.Security.Data.Entities.UserToRole", b =>
                 {
-                    b.HasOne("SoftinuxBase.Security.Data.Entities.Permission", "Permission")
+                    b.HasOne("SoftinuxBase.Security.Data.Entities.RoleToPermissions", "Role")
                         .WithMany()
-                        .HasForeignKey("PermissionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<string>", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("SoftinuxBase.Security.Data.Entities.UserPermission", b =>
-                {
-                    b.HasOne("SoftinuxBase.Security.Data.Entities.Permission", "Permission")
-                        .WithMany()
-                        .HasForeignKey("PermissionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SoftinuxBase.Security.Data.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("RoleName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -18,7 +18,7 @@ namespace SoftinuxBase.Security.Data.Abstractions
         /// <summary>
         /// Check by name or e-mail user existence.
         /// </summary>
-        /// <param name="normalizedValue_">String value from <see cref="UserManager{TUser}.NormalizeKey"/>.</param>
+        /// <param name="normalizedValue_">String value from <see cref="UserManager{TUser}.NormalizeName"/> or <see cref="UserManager{TUser}.NormalizeEmail"/>.</param>
         /// <returns>A bool indicating that an user was found.</returns>
         bool FindByNormalizedUserNameOrEmail(string normalizedValue_);
 

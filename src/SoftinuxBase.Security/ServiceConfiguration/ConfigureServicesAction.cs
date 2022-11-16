@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 using ExtCore.Infrastructure.Actions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using SoftinuxBase.Security.Data.Entities;
 
 namespace SoftinuxBase.Security.ServiceConfiguration
 {
@@ -23,21 +21,17 @@ namespace SoftinuxBase.Security.ServiceConfiguration
     {
         public int Priority => 200;
 
-        /// <summary>
-        /// TODO DOCUMENT ME
-        /// </summary>
-        /// <param name="serviceCollection_"></param>
-        /// <param name="serviceProvider_"></param>
+        /// <inheritdoc />
         public void Execute(IServiceCollection serviceCollection_, IServiceProvider serviceProvider_)
         {
-            serviceCollection_.AddScoped<IUserClaimsPrincipalFactory<User>, ClaimsPrincipalFactory>();
+            // serviceCollection_.AddScoped<IUserClaimsPrincipalFactory<User>, ClaimsPrincipalFactory>();
         }
 
         /// <summary>
-        /// TODO DOCUMENT ME
+        /// Prevent redirections (default server behavior) so that the API controller methods can call Unauthorized() and Forbid() without causing redirects.
         /// </summary>
-        /// <param name="statusCode_"></param>
-        /// <returns></returns>
+        /// <param name="statusCode_">Status code.</param>
+        /// <returns>Function.</returns>
         private static Func<RedirectContext<CookieAuthenticationOptions>, Task> ReplaceRedirectorWithStatusCode(
             HttpStatusCode statusCode_) => context_ =>
         {

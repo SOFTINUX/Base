@@ -8,6 +8,7 @@ Licensed under the MIT License, Version 2.0. See License.txt in the project root
     string url = HttpUtility.UrlDecode(Context.Request.QueryString.ToUriComponent());
     ViewBag.currentUrl = url.Substring(url.IndexOf('=')+1);
 }
+@* ReSharper disable once Razor.SectionNotResolved *@
 @section title {
     <h2>Access Denied</h2>
 }

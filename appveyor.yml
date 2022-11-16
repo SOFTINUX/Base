@@ -1,0 +1,19 @@
+version: 0.0.{build}-{branch}
+pull_requests:
+  do_not_increment_build_number: true
+branches:
+  only:
+  - NewPermissionsSystem-Admin
+image: Ubuntu
+clone_folder: /home/appveyor/projects/base/
+environment:
+  nodejs_version: 12.18.3
+install:
+- sh: >-
+    nvm install $nodejs_version
+
+    npm install --loglevel=error # no warnings
+build:
+  verbosity: minimal
+test_script:
+- sh: dotnet test --no-build

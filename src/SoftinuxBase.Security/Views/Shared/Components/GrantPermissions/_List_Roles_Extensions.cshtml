@@ -1,86 +1,158 @@
 @* Copyright © 2017-2019 SOFTINUX. All rights reserved.
     Licensed under the MIT License, Version 2.0. See License.txt in the project root for license information.
 *@
-@using System.Linq
-@using SoftinuxBase.Security.Common.Enums
 
+@using Microsoft.AspNetCore.Identity
+@using SoftinuxBase.Security.Data.Entities
+@using SoftinuxBase.Security.FeatureAuthorize.Extensions
+@using SoftinuxBase.Security.Permissions
+@using SoftinuxBase.Security.Permissions.Enums
 @model SoftinuxBase.Security.ViewModels.Permissions.GrantViewModel
-@* HTML Extension list loop *@
+
 @Html.AntiForgeryToken()
+@inject UserManager<User> UserManager
+@inject RoleManager<IdentityRole<string>> RoleManager
+
 @{
-    int i = 1;
-    foreach (var item in Model.PermissionsByRoleAndExtension)
-    {
-        bool hasNotNeverPermission = false;
-        @foreach (var kvpRolePermissions in from kvpRolePermissions in item.Value from permission in kvpRolePermissions.Value.Where(permission_ => permission_ != Permission.Never)
-            select kvpRolePermissions)
+    var canEditRoles = this.User.HasPermission(typeof(Permissions), (short) Permissions.EditRoles);
+    var isDisabled = !canEditRoles;
+    //var allRoles = RoleManager.Roles;
+    //var additionalRoleNames = RoleManager.Roles.Select(r_ => r_.Name).ToList().Except(Model.RoleNames);
+    var additionalRoles = RoleManager.Roles.Where(r_ => RoleManager.Roles.ToList().Select(rn_ => rn_.Name).Except(Model.RoleNames).Contains(r_.Name)).ToList();
+}
+    <table class="table table-head-fixed table-hover">
+        <thead>
+        <tr>
+            <th class="text-muted">Extension</th>
+            <th class="text-muted">Permissions and roles</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        @foreach (var extensionName in Model.RolesWithPermissions.Keys)
         {
-            hasNotNeverPermission = true;
-        }
-
-        if (hasNotNeverPermission)
-        {
-            <div class="row extension-row accordion-toggle collapsed" data-extension-id="@Html.Raw(item.Key)" data-toggle="collapse" data-target=@Html.Raw("\"#extension" + i + "\"")>
-                <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
-                    <div class="row">
-                        <div class="col-md-1 col-xs-1 table-extension-header"><i class="chevron fa fa-fw"></i></div>
-                        <div class="col-md-3 col-xs-3 table-extension-header">@Html.Raw(item.Key)</div>
-                    </div>
-                    <div class="row collapse" id=@Html.Raw("\"extension" + i + "\"") onclick="StopAccordionsPropagation(event);">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            @* html into roles list loop *@
-                            @foreach (var subitem in item.Value)
-                            {
-
-                                @if (!subitem.Value.Any() || subitem.Value.All(permission_ => permission_ == Permission.Never))
-                                {
-                                    continue;
-                                }
-
-                                <div class="row" data-role-id="@Html.Raw(item.Key+ "_" + subitem.Key)">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 cell-heigth-25" align="right">
-                                        @if (item.Value.ElementAt(0).Key.Equals(subitem.Key))
-                                        {@Html.Raw("Role name: ")}
-                                    </div>
-                                    @* Role name *@
-                                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 cell-heigth-25 cell-role-row">@Html.Raw(subitem.Key)</div>
-                                    @* admin checkbox *@
-                                    <div class="col-lg-1 col-md-2 col-sm-2 col-xs-1 cell-heigth-25 cell-role-row">
-                                        <label class="checkbox-container">
-                                            <input id="@Html.Raw(item.Key + "_" + subitem.Key + "_" + "ADMIN")" type="checkbox"
-                                                   @if (subitem.Value.Contains(Permission.Admin)) { @Html.Raw("checked") } onclick="permissionCheckBoxClick(this)">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    @* write checkbox *@
-                                    <div class="col-lg-1 col-md-2 col-sm-2 col-xs-1 cell-heigth-25 cell-role-row">
-                                        <label class="checkbox-container">
-                                            <input id="@Html.Raw(item.Key + "_" + subitem.Key + "_" + "WRITE")" type="checkbox"
-                                                   @if (subitem.Value.Contains(Permission.Write)) { @Html.Raw("checked") }
-                                                   @if (subitem.Value.Contains(Permission.Admin)) { @Html.Raw("disabled=\"true\"") } onclick="permissionCheckBoxClick(this)">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    @* read checkbox *@
-                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 cell-heigth-25 cell-role-row">
-                                        <label class="checkbox-container">
-                                            <input id="@Html.Raw(item.Key + "_" + subitem.Key + "_" + "READ")" type="checkbox"
-                                                   @if (subitem.Value.Contains(Permission.Read)) { @Html.Raw("checked") }
-                                                   @if (subitem.Value.Contains(Permission.Write)) { @Html.Raw("disabled=\"true\"") } onclick="permissionCheckBoxClick(this)">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 cell-heigth-25 cell-role-row unlink-role" onclick="removeRoleLink(this)"></div>
+            <tr data-extension-id="@Html.Raw(extensionName)">
+                <td>
+                    <i class="fas fa-cubes"></i>
+                    <span>@Html.Raw(extensionName)</span>
+                </td>
+                <td>
+                    <div id="accordion">
+                        @foreach (var permissionSection in Model.GetPermissionSectionsForRoles(extensionName))
+                        {
+                            <div class="card">
+                                <div class="card-header" id="@Html.Raw(permissionSection.ToId())">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#@Html.Raw(permissionSection.ToId())-data" aria-expanded="false" aria-controls="@Html.Raw(permissionSection.ToId())-data">
+                                            @Html.Raw(permissionSection)
+                                        </button>
+                                    </h5>
                                 </div>
-                            }
-                        </div>
+
+                                <div id="@Html.Raw(permissionSection.ToId())-data" class="collapse" aria-labelledby="@Html.Raw(permissionSection.ToId())" data-parent="#accordion">
+                                    <div class="card-body">
+                                        @foreach (var permissionDisplayWithRoles in Model.GetPermissionDisplaysWithRoles(extensionName, permissionSection))
+                                        {
+                                            <div>
+                                                @permissionDisplayWithRoles.Key.ShortName
+                                                <span class="text-muted">: @permissionDisplayWithRoles.Key.Description</span>
+                                            </div>
+                                            <select class="form-control select2bs4 update-role-permission" multiple data-placeholder="Select roles" disabled="@(isDisabled.ToString())">
+                                                @foreach (var role in Model.RoleNames)
+                                                {
+                                                    if (permissionDisplayWithRoles.Value.Contains(role))
+                                                    {
+                                                        <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue.ToString())" data-extension="@(extensionName)" selected="selected">@(role)</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue.ToString())" data-extension="@(extensionName)">@(role)</option>
+                                                    }
+                                                }
+                                                @* Additional roles *@
+                                                @foreach (var role in additionalRoles)
+                                                {
+                                                    <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue.ToString())" data-extension="@(extensionName)">@(role)</option>
+                                                }
+                                            </select>
+                                            <br/>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
                     </div>
-                    @* end loop roles list*@
+
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="invoice p-3 mb-3">
+                <div class="row">
+                    @* Card *@
+                    @foreach (var extensionName in Model.RolesWithPermissions.Keys)
+                    {
+                        <div class="col-md-6">
+                            <div class="card card-secondary collapsed-card" id="@Html.Raw(extensionName)">
+                                <div class="card-header">
+                                    <h3 class="card-title">@Html.Raw(extensionName)</h3>
+
+                                    <div class="card-tools">
+                                        @* This will cause the card to collapse when clicked *@
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
+                                    </div>
+                                </div>
+
+                                <div class="card-body">
+                                    <h6>Roles: </h6>
+                                    @foreach (var permissionSection in Model.GetPermissionSectionsForRoles(extensionName))
+                                    {
+                                        @foreach (var permissionDisplayWithRoles in Model.GetPermissionDisplaysWithRoles(extensionName, permissionSection))
+                                        {
+                                            <div>
+                                                @permissionDisplayWithRoles.Key.ShortName
+                                                <span class="text-muted">: @permissionDisplayWithRoles.Key.Description</span>
+                                            </div>
+                                            <select class="form-control select2bs4 update-role-permission" multiple data-placeholder="Select roles" disabled="@(isDisabled.ToString())">
+                                                @foreach (var role in Model.RoleNames)
+                                                {
+                                                    if (permissionDisplayWithRoles.Value.Contains(role))
+                                                    {
+                                                        <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue.ToString())" data-extension="@(extensionName)" selected="selected">@(role)</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue.ToString())" data-extension="@(extensionName)">@(role)</option>
+                                                    }
+                                                }
+                                                @* Additional roles *@
+                                                @foreach (var role in additionalRoles)
+                                                {
+                                                    <option value="@(role)" data-permission="@(permissionDisplayWithRoles.Key.PermissionEnumValue.ToString())" data-extension="@(extensionName)">@(role)</option>
+                                                }
+                                            </select>
+                                            <br/>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
-            ++i;
-        }
+        </div>
+    </div>
 
-    }
-    @* End extension list loop*@
+
+@* ReSharper disable once Razor.SectionNotResolved *@
+
+@section Scripts {
+    <script type="text/javascript">
+
+    </script>
+
 }

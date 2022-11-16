@@ -19,7 +19,7 @@ namespace SoftinuxBase.Infrastructure
         }
 
         /// <summary>
-        /// Enum for js script type
+        /// Enum for js script type.
         /// </summary>
         public enum JsType
         {

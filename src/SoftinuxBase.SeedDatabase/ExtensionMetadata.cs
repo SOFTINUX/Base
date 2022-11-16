@@ -18,6 +18,12 @@ namespace SoftinuxBase.SeedDatabase
         public string CurrentAssemblyPath => CurrentAssembly.Location;
 
         /// <inheritdoc />
+        public Type Permissions => null;
+
+        /// <inheritdoc />
+        public string FileExtensionPrefix => string.Empty;
+
+        /// <inheritdoc />
         public string Name => CurrentAssembly.GetName().Name;
 
         /// <inheritdoc />
@@ -31,9 +37,6 @@ namespace SoftinuxBase.SeedDatabase
 
         /// <inheritdoc />
         public string Description => Attribute.GetCustomAttribute(CurrentAssembly, typeof(AssemblyDescriptionAttribute))?.ToString();
-
-        /// <inheritdoc />
-        bool IExtensionMetadata.IsAvailableForPermissions => false;
 
         /// <inheritdoc />
         public IEnumerable<StyleSheet> StyleSheets => new StyleSheet[] { };

@@ -8,10 +8,12 @@ using Microsoft.AspNetCore.Routing;
 
 namespace SoftinuxBase.Barebone.Actions
 {
-    public class UseEndpointsAction  : IUseEndpointsAction
+    public class UseEndpointsAction : IUseEndpointsAction
     {
+        /// <inheritdoc />
         public int Priority => 100;
 
+        /// <inheritdoc />
         public void Execute(IEndpointRouteBuilder endpointRouteBuilder_, IServiceProvider serviceProvider_)
         {
             endpointRouteBuilder_.MapControllerRoute("Default", "{controller}/{action}", new { controller = "Barebone", action = "Index" });

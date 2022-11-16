@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <LangVersion>11</LangVersion>
+        <Version>0.0.1</Version>
+        <Authors>Benjamin Nolmans, Barbara Post</Authors>
+        <Company>SOFTINUX</Company>
+        <Copyright>Copyright © 2021 Softinux</Copyright>
+        <AssemblyName>SoftinuxBase.Bundles</AssemblyName>
+        <RootNamespace>SoftinuxBase.Bundles</RootNamespace>
+        <PackageId>SoftinuxBase.Bundles</PackageId>
+    </PropertyGroup>
+    <PropertyGroup>
+        <SolutionDir Condition=" '$(SolutionDir)' == '' ">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), SoftinuxBase.sln))\</SolutionDir>
+    </PropertyGroup>
+    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+        <Exec Command="&quot;$(SolutionDir)&quot;bp.bat bundles" Condition="'$(OS)' == 'Windows_NT'" />
+        <Exec Command="'$(SolutionDir)'bp.sh bundles" Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'" />
+        <Exec Command="'$(SolutionDir)'bp.sh bundles" Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'" />
+    </Target>
+</Project>

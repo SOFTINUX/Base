@@ -4,7 +4,6 @@
 using ExtCore.Data.EntityFramework;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SoftinuxBase.Security.Data.Entities;
 
 namespace SoftinuxBase.Security.Data.EntityFramework
 {
@@ -12,32 +11,10 @@ namespace SoftinuxBase.Security.Data.EntityFramework
     {
         public void RegisterEntities(ModelBuilder modelBuilder_)
         {
+            // Class provided by Identity
             modelBuilder_.Entity<IdentityRole>()
                 .Property(e_ => e_.Id)
                 .ValueGeneratedOnAdd();
-
-            // non-WIF entities
-
-            // Permission
-            modelBuilder_.Entity<Permission>(etb_ =>
-                {
-                    etb_.HasKey(e_ => e_.Id);
-                    etb_.Property(e_ => e_.Id).ValueGeneratedOnAdd();
-                });
-
-            // RolePermission
-            modelBuilder_.Entity<RolePermission>(etb_ =>
-                {
-                    etb_.HasKey(e_ => e_.Id);
-                    etb_.Property(e_ => e_.Id).ValueGeneratedOnAdd();
-                    etb_.HasKey(e_ => new { e_.RoleId, e_.PermissionId, e_.Extension });
-                });
-
-            // UserPermission
-            modelBuilder_.Entity<UserPermission>(etb_ =>
-                {
-                    etb_.HasKey(e_ => new { e_.UserId, e_.PermissionId, e_.Extension });
-                });
         }
     }
 }

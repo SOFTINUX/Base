@@ -36,5 +36,6 @@
 @await Html.PartialAsync("_User_Profile_Details_Fields")
 
 @section Scripts {
-    <script type="text/javascript" src="/Scripts/security_edit_user.js"></script>
+    @* If useful, include .js or .min.js version depending upon ViewBag.IsDebug
+        <script type="module" src="/Scripts/security_edit_user.js"></script>*@
 }
