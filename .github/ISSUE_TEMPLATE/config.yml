@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:  
+  - name: Review open issues
+    url: https://github.com/SOFTINUX/Base/issues
+    about: Please check if your issue or a similar issue has already been submitted.
+  - name: General Question
+    url: https://github.com/SOFTINUX/Base/discussions/new
+    about: Have a question on something? Start a new discussion thread.
