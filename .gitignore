@@ -358,3 +358,6 @@ src/SoftinuxBase.Security/[Ss]tyles/*.css
 # Code Coverage
 [Cc]overage.json
 [Ll]cov.info
+
+#Nuget
+[Nn]uget.config
