@@ -16,13 +16,13 @@ using Serilog;
 using SoftinuxBase.Security.Data.EntityFramework;
 using SoftinuxBase.WebApplication;
 
-namespace WebApplication
+namespace WebApplication2
 {
-    public class Startup
+    public class Startup2
     {
         private readonly string _extensionsPath;
 
-        public Startup(IConfiguration configuration_, IWebHostEnvironment hostingEnvironment_)
+        public Startup2(IConfiguration configuration_, IWebHostEnvironment hostingEnvironment_)
         {
             Configuration = configuration_;
             _extensionsPath = hostingEnvironment_.ContentRootPath + Configuration["Extensions:Path"].Replace('/', Path.DirectorySeparatorChar).Replace('\\', Path.DirectorySeparatorChar);
@@ -42,7 +42,7 @@ namespace WebApplication
             // Which database provider to use : Sqlite
             services_.AddDbContext<ApplicationStorageContext>(options_ =>
             {
-                options_.UseSqlite(Configuration["ConnectionStrings:Default"], sqliteOptions_ => sqliteOptions_.MigrationsAssembly(typeof(Startup).Assembly.GetName().Name));
+                options_.UseSqlite(Configuration["ConnectionStrings:Default"], sqliteOptions_ => sqliteOptions_.MigrationsAssembly(typeof(Startup2).Assembly.GetName().Name));
             });
 
             // Register database-specific storage context implementation.
