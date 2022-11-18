@@ -7,16 +7,13 @@ using ExtCore.Data.Abstractions;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using Serilog;
 using SoftinuxBase.Security.Data.EntityFramework;
-using SoftinuxBase.Security.ServiceConfiguration;
 using SoftinuxBase.WebApplication;
 
 var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(new WebApplicationOptions
@@ -32,15 +29,8 @@ var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(new WebA
 
 ConfigurationManager configuration = builder.Configuration; // allows both to access and to set up the config
 IWebHostEnvironment hostingEnvironment = builder.Environment;
-IAntiforgery antiForgery = null;
-ILoggerFactory loggerFactory = null;
 
 var extensionsPath = hostingEnvironment.ContentRootPath + configuration["Extensions:Path"].Replace('/', Path.DirectorySeparatorChar).Replace('\\', Path.DirectorySeparatorChar);
-
-// Create the logger
-Log.Logger = new LoggerConfiguration()
-    .ReadFrom.Configuration(configuration, "Serilog")
-    .CreateBootstrapLogger();
 
 // Add services to the container.
 
@@ -72,14 +62,15 @@ builder.Services.AddSwaggerGen(c =>
     }
 });
 
-builder.Services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-
-builder.Host.UseSerilog((ctx, lc) => lc.WriteTo.Console().WriteTo.Seq("http://localhost:5341"));
-
 // Wait 30 seconds for graceful shutdown.
 builder.Host.ConfigureHostOptions(o => o.ShutdownTimeout = TimeSpan.FromSeconds(30));
 
 var app = builder.Build();
+
+var loggerFactory = app.Services.GetService<ILoggerFactory>();
+var antiForgery = app.Services.GetService<IAntiforgery>();
+
+loggerFactory.AddFile(builder.Configuration["Logging:LogFilePath"].ToString());
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
