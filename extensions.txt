@@ -1,1 +1,1 @@
-src\SoftinuxBase.SeedDatabase\bin\Debug\net5.0\SoftinuxBase.SeedDatabase.dll
+src\SoftinuxBase.SeedDatabase\bin\Debug\net7.0\SoftinuxBase.SeedDatabase.dll

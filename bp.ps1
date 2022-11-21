@@ -136,7 +136,7 @@ Function Help
     Write-Output "    - copy extensions"
 }
 
-Function Clean
+Function Cleaning
 {
     EchoMessage("Start Cleaning")
     dotnet clean
@@ -190,7 +190,7 @@ Function CleanBin
 
 Function NoParam
 {
-    Clean
+    Cleaning
     Build
     Copydeps
     Copyexts

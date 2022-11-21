@@ -27,7 +27,7 @@ var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(new WebA
     WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "..", "wwwroot")
 });
 
-ConfigurationManager configuration = builder.Configuration; // allows both to access and to set up the config
+IConfiguration configuration = builder.Configuration; // allows both to access and to set up the config
 IWebHostEnvironment hostingEnvironment = builder.Environment;
 
 var extensionsPath = hostingEnvironment.ContentRootPath + configuration["Extensions:Path"].Replace('/', Path.DirectorySeparatorChar).Replace('\\', Path.DirectorySeparatorChar);
