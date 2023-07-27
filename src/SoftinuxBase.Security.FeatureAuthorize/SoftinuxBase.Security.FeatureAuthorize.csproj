@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="EfCore.GenericServices" Version="5.2.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.9" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
   </ItemGroup>
 
